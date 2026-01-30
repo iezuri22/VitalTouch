@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Payment Options | VitalTouch Home Care | Medicaid Accepted</title>
+    <meta name="description" content="VitalTouch Home Care accepts Medicaid and private pay. Learn about our transparent pricing and payment options for home care services in Chicago.">
+    <link rel="icon" type="image/png" href="images/logo-symbol.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .pricing-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            height: 100%;
+        }
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+        .pricing-card.featured {
+            border-color: var(--teal);
+            position: relative;
+        }
+        .pricing-card.featured::before {
+            content: 'Most Common';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .pricing-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--teal-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--teal);
+        }
+        .pricing-card.featured .pricing-icon {
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            color: white;
+        }
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        .pricing-card .price {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 24px;
+        }
+        .pricing-card ul {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .pricing-card li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+        .pricing-card li svg {
+            color: var(--teal);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .info-box {
+            background: var(--teal-light);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        .info-box h4 {
+            color: var(--teal-dark);
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <a href="tel:3129574492">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        (312) 957-4492
+                    </a>
+                    <a href="/cdn-cgi/l/email-protection#adc4cbc8ccc3d4c4eddbc4d9ccc1d9c2d8cec583ceccdfc8">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <span class="__cf_email__" data-cfemail="dfb6b9babeb1a6b69fa9b6abbeb3abb0aabcb7f1bcbeadba">[email&#160;protected]</span>
+                    </a>
+                </div>
+                <a href="contact.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Homewood, IL
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="images/logo-main.png" alt="VitalTouch Home Care">
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <div class="nav-menu">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="pricing.html" class="active">Pricing</a>
+                    <a href="service-areas.html">Areas</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-cta">
+                    <a href="tel:3129574492" class="nav-phone">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        (312) 957-4492
+                    </a>
+                    <a href="contact.html" class="btn btn-primary btn-sm">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="service-areas.html">Service Areas</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="blog.html">Blog</a>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Pricing</span>
+            </div>
+            <h1>Pricing & Payment</h1>
+            <p>Transparent pricing with flexible payment options to fit your needs.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Options -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Payment Options</span>
+                <h2>Flexible Ways to <span class="highlight">Pay for Care</span></h2>
+                <p>We believe quality care should be accessible. That's why we accept multiple payment methods.</p>
+            </div>
+
+            <div class="grid-2" style="max-width: 900px; margin: 0 auto;">
+                <!-- Medicaid -->
+                <div class="pricing-card featured">
+                    <div class="pricing-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                    </div>
+                    <h3>Medicaid</h3>
+                    <p class="price">Covered through your benefits</p>
+                    <ul>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>No out-of-pocket costs for qualified recipients</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>We handle all billing & paperwork</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>Hours based on your care assessment</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>Family Caregiver Program available</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>We help verify your eligibility</span>
+                        </li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary" style="width: 100%;">Check Eligibility</a>
+                </div>
+
+                <!-- Private Pay -->
+                <div class="pricing-card">
+                    <div class="pricing-icon">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <h3>Private Pay</h3>
+                    <p class="price">Contact us for a personalized quote</p>
+                    <ul>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>Flexible scheduling—you choose the hours</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>No minimums required</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>Competitive hourly rates</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>All services available</span>
+                        </li>
+                        <li>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                            <span>Add optional smart monitoring</span>
+                        </li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-outline" style="width: 100%;">Get a Quote</a>
+                </div>
+            </div>
+
+            <div class="info-box" style="max-width: 900px; margin: 40px auto 0;">
+                <h4>💡 Not Sure About Medicaid Eligibility?</h4>
+                <p style="margin: 0;">We can help you understand your options. Many families are surprised to learn they qualify for Medicaid home care benefits. Contact us for a free consultation—we'll help you navigate the process.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section class="section section-cream">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Included at No Extra Cost</span>
+                <h2>Every Client Gets <span class="highlight">These Benefits</span></h2>
+                <p>Regardless of how you pay, all VitalTouch clients receive our technology-enhanced care coordination.</p>
+            </div>
+            <div class="grid-4">
+                <div class="card text-center">
+                    <div class="card-icon" style="margin: 0 auto 16px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <h4>Digital Care Logs</h4>
+                    <p style="font-size: 0.9rem;">Detailed records of every visit and activity</p>
+                </div>
+                <div class="card text-center">
+                    <div class="card-icon" style="margin: 0 auto 16px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <h4>GPS Verification</h4>
+                    <p style="font-size: 0.9rem;">Know exactly when caregivers arrive & leave</p>
+                </div>
+                <div class="card text-center">
+                    <div class="card-icon" style="margin: 0 auto 16px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    </div>
+                    <h4>Family Portal</h4>
+                    <p style="font-size: 0.9rem;">Real-time updates accessible anytime</p>
+                </div>
+                <div class="card text-center">
+                    <div class="card-icon" style="margin: 0 auto 16px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <h4>Care Coordination</h4>
+                    <p style="font-size: 0.9rem;">Dedicated support for scheduling & questions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Optional Add-Ons -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Premium Add-Ons</span>
+                <h2>Optional Smart <span class="highlight">Monitoring Services</span></h2>
+                <p>For families who want extra peace of mind between caregiver visits. Available for an additional fee.</p>
+            </div>
+            <div class="grid-2" style="max-width: 800px; margin: 0 auto;">
+                <div class="feature-card">
+                    <div class="feature-card-icon" style="background: linear-gradient(135deg, #E8B86D, #d4a056);">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <div>
+                        <h4>Wearable Fall Detection</h4>
+                        <p>Immediate alerts if a fall is detected</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon" style="background: linear-gradient(135deg, #E8B86D, #d4a056);">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <div>
+                        <h4>Smart Home Sensors</h4>
+                        <p>Motion tracking for unusual patterns</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon" style="background: linear-gradient(135deg, #E8B86D, #d4a056);">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                    </div>
+                    <div>
+                        <h4>Emergency Response</h4>
+                        <p>24/7 monitoring and rapid response</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon" style="background: linear-gradient(135deg, #E8B86D, #d4a056);">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div>
+                        <h4>Wellness Check Calls</h4>
+                        <p>Automated daily check-ins</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="contact.html" class="btn btn-outline">Ask About Add-On Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Get Your Free Quote</h2>
+            <p>Contact us for a personalized care assessment and pricing estimate—no obligation.</p>
+            <div class="cta-buttons">
+                <a href="tel:3129574492" class="btn btn-white">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Call (312) 957-4492
+                </a>
+                <a href="contact.html" class="btn btn-outline-white">Request Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Home Care">
+                    <p>Providing compassionate, technology-enhanced in-home care for seniors in Chicago and Cook County. IDPH & Medicaid licensed.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Companionship</a></li>
+                        <li><a href="services.html">Homemaking</a></li>
+                        <li><a href="services.html">Transportation</a></li>
+                        <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="services.html">Dementia Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:3129574492">(312) 957-4492</a></li>
+                        <li><a href="/cdn-cgi/l/email-protection#f1989794909f8898b1879885909d859e849299df92908394"><span class="__cf_email__" data-cfemail="573e313236392e3e17213e23363b233822343f7934362532">[email&#160;protected]</span></a></li>
+                        <li>3325 183rd St, Suite B</li>
+                        <li>Homewood, IL 60430</li>
+                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VitalTouch Home Care. All rights

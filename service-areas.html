@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Areas | VitalTouch Home Care | Chicago, Cook County, South Suburbs</title>
+    <meta name="description" content="VitalTouch Home Care serves Chicago, Homewood, Harvey, Dolton, Calumet City, and throughout Cook County. Find home care services near you.">
+    <link rel="icon" type="image/png" href="images/logo-symbol.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .area-section {
+            margin-bottom: 50px;
+        }
+        .area-section h3 {
+            color: var(--teal);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--teal-light);
+        }
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .area-item {
+            padding: 12px 16px;
+            background: var(--cream);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .area-item:hover {
+            background: var(--teal-light);
+            transform: translateX(4px);
+        }
+        .map-placeholder {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .area-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .area-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <a href="tel:3129574492">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        (312) 957-4492
+                    </a>
+                    <a href="/cdn-cgi/l/email-protection#b8d1deddd9d6c1d1f8ced1ccd9d4ccd7cddbd096dbd9cadd">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <span class="__cf_email__" data-cfemail="93faf5f6f2fdeafad3e5fae7f2ffe7fce6f0fbbdf0f2e1f6">[email&#160;protected]</span>
+                    </a>
+                </div>
+                <a href="contact.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Homewood, IL
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="images/logo-main.png" alt="VitalTouch Home Care">
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <div class="nav-menu">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="service-areas.html" class="active">Areas</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-cta">
+                    <a href="tel:3129574492" class="nav-phone">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        (312) 957-4492
+                    </a>
+                    <a href="contact.html" class="btn btn-primary btn-sm">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="service-areas.html">Service Areas</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="blog.html">Blog</a>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Service Areas</span>
+            </div>
+            <h1>Areas We Serve</h1>
+            <p>Proudly providing home care throughout Chicago and Cook County.</p>
+        </div>
+    </section>
+
+    <!-- Service Areas -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Coverage</span>
+                <h2>Home Care Across <span class="highlight">Cook County</span></h2>
+                <p>Based in Homewood, IL, we serve seniors throughout Chicago and the surrounding suburbs. Don't see your area? Contact us—we may still be able to help.</p>
+            </div>
+
+            <!-- South Suburbs -->
+            <div class="area-section">
+                <h3>📍 South Suburbs</h3>
+                <div class="area-grid">
+                    <div class="area-item">Homewood</div>
+                    <div class="area-item">Flossmoor</div>
+                    <div class="area-item">Harvey</div>
+                    <div class="area-item">Dolton</div>
+                    <div class="area-item">Calumet City</div>
+                    <div class="area-item">Lansing</div>
+                    <div class="area-item">South Holland</div>
+                    <div class="area-item">Thornton</div>
+                    <div class="area-item">Riverdale</div>
+                    <div class="area-item">Dixmoor</div>
+                    <div class="area-item">Posen</div>
+                    <div class="area-item">Robbins</div>
+                    <div class="area-item">Markham</div>
+                    <div class="area-item">Hazel Crest</div>
+                    <div class="area-item">Country Club Hills</div>
+                    <div class="area-item">Matteson</div>
+                    <div class="area-item">Richton Park</div>
+                    <div class="area-item">Park Forest</div>
+                    <div class="area-item">Chicago Heights</div>
+                    <div class="area-item">Olympia Fields</div>
+                    <div class="area-item">Glenwood</div>
+                    <div class="area-item">Ford Heights</div>
+                    <div class="area-item">Sauk Village</div>
+                    <div class="area-item">Lynwood</div>
+                    <div class="area-item">Burnham</div>
+                    <div class="area-item">Phoenix</div>
+                    <div class="area-item">East Hazel Crest</div>
+                    <div class="area-item">Midlothian</div>
+                </div>
+            </div>
+
+            <!-- Southwest Suburbs -->
+            <div class="area-section">
+                <h3>📍 Southwest Suburbs</h3>
+                <div class="area-grid">
+                    <div class="area-item">Oak Lawn</div>
+                    <div class="area-item">Evergreen Park</div>
+                    <div class="area-item">Blue Island</div>
+                    <div class="area-item">Alsip</div>
+                    <div class="area-item">Crestwood</div>
+                    <div class="area-item">Oak Forest</div>
+                    <div class="area-item">Tinley Park</div>
+                    <div class="area-item">Orland Park</div>
+                    <div class="area-item">Palos Heights</div>
+                    <div class="area-item">Palos Hills</div>
+                    <div class="area-item">Worth</div>
+                    <div class="area-item">Chicago Ridge</div>
+                    <div class="area-item">Bridgeview</div>
+                    <div class="area-item">Justice</div>
+                    <div class="area-item">Hickory Hills</div>
+                    <div class="area-item">Burbank</div>
+                </div>
+            </div>
+
+            <!-- Chicago Neighborhoods -->
+            <div class="area-section">
+                <h3>📍 Chicago</h3>
+                <div class="area-grid">
+                    <div class="area-item">South Side</div>
+                    <div class="area-item">West Side</div>
+                    <div class="area-item">North Side</div>
+                    <div class="area-item">South Chicago</div>
+                    <div class="area-item">Roseland</div>
+                    <div class="area-item">Pullman</div>
+                    <div class="area-item">Chatham</div>
+                    <div class="area-item">Auburn Gresham</div>
+                    <div class="area-item">Englewood</div>
+                    <div class="area-item">West Englewood</div>
+                    <div class="area-item">Washington Heights</div>
+                    <div class="area-item">Morgan Park</div>
+                    <div class="area-item">Beverly</div>
+                    <div class="area-item">Mount Greenwood</div>
+                    <div class="area-item">Ashburn</div>
+                    <div class="area-item">Clearing</div>
+                    <div class="area-item">West Lawn</div>
+                    <div class="area-item">Chicago Lawn</div>
+                    <div class="area-item">Gage Park</div>
+                    <div class="area-item">Garfield Ridge</div>
+                    <div class="area-item">Hegewisch</div>
+                    <div class="area-item">East Side</div>
+                    <div class="area-item">South Deering</div>
+                    <div class="area-item">Calumet Heights</div>
+                </div>
+            </div>
+
+            <!-- West Suburbs -->
+            <div class="area-section">
+                <h3>📍 West Suburbs</h3>
+                <div class="area-grid">
+                    <div class="area-item">Maywood</div>
+                    <div class="area-item">Bellwood</div>
+                    <div class="area-item">Broadview</div>
+                    <div class="area-item">Melrose Park</div>
+                    <div class="area-item">Berwyn</div>
+                    <div class="area-item">Cicero</div>
+                    <div class="area-item">Forest Park</div>
+                    <div class="area-item">Oak Park</div>
+                    <div class="area-item">River Forest</div>
+                    <div class="area-item">Hillside</div>
+                    <div class="area-item">Westchester</div>
+                    <div class="area-item">La Grange</div>
+                </div>
+            </div>
+
+            <!-- Don't See Your Area -->
+            <div class="map-placeholder">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#1B9B8C" stroke-width="1.5" style="margin-bottom: 20px;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <h3>Don't See Your Area?</h3>
+                <p style="max-width: 500px; margin: 0 auto 24px;">We're continuously expanding our service area. If you don't see your neighborhood listed, please contact us—we may still be able to provide care in your location.</p>
+                <a href="contact.html" class="btn btn-primary">Contact Us to Check Availability</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Need Care in Your Area?</h2>
+            <p>Contact us today to schedule a free consultation and discuss home care options.</p>
+            <div class="cta-buttons">
+                <a href="tel:3129574492" class="btn btn-white">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Call (312) 957-4492
+                </a>
+                <a href="contact.html" class="btn btn-outline-white">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Home Care">
+                    <p>Providing compassionate, technology-enhanced in-home care for seniors in Chicago and Cook County. IDPH & Medicaid licensed.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Companionship</a></li>
+                        <li><a href="services.html">Homemaking</a></li>
+                        <li><a href="services.html">Transportation</a></li>
+                        <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="services.html">Dementia Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:3129574492">(312) 957-4492</a></li>
+                        <li><a href="/cdn-cgi/l/email-protection#dbb2bdbebab5a2b29badb2afbab7afb4aeb8b3f5b8baa9be"><span class="__cf_email__" data-cfemail="375e515256594e5e77415e43565b435842545f1954564552">[email&#160;protected]</span></a></li>
+                        <li>3325 183rd St, Suite B</li>
+                        <li>Homewood, IL 60430</li>
+                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VitalTouch Home Care. All rights
