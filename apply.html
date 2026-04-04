@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Jobs at VitalTouch Home Care | Join Our Team</title>
+    <meta name="description" content="Join VitalTouch Home Care team. Apply to become a Homemaker or CNA. Flexible scheduling, paid training, and competitive pay ($17-22/hr).">
+    <link rel="icon" type="image/png" href="images/logo-symbol.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Pixel Scaffolding (commented out for development) -->
+    <!-- <script async src="https://connect.facebook.net/en_US/fbevents.js"></script> -->
+    <!-- <script>fbq('init', 'YOUR_META_PIXEL_ID');</script> -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_ID"></script> -->
+    <!-- <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'YOUR_GA4_ID');</script> -->
+    <!-- <script src="https://analytics.tiktok.com/i18n/pixel/sdk.js?sdkid=YOUR_TIKTOK_PIXEL_ID"></script> -->
+
+    <style>
+        /* ============================================
+           APPLICATION PAGE STYLES
+           ============================================ */
+
+        body.apply-page {
+            background: var(--cream);
+        }
+
+        .apply-page .hero-apply {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, var(--teal-dark) 100%);
+            color: var(--white);
+            padding: 60px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .apply-page .hero-apply::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(232, 184, 109, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .apply-page .hero-apply::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: rgba(27, 155, 140, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .apply-page .hero-apply-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .apply-page .hero-apply h1 {
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .apply-page .hero-apply p {
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            opacity: 0.95;
+        }
+
+        .apply-page .hero-stats-apply {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .apply-page .hero-stat-apply {
+            text-align: center;
+        }
+
+        .apply-page .hero-stat-apply .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .apply-page .hero-stat-apply .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .apply-page .form-wrapper {
+            max-width: 640px;
+            margin: -80px auto 60px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .apply-page .form-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .apply-page .form-card {
+                padding: 30px 20px;
+            }
+
+            .apply-page .hero-stats-apply {
+                gap: 20px;
+            }
+        }
+
+        /* Step Indicator */
+        .apply-page .step-indicator {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 40px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .apply-page .step-indicator .step-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .apply-page .step-indicator .step-bar.active {
+            background: var(--teal);
+        }
+
+        .apply-page .step-indicator .step-number {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-align: center;
+            width: 30px;
+            flex-shrink: 0;
+        }
+
+        /* Form Section */
+        .apply-page .form-section {
+            display: none;
+        }
+
+        .apply-page .form-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .apply-page .section-title {
+            font-size: 1.5rem;
+            font-family: 'DM Serif Display', Georgia, serif;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .apply-page .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        .apply-page .callout {
+            background: var(--teal-light);
+            border-left: 4px solid var(--teal);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .apply-page .form-group {
+            margin-bottom: 20px;
+        }
+
+        .apply-page .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .apply-page .form-group input,
+        .apply-page .form-group select,
+        .apply-page .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .apply-page .form-group input:focus,
+        .apply-page .form-group select:focus,
+        .apply-page .form-group textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(27, 155, 140, 0.1);
+        }
+
+        .apply-page .form-group.error input,
+        .apply-page .form-group.error select {
+            border-color: #EF4444;
+        }
+
+        .apply-page .error-message {
+            color: #EF4444;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* Role Selector Cards */
+        .apply-page .role-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 640px) {
+            .apply-page .role-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .apply-page .role-card {
+            padding: 20px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            background: var(--white);
+        }
+
+        .apply-page .role-card:hover {
+            border-color: var(--teal);
+            background: var(--teal-light);
+        }
+
+        .apply-page .role-card.selected {
+            border-color: var(--teal);
+            background: var(--teal-light);
+            box-shadow: 0 0 0 3px rgba(27, 155, 140, 0.1);
+        }
+
+        .apply-page .role-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .apply-page .role-card-title {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .apply-page .role-card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Option Pills */
+        .apply-page .pill-group {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .apply-page .pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .apply-page .pill:hover {
+            border-color: var(--teal);
+            background: var(--teal-light);
+        }
+
+        .apply-page .pill.selected {
+            border-color: var(--teal);
+            background: var(--teal-light);
+        }
+
+        .apply-page .pill input[type="radio"],
+        .apply-page .pill input[type="checkbox"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--teal);
+        }
+
+        .apply-page .pill-label {
+            cursor: pointer;
+            flex: 1;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .apply-page .pill-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Two Column Layout */
+        .apply-page .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .apply-page .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Conditional Fields */
+        .apply-page .conditional-group {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--cream);
+            border-radius: 8px;
+        }
+
+        .apply-page .conditional-group.active {
+            display: block;
+        }
+
+        /* File Upload */
+        .apply-page .file-upload {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--cream);
+        }
+
+        .apply-page .file-upload:hover {
+            border-color: var(--teal);
+            background: var(--teal-light);
+        }
+
+        .apply-page .file-upload.active {
+            border-color: var(--teal);
+            background: var(--teal-light);
+        }
+
+        .apply-page .file-upload-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .apply-page .file-upload-text {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .apply-page .file-upload-subtext {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .apply-page .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .apply-page .file-name {
+            margin-top: 12px;
+            padding: 12px;
+            background: var(--white);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--teal);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: space-between;
+        }
+
+        .apply-page .file-remove {
+            cursor: pointer;
+            color: #EF4444;
+            font-weight: 600;
+        }
+
+        /* Checkbox Group */
+        .apply-page .checkbox-group {
+            margin-bottom: 20px;
+        }
+
+        .apply-page .checkbox-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .apply-page .checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: var(--teal);
+            flex-shrink: 0;
+        }
+
+        .apply-page .checkbox-wrapper label {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text);
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .apply-page .checkbox-wrapper a {
+            color: var(--teal);
+            text-decoration: underline;
+        }
+
+        /* Form Navigation */
+        .apply-page .form-nav {
+            display: flex;
+            gap: 12px;
+            margin-top: 40px;
+            justify-content: space-between;
+        }
+
+        .apply-page .form-nav button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .apply-page .btn-back {
+            background: var(--border);
+            color: var(--text-dark);
+        }
+
+        .apply-page .btn-back:hover {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .apply-page .btn-next {
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            color: var(--white);
+            flex: 1;
+            margin-left: auto;
+        }
+
+        .apply-page .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-teal);
+        }
+
+        .apply-page .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Trust Bar */
+        .apply-page .trust-bar {
+            display: flex;
+            gap: 24px;
+            padding: 24px;
+            background: var(--cream);
+            border-radius: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .apply-page .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+        }
+
+        .apply-page .trust-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: var(--teal);
+        }
+
+        /* Confirmation Screen */
+        .apply-page .confirmation {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .apply-page .confirmation-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--teal-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .apply-page .confirmation-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--teal);
+        }
+
+        .apply-page .confirmation h2 {
+            margin-bottom: 12px;
+        }
+
+        .apply-page .confirmation p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .apply-page .confirmation-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .apply-page .confirmation-buttons a,
+        .apply-page .confirmation-buttons button {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .apply-page .btn-home {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .apply-page .btn-home:hover {
+            background: var(--navy-light);
+        }
+
+        .apply-page .btn-share {
+            background: var(--teal-light);
+            color: var(--teal);
+            border: 1px solid var(--teal);
+        }
+
+        .apply-page .btn-share:hover {
+            background: var(--teal);
+            color: var(--white);
+        }
+    </style>
+</head>
+<body class="apply-page">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <a href="tel:7088988831">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        (708) 898-8831
+                    </a>
+                    <a href="mailto:ifeanyi@vitaltouch.care">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        ifeanyi@vitaltouch.care
+                    </a>
+                </div>
+                <a href="contact.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Homewood, IL
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="images/logo-main.png" alt="VitalTouch Home Care">
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+                <div class="nav-menu">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="service-areas.html">Areas</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-cta">
+                    <a href="tel:7088988831" class="nav-phone">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        (708) 898-8831
+                    </a>
+                    <a href="apply.html" class="btn btn-primary btn-sm">Apply Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="service-areas.html">Service Areas</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="blog.html">Blog</a>
+        <a href="apply.html">Apply Now</a>
+        <div style="margin-top: 20px;">
+            <a href="apply.html" class="btn btn-primary" style="width: 100%;">Apply Now</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-apply">
+        <div class="hero-apply-content">
+            <h1 id="heroTitle">Join Our Homemaker Team</h1>
+            <p id="heroSubtitle">Help seniors live independently at home while earning competitive pay and flexible hours.</p>
+            <div class="hero-stats-apply">
+                <div class="hero-stat-apply">
+                    <div class="stat-number">$17-22</div>
+                    <div class="stat-label">Per Hour</div>
+                </div>
+                <div class="hero-stat-apply">
+                    <div class="stat-number">Flexible</div>
+                    <div class="stat-label">Scheduling</div>
+                </div>
+                <div class="hero-stat-apply">
+                    <div class="stat-number">Paid</div>
+                    <div class="stat-label">Training</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <div class="form-wrapper">
+        <div class="form-card">
+            <div id="formSteps">
+
+                <!-- STEP 1: ROLE SELECTION & LEAD CAPTURE -->
+                <div class="form-section active" data-step="1">
+                    <div class="step-indicator">
+                        <div class="step-number">1</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">2</div>
+                        <div class="step-bar"></div>
+                        <div class="step-number">3</div>
+                        <div class="step-bar"></div>
+                        <div class="step-number">4</div>
+                        <div class="step-bar"></div>
+                        <div class="step-number">5</div>
+                    </div>
+
+                    <h2 class="section-title">Which role interests you?</h2>
+                    <p class="section-subtitle">Tell us about yourself so we can find the right fit.</p>
+
+                    <div class="form-group">
+                        <div class="role-cards">
+                            <div class="role-card" data-role="homemaker">
+                                <div class="role-card-icon">🏠</div>
+                                <div class="role-card-title">Homemaker</div>
+                                <div class="role-card-desc">Light housekeeping, meal prep, errands</div>
+                            </div>
+                            <div class="role-card" data-role="cna">
+                                <div class="role-card-icon">💊</div>
+                                <div class="role-card-title">CNA (Certified Nursing Assistant)</div>
+                                <div class="role-card-desc">Personal care, medical support</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="roleInput" name="role" value="">
+                    </div>
+
+                    <div class="callout" id="roleCallout">
+                        <strong>Homemakers</strong> help with cooking, cleaning, and shopping. No certification required, we provide paid training!
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Smith" required>
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(708) 555-1234" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Zip Code *</label>
+                            <input type="text" id="zipCode" name="zipCode" placeholder="60430" required>
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-next" onclick="nextStep()">Next Step</button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: QUICK QUALIFIERS -->
+                <div class="form-section" data-step="2">
+                    <div class="step-indicator">
+                        <div class="step-number">1</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">2</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">3</div>
+                        <div class="step-bar"></div>
+                        <div class="step-number">4</div>
+                        <div class="step-bar"></div>
+                        <div class="step-number">5</div>
+                    </div>
+
+                    <h2 class="section-title">Tell us about your availability</h2>
+                    <p class="section-subtitle">We offer flexible schedules that work around your life.</p>
+
+                    <div class="callout">💡 Our paid training program is designed around your schedule. Most positions start within 2 weeks.</div>
+
+                    <div class="form-group">
+                        <label>Preferred Schedule Type *</label>
+                        <div class="pill-group">
+                            <label class="pill">
+                                <input type="radio" name="scheduleType" value="full-time" required>
+                                <span class="pill-label">Full-Time (35+ hours/week)</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="scheduleType" value="part-time" required>
+                                <span class="pill-label">Part-Time (15-30 hours/week)</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="scheduleType" value="flexible" required>
+                                <span class="pill-label">Flexible/On-Call</span>
+                            </label>
+                        </div>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Do you have reliable transportation? *</label>
+                        <div class="pill-group">
+                            <label class="pill">
+                                <input type="radio" name="transportation" value="yes" required>
+                                <span class="pill-label">Yes, I have a car</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="transportation" value="public" required>
+                                <span class="pill-label">I use public transportation</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="transportation" value="no" required>
+                                <span class="pill-label">No, need transportation provided</span>
+                            </label>
+                        </div>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Do you have a valid CNA certification? *</label>
+                        <div class="pill-group">
+                            <label class="pill">
+                                <input type="radio" name="cnaCert" value="yes" required>
+                                <span class="pill-label">Yes, currently active</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="cnaCert" value="expired" required>
+                                <span class="pill-label">Expired/Previously had it</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="cnaCert" value="no" required>
+                                <span class="pill-label">No, not certified</span>
+                            </label>
+                        </div>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Do you have CPR/BLS certification? *</label>
+                        <div class="pill-group">
+                            <label class="pill">
+                                <input type="radio" name="cprCert" value="yes" required>
+                                <span class="pill-label">Yes, current</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="cprCert" value="expired" required>
+                                <span class="pill-label">Expired</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="cprCert" value="no" required>
+                                <span class="pill-label">No</span>
+                            </label>
+                        </div>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>When can you start? *</label>
+                        <input type="date" name="availableDate" required>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+                        <button type="button" class="btn-next" onclick="nextStep()">Next Step</button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: ABOUT YOU -->
+                <div class="form-section" data-step="3">
+                    <div class="step-indicator">
+                        <div class="step-number">1</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">2</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">3</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">4</div>
+                        <div class="step-bar"></div>
+                        <div class="step-number">5</div>
+                    </div>
+
+                    <h2 class="section-title">Tell us about yourself</h2>
+                    <p class="section-subtitle">Help us build your complete profile.</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Middle Name</label>
+                            <input type="text" id="middleName" name="middleName" placeholder="Michael">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select name="gender">
+                                <option value="">Select...</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not">Prefer not to say</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Race/Ethnicity</label>
+                        <select name="raceEthnicity">
+                            <option value="">Select...</option>
+                            <option value="asian">Asian</option>
+                            <option value="black">Black or African American</option>
+                            <option value="hispanic">Hispanic or Latino</option>
+                            <option value="white">White</option>
+                            <option value="middle-eastern">Middle Eastern or North African</option>
+                            <option value="native">Native American or Alaska Native</option>
+                            <option value="hawaiian">Native Hawaiian or Pacific Islander</option>
+                            <option value="mixed">Two or more races</option>
+                            <option value="other">Other</option>
+                            <option value="prefer-not">Prefer not to say</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Full Street Address *</label>
+                        <input type="text" name="fullAddress" placeholder="123 Main St" required>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>City *</label>
+                            <input type="text" name="city" placeholder="Homewood" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>State *</label>
+                            <input type="text" name="state" placeholder="IL" maxlength="2" required>
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Languages Spoken *</label>
+                        <div class="pill-group">
+                            <label class="pill">
+                                <input type="checkbox" name="languages" value="english">
+                                <span class="pill-label">English</span>
+                            </label>
+                            <label class="pill">
+                                <input type="checkbox" name="languages" value="spanish">
+                                <span class="pill-label">Spanish</span>
+                            </label>
+                            <label class="pill">
+                                <input type="checkbox" name="languages" value="tagalog">
+                                <span class="pill-label">Tagalog</span>
+                            </label>
+                            <label class="pill">
+                                <input type="checkbox" name="languages" value="mandarin">
+                                <span class="pill-label">Mandarin</span>
+                            </label>
+                            <label class="pill">
+                                <input type="checkbox" name="languages" value="other">
+                                <span class="pill-label">Other</span>
+                            </label>
+                        </div>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>U.S. Citizenship Status *</label>
+                        <select name="citizenshipStatus" required>
+                            <option value="">Select...</option>
+                            <option value="citizen">U.S. Citizen</option>
+                            <option value="permanent">Permanent Resident (Green Card)</option>
+                            <option value="visa">Work Visa</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Work Authorization *</label>
+                        <select name="workAuth" required>
+                            <option value="">Select...</option>
+                            <option value="authorized">Authorized to work in U.S.</option>
+                            <option value="pending">Pending authorization</option>
+                            <option value="unsure">Not sure</option>
+                        </select>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Have you ever been convicted of a felony? *</label>
+                        <div class="pill-group">
+                            <label class="pill">
+                                <input type="radio" name="felonyHistory" value="no" required onchange="toggleFelonyDetail()">
+                                <span class="pill-label">No</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="felonyHistory" value="yes" required onchange="toggleFelonyDetail()">
+                                <span class="pill-label">Yes</span>
+                            </label>
+                        </div>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="conditional-group" id="felonyDetail">
+                        <div class="form-group">
+                            <label>Please explain *</label>
+                            <textarea name="felonyExplanation" placeholder="Describe the conviction and when it occurred..." rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>How did you hear about us?</label>
+                        <select name="referralSource">
+                            <option value="">Select...</option>
+                            <option value="indeed">Indeed</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="google">Google Search</option>
+                            <option value="linkedin">LinkedIn</option>
+                            <option value="friend">Friend or Family</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+                        <button type="button" class="btn-next" onclick="nextStep()">Next Step</button>
+                    </div>
+                </div>
+
+                <!-- STEP 4: EXPERIENCE & EDUCATION -->
+                <div class="form-section" data-step="4">
+                    <div class="step-indicator">
+                        <div class="step-number">1</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">2</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">3</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">4</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">5</div>
+                    </div>
+
+                    <h2 class="section-title">Your experience & education</h2>
+                    <p class="section-subtitle">This helps us understand your background and training needs.</p>
+
+                    <div class="form-group">
+                        <label>Highest Education Level *</label>
+                        <select name="educationLevel" required>
+                            <option value="">Select...</option>
+                            <option value="less-hs">Less than high school</option>
+                            <option value="hs">High School Diploma</option>
+                            <option value="ged">GED</option>
+                            <option value="some-college">Some college</option>
+                            <option value="associates">Associate's Degree</option>
+                            <option value="bachelors">Bachelor's Degree</option>
+                            <option value="masters">Master's Degree or higher</option>
+                        </select>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>School Name</label>
+                        <input type="text" name="schoolName" placeholder="Lincoln High School">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Most Recent Job Title *</label>
+                        <input type="text" name="recentJobTitle" placeholder="e.g. Home Health Aide" required>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Company *</label>
+                        <input type="text" name="recentCompany" placeholder="e.g. ABC Home Care" required>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Years in that role *</label>
+                            <input type="number" name="recentYears" placeholder="2" min="0" max="70" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Employment Status *</label>
+                            <select name="employmentStatus" required>
+                                <option value="">Select...</option>
+                                <option value="employed">Currently Employed</option>
+                                <option value="unemployed">Unemployed</option>
+                                <option value="retired">Retired</option>
+                                <option value="student">Student</option>
+                            </select>
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Military Service (Optional)</label>
+                        <div class="pill-group">
+                            <label class="pill">
+                                <input type="radio" name="militaryService" value="yes">
+                                <span class="pill-label">Yes, I served</span>
+                            </label>
+                            <label class="pill">
+                                <input type="radio" name="militaryService" value="no">
+                                <span class="pill-label">No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Resume (PDF, DOC, DOCX) - Optional</label>
+                        <div class="file-upload" id="fileUpload">
+                            <div class="file-upload-icon">📎</div>
+                            <div class="file-upload-text">Drag and drop or click to upload</div>
+                            <div class="file-upload-subtext">Max 5MB - PDF, DOC, or DOCX</div>
+                            <input type="file" id="resumeFile" name="resume" accept=".pdf,.doc,.docx">
+                        </div>
+                        <div id="fileName" class="file-name" style="display: none;"></div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+                        <button type="button" class="btn-next" onclick="nextStep()">Next Step</button>
+                    </div>
+                </div>
+
+                <!-- STEP 5: REVIEW & SUBMIT -->
+                <div class="form-section" data-step="5">
+                    <div class="step-indicator">
+                        <div class="step-number">1</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">2</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">3</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">4</div>
+                        <div class="step-bar active"></div>
+                        <div class="step-number">5</div>
+                        <div class="step-bar active"></div>
+                    </div>
+
+                    <h2 class="section-title">Review & Confirm</h2>
+                    <p class="section-subtitle">Please review your information before submitting.</p>
+
+                    <div class="callout">
+                        We take your privacy seriously. All information is securely stored and only used for employment consideration. Read our <a href="privacy-policy.html">Privacy Policy</a>.
+                    </div>
+
+                    <div class="form-group">
+                        <label>Full Legal Name (as it appears on ID) *</label>
+                        <input type="text" name="fullLegalName" placeholder="John Michael Smith" required>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="acknowledgement" name="acknowledgement" required>
+                            <label for="acknowledgement">
+                                I confirm that all information provided in this application is true and accurate. I understand that any false information may result in disqualification from employment and may be grounds for immediate termination if discovered after hire.
+                            </label>
+                        </div>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="backgroundConsent" name="backgroundConsent" required>
+                            <label for="backgroundConsent">
+                                I consent to a background check, which is required for all caregiving positions. This includes criminal history, reference checks, and employment verification.
+                            </label>
+                        </div>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-nav">
+                        <button type="button" class="btn-back" onclick="prevStep()">Back</button>
+                        <button type="button" class="btn-next" id="submitBtn" onclick="submitApplication()">Submit Application</button>
+                    </div>
+                </div>
+
+                <!-- CONFIRMATION SCREEN -->
+                <div class="form-section" data-step="confirmation" id="confirmationScreen">
+                    <div class="confirmation">
+                        <div class="confirmation-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <path d="m9 11 3 3L22 4"></path>
+                            </svg>
+                        </div>
+                        <h2>Application Submitted!</h2>
+                        <p>Thank you for applying to VitalTouch Home Care. We've received your application and will review it within 24 hours.</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">We'll contact you at the phone number or email you provided to schedule an interview.</p>
+                        <div class="confirmation-buttons">
+                            <a href="index.html" class="btn-home">Back to Home</a>
+                            <button type="button" class="btn-share" onclick="shareApplication()">Share This Opportunity</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Bar -->
+            <div class="trust-bar">
+                <div class="trust-item">
+                    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                    <span>Background Check</span>
+                </div>
+                <div class="trust-item">
+                    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span>Secure & Encrypted</span>
+                </div>
+                <div class="trust-item">
+                    <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10"></path>
+                        <path d="m9 11 3 3 4-4"></path>
+                    </svg>
+                    <span>Privacy Protected</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Home Care">
+                    <p>Providing compassionate, technology-enhanced in-home care for seniors in Chicago and Cook County. IDPH and Medicaid licensed.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Companionship</a></li>
+                        <li><a href="services.html">Homemaking</a></li>
+                        <li><a href="services.html">Transportation</a></li>
+                        <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="services.html">Dementia Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:7088988831">(708) 898-8831</a></li>
+                        <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
+                        <li>3325 183rd St, Suite B</li>
+                        <li>Homewood, IL 60430</li>
+                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>2025 VitalTouch Home Care. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        /* ============================================
+           APPLICATION PAGE JAVASCRIPT
+           ============================================ */
+
+        // Hero data for role-specific copy
+        const heroData = {
+            homemaker: {
+                title: 'Join Our Homemaker Team',
+                subtitle: 'Help seniors live independently at home while earning competitive pay and flexible hours.'
+            },
+            cna: {
+                title: 'Join Our CNA Team',
+                subtitle: 'Provide compassionate personal care while earning competitive pay and flexible scheduling.'
+            }
+        };
+
+        // Form state
+        let currentStep = 1;
+        let formData = {};
+        let selectedFile = null;
+
+        // Get URL parameters
+        function getURLParam(param) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(param);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for role in URL
+            const urlRole = getURLParam('role');
+            if (urlRole && (urlRole === 'cna' || urlRole === 'homemaker')) {
+                selectRole(urlRole);
+            }
+
+            // Setup role card click handlers
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const role = this.getAttribute('data-role');
+                    selectRole(role);
+                });
+            });
+
+            // Setup pill selection
+            document.querySelectorAll('.pill input[type="radio"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    const pill = this.closest('.pill');
+                    const group = pill.closest('.pill-group');
+                    group.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+                    pill.classList.add('selected');
+                });
+            });
+
+            document.querySelectorAll('.pill input[type="checkbox"]').forEach(input => {
+                input.addEventListener('change', function() {
+                    const pill = this.closest('.pill');
+                    if (this.checked) {
+                        pill.classList.add('selected');
+                    } else {
+                        pill.classList.remove('selected');
+                    }
+                });
+            });
+
+            // Setup file upload
+            setupFileUpload();
+
+            // Phone formatting
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', formatPhoneNumber);
+            }
+        });
+
+        // Select role
+        function selectRole(role) {
+            document.querySelectorAll('.role-card').forEach(card => card.classList.remove('selected'));
+            document.querySelector(`.role-card[data-role="${role}"]`).classList.add('selected');
+            document.getElementById('roleInput').value = role;
+
+            // Update hero text
+            if (heroData[role]) {
+                document.getElementById('heroTitle').textContent = heroData[role].title;
+                document.getElementById('heroSubtitle').textContent = heroData[role].subtitle;
+            }
+
+            // Update callout
+            const calloutText = role === 'cna'
+                ? 'CNAs provide personal care and medical support. Valid certification required. We offer refresher training and support for maintaining certifications.'
+                : 'Homemakers help with cooking, cleaning, and shopping. No certification required, we provide paid training!';
+            document.getElementById('roleCallout').textContent = calloutText;
+        }
+
+        // Format phone number
+        function formatPhoneNumber(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    value = `(${value}`;
+                } else if (value.length <= 6) {
+                    value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+                } else {
+                    value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+                }
+            }
+            e.target.value = value;
+        }
+
+        // Toggle felony detail
+        function toggleFelonyDetail() {
+            const felonyYes = document.querySelector('input[name="felonyHistory"][value="yes"]').checked;
+            const detail = document.getElementById('felonyDetail');
+            if (felonyYes) {
+                detail.classList.add('active');
+            } else {
+                detail.classList.remove('active');
+            }
+        }
+
+        // Setup file upload
+        function setupFileUpload() {
+            const fileUpload = document.getElementById('fileUpload');
+            const fileInput = document.getElementById('resumeFile');
+            const fileName = document.getElementById('fileName');
+
+            if (!fileUpload) return;
+
+            fileUpload.addEventListener('click', () => fileInput.click());
+            fileUpload.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUpload.classList.add('active');
+            });
+            fileUpload.addEventListener('dragleave', () => {
+                fileUpload.classList.remove('active');
+            });
+            fileUpload.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUpload.classList.remove('active');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileSelect(files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+        }
+
+        // Handle file selection
+        function handleFileSelect(file) {
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+
+            if (file.size > maxSize) {
+                alert('File is too large. Maximum 5MB allowed.');
+                return;
+            }
+
+            if (!validTypes.includes(file.type)) {
+                alert('Invalid file type. Please upload PDF, DOC, or DOCX.');
+                return;
+            }
+
+            selectedFile = file;
+            const fileName = document.getElementById('fileName');
+            fileName.innerHTML = `<span>${file.name}</span><span class="file-remove" onclick="clearFile()">Remove</span>`;
+            fileName.style.display = 'flex';
+            document.getElementById('fileUpload').style.display = 'none';
+        }
+
+        // Clear file
+        function clearFile() {
+            selectedFile = null;
+            document.getElementById('resumeFile').value = '';
+            document.getElementById('fileName').style.display = 'none';
+            document.getElementById('fileUpload').style.display = 'block';
+        }
+
+        // Validate step
+        function validateStep(step) {
+            const section = document.querySelector(`.form-section[data-step="${step}"]`);
+            const inputs = section.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                const group = input.closest('.form-group') || input.closest('.checkbox-group');
+                const errorMessage = group.querySelector('.error-message');
+
+                if (!input.value || (input.type === 'checkbox' && !input.checked)) {
+                    if (group) {
+                        group.classList.add('error');
+                        if (errorMessage) {
+                            errorMessage.textContent = 'This field is required';
+                        }
+                    }
+                    isValid = false;
+                } else {
+                    if (group) {
+                        group.classList.remove('error');
+                        if (errorMessage) {
+                            errorMessage.textContent = '';
+                        }
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        // Next step
+        function nextStep() {
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            // Lead capture on step 1
+            if (currentStep === 1) {
+                captureLeadData();
+            }
+
+            // Collect form data
+            collectFormData();
+
+            if (currentStep < 5) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        // Previous step
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        // Show step
+        function showStep(step) {
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelector(`.form-section[data-step="${step}"]`).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Collect form data
+        function collectFormData() {
+            const section = document.querySelector(`.form-section[data-step="${currentStep}"]`);
+            const inputs = section.querySelectorAll('input, select, textarea');
+
+            inputs.forEach(input => {
+                if (input.type === 'checkbox') {
+                    if (input.checked) {
+                        if (!formData[input.name]) {
+                            formData[input.name] = [];
+                        }
+                        formData[input.name].push(input.value);
+                    }
+                } else if (input.type === 'radio') {
+                    if (input.checked) {
+                        formData[input.name] = input.value;
+                    }
+                } else {
+                    formData[input.name] = input.value;
+                }
+            });
+        }
+
+        // Capture lead data
+        function captureLeadData() {
+            const leadData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                role: document.getElementById('roleInput').value,
+                timestamp: new Date().toISOString(),
+                // UTM parameters from URL
+                utm_source: getURLParam('utm_source') || 'direct',
+                utm_medium: getURLParam('utm_medium') || 'organic',
+                utm_campaign: getURLParam('utm_campaign') || 'application',
+                utm_content: getURLParam('utm_content') || '',
+                utm_term: getURLParam('utm_term') || ''
+            };
+
+            // Console.log for development (replace with actual API call)
+            console.log('LEAD CAPTURED:', leadData);
+
+            // Fire pixels (scaffolding - uncomment when ready)
+            // fbq('track', 'Lead', {content_name: 'job_application', content_type: 'job_role', value: leadData.role});
+            // gtag('event', 'generate_lead', {value: 1, currency: 'USD'});
+            // tiktok.track('Contact', {});
+        }
+
+        // Submit application
+        function submitApplication() {
+            if (!validateStep(5)) {
+                return;
+            }
+
+            // Collect final data
+            collectFormData();
+
+            // Compile all form data
+            const applicationData = {
+                ...formData,
+                resume: selectedFile ? selectedFile.name : null,
+                submittedAt: new Date().toISOString(),
+                // UTM parameters
+                utm_source: getURLParam('utm_source') || 'direct',
+                utm_medium: getURLParam('utm_medium') || 'organic',
+                utm_campaign: getURLParam('utm_campaign') || 'application',
+                utm_content: getURLParam('utm_content') || '',
+                utm_term: getURLParam('utm_term') || ''
+            };
+
+            // Console.log for development (replace with actual API call)
+            console.log('APPLICATION SUBMITTED:', applicationData);
+
+            // Fire conversion pixels (scaffolding - uncomment when ready)
+            // fbq('track', 'CompleteRegistration', {content_name: 'job_application', content_type: 'job_role'});
+            // gtag('event', 'conversion', {send_to: 'GA4_CONVERSION_ID'});
+            // tiktok.track('CompletePayment', {});
+
+            // Show confirmation
+            showConfirmation();
+        }
+
+        // Show confirmation
+        function showConfirmation() {
+            currentStep = 'confirmation';
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('confirmationScreen').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Share application
+        function shareApplication() {
+            const shareText = 'Join VitalTouch Home Care! Flexible scheduling, paid training, $17-22/hr. Apply now!';
+            const shareUrl = window.location.href;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Join VitalTouch Home Care',
+                    text: shareText,
+                    url: shareUrl
+                });
+            } else {
+                // Fallback: copy to clipboard
+                const fullText = `${shareText} ${shareUrl}`;
+                navigator.clipboard.writeText(fullText).then(() => {
+                    alert('Link copied to clipboard!');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

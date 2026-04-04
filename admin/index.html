@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalTouch Admin Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #FDF9F3;
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e8f5f3 0%, #FDF9F3 100%);
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 12px;
+            padding: 48px 40px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .login-logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 32px;
+        }
+
+        .login-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: #0F2137;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1F2937;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #1B9B8C;
+            box-shadow: 0 0 0 3px rgba(27, 155, 140, 0.1);
+        }
+
+        .login-error {
+            display: none;
+            background: #FEE2E2;
+            color: #991B1B;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            border: 1px solid #FCA5A5;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 11px;
+            background: linear-gradient(135deg, #1B9B8C 0%, #147A6E 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(27, 155, 140, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .login-footer {
+            margin-top: 24px;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+
+        /* Dashboard Screen */
+        .dashboard-screen {
+            display: none;
+        }
+
+        .dashboard-screen.active {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Nav */
+        .nav-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            color: #0F2137;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #10B981;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .nav-right a {
+            color: #1B9B8C;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-right a:hover {
+            color: #147A6E;
+        }
+
+        /* Main Content */
+        .dashboard-content {
+            flex: 1;
+            padding: 32px 24px;
+            overflow: auto;
+        }
+
+        /* Metrics Row */
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #1B9B8C;
+        }
+
+        .metric-card.blue {
+            border-left-color: #2563EB;
+        }
+
+        .metric-card.amber {
+            border-left-color: #D97706;
+        }
+
+        .metric-card.red {
+            border-left-color: #DC2626;
+        }
+
+        .metric-card.purple {
+            border-left-color: #7C3AED;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1F2937;
+        }
+
+        /* Tabs */
+        .tab-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .tab-btn {
+            flex: 0 0 auto;
+            padding: 16px 24px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6B7280;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .tab-btn.active {
+            color: #1B9B8C;
+            border-bottom-color: #1B9B8C;
+        }
+
+        .tab-btn:hover {
+            color: #1B9B8C;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 24px;
+            flex: 1;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Applicants Tab */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+            align-items: center;
+        }
+
+        .filter-pill {
+            padding: 8px 14px;
+            background: #F3F4F6;
+            border: 1px solid #D1D5DB;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4B5563;
+            transition: all 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .filter-pill:hover {
+            border-color: #1B9B8C;
+            color: #1B9B8C;
+        }
+
+        .filter-pill.active {
+            background: #1B9B8C;
+            color: white;
+            border-color: #1B9B8C;
+        }
+
+        .filter-pill.divider {
+            background: transparent;
+            border: none;
+            cursor: default;
+            color: #D1D5DB;
+            padding: 0 8px;
+        }
+
+        .filter-pill.divider:hover {
+            background: transparent;
+            border: none;
+            color: #D1D5DB;
+        }
+
+        .search-input {
+            padding: 8px 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            width: 180px;
+            margin-left: auto;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #1B9B8C;
+            box-shadow: 0 0 0 3px rgba(27, 155, 140, 0.1);
+        }
+
+        /* Table */
+        .applicants-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .applicants-table thead {
+            background: #F9FAFB;
+        }
+
+        .applicants-table th {
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            border-bottom: 1px solid #E5E7EB;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .applicants-table tbody tr {
+            border-bottom: 1px solid #E5E7EB;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .applicants-table tbody tr:hover {
+            background: #F9FAFB;
+        }
+
+        .applicants-table td {
+            padding: 14px 12px;
+            font-size: 13px;
+        }
+
+        .applicant-name {
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 2px;
+        }
+
+        .applicant-email {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .role-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .role-homemaker {
+            background: #E0F2FE;
+            color: #0369A1;
+        }
+
+        .role-cna {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .progress-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #D1D5DB;
+        }
+
+        .progress-dot.filled {
+            background: #1B9B8C;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .status-dropped {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .source-badge {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 3px;
+            color: white;
+        }
+
+        .source-tiktok {
+            background: #010101;
+        }
+
+        .source-instagram {
+            background: #C13584;
+        }
+
+        .source-facebook {
+            background: #1877F2;
+        }
+
+        .source-indeed {
+            background: #2164F3;
+        }
+
+        .source-ziprecruiter {
+            background: #1D8F37;
+        }
+
+        .source-direct {
+            background: #6B7280;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            background: #F3F4F6;
+            border: 1px solid #D1D5DB;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #374151;
+        }
+
+        .action-btn:hover {
+            background: #1B9B8C;
+            color: white;
+            border-color: #1B9B8C;
+        }
+
+        /* Slide-in Panel */
+        .slide-panel-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 200;
+        }
+
+        .slide-panel-overlay.active {
+            display: block;
+        }
+
+        .slide-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            z-index: 201;
+            box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-panel.active {
+            transform: translateX(0);
+        }
+
+        .panel-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            background: #F3F4F6;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #6B7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .panel-close:hover {
+            background: #E5E7EB;
+        }
+
+        .panel-header {
+            padding: 24px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .panel-section {
+            margin-bottom: 24px;
+        }
+
+        .panel-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .detail-label {
+            color: #6B7280;
+        }
+
+        .detail-value {
+            color: #1F2937;
+            font-weight: 500;
+        }
+
+        .timeline {
+            border-left: 2px solid #E5E7EB;
+            padding-left: 12px;
+            margin-left: 4px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #1B9B8C;
+            border-radius: 50%;
+            left: -17px;
+            top: 2px;
+        }
+
+        .timeline-action {
+            color: #1F2937;
+            margin-bottom: 2px;
+        }
+
+        .timeline-time {
+            color: #9CA3AF;
+            font-size: 12px;
+        }
+
+        .panel-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .panel-actions button {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .btn-call {
+            background: #E0F2FE;
+            color: #0369A1;
+        }
+
+        .btn-call:hover {
+            background: #BAE6FD;
+        }
+
+        .btn-text {
+            background: #DCF8C6;
+            color: #276B04;
+        }
+
+        .btn-text:hover {
+            background: #BBEF63;
+        }
+
+        .btn-email {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .btn-email:hover {
+            background: #FECACA;
+        }
+
+        .btn-contacted {
+            background: #1B9B8C;
+            color: white;
+        }
+
+        .btn-contacted:hover {
+            background: #147A6E;
+        }
+
+        /* Analytics Tab */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+        }
+
+        .analytics-card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .analytics-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .analytics-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 16px;
+        }
+
+        .chart-bar {
+            margin-bottom: 16px;
+        }
+
+        .chart-bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+
+        .chart-bar-name {
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .chart-bar-value {
+            color: #6B7280;
+        }
+
+        .chart-bar-container {
+            background: #F3F4F6;
+            border-radius: 4px;
+            height: 24px;
+            overflow: hidden;
+        }
+
+        .chart-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1B9B8C 0%, #147A6E 100%);
+            border-radius: 4px;
+        }
+
+        .funnel-step {
+            margin-bottom: 12px;
+        }
+
+        .funnel-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+
+        .funnel-label-name {
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .funnel-label-percent {
+            color: #6B7280;
+        }
+
+        .funnel-container {
+            background: #F3F4F6;
+            border-radius: 4px;
+            height: 28px;
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .funnel-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2563EB 0%, #1E40AF 100%);
+            border-radius: 3px;
+        }
+
+        .funnel-count {
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 0 6px;
+        }
+
+        /* Campaign Table */
+        .campaign-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .campaign-table thead {
+            background: #F9FAFB;
+        }
+
+        .campaign-table th {
+            padding: 10px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6B7280;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .campaign-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .campaign-table tbody tr:hover {
+            background: #F9FAFB;
+        }
+
+        /* CPA Calculator */
+        .cpa-spend-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .cpa-source-name {
+            flex: 0 0 80px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .cpa-input {
+            flex: 1;
+            padding: 6px 8px;
+            border: 1px solid #D1D5DB;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .cpa-input:focus {
+            outline: none;
+            border-color: #1B9B8C;
+            box-shadow: 0 0 0 2px rgba(27, 155, 140, 0.1);
+        }
+
+        .cpa-result {
+            flex: 0 0 60px;
+            text-align: right;
+            color: #1B9B8C;
+            font-weight: 600;
+        }
+
+        .cpa-summary {
+            background: #e8f5f3;
+            border: 1px solid #1B9B8C;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .cpa-summary-label {
+            font-size: 12px;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .cpa-summary-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1B9B8C;
+        }
+
+        /* Pixel Status */
+        .pixel-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #E5E7EB;
+            font-size: 13px;
+            align-items: center;
+        }
+
+        .pixel-name {
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .pixel-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .pixel-ready {
+            background: #DCFCE7;
+            color: #166534;
+        }
+
+        .pixel-pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide-panel {
+                width: 100%;
+            }
+
+            .metrics-row {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .search-input {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .applicants-table {
+                font-size: 12px;
+            }
+
+            .applicants-table th,
+            .applicants-table td {
+                padding: 8px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .nav-bar,
+            .filters,
+            .search-input,
+            .slide-panel-overlay,
+            .slide-panel {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+            }
+
+            .dashboard-content {
+                padding: 0;
+            }
+
+            .tab-container {
+                box-shadow: none;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-card">
+            <img src="../images/logo-main.png" alt="VitalTouch" class="login-logo" onerror="this.style.display='none'">
+            <h1 class="login-title">Admin Portal</h1>
+            <p class="login-subtitle">VitalTouch Applicant Analytics</p>
+            <div class="login-error" id="loginError"></div>
+            <div class="form-group">
+                <label for="passwordInput">Password</label>
+                <input type="password" id="passwordInput" placeholder="Enter password" autofocus>
+            </div>
+            <button class="btn-login" id="loginBtn">Sign In</button>
+            <div class="login-footer">VitalTouch Health Network Inc.</div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboardScreen" class="dashboard-screen">
+        <!-- Nav Bar -->
+        <div class="nav-bar">
+            <div class="nav-left">
+                <span class="status-dot"></span>
+                <span>VitalTouch Admin</span>
+            </div>
+            <div class="nav-right">
+                <a id="signOutLink">Sign Out</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <!-- Metrics Row -->
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-label">Total Leads</div>
+                    <div class="metric-value" id="metricLeads">110</div>
+                </div>
+                <div class="metric-card blue">
+                    <div class="metric-label">Completed</div>
+                    <div class="metric-value" id="metricCompleted">3</div>
+                </div>
+                <div class="metric-card amber">
+                    <div class="metric-label">Dropped Off</div>
+                    <div class="metric-value" id="metricDropped">4</div>
+                </div>
+                <div class="metric-card red">
+                    <div class="metric-label">Need Follow-Up</div>
+                    <div class="metric-value" id="metricFollowUp">5</div>
+                </div>
+                <div class="metric-card purple">
+                    <div class="metric-label">Completion Rate</div>
+                    <div class="metric-value" id="metricRate">2.7%</div>
+                </div>
+            </div>
+
+            <!-- Tab Container -->
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="applicants">Applicants</button>
+                    <button class="tab-btn" data-tab="analytics">Analytics</button>
+                </div>
+
+                <!-- Applicants Tab -->
+                <div id="applicants" class="tab-content active">
+                    <div class="filters">
+                        <button class="filter-pill active" data-filter="all">All</button>
+                        <button class="filter-pill" data-filter="needed">Need Follow-Up</button>
+                        <button class="filter-pill" data-filter="dropped">Dropped Off</button>
+                        <button class="filter-pill" data-filter="completed">Completed</button>
+                        <span class="filter-pill divider">|</span>
+                        <button class="filter-pill" data-filter-role="Homemaker">Homemaker</button>
+                        <button class="filter-pill" data-filter-role="CNA">CNA</button>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search by name or email...">
+                    </div>
+                    <table class="applicants-table">
+                        <thead>
+                            <tr>
+                                <th>Applicant</th>
+                                <th>Role</th>
+                                <th>Progress</th>
+                                <th>Status</th>
+                                <th>Source</th>
+                                <th>Date</th>
+                                <th>Last Activity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicantsBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div id="analytics" class="tab-content">
+                    <div class="analytics-grid">
+                        <!-- Leads by Source -->
+                        <div class="analytics-card">
+                            <div class="analytics-title">Leads by Source</div>
+                            <div id="leadsSourceChart"></div>
+                        </div>
+
+                        <!-- Application Funnel -->
+                        <div class="analytics-card">
+                            <div class="analytics-title">Application Funnel</div>
+                            <div id="funnelChart"></div>
+                        </div>
+
+                        <!-- Campaign Performance -->
+                        <div class="analytics-card full-width">
+                            <div class="analytics-title">Campaign Performance</div>
+                            <table class="campaign-table">
+                                <thead>
+                                    <tr>
+                                        <th>Campaign</th>
+                                        <th>Source</th>
+                                        <th>Leads</th>
+                                        <th>Completed</th>
+                                        <th>Rate</th>
+                                        <th>Avg Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="campaignTable"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Conversion by Source -->
+                        <div class="analytics-card">
+                            <div class="analytics-title">Conversion by Source</div>
+                            <div id="conversionChart"></div>
+                        </div>
+
+                        <!-- Cost per Application -->
+                        <div class="analytics-card">
+                            <div class="analytics-title">Cost per Application</div>
+                            <div id="cpaCalculator"></div>
+                        </div>
+
+                        <!-- Avg Time to Complete -->
+                        <div class="analytics-card">
+                            <div class="analytics-title">Avg Time to Complete</div>
+                            <div id="timeChart"></div>
+                        </div>
+
+                        <!-- Role Breakdown -->
+                        <div class="analytics-card">
+                            <div class="analytics-title">Role Breakdown</div>
+                            <div id="roleChart"></div>
+                        </div>
+
+                        <!-- Ad Pixel Status -->
+                        <div class="analytics-card">
+                            <div class="analytics-title">Ad Pixel Status</div>
+                            <div id="pixelStatus"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide Panel Overlay -->
+    <div id="panelOverlay" class="slide-panel-overlay"></div>
+
+    <!-- Slide Panel -->
+    <div id="slidePanel" class="slide-panel">
+        <button class="panel-close" id="panelCloseBtn">&times;</button>
+        <div class="panel-header">
+            <div style="font-weight: 600; color: #1F2937;" id="panelName"></div>
+            <div style="font-size: 12px; color: #6B7280; margin-top: 4px;" id="panelRole"></div>
+        </div>
+        <div class="panel-content">
+            <div class="panel-section">
+                <div class="panel-section-title">Contact Info</div>
+                <div class="detail-row">
+                    <span class="detail-label">Email</span>
+                    <span class="detail-value" id="panelEmail"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Phone</span>
+                    <span class="detail-value" id="panelPhone"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Zip Code</span>
+                    <span class="detail-value" id="panelZip"></span>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-section-title">Application Progress</div>
+                <div class="detail-row">
+                    <span class="detail-label">Status</span>
+                    <span class="detail-value" id="panelStatus"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Step</span>
+                    <span class="detail-value" id="panelStep"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Source</span>
+                    <span class="detail-value" id="panelSource"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Campaign</span>
+                    <span class="detail-value" id="panelCampaign"></span>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-section-title">Notes</div>
+                <div style="font-size: 13px; color: #374151; background: #F9FAFB; padding: 10px; border-radius: 4px;" id="panelNotes"></div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-section-title">Activity Timeline</div>
+                <div class="timeline" id="panelTimeline"></div>
+            </div>
+
+            <div class="panel-actions">
+                <button class="panel-actions button btn-call">Call</button>
+                <button class="panel-actions button btn-text">Text</button>
+                <button class="panel-actions button btn-email">Email</button>
+            </div>
+            <div class="panel-actions" style="margin-top: 8px;">
+                <button class="btn-contacted" style="width: 100%;" id="contactedBtn">Mark Contacted</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // SHA-256 Password Hash (for "vitaltouch2026")
+        const CORRECT_PASSWORD_HASH = "8b3c8d8c3e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e";
+        const PASSWORD_TO_CHECK = "vitaltouch2026";
+
+        // Applicant Data
+        const D = [
+            {id:1,fn:'Aisha',ln:'Johnson',em:'aisha.j@gmail.com',ph:'(708) 555-0142',zip:'60430',role:'Homemaker',step:5,status:'Completed',src:'tiktok',camp:'homemaker_spring2026',cap:'2026-03-28T14:22:00Z',last:'2026-03-28T14:35:00Z',fu:'none',notes:'3 years caregiving experience. CNA certified.',tl:[{a:'Lead captured',t:'2026-03-28T14:22:00Z'},{a:'Completed all steps',t:'2026-03-28T14:35:00Z'},{a:'Confirmation email sent',t:'2026-03-28T14:36:00Z'}]},
+            {id:2,fn:'Marcus',ln:'Williams',em:'marcusw88@yahoo.com',ph:'(773) 555-0198',zip:'60628',role:'CNA',step:2,status:'Dropped Off',src:'instagram',camp:'cna_march2026',cap:'2026-03-29T09:15:00Z',last:'2026-03-29T09:20:00Z',fu:'needed',notes:'',tl:[{a:'Lead captured',t:'2026-03-29T09:15:00Z'},{a:'Reached step 2',t:'2026-03-29T09:20:00Z'},{a:'Session ended — did not continue',t:'2026-03-29T09:45:00Z'}]},
+            {id:3,fn:'Deja',ln:'Brown',em:'dejab@outlook.com',ph:'(708) 555-0267',zip:'60443',role:'Homemaker',step:1,status:'Dropped Off',src:'facebook',camp:'homemaker_family2026',cap:'2026-03-30T18:02:00Z',last:'2026-03-30T18:02:00Z',fu:'needed',notes:'',tl:[{a:'Lead captured',t:'2026-03-30T18:02:00Z'},{a:'Session ended — only completed step 1',t:'2026-03-30T18:30:00Z'}]},
+            {id:4,fn:'Terrence',ln:'Davis',em:'tdavis.care@gmail.com',ph:'(815) 555-0334',zip:'60901',role:'CNA',step:5,status:'Completed',src:'indeed',camp:'',cap:'2026-03-31T11:45:00Z',last:'2026-03-31T12:01:00Z',fu:'none',notes:'CNA + CPR certified. Available immediately. Kankakee area.',tl:[{a:'Lead captured',t:'2026-03-31T11:45:00Z'},{a:'Completed all steps',t:'2026-03-31T12:01:00Z'},{a:'Confirmation email sent',t:'2026-03-31T12:02:00Z'},{a:'Called — scheduled interview',t:'2026-04-01T09:30:00Z'}]},
+            {id:5,fn:'Keisha',ln:'Martin',em:'keisha.m@gmail.com',ph:'(708) 555-0412',zip:'60426',role:'Homemaker',step:3,status:'Dropped Off',src:'tiktok',camp:'homemaker_spring2026',cap:'2026-04-01T20:11:00Z',last:'2026-04-01T20:22:00Z',fu:'needed',notes:'',tl:[{a:'Lead captured',t:'2026-04-01T20:11:00Z'},{a:'Reached step 3',t:'2026-04-01T20:22:00Z'},{a:'Session ended — stopped at step 3',t:'2026-04-01T20:50:00Z'}]},
+            {id:6,fn:'James',ln:'Carter',em:'jcarter99@icloud.com',ph:'(773) 555-0589',zip:'60617',role:'CNA',step:5,status:'Completed',src:'ziprecruiter',camp:'',cap:'2026-04-02T08:30:00Z',last:'2026-04-02T08:48:00Z',fu:'scheduled',notes:'Interview 4/4 at 2pm. 5 years home care.',tl:[{a:'Lead captured',t:'2026-04-02T08:30:00Z'},{a:'Completed all steps',t:'2026-04-02T08:48:00Z'},{a:'Confirmation email sent',t:'2026-04-02T08:49:00Z'},{a:'Texted — interview 4/4 2pm',t:'2026-04-02T14:00:00Z'}]},
+            {id:7,fn:'Aaliyah',ln:'Gonzalez',em:'aaliyahg@gmail.com',ph:'(708) 555-0678',zip:'60453',role:'Homemaker',step:4,status:'Dropped Off',src:'instagram',camp:'homemaker_bilingual2026',cap:'2026-04-02T15:44:00Z',last:'2026-04-02T15:58:00Z',fu:'contacted',notes:'Bilingual — EN/ES. Stopped at resume upload. Texted, will retry.',tl:[{a:'Lead captured',t:'2026-04-02T15:44:00Z'},{a:'Reached step 4 — stopped at resume upload',t:'2026-04-02T15:58:00Z'},{a:'Texted to follow up',t:'2026-04-03T10:15:00Z'}]},
+            {id:8,fn:'Robert',ln:'Jackson',em:'rjackson.chi@gmail.com',ph:'(708) 555-0723',zip:'60429',role:'CNA',step:1,status:'Dropped Off',src:'direct',camp:'',cap:'2026-04-03T07:12:00Z',last:'2026-04-03T07:12:00Z',fu:'needed',notes:'',tl:[{a:'Lead captured',t:'2026-04-03T07:12:00Z'},{a:'Session ended — only completed step 1',t:'2026-04-03T07:40:00Z'}]}
+        ];
+
+        const visits = {tiktok:42,instagram:28,facebook:15,indeed:8,ziprecruiter:5,direct:12};
+        const sourceColors = {tiktok:'#010101',instagram:'#C13584',facebook:'#1877F2',indeed:'#2164F3',ziprecruiter:'#1D8F37',direct:'#6B7280'};
+
+        // Helper Functions
+        function formatDate(isoString) {
+            const d = new Date(isoString);
+            return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+        }
+
+        function timeAgo(isoString) {
+            const now = new Date();
+            const then = new Date(isoString);
+            const diffMs = now - then;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+            if (diffMins < 1) return 'just now';
+            if (diffMins < 60) return diffMins + 'm ago';
+            if (diffHours < 24) return diffHours + 'h ago';
+            return diffDays + 'd ago';
+        }
+
+        function formatTime(isoString) {
+            const d = new Date(isoString);
+            return d.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit', hour12:true});
+        }
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Auth Functions
+        async function handleLogin() {
+            const pw = document.getElementById('passwordInput').value;
+            const hash = await hashPassword(pw);
+            const expectedHash = await hashPassword(PASSWORD_TO_CHECK);
+
+            if (hash === expectedHash) {
+                sessionStorage.setItem('vt_auth', 'true');
+                showDashboard();
+            } else {
+                const errorEl = document.getElementById('loginError');
+                errorEl.textContent = 'Invalid password';
+                errorEl.classList.add('show');
+                setTimeout(() => errorEl.classList.remove('show'), 3000);
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboardScreen').classList.add('active');
+            renderApplicantsTable();
+            renderMetrics();
+            renderAnalytics();
+        }
+
+        function handleSignOut() {
+            sessionStorage.removeItem('vt_auth');
+            document.getElementById('dashboardScreen').classList.remove('active');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('passwordInput').value = '';
+            closePanel();
+        }
+
+        // Check auth on load
+        window.addEventListener('load', () => {
+            if (sessionStorage.getItem('vt_auth') === 'true') {
+                showDashboard();
+            }
+        });
+
+        // Login Button
+        document.getElementById('loginBtn').addEventListener('click', handleLogin);
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+
+        // Sign Out
+        document.getElementById('signOutLink').addEventListener('click', handleSignOut);
+
+        // Applicants Rendering
+        function renderApplicantsTable() {
+            const tbody = document.getElementById('applicantsBody');
+            tbody.innerHTML = '';
+
+            let filtered = D.slice();
+            const statusFilter = document.querySelector('.filter-pill.active')?.dataset.filter || 'all';
+            const roleFilter = document.querySelector('.filter-pill.active')?.dataset.filterRole;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            if (statusFilter !== 'all') {
+                const statusMap = {needed: 'Dropped Off', dropped: 'Dropped Off', completed: 'Completed'};
+                filtered = filtered.filter(a => {
+                    if (statusFilter === 'needed') return a.fu === 'needed';
+                    if (statusFilter === 'dropped') return a.status === 'Dropped Off';
+                    if (statusFilter === 'completed') return a.status === 'Completed';
+                    return true;
+                });
+            }
+
+            if (roleFilter) {
+                filtered = filtered.filter(a => a.role === roleFilter);
+            }
+
+            if (searchTerm) {
+                filtered = filtered.filter(a =>
+                    a.fn.toLowerCase().includes(searchTerm) ||
+                    a.ln.toLowerCase().includes(searchTerm) ||
+                    a.em.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            filtered.forEach(a => {
+                const row = document.createElement('tr');
+                const progressDots = Array(5).fill(0).map((_, i) => i < a.step ? 'filled' : '').map((c, i) => `<span class="progress-dot ${c}"></span>`).join('');
+                const statusClass = a.status === 'Completed' ? 'status-completed' : 'status-dropped';
+                const sourceClass = `source-${a.src}`;
+                const roleClass = a.role === 'Homemaker' ? 'role-homemaker' : 'role-cna';
+
+                row.innerHTML = `
+                    <td>
+                        <div class="applicant-name">${a.fn} ${a.ln}</div>
+                        <div class="applicant-email">${a.em}</div>
+                    </td>
+                    <td><span class="role-tag ${roleClass}">${a.role}</span></td>
+                    <td><div class="progress-dots">${progressDots}</div></td>
+                    <td><span class="status-badge ${statusClass}">${a.status}</span></td>
+                    <td><span class="source-badge ${sourceClass}">${a.src}</span></td>
+                    <td>${formatDate(a.cap)}</td>
+                    <td>${timeAgo(a.last)}</td>
+                    <td><button class="action-btn">Details</button></td>
+                `;
+
+                row.addEventListener('click', () => openPanel(a));
+                tbody.appendChild(row);
+            });
+        }
+
+        // Filter & Search
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                if (pill.classList.contains('divider')) return;
+                document.querySelectorAll('.filter-pill.active').forEach(p => {
+                    if (!p.classList.contains('divider') && !p.dataset.filterRole) p.classList.remove('active');
+                });
+                pill.classList.add('active');
+                renderApplicantsTable();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', renderApplicantsTable);
+
+        // Panel Functions
+        function openPanel(applicant) {
+            document.getElementById('panelName').textContent = applicant.fn + ' ' + applicant.ln;
+            document.getElementById('panelRole').textContent = applicant.role;
+            document.getElementById('panelEmail').textContent = applicant.em;
+            document.getElementById('panelPhone').textContent = applicant.ph;
+            document.getElementById('panelZip').textContent = applicant.zip;
+            document.getElementById('panelStatus').textContent = applicant.status;
+            document.getElementById('panelStep').textContent = applicant.step + ' / 5';
+            document.getElementById('panelSource').textContent = applicant.src;
+            document.getElementById('panelCampaign').textContent = applicant.camp || '(Direct)';
+            document.getElementById('panelNotes').textContent = applicant.notes || '(No notes)';
+
+            const timeline = applicant.tl.map(t => `
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-action">${t.a}</div>
+                    <div class="timeline-time">${formatDate(t.t)} at ${formatTime(t.t)}</div>
+                </div>
+            `).join('');
+            document.getElementById('panelTimeline').innerHTML = timeline;
+
+            document.getElementById('contactedBtn').textContent = applicant.fu === 'contacted' ? 'Contacted' : 'Mark Contacted';
+            document.getElementById('contactedBtn').style.opacity = applicant.fu === 'contacted' ? '0.6' : '1';
+            document.getElementById('contactedBtn').disabled = applicant.fu === 'contacted';
+
+            document.getElementById('panelOverlay').classList.add('active');
+            document.getElementById('slidePanel').classList.add('active');
+        }
+
+        function closePanel() {
+            document.getElementById('panelOverlay').classList.remove('active');
+            document.getElementById('slidePanel').classList.remove('active');
+        }
+
+        document.getElementById('panelCloseBtn').addEventListener('click', closePanel);
+        document.getElementById('panelOverlay').addEventListener('click', closePanel);
+
+        // Tab Switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Metrics
+        function renderMetrics() {
+            const completed = D.filter(a => a.status === 'Completed').length;
+            const dropped = D.filter(a => a.status === 'Dropped Off').length;
+            const needFu = D.filter(a => a.fu === 'needed').length;
+            const total = D.length;
+            const rate = ((completed / total) * 100).toFixed(1);
+
+            document.getElementById('metricLeads').textContent = total;
+            document.getElementById('metricCompleted').textContent = completed;
+            document.getElementById('metricDropped').textContent = dropped;
+            document.getElementById('metricFollowUp').textContent = needFu;
+            document.getElementById('metricRate').textContent = rate + '%';
+        }
+
+        // Analytics
+        function renderAnalytics() {
+            renderLeadsBySource();
+            renderFunnel();
+            renderCampaignPerformance();
+            renderConversionBySource();
+            renderCPACalculator();
+            renderAvgTime();
+            renderRoleBreakdown();
+            renderPixelStatus();
+        }
+
+        function renderLeadsBySource() {
+            let html = '';
+            const sourceNames = {tiktok:'TikTok',instagram:'Instagram',facebook:'Facebook',indeed:'Indeed',ziprecruiter:'ZipRecruiter',direct:'Direct'};
+            let maxVisits = Math.max(...Object.values(visits));
+
+            Object.entries(visits).forEach(([src, v]) => {
+                const pct = ((v / maxVisits) * 100).toFixed(0);
+                const leads = D.filter(a => a.src === src).length;
+                const completed = D.filter(a => a.src === src && a.status === 'Completed').length;
+                const ctr = leads > 0 ? ((completed / leads) * 100).toFixed(1) : '0.0';
+
+                html += `
+                    <div class="chart-bar">
+                        <div class="chart-bar-label">
+                            <span class="chart-bar-name">${sourceNames[src]}</span>
+                            <span class="chart-bar-value">${v} visits, ${leads} leads, ${ctr}% conversion</span>
+                        </div>
+                        <div class="chart-bar-container">
+                            <div class="chart-bar-fill" style="width: ${pct}%; background: ${sourceColors[src]};"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('leadsSourceChart').innerHTML = html;
+        }
+
+        function renderFunnel() {
+            const steps = ['Page Visits', 'Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
+            const counts = [
+                D.length,
+                D.filter(a => a.step >= 1).length,
+                D.filter(a => a.step >= 2).length,
+                D.filter(a => a.step >= 3).length,
+                D.filter(a => a.step >= 4).length,
+                D.filter(a => a.step >= 5).length
+            ];
+
+            let html = '';
+            const total = counts[0];
+
+            counts.forEach((c, i) => {
+                const pct = ((c / total) * 100).toFixed(1);
+                const dropoff = i > 0 ? (100 - ((c / counts[i-1]) * 100)).toFixed(0) : 0;
+
+                html += `
+                    <div class="funnel-step">
+                        <div class="funnel-label">
+                            <span class="funnel-label-name">${steps[i]}</span>
+                            <span class="funnel-label-percent">${c} (${pct}%) ${i > 0 ? '— ' + dropoff + '% drop' : ''}</span>
+                        </div>
+                        <div class="funnel-container">
+                            <div class="funnel-bar" style="width: ${pct}%;"><span class="funnel-count">${c}</span></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('funnelChart').innerHTML = html;
+        }
+
+        function renderCampaignPerformance() {
+            const campaigns = {};
+            D.forEach(a => {
+                const camp = a.camp || 'Direct Lead';
+                if (!campaigns[camp]) campaigns[camp] = {leads: 0, completed: 0, src: a.src, times: []};
+                campaigns[camp].leads++;
+                if (a.status === 'Completed') campaigns[camp].completed++;
+                campaigns[camp].times.push(new Date(a.last) - new Date(a.cap));
+            });
+
+            let html = '';
+            Object.entries(campaigns).forEach(([camp, data]) => {
+                const rate = ((data.completed / data.leads) * 100).toFixed(1);
+                const avgTime = data.times.length > 0 ? Math.round(data.times.reduce((a, b) => a + b) / data.times.length / 60000) : 0;
+
+                html += `
+                    <tr>
+                        <td>${camp}</td>
+                        <td>${data.src}</td>
+                        <td>${data.leads}</td>
+                        <td>${data.completed}</td>
+                        <td>${rate}%</td>
+                        <td>${avgTime} min</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('campaignTable').innerHTML = html;
+        }
+
+        function renderConversionBySource() {
+            let html = '';
+            const sourceNames = {tiktok:'TikTok',instagram:'Instagram',facebook:'Facebook',indeed:'Indeed',ziprecruiter:'ZipRecruiter',direct:'Direct'};
+
+            Object.entries(visits).forEach(([src, v]) => {
+                const leads = D.filter(a => a.src === src).length;
+                const completed = D.filter(a => a.src === src && a.status === 'Completed').length;
+                const rate = leads > 0 ? ((completed / leads) * 100).toFixed(0) : 0;
+
+                html += `
+                    <div class="chart-bar">
+                        <div class="chart-bar-label">
+                            <span class="chart-bar-name">${sourceNames[src]}</span>
+                            <span class="chart-bar-value">${rate}% conversion</span>
+                        </div>
+                        <div class="chart-bar-container">
+                            <div class="chart-bar-fill" style="width: ${rate}%; background: ${sourceColors[src]};"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('conversionChart').innerHTML = html;
+        }
+
+        function renderCPACalculator() {
+            let html = '<div>';
+            const sourceNames = {tiktok:'TikTok',instagram:'Instagram',facebook:'Facebook',indeed:'Indeed',ziprecruiter:'ZipRecruiter',direct:'Direct'};
+
+            Object.entries(visits).forEach(([src, v]) => {
+                html += `
+                    <div class="cpa-spend-row">
+                        <div class="cpa-source-name">${sourceNames[src]}</div>
+                        <input type="number" class="cpa-input" data-source="${src}" placeholder="Spend" value="0">
+                        <div class="cpa-result" data-source="${src}">$0</div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="cpa-summary">
+                    <div class="cpa-summary-label">Blended CPA</div>
+                    <div class="cpa-summary-value" id="blendedCPA">$0</div>
+                </div>
+            </div>`;
+
+            document.getElementById('cpaCalculator').innerHTML = html;
+
+            document.querySelectorAll('.cpa-input').forEach(input => {
+                input.addEventListener('input', calculateCPA);
+            });
+        }
+
+        function calculateCPA() {
+            let totalSpend = 0;
+            let totalCompleted = 0;
+
+            document.querySelectorAll('.cpa-input').forEach(input => {
+                const src = input.dataset.source;
+                const spend = parseFloat(input.value) || 0;
+                const completed = D.filter(a => a.src === src && a.status === 'Completed').length;
+
+                totalSpend += spend;
+                totalCompleted += completed;
+
+                const cpa = spend > 0 && completed > 0 ? (spend / completed).toFixed(2) : '0.00';
+                document.querySelector(`.cpa-result[data-source="${src}"]`).textContent = '$' + cpa;
+            });
+
+            const blendedCPA = totalSpend > 0 && totalCompleted > 0 ? (totalSpend / totalCompleted).toFixed(2) : '0.00';
+            document.getElementById('blendedCPA').textContent = '$' + blendedCPA;
+        }
+
+        function renderAvgTime() {
+            let html = '';
+            const sourceNames = {tiktok:'TikTok',instagram:'Instagram',facebook:'Facebook',indeed:'Indeed',ziprecruiter:'ZipRecruiter',direct:'Direct'};
+
+            Object.entries(visits).forEach(([src, v]) => {
+                const applicants = D.filter(a => a.src === src);
+                let avgMins = 0;
+                if (applicants.length > 0) {
+                    const times = applicants.map(a => new Date(a.last) - new Date(a.cap));
+                    avgMins = Math.round(times.reduce((a, b) => a + b) / times.length / 60000);
+                }
+                const maxMins = 30;
+                const pct = ((avgMins / maxMins) * 100).toFixed(0);
+
+                html += `
+                    <div class="chart-bar">
+                        <div class="chart-bar-label">
+                            <span class="chart-bar-name">${sourceNames[src]}</span>
+                            <span class="chart-bar-value">${avgMins} min</span>
+                        </div>
+                        <div class="chart-bar-container">
+                            <div class="chart-bar-fill" style="width: ${Math.min(pct, 100)}%;"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('timeChart').innerHTML = html;
+        }
+
+        function renderRoleBreakdown() {
+            const homemakers = D.filter(a => a.role === 'Homemaker');
+            const cnas = D.filter(a => a.role === 'CNA');
+            const hmCompleted = homemakers.filter(a => a.status === 'Completed').length;
+            const cnaCompleted = cnas.filter(a => a.status === 'Completed').length;
+            const hmRate = homemakers.length > 0 ? ((hmCompleted / homemakers.length) * 100).toFixed(1) : 0;
+            const cnaRate = cnas.length > 0 ? ((cnaCompleted / cnas.length) * 100).toFixed(1) : 0;
+
+            let html = `
+                <div class="chart-bar">
+                    <div class="chart-bar-label">
+                        <span class="chart-bar-name">Homemaker</span>
+                        <span class="chart-bar-value">${hmRate}% (${hmCompleted}/${homemakers.length})</span>
+                    </div>
+                    <div class="chart-bar-container">
+                        <div class="chart-bar-fill" style="width: ${hmRate}%;"></div>
+                    </div>
+                </div>
+                <div class="chart-bar">
+                    <div class="chart-bar-label">
+                        <span class="chart-bar-name">CNA</span>
+                        <span class="chart-bar-value">${cnaRate}% (${cnaCompleted}/${cnas.length})</span>
+                    </div>
+                    <div class="chart-bar-container">
+                        <div class="chart-bar-fill" style="width: ${cnaRate}%; background: linear-gradient(90deg, #DC2626 0%, #991B1B 100%);"></div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('roleChart').innerHTML = html;
+        }
+
+        function renderPixelStatus() {
+            const pixels = [
+                {name: 'TikTok Pixel', status: 'Ready'},
+                {name: 'Meta Pixel', status: 'Ready'},
+                {name: 'GA4', status: 'Ready'},
+                {name: 'Indeed', status: 'Pending'},
+                {name: 'ZipRecruiter', status: 'Via UTM'}
+            ];
+
+            let html = '';
+            pixels.forEach(p => {
+                const statusClass = p.status === 'Ready' ? 'pixel-ready' : (p.status === 'Pending' ? 'pixel-pending' : 'pixel-pending');
+                html += `
+                    <div class="pixel-row">
+                        <span class="pixel-name">${p.name}</span>
+                        <span class="pixel-status ${statusClass}">${p.status}</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('pixelStatus').innerHTML = html;
+        }
+
+        // Mark Contacted
+        document.getElementById('contactedBtn').addEventListener('click', () => {
+            document.getElementById('contactedBtn').textContent = 'Contacted';
+            document.getElementById('contactedBtn').style.opacity = '0.6';
+            document.getElementById('contactedBtn').disabled = true;
+        });
+    </script>
+</body>
+</html>
