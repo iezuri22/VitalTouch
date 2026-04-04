@@ -75,8 +75,37 @@
             background: linear-gradient(135deg, #16a34a 0%, #15803d 50%, #166534 100%);
             color: var(--white);
             padding: 32px 24px 40px;
-            position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 5;
             overflow: hidden;
+            transition: padding 0.3s ease;
+        }
+
+        .apply-page .hero-apply.compact {
+            padding: 14px 24px 16px;
+        }
+
+        .apply-page .hero-apply.compact .hero-eyebrow {
+            display: none;
+        }
+
+        .apply-page .hero-apply.compact h1 {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+
+        .apply-page .hero-apply.compact p {
+            display: none;
+        }
+
+        .apply-page .hero-apply.compact .hero-stats-apply {
+            display: none;
+        }
+
+        .apply-page .hero-apply.compact::before,
+        .apply-page .hero-apply.compact::after {
+            display: none;
         }
 
         .apply-page .hero-apply::before {
@@ -161,6 +190,7 @@
             padding: 0 24px;
             position: relative;
             z-index: 10;
+            background: var(--cream);
         }
 
         .apply-page .form-card {
@@ -671,7 +701,7 @@
     <!-- Hero Section -->
     <section class="hero-apply">
         <div class="hero-apply-content">
-            <p class="hero-eyebrow" id="heroEyebrow">Now Hiring Homemakers — South Suburban Chicago</p>
+            <p class="hero-eyebrow" id="heroEyebrow">Now Hiring Homemakers — Chicagoland Area</p>
             <h1 id="heroTitle">Get Paid to Care for Your Aging Loved One</h1>
             <p id="heroSubtitle">Already taking care of family? VitalTouch can help you turn that into a paying career. Flexible hours, real support.</p>
             <div class="hero-stats-apply">
@@ -714,7 +744,7 @@
                                 <div class="role-card-desc">Care for a loved one & get paid</div>
                             </div>
                             <div class="role-card" data-role="cna">
-                                <div class="role-card-icon">💊</div>
+                                <div class="role-card-icon">👩‍⚕️</div>
                                 <div class="role-card-title">CNA</div>
                                 <div class="role-card-desc">Use your certification to help others</div>
                             </div>
@@ -1282,6 +1312,20 @@
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
+            // Sticky hero compact on scroll
+            const hero = document.querySelector('.hero-apply');
+            const formWrapper = document.querySelector('.form-wrapper');
+            if (hero && formWrapper) {
+                window.addEventListener('scroll', function() {
+                    const formTop = formWrapper.getBoundingClientRect().top;
+                    if (formTop <= hero.offsetHeight + 20) {
+                        hero.classList.add('compact');
+                    } else {
+                        hero.classList.remove('compact');
+                    }
+                });
+            }
+
             // Check for role in URL
             const urlRole = getURLParam('role');
             if (urlRole && (urlRole === 'cna' || urlRole === 'homemaker')) {
