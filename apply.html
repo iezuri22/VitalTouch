@@ -75,37 +75,54 @@
             background: linear-gradient(135deg, #16a34a 0%, #15803d 50%, #166534 100%);
             color: var(--white);
             padding: 32px 24px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Compact sticky bar that replaces hero + app bar */
+        .apply-compact-bar {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
             position: sticky;
             top: 0;
-            z-index: 20;
-            overflow: hidden;
-            transition: padding 0.3s ease;
+            z-index: 25;
         }
 
-        .apply-page .hero-apply.compact {
-            padding: 14px 24px 16px;
+        .apply-compact-bar.visible {
+            display: flex;
         }
 
-        .apply-page .hero-apply.compact .hero-eyebrow {
-            display: none;
+        .apply-compact-bar .compact-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
-        .apply-page .hero-apply.compact h1 {
-            font-size: 1.2rem;
-            margin-bottom: 0;
+        .apply-compact-bar .compact-left:hover {
+            color: #fff;
         }
 
-        .apply-page .hero-apply.compact p {
-            display: none;
+        .apply-compact-bar .compact-title {
+            color: #fff;
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 400;
         }
 
-        .apply-page .hero-apply.compact .hero-stats-apply {
-            display: none;
-        }
-
-        .apply-page .hero-apply.compact::before,
-        .apply-page .hero-apply.compact::after {
-            display: none;
+        .apply-compact-bar .compact-pay {
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: rgba(255,255,255,0.15);
+            padding: 4px 12px;
+            border-radius: 14px;
         }
 
         .apply-page .hero-apply::before {
@@ -695,6 +712,16 @@
             Back to VitalTouch
         </a>
         <img src="images/logo-symbol.png" alt="VitalTouch" class="apply-bar-logo">
+    </div>
+
+    <!-- Compact Sticky Bar (appears on scroll) -->
+    <div class="apply-compact-bar" id="compactBar">
+        <a href="index.html" class="compact-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            Back to VitalTouch
+        </a>
+        <span class="compact-title" id="compactTitle">Get Paid to Care for Your Aging Loved One</span>
+        <span class="compact-pay">$17-22/hr</span>
     </div>
 
     <!-- Hero Section -->
@@ -1311,16 +1338,20 @@
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Sticky hero compact on scroll
+            // Sticky compact bar on scroll
             const hero = document.querySelector('.hero-apply');
+            const appBar = document.querySelector('.apply-app-bar');
+            const compactBar = document.getElementById('compactBar');
             const formWrapper = document.querySelector('.form-wrapper');
-            if (hero && formWrapper) {
+            if (hero && formWrapper && compactBar) {
                 window.addEventListener('scroll', function() {
-                    const formTop = formWrapper.getBoundingClientRect().top;
-                    if (formTop <= hero.offsetHeight + 20) {
-                        hero.classList.add('compact');
+                    const heroBottom = hero.getBoundingClientRect().bottom;
+                    if (heroBottom <= 60) {
+                        compactBar.classList.add('visible');
+                        appBar.style.display = 'none';
                     } else {
-                        hero.classList.remove('compact');
+                        compactBar.classList.remove('visible');
+                        appBar.style.display = 'flex';
                     }
                 });
             }
@@ -1376,10 +1407,12 @@
             document.querySelector(`.role-card[data-role="${role}"]`).classList.add('selected');
             document.getElementById('roleInput').value = role;
 
-            // Update hero text
+            // Update hero text and compact bar title
             if (heroData[role]) {
                 document.getElementById('heroTitle').textContent = heroData[role].title;
                 document.getElementById('heroSubtitle').textContent = heroData[role].subtitle;
+                var ct = document.getElementById('compactTitle');
+                if (ct) ct.textContent = heroData[role].title;
             }
 
             // Update callout
