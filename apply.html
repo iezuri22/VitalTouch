@@ -27,8 +27,52 @@
             background: var(--cream);
         }
 
+        /* App Bar */
+        .apply-app-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 24px;
+            background: #15803d;
+        }
+
+        .apply-back-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .apply-back-link:hover {
+            color: var(--white);
+        }
+
+        .apply-bar-logo {
+            height: 28px;
+            width: auto;
+            opacity: 0.9;
+        }
+
+        /* Hero Eyebrow */
+        .apply-page .hero-eyebrow {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
         .apply-page .hero-apply {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, var(--teal-dark) 100%);
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 50%, #166534 100%);
             color: var(--white);
             padding: 60px 24px;
             position: relative;
@@ -42,7 +86,7 @@
             right: -10%;
             width: 500px;
             height: 500px;
-            background: rgba(232, 184, 109, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -54,7 +98,7 @@
             left: -5%;
             width: 400px;
             height: 400px;
-            background: rgba(27, 155, 140, 0.08);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -91,15 +135,23 @@
         }
 
         .apply-page .hero-stat-apply .stat-number {
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 4px;
+            color: #fff;
+            margin-bottom: 2px;
         }
 
         .apply-page .hero-stat-apply .stat-label {
-            font-size: 0.95rem;
-            opacity: 0.9;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .apply-page .hero-stats-apply .hero-stat-apply + .hero-stat-apply {
+            border-left: 1px solid rgba(255,255,255,0.2);
+            padding-left: 40px;
         }
 
         .apply-page .form-wrapper {
@@ -129,32 +181,30 @@
 
         /* Step Indicator */
         .apply-page .step-indicator {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 40px;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 32px;
         }
 
-        .apply-page .step-indicator .step-bar {
-            flex: 1;
-            height: 6px;
+        .apply-page .step-indicator .step-text {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .apply-page .step-indicator .step-progress-bar {
+            height: 4px;
             background: var(--border);
-            border-radius: 3px;
+            border-radius: 2px;
             overflow: hidden;
         }
 
-        .apply-page .step-indicator .step-bar.active {
+        .apply-page .step-indicator .step-progress-fill {
+            height: 100%;
             background: var(--teal);
-        }
-
-        .apply-page .step-indicator .step-number {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-align: center;
-            width: 30px;
-            flex-shrink: 0;
+            border-radius: 2px;
+            transition: width 0.3s ease;
         }
 
         /* Form Section */
@@ -608,85 +658,25 @@
     </style>
 </head>
 <body class="apply-page">
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
-            <div class="top-bar-content">
-                <div class="top-bar-left">
-                    <a href="tel:7088988831">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        (708) 898-8831
-                    </a>
-                    <a href="mailto:ifeanyi@vitaltouch.care">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                        ifeanyi@vitaltouch.care
-                    </a>
-                </div>
-                <a href="contact.html">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                    Homewood, IL
-                </a>
-            </div>
-        </div>
+    <!-- Minimal App Bar -->
+    <div class="apply-app-bar">
+        <a href="index.html" class="apply-back-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            Back to VitalTouch
+        </a>
+        <img src="images/logo-symbol.png" alt="VitalTouch" class="apply-bar-logo">
     </div>
-
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="index.html" class="logo">
-                    <img src="images/logo-main.png" alt="VitalTouch Home Care">
-                </a>
-                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
-                    <span></span><span></span><span></span>
-                </button>
-                <div class="nav-menu">
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-                    <a href="services.html">Services</a>
-                    <a href="pricing.html">Pricing</a>
-                    <a href="service-areas.html">Areas</a>
-                    <a href="faq.html">FAQ</a>
-                    <a href="blog.html">Blog</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-                <div class="nav-cta">
-                    <a href="tel:7088988831" class="nav-phone">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        (708) 898-8831
-                    </a>
-                    <a href="apply.html" class="btn btn-primary btn-sm">Apply Now</a>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Mobile Navigation -->
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="services.html">Services</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="service-areas.html">Service Areas</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact</a>
-        <a href="blog.html">Blog</a>
-        <a href="apply.html">Apply Now</a>
-        <div style="margin-top: 20px;">
-            <a href="apply.html" class="btn btn-primary" style="width: 100%;">Apply Now</a>
-        </div>
-    </nav>
 
     <!-- Hero Section -->
     <section class="hero-apply">
         <div class="hero-apply-content">
-            <h1 id="heroTitle">Join Our Homemaker Team</h1>
-            <p id="heroSubtitle">Help seniors live independently at home while earning competitive pay and flexible hours.</p>
+            <p class="hero-eyebrow" id="heroEyebrow">Now Hiring Homemakers — South Suburban Chicago</p>
+            <h1 id="heroTitle">Get Paid to Care for Your Aging Loved One</h1>
+            <p id="heroSubtitle">Already taking care of family? VitalTouch can help you turn that into a paying career. Flexible hours, real support.</p>
             <div class="hero-stats-apply">
                 <div class="hero-stat-apply">
-                    <div class="stat-number">$17-22</div>
-                    <div class="stat-label">Per Hour</div>
+                    <div class="stat-number">$17-22/hr</div>
+                    <div class="stat-label">Starting Pay</div>
                 </div>
                 <div class="hero-stat-apply">
                     <div class="stat-number">Flexible</div>
@@ -708,31 +698,24 @@
                 <!-- STEP 1: ROLE SELECTION & LEAD CAPTURE -->
                 <div class="form-section active" data-step="1">
                     <div class="step-indicator">
-                        <div class="step-number">1</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">2</div>
-                        <div class="step-bar"></div>
-                        <div class="step-number">3</div>
-                        <div class="step-bar"></div>
-                        <div class="step-number">4</div>
-                        <div class="step-bar"></div>
-                        <div class="step-number">5</div>
+                        <div class="step-text">Step 1 of 5</div>
+                        <div class="step-progress-bar"><div class="step-progress-fill" style="width: 20%"></div></div>
                     </div>
 
-                    <h2 class="section-title">Which role interests you?</h2>
-                    <p class="section-subtitle">Tell us about yourself so we can find the right fit.</p>
+                    <h2 class="section-title">Let's start with the basics</h2>
+                    <p class="section-subtitle">Takes about 5 minutes. Your info stays private and secure.</p>
 
                     <div class="form-group">
                         <div class="role-cards">
                             <div class="role-card" data-role="homemaker">
                                 <div class="role-card-icon">🏠</div>
                                 <div class="role-card-title">Homemaker</div>
-                                <div class="role-card-desc">Light housekeeping, meal prep, errands</div>
+                                <div class="role-card-desc">Care for a loved one & get paid</div>
                             </div>
                             <div class="role-card" data-role="cna">
                                 <div class="role-card-icon">💊</div>
-                                <div class="role-card-title">CNA (Certified Nursing Assistant)</div>
-                                <div class="role-card-desc">Personal care, medical support</div>
+                                <div class="role-card-title">CNA</div>
+                                <div class="role-card-desc">Use your certification to help others</div>
                             </div>
                         </div>
                         <input type="hidden" id="roleInput" name="role" value="">
@@ -782,15 +765,8 @@
                 <!-- STEP 2: QUICK QUALIFIERS -->
                 <div class="form-section" data-step="2">
                     <div class="step-indicator">
-                        <div class="step-number">1</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">2</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">3</div>
-                        <div class="step-bar"></div>
-                        <div class="step-number">4</div>
-                        <div class="step-bar"></div>
-                        <div class="step-number">5</div>
+                        <div class="step-text">Step 2 of 5</div>
+                        <div class="step-progress-bar"><div class="step-progress-fill" style="width: 40%"></div></div>
                     </div>
 
                     <h2 class="section-title">Tell us about your availability</h2>
@@ -889,15 +865,8 @@
                 <!-- STEP 3: ABOUT YOU -->
                 <div class="form-section" data-step="3">
                     <div class="step-indicator">
-                        <div class="step-number">1</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">2</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">3</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">4</div>
-                        <div class="step-bar"></div>
-                        <div class="step-number">5</div>
+                        <div class="step-text">Step 3 of 5</div>
+                        <div class="step-progress-bar"><div class="step-progress-fill" style="width: 60%"></div></div>
                     </div>
 
                     <h2 class="section-title">Tell us about yourself</h2>
@@ -1050,15 +1019,8 @@
                 <!-- STEP 4: EXPERIENCE & EDUCATION -->
                 <div class="form-section" data-step="4">
                     <div class="step-indicator">
-                        <div class="step-number">1</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">2</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">3</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">4</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">5</div>
+                        <div class="step-text">Step 4 of 5</div>
+                        <div class="step-progress-bar"><div class="step-progress-fill" style="width: 80%"></div></div>
                     </div>
 
                     <h2 class="section-title">Your experience & education</h2>
@@ -1149,16 +1111,8 @@
                 <!-- STEP 5: REVIEW & SUBMIT -->
                 <div class="form-section" data-step="5">
                     <div class="step-indicator">
-                        <div class="step-number">1</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">2</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">3</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">4</div>
-                        <div class="step-bar active"></div>
-                        <div class="step-number">5</div>
-                        <div class="step-bar active"></div>
+                        <div class="step-text">Step 5 of 5</div>
+                        <div class="step-progress-bar"><div class="step-progress-fill" style="width: 100%"></div></div>
                     </div>
 
                     <h2 class="section-title">Review & Confirm</h2>
@@ -1305,12 +1259,12 @@
         // Hero data for role-specific copy
         const heroData = {
             homemaker: {
-                title: 'Join Our Homemaker Team',
-                subtitle: 'Help seniors live independently at home while earning competitive pay and flexible hours.'
+                title: 'Get Paid to Care for Your Aging Loved One',
+                subtitle: 'Already taking care of family? VitalTouch can help you turn that into a paying career. Flexible hours, real support.'
             },
             cna: {
-                title: 'Join Our CNA Team',
-                subtitle: 'Provide compassionate personal care while earning competitive pay and flexible scheduling.'
+                title: 'Your CNA Skills Deserve Real Pay and Support',
+                subtitle: 'Put your certification to work with clients who need you. Flexible hours, competitive pay, and a team that has your back.'
             }
         };
 
