@@ -675,6 +675,46 @@
   .urgent-detail { font-size: 12px; color: var(--text-light); margin-top: 2px; }
   .urgent-date { font-size: 11px; color: var(--text-lighter); margin-top: 4px; }
 
+  /* ===== ARCHIVE SUB-FILTERS ===== */
+  .archive-filters {
+    display: flex;
+    gap: 8px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .archive-filter-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    background: white;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.2s;
+  }
+  .archive-filter-btn.active {
+    background: var(--green-light);
+    border-color: var(--green);
+    color: var(--green-dark);
+  }
+  .archive-filter-btn:hover:not(.active) {
+    border-color: var(--text-lighter);
+    color: var(--text);
+  }
+  .archive-reason-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .reason-completed { background: #DBEAFE; color: #1E40AF; }
+  .reason-never-serviced { background: #F1F5F9; color: var(--text-light); }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     .header { padding: 12px 16px; }
@@ -731,6 +771,10 @@
       <div class="stat-value" id="statOnHold">0</div>
       <div class="stat-label">On Hold</div>
     </div>
+    <div class="stat-card" style="border-left: 3px solid var(--text-lighter);">
+      <div class="stat-value" id="statArchived" style="color:var(--text-light);">0</div>
+      <div class="stat-label">Archived</div>
+    </div>
   </div>
 
   <!-- Alerts -->
@@ -745,6 +789,7 @@
     <button class="tab" data-tab="overdue" onclick="switchTab('overdue')">Overdue</button>
     <button class="tab" data-tab="incidents" onclick="switchTab('incidents')">Incidents <span class="tab-count" id="tabIncidentCount">0</span></button>
     <button class="tab" data-tab="urgent" onclick="switchTab('urgent')">Urgent <span class="tab-count" id="tabUrgentCount" style="background:#FEE2E2;color:#991B1B;">0</span></button>
+    <button class="tab" data-tab="archived" onclick="switchTab('archived')">Archived <span class="tab-count" id="tabArchivedCount" style="background:#F1F5F9;color:var(--text-light);">0</span></button>
   </div>
 
   <!-- Client Table -->
@@ -811,6 +856,7 @@
   // ─────────────────────────────────────────
   let currentTab = 'all';
   let selectedFlowId = null;
+  let archiveSubFilter = 'all'; // 'all' | 'completed' | 'never_serviced'
 
   // ─────────────────────────────────────────
   // INIT
@@ -841,6 +887,7 @@
     document.getElementById('statApprovals').textContent = stats.pendingApprovals;
     document.getElementById('statOverdue').textContent = stats.overdueItems;
     document.getElementById('statOnHold').textContent = stats.onHold;
+    document.getElementById('statArchived').textContent = stats.archivedTotal || 0;
   }
 
   function renderAlerts() {
@@ -875,6 +922,10 @@
     }
     if (currentTab === 'urgent') {
       renderUrgentView();
+      return;
+    }
+    if (currentTab === 'archived') {
+      renderArchivedView();
       return;
     }
 
@@ -1018,6 +1069,143 @@
   }
 
   // ─────────────────────────────────────────
+  // ARCHIVED VIEW
+  // ─────────────────────────────────────────
+  function renderArchivedView() {
+    var reason = archiveSubFilter === 'all' ? undefined : archiveSubFilter;
+    var flows = VTFlow.getArchivedFlows(reason);
+    var search = document.getElementById('searchInput').value.toLowerCase();
+
+    if (search) {
+      flows = flows.filter(function (f) {
+        return (f.entity.firstName + ' ' + f.entity.lastName).toLowerCase().indexOf(search) !== -1;
+      });
+    }
+
+    // Sub-filter bar
+    var stats = VTFlow.getDashboardStats();
+    var filterHtml = '<div class="archive-filters">'
+      + '<button class="archive-filter-btn' + (archiveSubFilter === 'all' ? ' active' : '') + '" onclick="setArchiveFilter(\'all\')">All Archived (' + (stats.archivedTotal || 0) + ')</button>'
+      + '<button class="archive-filter-btn' + (archiveSubFilter === 'completed' ? ' active' : '') + '" onclick="setArchiveFilter(\'completed\')">Completed Service (' + (stats.archivedCompleted || 0) + ')</button>'
+      + '<button class="archive-filter-btn' + (archiveSubFilter === 'never_serviced' ? ' active' : '') + '" onclick="setArchiveFilter(\'never_serviced\')">Never Serviced (' + (stats.archivedNeverServiced || 0) + ')</button>'
+      + '</div>';
+
+    if (flows.length === 0) {
+      document.getElementById('tableBody').innerHTML = filterHtml
+        + '<div class="empty-state">'
+        + '<div class="empty-state-icon">🗄</div>'
+        + '<h3>No archived clients</h3>'
+        + '<p>Archived clients will appear here. Use the archive button from a client\'s detail panel.</p>'
+        + '</div>';
+      return;
+    }
+
+    // Sort newest archived first
+    flows.sort(function (a, b) {
+      return (b.archivedAt || b.updatedAt || '').localeCompare(a.archivedAt || a.updatedAt || '');
+    });
+
+    var html = filterHtml + '<table><thead><tr>'
+      + '<th>Client</th>'
+      + '<th>Category</th>'
+      + '<th>Phase When Archived</th>'
+      + '<th>Archived On</th>'
+      + '<th>Notes</th>'
+      + '<th>Action</th>'
+      + '</tr></thead><tbody>';
+
+    flows.forEach(function (f) {
+      var reasonTag = f.status === 'archived_completed'
+        ? '<span class="archive-reason-tag reason-completed">Completed Service</span>'
+        : '<span class="archive-reason-tag reason-never-serviced">Never Serviced</span>';
+
+      var phaseName = f._preArchivePhase || 'Unknown';
+      if (phaseName === 'onboarding') phaseName = 'Onboarding';
+      else if (phaseName === 'active') phaseName = 'Active';
+      else if (phaseName === 'exit') phaseName = 'Discharge';
+
+      var notes = f.archiveNotes || '—';
+      if (notes.length > 40) notes = notes.substring(0, 40) + '...';
+
+      html += '<tr>'
+        + '<td><span class="client-name" onclick="openDetail(\'' + f.flowId + '\')">'
+        + esc(f.entity.lastName) + ', ' + esc(f.entity.firstName) + '</span></td>'
+        + '<td>' + reasonTag + '</td>'
+        + '<td style="font-size:13px;">' + esc(phaseName) + '</td>'
+        + '<td style="font-size:13px; color:var(--text-light);">' + formatDate(f.archivedAt) + '</td>'
+        + '<td style="font-size:13px; color:var(--text-light);">' + esc(notes) + '</td>'
+        + '<td><button class="btn-sm btn-outline" style="font-size:12px;padding:6px 12px;" onclick="unarchiveClient(\'' + f.flowId + '\')">Restore</button></td>'
+        + '</tr>';
+    });
+
+    html += '</tbody></table>';
+    document.getElementById('tableBody').innerHTML = html;
+  }
+
+  function setArchiveFilter(filter) {
+    archiveSubFilter = filter;
+    renderTable();
+  }
+
+  function archiveClient(flowId) {
+    // Show archive modal
+    var flow = VTFlow.getFlow(flowId);
+    if (!flow) return;
+
+    var wasActive = flow.status === 'active' || flow.currentPhase === 'active';
+
+    var modalHtml = '<div id="archiveModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:400;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)this.remove()">'
+      + '<div style="background:white;border-radius:12px;padding:32px;width:480px;max-width:90%;box-shadow:0 12px 40px rgba(0,0,0,0.15);">'
+      + '<h3 style="font-size:18px;font-weight:800;margin-bottom:6px;">Archive Client</h3>'
+      + '<p style="font-size:14px;color:var(--text-light);margin-bottom:20px;">' + esc(flow.entity.firstName + ' ' + flow.entity.lastName) + ' will be moved to the archive.</p>'
+
+      + '<div style="margin-bottom:16px;">'
+      + '<label style="display:block;font-size:13px;font-weight:600;color:var(--text-light);margin-bottom:8px;">Archive Reason</label>'
+      + '<label style="display:flex;align-items:center;gap:10px;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;font-size:14px;" onclick="document.getElementById(\'archiveCompleted\').checked=true">'
+      + '<input type="radio" name="archiveReason" id="archiveCompleted" value="completed"' + (wasActive ? ' checked' : '') + '>'
+      + '<div><strong>Completed Service</strong><div style="font-size:12px;color:var(--text-light);">Client was served — service period ended normally.</div></div>'
+      + '</label>'
+      + '<label style="display:flex;align-items:center;gap:10px;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;" onclick="document.getElementById(\'archiveNever\').checked=true">'
+      + '<input type="radio" name="archiveReason" id="archiveNever" value="never_serviced"' + (!wasActive ? ' checked' : '') + '>'
+      + '<div><strong>Never Serviced</strong><div style="font-size:12px;color:var(--text-light);">Met but never started services — declined, ineligible, or unresponsive.</div></div>'
+      + '</label>'
+      + '</div>'
+
+      + '<div style="margin-bottom:20px;">'
+      + '<label style="display:block;font-size:13px;font-weight:600;color:var(--text-light);margin-bottom:4px;">Notes (optional)</label>'
+      + '<input type="text" id="archiveNotes" placeholder="e.g., Client declined services after initial assessment" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">'
+      + '</div>'
+
+      + '<div style="display:flex;gap:12px;justify-content:flex-end;">'
+      + '<button onclick="document.getElementById(\'archiveModal\').remove()" style="padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;border:1.5px solid var(--border);background:white;cursor:pointer;">Cancel</button>'
+      + '<button onclick="confirmArchive(\'' + flowId + '\')" style="padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;border:none;background:var(--text-light);color:white;cursor:pointer;">Archive Client</button>'
+      + '</div>'
+      + '</div></div>';
+
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+  }
+
+  function confirmArchive(flowId) {
+    var reason = document.querySelector('input[name="archiveReason"]:checked');
+    if (!reason) { alert('Please select an archive reason.'); return; }
+
+    var notes = document.getElementById('archiveNotes').value.trim();
+    VTFlow.archiveFlow(flowId, reason.value, notes);
+
+    var modal = document.getElementById('archiveModal');
+    if (modal) modal.remove();
+
+    closeDetailPanel();
+    renderDashboard();
+  }
+
+  function unarchiveClient(flowId) {
+    if (!confirm('Restore this client from archive? They will return to their previous status.')) return;
+    VTFlow.unarchiveFlow(flowId);
+    renderDashboard();
+  }
+
+  // ─────────────────────────────────────────
   // SUBMISSION DATA MODAL
   // ─────────────────────────────────────────
   function showSubmissionModal(data, title) {
@@ -1072,7 +1260,10 @@
         var oIds = VTFlow.getOverdueRecurring().map(function (o) { return o.flowId; });
         return VTFlow.getAllFlows('client').filter(function (f) { return oIds.indexOf(f.flowId) !== -1; });
       default:
-        return VTFlow.getAllFlows('client');
+        // "All" tab excludes archived clients
+        return VTFlow.getAllFlows('client').filter(function (f) {
+          return f.status !== 'archived_completed' && f.status !== 'archived_never_serviced';
+        });
     }
   }
 
@@ -1080,6 +1271,7 @@
     document.getElementById('tabApprovalCount').textContent = VTFlow.getPendingApprovals().length;
     document.getElementById('tabIncidentCount').textContent = VTFlow.getAllIncidents().length;
     document.getElementById('tabUrgentCount').textContent = VTFlow.getUrgentItems().length;
+    document.getElementById('tabArchivedCount').textContent = VTFlow.getArchivedFlows().length;
   }
 
   // ─────────────────────────────────────────
@@ -1119,12 +1311,23 @@
     html += '</div></div>';
 
     // Flow actions
-    html += '<div class="detail-section" style="display:flex; gap:8px;">';
+    html += '<div class="detail-section" style="display:flex; gap:8px; flex-wrap:wrap;">';
     if (flow.status === 'in_progress' || flow.status === 'active') {
       html += '<button class="btn-sm btn-outline" onclick="holdClient(\'' + flowId + '\')">Pause Flow</button>';
+      html += '<button class="btn-sm btn-outline" style="color:var(--text-light);border-color:var(--text-lighter);" onclick="archiveClient(\'' + flowId + '\')">Archive</button>';
     }
     if (flow.status === 'on_hold') {
       html += '<button class="btn-sm btn-green" onclick="resumeClient(\'' + flowId + '\')">Resume Flow</button>';
+      html += '<button class="btn-sm btn-outline" style="color:var(--text-light);border-color:var(--text-lighter);" onclick="archiveClient(\'' + flowId + '\')">Archive</button>';
+    }
+    if (flow.status === 'archived_completed' || flow.status === 'archived_never_serviced') {
+      var reasonLabel = flow.status === 'archived_completed' ? 'Completed Service' : 'Never Serviced';
+      html += '<div style="width:100%;margin-bottom:8px;padding:12px 16px;background:#F8FAFC;border:1px solid var(--border);border-radius:8px;font-size:13px;">';
+      html += '<strong style="color:var(--text-light);">Archived:</strong> ' + esc(reasonLabel);
+      if (flow.archiveNotes) html += ' — ' + esc(flow.archiveNotes);
+      html += '<br><span style="font-size:12px;color:var(--text-lighter);">Archived on ' + formatDate(flow.archivedAt) + '</span>';
+      html += '</div>';
+      html += '<button class="btn-sm btn-green" onclick="unarchiveClient(\'' + flowId + '\');openDetail(\'' + flowId + '\');">Restore from Archive</button>';
     }
     html += '</div>';
 
@@ -1376,7 +1579,7 @@
     document.querySelectorAll('.tab').forEach(function (t) {
       t.classList.toggle('active', t.dataset.tab === tab);
     });
-    var titles = { all: 'All Clients', onboarding: 'In Onboarding', active: 'Active Clients', approvals: 'Pending Approvals', overdue: 'Overdue Items' };
+    var titles = { all: 'All Clients', onboarding: 'In Onboarding', active: 'Active Clients', approvals: 'Pending Approvals', overdue: 'Overdue Items', archived: 'Archived Clients', incidents: 'Incident Reports', urgent: 'Urgent Items' };
     document.getElementById('tableTitle').textContent = titles[tab] || 'All Clients';
     renderTable();
   }
@@ -1410,7 +1613,9 @@
       'in_progress': '<span class="badge badge-blue"><span class="badge-dot"></span>Onboarding</span>',
       'active': '<span class="badge badge-green"><span class="badge-dot"></span>Active</span>',
       'on_hold': '<span class="badge badge-amber"><span class="badge-dot"></span>On Hold</span>',
-      'discharged': '<span class="badge badge-gray"><span class="badge-dot"></span>Discharged</span>'
+      'discharged': '<span class="badge badge-gray"><span class="badge-dot"></span>Discharged</span>',
+      'archived_completed': '<span class="badge badge-gray"><span class="badge-dot"></span>Archived — Completed</span>',
+      'archived_never_serviced': '<span class="badge badge-gray"><span class="badge-dot"></span>Archived — Never Serviced</span>'
     };
     return map[flow.status] || '<span class="badge badge-gray">' + flow.status + '</span>';
   }

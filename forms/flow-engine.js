@@ -206,7 +206,7 @@ const VTFlow = (function () {
         email: entity.email || '',
         medicaidNumber: entity.medicaidNumber || ''
       },
-      status: 'in_progress',       // in_progress | active | discharged | on_hold
+      status: 'in_progress',       // in_progress | active | discharged | on_hold | archived_completed | archived_never_serviced
       currentPhase: 'onboarding',
       currentStep: firstStepId,
       steps: steps,
@@ -413,6 +413,71 @@ const VTFlow = (function () {
     _dispatch('flow:resumed', { flowId: flowId });
   }
 
+  /**
+   * Archive a client flow
+   * @param {string} flowId
+   * @param {string} reason - 'completed' (we serviced them) | 'never_serviced' (met but never served)
+   * @param {string} [notes] - optional notes about why they're being archived
+   */
+  function archiveFlow(flowId, reason, notes) {
+    const db = loadAll();
+    const flow = db[flowId];
+    if (!flow) throw new Error('Flow not found: ' + flowId);
+
+    // Store previous status so we can restore if unarchived
+    flow._preArchiveStatus = flow.status;
+    flow._preArchivePhase = flow.currentPhase;
+
+    if (reason === 'completed') {
+      flow.status = 'archived_completed';
+    } else {
+      flow.status = 'archived_never_serviced';
+    }
+
+    flow.archivedAt = new Date().toISOString();
+    flow.archiveReason = reason;
+    flow.archiveNotes = notes || '';
+    flow.updatedAt = new Date().toISOString();
+
+    saveAll(db);
+    _dispatch('flow:archived', { flowId: flowId, reason: reason });
+    return flow;
+  }
+
+  /**
+   * Unarchive a client flow — restore to previous status
+   */
+  function unarchiveFlow(flowId) {
+    const db = loadAll();
+    const flow = db[flowId];
+    if (!flow) throw new Error('Flow not found: ' + flowId);
+
+    flow.status = flow._preArchiveStatus || 'in_progress';
+    flow.currentPhase = flow._preArchivePhase || flow.currentPhase;
+    delete flow._preArchiveStatus;
+    delete flow._preArchivePhase;
+    flow.archivedAt = null;
+    flow.archiveReason = null;
+    flow.archiveNotes = null;
+    flow.updatedAt = new Date().toISOString();
+
+    saveAll(db);
+    _dispatch('flow:unarchived', { flowId: flowId });
+    return flow;
+  }
+
+  /**
+   * Get all archived flows, optionally filtered by reason
+   * @param {string} [reason] - 'completed' | 'never_serviced' | omit for all archived
+   */
+  function getArchivedFlows(reason) {
+    return Object.values(loadAll()).filter(function (f) {
+      if (reason === 'completed') return f.status === 'archived_completed';
+      if (reason === 'never_serviced') return f.status === 'archived_never_serviced';
+      return f.status === 'archived_completed' || f.status === 'archived_never_serviced';
+    });
+  }
+
   // ──────────────────────────────────────────────
   // QUERY HELPERS
   // ──────────────────────────────────────────────
@@ -527,6 +592,9 @@ const VTFlow = (function () {
    */
   function getDashboardStats() {
     const flows = Object.values(loadAll());
+    var archived = flows.filter(function (f) {
+      return f.status === 'archived_completed' || f.status === 'archived_never_serviced';
+    });
     return {
       totalClients: flows.filter(function (f) { return f.flowType === 'client'; }).length,
       inOnboarding: flows.filter(function (f) { return f.status === 'in_progress'; }).length,
@@ -534,7 +602,10 @@ const VTFlow = (function () {
       onHold: flows.filter(function (f) { return f.status === 'on_hold'; }).length,
       discharged: flows.filter(function (f) { return f.status === 'discharged'; }).length,
       pendingApprovals: getPendingApprovals().length,
-      overdueItems: getOverdueRecurring().length
+      overdueItems: getOverdueRecurring().length,
+      archivedTotal: archived.length,
+      archivedCompleted: flows.filter(function (f) { return f.status === 'archived_completed'; }).length,
+      archivedNeverServiced: flows.filter(function (f) { return f.status === 'archived_never_serviced'; }).length
     };
   }
 
@@ -826,6 +897,8 @@ const VTFlow = (function () {
     recordAdHoc: recordAdHoc,
     holdFlow: holdFlow,
     resumeFlow: resumeFlow,
+    archiveFlow: archiveFlow,
+    unarchiveFlow: unarchiveFlow,
 
     // Queries
     getFlow: getFlow,
@@ -837,6 +910,7 @@ const VTFlow = (function () {
     getPendingApprovals: getPendingApprovals,
     getOverdueRecurring: getOverdueRecurring,
     getDashboardStats: getDashboardStats,
+    getArchivedFlows: getArchivedFlows,
 
     // Form integration
     handleFormSubmit: handleFormSubmit,

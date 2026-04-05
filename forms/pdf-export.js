@@ -184,201 +184,327 @@ const VTPdf = (function () {
   }
 
   // ──────────────────────────────────────────────
+  // EMBEDDED LOGO (logo-symbol.png base64)
+  // ──────────────────────────────────────────────
+  const LOGO_B64 = 'data:image/png;base64,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';
+
+  // ──────────────────────────────────────────────
+  // FIELD GROUPING
+  // Organizes flat form data into labeled sections
+  // ──────────────────────────────────────────────
+  const FIELD_GROUPS = [
+    { label: 'Personal Information', keys: ['firstName','lastName','dob','ssn','gender','maritalStatus','language'] },
+    { label: 'Contact Information', keys: ['address','city','state','zip','phone','email'] },
+    { label: 'Insurance & Payer', keys: ['primaryPayer','medicaidNumber','secondaryInsurance','caseManagerName','caseManagerPhone','referralSource','referralDate'] },
+    { label: 'Medical Information', keys: ['medicalConditions','medications','allergies','diagnosis'] },
+    { label: 'Emergency Contact', keys: ['emergencyContact','altEmergencyContact'] },
+    { label: 'Physician', keys: ['physicianName','physicianPhone','physician'] },
+    { label: 'Service Details', keys: ['serviceType','serviceFrequency','hoursPerWeek','startDate','endDate'] }
+  ];
+
+  // Keys to skip entirely in the PDF body (shown in header or internal)
+  const HEADER_KEYS = ['submissionId','submittedAt','formId','formName','_flowId','firstName','lastName'];
+
+  // ──────────────────────────────────────────────
   // DRAWING HELPERS
   // ──────────────────────────────────────────────
 
   function _drawHeader(doc, formTitle, formId, data, margin, contentW, pageW) {
-    var y = 0;
+    // ── GREEN HEADER BAR with gradient feel ──
+    // Main bar
+    doc.setFillColor(22, 163, 74);
+    doc.rect(0, 0, pageW, 38, 'F');
+    // Darker strip at bottom
+    doc.setFillColor(21, 128, 61);
+    doc.rect(0, 35, pageW, 3, 'F');
 
-    // Green header bar
-    doc.setFillColor.apply(doc, BRAND.green);
-    doc.rect(0, 0, pageW, 32, 'F');
+    // Logo
+    try {
+      doc.addImage(LOGO_B64, 'PNG', margin, 6, 26, 26);
+    } catch (e) { /* logo failed — continue without it */ }
 
-    // Company name
+    // Company name next to logo
+    var textX = margin + 30;
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(16);
-    doc.setTextColor.apply(doc, BRAND.white);
-    doc.text(BRAND.companyName, margin, 14);
+    doc.setFontSize(17);
+    doc.setTextColor(255, 255, 255);
+    doc.text('VitalTouch Health Network', textX, 17);
 
-    // Company info line
+    // Subtitle
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.text(BRAND.address + '  |  ' + BRAND.phone + '  |  ' + BRAND.website, margin, 22);
+    doc.setFontSize(8.5);
+    doc.setTextColor(220, 252, 231); // green-light
+    doc.text(BRAND.address + '   |   ' + BRAND.phone + '   |   ' + BRAND.website, textX, 25);
 
-    // Form title area
-    y = 40;
+    // ── CLIENT NAME — BIG AND PROMINENT ──
+    var clientFirst = data.firstName || data.clientFirstName || '';
+    var clientLast = data.lastName || data.clientLastName || '';
+    var clientFull = (clientFirst + ' ' + clientLast).trim() || 'Client Record';
+
+    var y = 52;
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(18);
-    doc.setTextColor.apply(doc, BRAND.text);
+    doc.setFontSize(24);
+    doc.setTextColor(30, 41, 59);
+    doc.text(clientFull, margin, y);
+
+    // ── FORM TITLE as subtitle ──
+    y += 9;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(13);
+    doc.setTextColor(22, 163, 74);
     doc.text(formTitle, margin, y);
 
-    // Form ID + submission info
-    y += 8;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor.apply(doc, BRAND.textLight);
+    // ── META INFO BADGES ──
+    y += 10;
+    var badges = [];
+    if (data.submissionId) badges.push('ID: ' + data.submissionId);
+    badges.push('Form: ' + formId);
+    if (data.submittedAt) badges.push('Date: ' + _formatDate(data.submittedAt));
 
-    var metaLine = 'Form: ' + formId;
-    if (data.submissionId) metaLine += '  |  Submission: ' + data.submissionId;
-    if (data.submittedAt) metaLine += '  |  Date: ' + _formatDate(data.submittedAt);
-    doc.text(metaLine, margin, y);
+    var badgeX = margin;
+    doc.setFontSize(8);
+    badges.forEach(function (badge) {
+      var tw = doc.getTextWidth(badge) + 8;
+      // Badge background
+      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(badgeX, y - 3.5, tw, 5.5, 1.5, 1.5, 'FD');
+      // Badge text
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(100, 116, 139);
+      doc.text(badge, badgeX + 4, y + 0.5);
+      badgeX += tw + 3;
+    });
 
-    // Divider line
-    y += 5;
-    doc.setDrawColor.apply(doc, BRAND.green);
-    doc.setLineWidth(0.8);
+    // ── GREEN DIVIDER ──
+    y += 9;
+    doc.setDrawColor(22, 163, 74);
+    doc.setLineWidth(0.6);
     doc.line(margin, y, margin + contentW, y);
 
-    y += 8;
+    y += 7;
     return y;
   }
 
   function _drawFormData(doc, data, margin, contentW, startY, pageH) {
     var y = startY;
-    var bottomMargin = 30; // reserve for footer
-    var lineHeight = 6;
-    var sectionGap = 4;
+    var bottomMargin = 24;
+    var rowH = 7;
+    var sectionPad = 5;
 
-    var fields = _flattenData(data);
+    // Build grouped fields
+    var sections = _groupFields(data);
 
-    for (var i = 0; i < fields.length; i++) {
-      var field = fields[i];
+    for (var s = 0; s < sections.length; s++) {
+      var section = sections[s];
+      if (section.fields.length === 0) continue;
 
-      // Skip excluded fields
-      if (EXCLUDE_FIELDS.indexOf(field.key) !== -1) continue;
-
-      // Check if we need a new page
-      if (y + lineHeight + 4 > pageH - bottomMargin) {
-        doc.addPage();
-        y = 20;
-      }
-
-      // Section headers (for nested objects like emergencyContact, physician)
-      if (field.isSection) {
-        y += sectionGap;
-        doc.setFillColor.apply(doc, BRAND.greenLight);
-        doc.roundedRect(margin, y - 4, contentW, 7, 1, 1, 'F');
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(10);
-        doc.setTextColor.apply(doc, BRAND.greenDark);
-        doc.text(field.label, margin + 3, y + 1);
-        y += 8;
-        continue;
-      }
-
-      // Field label
-      var label = FIELD_LABELS[field.key] || _humanize(field.key);
-      var value = field.value;
-
-      // Mask sensitive fields
-      if (SENSITIVE_FIELDS.indexOf(field.key) !== -1 && value) {
-        value = _maskSSN(value);
-      }
-
-      // Skip empty values
-      if (!value && value !== 0 && value !== false) continue;
-
-      // Format date values
-      if (field.key.toLowerCase().indexOf('date') !== -1 || field.key === 'submittedAt' || field.key === 'dob') {
-        value = _formatDate(value);
-      }
-
-      // Draw alternating row background
-      if (i % 2 === 0) {
-        doc.setFillColor.apply(doc, BRAND.bg);
-        doc.rect(margin, y - 4, contentW, lineHeight + 1, 'F');
-      }
-
-      // Label (left column)
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9);
-      doc.setTextColor.apply(doc, BRAND.textLight);
-      doc.text(label, margin + 2, y);
-
-      // Value (right column) — handle long text with wrapping
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9);
-      doc.setTextColor.apply(doc, BRAND.text);
-
-      var valueStr = String(value);
-      var labelColW = 55;
-      var valueColW = contentW - labelColW - 4;
-      var valueX = margin + labelColW;
-
-      if (valueStr.length > 60) {
-        // Wrap long text
-        var lines = doc.splitTextToSize(valueStr, valueColW);
-        doc.text(lines, valueX, y);
-        y += (lines.length - 1) * (lineHeight - 1);
-      } else {
-        doc.text(valueStr, valueX, y);
-      }
-
-      y += lineHeight;
-    }
-
-    // Signature indicator
-    if (data.clientSignature || data.witnessSignature || data.staffSignature || data.supervisorSignature) {
-      y += 6;
+      // Check space for section header + at least 2 rows
       if (y + 20 > pageH - bottomMargin) {
         doc.addPage();
-        y = 20;
+        y = 18;
       }
 
-      doc.setFillColor.apply(doc, BRAND.greenLight);
-      doc.roundedRect(margin, y - 4, contentW, 7, 1, 1, 'F');
+      // ── SECTION HEADER ──
+      y += sectionPad;
+      doc.setFillColor(22, 163, 74);
+      doc.roundedRect(margin, y - 4.5, contentW, 8, 2, 2, 'F');
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(10);
-      doc.setTextColor.apply(doc, BRAND.greenDark);
-      doc.text('Signatures', margin + 3, y + 1);
+      doc.setFontSize(9.5);
+      doc.setTextColor(255, 255, 255);
+      doc.text(section.label.toUpperCase(), margin + 5, y + 0.5);
+      y += 8;
+
+      // ── FIELD ROWS ──
+      for (var r = 0; r < section.fields.length; r++) {
+        var field = section.fields[r];
+
+        if (y + rowH + 2 > pageH - bottomMargin) {
+          doc.addPage();
+          y = 18;
+        }
+
+        // Alternating row bg
+        if (r % 2 === 0) {
+          doc.setFillColor(248, 250, 252);
+          doc.rect(margin, y - 4, contentW, rowH, 'F');
+        }
+
+        // Left border accent on every row
+        doc.setFillColor(220, 252, 231);
+        doc.rect(margin, y - 4, 1.5, rowH, 'F');
+
+        // Label
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8.5);
+        doc.setTextColor(100, 116, 139);
+        doc.text(field.label, margin + 5, y);
+
+        // Value
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.setTextColor(30, 41, 59);
+
+        var valStr = String(field.value);
+        var valX = margin + 58;
+        var valW = contentW - 60;
+
+        if (valStr.length > 55) {
+          var lines = doc.splitTextToSize(valStr, valW);
+          doc.text(lines, valX, y);
+          y += (lines.length - 1) * 5;
+        } else {
+          doc.text(valStr, valX, y);
+        }
+
+        y += rowH;
+      }
+
+      y += 2; // gap between sections
+    }
+
+    // ── SIGNATURES ──
+    var sigs = ['clientSignature','witnessSignature','staffSignature','supervisorSignature'];
+    var hasSigs = sigs.some(function (k) { return !!data[k]; });
+
+    if (hasSigs) {
+      if (y + 25 > pageH - bottomMargin) { doc.addPage(); y = 18; }
+
+      y += sectionPad;
+      doc.setFillColor(22, 163, 74);
+      doc.roundedRect(margin, y - 4.5, contentW, 8, 2, 2, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9.5);
+      doc.setTextColor(255, 255, 255);
+      doc.text('SIGNATURES', margin + 5, y + 0.5);
       y += 10;
 
       doc.setFont('helvetica', 'italic');
-      doc.setFontSize(9);
-      doc.setTextColor.apply(doc, BRAND.textLight);
-      doc.text('Digital signatures captured electronically at time of submission.', margin + 2, y);
-      y += lineHeight;
+      doc.setFontSize(8);
+      doc.setTextColor(100, 116, 139);
+      doc.text('Digital signatures captured electronically at time of submission.', margin + 5, y);
+      y += 6;
 
-      var sigs = ['clientSignature', 'witnessSignature', 'staffSignature', 'supervisorSignature'];
       sigs.forEach(function (sigKey) {
-        if (data[sigKey]) {
-          doc.setFont('helvetica', 'normal');
-          doc.setFontSize(9);
-          doc.setTextColor.apply(doc, BRAND.text);
-          var sigLabel = FIELD_LABELS[sigKey] || _humanize(sigKey);
-          doc.text(sigLabel + ':  [Signed electronically]', margin + 2, y);
-          y += lineHeight;
-        }
+        if (!data[sigKey]) return;
+        // Signature line
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8.5);
+        doc.setTextColor(100, 116, 139);
+        doc.text(FIELD_LABELS[sigKey] || _humanize(sigKey), margin + 5, y);
+
+        doc.setDrawColor(30, 41, 59);
+        doc.setLineWidth(0.3);
+        doc.line(margin + 58, y + 1, margin + contentW - 5, y + 1);
+
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(7);
+        doc.setTextColor(22, 163, 74);
+        doc.text('[Signed]', margin + 60, y);
+        y += 8;
       });
     }
 
     return y;
   }
 
+  /**
+   * Group flat data into labeled sections
+   */
+  function _groupFields(data) {
+    var sections = [];
+    var usedKeys = {};
+
+    // First, assign fields to predefined groups
+    FIELD_GROUPS.forEach(function (grp) {
+      var fields = [];
+      grp.keys.forEach(function (key) {
+        var val = data[key];
+        if (val === undefined || val === null || val === '') return;
+        if (HEADER_KEYS.indexOf(key) !== -1) return;
+        if (EXCLUDE_FIELDS.indexOf(key) !== -1) return;
+
+        if (typeof val === 'object' && !Array.isArray(val)) {
+          // Nested object — flatten into this section
+          Object.keys(val).forEach(function (subKey) {
+            if (val[subKey]) {
+              fields.push({ label: FIELD_LABELS[subKey] || _humanize(subKey), value: _formatFieldValue(subKey, val[subKey]) });
+            }
+          });
+        } else {
+          fields.push({ label: FIELD_LABELS[key] || _humanize(key), value: _formatFieldValue(key, val) });
+        }
+        usedKeys[key] = true;
+      });
+      if (fields.length > 0) sections.push({ label: grp.label, fields: fields });
+    });
+
+    // Remaining ungrouped fields go into "Additional Details"
+    var remaining = [];
+    Object.keys(data).forEach(function (key) {
+      if (usedKeys[key]) return;
+      if (HEADER_KEYS.indexOf(key) !== -1) return;
+      if (EXCLUDE_FIELDS.indexOf(key) !== -1) return;
+      if (key.indexOf('Signature') !== -1 || key.indexOf('signature') !== -1) return;
+
+      var val = data[key];
+      if (val === undefined || val === null || val === '') return;
+
+      if (typeof val === 'object' && !Array.isArray(val)) {
+        Object.keys(val).forEach(function (subKey) {
+          if (val[subKey]) {
+            remaining.push({ label: FIELD_LABELS[subKey] || _humanize(subKey), value: _formatFieldValue(subKey, val[subKey]) });
+          }
+        });
+      } else {
+        remaining.push({ label: FIELD_LABELS[key] || _humanize(key), value: _formatFieldValue(key, val) });
+      }
+    });
+    if (remaining.length > 0) sections.push({ label: 'Additional Details', fields: remaining });
+
+    return sections;
+  }
+
+  function _formatFieldValue(key, val) {
+    if (Array.isArray(val)) return val.join(', ');
+    if (SENSITIVE_FIELDS.indexOf(key) !== -1 && val) return _maskSSN(String(val));
+    var keyLower = key.toLowerCase();
+    if (keyLower.indexOf('date') !== -1 || key === 'submittedAt' || key === 'dob') return _formatDate(val);
+    return String(val);
+  }
+
   function _drawFooter(doc, pageNum, totalPages, margin, pageW, pageH) {
-    var footerY = pageH - 12;
+    var footerY = pageH - 14;
 
-    // Divider
-    doc.setDrawColor.apply(doc, BRAND.border);
+    // Green accent line
+    doc.setDrawColor(22, 163, 74);
+    doc.setLineWidth(0.5);
+    doc.line(margin, footerY - 2, margin + 40, footerY - 2);
+
+    // Gray line rest of the way
+    doc.setDrawColor(226, 232, 240);
     doc.setLineWidth(0.3);
-    doc.line(margin, footerY - 3, pageW - margin, footerY - 3);
+    doc.line(margin + 40, footerY - 2, pageW - margin, footerY - 2);
 
-    // Left: confidentiality notice
+    // Left: HIPAA notice
     doc.setFont('helvetica', 'italic');
-    doc.setFontSize(7);
-    doc.setTextColor.apply(doc, BRAND.textLight);
-    doc.text('CONFIDENTIAL — Protected Health Information (PHI) per HIPAA. Do not distribute without authorization.', margin, footerY);
+    doc.setFontSize(6.5);
+    doc.setTextColor(100, 116, 139);
+    doc.text('CONFIDENTIAL — Protected Health Information (PHI). Do not distribute without authorization.', margin, footerY + 2);
 
     // Right: page number
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    var pageText = 'Page ' + pageNum + ' of ' + totalPages;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(22, 163, 74);
+    var pageText = pageNum + ' / ' + totalPages;
     var tw = doc.getTextWidth(pageText);
-    doc.text(pageText, pageW - margin - tw, footerY);
+    doc.text(pageText, pageW - margin - tw, footerY + 2);
 
-    // Bottom line: company
-    doc.setFontSize(7);
-    doc.text(BRAND.companyName + '  |  Generated ' + new Date().toLocaleDateString('en-US'), margin, footerY + 4);
+    // Bottom: branding
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(6);
+    doc.setTextColor(148, 163, 184);
+    doc.text(BRAND.companyName + '  |  ' + BRAND.website + '  |  Generated ' + new Date().toLocaleDateString('en-US'), margin, footerY + 6);
   }
 
   // ──────────────────────────────────────────────
@@ -430,7 +556,14 @@ const VTPdf = (function () {
   function _formatDate(val) {
     if (!val) return '';
     try {
-      var d = new Date(val);
+      var d;
+      // If date-only string (YYYY-MM-DD), parse as local to avoid timezone shift
+      if (/^\d{4}-\d{2}-\d{2}$/.test(val)) {
+        var parts = val.split('-');
+        d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+      } else {
+        d = new Date(val);
+      }
       if (isNaN(d.getTime())) return val;
       return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
     } catch (e) {
