@@ -738,7 +738,7 @@
     <span id="pdfQueueBadge" style="font-size:12px;font-weight:600;color:var(--text-light);cursor:pointer;" onclick="showPdfQueue()" title="PDFs saved locally for future OneDrive upload"></span>
     <span id="onedrive-status">○ OneDrive Not Set Up</span>
     <button class="btn-sm btn-outline" id="btnOneDrive" onclick="handleOneDrive()">Connect OneDrive</button>
-    <button class="btn-sm btn-green" onclick="openNewClientModal()">+ New Client</button>
+    <button class="btn-sm btn-green" onclick="openNewClientModal()">+ New Lead</button>
   </div>
 </div>
 
@@ -748,16 +748,12 @@
   <!-- Stats Row -->
   <div class="stats-row" id="statsRow">
     <div class="stat-card stat-green">
-      <div class="stat-value" id="statTotal">0</div>
-      <div class="stat-label">Total Clients</div>
+      <div class="stat-value" id="statClients">0</div>
+      <div class="stat-label">Clients</div>
     </div>
     <div class="stat-card stat-blue">
-      <div class="stat-value" id="statOnboarding">0</div>
-      <div class="stat-label">In Onboarding</div>
-    </div>
-    <div class="stat-card stat-green">
-      <div class="stat-value" id="statActive">0</div>
-      <div class="stat-label">Active</div>
+      <div class="stat-value" id="statLeads">0</div>
+      <div class="stat-label">Leads</div>
     </div>
     <div class="stat-card stat-amber">
       <div class="stat-value" id="statApprovals">0</div>
@@ -782,9 +778,9 @@
 
   <!-- Tabs -->
   <div class="tab-bar">
-    <button class="tab active" data-tab="all" onclick="switchTab('all')">All Clients</button>
-    <button class="tab" data-tab="onboarding" onclick="switchTab('onboarding')">Onboarding</button>
-    <button class="tab" data-tab="active" onclick="switchTab('active')">Active</button>
+    <button class="tab active" data-tab="all" onclick="switchTab('all')">All</button>
+    <button class="tab" data-tab="leads" onclick="switchTab('leads')">Leads</button>
+    <button class="tab" data-tab="clients" onclick="switchTab('clients')">Clients</button>
     <button class="tab" data-tab="approvals" onclick="switchTab('approvals')">Approvals <span class="tab-count" id="tabApprovalCount">0</span></button>
     <button class="tab" data-tab="overdue" onclick="switchTab('overdue')">Overdue</button>
     <button class="tab" data-tab="incidents" onclick="switchTab('incidents')">Incidents <span class="tab-count" id="tabIncidentCount">0</span></button>
@@ -823,9 +819,9 @@
 <!-- ===== NEW CLIENT MODAL ===== -->
 <div class="modal-overlay" id="newClientModal" onclick="closeModalOverlay(event)">
   <div class="modal">
-    <h2>New Client Flow</h2>
+    <h2>New Lead</h2>
     <p style="font-size:14px; color:var(--text-light); margin-bottom:20px;">
-      Start a new client onboarding flow. This creates a tracked lifecycle from intake through active monitoring.
+      Start a new intake flow. This person becomes a lead until onboarding completes, then converts to a client.
     </p>
     <div class="form-group">
       <label>First Name *</label>
@@ -845,7 +841,7 @@
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeNewClientModal()">Cancel</button>
-      <button class="btn-sm btn-green" onclick="createNewClient()">Create Flow &rarr;</button>
+      <button class="btn-sm btn-green" onclick="createNewClient()">Start Intake &rarr;</button>
     </div>
   </div>
 </div>
@@ -881,9 +877,8 @@
 
   function renderStats() {
     var stats = VTFlow.getDashboardStats();
-    document.getElementById('statTotal').textContent = stats.totalClients;
-    document.getElementById('statOnboarding').textContent = stats.inOnboarding;
-    document.getElementById('statActive').textContent = stats.active;
+    document.getElementById('statClients').textContent = stats.clients;
+    document.getElementById('statLeads').textContent = stats.leads;
     document.getElementById('statApprovals').textContent = stats.pendingApprovals;
     document.getElementById('statOverdue').textContent = stats.overdueItems;
     document.getElementById('statOnHold').textContent = stats.onHold;
@@ -942,16 +937,16 @@
       document.getElementById('tableBody').innerHTML =
         '<div class="empty-state">'
         + '<div class="empty-state-icon">📋</div>'
-        + '<h3>No clients found</h3>'
-        + '<p>Click "+ New Client" to start a client onboarding flow.</p>'
-        + '<button class="btn-sm btn-green" onclick="openNewClientModal()">+ New Client</button>'
+        + '<h3>No records found</h3>'
+        + '<p>Click "+ New Lead" to start a new intake flow.</p>'
+        + '<button class="btn-sm btn-green" onclick="openNewClientModal()">+ New Lead</button>'
         + '</div>';
       return;
     }
 
     var html = '<table><thead><tr>'
-      + '<th>Client</th>'
-      + '<th>Status</th>'
+      + '<th>Name</th>'
+      + '<th>Type</th>'
       + '<th>Current Step</th>'
       + '<th>Progress</th>'
       + '<th>Last Updated</th>'
@@ -1003,7 +998,7 @@
 
     var html = '<table><thead><tr>'
       + '<th>Date</th>'
-      + '<th>Client</th>'
+      + '<th>Name</th>'
       + '<th>Submission ID</th>'
       + '<th>Details</th>'
       + '<th>Action</th>'
@@ -1106,7 +1101,7 @@
     });
 
     var html = filterHtml + '<table><thead><tr>'
-      + '<th>Client</th>'
+      + '<th>Name</th>'
       + '<th>Category</th>'
       + '<th>Phase When Archived</th>'
       + '<th>Archived On</th>'
@@ -1248,22 +1243,24 @@
   }
 
   function getFilteredFlows() {
+    var nonArchived = VTFlow.getAllFlows('client').filter(function (f) {
+      return f.status !== 'archived_completed' && f.status !== 'archived_never_serviced';
+    });
     switch (currentTab) {
-      case 'onboarding':
-        return VTFlow.getFlowsByStatus('in_progress');
-      case 'active':
-        return VTFlow.getFlowsByStatus('active');
+      case 'leads':
+        // Leads = still in onboarding, never became active
+        return nonArchived.filter(function (f) { return f.status === 'in_progress'; });
+      case 'clients':
+        // Clients = made it to active (active, on_hold, discharged)
+        return nonArchived.filter(function (f) { return f.status === 'active' || f.status === 'on_hold' || f.status === 'discharged'; });
       case 'approvals':
         var ids = VTFlow.getPendingApprovals().map(function (a) { return a.flowId; });
-        return VTFlow.getAllFlows('client').filter(function (f) { return ids.indexOf(f.flowId) !== -1; });
+        return nonArchived.filter(function (f) { return ids.indexOf(f.flowId) !== -1; });
       case 'overdue':
         var oIds = VTFlow.getOverdueRecurring().map(function (o) { return o.flowId; });
-        return VTFlow.getAllFlows('client').filter(function (f) { return oIds.indexOf(f.flowId) !== -1; });
+        return nonArchived.filter(function (f) { return oIds.indexOf(f.flowId) !== -1; });
       default:
-        // "All" tab excludes archived clients
-        return VTFlow.getAllFlows('client').filter(function (f) {
-          return f.status !== 'archived_completed' && f.status !== 'archived_never_serviced';
-        });
+        return nonArchived;
     }
   }
 
@@ -1579,7 +1576,7 @@
     document.querySelectorAll('.tab').forEach(function (t) {
       t.classList.toggle('active', t.dataset.tab === tab);
     });
-    var titles = { all: 'All Clients', onboarding: 'In Onboarding', active: 'Active Clients', approvals: 'Pending Approvals', overdue: 'Overdue Items', archived: 'Archived Clients', incidents: 'Incident Reports', urgent: 'Urgent Items' };
+    var titles = { all: 'All', leads: 'Leads', clients: 'Clients', approvals: 'Pending Approvals', overdue: 'Overdue Items', archived: 'Archived', incidents: 'Incident Reports', urgent: 'Urgent Items' };
     document.getElementById('tableTitle').textContent = titles[tab] || 'All Clients';
     renderTable();
   }
@@ -1610,8 +1607,8 @@
   // ─────────────────────────────────────────
   function getStatusBadge(flow) {
     var map = {
-      'in_progress': '<span class="badge badge-blue"><span class="badge-dot"></span>Onboarding</span>',
-      'active': '<span class="badge badge-green"><span class="badge-dot"></span>Active</span>',
+      'in_progress': '<span class="badge badge-blue"><span class="badge-dot"></span>Lead</span>',
+      'active': '<span class="badge badge-green"><span class="badge-dot"></span>Client</span>',
       'on_hold': '<span class="badge badge-amber"><span class="badge-dot"></span>On Hold</span>',
       'discharged': '<span class="badge badge-gray"><span class="badge-dot"></span>Discharged</span>',
       'archived_completed': '<span class="badge badge-gray"><span class="badge-dot"></span>Archived — Completed</span>',

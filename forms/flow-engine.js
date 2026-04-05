@@ -592,18 +592,30 @@ const VTFlow = (function () {
    */
   function getDashboardStats() {
     const flows = Object.values(loadAll());
-    var archived = flows.filter(function (f) {
-      return f.status === 'archived_completed' || f.status === 'archived_never_serviced';
+    var archivedStatuses = ['archived_completed', 'archived_never_serviced'];
+    var activeStatuses = ['active', 'on_hold', 'discharged'];
+
+    // "Clients" = anyone who made it to active phase or beyond (including archived_completed)
+    // "Leads" = still in onboarding, never reached active (including archived_never_serviced)
+    var clients = flows.filter(function (f) {
+      return activeStatuses.indexOf(f.status) !== -1 || f.status === 'archived_completed';
     });
+    var leads = flows.filter(function (f) {
+      return f.status === 'in_progress' || f.status === 'archived_never_serviced';
+    });
+
     return {
-      totalClients: flows.filter(function (f) { return f.flowType === 'client'; }).length,
-      inOnboarding: flows.filter(function (f) { return f.status === 'in_progress'; }).length,
+      // Top-line: active non-archived count
+      totalActive: flows.filter(function (f) { return archivedStatuses.indexOf(f.status) === -1; }).length,
+      clients: clients.filter(function (f) { return archivedStatuses.indexOf(f.status) === -1; }).length,
+      leads: leads.filter(function (f) { return archivedStatuses.indexOf(f.status) === -1; }).length,
       active: flows.filter(function (f) { return f.status === 'active'; }).length,
+      inOnboarding: flows.filter(function (f) { return f.status === 'in_progress'; }).length,
       onHold: flows.filter(function (f) { return f.status === 'on_hold'; }).length,
       discharged: flows.filter(function (f) { return f.status === 'discharged'; }).length,
       pendingApprovals: getPendingApprovals().length,
       overdueItems: getOverdueRecurring().length,
-      archivedTotal: archived.length,
+      archivedTotal: flows.filter(function (f) { return archivedStatuses.indexOf(f.status) !== -1; }).length,
       archivedCompleted: flows.filter(function (f) { return f.status === 'archived_completed'; }).length,
       archivedNeverServiced: flows.filter(function (f) { return f.status === 'archived_never_serviced'; }).length
     };
