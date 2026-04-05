@@ -599,6 +599,82 @@
     margin-bottom: 20px;
   }
 
+  /* ===== SUBMISSION VIEWER ===== */
+  .sub-viewer {
+    margin-top: 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .sub-viewer-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .sub-viewer-row:last-child { border-bottom: none; }
+  .sub-viewer-label {
+    font-weight: 600;
+    color: var(--text-light);
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+  .sub-viewer-value {
+    color: var(--text);
+    text-align: right;
+    word-break: break-word;
+  }
+  .sub-toggle {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green);
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 4px 0;
+    margin-top: 6px;
+  }
+  .sub-toggle:hover { text-decoration: underline; }
+
+  /* ===== INCIDENT TABLE ===== */
+  .incident-severity {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .severity-high { background: #FEE2E2; color: #991B1B; }
+  .severity-medium { background: #FEF3C7; color: #92400E; }
+  .severity-low { background: #DBEAFE; color: #1E40AF; }
+
+  /* ===== URGENT CARDS ===== */
+  .urgent-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--red);
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+  }
+  .urgent-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .urgent-card.type-approval { border-left-color: var(--amber); }
+  .urgent-card.type-on_hold { border-left-color: var(--purple); }
+  .urgent-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .urgent-content { flex: 1; }
+  .urgent-label { font-size: 14px; font-weight: 700; color: var(--text); }
+  .urgent-detail { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+  .urgent-date { font-size: 11px; color: var(--text-lighter); margin-top: 4px; }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     .header { padding: 12px 16px; }
@@ -667,6 +743,8 @@
     <button class="tab" data-tab="active" onclick="switchTab('active')">Active</button>
     <button class="tab" data-tab="approvals" onclick="switchTab('approvals')">Approvals <span class="tab-count" id="tabApprovalCount">0</span></button>
     <button class="tab" data-tab="overdue" onclick="switchTab('overdue')">Overdue</button>
+    <button class="tab" data-tab="incidents" onclick="switchTab('incidents')">Incidents <span class="tab-count" id="tabIncidentCount">0</span></button>
+    <button class="tab" data-tab="urgent" onclick="switchTab('urgent')">Urgent <span class="tab-count" id="tabUrgentCount" style="background:#FEE2E2;color:#991B1B;">0</span></button>
   </div>
 
   <!-- Client Table -->
@@ -790,6 +868,16 @@
   }
 
   function renderTable() {
+    // Special views for incidents and urgent tabs
+    if (currentTab === 'incidents') {
+      renderIncidentsView();
+      return;
+    }
+    if (currentTab === 'urgent') {
+      renderUrgentView();
+      return;
+    }
+
     var flows = getFilteredFlows();
     var search = document.getElementById('searchInput').value.toLowerCase();
 
@@ -846,6 +934,131 @@
     document.getElementById('tableBody').innerHTML = html;
   }
 
+  // ─────────────────────────────────────────
+  // INCIDENTS VIEW
+  // ─────────────────────────────────────────
+  function renderIncidentsView() {
+    var incidents = VTFlow.getAllIncidents();
+
+    if (incidents.length === 0) {
+      document.getElementById('tableBody').innerHTML =
+        '<div class="empty-state">'
+        + '<div class="empty-state-icon">✓</div>'
+        + '<h3>No incidents reported</h3>'
+        + '<p>Incident reports filed from client forms will appear here.</p>'
+        + '</div>';
+      return;
+    }
+
+    var html = '<table><thead><tr>'
+      + '<th>Date</th>'
+      + '<th>Client</th>'
+      + '<th>Submission ID</th>'
+      + '<th>Details</th>'
+      + '<th>Action</th>'
+      + '</tr></thead><tbody>';
+
+    incidents.forEach(function (inc) {
+      var summary = '';
+      if (inc.formData) {
+        summary = inc.formData.incidentType || inc.formData.description || inc.formData.incidentDescription || '';
+        if (summary.length > 80) summary = summary.substring(0, 80) + '...';
+      }
+
+      html += '<tr>'
+        + '<td style="font-size:13px;">' + formatDate(inc.submittedAt) + '</td>'
+        + '<td><span class="client-name" onclick="openDetail(\'' + inc.flowId + '\')">' + esc(inc.clientName) + '</span></td>'
+        + '<td style="font-size:12px; color:var(--text-lighter);">' + esc(inc.submissionId) + '</td>'
+        + '<td style="font-size:13px;">' + esc(summary) + '</td>'
+        + '<td><button class="sub-toggle" onclick="viewIncidentData(\'' + inc.flowId + '\',\'' + inc.submissionId + '\')">View Details</button></td>'
+        + '</tr>';
+    });
+
+    html += '</tbody></table>';
+    document.getElementById('tableBody').innerHTML = html;
+  }
+
+  function viewIncidentData(flowId, submissionId) {
+    var flow = VTFlow.getFlow(flowId);
+    if (!flow) return;
+    var inc = flow.adHocSubmissions.find(function (s) { return s.submissionId === submissionId; });
+    if (!inc || !inc.formData) { alert('No data available for this incident.'); return; }
+    showSubmissionModal(inc.formData, 'Incident Report — ' + flow.entity.firstName + ' ' + flow.entity.lastName);
+  }
+
+  // ─────────────────────────────────────────
+  // URGENT VIEW
+  // ─────────────────────────────────────────
+  function renderUrgentView() {
+    var items = VTFlow.getUrgentItems();
+
+    if (items.length === 0) {
+      document.getElementById('tableBody').innerHTML =
+        '<div class="empty-state">'
+        + '<div class="empty-state-icon">✓</div>'
+        + '<h3>Nothing urgent</h3>'
+        + '<p>All approvals are current and no items are overdue.</p>'
+        + '</div>';
+      return;
+    }
+
+    var html = '';
+    items.forEach(function (item) {
+      html += '<div class="urgent-card type-' + item.type + '" onclick="openDetail(\'' + item.flowId + '\')">'
+        + '<span class="urgent-icon">' + item.icon + '</span>'
+        + '<div class="urgent-content">'
+        + '<div class="urgent-label">' + esc(item.label) + '</div>'
+        + '<div class="urgent-detail">' + esc(item.detail) + '</div>'
+        + '<div class="urgent-date">' + formatDate(item.date) + '</div>'
+        + '</div>'
+        + '</div>';
+    });
+
+    document.getElementById('tableBody').innerHTML = '<div style="padding:16px;">' + html + '</div>';
+  }
+
+  // ─────────────────────────────────────────
+  // SUBMISSION DATA MODAL
+  // ─────────────────────────────────────────
+  function showSubmissionModal(data, title) {
+    // Build modal content
+    var html = '<div style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:400;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)this.remove()">'
+      + '<div style="background:white;border-radius:12px;padding:28px;width:560px;max-width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,0.15);">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">'
+      + '<h3 style="font-size:16px;font-weight:800;">' + esc(title || 'Submission Data') + '</h3>'
+      + '<button onclick="this.closest(\'div[style*=fixed]\').remove()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-light);">&times;</button>'
+      + '</div>'
+      + '<div class="sub-viewer" style="max-height:none;">';
+
+    var keys = Object.keys(data);
+    keys.forEach(function (key) {
+      if (key === '_flowId') return;
+      var val = data[key];
+
+      if (val && typeof val === 'object' && !Array.isArray(val)) {
+        // Nested object — section
+        html += '<div style="padding:8px 0 4px;font-weight:700;color:var(--green-dark);font-size:12px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--green-light);margin-top:8px;">' + esc(humanizeKey(key)) + '</div>';
+        Object.keys(val).forEach(function (subKey) {
+          if (val[subKey]) {
+            html += '<div class="sub-viewer-row"><span class="sub-viewer-label">' + esc(humanizeKey(subKey)) + '</span><span class="sub-viewer-value">' + esc(String(val[subKey])) + '</span></div>';
+          }
+        });
+      } else if (val && val !== '') {
+        var displayVal = Array.isArray(val) ? val.join(', ') : String(val);
+        // Mask SSN
+        if (key === 'ssn' && displayVal.length > 4) displayVal = '***-**-' + displayVal.slice(-4);
+        html += '<div class="sub-viewer-row"><span class="sub-viewer-label">' + esc(humanizeKey(key)) + '</span><span class="sub-viewer-value">' + esc(displayVal) + '</span></div>';
+      }
+    });
+
+    html += '</div></div></div>';
+    document.body.insertAdjacentHTML('beforeend', html);
+  }
+
+  function humanizeKey(key) {
+    return key.replace(/([A-Z])/g, ' $1').replace(/[_-]/g, ' ').replace(/^\s+/, '').replace(/\b\w/g, function (c) { return c.toUpperCase(); }).trim();
+  }
+
   function getFilteredFlows() {
     switch (currentTab) {
       case 'onboarding':
@@ -865,6 +1078,8 @@
 
   function updateTabCounts() {
     document.getElementById('tabApprovalCount').textContent = VTFlow.getPendingApprovals().length;
+    document.getElementById('tabIncidentCount').textContent = VTFlow.getAllIncidents().length;
+    document.getElementById('tabUrgentCount').textContent = VTFlow.getUrgentItems().length;
   }
 
   // ─────────────────────────────────────────
@@ -882,13 +1097,21 @@
     var template = VTFlow.getTemplate(flow.flowType);
     var html = '';
 
-    // Client Info
+    // Client Info — pull from intake data if available
     html += '<div class="detail-section"><h3>Client Info</h3>';
     html += '<div style="font-size:14px; line-height:2;">';
     if (flow.entity.phone) html += '<div><strong>Phone:</strong> ' + esc(flow.entity.phone) + '</div>';
     if (flow.entity.email) html += '<div><strong>Email:</strong> ' + esc(flow.entity.email) + '</div>';
     if (flow.entity.medicaidNumber) html += '<div><strong>Medicaid #:</strong> ' + esc(flow.entity.medicaidNumber) + '</div>';
-    html += '<div><strong>Flow ID:</strong> ' + esc(flow.flowId) + '</div>';
+    // Show address from intake data
+    var intake = flow.steps.C11;
+    if (intake && intake.formData) {
+      var addr = [intake.formData.address, intake.formData.city, intake.formData.state, intake.formData.zip].filter(Boolean).join(', ');
+      if (addr) html += '<div><strong>Address:</strong> ' + esc(addr) + '</div>';
+      if (intake.formData.dob) html += '<div><strong>DOB:</strong> ' + esc(intake.formData.dob) + '</div>';
+      if (intake.formData.primaryPayer) html += '<div><strong>Payer:</strong> ' + esc(intake.formData.primaryPayer) + '</div>';
+    }
+    html += '<div><strong>Flow ID:</strong> <span style="font-size:12px;color:var(--text-lighter);">' + esc(flow.flowId) + '</span></div>';
     html += '<div><strong>Created:</strong> ' + formatDate(flow.createdAt) + '</div>';
     if (flow.oneDriveFolder) {
       html += '<div><strong>OneDrive:</strong> <a class="onedrive-link" href="#">' + esc(flow.oneDriveFolder) + '</a></div>';
@@ -952,6 +1175,13 @@
           html += '<div style="margin-top:6px; font-size:12px; color:var(--amber); font-weight:600;">' + esc(step.notes) + '</div>';
         }
 
+        // ── VIEW SUBMITTED DATA button ──
+        if (step.formData && (step.status === 'approved' || step.status === 'awaiting_approval')) {
+          var viewId = 'sub-' + stepDef.id + '-' + flowId.replace(/[^a-zA-Z0-9]/g, '');
+          html += '<button class="sub-toggle" onclick="toggleSubViewer(\'' + flowId + '\',\'' + stepDef.id + '\',\'' + viewId + '\')">View Submitted Data ▾</button>';
+          html += '<div id="' + viewId + '" style="display:none;"></div>';
+        }
+
         // Actions
         if (step.status === 'awaiting_approval') {
           html += '<div class="flow-step-actions">';
@@ -959,12 +1189,13 @@
           html += '<button class="btn-reject" onclick="rejectStep(\'' + flowId + '\',\'' + stepDef.id + '\')">Reject</button>';
           html += '</div>';
         } else if (step.status === 'pending' && flow.currentStep === stepDef.id) {
-          var formUrl = stepDef.file + '?flowId=' + encodeURIComponent(flowId);
+          // Use pre-filled URL with all client data
+          var formUrl = VTFlow.getFormUrl(flowId, stepDef.id) || (stepDef.file + '?flowId=' + encodeURIComponent(flowId));
           html += '<div class="flow-step-actions">';
           html += '<a class="btn-open-form" href="' + formUrl + '">Open Form →</a>';
           html += '</div>';
         } else if (stepDef.type === 'recurring' && flow.status === 'active') {
-          var recUrl = stepDef.file + '?flowId=' + encodeURIComponent(flowId);
+          var recUrl = VTFlow.getFormUrl(flowId, stepDef.id) || (stepDef.file + '?flowId=' + encodeURIComponent(flowId));
           html += '<div class="flow-step-actions">';
           html += '<a class="btn-open-form" href="' + recUrl + '">Log New Entry →</a>';
           html += '</div>';
@@ -976,25 +1207,75 @@
       html += '</div></div>'; // end flow-timeline, detail-section
     });
 
-    // Ad-hoc submissions (incidents)
+    // Ad-hoc submissions (incidents) — enhanced with view data
     if (flow.adHocSubmissions.length > 0) {
-      html += '<div class="detail-section"><h3>Incident Reports</h3>';
-      flow.adHocSubmissions.forEach(function (sub) {
-        html += '<div style="padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; font-size:13px;">';
-        html += '<strong>' + esc(sub.formId) + '</strong> — ' + formatDate(sub.submittedAt);
-        html += ' <span style="color:var(--text-lighter);">' + esc(sub.submissionId) + '</span>';
+      html += '<div class="detail-section"><h3>Incident Reports (' + flow.adHocSubmissions.length + ')</h3>';
+      flow.adHocSubmissions.forEach(function (sub, idx) {
+        var summary = '';
+        if (sub.formData) {
+          summary = sub.formData.incidentType || sub.formData.description || sub.formData.incidentDescription || '';
+          if (summary.length > 60) summary = summary.substring(0, 60) + '...';
+        }
+        html += '<div style="padding:12px; border:1px solid var(--border); border-left:3px solid var(--red); border-radius:0 8px 8px 0; margin-bottom:8px;">';
+        html += '<div style="font-size:13px;"><strong>Incident #' + (idx + 1) + '</strong> — ' + formatDate(sub.submittedAt) + '</div>';
+        if (summary) html += '<div style="font-size:12px; color:var(--text-light); margin-top:4px;">' + esc(summary) + '</div>';
+        html += '<div style="font-size:11px; color:var(--text-lighter); margin-top:2px;">' + esc(sub.submissionId) + '</div>';
+        if (sub.formData) {
+          html += '<button class="sub-toggle" onclick="viewIncidentData(\'' + flowId + '\',\'' + sub.submissionId + '\')">View Full Report ▾</button>';
+        }
         html += '</div>';
       });
       html += '</div>';
     }
 
-    // File incident button
+    // File incident button — with pre-fill
+    var incidentUrl = VTFlow.getFormUrl(flowId, 'C44') || ('C44_Incident_Report_Form.html?flowId=' + encodeURIComponent(flowId));
     html += '<div class="detail-section">';
-    html += '<a class="btn-open-form" href="C44_Incident_Report_Form.html?flowId=' + encodeURIComponent(flowId) + '">File Incident Report</a>';
+    html += '<a class="btn-open-form" href="' + incidentUrl + '">File Incident Report</a>';
     html += '</div>';
 
     document.getElementById('detailBody').innerHTML = html;
     document.getElementById('detailOverlay').classList.add('open');
+  }
+
+  // Toggle inline submission data viewer
+  function toggleSubViewer(flowId, stepId, viewId) {
+    var el = document.getElementById(viewId);
+    if (!el) return;
+
+    if (el.style.display !== 'none') {
+      el.style.display = 'none';
+      return;
+    }
+
+    var flow = VTFlow.getFlow(flowId);
+    if (!flow || !flow.steps[stepId] || !flow.steps[stepId].formData) return;
+
+    var data = flow.steps[stepId].formData;
+    var html = '<div class="sub-viewer">';
+    var keys = Object.keys(data);
+
+    keys.forEach(function (key) {
+      if (key === '_flowId' || key === 'formId' || key === 'formName') return;
+      var val = data[key];
+
+      if (val && typeof val === 'object' && !Array.isArray(val)) {
+        html += '<div style="padding:6px 0 2px;font-weight:700;color:var(--green-dark);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--green-light);margin-top:6px;">' + esc(humanizeKey(key)) + '</div>';
+        Object.keys(val).forEach(function (subKey) {
+          if (val[subKey]) {
+            html += '<div class="sub-viewer-row"><span class="sub-viewer-label">' + esc(humanizeKey(subKey)) + '</span><span class="sub-viewer-value">' + esc(String(val[subKey])) + '</span></div>';
+          }
+        });
+      } else if (val && val !== '') {
+        var displayVal = Array.isArray(val) ? val.join(', ') : String(val);
+        if (key === 'ssn' && displayVal.length > 4) displayVal = '***-**-' + displayVal.slice(-4);
+        html += '<div class="sub-viewer-row"><span class="sub-viewer-label">' + esc(humanizeKey(key)) + '</span><span class="sub-viewer-value">' + esc(displayVal) + '</span></div>';
+      }
+    });
+
+    html += '</div>';
+    el.innerHTML = html;
+    el.style.display = 'block';
   }
 
   function closeDetail(e) {

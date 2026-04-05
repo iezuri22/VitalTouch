@@ -680,7 +680,8 @@ const VTFlow = (function () {
   }
 
   /**
-   * Generate a pre-filled URL for the next step in a flow
+   * Generate a pre-filled URL for the next step in a flow.
+   * Passes all known client data as URL params for form pre-fill.
    */
   function getNextStepUrl(flowId) {
     const flow = getFlow(flowId);
@@ -689,8 +690,128 @@ const VTFlow = (function () {
     const template = _getStepTemplate(flow.flowType, flow.currentStep);
     if (!template) return null;
 
-    return template.file + '?flowId=' + encodeURIComponent(flowId) +
-      '&clientName=' + encodeURIComponent(flow.entity.firstName + ' ' + flow.entity.lastName);
+    return _buildFormUrl(template.file, flow);
+  }
+
+  /**
+   * Build a form URL with all client pre-fill params
+   */
+  function getFormUrl(flowId, stepId) {
+    const flow = getFlow(flowId);
+    if (!flow) return null;
+
+    const template = _getStepTemplate(flow.flowType, stepId);
+    if (!template) return null;
+
+    return _buildFormUrl(template.file, flow);
+  }
+
+  function _buildFormUrl(file, flow) {
+    var params = new URLSearchParams();
+    params.set('flowId', flow.flowId);
+
+    // Pass all known entity data for pre-fill
+    if (flow.entity.firstName) params.set('firstName', flow.entity.firstName);
+    if (flow.entity.lastName) params.set('lastName', flow.entity.lastName);
+    if (flow.entity.phone) params.set('phone', flow.entity.phone);
+    if (flow.entity.email) params.set('email', flow.entity.email);
+    if (flow.entity.medicaidNumber) params.set('medicaidNumber', flow.entity.medicaidNumber);
+
+    // Pull address from C11 intake data if available
+    var intake = flow.steps.C11;
+    if (intake && intake.formData) {
+      if (intake.formData.address) params.set('address', intake.formData.address);
+      if (intake.formData.city) params.set('city', intake.formData.city);
+      if (intake.formData.state) params.set('state', intake.formData.state);
+      if (intake.formData.zip) params.set('zip', intake.formData.zip);
+      if (intake.formData.dob) params.set('dob', intake.formData.dob);
+      if (intake.formData.language) params.set('language', intake.formData.language);
+      if (intake.formData.primaryPayer) params.set('primaryPayer', intake.formData.primaryPayer);
+      if (intake.formData.caseManagerName) params.set('caseManagerName', intake.formData.caseManagerName);
+      if (intake.formData.caseManagerPhone) params.set('caseManagerPhone', intake.formData.caseManagerPhone);
+    }
+
+    return file + '?' + params.toString();
+  }
+
+  /**
+   * Get all incidents across all flows
+   */
+  function getAllIncidents() {
+    var results = [];
+    var db = loadAll();
+
+    Object.values(db).forEach(function (flow) {
+      if (!flow.adHocSubmissions) return;
+      flow.adHocSubmissions.forEach(function (sub) {
+        results.push({
+          flowId: flow.flowId,
+          clientName: flow.entity.firstName + ' ' + flow.entity.lastName,
+          formId: sub.formId,
+          submissionId: sub.submissionId,
+          submittedAt: sub.submittedAt,
+          formData: sub.formData
+        });
+      });
+    });
+
+    // Sort newest first
+    results.sort(function (a, b) {
+      return (b.submittedAt || '').localeCompare(a.submittedAt || '');
+    });
+
+    return results;
+  }
+
+  /**
+   * Get all urgent items (pending approvals + overdue + on-hold flows)
+   */
+  function getUrgentItems() {
+    var items = [];
+
+    // Pending approvals
+    getPendingApprovals().forEach(function (a) {
+      items.push({
+        type: 'approval',
+        priority: 1,
+        flowId: a.flowId,
+        label: a.clientName + ' — ' + a.stepName,
+        detail: 'Awaiting ' + a.approvalLabel,
+        date: a.submittedAt,
+        icon: '⏳'
+      });
+    });
+
+    // Overdue recurring
+    getOverdueRecurring().forEach(function (o) {
+      items.push({
+        type: 'overdue',
+        priority: 0,
+        flowId: o.flowId,
+        label: o.clientName + ' — ' + o.stepName,
+        detail: 'Overdue since ' + o.dueDate,
+        date: o.dueDate,
+        icon: '🔴'
+      });
+    });
+
+    // On-hold flows
+    getFlowsByStatus('on_hold').forEach(function (f) {
+      items.push({
+        type: 'on_hold',
+        priority: 2,
+        flowId: f.flowId,
+        label: f.entity.firstName + ' ' + f.entity.lastName,
+        detail: 'Flow paused — needs attention',
+        date: f.updatedAt,
+        icon: '⏸'
+      });
+    });
+
+    // Sort by priority (0=overdue first, then approvals, then holds)
+    items.sort(function (a, b) { return a.priority - b.priority; });
+
+    return items;
   }
 
   // ──────────────────────────────────────────────
@@ -720,6 +841,9 @@ const VTFlow = (function () {
     // Form integration
     handleFormSubmit: handleFormSubmit,
     getNextStepUrl: getNextStepUrl,
+    getFormUrl: getFormUrl,
+    getAllIncidents: getAllIncidents,
+    getUrgentItems: getUrgentItems,
 
     // Events
     on: on,
