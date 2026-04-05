@@ -198,11 +198,21 @@ const VTOneDrive = (function () {
 
   /**
    * Upload a file to OneDrive
+   * Supports JSON objects, strings, and Blob/File (for PDFs)
    */
   function _uploadFile(folderPath, fileName, content) {
     var filePath = folderPath + '/' + fileName;
 
     return _getToken().then(function (token) {
+      var contentType = 'application/json';
+      var body = typeof content === 'string' ? content : JSON.stringify(content, null, 2);
+
+      // Handle Blob/File (PDF uploads)
+      if (content instanceof Blob) {
+        contentType = content.type || 'application/pdf';
+        body = content;
+      }
+
       return fetch(
         'https://graph.microsoft.com/v1.0/me/drive/root:/' +
         encodeURIComponent(filePath) + ':/content',
@@ -210,9 +220,9 @@ const VTOneDrive = (function () {
           method: 'PUT',
           headers: {
             'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
+            'Content-Type': contentType
           },
-          body: typeof content === 'string' ? content : JSON.stringify(content, null, 2)
+          body: body
         }
       );
     }).then(function (resp) {
@@ -226,7 +236,7 @@ const VTOneDrive = (function () {
 
   /**
    * Called by flow-engine after form submission
-   * Saves the form data as a JSON file in the correct OneDrive folder
+   * Saves both JSON data and PDF (if available) to OneDrive
    */
   function syncSubmission(flow, stepId, submissionData) {
     if (!isReady) {
@@ -241,13 +251,16 @@ const VTOneDrive = (function () {
     var subFolder = _getSubFolder(flow, stepId);
     var folderPath = CONFIG.rootFolder + '/' + typeFolder + '/' + entityName + '/' + subFolder;
 
-    // Build file name
+    // Build file names
     var dateStr = new Date().toISOString().split('T')[0];
-    var fileName = stepId + '_' + _getStepName(flow.flowType, stepId).replace(/\s+/g, '_') + '_' + dateStr + '.json';
+    var stepName = _getStepName(flow.flowType, stepId).replace(/\s+/g, '_');
+    var jsonFileName = stepId + '_' + stepName + '_' + dateStr + '.json';
+    var pdfFileName = stepId + '_' + stepName + '_' + entityName.replace(/,\s*/g, '_') + '_' + dateStr + '.pdf';
 
     return _ensureFolder(folderPath)
       .then(function () {
-        return _uploadFile(folderPath, fileName, submissionData);
+        // Upload JSON
+        return _uploadFile(folderPath, jsonFileName, submissionData);
       })
       .then(function (result) {
         // Update flow with OneDrive path
@@ -259,8 +272,23 @@ const VTOneDrive = (function () {
             localStorage.setItem('vt_flows', JSON.stringify(db));
           }
         }
-        console.log('VTOneDrive: Synced ' + fileName + ' to ' + folderPath);
-        _dispatch('sync:success', { flowId: flow.flowId, stepId: stepId, path: folderPath + '/' + fileName });
+        console.log('VTOneDrive: Synced JSON ' + jsonFileName + ' to ' + folderPath);
+
+        // Also upload PDF if available in IndexedDB queue
+        if (typeof VTPdf !== 'undefined') {
+          return VTPdf.getBlob(pdfFileName).then(function (blob) {
+            if (blob) {
+              return _uploadFile(folderPath, pdfFileName, blob).then(function () {
+                console.log('VTOneDrive: Synced PDF ' + pdfFileName);
+              });
+            }
+          }).catch(function () {
+            // PDF not found in queue — that's fine, JSON is the primary record
+          });
+        }
+      })
+      .then(function () {
+        _dispatch('sync:success', { flowId: flow.flowId, stepId: stepId, path: folderPath + '/' + jsonFileName });
         return true;
       })
       .catch(function (err) {

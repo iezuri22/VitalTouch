@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Client CRM — VitalTouch Health Network</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="flow-engine.js"></script>
+<script src="pdf-export.js"></script>
 <script src="onedrive-sync.js"></script>
 <!-- MSAL.js for OneDrive auth — uncomment after Azure AD setup -->
 <!-- <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script> -->
@@ -617,6 +619,7 @@
     <h1>Client <span>CRM</span></h1>
   </div>
   <div class="header-right">
+    <span id="pdfQueueBadge" style="font-size:12px;font-weight:600;color:var(--text-light);cursor:pointer;" onclick="showPdfQueue()" title="PDFs saved locally for future OneDrive upload"></span>
     <span id="onedrive-status">○ OneDrive Not Set Up</span>
     <button class="btn-sm btn-outline" id="btnOneDrive" onclick="handleOneDrive()">Connect OneDrive</button>
     <button class="btn-sm btn-green" onclick="openNewClientModal()">+ New Client</button>
@@ -1154,6 +1157,42 @@
     div.textContent = str;
     return div.innerHTML;
   }
+
+  // ─────────────────────────────────────────
+  // PDF QUEUE
+  // ─────────────────────────────────────────
+  function updatePdfQueueBadge() {
+    if (typeof VTPdf === 'undefined') return;
+    var queue = VTPdf.getQueue();
+    var pending = queue.filter(function (q) { return !q.uploaded; }).length;
+    var badge = document.getElementById('pdfQueueBadge');
+    if (pending > 0) {
+      badge.textContent = '📄 ' + pending + ' PDF' + (pending > 1 ? 's' : '') + ' saved locally';
+      badge.style.color = 'var(--blue)';
+    } else {
+      badge.textContent = '';
+    }
+  }
+
+  function showPdfQueue() {
+    if (typeof VTPdf === 'undefined') return;
+    var queue = VTPdf.getQueue();
+    if (queue.length === 0) {
+      alert('No PDFs in queue. PDFs are generated when forms are submitted.');
+      return;
+    }
+    var msg = 'PDF Queue (' + queue.length + ' files):\n\n';
+    queue.forEach(function (q, i) {
+      msg += (i + 1) + '. ' + q.fileName + (q.uploaded ? ' ✓ uploaded' : ' ○ local only') + '\n';
+    });
+    msg += '\nThese PDFs were auto-downloaded to your computer on submit.';
+    msg += '\nWhen OneDrive is connected, click "Upload to OneDrive" to sync them all.';
+    alert(msg);
+  }
+
+  // Update badge on load and periodically
+  setInterval(updatePdfQueueBadge, 5000);
+  setTimeout(updatePdfQueueBadge, 500);
 </script>
 </body>
 </html>
