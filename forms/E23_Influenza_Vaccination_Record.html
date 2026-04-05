@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Influenza Vaccination Record — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #3B82F6;
+    --blue-dark: #1E40AF;
+    --blue-light: #EFF6FF;
+    --blue-glow: rgba(59,130,246,0.15);
+    --amber: #FEF3C7;
+    --amber-dark: #92400E;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--blue);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM CONTENT ===== */
+  .form-content {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  .form-content.hidden { display: none; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--blue);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--blue); color: var(--blue); background: var(--white); }
+  .pill input:checked + span {
+    background: #F0F4FF; border-color: #93A3C4;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* Pill with description */
+  .pill-desc {
+    position: relative; cursor: pointer;
+    display: block; width: 100%;
+  }
+  .pill-desc input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill-desc .pill-card {
+    display: block; padding: 14px 20px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill-desc:hover .pill-card { border-color: var(--blue); background: var(--white); }
+  .pill-desc input:checked + .pill-card {
+    background: var(--white); border-color: var(--blue);
+  }
+  .pill-card strong {
+    font-size: 16px; font-weight: 700; color: #1a1a1a;
+    display: block; margin-bottom: 2px;
+  }
+  .pill-desc input:checked + .pill-card strong { color: var(--text); }
+  .pill-card .pill-sub {
+    font-size: 14px; color: #6b7280; line-height: 1.4;
+  }
+  .pill-desc input:checked + .pill-card .pill-sub { color: var(--text-light); }
+
+  /* ===== CHECKBOX ===== */
+  .check-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 12px 14px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); margin-bottom: 10px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .check-item:hover { border-color: var(--blue); background: var(--white); }
+  .check-item.checked { border-color: var(--blue); background: var(--white); }
+  .check-item input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--blue); cursor: pointer; flex-shrink: 0; }
+  .check-item label { font-size: 16px; cursor: pointer; line-height: 1.6; color: #1a1a1a; }
+
+  /* ===== AGREEMENT TEXT ===== */
+  .agreement-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 20px;
+    font-size: 15px; color: #374151; line-height: 1.8;
+    max-height: 300px; overflow-y: auto; margin-bottom: 20px;
+  }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--amber); border: 1px solid #FCD34D;
+    border-radius: var(--radius-sm); padding: 16px 18px;
+    margin-bottom: 20px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 15px; color: var(--amber-dark);
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== DECLINATION CALLOUT ===== */
+  .declination-callout {
+    background: #FFFBEB; border: 1px solid #E5E7EB;
+    border-radius: 6px; padding: 20px;
+    margin-bottom: 20px; display: flex; gap: 16px;
+    align-items: flex-start;
+  }
+  .declination-monogram {
+    display: none;
+  }
+  .declination-content {
+    flex: 1;
+  }
+  .declination-content strong {
+    display: block; font-size: 16px; color: var(--amber-dark);
+    margin-bottom: 4px;
+  }
+  .declination-content p {
+    font-size: 15px; color: var(--amber-dark); line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ===== CONDITIONAL SECTIONS ===== */
+  .conditional { display: none; animation: fadeIn 0.35s ease; }
+  .conditional.visible { display: block; }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+  }
+  .sig-pad.signed { border-color: var(--blue); border-style: solid; }
+  .sig-actions {
+    display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end;
+  }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== SUBMIT BUTTON ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-next {
+    background: var(--blue); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+  }
+  .btn-next:hover {
+    background: var(--blue-dark);
+    box-shadow: 0 6px 20px rgba(59,130,246,0.35);
+  }
+  .btn-next:active { }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--blue);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--blue); text-decoration: none; }
+
+  /* ===== VACCINATION HISTORY TABLE ===== */
+  .vax-table {
+    width: 100%; border-collapse: collapse;
+    margin-bottom: 20px; background: white;
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .vax-table thead {
+    background: #F8FAFC; border-bottom: 2px solid var(--border);
+  }
+  .vax-table th {
+    padding: 14px 16px; text-align: left;
+    font-weight: 600; font-size: 15px;
+    color: #475569;
+  }
+  .vax-table td {
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .vax-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .vax-table tbody tr:hover {
+    background: var(--bg);
+  }
+  .vax-table input {
+    width: 100%; padding: 8px 12px;
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 15px; font-family: inherit;
+  }
+  .vax-table input:focus {
+    outline: none; border-color: var(--blue);
+    box-shadow: none;
+  }
+  .vax-btn {
+    display: inline-block; padding: 8px 16px;
+    background: var(--blue); color: white;
+    border: none; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; margin-top: 12px;
+    transition: all 0.2s;
+  }
+  .vax-btn:hover {
+    background: var(--blue-dark);
+  }
+  .vax-row-delete {
+    padding: 4px 8px; background: var(--red);
+    color: white; border: none; border-radius: 4px;
+    font-size: 12px; cursor: pointer; transition: all 0.2s;
+  }
+  .vax-row-delete:hover {
+    opacity: 0.8;
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-content { padding: 12px 16px; }
+    .confirmation { display: none !important; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .agreement-box { max-height: none; overflow: visible; }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .conditional.visible { display: block !important; }
+    .conditional { display: none !important; }
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-content { padding: 24px 20px 20px; }
+    .pills { flex-direction: column; }
+    .pill-desc { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Influenza Vaccination Record</h1>
+    <p>VitalTouch Health Network — Annual flu vaccination documentation</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- ===== FORM ===== -->
+    <div class="form-content" id="formContent">
+
+      <!-- EMPLOYEE INFORMATION -->
+      <div class="section-label">Employee Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Name <span class="req">*</span></label>
+          <input type="text" id="empName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Employee ID / Last 4 SSN</label>
+          <input type="text" id="empId" placeholder="e.g. 1234" maxlength="10">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" id="empDOB" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Date of Hire</label>
+          <input type="date" id="empHireDate">
+        </div>
+      </div>
+
+      <!-- FLU SEASON -->
+      <div class="section-label">Flu Season</div>
+
+      <div class="field">
+        <label>Flu Season Year <span class="req">*</span></label>
+        <select id="fluSeason" required>
+          <option value="">Select flu season...</option>
+          <option value="2025-2026">2025 – 2026</option>
+          <option value="2026-2027" selected>2026 – 2027</option>
+          <option value="2027-2028">2027 – 2028</option>
+        </select>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- VACCINATION STATUS -->
+      <div class="section-label">Vaccination Status</div>
+
+      <div class="field">
+        <label>Influenza Vaccination Status <span class="req">*</span></label>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
+          <label class="pill-desc">
+            <input type="radio" name="fluStatus" value="received" required>
+            <div class="pill-card">
+              <strong>Received</strong>
+              <div class="pill-sub">I have received the influenza vaccination for this season</div>
+            </div>
+          </label>
+          <label class="pill-desc">
+            <input type="radio" name="fluStatus" value="declined">
+            <div class="pill-card">
+              <strong>Declined</strong>
+              <div class="pill-sub">I decline the influenza vaccination for this season</div>
+            </div>
+          </label>
+        </div>
+        <div class="error-msg">Please select a vaccination status</div>
+      </div>
+
+      <!-- CONDITIONAL: RECEIVED — Vaccination Details -->
+      <div class="conditional" id="receivedSection">
+        <div class="section-label">Vaccination History</div>
+
+        <table class="vax-table">
+          <thead>
+            <tr>
+              <th>Year/Season</th>
+              <th>Date Received</th>
+              <th>Vaccine Type/Brand</th>
+              <th>Facility</th>
+              <th>Lot Number</th>
+            </tr>
+          </thead>
+          <tbody id="vaxTableBody">
+          </tbody>
+        </table>
+
+        <button type="button" class="vax-btn" onclick="addVaxRow()">Add Row</button>
+      </div>
+
+      <!-- CONDITIONAL: DECLINED — Reason & Declination -->
+      <div class="conditional" id="declinedSection">
+        <div class="declination-callout">
+          <div class="declination-monogram">DL</div>
+          <div class="declination-content">
+            <strong>Vaccine Declination Path</strong>
+            <p>You have chosen to decline the influenza vaccination. Please complete the reason below and acknowledge the declination statement.</p>
+          </div>
+        </div>
+
+        <div class="section-label">Reason for Declination</div>
+
+        <div class="field">
+          <label>Reason for Declination <span class="req">*</span></label>
+          <select id="declineReason">
+            <option value="">Select reason...</option>
+            <option value="medical">Medical Contraindication</option>
+            <option value="personal">Personal / Religious Beliefs</option>
+            <option value="allergy">Allergy to Vaccine Components</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="error-msg">Required when declining vaccination</div>
+        </div>
+
+        <div class="field conditional" id="otherReasonField">
+          <label>Please Specify <span class="req">*</span></label>
+          <input type="text" id="declineReasonOther" placeholder="Describe your reason">
+          <div class="error-msg">Required</div>
+        </div>
+
+        <div class="section-label">Declination Statement</div>
+
+        <div class="agreement-box">
+          I acknowledge that I have been offered the influenza vaccination for the current flu season and have chosen to decline. I understand that influenza is a serious respiratory illness that can result in hospitalization and death. I understand that by declining this vaccine, I may be putting myself, my clients, and others at risk. I agree to follow all infection control protocols, including wearing a mask during flu season when required by VitalTouch Health Network policy.
+        </div>
+
+        <div class="check-item" id="declineAckItem" onclick="toggleCheck(this)">
+          <input type="checkbox" id="declineAck">
+          <label>I have read and understand the above statement</label>
+        </div>
+      </div>
+
+      <!-- SIGNATURE -->
+      <div class="section-label">Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Printed Name <span class="req">*</span></label>
+          <input type="text" id="sig1Name" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" id="sig1Date" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Employee Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad1"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== CONFIRMATION ===== -->
+    <div class="form-content hidden" id="confirmationScreen">
+      <div class="confirmation">
+        <div class="conf-check">&#10003;</div>
+        <h2>Record Submitted</h2>
+        <p>Your Influenza Vaccination Record has been submitted and sent to <strong>Ifeanyi Ezurike, CEO</strong> at VitalTouch Health Network.</p>
+        <div class="conf-id">Submission ID: <span id="confId"></span></div>
+        <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-next" onclick="window.print()" style="background: var(--text); box-shadow: none;">&#128438; Print Copy</button>
+        </div>
+        <p style="margin-top: 20px; font-size: 13px; color: var(--text-lighter);">A notification has been sent to iezuri22@gmail.com.</p>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-next" id="btnSubmit" onclick="submitForm()">Sign &amp; Submit &#8594;</button>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">&#128274; HIPAA Compliant</div>
+      <div class="trust-item">&#127973; IDPH Licensed</div>
+      <div class="trust-item">&#128203; Form E.23</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== STATE =====
+const formId = 'E.23';
+const formVersion = '1.0';
+let sig1Signed = false;
+const sigPads = {};
+let vaxRowCount = 0;
+
+// ===== CONDITIONAL LOGIC: Vaccination Status =====
+document.querySelectorAll('input[name="fluStatus"]').forEach(radio => {
+  radio.addEventListener('change', function() {
+    const val = this.value;
+    const received = document.getElementById('receivedSection');
+    const declined = document.getElementById('declinedSection');
+
+    if (val === 'received') {
+      received.classList.add('visible');
+      declined.classList.remove('visible');
+    } else if (val === 'declined') {
+      received.classList.remove('visible');
+      declined.classList.add('visible');
+    }
+  });
+});
+
+// ===== CONDITIONAL LOGIC: Decline Reason "Other" =====
+document.getElementById('declineReason').addEventListener('change', function() {
+  const otherField = document.getElementById('otherReasonField');
+  if (this.value === 'other') {
+    otherField.classList.add('visible');
+  } else {
+    otherField.classList.remove('visible');
+  }
+});
+
+// ===== CHECKBOX TOGGLE =====
+function toggleCheck(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+}
+
+// ===== VACCINATION TABLE MANAGEMENT =====
+function addVaxRow() {
+  const tbody = document.getElementById('vaxTableBody');
+  const rowId = `vaxRow${vaxRowCount++}`;
+  const row = document.createElement('tr');
+  row.id = rowId;
+  row.innerHTML = `
+    <td><input type="text" class="vax-season" placeholder="e.g. 2026-2027" value=""></td>
+    <td><input type="date" class="vax-date"></td>
+    <td><input type="text" class="vax-brand" placeholder="e.g. Sanofi Pasteur"></td>
+    <td><input type="text" class="vax-facility" placeholder="Clinic/Hospital name"></td>
+    <td>
+      <div style="display: flex; gap: 4px;">
+        <input type="text" class="vax-lot" placeholder="Lot #" style="flex: 1;">
+        <button type="button" class="vax-row-delete" onclick="deleteVaxRow('${rowId}')">Delete</button>
+      </div>
+    </td>
+  `;
+  tbody.appendChild(row);
+}
+
+function deleteVaxRow(rowId) {
+  const row = document.getElementById(rowId);
+  if (row) row.remove();
+}
+
+function getVaxTableData() {
+  const rows = [];
+  document.querySelectorAll('#vaxTableBody tr').forEach(tr => {
+    const season = tr.querySelector('.vax-season').value;
+    const date = tr.querySelector('.vax-date').value;
+    const brand = tr.querySelector('.vax-brand').value;
+    const facility = tr.querySelector('.vax-facility').value;
+    const lot = tr.querySelector('.vax-lot').value;
+    if (season || date || brand || facility || lot) {
+      rows.push({ season, date, brand, facility, lot });
+    }
+  });
+  return rows;
+}
+
+// ===== VALIDATION =====
+function validateForm() {
+  let valid = true;
+  const content = document.getElementById('formContent');
+
+  // Clear all previous errors
+  content.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+  content.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));
+
+  // Required base fields
+  const requiredFields = ['empName', 'empDOB', 'fluSeason', 'sig1Name', 'sig1Date'];
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    const field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    }
+  });
+
+  // Required radio: fluStatus
+  const statusChecked = document.querySelector('input[name="fluStatus"]:checked');
+  if (!statusChecked) {
+    const statusField = document.querySelector('input[name="fluStatus"]').closest('.field');
+    if (statusField) statusField.classList.add('has-error');
+    valid = false;
+  } else {
+    // Conditional validation based on status
+    if (statusChecked.value === 'received') {
+      const vaxRows = getVaxTableData();
+      if (vaxRows.length === 0) {
+        alert('Please add at least one vaccination record.');
+        valid = false;
+      }
+    }
+
+    if (statusChecked.value === 'declined') {
+      // Decline reason required
+      const reason = document.getElementById('declineReason');
+      if (!reason.value) {
+        reason.classList.add('invalid');
+        reason.closest('.field').classList.add('has-error');
+        valid = false;
+      }
+
+      // If reason is "other", specify field required
+      if (reason.value === 'other') {
+        const otherText = document.getElementById('declineReasonOther');
+        if (!otherText.value.trim()) {
+          otherText.classList.add('invalid');
+          otherText.closest('.field').classList.add('has-error');
+          valid = false;
+        }
+      }
+
+      // Declination acknowledgment required
+      const ack = document.getElementById('declineAck');
+      if (!ack.checked) {
+        valid = false;
+        document.getElementById('declineAckItem').style.borderColor = 'var(--red)';
+      } else {
+        document.getElementById('declineAckItem').style.borderColor = '';
+      }
+    }
+  }
+
+  // Signature required
+  if (!sig1Signed) {
+    valid = false;
+    alert('Please sign in the signature box to continue.');
+    return false;
+  }
+
+  if (!valid) {
+    const firstError = content.querySelector('.invalid, .has-error input, .has-error select');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+// ===== SIGNATURE PAD =====
+function initSigPad(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    const pos = getPos(e);
+    lastX = pos.x;
+    lastY = pos.y;
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    ctx.lineTo(pos.x + 0.1, pos.y + 0.1);
+    ctx.stroke();
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
+    canvas.classList.add('signed');
+    if (id === 'sigPad1') sig1Signed = true;
+  }
+
+  function end(e) {
+    if (e) e.preventDefault();
+    drawing = false;
+  }
+
+  canvas.addEventListener('mousedown', start, { passive: false });
+  canvas.addEventListener('mousemove', draw, { passive: false });
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas, ctx, resize };
+  requestAnimationFrame(() => resize());
+  window.addEventListener('resize', () => resize());
+}
+
+function clearSig(n) {
+  const id = `sigPad${n}`;
+  const pad = sigPads[id];
+  if (pad) {
+    pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+    pad.resize();
+    pad.canvas.classList.remove('signed');
+    if (n === 1) sig1Signed = false;
+  }
+}
+
+// ===== SUBMIT =====
+function submitForm() {
+  if (!validateForm()) return;
+
+  const status = document.querySelector('input[name="fluStatus"]:checked').value;
+  const empName = document.getElementById('empName').value;
+  const season = document.getElementById('fluSeason').value;
+
+  const data = {
+    formId, formVersion,
+    timestamp: new Date().toISOString(),
+    employee: {
+      name: empName,
+      id: document.getElementById('empId').value,
+      dob: document.getElementById('empDOB').value,
+      hireDate: document.getElementById('empHireDate').value,
+    },
+    fluSeason: season,
+    vaccinationStatus: status,
+    vaccinationDetails: null,
+    declination: null,
+    signature: {
+      printedName: document.getElementById('sig1Name').value,
+      date: document.getElementById('sig1Date').value,
+      signatureData: document.getElementById('sigPad1').toDataURL(),
+    },
+  };
+
+  // Conditional data
+  if (status === 'received') {
+    data.vaccinationDetails = getVaxTableData();
+  }
+
+  if (status === 'declined') {
+    const reason = document.getElementById('declineReason').value;
+    data.declination = {
+      reason: reason,
+      reasonOther: reason === 'other' ? document.getElementById('declineReasonOther').value : null,
+      acknowledged: document.getElementById('declineAck').checked,
+    };
+  }
+
+  // Generate submission ID
+  const id = `E23-${Date.now().toString(36).toUpperCase()}`;
+  document.getElementById('confId').textContent = id;
+  data.submissionId = id;
+
+  // Store locally
+  const stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+  // Send email notification to CEO
+  const statusLabel = status === 'received' ? 'Received' : 'Declined';
+  const subject = encodeURIComponent(`[VitalTouch] Flu Vax Record — ${empName} (${id})`);
+  const emailBody = `An Influenza Vaccination Record has been submitted.\n\nEmployee: ${empName}\nEmployee ID: ${data.employee.id || 'N/A'}\nDOB: ${data.employee.dob}\nFlu Season: ${season}\nVaccination Status: ${statusLabel}\n` +
+    (status === 'received' ? `Vaccinations: ${data.vaccinationDetails.map(v => `${v.date} - ${v.brand}`).join('; ')}\n` : '') +
+    (status === 'declined' ? `Decline Reason: ${data.declination.reason}\n` : '') +
+    `Signed By: ${data.signature.printedName}\nDate: ${data.signature.date}\nSubmission ID: ${id}\n\nLog into the admin portal to review:\nhttps://vitaltouchcares.com/admin/`;
+
+  const mailLink = document.createElement('a');
+  const encodedBody = encodeURIComponent(emailBody);
+  mailLink.href = `mailto:iezuri22@gmail.com?subject=${subject}&body=${encodedBody}`;
+  mailLink.click();
+
+  // Show confirmation
+  document.getElementById('formContent').classList.add('hidden');
+  document.getElementById('confirmationScreen').classList.remove('hidden');
+  document.getElementById('formNav').style.display = 'none';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  console.log('Flu Vax Record submitted:', data);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  initSigPad('sigPad1');
+
+  // Set today's date as default
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('sig1Date').value = today;
+
+  // Initialize with one empty vaccination row
+  addVaxRow();
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

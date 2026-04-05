@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Civil Rights / Anti-Discrimination Acknowledgment — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --blue: #1E40AF;
+    --blue-light: #DBEAFE;
+    --indigo: #4338CA;
+    --indigo-light: #E0E7FF;
+    --amber: #92400E;
+    --amber-light: #FEF3C7;
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM CONTENT ===== */
+  .form-content {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--green); color: var(--green); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CHECKBOX (COMPLIANCE BLUE CARDS) ===== */
+  .check-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 16px 16px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); margin-bottom: 10px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .check-item:hover { border-color: var(--blue); background: transparent; }
+  .check-item.checked { border-color: #94A3B8; background: #F8FAFC; }
+  .check-item input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--blue); cursor: pointer; flex-shrink: 0; }
+  .check-item label { font-size: 16px; cursor: pointer; line-height: 1.6; color: #1a1a1a; }
+
+  /* ===== AGREEMENT TEXT & COLLAPSIBLE SECTIONS ===== */
+  .agreement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 16px;
+  }
+  .expand-toggle {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .expand-toggle:hover {
+    border-color: var(--blue);
+    background: var(--blue-light);
+  }
+
+  .collapsible-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .collapsible-card {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .collapsible-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    background: var(--white);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1a1a1a;
+    border: none;
+    width: 100%;
+    text-align: left;
+    transition: all 0.2s;
+  }
+
+  .collapsible-header:hover {
+    background: var(--bg);
+  }
+
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .badge-cr {
+    background: var(--blue);
+  }
+
+  .badge-rp {
+    background: var(--indigo);
+  }
+
+  .badge-rt {
+    background: var(--amber);
+  }
+
+  .badge-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .toggle-icon {
+    margin-left: auto;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+    font-size: 18px;
+    color: var(--text-light);
+  }
+
+  .collapsible-card.open .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .collapsible-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 18px;
+  }
+
+  .collapsible-card.open .collapsible-body {
+    max-height: 1000px;
+    transition: max-height 0.3s ease-in;
+  }
+
+  .collapsible-content {
+    padding: 12px 0 16px;
+    font-size: 15px;
+    color: #374151;
+    line-height: 1.8;
+  }
+
+  .collapsible-content p {
+    margin: 0 0 12px 0;
+  }
+
+  .collapsible-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .collapsible-content ul {
+    padding-left: 20px;
+    margin: 12px 0;
+  }
+
+  .collapsible-content li {
+    margin-bottom: 8px;
+  }
+
+  /* ===== PROTECTED CLASSES GRID ===== */
+  .protected-classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .class-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    background: var(--blue-light);
+    border: 1px solid var(--blue);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border); border-radius: var(--radius-sm);
+    background: var(--white); cursor: crosshair; touch-action: none; display: block;
+  }
+  .sig-pad.signed { border-color: var(--green); border-style: solid; }
+  .sig-actions { display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end; }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 14px; cursor: pointer; transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== SUBMIT NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    box-shadow: 0 6px 20px rgba(22,163,74,0.35);
+  }
+  .btn-next:active { background: var(--green-dark); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-content { padding: 12px 16px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .agreement-box, .collapsible-card { max-height: none; overflow: visible; }
+    .collapsible-body { max-height: none; padding: 12px 18px 16px; }
+    .collapsible-card.open .collapsible-body { max-height: none; }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .confirmation { display: none !important; }
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-content { padding: 24px 20px 20px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Civil Rights / Anti-Discrimination Acknowledgment</h1>
+    <p>VitalTouch Health Network — Non-discrimination policy acknowledgment</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- ===== FORM ===== -->
+    <div class="form-content" id="formContent">
+
+      <!-- EMPLOYEE INFORMATION -->
+      <div class="section-label">Employee Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Name <span class="req">*</span></label>
+          <input type="text" id="empName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Employee ID / Last 4 SSN</label>
+          <input type="text" id="empId" placeholder="Optional" maxlength="10">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Position <span class="req">*</span></label>
+        <div class="pills" id="positionPills">
+          <label class="pill">
+            <input type="radio" name="position" value="Homemaker" required>
+            <span>Homemaker</span>
+          </label>
+          <label class="pill">
+            <input type="radio" name="position" value="CNA">
+            <span>CNA</span>
+          </label>
+          <label class="pill">
+            <input type="radio" name="position" value="Administrative Staff">
+            <span>Administrative Staff</span>
+          </label>
+        </div>
+        <div class="error-msg">Please select a position</div>
+      </div>
+
+      <div class="field">
+        <label>Date of Hire <span class="req">*</span></label>
+        <input type="date" id="hireDate" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- NON-DISCRIMINATION POLICY -->
+      <div class="section-label">Non-Discrimination Policy</div>
+
+      <p style="font-size: 16px; color: #1a1a1a; margin-bottom: 16px; font-weight: 500;">VitalTouch Health Network Inc. is committed to providing services and employment opportunities without regard to protected characteristics.</p>
+
+      <div class="agreement-header">
+        <span style="font-weight: 600; color: #1a1a1a;">Policy Sections</span>
+        <button type="button" class="expand-toggle" onclick="toggleAllSections()">Expand All</button>
+      </div>
+
+      <div class="collapsible-sections">
+        <!-- CIVIL RIGHTS SECTION -->
+        <div class="collapsible-card">
+          <button type="button" class="collapsible-header" onclick="toggleSection(this)">
+            <span class="section-badge badge-cr">CR</span>
+            <span>Civil Rights & Equal Employment</span>
+            <span class="toggle-icon">&#10149;</span>
+          </button>
+          <div class="collapsible-body">
+            <div class="collapsible-content">
+              <p><strong>1. Equal Employment Opportunity</strong></p>
+              <p>VitalTouch Health Network provides equal employment opportunities to all employees and applicants. This applies to all terms and conditions of employment including hiring, placement, promotion, termination, layoff, recall, transfer, leaves of absence, compensation, and training.</p>
+
+              <p><strong>2. Non-Discrimination in Services</strong></p>
+              <p>VitalTouch Health Network provides home services to all eligible clients without discrimination. All clients receive equal access to services regardless of their protected characteristics. We are committed to providing culturally sensitive care that respects each client's background and beliefs.</p>
+
+              <p><strong>Protected Categories:</strong></p>
+              <div class="protected-classes-grid">
+                <div class="class-chip">Race</div>
+                <div class="class-chip">Color</div>
+                <div class="class-chip">Religion</div>
+                <div class="class-chip">Sex</div>
+                <div class="class-chip">Sexual Orientation</div>
+                <div class="class-chip">Gender Identity</div>
+                <div class="class-chip">National Origin</div>
+                <div class="class-chip">Age</div>
+                <div class="class-chip">Disability</div>
+                <div class="class-chip">Genetic Info</div>
+                <div class="class-chip">Marital Status</div>
+                <div class="class-chip">Veteran Status</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- REPORTING PROCEDURE SECTION -->
+        <div class="collapsible-card">
+          <button type="button" class="collapsible-header" onclick="toggleSection(this)">
+            <span class="section-badge badge-rp">RP</span>
+            <span>Reporting Procedures & Harassment</span>
+            <span class="toggle-icon">&#10149;</span>
+          </button>
+          <div class="collapsible-body">
+            <div class="collapsible-content">
+              <p><strong>3. Anti-Harassment Policy</strong></p>
+              <p>VitalTouch Health Network prohibits harassment of any kind, including but not limited to:</p>
+              <ul>
+                <li>Verbal harassment (slurs, derogatory comments, jokes, threats)</li>
+                <li>Physical harassment (unwanted touching, physical interference)</li>
+                <li>Visual harassment (offensive images, gestures, or written material)</li>
+                <li>Sexual harassment (unwelcome sexual advances, requests for sexual favors)</li>
+              </ul>
+              <p>Harassment by or against employees, clients, vendors, or visitors will not be tolerated.</p>
+
+              <p><strong>5. Reporting Discrimination or Harassment</strong></p>
+              <p>If you experience or witness discrimination or harassment, report it immediately to:</p>
+              <ul>
+                <li>Your direct supervisor</li>
+                <li>Ifeanyi Ezurike, CEO — (708) 774-4850 — iezuri22@gmail.com</li>
+              </ul>
+              <p>All reports will be investigated promptly and confidentially.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETALIATION PROTECTION SECTION -->
+        <div class="collapsible-card">
+          <button type="button" class="collapsible-header" onclick="toggleSection(this)">
+            <span class="section-badge badge-rt">RT</span>
+            <span>Retaliation Protection & Accommodations</span>
+            <span class="toggle-icon">&#10149;</span>
+          </button>
+          <div class="collapsible-body">
+            <div class="collapsible-content">
+              <p><strong>4. Reasonable Accommodations</strong></p>
+              <p>VitalTouch will provide reasonable accommodations to qualified individuals with disabilities and to employees with sincerely held religious beliefs, unless doing so would cause undue hardship.</p>
+
+              <p><strong>Anti-Retaliation Protection</strong></p>
+              <p>Retaliation against anyone who reports discrimination or harassment in good faith is strictly prohibited. This includes any adverse action such as termination, demotion, loss of benefits, or any other form of punishment.</p>
+
+              <p><strong>6. Consequences</strong></p>
+              <p>Violations of this policy may result in disciplinary action, up to and including termination of employment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACKNOWLEDGMENT CHECKBOXES -->
+      <div class="section-label">Acknowledgment</div>
+
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack1">
+        <label for="ack1">I have read and understand VitalTouch's Civil Rights and Non-Discrimination Policy</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack2">
+        <label for="ack2">I agree to treat all clients and coworkers with dignity and respect regardless of their background</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack3">
+        <label for="ack3">I understand that harassment or discrimination of any kind is prohibited</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack4">
+        <label for="ack4">I know how to report incidents of discrimination or harassment</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack5">
+        <label for="ack5">I understand that violations may result in disciplinary action, including termination</label>
+      </div>
+
+      <!-- EMPLOYEE SIGNATURE -->
+      <div class="section-label">Employee Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Printed Name <span class="req">*</span></label>
+          <input type="text" id="sigName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" id="sigDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span class="req">*</span></div>
+        <canvas id="sigPad1" class="sig-pad"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear Signature</button>
+        </div>
+      </div>
+
+    </div><!-- /form-content -->
+
+    <!-- CONFIRMATION (hidden until submit) -->
+    <div class="confirmation" id="confirmSection">
+      <div class="conf-check">&#10003;</div>
+      <h2>Civil Rights Acknowledgment Signed &amp; Sent</h2>
+      <p>Your signed Civil Rights / Anti-Discrimination Acknowledgment has been submitted. This will be added to your employee file.</p>
+      <div class="conf-id" id="confId"></div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-next" onclick="submitForm()">Sign &amp; Submit Acknowledgment &rarr;</button>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <span class="trust-item">&#128274; HIPAA Compliant</span>
+      <span class="trust-item">&#127973; IDPH Licensed</span>
+      <span class="trust-item">&#128203; Form E.34</span>
+    </div>
+
+  </div><!-- /card -->
+</div><!-- /main-container -->
+
+<div class="footer">
+  VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430<br>
+  (708) 774-4850 &middot; <a href="https://vitaltouchcares.com" target="_blank">vitaltouchcares.com</a>
+</div>
+
+<script>
+/* ===== SET TODAY'S DATE ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('sigDate').value = today;
+  initSigPad('sigPad1');
+});
+
+/* ===== COLLAPSIBLE SECTIONS ===== */
+function toggleSection(header) {
+  const card = header.closest('.collapsible-card');
+  card.classList.toggle('open');
+}
+
+function toggleAllSections() {
+  const cards = document.querySelectorAll('.collapsible-card');
+  const allOpen = Array.from(cards).every(c => c.classList.contains('open'));
+  const btn = document.querySelector('.expand-toggle');
+
+  cards.forEach(card => {
+    if (allOpen) {
+      card.classList.remove('open');
+    } else {
+      card.classList.add('open');
+    }
+  });
+
+  btn.textContent = allOpen ? 'Expand All' : 'Collapse All';
+}
+
+/* ===== CHECKBOX TOGGLE ===== */
+function toggleCheck(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+}
+
+/* ===== SIGNATURE PAD ===== */
+let sig1Signed = false;
+const sigPads = {};
+
+function initSigPad(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let drawing = false, lastX = 0, lastY = 0;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) { e.preventDefault(); drawing = true; const pos = getPos(e); lastX = pos.x; lastY = pos.y; ctx.beginPath(); ctx.moveTo(pos.x, pos.y); ctx.lineTo(pos.x + 0.1, pos.y + 0.1); ctx.stroke(); }
+  function draw(e) { if (!drawing) return; e.preventDefault(); const pos = getPos(e); ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke(); lastX = pos.x; lastY = pos.y; canvas.classList.add('signed'); sig1Signed = true; }
+  function end(e) { if (e) e.preventDefault(); drawing = false; }
+
+  canvas.addEventListener('mousedown', start, {passive:false});
+  canvas.addEventListener('mousemove', draw, {passive:false});
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', draw, {passive:false});
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas, ctx, resize };
+  requestAnimationFrame(() => resize());
+  window.addEventListener('resize', () => resize());
+}
+
+function clearSig(n) {
+  const id = 'sigPad' + n;
+  const pad = sigPads[id];
+  if (pad) { pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height); pad.resize(); pad.canvas.classList.remove('signed'); sig1Signed = false; }
+}
+
+/* ===== VALIDATION ===== */
+function clearErrors() {
+  document.querySelectorAll('.field.has-error').forEach(f => f.classList.remove('has-error'));
+  document.querySelectorAll('.invalid').forEach(f => f.classList.remove('invalid'));
+  document.querySelectorAll('.check-item').forEach(ci => ci.style.borderColor = '');
+  const sigPad = document.getElementById('sigPad1');
+  if (sigPad) sigPad.style.borderColor = '';
+}
+
+function validateForm() {
+  clearErrors();
+  let valid = true;
+
+  // Required text/date fields
+  const requiredFields = ['empName', 'hireDate', 'sigName', 'sigDate'];
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      el.closest('.field').classList.add('has-error');
+      valid = false;
+    }
+  });
+
+  // Position pill
+  const posSelected = document.querySelector('input[name="position"]:checked');
+  if (!posSelected) {
+    document.getElementById('positionPills').closest('.field').classList.add('has-error');
+    valid = false;
+  }
+
+  // All checkboxes (5)
+  const checkboxes = ['ack1', 'ack2', 'ack3', 'ack4', 'ack5'];
+  checkboxes.forEach(id => {
+    const cb = document.getElementById(id);
+    if (!cb.checked) {
+      cb.closest('.check-item').style.borderColor = 'var(--red)';
+      valid = false;
+    }
+  });
+
+  // Signature
+  if (!sig1Signed) {
+    document.getElementById('sigPad1').style.borderColor = 'var(--red)';
+    valid = false;
+  }
+
+  if (!valid) {
+    const firstError = document.querySelector('.has-error, .invalid, [style*="border-color"]');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+/* ===== SUBMIT ===== */
+function submitForm() {
+  if (!validateForm()) return;
+
+  const empName = document.getElementById('empName').value.trim();
+  const empId = document.getElementById('empId').value.trim();
+  const position = document.querySelector('input[name="position"]:checked').value;
+  const hireDate = document.getElementById('hireDate').value;
+  const sigName = document.getElementById('sigName').value.trim();
+  const sigDate = document.getElementById('sigDate').value;
+
+  // Generate submission ID
+  const submissionId = 'E34-' + Date.now().toString(36);
+
+  // Build submission object
+  const submission = {
+    id: submissionId,
+    formId: 'E34',
+    formName: 'Civil Rights / Anti-Discrimination Acknowledgment',
+    empName: empName,
+    empId: empId || 'N/A',
+    position: position,
+    hireDate: hireDate,
+    signedBy: sigName,
+    signedDate: sigDate,
+    timestamp: new Date().toISOString()
+  };
+
+  // Save to localStorage
+  try {
+    const existing = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+    existing.push(submission);
+    localStorage.setItem('vt_submissions', JSON.stringify(existing));
+  } catch(e) { console.warn('localStorage save failed:', e); }
+
+  // Trigger mailto
+  const subject = encodeURIComponent('[VitalTouch] Civil Rights Acknowledgment — ' + empName + ' (' + submissionId + ')');
+  const body = encodeURIComponent(
+    'Civil Rights / Anti-Discrimination Acknowledgment Submission\n' +
+    '============================================================\n\n' +
+    'Submission ID: ' + submissionId + '\n' +
+    'Employee Name: ' + empName + '\n' +
+    'Employee ID/Last 4 SSN: ' + (empId || 'N/A') + '\n' +
+    'Position: ' + position + '\n' +
+    'Date of Hire: ' + hireDate + '\n' +
+    'Signed By: ' + sigName + '\n' +
+    'Signed Date: ' + sigDate + '\n\n' +
+    'All 5 acknowledgment checkboxes were checked.\n' +
+    'Signature captured on canvas.\n\n' +
+    'View full submission in the admin portal.'
+  );
+  window.location.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+
+  // Show confirmation
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formNav').style.display = 'none';
+  document.getElementById('confirmSection').style.display = 'block';
+  document.getElementById('confId').textContent = 'Submission ID: ' + submissionId;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

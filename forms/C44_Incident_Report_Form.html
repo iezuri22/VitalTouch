@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incident Report Form — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 6px;
+    --radius-sm: 6px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM BODY ===== */
+  .form-body {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== URGENT CALLOUT ===== */
+  .callout-urgent {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: #991B1B;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  .callout-urgent .callout-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--green); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== SEVERITY PILLS — color coded ===== */
+  .pill.severity-minor input:checked + span { background: #F1F5F9; border-color: #94A3B8; color: #1E293B; }
+  .pill.severity-moderate input:checked + span { background: #F1F5F9; border-color: #94A3B8; color: #1E293B; }
+  .pill.severity-severe input:checked + span { background: #F1F5F9; border-color: #94A3B8; color: #1E293B; }
+  .pill.severity-critical input:checked + span { background: #F1F5F9; border-color: #94A3B8; color: #1E293B; }
+
+  /* ===== INCIDENT TYPE CHIPS — 3-column grid ===== */
+  .chips-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin-top: 4px;
+  }
+  .chip { position: relative; cursor: pointer; }
+  .chip input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .chip span {
+    display: flex; align-items: center; justify-content: center;
+    padding: 12px 12px; border: 1.5px solid var(--border);
+    border-radius: 6px; font-size: 14px; font-weight: 500;
+    color: #4a5568; background: var(--white);
+    transition: all 0.2s; user-select: none; text-align: center;
+    line-height: 1.4;
+  }
+  .chip:hover span { border-color: var(--green); }
+  .chip input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== PERSON CARD ===== */
+  .person-card {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 16px; border: 1.5px solid var(--border);
+    border-radius: 6px; background: var(--white);
+    margin-bottom: 16px;
+  }
+  .person-badge {
+    display: none;
+  }
+  .person-badge.client { display: none; }
+  .person-badge.caregiver { display: none; }
+  .person-fields { flex: 1; min-width: 0; }
+  .person-fields .field { margin-bottom: 12px; }
+  .person-fields .field:last-child { margin-bottom: 0; }
+
+  /* ===== NOTIFICATION CARD ===== */
+  .notification-card {
+    background: #FFFFFF; border: 1.5px solid var(--border);
+    border-radius: 6px; padding: 16px;
+    margin-bottom: 20px;
+  }
+  .notification-header {
+    display: flex; gap: 12px; align-items: center;
+    margin-bottom: 16px;
+  }
+  .notif-badge {
+    display: none;
+  }
+  .notification-counter {
+    font-size: 14px; color: #64748B;
+  }
+  .notification-counter .count { font-size: 14px; }
+
+  /* ===== ACTION ITEM ===== */
+  .action-item {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 6px; padding: 16px;
+    margin-bottom: 12px;
+  }
+  .action-item.add-new {
+    border: 2px dashed var(--green);
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 60px;
+    color: var(--green); font-weight: 600;
+  }
+  .action-item.add-new:hover { background: var(--green-light); }
+  .action-item.add-new span { font-size: 18px; margin-right: 6px; }
+  .actions-container .field { margin-bottom: 12px; }
+  .actions-container .field:last-child { margin-bottom: 0; }
+
+  /* ===== CHECKBOX ===== */
+  .check-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 12px 14px; border: 1.5px solid var(--border);
+    border-radius: 6px; margin-bottom: 10px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .check-item:hover { border-color: var(--green); background: var(--green-light); }
+  .check-item.checked { border-color: var(--green); background: var(--green-light); }
+  .check-item input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+  .check-item label { font-size: 16px; cursor: pointer; line-height: 1.6; color: #1a1a1a; }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 14px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== SUBMIT AREA ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-submit {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+  }
+  .btn-submit:hover {
+    background: var(--green-dark);
+  }
+  .btn-submit:active { }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white;
+  }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .trust-bar, .footer { display: none !important; }
+    .form-body { padding: 12px 16px; }
+    .callout-urgent { break-inside: avoid; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .pill span { padding: 4px 10px; font-size: 10px; }
+    .check-item { padding: 6px 8px; }
+    .section-label { margin: 14px 0 8px; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; gap: 14px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-body { padding: 24px 20px 20px; }
+    .form-nav { padding: 16px 20px; }
+    .pills { gap: 6px; }
+    .pill span { padding: 10px 16px; font-size: 14px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+    .chips-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .chip span { font-size: 13px; padding: 10px 8px; }
+    .person-card { flex-direction: column; }
+    .person-fields .field-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Incident Report Form</h1>
+    <p>VitalTouch Health Network &mdash; Report an incident or event</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- FORM -->
+    <div class="form-body" id="formBody">
+
+      <!-- URGENT CALLOUT -->
+      <div class="callout-urgent">
+        <span class="callout-icon">&#9888;&#65039;</span>
+        <span>This form should be completed within <strong>24 hours</strong> of the incident. All incidents must be reported to the supervisor <strong>immediately</strong>.</span>
+      </div>
+
+      <!-- ===== INCIDENT INFORMATION ===== -->
+      <div class="section-label">Incident Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Date of Incident <span class="req">*</span></label>
+          <input type="date" id="incidentDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Time of Incident <span class="req">*</span></label>
+          <input type="text" id="incidentTime" placeholder="e.g. 2:30 PM" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Location of Incident <span class="req">*</span></label>
+        <input type="text" id="incidentLocation" placeholder="Client's home, community, etc." required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Incident Type <span class="req">*</span></label>
+        <div class="chips-grid" id="incidentTypeChips">
+          <label class="chip"><input type="radio" name="incidentType" value="Fall" required><span>Fall</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Medication Error"><span>Medication Error</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Injury"><span>Injury</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Skin Breakdown"><span>Skin Breakdown</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Behavioral Incident"><span>Behavioral Incident</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Abuse/Neglect"><span>Abuse/Neglect</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Property Damage"><span>Property Damage</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Elopement/Wandering"><span>Elopement/Wandering</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Medical Emergency"><span>Medical Emergency</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Equipment Failure"><span>Equipment Failure</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Missed Visit"><span>Missed Visit</span></label>
+          <label class="chip"><input type="radio" name="incidentType" value="Other"><span>Other</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field" id="otherTypeField" style="display:none;">
+        <label>Describe Other Incident Type <span class="req">*</span></label>
+        <input type="text" id="otherTypeDesc" placeholder="Describe the incident type">
+        <div class="error-msg">Required when 'Other' is selected</div>
+      </div>
+
+      <div class="field">
+        <label>Severity Level <span class="req">*</span></label>
+        <div class="pills" id="severityPills">
+          <label class="pill severity-minor"><input type="radio" name="severity" value="Minor" required><span>Minor</span></label>
+          <label class="pill severity-moderate"><input type="radio" name="severity" value="Moderate"><span>Moderate</span></label>
+          <label class="pill severity-severe"><input type="radio" name="severity" value="Severe"><span>Severe</span></label>
+          <label class="pill severity-critical"><input type="radio" name="severity" value="Critical"><span>Critical</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- ===== PERSONS INVOLVED ===== -->
+      <div class="section-label">Persons Involved</div>
+
+      <div class="person-card">
+        <div class="person-badge client">CL</div>
+        <div class="person-fields">
+          <div class="field-row">
+            <div class="field">
+              <label>Client Name <span class="req">*</span></label>
+              <input type="text" id="clientName" required>
+              <div class="error-msg">Required</div>
+            </div>
+            <div class="field">
+              <label>Client ID / RIN</label>
+              <input type="text" id="clientId" placeholder="Optional">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="person-card">
+        <div class="person-badge caregiver">CG</div>
+        <div class="person-fields">
+          <div class="field-row">
+            <div class="field">
+              <label>Caregiver Name <span class="req">*</span></label>
+              <input type="text" id="caregiverName" required>
+              <div class="error-msg">Required</div>
+            </div>
+            <div class="field">
+              <label>Caregiver ID</label>
+              <input type="text" id="caregiverId" placeholder="Optional">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Witnesses</label>
+        <textarea id="witnesses" placeholder="Name and contact info of any witnesses"></textarea>
+      </div>
+
+      <!-- ===== INCIDENT DESCRIPTION ===== -->
+      <div class="section-label">Incident Description</div>
+
+      <div class="field">
+        <label>Detailed Description of Incident <span class="req">*</span></label>
+        <textarea id="incidentDescription" style="min-height:200px;" placeholder="Describe what happened, including events leading up to and following the incident" required></textarea>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Injuries Sustained</label>
+        <textarea id="injuries" placeholder="Describe any injuries, or enter 'None'"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Immediate Actions Taken <span class="req">*</span></label>
+        <textarea id="actionsTaken" placeholder="What was done immediately after the incident?" required></textarea>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- ===== NOTIFICATIONS ===== -->
+      <div class="section-label">Notifications</div>
+
+      <div class="notification-card">
+        <div class="notification-header">
+          <div class="notif-badge">NT</div>
+          <div class="notification-counter">
+            <span class="count" id="notificationCount">0</span> of 6 notified
+          </div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this); updateNotificationCount()">
+          <input type="checkbox" name="notifications" value="client-family">
+          <label>Client / Family Notified</label>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this); updateNotificationCount()">
+          <input type="checkbox" name="notifications" value="supervisor">
+          <label>Supervisor Notified</label>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this); updateNotificationCount()">
+          <input type="checkbox" name="notifications" value="idph">
+          <label>IDPH Notified (if applicable)</label>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this); updateNotificationCount()">
+          <input type="checkbox" name="notifications" value="case-manager">
+          <label>Case Manager Notified</label>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this); updateNotificationCount()">
+          <input type="checkbox" name="notifications" value="911">
+          <label>911 / Emergency Services Called</label>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this); updateNotificationCount()">
+          <input type="checkbox" name="notifications" value="physician">
+          <label>Physician Notified</label>
+        </div>
+      </div>
+
+      <!-- ===== FOLLOW-UP ===== -->
+      <div class="section-label">Follow-Up</div>
+
+      <div class="field">
+        <label>Corrective Actions / Prevention Plan</label>
+        <div class="actions-container" id="actionsContainer">
+          <!-- Action items added here -->
+        </div>
+        <div class="action-item add-new" onclick="addActionItem()">
+          <span>+</span> Add Action Item
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Reported By <span class="req">*</span></label>
+          <input type="text" id="reportedBy" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Title <span class="req">*</span></label>
+          <input type="text" id="reporterTitle" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Report Date <span class="req">*</span></label>
+        <input type="date" id="reportDate" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+    </div><!-- /form-body -->
+
+    <!-- SUBMIT NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-submit" onclick="submitForm()">
+        Submit Incident Report &rarr;
+      </button>
+    </div>
+
+    <!-- CONFIRMATION -->
+    <div class="confirmation" id="confirmation">
+      <div class="conf-check">&#10003;</div>
+      <h2>Incident Report Submitted</h2>
+      <p>Your incident report has been recorded and an email notification has been sent to the CEO. Please follow up with your supervisor as needed.</p>
+      <div class="conf-id" id="confId"></div>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <span class="trust-item">&#128274; HIPAA Compliant</span>
+      <span class="trust-item">&#127973; IDPH Licensed</span>
+      <span class="trust-item">&#128203; Form C.44</span>
+    </div>
+  </div><!-- /card -->
+
+  <div class="footer">
+    VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430<br>
+    (708) 774-4850 &middot; <a href="https://vitaltouchcares.com" target="_blank">vitaltouchcares.com</a>
+  </div>
+</div><!-- /main-container -->
+
+<script>
+  // ===== Set default report date to today =====
+  (function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('reportDate').value = today;
+  })();
+
+  // ===== Toggle "Other" incident type field =====
+  document.querySelectorAll('input[name="incidentType"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      const otherField = document.getElementById('otherTypeField');
+      if (this.value === 'Other') {
+        otherField.style.display = 'block';
+      } else {
+        otherField.style.display = 'none';
+        document.getElementById('otherTypeDesc').value = '';
+      }
+    });
+  });
+
+  // ===== Toggle checkbox items =====
+  function toggleCheck(el) {
+    const cb = el.querySelector('input[type="checkbox"]');
+    cb.checked = !cb.checked;
+    el.classList.toggle('checked', cb.checked);
+  }
+
+  // ===== Update notification counter =====
+  function updateNotificationCount() {
+    const checked = document.querySelectorAll('input[name="notifications"]:checked').length;
+    document.getElementById('notificationCount').textContent = checked;
+  }
+
+  // ===== Add action item =====
+  function addActionItem() {
+    const container = document.getElementById('actionsContainer');
+    const index = container.children.length;
+    const item = document.createElement('div');
+    item.className = 'action-item';
+    item.innerHTML = `
+      <div class="field-row">
+        <div class="field" style="flex: 2;">
+          <label>Action Description <span class="req">*</span></label>
+          <input type="text" class="action-description" placeholder="What needs to be done?" required>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Responsible Party</label>
+          <input type="text" class="action-responsible" placeholder="Who is responsible?">
+        </div>
+        <div class="field">
+          <label>Target Date</label>
+          <input type="date" class="action-date">
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <button type="button" onclick="removeActionItem(this)" style="background: #EF4444; color: white; padding: 8px 14px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;">Remove</button>
+      </div>
+    `;
+    container.appendChild(item);
+  }
+
+  // ===== Remove action item =====
+  function removeActionItem(btn) {
+    btn.closest('.action-item').remove();
+  }
+
+  // ===== Validation =====
+  function validate() {
+    let valid = true;
+    const requiredFields = [
+      'incidentDate', 'incidentTime', 'incidentLocation',
+      'clientName', 'caregiverName', 'incidentDescription', 'actionsTaken',
+      'reportedBy', 'reporterTitle', 'reportDate'
+    ];
+
+    // Clear previous errors
+    document.querySelectorAll('.field').forEach(f => f.classList.remove('has-error'));
+    document.querySelectorAll('.invalid').forEach(f => f.classList.remove('invalid'));
+
+    requiredFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const val = el.value.trim();
+      if (!val) {
+        valid = false;
+        el.classList.add('invalid');
+        el.closest('.field').classList.add('has-error');
+      }
+    });
+
+    // Incident type chip check
+    const incidentType = document.querySelector('input[name="incidentType"]:checked');
+    if (!incidentType) {
+      valid = false;
+      const chipField = document.getElementById('incidentTypeChips').closest('.field');
+      if (chipField) chipField.classList.add('has-error');
+    }
+
+    // Severity pill check
+    const severity = document.querySelector('input[name="severity"]:checked');
+    if (!severity) {
+      valid = false;
+      const pillField = document.getElementById('severityPills').closest('.field');
+      if (pillField) pillField.classList.add('has-error');
+    }
+
+    // If "Other" is selected, otherTypeDesc is required
+    const selectedIncidentType = document.querySelector('input[name="incidentType"]:checked');
+    if (selectedIncidentType && selectedIncidentType.value === 'Other') {
+      const otherDesc = document.getElementById('otherTypeDesc');
+      if (!otherDesc.value.trim()) {
+        valid = false;
+        otherDesc.classList.add('invalid');
+        otherDesc.closest('.field').classList.add('has-error');
+      }
+    }
+
+    // Validate action item descriptions
+    document.querySelectorAll('.action-description').forEach(el => {
+      if (!el.value.trim()) {
+        valid = false;
+        el.classList.add('invalid');
+        el.closest('.field').classList.add('has-error');
+      }
+    });
+
+    if (!valid) {
+      // Scroll to first error
+      const firstError = document.querySelector('.invalid, .has-error .error-msg');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    return valid;
+  }
+
+  // ===== Submit =====
+  function submitForm() {
+    if (!validate()) return;
+
+    // Generate submission ID
+    const submissionId = 'C44-' + Date.now().toString(36);
+
+    // Collect notifications
+    const notifications = [];
+    document.querySelectorAll('input[name="notifications"]:checked').forEach(cb => {
+      notifications.push(cb.closest('.check-item').querySelector('label').textContent.trim());
+    });
+
+    // Collect action items
+    const actionItems = [];
+    document.querySelectorAll('.action-item:not(.add-new)').forEach(item => {
+      const desc = item.querySelector('.action-description').value.trim();
+      const responsible = item.querySelector('.action-responsible').value.trim();
+      const date = item.querySelector('.action-date').value;
+      if (desc) {
+        actionItems.push({
+          description: desc,
+          responsible: responsible || 'Unassigned',
+          targetDate: date || 'Not set'
+        });
+      }
+    });
+
+    // Get incident type from chip
+    const incidentTypeRadio = document.querySelector('input[name="incidentType"]:checked');
+    let incidentType = incidentTypeRadio ? incidentTypeRadio.value : '';
+    if (incidentType === 'Other') {
+      incidentType = 'Other: ' + document.getElementById('otherTypeDesc').value.trim();
+    }
+
+    // Collect form data
+    const data = {
+      id: submissionId,
+      timestamp: new Date().toISOString(),
+      formId: 'C44',
+      formName: 'Incident Report Form',
+      incidentDate: document.getElementById('incidentDate').value,
+      incidentTime: document.getElementById('incidentTime').value.trim(),
+      incidentLocation: document.getElementById('incidentLocation').value.trim(),
+      incidentType: incidentType,
+      severity: document.querySelector('input[name="severity"]:checked').value,
+      clientName: document.getElementById('clientName').value.trim(),
+      clientId: document.getElementById('clientId').value.trim(),
+      caregiverName: document.getElementById('caregiverName').value.trim(),
+      caregiverId: document.getElementById('caregiverId').value.trim(),
+      witnesses: document.getElementById('witnesses').value.trim(),
+      description: document.getElementById('incidentDescription').value.trim(),
+      injuries: document.getElementById('injuries').value.trim(),
+      actionsTaken: document.getElementById('actionsTaken').value.trim(),
+      notifications: notifications,
+      correctiveActions: actionItems,
+      reportedBy: document.getElementById('reportedBy').value.trim(),
+      reporterTitle: document.getElementById('reporterTitle').value.trim(),
+      reportDate: document.getElementById('reportDate').value
+    };
+
+    // Save to localStorage
+    let incidents = [];
+    try { incidents = JSON.parse(localStorage.getItem('vt_incidents') || '[]'); } catch(e) {}
+    incidents.push(data);
+    localStorage.setItem('vt_incidents', JSON.stringify(incidents));
+
+    // ── Flow Engine Integration ──
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const flowId = params.get('flowId');
+        if (flowId) {
+          VTFlow.recordAdHoc(flowId, 'C.44', data);
+          console.log('VTFlow: Recorded incident report for flow ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+    // Format action items for email
+    let actionItemsText = '';
+    if (data.correctiveActions && data.correctiveActions.length > 0) {
+      actionItemsText = 'CORRECTIVE ACTIONS:\n';
+      data.correctiveActions.forEach((item, idx) => {
+        actionItemsText += '  ' + (idx + 1) + '. ' + item.description + '\n' +
+                          '     Responsible: ' + item.responsible + '\n' +
+                          '     Target Date: ' + item.targetDate + '\n';
+      });
+      actionItemsText += '\n';
+    }
+
+    // Build mailto
+    const subject = encodeURIComponent('[VitalTouch] INCIDENT REPORT — ' + data.clientName + ' (' + submissionId + ')');
+    const body = encodeURIComponent(
+      'INCIDENT REPORT — ' + submissionId + '\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+      'Date/Time: ' + data.incidentDate + ' at ' + data.incidentTime + '\n' +
+      'Location: ' + data.incidentLocation + '\n' +
+      'Type: ' + data.incidentType + '\n' +
+      'Severity: ' + data.severity + '\n\n' +
+      'Client: ' + data.clientName + (data.clientId ? ' (ID: ' + data.clientId + ')' : '') + '\n' +
+      'Caregiver: ' + data.caregiverName + (data.caregiverId ? ' (ID: ' + data.caregiverId + ')' : '') + '\n' +
+      (data.witnesses ? 'Witnesses: ' + data.witnesses + '\n' : '') + '\n' +
+      'DESCRIPTION:\n' + data.description + '\n\n' +
+      'INJURIES: ' + (data.injuries || 'Not specified') + '\n\n' +
+      'IMMEDIATE ACTIONS: ' + data.actionsTaken + '\n\n' +
+      'NOTIFICATIONS: ' + (data.notifications.length ? data.notifications.join(', ') : 'None checked') + '\n\n' +
+      actionItemsText +
+      'Reported by: ' + data.reportedBy + ', ' + data.reporterTitle + '\n' +
+      'Report Date: ' + data.reportDate + '\n\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+      'Submission ID: ' + submissionId + '\n' +
+      'View in Admin Portal: https://vitaltouchcares.com/admin'
+    );
+    window.location.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+
+    // Show confirmation
+    document.getElementById('formBody').style.display = 'none';
+    document.getElementById('formNav').style.display = 'none';
+    document.getElementById('confirmation').style.display = 'block';
+    document.getElementById('confId').textContent = 'Submission ID: ' + submissionId;
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competency Evaluation: 6-Hour Alzheimer's Training — VitalTouch</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 800px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM CONTENT ===== */
+  .form-body {
+    padding: 32px 28px 28px;
+  }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== SECTION HEADERS ===== */
+  .section-header {
+    margin-bottom: 24px;
+  }
+  .section-label {
+    font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--green); margin-bottom: 6px;
+  }
+  .section-title { font-size: 24px; font-weight: 700; line-height: 1.3; color: #1a1a1a; }
+  .section-subtitle { font-size: 16px; color: #4a5568; margin-top: 6px; }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--warm); border-radius: 6px;
+    padding: 16px 20px; margin-bottom: 24px;
+    font-size: 15px; color: #92400E; line-height: 1.6;
+  }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-section {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 28px; padding: 16px 20px;
+    background: var(--bg); border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .progress-text {
+    font-size: 14px; font-weight: 600; color: var(--text);
+    white-space: nowrap;
+  }
+  .progress-bar-track {
+    flex: 1; height: 8px; background: var(--border);
+    border-radius: 4px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; background: linear-gradient(90deg, var(--green), #22C55E);
+    border-radius: 4px; transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-pct {
+    font-size: 13px; font-weight: 700; color: var(--green);
+    white-space: nowrap;
+  }
+
+  /* ===== QUIZ CARDS ===== */
+  .quiz-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+  }
+  .quiz-number {
+    font-weight: 600;
+    color: #64748B;
+    font-size: 15px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .quiz-question {
+    font-size: 18px; font-weight: 600; color: #1a1a1a;
+    margin-bottom: 16px; line-height: 1.5;
+  }
+  .quiz-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .quiz-option {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px; border: 1px solid #E2E8F0;
+    border-radius: 6px; cursor: pointer; transition: all 0.2s;
+    background: #FFFFFF;
+  }
+  .quiz-option:hover { background: #F8FAFC; border-color: #CBD5E1; }
+  .quiz-option.selected { background: #F1F5F9; border-color: #94A3B8; color: #1E293B; }
+  .quiz-option input { display: none; }
+  .quiz-option .option-letter {
+    width: 28px; height: 28px; border-radius: 6px;
+    background: #F1F5F9; border: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: #475569;
+    flex-shrink: 0; transition: all 0.2s; margin-top: 2px;
+  }
+  .quiz-option.selected .option-letter {
+    background: #F1F5F9; border: none; color: #475569;
+  }
+  .quiz-option .option-text { font-size: 15px; color: #1a1a1a; line-height: 1.4; }
+
+  /* After grading */
+  .quiz-card.correct { border-left: 4px solid var(--green); }
+  .quiz-card.incorrect { border-left: 4px solid var(--red); }
+  .quiz-card .correct-answer {
+    color: var(--green); font-weight: 600; font-size: 14px;
+    margin-top: 12px; display: none;
+  }
+  .quiz-card.incorrect .correct-answer { display: block; }
+
+  /* Results Review Table */
+  .results-table-wrapper {
+    margin-top: 24px; overflow-x: auto;
+  }
+  .results-table {
+    width: 100%; border-collapse: collapse; font-size: 15px;
+  }
+  .results-table thead {
+    background: var(--bg); border-bottom: 2px solid var(--border);
+  }
+  .results-table th {
+    padding: 12px 14px; text-align: left; font-weight: 700; color: #1a1a1a;
+  }
+  .results-table td {
+    padding: 12px 14px; border-bottom: 1px solid var(--border);
+  }
+  .results-table .result-icon { font-size: 14px; text-align: center; width: 32px; color: #64748B; }
+  .results-table tr.correct-row { background: #F8FAF8; }
+  .results-table tr.incorrect-row { background: #FEF8F8; }
+
+  /* Graded state — lock options */
+  .quiz-card.graded .quiz-option { cursor: default; pointer-events: none; }
+  .quiz-card.graded .quiz-option:hover { border-color: var(--border); background: var(--white); }
+  .quiz-card.graded .quiz-option.selected:hover { border-color: var(--green); background: var(--green-light); }
+
+  /* ===== UNANSWERED HIGHLIGHT ===== */
+  .quiz-card.unanswered {
+    border-color: var(--red);
+    box-shadow: none;
+  }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel {
+    border-radius: 6px;
+    padding: 32px;
+    text-align: center;
+    margin-bottom: 28px;
+    display: none;
+  }
+  .results-panel.show { display: block; }
+  .results-panel.pass {
+    background: var(--green-light);
+    border: 2px solid var(--green);
+  }
+  .results-panel.fail {
+    background: #FEF2F2;
+    border: 2px solid var(--red);
+  }
+  .results-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+  .results-title {
+    font-size: 24px; font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .results-panel.pass .results-title { color: var(--green-deeper); }
+  .results-panel.fail .results-title { color: #991B1B; }
+  .results-score {
+    font-size: 18px; font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .results-panel.pass .results-score { color: var(--green-dark); }
+  .results-panel.fail .results-score { color: #B91C1C; }
+  .results-message {
+    font-size: 15px; line-height: 1.6;
+  }
+  .results-panel.pass .results-message { color: #166534; }
+  .results-panel.fail .results-message { color: #7F1D1D; }
+
+  /* ===== SUBMIT BUTTON ===== */
+  .submit-section {
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 8px;
+  }
+  .btn-submit {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px;
+    padding: 16px 48px;
+    background: var(--green);
+    color: white; border: none; border-radius: 6px;
+    font-size: 18px; font-weight: 700; font-family: inherit;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(22,163,74,0.3);
+  }
+  .btn-submit:hover { background: var(--green-dark); }
+  .btn-submit:disabled {
+    background: var(--text-lighter); cursor: not-allowed;
+    box-shadow: none;
+  }
+  .btn-retry {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px;
+    padding: 14px 36px; margin-top: 16px;
+    background: var(--text); color: white; border: none;
+    border-radius: 6px;
+    font-size: 16px; font-weight: 600; font-family: inherit;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-retry:hover { background: #0F172A; }
+  .btn-print {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px;
+    padding: 14px 36px; margin-top: 12px;
+    background: var(--white); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 16px; font-weight: 600; font-family: inherit;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-print:hover { border-color: #CBD5E1; background: #F8FAFC; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation {
+    text-align: center; padding: 40px 20px;
+    display: none;
+  }
+  .confirmation.show { display: block; }
+  .conf-check {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--green); color: white;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .conf-id {
+    margin-top: 20px; font-size: 12px; color: var(--text-lighter);
+  }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { padding: 16px 20px; }
+    .hero-text h1 { font-size: 18px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .trust-bar, .footer, .btn-submit, .submit-section, .btn-retry, .btn-print { display: none !important; }
+    .quiz-card { break-inside: avoid; padding: 12px; margin-bottom: 8px; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .quiz-option { padding: 6px 10px; }
+    .results-panel { break-inside: avoid; }
+    .progress-section { display: none !important; }
+    .results-table { font-size: 12px; }
+    .results-table th, .results-table td { padding: 8px 10px; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .hero { padding: 20px 16px; flex-direction: column; text-align: center; }
+    .hero-text h1 { font-size: 22px; }
+    .main-container { padding: 0 12px; margin-top: 16px; }
+    .form-body { padding: 20px 16px; }
+    .field-row { flex-direction: column; gap: 0; }
+    .quiz-card { padding: 16px; }
+    .quiz-question { font-size: 16px; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .quiz-option { padding: 10px 12px; gap: 10px; }
+    .quiz-option .option-text { font-size: 15px; }
+    .results-panel { padding: 24px 16px; }
+    .progress-section { flex-wrap: wrap; gap: 8px; padding: 12px 16px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+    .results-table { font-size: 13px; }
+    .results-table th, .results-table td { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Competency Evaluation: 6-Hour Alzheimer's Training</h1>
+    <p>VitalTouch Health Network — Post-training knowledge assessment</p>
+  </div>
+</div>
+
+<!-- ===== MAIN CONTAINER ===== -->
+<div class="main-container">
+  <div class="card">
+    <div class="form-body" id="formBody">
+
+      <!-- ===== EMPLOYEE INFO ===== -->
+      <div class="section-header">
+        <div class="section-label">Employee Information</div>
+        <div class="section-title">About You</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Name <span class="req">*</span></label>
+          <input type="text" id="empName" required placeholder="Full name">
+          <div class="error-msg">Employee name is required</div>
+        </div>
+        <div class="field">
+          <label>Employee ID</label>
+          <input type="text" id="empId" placeholder="Optional">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Training Completion Date <span class="req">*</span></label>
+        <input type="date" id="trainingDate" required>
+        <div class="error-msg">Training date is required</div>
+      </div>
+
+      <!-- ===== INSTRUCTIONS ===== -->
+      <div class="callout">
+        <span class="callout-icon">📝</span>
+        <span>This evaluation tests your knowledge of the 6-Hour Alzheimer's Disease Training. You must score <strong>80% or higher (19 of 23 correct)</strong> to pass. Read each question carefully and select the best answer.</span>
+      </div>
+
+      <!-- ===== PROGRESS ===== -->
+      <div class="progress-section" id="progressSection">
+        <span class="progress-text" id="progressText">Question 0 of 23</span>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+
+      <!-- ===== RESULTS PANEL (shown after grading) ===== -->
+      <div class="results-panel" id="resultsPanel">
+        <div class="results-icon" id="resultsIcon"></div>
+        <div class="results-title" id="resultsTitle"></div>
+        <div class="results-score" id="resultsScore"></div>
+        <div class="results-message" id="resultsMessage"></div>
+        <div class="results-table-wrapper" id="resultsTableWrapper" style="display: none; margin-top: 24px;">
+          <table class="results-table" id="resultsTable">
+            <thead>
+              <tr>
+                <th style="width: 10%;">Q</th>
+                <th style="width: 35%;">Your Answer</th>
+                <th style="width: 35%;">Correct Answer</th>
+                <th style="width: 10%; text-align: center;">Result</th>
+              </tr>
+            </thead>
+            <tbody id="resultsTableBody">
+            </tbody>
+          </table>
+        </div>
+        <button class="btn-print" onclick="window.print()">Print Results</button>
+      </div>
+
+      <!-- ===== 23 QUIZ QUESTIONS ===== -->
+      <div id="quizContainer">
+
+        <!-- Q1 -->
+        <div class="quiz-card" data-q="1" data-answer="B">
+          <div class="quiz-number" title="Question 1 of 23">1</div>
+          <div class="quiz-question">What is the most common form of dementia?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q1" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Vascular dementia</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q1" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Alzheimer's disease</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q1" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Lewy body dementia</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q1" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Frontotemporal dementia</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Alzheimer's disease</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-card" data-q="2" data-answer="C">
+          <div class="quiz-number" title="Question 2 of 23">2</div>
+          <div class="quiz-question">Which is NOT a known risk factor for Alzheimer's disease?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q2" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Age</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q2" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Family history</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q2" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Blood type</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q2" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Head injury</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: C) Blood type</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-card" data-q="3" data-answer="B">
+          <div class="quiz-number" title="Question 3 of 23">3</div>
+          <div class="quiz-question">What brain changes are associated with Alzheimer's disease?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q3" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Increased blood flow</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q3" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Amyloid plaques and tau tangles</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q3" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Brain swelling</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q3" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Excess dopamine</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Amyloid plaques and tau tangles</div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quiz-card" data-q="4" data-answer="B">
+          <div class="quiz-number" title="Question 4 of 23">4</div>
+          <div class="quiz-question">Which is often the earliest symptom of Alzheimer's disease?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q4" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Difficulty walking</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q4" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Short-term memory loss</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q4" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Vision changes</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q4" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Tremors</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Short-term memory loss</div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="quiz-card" data-q="5" data-answer="B">
+          <div class="quiz-number" title="Question 5 of 23">5</div>
+          <div class="quiz-question">How many stages does Alzheimer's disease typically progress through?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q5" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">2</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q5" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">3 (early, middle, late)</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q5" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">5</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q5" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">7</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) 3 (early, middle, late)</div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="quiz-card" data-q="6" data-answer="C">
+          <div class="quiz-number" title="Question 6 of 23">6</div>
+          <div class="quiz-question">When communicating with a person with dementia, you should:</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q6" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Speak loudly and quickly</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q6" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Use complex sentences</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q6" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Use simple, short sentences and a calm tone</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q6" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Correct them when they're wrong</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: C) Use simple, short sentences and a calm tone</div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="quiz-card" data-q="7" data-answer="B">
+          <div class="quiz-number" title="Question 7 of 23">7</div>
+          <div class="quiz-question">What is "sundowning"?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q7" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">A type of medication</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q7" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Increased confusion and agitation in late afternoon/evening</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q7" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">A sleeping technique</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q7" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">A memory exercise</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Increased confusion and agitation in late afternoon/evening</div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="quiz-card" data-q="8" data-answer="D">
+          <div class="quiz-number" title="Question 8 of 23">8</div>
+          <div class="quiz-question">The best approach when a client with dementia becomes agitated is to:</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q8" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Restrain them immediately</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q8" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Raise your voice to get their attention</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q8" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Leave them alone</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q8" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Remain calm, speak softly, and redirect their attention</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: D) Remain calm, speak softly, and redirect their attention</div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="quiz-card" data-q="9" data-answer="B">
+          <div class="quiz-number" title="Question 9 of 23">9</div>
+          <div class="quiz-question">What is the primary goal when assisting a dementia client with personal care?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q9" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Complete the task as quickly as possible</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q9" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Maintain their dignity and independence</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q9" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Follow a strict schedule</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q9" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Document every detail</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Maintain their dignity and independence</div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="quiz-card" data-q="10" data-answer="B">
+          <div class="quiz-number" title="Question 10 of 23">10</div>
+          <div class="quiz-question">Which is a sign of the middle stage of Alzheimer's disease?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q10" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Mild forgetfulness</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q10" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Difficulty recognizing family members</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q10" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Complete loss of all function</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q10" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">No behavioral changes</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Difficulty recognizing family members</div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="quiz-card" data-q="11" data-answer="C">
+          <div class="quiz-number" title="Question 11 of 23">11</div>
+          <div class="quiz-question">What should you do if a client with dementia wanders?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q11" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Lock them in their room</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q11" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Scold them</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q11" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Gently redirect them and ensure the environment is safe</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q11" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Ignore it</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: C) Gently redirect them and ensure the environment is safe</div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="quiz-card" data-q="12" data-answer="B">
+          <div class="quiz-number" title="Question 12 of 23">12</div>
+          <div class="quiz-question">Which activity is most appropriate for a client in the early stage of Alzheimer's?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q12" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Complex puzzles with 1000 pieces</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q12" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Simple card games or music activities</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q12" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">No activities are appropriate</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q12" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Running errands alone</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Simple card games or music activities</div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="quiz-card" data-q="13" data-answer="B">
+          <div class="quiz-number" title="Question 13 of 23">13</div>
+          <div class="quiz-question">What is a key strategy for fall prevention in dementia clients?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q13" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Keep the lights dim</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q13" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Remove tripping hazards and ensure adequate lighting</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q13" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Encourage them to walk faster</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q13" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Use heavy furniture as obstacles</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Remove tripping hazards and ensure adequate lighting</div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="quiz-card" data-q="14" data-answer="C">
+          <div class="quiz-number" title="Question 14 of 23">14</div>
+          <div class="quiz-question">How should medications be handled for a dementia client?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q14" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Let them manage their own medications</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q14" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Give extra doses if they forget</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q14" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Follow the care plan and report any concerns to the supervisor</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q14" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Skip medications if the client refuses</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: C) Follow the care plan and report any concerns to the supervisor</div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="quiz-card" data-q="15" data-answer="C">
+          <div class="quiz-number" title="Question 15 of 23">15</div>
+          <div class="quiz-question">What is the MOST important thing to do if you suspect a dementia client is being abused?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q15" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Confront the suspected abuser</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q15" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Wait and see if it happens again</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q15" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Report it immediately to your supervisor</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q15" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Discuss it with other clients</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: C) Report it immediately to your supervisor</div>
+        </div>
+
+        <!-- Q16 -->
+        <div class="quiz-card" data-q="16" data-answer="B">
+          <div class="quiz-number" title="Question 16 of 23">16</div>
+          <div class="quiz-question">Which behavior change is common in dementia?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q16" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Increased social engagement</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q16" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Repetitive questioning or actions</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q16" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Improved memory</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q16" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Decreased appetite only</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Repetitive questioning or actions</div>
+        </div>
+
+        <!-- Q17 -->
+        <div class="quiz-card" data-q="17" data-answer="C">
+          <div class="quiz-number" title="Question 17 of 23">17</div>
+          <div class="quiz-question">What does "person-centered care" mean in dementia care?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q17" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Following the same routine for all clients</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q17" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Focusing on medical needs only</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q17" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Tailoring care to the individual's preferences, history, and needs</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q17" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Letting the client make all decisions without guidance</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: C) Tailoring care to the individual's preferences, history, and needs</div>
+        </div>
+
+        <!-- Q18 -->
+        <div class="quiz-card" data-q="18" data-answer="B">
+          <div class="quiz-number" title="Question 18 of 23">18</div>
+          <div class="quiz-question">When a client with dementia says something that isn't true (e.g., "My mother is coming to visit" when their mother is deceased), you should:</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q18" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Tell them their mother is dead</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q18" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Acknowledge their feelings and gently redirect</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q18" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Ignore them completely</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q18" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Agree and make promises you can't keep</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Acknowledge their feelings and gently redirect</div>
+        </div>
+
+        <!-- Q19 -->
+        <div class="quiz-card" data-q="19" data-answer="C">
+          <div class="quiz-number" title="Question 19 of 23">19</div>
+          <div class="quiz-question">What is an advance directive?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q19" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">A daily schedule</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q19" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">A type of medication</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q19" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">A legal document expressing a person's wishes for future care</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q19" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">A training manual</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: C) A legal document expressing a person's wishes for future care</div>
+        </div>
+
+        <!-- Q20 -->
+        <div class="quiz-card" data-q="20" data-answer="B">
+          <div class="quiz-number" title="Question 20 of 23">20</div>
+          <div class="quiz-question">Which is a sign of caregiver burnout?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q20" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Increased patience</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q20" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Feeling exhausted, irritable, or hopeless</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q20" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">More energy than usual</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q20" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Wanting to work more hours</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Feeling exhausted, irritable, or hopeless</div>
+        </div>
+
+        <!-- Q21 -->
+        <div class="quiz-card" data-q="21" data-answer="B">
+          <div class="quiz-number" title="Question 21 of 23">21</div>
+          <div class="quiz-question">What is the best way to create a safe environment for a wandering client?</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q21" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Use physical restraints</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q21" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Secure exits, use alarms, and provide a safe walking path</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q21" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Keep them sedated</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q21" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Remove all furniture</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: B) Secure exits, use alarms, and provide a safe walking path</div>
+        </div>
+
+        <!-- Q22 -->
+        <div class="quiz-card" data-q="22" data-answer="C">
+          <div class="quiz-number" title="Question 22 of 23">22</div>
+          <div class="quiz-question">Music therapy for dementia clients can:</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q22" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Cure the disease</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q22" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Replace all medications</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q22" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Reduce agitation and trigger positive memories</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q22" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Worsen confusion</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: C) Reduce agitation and trigger positive memories</div>
+        </div>
+
+        <!-- Q23 -->
+        <div class="quiz-card" data-q="23" data-answer="C">
+          <div class="quiz-number" title="Question 23 of 23">23</div>
+          <div class="quiz-question">Upon completing this training, you are expected to:</div>
+          <div class="quiz-options">
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q23" value="A">
+              <span class="option-letter">A</span>
+              <span class="option-text">Diagnose dementia in clients</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q23" value="B">
+              <span class="option-letter">B</span>
+              <span class="option-text">Prescribe medications</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q23" value="C">
+              <span class="option-letter">C</span>
+              <span class="option-text">Apply learned techniques to provide compassionate, safe care</span>
+            </label>
+            <label class="quiz-option" onclick="selectOption(this)">
+              <input type="radio" name="q23" value="D">
+              <span class="option-letter">D</span>
+              <span class="option-text">Train other employees without supervision</span>
+            </label>
+          </div>
+          <div class="correct-answer">Correct answer: C) Apply learned techniques to provide compassionate, safe care</div>
+        </div>
+
+      </div><!-- /quizContainer -->
+
+      <!-- ===== SUBMIT ===== -->
+      <div class="submit-section" id="submitSection">
+        <button class="btn-submit" id="btnSubmit" onclick="submitQuiz()">Submit Evaluation</button>
+        <div id="submitError" style="color: var(--red); font-size: 14px; margin-top: 12px; display: none;"></div>
+      </div>
+
+      <!-- ===== CONFIRMATION (shown after passing) ===== -->
+      <div class="confirmation" id="confirmationPanel">
+        <div class="conf-check">&#10003;</div>
+        <h2 style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">Results Submitted</h2>
+        <p style="font-size: 15px; color: var(--text-light); max-width: 460px; margin: 0 auto;">Your evaluation results have been recorded and sent to VitalTouch Health Network for your employee file.</p>
+        <div class="conf-id">Submission ID: <span id="confId"></span></div>
+        <div style="margin-top: 20px;">
+          <button class="btn-print" onclick="window.print()">Print Results</button>
+        </div>
+        <p style="margin-top: 16px; font-size: 13px; color: var(--text-lighter);">A notification has been sent to iezuri22@gmail.com.</p>
+      </div>
+
+    </div><!-- /form-body -->
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <div class="trust-item">&#128274; HIPAA Compliant</div>
+      <div class="trust-item">&#127973; IDPH Licensed</div>
+      <div class="trust-item">&#128203; Form B.1</div>
+    </div>
+  </div><!-- /card -->
+</div><!-- /main-container -->
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== CONSTANTS =====
+const FORM_ID = 'B.1';
+const TOTAL_QUESTIONS = 23;
+const PASS_THRESHOLD = 19; // 80% of 23
+let isGraded = false;
+
+// ===== ANSWER KEY =====
+const answerKey = {};
+const answerTexts = {};
+document.querySelectorAll('.quiz-card').forEach(card => {
+  const qNum = card.getAttribute('data-q');
+  const answer = card.getAttribute('data-answer');
+  answerKey[qNum] = answer;
+
+  // Build answer text map
+  const options = card.querySelectorAll('.quiz-option');
+  options.forEach(opt => {
+    const input = opt.querySelector('input');
+    const letter = opt.querySelector('.option-letter').textContent;
+    const text = opt.querySelector('.option-text').textContent;
+    if (!answerTexts[qNum]) answerTexts[qNum] = {};
+    answerTexts[qNum][letter] = text;
+  });
+});
+
+// ===== BUILD RESULTS TABLE =====
+function buildResultsTable(correct, total) {
+  const tbody = document.getElementById('resultsTableBody');
+  tbody.innerHTML = '';
+
+  for (let i = 1; i <= total; i++) {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`).value;
+    const correctAnswer = answerKey[i];
+    const isCorrect = selected === correctAnswer;
+
+    const userAnswerText = answerTexts[i][selected] || selected;
+    const correctAnswerText = answerTexts[i][correctAnswer] || correctAnswer;
+
+    const row = document.createElement('tr');
+    row.className = isCorrect ? 'correct-row' : 'incorrect-row';
+    row.innerHTML = `
+      <td><strong>Q${i}</strong></td>
+      <td>${userAnswerText}</td>
+      <td>${correctAnswerText}</td>
+      <td class="result-icon">${isCorrect ? 'Correct' : 'Incorrect'}</td>
+    `;
+    tbody.appendChild(row);
+  }
+
+  document.getElementById('resultsTableWrapper').style.display = 'block';
+}
+
+// ===== SELECT OPTION =====
+function selectOption(el) {
+  if (isGraded) return;
+  const card = el.closest('.quiz-card');
+  card.classList.remove('unanswered');
+  card.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+  updateProgress();
+}
+
+// ===== PROGRESS =====
+function updateProgress() {
+  let answered = 0;
+  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+    const checked = document.querySelector(`input[name="q${i}"]:checked`);
+    if (checked) answered++;
+  }
+  const pct = Math.round((answered / TOTAL_QUESTIONS) * 100);
+  document.getElementById('progressText').textContent = `Question ${answered} of ${TOTAL_QUESTIONS}`;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+// ===== VALIDATE EMPLOYEE INFO =====
+function validateInfo() {
+  let valid = true;
+  const empName = document.getElementById('empName');
+  const trainingDate = document.getElementById('trainingDate');
+
+  [empName, trainingDate].forEach(el => {
+    const field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  return valid;
+}
+
+// ===== SUBMIT & GRADE =====
+function submitQuiz() {
+  if (isGraded) return;
+
+  // Validate employee info
+  if (!validateInfo()) {
+    document.getElementById('submitError').textContent = 'Please fill in all required fields above.';
+    document.getElementById('submitError').style.display = 'block';
+    document.getElementById('empName').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // Check all questions answered
+  let allAnswered = true;
+  let firstUnanswered = null;
+  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+    const checked = document.querySelector(`input[name="q${i}"]:checked`);
+    const card = document.querySelector(`.quiz-card[data-q="${i}"]`);
+    if (!checked) {
+      allAnswered = false;
+      card.classList.add('unanswered');
+      if (!firstUnanswered) firstUnanswered = card;
+    } else {
+      card.classList.remove('unanswered');
+    }
+  }
+
+  if (!allAnswered) {
+    document.getElementById('submitError').textContent = 'Please answer all 23 questions before submitting.';
+    document.getElementById('submitError').style.display = 'block';
+    if (firstUnanswered) firstUnanswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  document.getElementById('submitError').style.display = 'none';
+  isGraded = true;
+
+  // Grade
+  let correct = 0;
+  const answers = {};
+
+  for (let i = 1; i <= TOTAL_QUESTIONS; i++) {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`).value;
+    const correctAnswer = answerKey[i];
+    const card = document.querySelector(`.quiz-card[data-q="${i}"]`);
+    answers['q' + i] = selected;
+
+    card.classList.add('graded');
+    if (selected === correctAnswer) {
+      correct++;
+      card.classList.add('correct');
+    } else {
+      card.classList.add('incorrect');
+    }
+  }
+
+  const pct = Math.round((correct / TOTAL_QUESTIONS) * 100);
+  const passed = correct >= PASS_THRESHOLD;
+
+  // Build results table
+  buildResultsTable(correct, TOTAL_QUESTIONS);
+
+  // Show results panel
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.add('show', passed ? 'pass' : 'fail');
+  document.getElementById('resultsIcon').textContent = passed ? '\u2705' : '\u274C';
+  document.getElementById('resultsTitle').textContent = passed
+    ? 'Congratulations! You passed.'
+    : 'You did not pass.';
+  document.getElementById('resultsScore').textContent =
+    `You scored ${correct} out of ${TOTAL_QUESTIONS} (${pct}%)`;
+  document.getElementById('resultsMessage').textContent = passed
+    ? `You met the 80% passing threshold. Your results have been recorded.`
+    : `You need at least ${PASS_THRESHOLD} of ${TOTAL_QUESTIONS} correct (80%) to pass. Please review the training material and try again.`;
+
+  // Hide submit, show retry if failed
+  document.getElementById('btnSubmit').style.display = 'none';
+
+  if (!passed) {
+    const retryBtn = document.createElement('button');
+    retryBtn.className = 'btn-retry';
+    retryBtn.textContent = 'Retake Evaluation';
+    retryBtn.onclick = retakeQuiz;
+    document.getElementById('submitSection').appendChild(retryBtn);
+  }
+
+  // Generate submission ID
+  const ts = Date.now().toString(36);
+  const submissionId = `B1-${ts}`;
+  document.getElementById('confId').textContent = submissionId;
+
+  // Save to localStorage
+  const empName = document.getElementById('empName').value.trim();
+  const empIdVal = document.getElementById('empId').value.trim();
+  const trainingDate = document.getElementById('trainingDate').value;
+
+  const submission = {
+    formId: FORM_ID,
+    submissionId: submissionId,
+    timestamp: new Date().toISOString(),
+    employeeName: empName,
+    employeeId: empIdVal,
+    trainingDate: trainingDate,
+    score: correct,
+    totalQuestions: TOTAL_QUESTIONS,
+    percentage: pct,
+    passed: passed,
+    answers: answers
+  };
+
+  try {
+    const existing = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+    existing.push(submission);
+    localStorage.setItem('vt_submissions', JSON.stringify(existing));
+  } catch (e) {
+    console.warn('Could not save to localStorage:', e);
+  }
+
+  // If passed, send mailto and show confirmation
+  if (passed) {
+    document.getElementById('confirmationPanel').classList.add('show');
+
+    const subject = encodeURIComponent(`[B.1] Alzheimer's Competency Eval PASSED - ${empName}`);
+    const body = encodeURIComponent(
+      `Competency Evaluation: 6-Hour Alzheimer's Training\n` +
+      `----------------------------------------------\n` +
+      `Submission ID: ${submissionId}\n` +
+      `Employee: ${empName}\n` +
+      `Employee ID: ${empIdVal || 'N/A'}\n` +
+      `Training Date: ${trainingDate}\n` +
+      `Score: ${correct}/${TOTAL_QUESTIONS} (${pct}%)\n` +
+      `Result: PASSED\n` +
+      `Submitted: ${new Date().toLocaleString()}\n` +
+      `----------------------------------------------\n` +
+      `This result has been saved to the admin portal.`
+    );
+
+    window.location.href = `mailto:iezuri22@gmail.com?subject=${subject}&body=${body}`;
+  }
+
+  // Scroll to results
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ===== RETAKE =====
+function retakeQuiz() {
+  isGraded = false;
+
+  // Reset all cards
+  document.querySelectorAll('.quiz-card').forEach(card => {
+    card.classList.remove('correct', 'incorrect', 'graded', 'unanswered');
+  });
+
+  // Reset all options
+  document.querySelectorAll('.quiz-option').forEach(opt => {
+    opt.classList.remove('selected');
+  });
+  document.querySelectorAll('.quiz-options input[type="radio"]').forEach(r => {
+    r.checked = false;
+  });
+
+  // Hide results
+  const panel = document.getElementById('resultsPanel');
+  panel.classList.remove('show', 'pass', 'fail');
+  document.getElementById('confirmationPanel').classList.remove('show');
+
+  // Reset submit button
+  document.getElementById('btnSubmit').style.display = 'inline-flex';
+  const retryBtn = document.getElementById('submitSection').querySelector('.btn-retry');
+  if (retryBtn) retryBtn.remove();
+
+  document.getElementById('submitError').style.display = 'none';
+
+  // Reset progress
+  updateProgress();
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  // Set today's date as default
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('trainingDate').value = today;
+
+  // Add focus/blur listeners for validation clearing
+  document.querySelectorAll('.field input, .field select').forEach(el => {
+    el.addEventListener('focus', function() {
+      this.classList.remove('invalid');
+      const field = this.closest('.field');
+      if (field) field.classList.remove('has-error');
+    });
+  });
+
+  updateProgress();
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

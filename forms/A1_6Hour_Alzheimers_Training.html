@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6-Hour Alzheimer's Disease Training — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 6px;
+    --radius-sm: 6px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    color: white;
+    text-align: center;
+    padding: 50px 24px 40px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--green);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -20%;
+    width: 140%; height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    margin-bottom: 16px;
+    filter: brightness(0) invert(1);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    max-width: 600px;
+    margin-left: auto; margin-right: auto;
+    color: #1a1a1a;
+  }
+  .hero p {
+    font-size: clamp(15px, 2.5vw, 18px);
+    opacity: 0.9;
+    max-width: 520px;
+    margin: 0 auto;
+    font-weight: 400;
+    color: var(--text-light);
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 800px;
+    margin: -30px auto 40px;
+    padding: 0 16px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ===== EMPLOYEE INFO BAR ===== */
+  .employee-bar {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .employee-bar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .employee-bar-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--green);
+    margin: 0;
+  }
+  .employee-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .employee-row .field {
+    flex: 1;
+    min-width: 160px;
+  }
+  .field label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #1a1a1a;
+  }
+  .field label .req { color: var(--red); }
+  .field input[type="text"],
+  .field input[type="date"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 17px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--white);
+    transition: all 0.2s;
+  }
+  .field input:focus {
+    outline: none;
+    border-color: var(--green);
+  }
+  .field input.invalid {
+    border-color: var(--red);
+  }
+  .field .error-msg {
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+  }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== MONOGRAM BADGES ===== */
+  .monogram-badge {
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .monogram-badge.blue {
+    background: #DBEAFE;
+    color: #1E40AF;
+  }
+  .monogram-badge.green {
+    background: #DCFCE7;
+    color: #166534;
+  }
+  .monogram-badge.amber {
+    background: #FEF3C7;
+    color: #92400E;
+  }
+
+  /* ===== PROGRESS TRACKER ===== */
+  .progress-tracker {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    position: sticky;
+    top: 8px;
+    z-index: 100;
+  }
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .progress-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .progress-counter {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-light);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+  .progress-pct {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--green);
+  }
+  .progress-bar-outer {
+    width: 100%;
+    height: 10px;
+    background: #E2E8F0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green), #22C55E);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+
+  /* ===== TRAINING CARDS ===== */
+  .training-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .training-card.completed {
+    border-left: 4px solid var(--green);
+  }
+  .training-card-header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    gap: 12px;
+    user-select: none;
+  }
+  .training-card-header:hover {
+    background: var(--bg);
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+  }
+  .section-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-light);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .training-card.completed .section-num {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .training-card.completed .section-num::after {
+    content: none;
+  }
+  .header-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .section-badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-lighter);
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .chevron {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    color: var(--text-lighter);
+  }
+  .training-card.open .chevron {
+    transform: rotate(180deg);
+  }
+  .training-card-body {
+    padding: 0 20px 20px;
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+  .training-card.open .training-card-body {
+    display: block;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  .section-desc {
+    font-size: 16px;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .video-placeholder {
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    background: #F8FAFC;
+    padding: 20px;
+    text-align: center;
+    margin: 12px 0 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .video-placeholder:hover {
+    border-color: var(--border);
+    background: #F8FAFC;
+  }
+  .play-icon {
+    display: none;
+  }
+  .video-placeholder:hover .play-icon {
+    display: none;
+  }
+  .video-label {
+    font-size: 15px;
+    color: #64748B;
+    font-weight: 500;
+  }
+  .video-url-field {
+    margin-top: 12px;
+    display: none;
+  }
+  .video-url-field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--white);
+    transition: all 0.2s;
+  }
+  .video-url-field input:focus {
+    outline: none;
+    border-color: var(--green);
+  }
+  .video-url-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .mark-complete-btn {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+    color: var(--text);
+  }
+  .mark-complete-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+    background: var(--bg);
+  }
+  .mark-complete-btn.completed {
+    background: var(--green-light);
+    border-color: var(--green);
+    color: var(--green-dark);
+  }
+
+  /* ===== SUBMIT AREA ===== */
+  .submit-area {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .submit-area.visible {
+    display: block;
+    animation: fadeIn 0.35s ease;
+  }
+  .submit-area h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+  .submit-area p {
+    font-size: 16px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+  .btn-submit {
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 16px 40px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 0.2s;
+    box-shadow: none;
+  }
+  .btn-submit:hover {
+    background: var(--green-dark);
+  }
+  .btn-submit:active {
+    background: var(--green-dark);
+  }
+  .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--green);
+  }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 40px 24px;
+    text-align: center;
+    display: none;
+  }
+  .confirmation.visible {
+    display: block;
+    animation: fadeIn 0.35s ease;
+  }
+  .conf-check {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 36px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .confirmation h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+  }
+  .confirmation p {
+    font-size: 16px;
+    color: var(--text-light);
+    max-width: 500px;
+    margin: 0 auto 16px;
+  }
+  .conf-id {
+    display: inline-block;
+    background: var(--bg);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+  .conf-details {
+    text-align: left;
+    max-width: 400px;
+    margin: 16px auto 0;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+  .conf-details strong {
+    color: var(--text);
+  }
+  .btn-print {
+    background: var(--text);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 16px;
+  }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 16px;
+    font-size: 13px;
+    color: var(--text-lighter);
+    font-weight: 500;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 24px 16px 32px;
+    font-size: 13px;
+    color: var(--text-lighter);
+    line-height: 1.8;
+  }
+  .footer a {
+    color: var(--green);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .hero { padding: 36px 16px 30px; }
+    .hero h1 { font-size: 24px; }
+    .employee-row { flex-direction: column; }
+    .employee-row .field { min-width: 100%; }
+    .section-title {
+      font-size: 16px;
+      white-space: normal;
+    }
+    .training-card-header { padding: 14px 16px; }
+    .training-card-body { padding: 0 16px 16px; }
+    .video-placeholder { padding: 30px 16px; }
+    .progress-tracker { top: 0; border-radius: 0; margin-left: -16px; margin-right: -16px; padding: 16px; }
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 12px; }
+    .hero { padding: 20px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .main-container { max-width: 100%; margin: 0; padding: 0 12px; }
+    .progress-tracker { position: static; box-shadow: none; border: 1px solid #ddd; }
+    .training-card {
+      break-inside: avoid;
+      box-shadow: none;
+      border: 1px solid #ccc;
+    }
+    .training-card-body { display: block !important; }
+    .video-placeholder { display: none; }
+    .video-url-field { display: none; }
+    .mark-complete-btn { display: none; }
+    .submit-area { display: none; }
+    .trust-bar { display: none; }
+    .employee-bar { box-shadow: none; border: 1px solid #ddd; }
+    .chevron { display: none; }
+    .section-num {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .training-card.completed .section-num {
+      background: var(--green) !important;
+      color: white !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-badge">IDPH Required Training - Form A.1</div>
+  <h1>6-Hour Alzheimer's Disease Training</h1>
+  <p>VitalTouch Health Network — IDPH Required Dementia Care Training</p>
+</div>
+
+<div class="main-container">
+
+  <!-- ===== EMPLOYEE INFO ===== -->
+  <div class="employee-bar" id="employeeBar">
+    <div class="employee-bar-header">
+      <span class="monogram-badge green">EI</span>
+      <div class="employee-bar-title">Employee Information</div>
+    </div>
+    <div class="employee-row">
+      <div class="field">
+        <label>Employee Name <span class="req">*</span></label>
+        <input type="text" id="employeeName" required placeholder="Full name">
+        <div class="error-msg">Employee name is required</div>
+      </div>
+      <div class="field">
+        <label>Employee ID</label>
+        <input type="text" id="employeeId" placeholder="Optional">
+      </div>
+      <div class="field">
+        <label>Start Date</label>
+        <input type="date" id="startDate">
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PROGRESS TRACKER ===== -->
+  <div class="progress-tracker" id="progressTracker">
+    <div class="progress-top">
+      <div class="progress-label">Training Progress</div>
+      <div class="progress-counter"><span id="completedCount">0</span>/31</div>
+    </div>
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progressBar"></div>
+    </div>
+    <div class="progress-pct" id="progressPct">0%</div>
+  </div>
+
+  <!-- ===== TRAINING SECTION CARDS ===== -->
+  <div id="trainingCards"></div>
+
+  <!-- ===== SUBMIT AREA ===== -->
+  <div class="submit-area" id="submitArea">
+    <h2>All Sections Complete!</h2>
+    <p>You have completed all 31 training sections. Submit your training completion record below.</p>
+    <button class="btn-submit" id="btnSubmit" onclick="submitTraining()">Submit Training Completion</button>
+  </div>
+
+  <!-- ===== CONFIRMATION ===== -->
+  <div class="confirmation" id="confirmationPanel">
+    <div class="conf-check">&#10003;</div>
+    <h2>Training Completed!</h2>
+    <p>Your 6-Hour Alzheimer's Disease Training completion has been recorded and sent to VitalTouch leadership for verification.</p>
+    <div class="conf-id">Submission ID: <span id="confId"></span></div>
+    <div class="conf-details" id="confDetails"></div>
+    <button class="btn-print" onclick="window.print()">Print Certificate</button>
+  </div>
+
+  <!-- ===== TRUST BAR ===== -->
+  <div class="trust-bar">
+    <div class="trust-item">&#128274; HIPAA Compliant</div>
+    <div class="trust-item">&#127973; IDPH Licensed</div>
+    <div class="trust-item">&#128203; Form A.1</div>
+  </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <p>&copy; 2026 VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== TRAINING SECTIONS DATA =====
+  const sections = [
+    { num: 1, title: 'Introduction to Alzheimer\'s Disease', desc: 'Overview of what Alzheimer\'s disease is and its prevalence in the United States.' },
+    { num: 2, title: 'Types of Dementia', desc: 'Alzheimer\'s, vascular, Lewy body, frontotemporal, and mixed dementias.' },
+    { num: 3, title: 'Risk Factors', desc: 'Age, genetics, lifestyle, and environmental factors that contribute to the disease.' },
+    { num: 4, title: 'Brain Changes in Alzheimer\'s', desc: 'How Alzheimer\'s disease affects the structure and function of the brain.' },
+    { num: 5, title: 'Early Signs and Symptoms', desc: 'Recognizing the first indicators of cognitive decline in individuals.' },
+    { num: 6, title: 'Stages of Alzheimer\'s Disease', desc: 'Early, middle, and late stage characteristics and what to expect.' },
+    { num: 7, title: 'Getting a Diagnosis', desc: 'Medical evaluation process, cognitive testing, and diagnostic criteria.' },
+    { num: 8, title: 'Communication Strategies: Basics', desc: 'Fundamental techniques for communicating with individuals with dementia.' },
+    { num: 9, title: 'Communication Strategies: Advanced', desc: 'Handling difficult conversations and responding to emotional reactions.' },
+    { num: 10, title: 'Verbal and Non-Verbal Communication', desc: 'Body language, tone of voice, and word choice when interacting with clients.' },
+    { num: 11, title: 'Understanding Behavioral Changes', desc: 'Why behaviors change in dementia and what they may be communicating.' },
+    { num: 12, title: 'Managing Agitation and Aggression', desc: 'De-escalation techniques and environmental modifications to reduce triggers.' },
+    { num: 13, title: 'Wandering Prevention and Response', desc: 'Safety strategies and protocols for managing wandering behavior.' },
+    { num: 14, title: 'Sundowning', desc: 'Understanding and managing late-day confusion and increased agitation.' },
+    { num: 15, title: 'Repetitive Behaviors', desc: 'Responding with patience to repeated questions and repetitive actions.' },
+    { num: 16, title: 'Personal Care: Bathing and Grooming', desc: 'Assisting with hygiene while maintaining the individual\'s dignity and comfort.' },
+    { num: 17, title: 'Personal Care: Dressing and Toileting', desc: 'Supporting independence in daily dressing and toileting activities.' },
+    { num: 18, title: 'Nutrition and Mealtime', desc: 'Addressing eating challenges, swallowing difficulties, and nutritional needs.' },
+    { num: 19, title: 'Sleep Disturbances', desc: 'Managing sleep-wake cycle disruptions common in Alzheimer\'s disease.' },
+    { num: 20, title: 'Home Safety Modifications', desc: 'Creating a safe living environment to prevent accidents and injuries.' },
+    { num: 21, title: 'Fall Prevention', desc: 'Strategies and home modifications to reduce fall risk for clients.' },
+    { num: 22, title: 'Medication Safety', desc: 'Assisting with medication management and recognizing adverse reactions.' },
+    { num: 23, title: 'Activities and Engagement', desc: 'Meaningful activities appropriate for each stage of the disease.' },
+    { num: 24, title: 'Music and Art Therapy', desc: 'Using creative approaches and therapeutic activities in dementia care.' },
+    { num: 25, title: 'Legal and Ethical Issues', desc: 'Advance directives, guardianship, and decision-making for clients with dementia.' },
+    { num: 26, title: 'Abuse and Neglect Prevention', desc: 'Recognizing and reporting signs of abuse, neglect, and exploitation.' },
+    { num: 27, title: 'Family Dynamics and Support', desc: 'Working effectively with family caregivers and managing expectations.' },
+    { num: 28, title: 'Caregiver Stress and Self-Care', desc: 'Recognizing burnout and maintaining your own physical and mental wellbeing.' },
+    { num: 29, title: 'Community Resources', desc: 'Available support services, programs, and resources for clients and caregivers.' },
+    { num: 30, title: 'End-of-Life Considerations', desc: 'Comfort care, hospice referrals, and supporting families during end-of-life.' },
+    { num: 31, title: 'Training Review and Summary', desc: 'Key takeaways, knowledge review, and certification acknowledgment.' }
+  ];
+
+  const TOTAL = sections.length;
+  const completedSet = new Set();
+
+  // ===== CATEGORY MAPPING FOR MONOGRAM BADGES =====
+  function getCategoryBadge(sectionNum) {
+    if (sectionNum >= 1 && sectionNum <= 7) return { badge: 'AD', color: 'blue' }; // Alzheimer's/Dementia
+    if (sectionNum >= 8 && sectionNum <= 15) return { badge: 'CM', color: 'blue' }; // Communication/Behavior
+    if (sectionNum >= 16 && sectionNum <= 22) return { badge: 'CS', color: 'green' }; // Care Skills/Safety
+    if (sectionNum >= 23 && sectionNum <= 24) return { badge: 'AC', color: 'green' }; // Activities
+    if (sectionNum >= 25 && sectionNum <= 26) return { badge: 'EL', color: 'blue' }; // Ethics/Legal
+    if (sectionNum >= 27 && sectionNum <= 30) return { badge: 'FC', color: 'green' }; // Family/Caregiver
+    return { badge: 'SU', color: 'green' }; // Summary
+  }
+
+  // ===== RENDER CARDS =====
+  function renderCards() {
+    const container = document.getElementById('trainingCards');
+    let html = '';
+
+    sections.forEach(function(s) {
+      const category = getCategoryBadge(s.num);
+      html += '<div class="training-card" id="card' + s.num + '" data-section="' + s.num + '">' +
+        '<div class="training-card-header" onclick="toggleCard(' + s.num + ')">' +
+          '<div class="header-left">' +
+            '<div class="section-num" id="snum' + s.num + '">' + s.num + '</div>' +
+            '<div class="header-info">' +
+              '<div style="display: flex; align-items: center; gap: 8px;">' +
+                '<span class="monogram-badge ' + category.color + '">' + category.badge + '</span>' +
+                '<div class="section-badge">Section ' + s.num + ' of ' + TOTAL + '</div>' +
+              '</div>' +
+              '<div class="section-title">' + escapeHtml(s.title) + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+        '</div>' +
+        '<div class="training-card-body">' +
+          '<p class="section-desc">' + escapeHtml(s.desc) + '</p>' +
+          '<div class="video-placeholder" onclick="showVideoUrl(' + s.num + ')">' +
+            '<span class="play-icon"></span>' +
+            '<span class="video-label">Click to load training video</span>' +
+          '</div>' +
+          '<div class="video-url-field" id="videoUrl' + s.num + '">' +
+            '<label>Video URL</label>' +
+            '<input type="text" placeholder="Paste video link here (YouTube, Vimeo, etc.)" id="videoInput' + s.num + '">' +
+          '</div>' +
+          '<button class="mark-complete-btn" id="btn' + s.num + '" onclick="toggleComplete(' + s.num + ')">' +
+            '<span class="btn-icon">&#9675;</span>' +
+            '<span class="btn-text">Mark as Complete</span>' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+    });
+
+    container.innerHTML = html;
+  }
+
+  function escapeHtml(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  // ===== TOGGLE CARD (ACCORDION) =====
+  window.toggleCard = function(num) {
+    var card = document.getElementById('card' + num);
+    if (card.classList.contains('open')) {
+      card.classList.remove('open');
+    } else {
+      // Close all other open cards
+      document.querySelectorAll('.training-card.open').forEach(function(c) {
+        c.classList.remove('open');
+      });
+      card.classList.add('open');
+      // Scroll card into view
+      setTimeout(function() {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 50);
+    }
+  };
+
+  // ===== SHOW VIDEO URL FIELD =====
+  window.showVideoUrl = function(num) {
+    var field = document.getElementById('videoUrl' + num);
+    field.style.display = 'block';
+    document.getElementById('videoInput' + num).focus();
+  };
+
+  // ===== TOGGLE COMPLETION =====
+  window.toggleComplete = function(num) {
+    var card = document.getElementById('card' + num);
+    var btn = document.getElementById('btn' + num);
+    var snum = document.getElementById('snum' + num);
+
+    if (completedSet.has(num)) {
+      completedSet.delete(num);
+      card.classList.remove('completed');
+      btn.classList.remove('completed');
+      btn.querySelector('.btn-icon').innerHTML = '&#9675;';
+      btn.querySelector('.btn-text').textContent = 'Mark as Complete';
+      snum.textContent = num;
+    } else {
+      completedSet.add(num);
+      card.classList.add('completed');
+      btn.classList.add('completed');
+      btn.querySelector('.btn-icon').innerHTML = '&#10003;';
+      btn.querySelector('.btn-text').textContent = 'Completed';
+      snum.textContent = '\u2713';
+
+      // Auto-advance to next section
+      if (num < TOTAL) {
+        setTimeout(function() {
+          toggleCard(num + 1);
+        }, 300);
+      }
+    }
+
+    updateProgress();
+  };
+
+  // ===== UPDATE PROGRESS =====
+  function updateProgress() {
+    var count = completedSet.size;
+    var pct = Math.round((count / TOTAL) * 100);
+    document.getElementById('completedCount').textContent = count;
+    document.getElementById('progressPct').textContent = pct + '%';
+    document.getElementById('progressBar').style.width = pct + '%';
+
+    // Show/hide submit button
+    var submitArea = document.getElementById('submitArea');
+    if (count === TOTAL) {
+      submitArea.classList.add('visible');
+      submitArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      submitArea.classList.remove('visible');
+    }
+  }
+
+  // ===== VALIDATE EMPLOYEE INFO =====
+  function validateEmployee() {
+    var nameInput = document.getElementById('employeeName');
+    var field = nameInput.closest('.field');
+    var name = nameInput.value.trim();
+
+    if (!name) {
+      nameInput.classList.add('invalid');
+      field.classList.add('has-error');
+      nameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      nameInput.focus();
+      return false;
+    }
+
+    nameInput.classList.remove('invalid');
+    field.classList.remove('has-error');
+    return true;
+  }
+
+  // ===== SUBMIT TRAINING =====
+  window.submitTraining = function() {
+    if (!validateEmployee()) return;
+
+    if (completedSet.size < TOTAL) {
+      alert('Please complete all ' + TOTAL + ' sections before submitting.');
+      return;
+    }
+
+    var now = new Date();
+    var submissionId = 'A1-' + Date.now().toString(36).toUpperCase();
+    var employeeName = document.getElementById('employeeName').value.trim();
+    var employeeIdVal = document.getElementById('employeeId').value.trim();
+    var startDateVal = document.getElementById('startDate').value;
+
+    // Build completion data
+    var completionData = {
+      formId: 'A.1',
+      formName: '6-Hour Alzheimer\'s Disease Training',
+      submissionId: submissionId,
+      timestamp: now.toISOString(),
+      employee: {
+        name: employeeName,
+        id: employeeIdVal || null,
+        startDate: startDateVal
+      },
+      training: {
+        totalSections: TOTAL,
+        completedSections: completedSet.size,
+        completionPct: 100,
+        sectionsCompleted: Array.from(completedSet).sort(function(a,b){ return a - b; })
+      },
+      status: 'completed'
+    };
+
+    // Save to localStorage
+    var stored = [];
+    try {
+      stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+    } catch(e) {
+      stored = [];
+    }
+    stored.push(completionData);
+    localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+    // Show confirmation
+    document.getElementById('confId').textContent = submissionId;
+    document.getElementById('confDetails').innerHTML =
+      '<strong>Employee:</strong> ' + escapeHtml(employeeName) + '<br>' +
+      (employeeIdVal ? '<strong>Employee ID:</strong> ' + escapeHtml(employeeIdVal) + '<br>' : '') +
+      '<strong>Training:</strong> 6-Hour Alzheimer\'s Disease Training<br>' +
+      '<strong>Sections Completed:</strong> ' + TOTAL + ' of ' + TOTAL + '<br>' +
+      '<strong>Date Completed:</strong> ' + now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) + '<br>' +
+      '<strong>Time:</strong> ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+    // Hide cards and submit area, show confirmation
+    document.getElementById('trainingCards').style.display = 'none';
+    document.getElementById('submitArea').style.display = 'none';
+    document.getElementById('progressTracker').style.display = 'none';
+    document.getElementById('confirmationPanel').classList.add('visible');
+
+    // Send mailto notification to CEO
+    var subject = encodeURIComponent('[VitalTouch] Training Completed — ' + employeeName + ' (' + submissionId + ')');
+    var body = encodeURIComponent(
+      'An employee has completed the 6-Hour Alzheimer\'s Disease Training.\n\n' +
+      'Employee: ' + employeeName + '\n' +
+      (employeeIdVal ? 'Employee ID: ' + employeeIdVal + '\n' : '') +
+      'Start Date: ' + (startDateVal || 'Not specified') + '\n' +
+      'Sections Completed: ' + TOTAL + ' of ' + TOTAL + '\n' +
+      'Completion Date: ' + now.toLocaleDateString('en-US') + ' at ' + now.toLocaleTimeString('en-US') + '\n' +
+      'Submission ID: ' + submissionId + '\n\n' +
+      'Log into the admin portal to review:\nhttps://vitaltouchcares.com/admin/'
+    );
+
+    var mailLink = document.createElement('a');
+    mailLink.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+    mailLink.click();
+
+    console.log('Training submitted:', completionData);
+  };
+
+  // ===== INIT =====
+  document.addEventListener('DOMContentLoaded', function() {
+    renderCards();
+
+    // Auto-set today's date
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('startDate').value = today;
+
+    // Open first card by default
+    toggleCard(1);
+
+    // Live validation on employee name
+    document.getElementById('employeeName').addEventListener('input', function() {
+      if (this.value.trim()) {
+        this.classList.remove('invalid');
+        this.closest('.field').classList.remove('has-error');
+      }
+    });
+  });
+
+})();
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

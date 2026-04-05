@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Semi-Annual Visit — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 6px;
+    --radius-sm: 6px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM BODY ===== */
+  .form-body {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: background-color 0.2s, border-color 0.2s, color 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--green); color: var(--green); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 24px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== CONDITIONAL FIELD ===== */
+  .conditional { display: none; }
+  .conditional.visible { display: block; }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    background: var(--white);
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+  }
+  .sig-pad.signed { border-color: var(--green); border-style: solid; }
+  .sig-actions {
+    display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end;
+  }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== SUBMIT NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    border: 1.5px solid var(--green);
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+  }
+  .btn-next:active { background: var(--green-dark); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .confirmation.active { display: block; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: fadeIn 0.4s ease;
+  }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-body { padding: 12px 16px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .confirmation { page-break-before: avoid; }
+    .conditional { display: block !important; }
+  }
+
+  /* ===== SECTION CARDS WITH BADGES ===== */
+  .section-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 24px 0;
+    position: relative;
+  }
+  .section-badge {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: var(--white);
+    border: 2px solid var(--border);
+  }
+  .section-badge.blue {
+    background: #DBEAFE;
+    border-color: #1E40AF;
+    color: #1E40AF;
+  }
+  .section-badge.green {
+    background: var(--green-light);
+    border-color: var(--green-deeper);
+    color: var(--green-deeper);
+  }
+
+  /* ===== PERFORMANCE CHIPS GRID ===== */
+  .chips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .chip {
+    position: relative;
+    cursor: pointer;
+  }
+  .chip input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .chip span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4a5568;
+    background: var(--white);
+    transition: all 0.2s;
+    user-select: none;
+    text-align: center;
+    min-height: 44px;
+  }
+  .chip:hover span {
+    border-color: var(--green);
+    color: var(--green);
+  }
+  .chip input:checked + span {
+    background: var(--green-light);
+    border-color: var(--green);
+    color: var(--green-darker);
+    font-weight: 600;
+  }
+
+  /* ===== CHARACTER COUNTER ===== */
+  .char-counter {
+    font-size: 12px;
+    color: var(--text-lighter);
+    margin-top: 4px;
+    text-align: right;
+  }
+  .char-counter.warning {
+    color: #F59E0B;
+  }
+  .char-counter.over-limit {
+    color: var(--red);
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; flex-wrap: wrap; }
+    .hero-text h1 { font-size: 22px; }
+    .form-body { padding: 24px 20px 20px; }
+    .form-nav { padding: 16px 20px; }
+    .pills { gap: 6px; }
+    .pill span { padding: 10px 16px; font-size: 14px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+    .chips-grid {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+    }
+    .chip span {
+      padding: 10px 12px;
+      font-size: 13px;
+      min-height: 40px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Client Semi-Annual Visit</h1>
+    <p>VitalTouch Health Network — Semi-annual supervisory home visit</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- ===== FORM BODY ===== -->
+    <div class="form-body" id="formBody">
+
+      <!-- SECTION: VISIT INFORMATION -->
+      <div class="section-label" style="margin-top: 0;">Visit Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Client Name <span class="req">*</span></label>
+          <input type="text" id="clientName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Medicaid/RIN #</label>
+          <input type="text" id="medicaidRIN">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Visit Date <span class="req">*</span></label>
+          <input type="date" id="visitDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Visit Time</label>
+          <input type="text" id="visitTime" placeholder="e.g. 2:30 PM">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Homemaker Name <span class="req">*</span></label>
+        <input type="text" id="homemakerName" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- SECTION: HOME ENVIRONMENT -->
+      <div class="section-card">
+        <div class="section-badge blue">HE</div>
+
+        <div class="field">
+          <label>Is the home clean and safe? <span class="req">*</span></label>
+          <div class="pills" id="homeCleanPills">
+            <label class="pill"><input type="radio" name="homeClean" value="Yes" required><span>Yes</span></label>
+            <label class="pill"><input type="radio" name="homeClean" value="No"><span>No</span></label>
+            <label class="pill"><input type="radio" name="homeClean" value="Needs Improvement"><span>Needs Improvement</span></label>
+          </div>
+          <div class="error-msg">Required</div>
+        </div>
+
+        <div class="field conditional" id="homeCleanConcernsField">
+          <label>Describe concerns</label>
+          <textarea id="homeCleanConcerns" placeholder="Describe concerns about the home environment"></textarea>
+          <div class="char-counter"><span class="counter-text">0</span> / 1000</div>
+        </div>
+
+        <div class="field">
+          <label>Are there any safety hazards? <span class="req">*</span></label>
+          <div class="pills" id="safetyHazardsPills">
+            <label class="pill"><input type="radio" name="safetyHazards" value="Yes" required><span>Yes</span></label>
+            <label class="pill"><input type="radio" name="safetyHazards" value="No"><span>No</span></label>
+          </div>
+          <div class="error-msg">Required</div>
+        </div>
+
+        <div class="field conditional" id="hazardsDescField">
+          <label>Describe hazards</label>
+          <textarea id="hazardsDesc" placeholder="Describe the safety hazards observed"></textarea>
+          <div class="char-counter"><span class="counter-text">0</span> / 1000</div>
+        </div>
+      </div>
+
+      <!-- SECTION: SERVICE REVIEW -->
+      <div class="section-card">
+        <div class="section-badge green">SR</div>
+
+        <div class="field">
+          <label>Is the client satisfied with services? <span class="req">*</span></label>
+          <div class="pills" id="satisfiedPills">
+            <label class="pill"><input type="radio" name="satisfied" value="Yes" required><span>Yes</span></label>
+            <label class="pill"><input type="radio" name="satisfied" value="No"><span>No</span></label>
+            <label class="pill"><input type="radio" name="satisfied" value="Somewhat"><span>Somewhat</span></label>
+          </div>
+          <div class="error-msg">Required</div>
+        </div>
+
+        <div class="field conditional" id="satisfiedConcernsField">
+          <label>Concerns</label>
+          <textarea id="satisfiedConcerns" placeholder="Describe the client's concerns"></textarea>
+          <div class="char-counter"><span class="counter-text">0</span> / 1000</div>
+        </div>
+
+        <div class="field">
+          <label>Are services being provided per the plan of care? <span class="req">*</span></label>
+          <div class="pills" id="carePlanPills">
+            <label class="pill"><input type="radio" name="carePlan" value="Yes" required><span>Yes</span></label>
+            <label class="pill"><input type="radio" name="carePlan" value="No"><span>No</span></label>
+          </div>
+          <div class="error-msg">Required</div>
+        </div>
+
+        <div class="field conditional" id="carePlanExplainField">
+          <label>Explanation</label>
+          <textarea id="carePlanExplain" placeholder="Explain how services differ from the plan of care"></textarea>
+          <div class="char-counter"><span class="counter-text">0</span> / 1000</div>
+        </div>
+
+        <div class="field">
+          <label>Any changes in client condition? <span class="req">*</span></label>
+          <div class="pills" id="conditionPills">
+            <label class="pill"><input type="radio" name="conditionChange" value="No Changes" required><span>No Changes</span></label>
+            <label class="pill"><input type="radio" name="conditionChange" value="Improvement"><span>Improvement</span></label>
+            <label class="pill"><input type="radio" name="conditionChange" value="Decline"><span>Decline</span></label>
+          </div>
+          <div class="error-msg">Required</div>
+        </div>
+
+        <div class="field conditional" id="conditionDescField">
+          <label>Description</label>
+          <textarea id="conditionDesc" placeholder="Describe the change in client condition"></textarea>
+          <div class="char-counter"><span class="counter-text">0</span> / 1000</div>
+        </div>
+      </div>
+
+      <!-- SECTION: HOMEMAKER PERFORMANCE -->
+      <div class="section-label">Homemaker Performance</div>
+
+      <div class="field">
+        <label>Is the homemaker performing duties satisfactorily? <span class="req">*</span></label>
+        <div class="pills" id="performancePills">
+          <label class="pill"><input type="radio" name="performance" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="performance" value="No"><span>No</span></label>
+          <label class="pill"><input type="radio" name="performance" value="Needs Improvement"><span>Needs Improvement</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field conditional" id="performanceImprovementField">
+        <label>Areas for improvement</label>
+        <div class="chips-grid">
+          <label class="chip"><input type="checkbox" name="improvementAreas" value="Punctuality"><span>Punctuality</span></label>
+          <label class="chip"><input type="checkbox" name="improvementAreas" value="Communication"><span>Communication</span></label>
+          <label class="chip"><input type="checkbox" name="improvementAreas" value="Task Completion"><span>Task Completion</span></label>
+          <label class="chip"><input type="checkbox" name="improvementAreas" value="Professionalism"><span>Professionalism</span></label>
+          <label class="chip"><input type="checkbox" name="improvementAreas" value="Hygiene"><span>Hygiene</span></label>
+          <label class="chip"><input type="checkbox" name="improvementAreas" value="Reliability"><span>Reliability</span></label>
+        </div>
+        <textarea id="performanceImprovement" style="margin-top: 12px;" placeholder="Add additional details or concerns about performance"></textarea>
+        <div class="char-counter"><span class="counter-text">0</span> / 1000</div>
+      </div>
+
+      <div class="field">
+        <label>Is the homemaker following the care plan? <span class="req">*</span></label>
+        <div class="pills" id="followCarePlanPills">
+          <label class="pill"><input type="radio" name="followCarePlan" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="followCarePlan" value="No"><span>No</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Does the homemaker arrive on time? <span class="req">*</span></label>
+        <div class="pills" id="onTimePills">
+          <label class="pill"><input type="radio" name="onTime" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="onTime" value="No"><span>No</span></label>
+          <label class="pill"><input type="radio" name="onTime" value="Sometimes"><span>Sometimes</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- SECTION: VISIT SUMMARY -->
+      <div class="section-label">Visit Summary</div>
+
+      <div class="field">
+        <label>Summary of Visit <span class="req">*</span></label>
+        <textarea id="visitSummary" style="min-height: 150px;" placeholder="Summarize the key observations and discussions during this semi-annual visit" required></textarea>
+        <div class="char-counter"><span class="counter-text">0</span> / 2000</div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Recommendations / Follow-Up Actions</label>
+        <textarea id="recommendations" placeholder="e.g. Update care plan, schedule additional training, contact case manager"></textarea>
+        <div class="char-counter"><span class="counter-text">0</span> / 1000</div>
+      </div>
+
+      <div class="field">
+        <label>Next Visit Date</label>
+        <input type="date" id="nextVisitDate">
+      </div>
+
+      <!-- SECTION: SUPERVISOR SIGNATURE -->
+      <div class="section-label">Supervisor Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Supervisor Name <span class="req">*</span></label>
+          <input type="text" id="sig1Name" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Title <span class="req">*</span></label>
+          <input type="text" id="sig1Title" placeholder="e.g. RN Supervisor" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad1"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Date <span class="req">*</span></label>
+        <input type="date" id="sig1Date" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+    </div>
+
+    <!-- ===== CONFIRMATION ===== -->
+    <div class="confirmation" id="confirmationPanel">
+      <div class="conf-check">&#10003;</div>
+      <h2>Semi-Annual Visit Submitted</h2>
+      <p>The semi-annual supervisory visit report has been recorded and a notification sent to VitalTouch leadership.</p>
+      <div class="conf-id">Visit ID: <span id="confId"></span></div>
+      <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-next" onclick="window.print()" style="background: var(--text); box-shadow: none;">&#128424; Print Copy</button>
+      </div>
+      <p style="margin-top: 20px; font-size: 13px; color: var(--text-lighter);">A notification has been sent to iezuri22@gmail.com.</p>
+    </div>
+
+    <!-- NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-next" id="btnSubmit" onclick="submitForm()">Submit Visit Report &#8594;</button>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">&#128274; HIPAA Compliant</div>
+      <div class="trust-item">&#127973; IDPH Licensed</div>
+      <div class="trust-item">&#128203; Form C.42</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== STATE =====
+var formId = 'C.42';
+var formVersion = '1.0';
+var sig1Signed = false;
+var sigPads = {};
+
+// ===== CONDITIONAL FIELD LOGIC =====
+
+// Home clean: show concerns if No or Needs Improvement
+document.querySelectorAll('input[name="homeClean"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="homeClean"]:checked').value;
+    var field = document.getElementById('homeCleanConcernsField');
+    if (val === 'No' || val === 'Needs Improvement') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// Safety hazards: show description if Yes
+document.querySelectorAll('input[name="safetyHazards"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="safetyHazards"]:checked').value;
+    var field = document.getElementById('hazardsDescField');
+    if (val === 'Yes') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// Satisfaction: show concerns if No or Somewhat
+document.querySelectorAll('input[name="satisfied"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="satisfied"]:checked').value;
+    var field = document.getElementById('satisfiedConcernsField');
+    if (val === 'No' || val === 'Somewhat') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// Care plan: show explanation if No
+document.querySelectorAll('input[name="carePlan"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="carePlan"]:checked').value;
+    var field = document.getElementById('carePlanExplainField');
+    if (val === 'No') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// Condition Change: show description if Improvement or Decline
+document.querySelectorAll('input[name="conditionChange"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="conditionChange"]:checked').value;
+    var field = document.getElementById('conditionDescField');
+    if (val === 'Improvement' || val === 'Decline') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// Performance: show improvement areas if No or Needs Improvement
+document.querySelectorAll('input[name="performance"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="performance"]:checked').value;
+    var field = document.getElementById('performanceImprovementField');
+    if (val === 'No' || val === 'Needs Improvement') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// ===== VALIDATION =====
+function validateForm() {
+  var valid = true;
+  var container = document.getElementById('formBody');
+
+  // Required text/date inputs, selects, and textareas
+  container.querySelectorAll('input[required], select[required], textarea[required]').forEach(function(el) {
+    var field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  // Required radio groups (pills)
+  var radioGroups = ['homeClean', 'safetyHazards', 'satisfied', 'carePlan', 'conditionChange', 'performance', 'followCarePlan', 'onTime'];
+  radioGroups.forEach(function(name) {
+    var checked = document.querySelector('input[name="' + name + '"]:checked');
+    if (!checked) {
+      valid = false;
+    }
+  });
+
+  // Signature must exist
+  if (!sig1Signed) {
+    valid = false;
+    alert('Please provide the Supervisor signature.');
+    return false;
+  }
+
+  if (!valid) {
+    var firstError = container.querySelector('.invalid, .has-error input');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+// ===== SIGNATURE PAD =====
+function initSigPad(id) {
+  var canvas = document.getElementById(id);
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var drawing = false;
+  var lastX = 0, lastY = 0;
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    var rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    var pos = getPos(e);
+    lastX = pos.x;
+    lastY = pos.y;
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    ctx.lineTo(pos.x + 0.1, pos.y + 0.1);
+    ctx.stroke();
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    var pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
+    canvas.classList.add('signed');
+    if (id === 'sigPad1') sig1Signed = true;
+  }
+
+  function end(e) {
+    if (e) e.preventDefault();
+    drawing = false;
+  }
+
+  canvas.addEventListener('mousedown', start, { passive: false });
+  canvas.addEventListener('mousemove', draw, { passive: false });
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas: canvas, ctx: ctx, resize: resize };
+
+  requestAnimationFrame(function() { resize(); });
+  window.addEventListener('resize', function() { resize(); });
+}
+
+function clearSig(n) {
+  var id = 'sigPad' + n;
+  var pad = sigPads[id];
+  if (pad) {
+    pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+    pad.resize();
+    pad.canvas.classList.remove('signed');
+    if (n === 1) sig1Signed = false;
+  }
+}
+
+// ===== CHARACTER COUNTERS =====
+document.querySelectorAll('textarea').forEach(function(textarea) {
+  var counterContainer = textarea.parentElement.querySelector('.char-counter');
+  if (counterContainer) {
+    var maxChars = 1000;
+    if (textarea.id === 'visitSummary') maxChars = 2000;
+    if (textarea.id === 'recommendations') maxChars = 1000;
+
+    function updateCounter() {
+      var count = textarea.value.length;
+      var counterText = counterContainer.querySelector('.counter-text');
+      counterText.textContent = count;
+
+      if (count >= maxChars) {
+        counterContainer.classList.add('over-limit');
+        counterContainer.classList.remove('warning');
+        textarea.value = textarea.value.substring(0, maxChars);
+      } else if (count >= maxChars * 0.9) {
+        counterContainer.classList.add('warning');
+        counterContainer.classList.remove('over-limit');
+      } else {
+        counterContainer.classList.remove('warning', 'over-limit');
+      }
+    }
+
+    textarea.addEventListener('input', updateCounter);
+    textarea.addEventListener('paste', function() {
+      setTimeout(updateCounter, 0);
+    });
+  }
+});
+
+// ===== PHONE FORMATTING =====
+document.querySelectorAll('input[type="tel"]').forEach(function(input) {
+  input.addEventListener('input', function() {
+    var v = this.value.replace(/\D/g, '');
+    if (v.length > 0) {
+      if (v.length <= 3) v = '(' + v;
+      else if (v.length <= 6) v = '(' + v.slice(0,3) + ') ' + v.slice(3);
+      else v = '(' + v.slice(0,3) + ') ' + v.slice(3,6) + '-' + v.slice(6,10);
+    }
+    this.value = v;
+  });
+});
+
+// ===== SUBMIT =====
+function submitForm() {
+  if (!validateForm()) return;
+
+  var homeClean = document.querySelector('input[name="homeClean"]:checked');
+  var safetyHazards = document.querySelector('input[name="safetyHazards"]:checked');
+  var satisfied = document.querySelector('input[name="satisfied"]:checked');
+  var carePlan = document.querySelector('input[name="carePlan"]:checked');
+  var conditionChange = document.querySelector('input[name="conditionChange"]:checked');
+  var performance = document.querySelector('input[name="performance"]:checked');
+  var followCarePlan = document.querySelector('input[name="followCarePlan"]:checked');
+  var onTime = document.querySelector('input[name="onTime"]:checked');
+
+  var data = {
+    formId: formId,
+    formVersion: formVersion,
+    timestamp: new Date().toISOString(),
+    visitInfo: {
+      clientName: document.getElementById('clientName').value,
+      medicaidRIN: document.getElementById('medicaidRIN').value,
+      visitDate: document.getElementById('visitDate').value,
+      visitTime: document.getElementById('visitTime').value,
+      homemakerName: document.getElementById('homemakerName').value,
+    },
+    homeEnvironment: {
+      homeCleanAndSafe: homeClean ? homeClean.value : '',
+      homeCleanConcerns: document.getElementById('homeCleanConcerns').value,
+      safetyHazards: safetyHazards ? safetyHazards.value : '',
+      hazardsDescription: document.getElementById('hazardsDesc').value,
+    },
+    serviceReview: {
+      satisfied: satisfied ? satisfied.value : '',
+      satisfiedConcerns: document.getElementById('satisfiedConcerns').value,
+      perCarePlan: carePlan ? carePlan.value : '',
+      carePlanExplanation: document.getElementById('carePlanExplain').value,
+      conditionChange: conditionChange ? conditionChange.value : '',
+      conditionDescription: document.getElementById('conditionDesc').value,
+    },
+    homemakerPerformance: {
+      dutiesSatisfactory: performance ? performance.value : '',
+      areasForImprovement: document.getElementById('performanceImprovement').value,
+      followingCarePlan: followCarePlan ? followCarePlan.value : '',
+      arrivesOnTime: onTime ? onTime.value : '',
+    },
+    visitSummary: {
+      summary: document.getElementById('visitSummary').value,
+      recommendations: document.getElementById('recommendations').value,
+      nextVisitDate: document.getElementById('nextVisitDate').value,
+    },
+    supervisorSignature: {
+      name: document.getElementById('sig1Name').value,
+      title: document.getElementById('sig1Title').value,
+      date: document.getElementById('sig1Date').value,
+      signatureData: document.getElementById('sigPad1').toDataURL(),
+    },
+    status: 'submitted',
+  };
+
+  // Generate submission ID
+  var id = 'C42-' + Date.now().toString(36).toUpperCase();
+  document.getElementById('confId').textContent = id;
+  data.submissionId = id;
+
+  // Store locally
+  var stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+    // ── Flow Engine Integration ──
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const flowId = params.get('flowId');
+        if (flowId) {
+          VTFlow.recordSubmission(flowId, 'C42', data);
+          console.log('VTFlow: Recorded C.42 submission for flow ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+  // Send email notification to CEO
+  var clientName = data.visitInfo.clientName;
+  var subject = encodeURIComponent('[VitalTouch] Semi-Annual Visit — ' + clientName + ' (' + id + ')');
+  var body = encodeURIComponent(
+    'A semi-annual supervisory visit report has been submitted.\n\n' +
+    'Client: ' + clientName + '\n' +
+    'Medicaid/RIN: ' + data.visitInfo.medicaidRIN + '\n' +
+    'Visit Date: ' + data.visitInfo.visitDate + '\n' +
+    'Visit Time: ' + data.visitInfo.visitTime + '\n' +
+    'Homemaker: ' + data.visitInfo.homemakerName + '\n\n' +
+    '--- Home Environment ---\n' +
+    'Home Clean & Safe: ' + data.homeEnvironment.homeCleanAndSafe + '\n' +
+    'Safety Hazards: ' + data.homeEnvironment.safetyHazards + '\n\n' +
+    '--- Service Review ---\n' +
+    'Client Satisfied: ' + data.serviceReview.satisfied + '\n' +
+    'Services Per Care Plan: ' + data.serviceReview.perCarePlan + '\n' +
+    'Condition Change: ' + data.serviceReview.conditionChange + '\n\n' +
+    '--- Homemaker Performance ---\n' +
+    'Duties Satisfactory: ' + data.homemakerPerformance.dutiesSatisfactory + '\n' +
+    'Following Care Plan: ' + data.homemakerPerformance.followingCarePlan + '\n' +
+    'Arrives On Time: ' + data.homemakerPerformance.arrivesOnTime + '\n\n' +
+    'Summary: ' + data.visitSummary.summary + '\n' +
+    'Recommendations: ' + data.visitSummary.recommendations + '\n\n' +
+    'Supervisor: ' + data.supervisorSignature.name + ', ' + data.supervisorSignature.title + '\n' +
+    'Visit ID: ' + id + '\n\n' +
+    'Log into the admin portal to review:\nhttps://vitaltouchcares.com/admin/'
+  );
+
+  var mailLink = document.createElement('a');
+  mailLink.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+  mailLink.click();
+
+  // Show confirmation
+  document.getElementById('formBody').style.display = 'none';
+  document.getElementById('formNav').style.display = 'none';
+  document.getElementById('confirmationPanel').classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  console.log('Semi-Annual Visit submitted:', data);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  initSigPad('sigPad1');
+
+  // Set today's date as default
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('visitDate').value = today;
+  document.getElementById('sig1Date').value = today;
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

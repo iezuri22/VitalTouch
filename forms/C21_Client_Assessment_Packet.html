@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Assessment Packet — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== STEP BAR ===== */
+  .step-indicator {
+    display: flex;
+    padding: 16px 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    gap: 4px;
+  }
+  .step-bar {
+    flex: 1; height: 4px; border-radius: 4px;
+    background: var(--border);
+    transition: background 0.4s ease;
+  }
+  .step-bar.done { background: var(--green); }
+  .step-bar.active {
+    background: linear-gradient(90deg, var(--green), #22C55E);
+    animation: pulse-bar 2s ease-in-out infinite;
+  }
+  @keyframes pulse-bar { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+  /* ===== FORM STEPS ===== */
+  .form-step {
+    display: none;
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  .form-step.active { display: block; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  .step-label {
+    font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--green); margin-bottom: 6px;
+  }
+  .step-title { font-size: 26px; font-weight: 700; line-height: 1.3; color: #1a1a1a; }
+  .step-subtitle { font-size: 16px; color: #4a5568; margin-top: 6px; }
+  .step-header { margin-bottom: 24px; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--border); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CHECKBOX ===== */
+  .check-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 12px 14px; border: 1.5px solid var(--border);
+    border-radius: 6px; margin-bottom: 10px;
+    cursor: pointer; transition: all 0.2s; background: var(--white);
+  }
+  .check-item:hover { border-color: var(--border); background: var(--white); }
+  .check-item.checked { border-color: var(--border); background: var(--white); }
+  .check-item input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+  .check-item label { font-size: 16px; cursor: pointer; line-height: 1.6; color: #1a1a1a; }
+
+  /* ===== MEDICAL TABLE ===== */
+  .med-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    overflow: hidden; font-size: 16px;
+  }
+  .med-table thead th {
+    background: #F1F5F9; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    color: #475569; padding: 10px 14px; text-align: left;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .med-table tbody tr { border-bottom: 1px solid #F1F5F9; }
+  .med-table tbody tr:last-child { border-bottom: none; }
+  .med-table tbody tr:hover { background: #FAFBFC; }
+  .med-table td { padding: 4px 6px; vertical-align: middle; }
+  .med-table td input {
+    width: 100%; padding: 10px 12px; border: none; background: transparent;
+    font-size: 16px; font-family: inherit; color: var(--text);
+    outline: none; transition: background 0.2s;
+  }
+  .med-table td input:focus { background: #F0FDF4; }
+  .med-table td input::placeholder { color: #CBD5E1; font-size: 14px; }
+  .med-table .row-num {
+    width: 36px; text-align: center; color: var(--text-lighter);
+    font-size: 13px; font-weight: 600; padding: 10px 8px;
+    background: #FAFBFC; border-right: 1px solid #F1F5F9;
+  }
+  .med-table-actions {
+    display: flex; gap: 8px; margin-top: 8px;
+  }
+  .med-table-btn {
+    padding: 8px 16px; border-radius: 6px; font-size: 13px;
+    font-weight: 600; cursor: pointer; border: 1.5px solid var(--border);
+    background: var(--white); color: var(--text-light);
+    font-family: inherit; transition: all 0.2s;
+  }
+  .med-table-btn:hover { border-color: var(--text-light); color: var(--text-light); }
+  .allergy-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 6px;
+  }
+  .allergy-chip {
+    position: relative; cursor: pointer; display: block;
+  }
+  .allergy-chip input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .allergy-chip span {
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 8px; text-align: center;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 15px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+    min-height: 44px; line-height: 1.3;
+  }
+  .allergy-chip:hover span { border-color: var(--border); background: var(--white); }
+  .allergy-chip input:checked + span {
+    background: #F0F4FF; border-color: #93A3C4; color: #1E293B; font-weight: 600;
+  }
+  .allergy-other-row { display: flex; gap: 10px; margin-top: 8px; align-items: center; }
+  .allergy-other-row label { flex-shrink: 0; font-size: 15px; font-weight: 600; color: #4a5568; }
+  .allergy-other-row input {
+    flex: 1; padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: 6px; font-size: 16px; font-family: inherit; color: var(--text);
+  }
+  .allergy-other-row input:focus { outline: none; border-color: var(--green); box-shadow: none; }
+  @media (max-width: 600px) {
+    .allergy-grid { grid-template-columns: repeat(2, 1fr); }
+    .med-table td input { font-size: 14px; padding: 8px 10px; }
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-weight: 600; font-size: 15px; color: #64748B;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    border-bottom: 2px solid #E2E8F0; padding-bottom: 8px;
+    margin-bottom: 16px; margin-top: 24px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--warm); border: 1px solid #FDE68A;
+    border-radius: var(--radius-sm); padding: 16px 18px;
+    margin-bottom: 20px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 15px; color: #78350f;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== ADL TABLE ===== */
+  .adl-grid { margin-bottom: 12px; }
+  .adl-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    transition: all 0.2s; background: var(--white);
+  }
+  .adl-row:hover { border-color: #CBD5E1; background: var(--white); }
+  .adl-row.has-selection { border-color: var(--border); background: var(--white); }
+  .adl-label {
+    flex: 1; min-width: 140px;
+    font-size: 16px; font-weight: 600; color: #1a1a1a;
+  }
+  .adl-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .adl-pills .pill span {
+    padding: 8px 16px; font-size: 14px;
+  }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    background: var(--white);
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+  }
+  .sig-pad.signed { border-color: var(--border); border-style: dashed; }
+  .sig-actions {
+    display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end;
+  }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-back { background: transparent; color: var(--text-light); padding: 10px 16px; }
+  .btn-back:hover { color: var(--text); }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    box-shadow: 0 6px 20px rgba(22,163,74,0.35);
+    transform: ;
+  }
+  .btn-next:active { transform: translateY(0); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .step-indicator, .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-step { display: block !important; padding: 12px 16px; page-break-inside: avoid; }
+    .step-title { font-size: 15px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .adl-row { padding: 6px 8px; margin-bottom: 4px; }
+    .adl-pills .pill span { padding: 4px 10px; font-size: 10px; }
+    .callout { padding: 8px 10px; font-size: 11px; }
+    .section-label { margin: 12px 0 6px; }
+    .med-table { font-size: 10px; border: 1px solid #999; }
+    .med-table thead th { padding: 4px 6px; font-size: 9px; }
+    .med-table td input { font-size: 10px; padding: 3px 4px; }
+    .med-table .row-num { font-size: 9px; }
+    .med-table-actions { display: none; }
+    .allergy-grid { grid-template-columns: repeat(4, 1fr); gap: 3px; }
+    .allergy-chip span { padding: 4px 6px; font-size: 10px; min-height: 24px; border: 1px solid #ccc; }
+    .allergy-chip input:checked + span { background: #FEF2F2; border-color: #666; }
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-step { padding: 24px 20px 20px; }
+    .adl-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .adl-pills { width: 100%; }
+    .adl-pills .pill span { padding: 10px 14px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Client Assessment Packet</h1>
+    <p>VitalTouch Health Network — Comprehensive client evaluation</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- STEP BAR -->
+    <div class="step-indicator" id="stepBar">
+      <div class="step-bar active"></div>
+      <div class="step-bar"></div>
+      <div class="step-bar"></div>
+      <div class="step-bar"></div>
+      <div class="step-bar"></div>
+    </div>
+
+    <!-- ===== STEP 1: CLIENT DEMOGRAPHICS ===== -->
+    <div class="form-step active" data-step="1">
+      <div class="step-header">
+        <div class="step-label">Step 1 of 5</div>
+        <div class="step-title">Client Demographics</div>
+        <div class="step-subtitle">Enter the client's personal and contact information.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Client First Name <span class="req">*</span></label>
+          <input type="text" id="clientFirst" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Client Last Name <span class="req">*</span></label>
+          <input type="text" id="clientLast" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" id="clientDOB" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Medicaid / RIN # <span class="req">*</span></label>
+          <input type="text" id="clientRIN" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Home Address <span class="req">*</span></label>
+        <input type="text" id="clientAddress" placeholder="Street address" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>City <span class="req">*</span></label>
+          <input type="text" id="clientCity" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>State</label>
+          <input type="text" id="clientState" value="Illinois" readonly>
+        </div>
+        <div class="field">
+          <label>Zip Code <span class="req">*</span></label>
+          <input type="text" id="clientZip" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Phone <span class="req">*</span></label>
+          <input type="tel" id="clientPhone" placeholder="(708) 555-1234" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="clientEmail" placeholder="Optional">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Primary Language <span class="req">*</span></label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="language" value="English" required><span>English</span></label>
+          <label class="pill"><input type="radio" name="language" value="Spanish"><span>Spanish</span></label>
+          <label class="pill"><input type="radio" name="language" value="Other"><span>Other</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field" id="langOtherField" style="display:none;">
+        <label>Specify Language</label>
+        <input type="text" id="langOther" placeholder="Enter language">
+      </div>
+
+      <div class="field">
+        <label>Lives With <span class="req">*</span></label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="livesWith" value="Alone" required><span>Alone</span></label>
+          <label class="pill"><input type="radio" name="livesWith" value="Spouse"><span>Spouse</span></label>
+          <label class="pill"><input type="radio" name="livesWith" value="Family"><span>Family</span></label>
+          <label class="pill"><input type="radio" name="livesWith" value="Other"><span>Other</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Assessment Date <span class="req">*</span></label>
+          <input type="date" id="assessDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Assessor Name <span class="req">*</span></label>
+          <input type="text" id="assessorName" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 2: LIVING SITUATION & SUPPORT ===== -->
+    <div class="form-step" data-step="2">
+      <div class="step-header">
+        <div class="step-label">Step 2 of 5</div>
+        <div class="step-title">Living Situation &amp; Support</div>
+        <div class="step-subtitle">Describe the client's home environment and current support system.</div>
+      </div>
+
+      <div class="section-label">Home Environment</div>
+
+      <div class="field">
+        <label>Type of Residence <span class="req">*</span></label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="residence" value="House" required><span>House</span></label>
+          <label class="pill"><input type="radio" name="residence" value="Apartment"><span>Apartment</span></label>
+          <label class="pill"><input type="radio" name="residence" value="Condo"><span>Condo</span></label>
+          <label class="pill"><input type="radio" name="residence" value="Assisted Living"><span>Assisted Living</span></label>
+          <label class="pill"><input type="radio" name="residence" value="Other"><span>Other</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Number of Floors</label>
+        <select id="numFloors">
+          <option value="">Select...</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3+">3+</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Accessibility Issues</label>
+        <textarea id="accessIssues" placeholder="Stairs, narrow doorways, uneven surfaces, lighting concerns, etc."></textarea>
+      </div>
+
+      <div class="section-label">Current Support System</div>
+
+      <div class="field">
+        <label>Informal Caregivers</label>
+        <textarea id="informalCaregivers" placeholder="Family members or friends currently helping and how often"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Other Services Currently Receiving</label>
+        <textarea id="otherServices" placeholder="Home health, Meals on Wheels, adult day care, etc."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Equipment / Assistive Devices in Use</label>
+        <textarea id="equipment" placeholder="Walker, wheelchair, grab bars, hospital bed, oxygen, etc."></textarea>
+      </div>
+    </div>
+
+    <!-- ===== STEP 3: ACTIVITIES OF DAILY LIVING ===== -->
+    <div class="form-step" data-step="3">
+      <div class="step-header">
+        <div class="step-label">Step 3 of 5</div>
+        <div class="step-title">Activities of Daily Living</div>
+        <div class="step-subtitle">Evaluate the client's functional abilities.</div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">&#x1F4CB;</span>
+        <span>Rate the client's ability to perform each activity. Select one option per row.</span>
+      </div>
+
+      <div class="section-label">Basic ADLs</div>
+
+      <div class="adl-grid">
+        <div class="adl-row" data-adl="bathing">
+          <div class="adl-label">Bathing</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="adl_bathing" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="adl_bathing" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="adl_bathing" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="dressing">
+          <div class="adl-label">Dressing</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="adl_dressing" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="adl_dressing" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="adl_dressing" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="toileting">
+          <div class="adl-label">Toileting</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="adl_toileting" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="adl_toileting" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="adl_toileting" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="transferring">
+          <div class="adl-label">Transferring (bed/chair)</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="adl_transferring" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="adl_transferring" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="adl_transferring" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="eating">
+          <div class="adl-label">Eating</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="adl_eating" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="adl_eating" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="adl_eating" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="continence">
+          <div class="adl-label">Continence</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="adl_continence" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="adl_continence" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="adl_continence" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Instrumental ADLs (IADL)</div>
+
+      <div class="adl-grid">
+        <div class="adl-row" data-adl="meal_prep">
+          <div class="adl-label">Meal Preparation</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="iadl_meal_prep" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="iadl_meal_prep" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="iadl_meal_prep" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="housekeeping">
+          <div class="adl-label">Housekeeping</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="iadl_housekeeping" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="iadl_housekeeping" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="iadl_housekeeping" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="laundry">
+          <div class="adl-label">Laundry</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="iadl_laundry" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="iadl_laundry" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="iadl_laundry" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="shopping">
+          <div class="adl-label">Shopping / Errands</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="iadl_shopping" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="iadl_shopping" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="iadl_shopping" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="medication">
+          <div class="adl-label">Medication Management</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="iadl_medication" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="iadl_medication" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="iadl_medication" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="telephone">
+          <div class="adl-label">Telephone Use</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="iadl_telephone" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="iadl_telephone" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="iadl_telephone" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+        <div class="adl-row" data-adl="transportation">
+          <div class="adl-label">Transportation</div>
+          <div class="adl-pills pills">
+            <label class="pill"><input type="radio" name="iadl_transportation" value="Independent"><span>Independent</span></label>
+            <label class="pill"><input type="radio" name="iadl_transportation" value="Needs Assistance"><span>Needs Assistance</span></label>
+            <label class="pill"><input type="radio" name="iadl_transportation" value="Dependent"><span>Dependent</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 4: HEALTH & MEDICAL ===== -->
+    <div class="form-step" data-step="4">
+      <div class="step-header">
+        <div class="step-label">Step 4 of 5</div>
+        <div class="step-title">Health &amp; Medical</div>
+        <div class="step-subtitle">Document the client's medical history, cognitive status, and risk factors.</div>
+      </div>
+
+      <div class="section-label">Current Medical Conditions</div>
+
+      <div class="field">
+        <label>Diagnoses</label>
+        <table class="med-table" id="diagnosesTable">
+          <thead>
+            <tr>
+              <th style="width:36px;">#</th>
+              <th>Diagnosis</th>
+              <th style="width:130px;">Date of Onset</th>
+              <th style="width:120px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-num">1</td><td><input type="text" name="dx_name" placeholder="e.g., Diabetes Type 2"></td><td><input type="text" name="dx_onset" placeholder="MM/YYYY"></td><td><input type="text" name="dx_status" placeholder="Active / Managed"></td></tr>
+            <tr><td class="row-num">2</td><td><input type="text" name="dx_name" placeholder="e.g., Hypertension"></td><td><input type="text" name="dx_onset" placeholder="MM/YYYY"></td><td><input type="text" name="dx_status" placeholder="Active / Managed"></td></tr>
+            <tr><td class="row-num">3</td><td><input type="text" name="dx_name" placeholder="e.g., CHF"></td><td><input type="text" name="dx_onset" placeholder="MM/YYYY"></td><td><input type="text" name="dx_status" placeholder="Active / Managed"></td></tr>
+            <tr><td class="row-num">4</td><td><input type="text" name="dx_name" placeholder="e.g., COPD"></td><td><input type="text" name="dx_onset" placeholder="MM/YYYY"></td><td><input type="text" name="dx_status" placeholder="Active / Managed"></td></tr>
+            <tr><td class="row-num">5</td><td><input type="text" name="dx_name"></td><td><input type="text" name="dx_onset"></td><td><input type="text" name="dx_status"></td></tr>
+          </tbody>
+        </table>
+        <div class="med-table-actions">
+          <button type="button" class="med-table-btn" onclick="addDxRow()">+ Add Row</button>
+        </div>
+      </div>
+
+      <div class="section-label">Current Medications</div>
+
+      <div class="field">
+        <label>Medications</label>
+        <table class="med-table" id="medsTable">
+          <thead>
+            <tr>
+              <th style="width:36px;">#</th>
+              <th>Medication Name</th>
+              <th style="width:110px;">Dose</th>
+              <th style="width:120px;">Frequency</th>
+              <th style="width:130px;">Prescriber</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-num">1</td><td><input type="text" name="med_name" placeholder="e.g., Metformin"></td><td><input type="text" name="med_dose" placeholder="500mg"></td><td><input type="text" name="med_freq" placeholder="Twice daily"></td><td><input type="text" name="med_prescriber" placeholder="Dr. Smith"></td></tr>
+            <tr><td class="row-num">2</td><td><input type="text" name="med_name" placeholder="e.g., Lisinopril"></td><td><input type="text" name="med_dose" placeholder="10mg"></td><td><input type="text" name="med_freq" placeholder="Once daily"></td><td><input type="text" name="med_prescriber"></td></tr>
+            <tr><td class="row-num">3</td><td><input type="text" name="med_name" placeholder="e.g., Amlodipine"></td><td><input type="text" name="med_dose" placeholder="5mg"></td><td><input type="text" name="med_freq" placeholder="Once daily"></td><td><input type="text" name="med_prescriber"></td></tr>
+            <tr><td class="row-num">4</td><td><input type="text" name="med_name"></td><td><input type="text" name="med_dose"></td><td><input type="text" name="med_freq"></td><td><input type="text" name="med_prescriber"></td></tr>
+            <tr><td class="row-num">5</td><td><input type="text" name="med_name"></td><td><input type="text" name="med_dose"></td><td><input type="text" name="med_freq"></td><td><input type="text" name="med_prescriber"></td></tr>
+            <tr><td class="row-num">6</td><td><input type="text" name="med_name"></td><td><input type="text" name="med_dose"></td><td><input type="text" name="med_freq"></td><td><input type="text" name="med_prescriber"></td></tr>
+          </tbody>
+        </table>
+        <div class="med-table-actions">
+          <button type="button" class="med-table-btn" onclick="addMedRow()">+ Add Row</button>
+        </div>
+      </div>
+
+      <div class="section-label">Allergies</div>
+
+      <div class="field">
+        <label>Known Allergies <span style="font-weight:400;color:var(--text-lighter);font-size:13px;">(select all that apply)</span></label>
+        <div class="allergy-grid">
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="NKDA (None)"><span>NKDA (None)</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Penicillin"><span>Penicillin</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Sulfa Drugs"><span>Sulfa Drugs</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Aspirin / NSAIDs"><span>Aspirin / NSAIDs</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Codeine / Opioids"><span>Codeine / Opioids</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Latex"><span>Latex</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Shellfish"><span>Shellfish</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Peanuts"><span>Peanuts</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Dairy"><span>Dairy</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Eggs"><span>Eggs</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Bee Stings"><span>Bee Stings</span></label>
+          <label class="allergy-chip"><input type="checkbox" name="allergies" value="Seasonal / Pollen"><span>Seasonal / Pollen</span></label>
+        </div>
+        <div class="allergy-other-row">
+          <label>Other:</label>
+          <input type="text" id="allergyOther" placeholder="List any other allergies not shown above">
+        </div>
+      </div>
+
+      <div class="section-label">Cognitive Status</div>
+
+      <div class="field">
+        <label>Orientation</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="orientation" value="Oriented"><span>Oriented</span></label>
+          <label class="pill"><input type="radio" name="orientation" value="Sometimes Confused"><span>Sometimes Confused</span></label>
+          <label class="pill"><input type="radio" name="orientation" value="Frequently Confused"><span>Frequently Confused</span></label>
+          <label class="pill"><input type="radio" name="orientation" value="Disoriented"><span>Disoriented</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Memory</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="memory" value="Intact"><span>Intact</span></label>
+          <label class="pill"><input type="radio" name="memory" value="Mild Impairment"><span>Mild Impairment</span></label>
+          <label class="pill"><input type="radio" name="memory" value="Moderate Impairment"><span>Moderate Impairment</span></label>
+          <label class="pill"><input type="radio" name="memory" value="Severe Impairment"><span>Severe Impairment</span></label>
+        </div>
+      </div>
+
+      <div class="section-label">Behavioral Concerns</div>
+
+      <div class="callout">
+        <span class="callout-icon">&#x26A0;&#xFE0F;</span>
+        <span>Check all behavioral concerns that apply to the client. Select "None" if there are no concerns.</span>
+      </div>
+
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" name="behavior" value="Wandering">
+        <label>Wandering</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" name="behavior" value="Agitation">
+        <label>Agitation</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" name="behavior" value="Verbal Aggression">
+        <label>Verbal Aggression</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" name="behavior" value="Physical Aggression">
+        <label>Physical Aggression</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" name="behavior" value="Sundowning">
+        <label>Sundowning</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" name="behavior" value="None" id="behaviorNone">
+        <label>None</label>
+      </div>
+
+      <div class="section-label">Fall Risk</div>
+
+      <div class="field">
+        <label>History of Falls in Past 6 Months</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="fallHistory" value="None"><span>None</span></label>
+          <label class="pill"><input type="radio" name="fallHistory" value="1-2"><span>1-2</span></label>
+          <label class="pill"><input type="radio" name="fallHistory" value="3+"><span>3+</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Fall Risk Level</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="fallRisk" value="Low"><span>Low</span></label>
+          <label class="pill"><input type="radio" name="fallRisk" value="Moderate"><span>Moderate</span></label>
+          <label class="pill"><input type="radio" name="fallRisk" value="High"><span>High</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 5: SIGNATURES ===== -->
+    <div class="form-step" data-step="5">
+      <div class="step-header">
+        <div class="step-label">Step 5 of 5</div>
+        <div class="step-title">Signatures</div>
+        <div class="step-subtitle">Both signatures are required to complete this assessment.</div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">&#x270D;&#xFE0F;</span>
+        <span>Both the client (or authorized representative) and the assessor must sign below.</span>
+      </div>
+
+      <div class="section-label">Client / Representative Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Printed Name <span class="req">*</span></label>
+          <input type="text" id="sig1Name" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Relationship to Client <span class="req">*</span></label>
+          <input type="text" id="sig1Relation" placeholder="Self, Spouse, Guardian, etc." required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad1"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Date <span class="req">*</span></label>
+        <input type="date" id="sig1Date" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="section-label" style="margin-top:32px;">Assessor Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Assessor Name <span class="req">*</span></label>
+          <input type="text" id="sig2Name" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Title <span class="req">*</span></label>
+          <input type="text" id="sig2Title" placeholder="e.g., RN, LPN, Care Coordinator" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad2"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(2)">Clear</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Date <span class="req">*</span></label>
+        <input type="date" id="sig2Date" required>
+        <div class="error-msg">Required</div>
+      </div>
+    </div>
+
+    <!-- ===== CONFIRMATION ===== -->
+    <div class="form-step" data-step="6">
+      <div class="confirmation">
+        <div class="conf-check">&#x2713;</div>
+        <h2>Assessment Submitted</h2>
+        <p>The Client Assessment Packet has been completed and sent to <strong>Ifeanyi Ezurike, CEO</strong> at VitalTouch Health Network for review.</p>
+        <div class="conf-id">Assessment ID: <span id="confId"></span></div>
+        <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-next" onclick="window.print()" style="background: var(--text); box-shadow: none;">&#x1F5A8; Print Copy</button>
+        </div>
+        <p style="margin-top: 20px; font-size: 13px; color: var(--text-lighter);">A notification has been sent to iezuri22@gmail.com for review.</p>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-back" id="btnBack" onclick="prevStep()" style="visibility:hidden;">&#x2190; Back</button>
+      <button class="btn btn-next" id="btnNext" onclick="nextStep()">Continue &#x2192;</button>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">&#x1F512; HIPAA Compliant</div>
+      <div class="trust-item">&#x1F3E5; IDPH Licensed</div>
+      <div class="trust-item">&#x1F4CB; Form C.21</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== TABLE ROW HELPERS =====
+function addDxRow() {
+  var tb = document.querySelector('#diagnosesTable tbody');
+  var n = tb.rows.length + 1;
+  var tr = tb.insertRow();
+  tr.innerHTML = '<td class="row-num">' + n + '</td><td><input type="text" name="dx_name"></td><td><input type="text" name="dx_onset"></td><td><input type="text" name="dx_status"></td>';
+}
+function addMedRow() {
+  var tb = document.querySelector('#medsTable tbody');
+  var n = tb.rows.length + 1;
+  var tr = tb.insertRow();
+  tr.innerHTML = '<td class="row-num">' + n + '</td><td><input type="text" name="med_name"></td><td><input type="text" name="med_dose"></td><td><input type="text" name="med_freq"></td><td><input type="text" name="med_prescriber"></td>';
+}
+
+function collectTableData(tableId, fields) {
+  var rows = [];
+  document.querySelectorAll('#' + tableId + ' tbody tr').forEach(function(tr) {
+    var row = {};
+    var hasData = false;
+    fields.forEach(function(f, i) {
+      var input = tr.querySelectorAll('input')[i];
+      row[f] = input ? input.value.trim() : '';
+      if (row[f]) hasData = true;
+    });
+    if (hasData) rows.push(row);
+  });
+  return rows;
+}
+
+function collectAllergies() {
+  var selected = [];
+  document.querySelectorAll('input[name="allergies"]:checked').forEach(function(cb) {
+    selected.push(cb.value);
+  });
+  var other = document.getElementById('allergyOther').value.trim();
+  if (other) selected.push(other);
+  return selected.join(', ');
+}
+
+// NKDA toggle — uncheck others when NKDA is selected
+document.addEventListener('DOMContentLoaded', function() {
+  var nkda = document.querySelector('input[name="allergies"][value="NKDA (None)"]');
+  if (nkda) {
+    nkda.addEventListener('change', function() {
+      if (this.checked) {
+        document.querySelectorAll('input[name="allergies"]').forEach(function(cb) {
+          if (cb !== nkda) cb.checked = false;
+        });
+        document.getElementById('allergyOther').value = '';
+      }
+    });
+    document.querySelectorAll('input[name="allergies"]').forEach(function(cb) {
+      if (cb !== nkda) {
+        cb.addEventListener('change', function() {
+          if (this.checked) nkda.checked = false;
+        });
+      }
+    });
+  }
+});
+
+// ===== STATE =====
+const TOTAL_STEPS = 5;
+let currentStep = 1;
+const formId = 'C.21';
+const formVersion = '1.0';
+
+// ===== NAVIGATION =====
+function showStep(n) {
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.form-step[data-step="${n}"]`).classList.add('active');
+
+  // Update step bars
+  document.querySelectorAll('.step-bar').forEach((bar, i) => {
+    bar.className = 'step-bar';
+    if (i < n - 1) bar.classList.add('done');
+    else if (i === n - 1) bar.classList.add('active');
+  });
+
+  // Nav buttons
+  document.getElementById('btnBack').style.visibility = n === 1 ? 'hidden' : 'visible';
+  if (n > TOTAL_STEPS) {
+    document.getElementById('formNav').style.display = 'none';
+    document.getElementById('stepBar').style.display = 'none';
+  } else {
+    document.getElementById('btnNext').textContent = n === TOTAL_STEPS ? 'Submit Assessment \u2192' : 'Continue \u2192';
+  }
+
+  // Resize signature pads when step 5 becomes visible
+  if (n === 5) {
+    setTimeout(() => resizeSigPads(), 100);
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep() {
+  if (!validateStep(currentStep)) return;
+  if (currentStep === TOTAL_STEPS) {
+    submitForm();
+    return;
+  }
+  currentStep++;
+  showStep(currentStep);
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
+}
+
+// ===== VALIDATION =====
+function validateStep(step) {
+  const section = document.querySelector(`.form-step[data-step="${step}"]`);
+  let valid = true;
+
+  // Required text/date/email/tel/number inputs
+  section.querySelectorAll('input[required]:not([type="radio"]):not([type="checkbox"]), select[required], textarea[required]').forEach(el => {
+    const field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  // Required radio groups (pills with required attribute)
+  section.querySelectorAll('.pills').forEach(group => {
+    const radio = group.querySelector('input[type="radio"]');
+    if (radio && radio.hasAttribute('required')) {
+      const name = radio.name;
+      const checked = section.querySelector(`input[name="${name}"]:checked`);
+      if (!checked) {
+        valid = false;
+        // Highlight the field
+        const field = group.closest('.field');
+        if (field) field.classList.add('has-error');
+      } else {
+        const field = group.closest('.field');
+        if (field) field.classList.remove('has-error');
+      }
+    }
+  });
+
+  // Step 3: all ADL rows must have a selection
+  if (step === 3) {
+    const adlNames = [
+      'adl_bathing', 'adl_dressing', 'adl_toileting', 'adl_transferring', 'adl_eating', 'adl_continence',
+      'iadl_meal_prep', 'iadl_housekeeping', 'iadl_laundry', 'iadl_shopping', 'iadl_medication', 'iadl_telephone', 'iadl_transportation'
+    ];
+    adlNames.forEach(name => {
+      if (!section.querySelector(`input[name="${name}"]:checked`)) {
+        valid = false;
+        const row = section.querySelector(`input[name="${name}"]`).closest('.adl-row');
+        if (row) row.style.borderColor = 'var(--red)';
+      } else {
+        const row = section.querySelector(`input[name="${name}"]`).closest('.adl-row');
+        if (row) row.style.borderColor = '';
+      }
+    });
+
+    if (!valid) {
+      const first = section.querySelector('.adl-row[style*="red"]');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  // Step 5: both signatures must exist
+  if (step === 5) {
+    if (!sig1Signed) {
+      valid = false;
+      alert('Please provide the client/representative signature.');
+    } else if (!sig2Signed) {
+      valid = false;
+      alert('Please provide the assessor signature.');
+    }
+  }
+
+  if (!valid && step !== 5) {
+    const firstError = section.querySelector('.invalid, .has-error input, .has-error .pills');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+// ===== CHECKBOX TOGGLE =====
+function toggleCheck(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+
+  // If "None" is checked, uncheck all others and vice versa
+  if (cb.value === 'None' && cb.checked) {
+    document.querySelectorAll('input[name="behavior"]').forEach(other => {
+      if (other !== cb) {
+        other.checked = false;
+        other.closest('.check-item').classList.remove('checked');
+      }
+    });
+  } else if (cb.value !== 'None' && cb.checked) {
+    const noneBox = document.getElementById('behaviorNone');
+    if (noneBox) {
+      noneBox.checked = false;
+      noneBox.closest('.check-item').classList.remove('checked');
+    }
+  }
+}
+
+// ===== ADL ROW HIGHLIGHT =====
+document.addEventListener('change', function(e) {
+  if (e.target.closest('.adl-row')) {
+    const row = e.target.closest('.adl-row');
+    row.classList.add('has-selection');
+    row.style.borderColor = '';
+  }
+});
+
+// ===== LANGUAGE "OTHER" TOGGLE =====
+document.querySelectorAll('input[name="language"]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.getElementById('langOtherField').style.display = r.value === 'Other' && r.checked ? 'block' : 'none';
+  });
+});
+
+// ===== SIGNATURE PADS =====
+let sig1Signed = false, sig2Signed = false;
+const sigPads = {};
+
+function initSigPad(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    const pos = getPos(e);
+    lastX = pos.x;
+    lastY = pos.y;
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    ctx.lineTo(pos.x + 0.1, pos.y + 0.1);
+    ctx.stroke();
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
+    canvas.classList.add('signed');
+    if (id === 'sigPad1') sig1Signed = true;
+    if (id === 'sigPad2') sig2Signed = true;
+  }
+
+  function end(e) {
+    if (e) e.preventDefault();
+    drawing = false;
+  }
+
+  canvas.addEventListener('mousedown', start, { passive: false });
+  canvas.addEventListener('mousemove', draw, { passive: false });
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas, ctx, resize };
+
+  requestAnimationFrame(() => resize());
+  window.addEventListener('resize', () => resize());
+}
+
+function resizeSigPads() {
+  Object.values(sigPads).forEach(pad => pad.resize());
+}
+
+function clearSig(n) {
+  const id = `sigPad${n}`;
+  const pad = sigPads[id];
+  if (pad) {
+    pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+    pad.resize();
+    pad.canvas.classList.remove('signed');
+    if (n === 1) sig1Signed = false;
+    if (n === 2) sig2Signed = false;
+  }
+}
+
+// ===== PHONE FORMATTING =====
+document.querySelectorAll('input[type="tel"]').forEach(input => {
+  input.addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 0) {
+      if (v.length <= 3) v = `(${v}`;
+      else if (v.length <= 6) v = `(${v.slice(0,3)}) ${v.slice(3)}`;
+      else v = `(${v.slice(0,3)}) ${v.slice(3,6)}-${v.slice(6,10)}`;
+    }
+    this.value = v;
+  });
+});
+
+// ===== COLLECT ADL DATA =====
+function collectADLData() {
+  const adls = {};
+  const adlNames = [
+    'adl_bathing', 'adl_dressing', 'adl_toileting', 'adl_transferring', 'adl_eating', 'adl_continence',
+    'iadl_meal_prep', 'iadl_housekeeping', 'iadl_laundry', 'iadl_shopping', 'iadl_medication', 'iadl_telephone', 'iadl_transportation'
+  ];
+  adlNames.forEach(name => {
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    adls[name] = checked ? checked.value : '';
+  });
+  return adls;
+}
+
+// ===== SUBMIT =====
+function submitForm() {
+  const adlData = collectADLData();
+
+  const data = {
+    formId, formVersion,
+    timestamp: new Date().toISOString(),
+    client: {
+      firstName: document.getElementById('clientFirst').value,
+      lastName: document.getElementById('clientLast').value,
+      dob: document.getElementById('clientDOB').value,
+      rin: document.getElementById('clientRIN').value,
+      address: document.getElementById('clientAddress').value,
+      city: document.getElementById('clientCity').value,
+      state: document.getElementById('clientState').value,
+      zip: document.getElementById('clientZip').value,
+      phone: document.getElementById('clientPhone').value,
+      email: document.getElementById('clientEmail').value,
+      language: document.querySelector('input[name="language"]:checked')?.value || '',
+      languageOther: document.getElementById('langOther').value,
+      livesWith: document.querySelector('input[name="livesWith"]:checked')?.value || '',
+    },
+    assessment: {
+      date: document.getElementById('assessDate').value,
+      assessorName: document.getElementById('assessorName').value,
+    },
+    livingSituation: {
+      residence: document.querySelector('input[name="residence"]:checked')?.value || '',
+      floors: document.getElementById('numFloors').value,
+      accessibilityIssues: document.getElementById('accessIssues').value,
+      informalCaregivers: document.getElementById('informalCaregivers').value,
+      otherServices: document.getElementById('otherServices').value,
+      equipment: document.getElementById('equipment').value,
+    },
+    adl: adlData,
+    health: {
+      diagnoses: collectTableData('diagnosesTable', ['name', 'onset', 'status']),
+      medications: collectTableData('medsTable', ['name', 'dose', 'frequency', 'prescriber']),
+      allergies: collectAllergies(),
+      orientation: document.querySelector('input[name="orientation"]:checked')?.value || '',
+      memory: document.querySelector('input[name="memory"]:checked')?.value || '',
+      behavioralConcerns: [...document.querySelectorAll('input[name="behavior"]:checked')].map(cb => cb.value),
+      fallHistory: document.querySelector('input[name="fallHistory"]:checked')?.value || '',
+      fallRisk: document.querySelector('input[name="fallRisk"]:checked')?.value || '',
+    },
+    clientSignature: {
+      name: document.getElementById('sig1Name').value,
+      relationship: document.getElementById('sig1Relation').value,
+      date: document.getElementById('sig1Date').value,
+      signatureData: document.getElementById('sigPad1').toDataURL(),
+    },
+    assessorSignature: {
+      name: document.getElementById('sig2Name').value,
+      title: document.getElementById('sig2Title').value,
+      date: document.getElementById('sig2Date').value,
+      signatureData: document.getElementById('sigPad2').toDataURL(),
+    },
+  };
+
+  // Generate submission ID
+  const id = `C21-${Date.now().toString(36).toUpperCase()}`;
+  document.getElementById('confId').textContent = id;
+  data.submissionId = id;
+
+  // Store to localStorage
+  const stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+    // ── Flow Engine Integration ──
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const flowId = params.get('flowId');
+        if (flowId) {
+          VTFlow.recordSubmission(flowId, 'C21', data);
+          console.log('VTFlow: Recorded C.21 submission for flow ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+  // Build email
+  const clientName = data.client.firstName + ' ' + data.client.lastName;
+
+  // Count ADL dependencies
+  const adlValues = Object.values(adlData);
+  const depCount = adlValues.filter(v => v === 'Dependent').length;
+  const assistCount = adlValues.filter(v => v === 'Needs Assistance').length;
+
+  const subject = encodeURIComponent(`[VitalTouch] Client Assessment \u2014 ${clientName} (${id})`);
+  const body = encodeURIComponent(
+    `A new Client Assessment Packet has been completed.\n\n` +
+    `Client: ${clientName}\n` +
+    `DOB: ${data.client.dob}\n` +
+    `Medicaid/RIN: ${data.client.rin}\n` +
+    `Address: ${data.client.address}, ${data.client.city}, IL ${data.client.zip}\n` +
+    `Phone: ${data.client.phone}\n` +
+    `Language: ${data.client.language}${data.client.languageOther ? ' (' + data.client.languageOther + ')' : ''}\n` +
+    `Lives With: ${data.client.livesWith}\n\n` +
+    `Assessment Date: ${data.assessment.date}\n` +
+    `Assessor: ${data.assessment.assessorName}\n\n` +
+    `Residence: ${data.livingSituation.residence}\n` +
+    `Fall Risk: ${data.health.fallRisk || 'Not assessed'}\n` +
+    `Cognitive: ${data.health.orientation || 'Not assessed'} / ${data.health.memory || 'Not assessed'}\n\n` +
+    `ADL Summary: ${depCount} Dependent, ${assistCount} Needs Assistance, ${adlValues.length - depCount - assistCount} Independent\n\n` +
+    `Signed By Client/Rep: ${data.clientSignature.name} (${data.clientSignature.relationship})\n` +
+    `Signed By Assessor: ${data.assessorSignature.name}, ${data.assessorSignature.title}\n` +
+    `Assessment ID: ${id}\n\n` +
+    `Log into the admin portal to review:\nhttps://vitaltouchcares.com/admin/`
+  );
+
+  // Open mailto
+  const mailLink = document.createElement('a');
+  mailLink.href = `mailto:iezuri22@gmail.com?subject=${subject}&body=${body}`;
+  mailLink.click();
+
+  // Show confirmation
+  currentStep = 6;
+  showStep(6);
+
+  console.log('Assessment submitted:', data);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  initSigPad('sigPad1');
+  initSigPad('sigPad2');
+
+  // Set today's date as default
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('assessDate').value = today;
+  document.getElementById('sig1Date').value = today;
+  document.getElementById('sig2Date').value = today;
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

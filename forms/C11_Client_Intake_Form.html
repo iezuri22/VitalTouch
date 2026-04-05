@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Intake Form — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== STEP BAR ===== */
+  .step-indicator {
+    display: flex;
+    padding: 16px 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    gap: 4px;
+  }
+  .step-bar {
+    flex: 1; height: 4px; border-radius: 4px;
+    background: var(--border);
+    transition: background 0.4s ease;
+  }
+  .step-bar.done { background: var(--green); }
+  .step-bar.active {
+    background: linear-gradient(90deg, var(--green), #22C55E);
+    animation: pulse-bar 2s ease-in-out infinite;
+  }
+  @keyframes pulse-bar { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+  /* ===== FORM STEPS ===== */
+  .form-step {
+    display: none;
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  .form-step.active { display: block; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  .step-label {
+    font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--green); margin-bottom: 6px;
+  }
+  .step-title { font-size: 26px; font-weight: 700; line-height: 1.3; color: #1a1a1a; }
+  .step-subtitle { font-size: 16px; color: #4a5568; margin-top: 6px; }
+  .step-header { margin-bottom: 24px; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--border); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CONDITION GRID ===== */
+  .condition-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .condition-chip {
+    position: relative; cursor: pointer; display: block;
+  }
+  .condition-chip input {
+    position: absolute; opacity: 0; width: 0; height: 0;
+  }
+  .condition-chip span {
+    display: flex; align-items: center; justify-content: center;
+    padding: 12px 10px; text-align: center;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 15px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+    min-height: 48px; line-height: 1.3;
+  }
+  .condition-chip:hover span {
+    border-color: var(--border);
+  }
+  .condition-chip input:checked + span {
+    background: #F0F4FF; border-color: #93A3C4;
+    color: #1E293B; font-weight: 600;
+  }
+  .condition-other {
+    display: flex; align-items: center; gap: 10px; margin-top: 8px;
+  }
+  .condition-other .other-chip { flex-shrink: 0; }
+  .condition-other .other-chip span { min-height: 48px; padding: 12px 20px; }
+  .condition-other-input {
+    flex: 1; padding: 12px 14px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 16px; font-family: inherit; color: var(--text);
+    background: #F9FAFB; transition: all 0.2s;
+  }
+  .condition-other-input:disabled { opacity: 0.4; cursor: not-allowed; }
+  .condition-other-input:not(:disabled) { background: var(--white); }
+  .condition-other-input:focus { outline: none; border-color: var(--green); box-shadow: none; }
+  .condition-count {
+    margin-top: 8px; font-size: 14px; font-weight: 400;
+    color: #64748B; transition: color 0.2s;
+  }
+  .condition-count.has-selections { color: #64748B; }
+  @media (max-width: 600px) {
+    .condition-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-weight: 600; font-size: 15px; color: #64748B;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    border-bottom: 2px solid #E2E8F0; padding-bottom: 8px;
+    margin-bottom: 16px; margin-top: 24px;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--warm); border: 1px solid #FDE68A;
+    border-radius: var(--radius-sm); padding: 16px 18px;
+    margin-bottom: 20px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 15px; color: #78350f;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== CONDITIONAL FIELD ===== */
+  .conditional { display: none; }
+  .conditional.visible { display: block; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-back { background: transparent; color: var(--text-light); padding: 10px 16px; }
+  .btn-back:hover { color: var(--text); }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: none;
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    box-shadow: none;
+  }
+  .btn-next:active { }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .step-indicator, .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-step { display: block !important; padding: 12px 16px; page-break-inside: avoid; }
+    .step-title { font-size: 15px; }
+    .conditional { display: block !important; }
+    .condition-grid { grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    .condition-chip span { padding: 6px 8px; font-size: 10px; min-height: 28px; border: 1px solid #ccc; }
+    .condition-chip input:checked + span { background: #EFF6FF; border-color: #333; }
+    .condition-count { display: none; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .pill span { padding: 4px 10px; font-size: 10px; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-step { padding: 24px 20px 20px; }
+    .form-nav { padding: 16px 20px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Client Intake Form</h1>
+    <p>VitalTouch Health Network — New client registration and health information</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- STEP BAR -->
+    <div class="step-indicator" id="stepBar">
+      <div class="step-bar active"></div>
+      <div class="step-bar"></div>
+      <div class="step-bar"></div>
+    </div>
+
+    <!-- ===== STEP 1: CLIENT INFORMATION ===== -->
+    <div class="form-step active" data-step="1">
+      <div class="step-header">
+        <div class="step-label">Step 1 of 3</div>
+        <div class="step-title">Client Information</div>
+        <div class="step-subtitle">Enter the client's personal and contact details.</div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">&#x1F512;</span>
+        <span>This form collects protected health information (PHI). All data is stored securely in compliance with HIPAA regulations.</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" id="firstName" required>
+          <div class="error-msg">First name is required</div>
+        </div>
+        <div class="field">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" id="lastName" required>
+          <div class="error-msg">Last name is required</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" id="dob" required>
+          <div class="error-msg">Date of birth is required</div>
+        </div>
+        <div class="field">
+          <label>Social Security Number <span class="req">*</span></label>
+          <input type="text" id="ssn" maxlength="11" placeholder="XXX-XX-XXXX" required>
+          <div class="error-msg">Enter a valid SSN (XXX-XX-XXXX)</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Gender <span class="req">*</span></label>
+        <div class="pills" id="genderPills">
+          <label class="pill"><input type="radio" name="gender" value="Male"><span>Male</span></label>
+          <label class="pill"><input type="radio" name="gender" value="Female"><span>Female</span></label>
+          <label class="pill"><input type="radio" name="gender" value="Other"><span>Other</span></label>
+          <label class="pill"><input type="radio" name="gender" value="Prefer not to say"><span>Prefer not to say</span></label>
+        </div>
+        <div class="error-msg">Please select a gender</div>
+      </div>
+
+      <div class="field">
+        <label>Home Address <span class="req">*</span></label>
+        <input type="text" id="address" placeholder="Street address" required>
+        <div class="error-msg">Address is required</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>City <span class="req">*</span></label>
+          <input type="text" id="city" required>
+          <div class="error-msg">City is required</div>
+        </div>
+        <div class="field">
+          <label>State</label>
+          <input type="text" id="state" value="Illinois" readonly>
+        </div>
+        <div class="field">
+          <label>Zip Code <span class="req">*</span></label>
+          <input type="text" id="zip" maxlength="10" required>
+          <div class="error-msg">Zip code is required</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Phone <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="(708) 555-1234" required>
+          <div class="error-msg">Phone number is required</div>
+        </div>
+        <div class="field">
+          <label>Email <span style="font-weight:400;color:var(--text-lighter);font-size:13px;">(optional)</span></label>
+          <input type="email" id="email" placeholder="email@example.com">
+          <div class="error-msg">Enter a valid email address</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Preferred Language</label>
+        <div class="pills" id="languagePills">
+          <label class="pill"><input type="radio" name="language" value="English" checked><span>English</span></label>
+          <label class="pill"><input type="radio" name="language" value="Spanish"><span>Spanish</span></label>
+          <label class="pill"><input type="radio" name="language" value="Other"><span>Other</span></label>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="form-nav">
+        <div></div>
+        <button class="btn btn-next" onclick="goStep(2)">Continue <span>&rarr;</span></button>
+      </div>
+    </div>
+
+    <!-- ===== STEP 2: INSURANCE & PAYER INFORMATION ===== -->
+    <div class="form-step" data-step="2">
+      <div class="step-header">
+        <div class="step-label">Step 2 of 3</div>
+        <div class="step-title">Insurance &amp; Payer Information</div>
+        <div class="step-subtitle">Enter the client's payer source and referral details.</div>
+      </div>
+
+      <div class="field">
+        <label>Primary Payer <span class="req">*</span></label>
+        <div class="pills" id="payerPills">
+          <label class="pill"><input type="radio" name="payer" value="Illinois Medicaid" onchange="toggleMedicaid()"><span>Illinois Medicaid</span></label>
+          <label class="pill"><input type="radio" name="payer" value="Community Care Program" onchange="toggleMedicaid()"><span>Community Care Program</span></label>
+          <label class="pill"><input type="radio" name="payer" value="Private Pay" onchange="toggleMedicaid()"><span>Private Pay</span></label>
+          <label class="pill"><input type="radio" name="payer" value="Other" onchange="toggleMedicaid()"><span>Other</span></label>
+        </div>
+        <div class="error-msg">Please select a primary payer</div>
+      </div>
+
+      <div class="field conditional" id="medicaidField">
+        <label>Medicaid / RIN Number <span class="req">*</span></label>
+        <input type="text" id="medicaidNumber" placeholder="Enter Medicaid or RIN number">
+        <div class="error-msg">Medicaid/RIN number is required for this payer</div>
+      </div>
+
+      <div class="field">
+        <label>Secondary Insurance <span style="font-weight:400;color:var(--text-lighter);font-size:13px;">(optional)</span></label>
+        <input type="text" id="secondaryInsurance" placeholder="Secondary insurance provider, if any">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Case Manager Name</label>
+          <input type="text" id="caseManagerName" placeholder="Full name">
+        </div>
+        <div class="field">
+          <label>Case Manager Phone</label>
+          <input type="tel" id="caseManagerPhone" placeholder="(708) 555-1234">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Referral Source <span class="req">*</span></label>
+        <select id="referralSource" required>
+          <option value="">-- Select referral source --</option>
+          <option value="Hospital Discharge">Hospital Discharge</option>
+          <option value="Physician">Physician</option>
+          <option value="Case Manager">Case Manager</option>
+          <option value="Self/Family">Self / Family</option>
+          <option value="Community Organization">Community Organization</option>
+          <option value="Other">Other</option>
+        </select>
+        <div class="error-msg">Please select a referral source</div>
+      </div>
+
+      <div class="field">
+        <label>Referral Date <span class="req">*</span></label>
+        <input type="date" id="referralDate" required>
+        <div class="error-msg">Referral date is required</div>
+      </div>
+
+      <!-- NAV -->
+      <div class="form-nav">
+        <button class="btn btn-back" onclick="goStep(1)">&larr; Back</button>
+        <button class="btn btn-next" onclick="goStep(3)">Continue <span>&rarr;</span></button>
+      </div>
+    </div>
+
+    <!-- ===== STEP 3: EMERGENCY CONTACTS & MEDICAL ===== -->
+    <div class="form-step" data-step="3">
+      <div class="step-header">
+        <div class="step-label">Step 3 of 3</div>
+        <div class="step-title">Emergency Contacts &amp; Medical</div>
+        <div class="step-subtitle">Provide emergency contact information and medical history.</div>
+      </div>
+
+      <!-- Emergency Contact -->
+      <div class="section-label">Emergency Contact</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Contact Name <span class="req">*</span></label>
+          <input type="text" id="emergName" required>
+          <div class="error-msg">Emergency contact name is required</div>
+        </div>
+        <div class="field">
+          <label>Relationship <span class="req">*</span></label>
+          <input type="text" id="emergRelationship" placeholder="e.g., Spouse, Son, Daughter" required>
+          <div class="error-msg">Relationship is required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Phone <span class="req">*</span></label>
+        <input type="tel" id="emergPhone" placeholder="(708) 555-1234" required>
+        <div class="error-msg">Emergency contact phone is required</div>
+      </div>
+
+      <!-- Alternate Emergency Contact -->
+      <div class="section-label">Alternate Emergency Contact</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Contact Name</label>
+          <input type="text" id="altEmergName">
+        </div>
+        <div class="field">
+          <label>Relationship</label>
+          <input type="text" id="altEmergRelationship" placeholder="e.g., Sibling, Friend">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Phone</label>
+        <input type="tel" id="altEmergPhone" placeholder="(708) 555-1234">
+      </div>
+
+      <!-- Physician Information -->
+      <div class="section-label">Physician Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Primary Physician Name <span class="req">*</span></label>
+          <input type="text" id="physicianName" required>
+          <div class="error-msg">Physician name is required</div>
+        </div>
+        <div class="field">
+          <label>Physician Phone <span class="req">*</span></label>
+          <input type="tel" id="physicianPhone" placeholder="(708) 555-1234" required>
+          <div class="error-msg">Physician phone is required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Physician Address <span style="font-weight:400;color:var(--text-lighter);font-size:13px;">(optional)</span></label>
+        <input type="text" id="physicianAddress" placeholder="Street address, city, state, zip">
+      </div>
+
+      <!-- Known Medical Conditions -->
+      <div class="section-label">Known Medical Conditions</div>
+
+      <div class="field">
+        <label>Select all that apply</label>
+        <div class="condition-grid">
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Diabetes"><span>Diabetes</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Hypertension"><span>Hypertension</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Heart Disease"><span>Heart Disease</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="COPD"><span>COPD</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Asthma"><span>Asthma</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Stroke"><span>Stroke</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Alzheimer's / Dementia"><span>Alzheimer's / Dementia</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Parkinson's"><span>Parkinson's</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Arthritis"><span>Arthritis</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Cancer"><span>Cancer</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Kidney Disease"><span>Kidney Disease</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Depression / Anxiety"><span>Depression / Anxiety</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Epilepsy / Seizures"><span>Epilepsy / Seizures</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Osteoporosis"><span>Osteoporosis</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Vision Impairment"><span>Vision Impairment</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Hearing Loss"><span>Hearing Loss</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Incontinence"><span>Incontinence</span></label>
+          <label class="condition-chip"><input type="checkbox" name="conditions" value="Fall Risk"><span>Fall Risk</span></label>
+        </div>
+        <div class="condition-other">
+          <label class="condition-chip other-chip"><input type="checkbox" id="condOtherCheck" name="conditions" value="Other"><span>Other</span></label>
+          <input type="text" id="condOtherText" class="condition-other-input" placeholder="Specify other conditions..." disabled>
+        </div>
+        <div class="condition-count" id="condCount">0 selected</div>
+      </div>
+
+      <!-- Current Medications -->
+      <div class="section-label">Current Medications</div>
+
+      <div class="field">
+        <label>Medications</label>
+        <textarea id="medications" placeholder="List current medications with dosages if known"></textarea>
+      </div>
+
+      <!-- Known Allergies -->
+      <div class="section-label">Known Allergies</div>
+
+      <div class="field">
+        <label>Allergies</label>
+        <textarea id="allergies" placeholder="List any known allergies (food, medication, environmental)"></textarea>
+      </div>
+
+      <!-- NAV -->
+      <div class="form-nav">
+        <button class="btn btn-back" onclick="goStep(2)">&larr; Back</button>
+        <button class="btn btn-next" onclick="submitForm()">Submit Intake Form <span>&rarr;</span></button>
+      </div>
+    </div>
+
+    <!-- ===== CONFIRMATION ===== -->
+    <div class="form-step" data-step="4">
+      <div class="confirmation">
+        <div class="conf-check">&#x2713;</div>
+        <h2>Intake Form Submitted</h2>
+        <p>The client intake form has been received and stored securely. A copy has been saved for your records.</p>
+        <div class="conf-id">Submission ID: <strong id="confSubmissionId"></strong></div>
+      </div>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <span class="trust-item">&#x1F512; HIPAA Compliant</span>
+      <span class="trust-item">&#x1F3E5; IDPH Licensed</span>
+      <span class="trust-item">&#x1F4CB; Form C.11</span>
+    </div>
+
+  </div><!-- /card -->
+</div><!-- /main-container -->
+
+<!-- FOOTER -->
+<div class="footer">
+  VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430<br>
+  (708) 774-4850 &middot; <a href="https://vitaltouchcares.com" target="_blank">vitaltouchcares.com</a>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  let currentStep = 1;
+  const totalSteps = 3;
+
+  // ===== Medical Conditions Grid =====
+  var condOtherCheck = document.getElementById('condOtherCheck');
+  var condOtherText = document.getElementById('condOtherText');
+  var condCount = document.getElementById('condCount');
+  var condBoxes = document.querySelectorAll('input[name="conditions"]');
+
+  if (condOtherCheck) {
+    condOtherCheck.addEventListener('change', function() {
+      condOtherText.disabled = !this.checked;
+      if (this.checked) condOtherText.focus();
+      else condOtherText.value = '';
+    });
+  }
+
+  function updateCondCount() {
+    var n = document.querySelectorAll('input[name="conditions"]:checked').length;
+    if (condCount) {
+      condCount.textContent = n === 0 ? '0 selected' : n + ' selected';
+      condCount.classList.toggle('has-selections', n > 0);
+    }
+  }
+  condBoxes.forEach(function(cb) { cb.addEventListener('change', updateCondCount); });
+
+  // ===== SSN Auto-Formatting =====
+  const ssnInput = document.getElementById('ssn');
+  ssnInput.addEventListener('input', function(e) {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 9) v = v.slice(0, 9);
+    if (v.length > 5) {
+      this.value = v.slice(0, 3) + '-' + v.slice(3, 5) + '-' + v.slice(5);
+    } else if (v.length > 3) {
+      this.value = v.slice(0, 3) + '-' + v.slice(3);
+    } else {
+      this.value = v;
+    }
+  });
+
+  // ===== Phone Auto-Formatting =====
+  function formatPhone(input) {
+    input.addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '');
+      if (v.length > 10) v = v.slice(0, 10);
+      if (v.length > 6) {
+        this.value = '(' + v.slice(0, 3) + ') ' + v.slice(3, 6) + '-' + v.slice(6);
+      } else if (v.length > 3) {
+        this.value = '(' + v.slice(0, 3) + ') ' + v.slice(3);
+      } else if (v.length > 0) {
+        this.value = '(' + v;
+      }
+    });
+  }
+
+  // Apply phone formatting to all tel inputs
+  document.querySelectorAll('input[type="tel"]').forEach(formatPhone);
+
+  // ===== Toggle Medicaid Field =====
+  window.toggleMedicaid = function() {
+    const payer = document.querySelector('input[name="payer"]:checked');
+    const field = document.getElementById('medicaidField');
+    if (payer && (payer.value === 'Illinois Medicaid' || payer.value === 'Community Care Program')) {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+      document.getElementById('medicaidNumber').value = '';
+      clearError(document.getElementById('medicaidNumber'));
+    }
+  };
+
+  // ===== Validation =====
+  function showError(el, msg) {
+    const field = el.closest('.field');
+    if (!field) return;
+    el.classList.add('invalid');
+    field.classList.add('has-error');
+    if (msg) {
+      const errorEl = field.querySelector('.error-msg');
+      if (errorEl) errorEl.textContent = msg;
+    }
+  }
+
+  function clearError(el) {
+    const field = el.closest('.field');
+    if (!field) return;
+    el.classList.remove('invalid');
+    field.classList.remove('has-error');
+  }
+
+  // Clear errors on input
+  document.querySelectorAll('input, select, textarea').forEach(function(el) {
+    el.addEventListener('input', function() { clearError(this); });
+    el.addEventListener('change', function() { clearError(this); });
+  });
+
+  // Clear pill errors on change
+  document.querySelectorAll('.pills input[type="radio"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      const field = this.closest('.field');
+      if (field) field.classList.remove('has-error');
+    });
+  });
+
+  function validateSSN(value) {
+    return /^\d{3}-\d{2}-\d{4}$/.test(value);
+  }
+
+  function validateEmail(value) {
+    if (!value) return true; // optional
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function validatePhone(value) {
+    return /^\(\d{3}\) \d{3}-\d{4}$/.test(value);
+  }
+
+  function validateStep(step) {
+    let valid = true;
+
+    if (step === 1) {
+      // First Name
+      const firstName = document.getElementById('firstName');
+      if (!firstName.value.trim()) { showError(firstName); valid = false; }
+
+      // Last Name
+      const lastName = document.getElementById('lastName');
+      if (!lastName.value.trim()) { showError(lastName); valid = false; }
+
+      // DOB
+      const dob = document.getElementById('dob');
+      if (!dob.value) { showError(dob); valid = false; }
+
+      // SSN
+      const ssn = document.getElementById('ssn');
+      if (!validateSSN(ssn.value)) { showError(ssn, 'Enter a valid SSN (XXX-XX-XXXX)'); valid = false; }
+
+      // Gender
+      const gender = document.querySelector('input[name="gender"]:checked');
+      if (!gender) {
+        const genderField = document.getElementById('genderPills').closest('.field');
+        genderField.classList.add('has-error');
+        valid = false;
+      }
+
+      // Address
+      const address = document.getElementById('address');
+      if (!address.value.trim()) { showError(address); valid = false; }
+
+      // City
+      const city = document.getElementById('city');
+      if (!city.value.trim()) { showError(city); valid = false; }
+
+      // Zip
+      const zip = document.getElementById('zip');
+      if (!zip.value.trim()) { showError(zip); valid = false; }
+
+      // Phone
+      const phone = document.getElementById('phone');
+      if (!phone.value.trim()) { showError(phone, 'Phone number is required'); valid = false; }
+      else if (!validatePhone(phone.value)) { showError(phone, 'Enter phone as (XXX) XXX-XXXX'); valid = false; }
+
+      // Email (optional but validate format if provided)
+      const email = document.getElementById('email');
+      if (email.value.trim() && !validateEmail(email.value.trim())) {
+        showError(email, 'Enter a valid email address');
+        valid = false;
+      }
+    }
+
+    if (step === 2) {
+      // Primary Payer
+      const payer = document.querySelector('input[name="payer"]:checked');
+      if (!payer) {
+        const payerField = document.getElementById('payerPills').closest('.field');
+        payerField.classList.add('has-error');
+        valid = false;
+      }
+
+      // Medicaid/RIN if visible
+      const medicaidField = document.getElementById('medicaidField');
+      if (medicaidField.classList.contains('visible')) {
+        const medicaidNumber = document.getElementById('medicaidNumber');
+        if (!medicaidNumber.value.trim()) { showError(medicaidNumber); valid = false; }
+      }
+
+      // Case Manager Phone formatting validation (optional field, but validate if filled)
+      const cmPhone = document.getElementById('caseManagerPhone');
+      if (cmPhone.value.trim() && !validatePhone(cmPhone.value)) {
+        showError(cmPhone, 'Enter phone as (XXX) XXX-XXXX');
+        valid = false;
+      }
+
+      // Referral Source
+      const referralSource = document.getElementById('referralSource');
+      if (!referralSource.value) { showError(referralSource); valid = false; }
+
+      // Referral Date
+      const referralDate = document.getElementById('referralDate');
+      if (!referralDate.value) { showError(referralDate); valid = false; }
+    }
+
+    if (step === 3) {
+      // Emergency Contact Name
+      const emergName = document.getElementById('emergName');
+      if (!emergName.value.trim()) { showError(emergName); valid = false; }
+
+      // Emergency Contact Relationship
+      const emergRel = document.getElementById('emergRelationship');
+      if (!emergRel.value.trim()) { showError(emergRel); valid = false; }
+
+      // Emergency Contact Phone
+      const emergPhone = document.getElementById('emergPhone');
+      if (!emergPhone.value.trim()) { showError(emergPhone, 'Emergency contact phone is required'); valid = false; }
+      else if (!validatePhone(emergPhone.value)) { showError(emergPhone, 'Enter phone as (XXX) XXX-XXXX'); valid = false; }
+
+      // Alt Emergency Phone validation (optional but validate format if provided)
+      const altPhone = document.getElementById('altEmergPhone');
+      if (altPhone.value.trim() && !validatePhone(altPhone.value)) {
+        showError(altPhone, 'Enter phone as (XXX) XXX-XXXX');
+        valid = false;
+      }
+
+      // Physician Name
+      const physName = document.getElementById('physicianName');
+      if (!physName.value.trim()) { showError(physName); valid = false; }
+
+      // Physician Phone
+      const physPhone = document.getElementById('physicianPhone');
+      if (!physPhone.value.trim()) { showError(physPhone, 'Physician phone is required'); valid = false; }
+      else if (!validatePhone(physPhone.value)) { showError(physPhone, 'Enter phone as (XXX) XXX-XXXX'); valid = false; }
+    }
+
+    return valid;
+  }
+
+  // ===== Step Navigation =====
+  window.goStep = function(target) {
+    // Validate current step before going forward
+    if (target > currentStep) {
+      if (!validateStep(currentStep)) {
+        // Scroll to first error
+        const firstErr = document.querySelector('.form-step.active .has-error, .form-step.active .invalid');
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+    }
+
+    currentStep = target;
+
+    // Update steps
+    document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelector('.form-step[data-step="' + target + '"]').classList.add('active');
+
+    // Update step bars
+    const bars = document.querySelectorAll('.step-bar');
+    bars.forEach(function(bar, i) {
+      bar.classList.remove('active', 'done');
+      if (i < target - 1) bar.classList.add('done');
+      else if (i === target - 1) bar.classList.add('active');
+    });
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // ===== Form Submission =====
+  window.submitForm = function() {
+    if (!validateStep(3)) {
+      const firstErr = document.querySelector('.form-step.active .has-error, .form-step.active .invalid');
+      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Generate submission ID
+    const submissionId = 'C11-' + Date.now().toString(36).toUpperCase();
+
+    // Collect form data
+    const data = {
+      submissionId: submissionId,
+      formId: 'C.11',
+      formName: 'Client Intake Form',
+      submittedAt: new Date().toISOString(),
+
+      // Step 1
+      firstName: document.getElementById('firstName').value.trim(),
+      lastName: document.getElementById('lastName').value.trim(),
+      dob: document.getElementById('dob').value,
+      ssn: document.getElementById('ssn').value,
+      gender: (document.querySelector('input[name="gender"]:checked') || {}).value || '',
+      address: document.getElementById('address').value.trim(),
+      city: document.getElementById('city').value.trim(),
+      state: document.getElementById('state').value,
+      zip: document.getElementById('zip').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      language: (document.querySelector('input[name="language"]:checked') || {}).value || 'English',
+
+      // Step 2
+      primaryPayer: (document.querySelector('input[name="payer"]:checked') || {}).value || '',
+      medicaidNumber: document.getElementById('medicaidNumber').value.trim(),
+      secondaryInsurance: document.getElementById('secondaryInsurance').value.trim(),
+      caseManagerName: document.getElementById('caseManagerName').value.trim(),
+      caseManagerPhone: document.getElementById('caseManagerPhone').value.trim(),
+      referralSource: document.getElementById('referralSource').value,
+      referralDate: document.getElementById('referralDate').value,
+
+      // Step 3
+      emergencyContact: {
+        name: document.getElementById('emergName').value.trim(),
+        relationship: document.getElementById('emergRelationship').value.trim(),
+        phone: document.getElementById('emergPhone').value.trim()
+      },
+      altEmergencyContact: {
+        name: document.getElementById('altEmergName').value.trim(),
+        relationship: document.getElementById('altEmergRelationship').value.trim(),
+        phone: document.getElementById('altEmergPhone').value.trim()
+      },
+      physician: {
+        name: document.getElementById('physicianName').value.trim(),
+        phone: document.getElementById('physicianPhone').value.trim(),
+        address: document.getElementById('physicianAddress').value.trim()
+      },
+      medicalConditions: (function() {
+        var selected = [];
+        document.querySelectorAll('input[name="conditions"]:checked').forEach(function(cb) {
+          if (cb.value === 'Other') {
+            var other = document.getElementById('condOtherText').value.trim();
+            if (other) selected.push('Other: ' + other);
+          } else {
+            selected.push(cb.value);
+          }
+        });
+        return selected.join(', ');
+      })(),
+      medications: document.getElementById('medications').value.trim(),
+      allergies: document.getElementById('allergies').value.trim()
+    };
+
+    // Store to localStorage
+    try {
+      const existing = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+      existing.push(data);
+      localStorage.setItem('vt_submissions', JSON.stringify(existing));
+    } catch (e) {
+      console.error('Failed to save to localStorage:', e);
+    }
+
+    // ── Flow Engine Integration ──
+    // C11 is the entry point — creates a new client flow automatically
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        const flowId = VTFlow.handleFormSubmit('C.11', data);
+        if (flowId) {
+          data._flowId = flowId;
+          console.log('VTFlow: Client flow created — ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+    // Show confirmation
+    document.getElementById('confSubmissionId').textContent = submissionId;
+
+    // Navigate to confirmation step
+    document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelector('.form-step[data-step="4"]').classList.add('active');
+
+    // Mark all step bars done
+    document.querySelectorAll('.step-bar').forEach(function(bar) {
+      bar.classList.remove('active');
+      bar.classList.add('done');
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+})();
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

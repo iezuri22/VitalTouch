@@ -1,0 +1,2589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitalTouch — Real-World Scenarios</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #16A34A; --green-dark: #15803D; --green-deeper: #166534;
+    --green-light: #DCFCE7; --green-glow: rgba(22,163,74,0.12);
+    --text: #1E293B; --text-light: #4a5568; --text-lighter: #6b7280;
+    --white: #FFFFFF; --border: #E2E8F0; --bg: #F8FAFC;
+    --blue: #3B82F6; --blue-light: #DBEAFE;
+    --orange: #F97316; --orange-light: #FFF7ED;
+    --purple: #8B5CF6; --purple-light: #EDE9FE;
+    --red: #EF4444; --red-light: #FEF2F2;
+    --teal: #14B8A6; --teal-light: #F0FDFA;
+    --amber: #F59E0B; --amber-light: #FFFBEB;
+    --radius: 6px; --radius-sm: 6px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green); padding: 28px 40px;
+  }
+  .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
+  .header-logo { height: 48px; width: auto; }
+  .header-text h1 { font-size: 28px; font-weight: 800; color: #1a1a1a; }
+  .header-text p { font-size: 14px; color: var(--text-light); margin-top: 2px; }
+  .header-nav { margin-left: auto; }
+  .header-nav a {
+    font-size: 14px; font-weight: 600; color: var(--green-dark);
+    text-decoration: none; padding: 8px 18px; border-radius: 6px;
+    border: 1.5px solid var(--green-dark); transition: all 0.2s;
+  }
+  .header-nav a:hover { background: var(--green-dark); color: white; }
+
+  /* ===== MAIN ===== */
+  .main { max-width: 1100px; margin: 32px auto; padding: 0 24px; }
+
+  /* ===== INTRO ===== */
+  .intro {
+    background: var(--white); border-radius: var(--radius); padding: 28px 32px;
+    box-shadow: var(--shadow); margin-bottom: 32px; border-left: 4px solid var(--green);
+  }
+  .intro h2 { font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+  .intro p { font-size: 15px; color: var(--text-light); line-height: 1.7; }
+
+  /* ===== LEGEND ===== */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px;
+    padding: 16px 20px; background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-light); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .legend-dot.client { background: var(--blue); }
+  .legend-dot.ceo { background: var(--green); }
+  .legend-dot.homemaker { background: var(--orange); }
+  .legend-dot.admin { background: var(--purple); }
+  .legend-dot.supervisor { background: var(--teal); }
+
+  /* ===== FILTER TABS ===== */
+  .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .tab {
+    padding: 10px 18px; border-radius: 6px; font-size: 13px; font-weight: 600;
+    cursor: pointer; border: 1.5px solid var(--border); background: var(--white);
+    color: var(--text-light); transition: all 0.2s; user-select: none;
+  }
+  .tab:hover { border-color: var(--green); color: var(--green); }
+  .tab.active { background: var(--green); color: white; border-color: var(--green); }
+
+  /* ===== SCENARIO CARDS ===== */
+  .scenario {
+    background: var(--white); border-radius: var(--radius); margin-bottom: 20px;
+    box-shadow: var(--shadow); overflow: hidden; transition: all 0.2s;
+    border: 1.5px solid transparent;
+  }
+  .scenario:hover { border-color: var(--green-light); }
+
+  .scenario-header {
+    padding: 24px 28px; cursor: pointer; display: flex; align-items: flex-start; gap: 16px;
+    transition: background 0.2s; position: relative;
+  }
+  .scenario-header:hover { background: #FAFFFE; }
+
+  .scenario-icon {
+    width: 52px; height: 52px; border-radius: var(--radius-sm); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 24px;
+  }
+  .scenario-icon.onboard { background: var(--blue-light); }
+  .scenario-icon.incident { background: var(--red-light); }
+  .scenario-icon.hire { background: var(--orange-light); }
+  .scenario-icon.training { background: var(--purple-light); }
+  .scenario-icon.ongoing { background: var(--teal-light); }
+  .scenario-icon.change { background: var(--amber-light); }
+
+  .scenario-info { flex: 1; }
+  .scenario-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .scenario-label.onboard { color: var(--blue); }
+  .scenario-label.incident { color: var(--red); }
+  .scenario-label.hire { color: var(--orange); }
+  .scenario-label.training { color: var(--purple); }
+  .scenario-label.ongoing { color: var(--teal); }
+  .scenario-label.change { color: var(--amber); }
+
+  .scenario-title { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .scenario-desc { font-size: 14px; color: var(--text-light); line-height: 1.5; }
+
+  .scenario-toggle {
+    width: 32px; height: 32px; border-radius: 50%; background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--text-lighter); flex-shrink: 0;
+    margin-top: 6px; transition: all 0.3s;
+  }
+  .scenario.open .scenario-toggle { transform: rotate(180deg); background: var(--green-light); color: var(--green); }
+
+  .scenario-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
+  }
+  .scenario.open .scenario-body { max-height: 3000px; transition: max-height 0.6s ease-in; }
+
+  .scenario-content { padding: 0 28px 28px; }
+
+  /* ===== TIMELINE ===== */
+  .timeline { position: relative; padding-left: 36px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 14px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--border);
+  }
+
+  .tl-step {
+    position: relative; margin-bottom: 20px; padding: 16px 20px;
+    background: var(--bg); border-radius: var(--radius-sm);
+    border: 1px solid var(--border); transition: all 0.2s;
+  }
+  .tl-step:hover { border-color: var(--green); background: #FAFFFE; }
+  .tl-step:last-child { margin-bottom: 0; }
+
+  .tl-dot {
+    position: absolute; left: -30px; top: 20px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--green); border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--green-light);
+  }
+
+  .tl-timing {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--green-dark); margin-bottom: 6px;
+  }
+
+  .tl-form {
+    font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tl-form a {
+    font-size: 12px; font-weight: 600; color: var(--green);
+    text-decoration: none; padding: 2px 10px; border-radius: 20px;
+    background: var(--green-light); transition: all 0.2s;
+  }
+  .tl-form a:hover { background: var(--green); color: white; }
+
+  .tl-action { font-size: 14px; color: var(--text-light); margin-bottom: 8px; line-height: 1.5; }
+
+  .tl-signers { display: flex; flex-wrap: wrap; gap: 6px; }
+  .signer {
+    font-size: 11px; font-weight: 700; padding: 3px 10px;
+    border-radius: 20px; display: inline-flex; align-items: center; gap: 4px;
+  }
+  .signer.client { background: var(--blue-light); color: var(--blue); }
+  .signer.ceo { background: var(--green-light); color: var(--green-dark); }
+  .signer.homemaker { background: var(--orange-light); color: var(--orange); }
+  .signer.admin { background: var(--purple-light); color: var(--purple); }
+  .signer.supervisor { background: var(--teal-light); color: var(--teal); }
+  .signer.none { background: #F3F4F6; color: var(--text-lighter); }
+
+  .signer::before { content: '✍'; font-size: 10px; }
+  .signer.none::before { content: '—'; }
+
+  /* ===== ALERT BOX ===== */
+  .alert-box {
+    margin-top: 16px; padding: 14px 18px; border-radius: var(--radius-sm);
+    font-size: 13px; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .alert-box.warn { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+  .alert-box.info { background: var(--blue-light); color: #1E40AF; border: 1px solid #BFDBFE; }
+  .alert-box.danger { background: var(--red-light); color: #991B1B; border: 1px solid #FECACA; }
+  .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== FOOTER ===== */
+  .footer { text-align: center; padding: 40px 24px 24px; font-size: 13px; color: var(--text-lighter); }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .header { padding: 20px; }
+    .header-inner { flex-wrap: wrap; }
+    .header-text h1 { font-size: 22px; }
+    .header-nav { margin-left: 0; }
+    .scenario-header { padding: 18px 20px; }
+    .scenario-content { padding: 0 20px 20px; }
+    .scenario-icon { width: 42px; height: 42px; font-size: 20px; }
+    .tabs { gap: 6px; }
+    .tab { padding: 8px 14px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <img src="images/logo-symbol.png" alt="VitalTouch" class="header-logo">
+    <div class="header-text">
+      <h1>Real-World Scenarios</h1>
+      <p>What happens, who signs what, and when — for every situation VitalTouch encounters</p>
+    </div>
+    <div class="header-nav">
+      <a href="index.html">← Forms Guide</a>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="intro">
+    <h2>How to use this page</h2>
+    <p>Each scenario below describes a real situation you'll encounter running VitalTouch. Click any scenario to expand its full timeline — you'll see every form that's needed, who signs it, and the deadline. Signer badges are color-coded so you can instantly see who needs to act.</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot client"></span> Client / Family</div>
+    <div class="legend-item"><span class="legend-dot ceo"></span> CEO (Ifeanyi)</div>
+    <div class="legend-item"><span class="legend-dot homemaker"></span> Homemaker / Employee</div>
+    <div class="legend-item"><span class="legend-dot admin"></span> Office Admin</div>
+    <div class="legend-item"><span class="legend-dot supervisor"></span> Supervisor</div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-filter="all">All Scenarios</div>
+    <div class="tab" data-filter="onboard">Client Onboarding</div>
+    <div class="tab" data-filter="hire">Hiring</div>
+    <div class="tab" data-filter="training">Training</div>
+    <div class="tab" data-filter="ongoing">Ongoing Care</div>
+    <div class="tab" data-filter="incident">Incidents</div>
+    <div class="tab" data-filter="change">Changes</div>
+  </div>
+
+  <div id="scenarioList">
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 1: New Medicaid client referral -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="onboard">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon onboard">👵🏽</div>
+        <div class="scenario-info">
+          <div class="scenario-label onboard">Client Onboarding</div>
+          <div class="scenario-title">New client referred through Medicaid / CCP</div>
+          <div class="scenario-desc">A Care Coordination Unit (CCU) calls VitalTouch with a new referral. The client is approved for homemaker services under the Community Care Program. You need to get them into the system and start services.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1 — After referral call</div>
+              <div class="tl-form">C.11 — Client Intake Form <a href="C11_Client_Intake_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Collect client demographics, insurance info, emergency contacts, physician details, and initial service preferences over the phone or during the first visit.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin fills out</span>
+                <span class="signer client">Client confirms info</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — Initial home visit</div>
+              <div class="tl-form">C.21 — Client Assessment Packet <a href="C21_Client_Assessment_Packet.html" target="_blank">Open</a></div>
+              <div class="tl-action">Comprehensive in-home assessment of ADLs, health status, cognitive function, and support needs. Conducted by the supervisor at the client's home.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — Same home visit</div>
+              <div class="tl-form">C.22 — Home Risk Assessment <a href="C22_Home_Risk_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Walk through the home checking for fall hazards, fire risks, accessibility issues, and sanitation. Document and photograph any concerns.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor fills out & signs</span>
+                <span class="signer client">Client acknowledges & signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — Same home visit</div>
+              <div class="tl-form">C.23 — Physical Health Assessment <a href="C23_Physical_Health_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document medical conditions, current medications, allergies, physician information, and functional limitations.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor fills out</span>
+                <span class="signer none">No signature required</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 2–5 — After assessment</div>
+              <div class="tl-form">C.24 — Plan of Care <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Create the formal service plan listing authorized services, goals, schedule, and special instructions based on the assessment findings.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 2–5 — Before services begin</div>
+              <div class="tl-form">C.12 — Client Service Agreement <a href="C12_Client_Service_Agreement.html" target="_blank">Open</a></div>
+              <div class="tl-action">Client reviews and signs the formal contract covering services, rights, responsibilities, billing, and discharge terms. CEO countersigns via email.</div>
+              <div class="tl-signers">
+                <span class="signer client">Client signs first</span>
+                <span class="signer ceo">CEO countersigns</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>IDPH Rule:</strong> All six forms must be completed before the homemaker's first scheduled visit. No services without a signed Plan of Care and Service Agreement.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 2: Applicant applies and gets hired -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="hire">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon hire">👩🏽‍⚕️</div>
+        <div class="scenario-info">
+          <div class="scenario-label hire">Hiring</div>
+          <div class="scenario-title">Someone applies on the website and gets hired</div>
+          <div class="scenario-desc">A candidate finds VitalTouch on Indeed, visits the website, fills out the application, passes the phone screen and interview, and accepts the job offer. Here's every form from application to first client assignment.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 0 — Applicant applies online</div>
+              <div class="tl-form">E.11 — Homemaker Job Application <a href="E11_Homemaker_Job_Application.html" target="_blank">Open</a></div>
+              <div class="tl-action">Candidate fills out the 5-step application: personal info, qualifications, availability, experience, and authorization. Application goes to CEO inbox for review.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Applicant fills out & signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — After offer accepted</div>
+              <div class="tl-form">E.12 — Homemaker Document Upload <a href="E12_Homemaker_Document_Upload.html" target="_blank">Open</a></div>
+              <div class="tl-action">New hire uploads government-issued photo ID, Social Security card, and any certifications (CNA, CPR, auto insurance).</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">New hire uploads docs</span>
+                <span class="signer admin">Admin verifies</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — Same time</div>
+              <div class="tl-form">E.24 — Required Medical Documents <a href="E24_Required_Medical_Documents.html" target="_blank">Open</a></div>
+              <div class="tl-action">New hire uploads TB test results (must be within 90 days), physical exam form (within 12 months), and any other medical clearance docs.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">New hire uploads docs</span>
+                <span class="signer admin">Admin verifies dates</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — Onboarding packet</div>
+              <div class="tl-form">E.22 — Hepatitis B Vaccination Record <a href="E22_Hepatitis_B_Vaccination_Record.html" target="_blank">Open</a></div>
+              <div class="tl-action">Employee records Hep B vaccination status. If declining, they must sign a written declination per OSHA Bloodborne Pathogens Standard.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — Onboarding packet</div>
+              <div class="tl-form">E.23 — Influenza Vaccination Record <a href="E23_Influenza_Vaccination_Record.html" target="_blank">Open</a></div>
+              <div class="tl-action">Employee records flu vaccination status. If during flu season (Oct–Mar) and declining, must sign declination.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–5 — Admin initiates</div>
+              <div class="tl-form">E.25 — IDPH Registry Uploads <a href="E25_IDPH_Registry_Uploads.html" target="_blank">Open</a></div>
+              <div class="tl-action">Admin uploads IDPH background check results — fingerprint clearance, Health Care Worker Registry (HCWR) verification, sex offender registry check. Employee cannot work until all three clear.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin uploads & verifies</span>
+                <span class="signer ceo">CEO reviews clearance</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">After background clears</div>
+              <div class="tl-form">E.26 — Homemaker Employment Agreement <a href="E26_Homemaker_Employment_Agreement.html" target="_blank">Open</a></div>
+              <div class="tl-action">The official hire document. Covers pay rate, schedule expectations, conduct requirements, and at-will employment terms.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs first</span>
+                <span class="signer ceo">CEO countersigns</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Orientation Day 1</div>
+              <div class="tl-form">E.31 — HIPAA Compliance Acknowledgment <a href="E31_HIPAA_Compliance_Acknowledgment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Employee reviews HIPAA privacy rules, PHI handling, and breach reporting obligations. Must sign before any access to client information.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Orientation Day 1</div>
+              <div class="tl-form">E.33 — Employee Handbook Acknowledgment <a href="E33_Employee_Handbook_Acknowledgment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Acknowledges receipt and understanding of the full VitalTouch Employee Handbook.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Orientation Day 1</div>
+              <div class="tl-form">E.34 — Civil Rights / Anti-Discrimination Ack <a href="E34_Civil_Rights_Anti_Discrimination_Ack.html" target="_blank">Open</a></div>
+              <div class="tl-action">Acknowledges civil rights, anti-discrimination, and equal opportunity training.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Orientation Day 1</div>
+              <div class="tl-form">E.21 — Limitations on Marketing / Recruiting <a href="E21_Limitations_on_Marketing_Recruiting.html" target="_blank">Open</a></div>
+              <div class="tl-action">Employee agrees not to solicit VitalTouch clients or recruit staff during and for 12 months after employment.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Throughout orientation</div>
+              <div class="tl-form">E.37 — Employee Orientation Checklist <a href="E37_Employee_Orientation_Checklist.html" target="_blank">Open</a></div>
+              <div class="tl-action">34-item checklist tracking every orientation activity: policies reviewed, forms signed, training completed. Must be 100% before first assignment.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor checks off items</span>
+                <span class="signer homemaker">Employee initials each item</span>
+              </div>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>If employee won't drive:</strong> Also complete E.12.1 — Will Not Drive Acknowledgment during onboarding.</span>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>IDPH 77 Ill. Adm. Code 955:</strong> Employee CANNOT be assigned to any client until background check is fully cleared. No exceptions — this is a licensing violation.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 3: New hire completes pre-hire training -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="training">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon training">📚</div>
+        <div class="scenario-info">
+          <div class="scenario-label training">Training</div>
+          <div class="scenario-title">New hire must complete 24-hour pre-hire training</div>
+          <div class="scenario-desc">After onboarding paperwork is done, every new homemaker must complete 24 hours of training before their first client assignment. Training happens in two phases: "Prior to Assignment" and "Within 30 Days."</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Phase 1 — Before first assignment</div>
+              <div class="tl-form">A.2 — Initial 5-Hour Training (Prior) <a href="A2_Initial_5Hour_Training_Prior.html" target="_blank">Open</a></div>
+              <div class="tl-action">20-section online training covering basic home care skills, safety, infection control, and client rights. Employee self-paces through all sections.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee completes training</span>
+                <span class="signer none">Auto-tracked by system</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately after A.2</div>
+              <div class="tl-form">B.2 — Competency Eval: 5 Hr (Prior) <a href="B2_Competency_Eval_5Hr_Prior.html" target="_blank">Open</a></div>
+              <div class="tl-action">22-question multiple choice exam. Must score 80% (18/22) to pass. If they fail, they retake the training and re-test.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee takes exam</span>
+                <span class="signer none">Auto-scored by system</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">After passing B.2</div>
+              <div class="tl-form">E.14 — 24-Hour Pre-Hire Training Ack <a href="E14_24Hour_PreHire_Training_Ack.html" target="_blank">Open</a></div>
+              <div class="tl-action">Employee acknowledges they understand the training requirements and their obligation to complete all 24 hours. This is the gatekeeper form — sign this, and you can be assigned clients.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs</span>
+                <span class="signer ceo">CEO countersigns</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Phase 2 — Within 30 days of hire</div>
+              <div class="tl-form">A.3 — Initial 5-Hour Training (30 Days) <a href="A3_Initial_5Hour_Training_30Days.html" target="_blank">Open</a></div>
+              <div class="tl-action">25-section advanced training covering nutrition, emergency response, documentation, and specialized care topics.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee completes training</span>
+                <span class="signer none">Auto-tracked by system</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately after A.3</div>
+              <div class="tl-form">B.3 — Competency Eval: 5 Hr (30 Days) <a href="B3_Competency_Eval_5Hr_30Days.html" target="_blank">Open</a></div>
+              <div class="tl-action">22-question exam on advanced topics. Must score 80% (18/22) to pass. Failure means repeat training and retest.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee takes exam</span>
+                <span class="signer none">Auto-scored by system</span>
+              </div>
+            </div>
+
+            <div class="alert-box danger">
+              <span class="alert-icon">🚨</span>
+              <span><strong>Hard deadline:</strong> Phase 2 training (A.3 + B.3) must be completed within 30 calendar days of hire. Missing this deadline is a compliance violation under 77 Ill. Adm. Code 245.71. Track every new hire's 30-day window.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 4: Client falls during care -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="incident">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon incident">🚨</div>
+        <div class="scenario-info">
+          <div class="scenario-label incident">Incident</div>
+          <div class="scenario-title">Client falls while homemaker is present</div>
+          <div class="scenario-desc">During a routine visit, the homemaker helps the client to the bathroom. The client slips and falls. No serious injury, but they're shaken up and have a bruise on their arm. The homemaker calls the office.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — within the hour</div>
+              <div class="tl-form">C.44 — Incident Report Form <a href="C44_Incident_Report_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document everything: what happened, when, where in the home, who was present, what the homemaker did, client's condition after the fall. Include whether 911 was called and family was notified.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Homemaker fills out initial report</span>
+                <span class="signer supervisor">Supervisor reviews & completes</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 24 hours</div>
+              <div class="tl-form">C.22 — Home Risk Assessment (update) <a href="C22_Home_Risk_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Re-assess the home for the fall hazard that caused the incident. Document what changed and what corrective measures were recommended (grab bars, mats, furniture rearrangement).</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client acknowledges & signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 48 hours — if needed</div>
+              <div class="tl-form">C.24 — Plan of Care (update) <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">If the fall reveals new mobility limitations or if the doctor orders changes, update the Plan of Care with new safety instructions, increased supervision, or modified services.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs updated plan</span>
+              </div>
+            </div>
+
+            <div class="alert-box danger">
+              <span class="alert-icon">🚨</span>
+              <span><strong>IDPH reporting:</strong> If the fall results in hospitalization, broken bones, or is suspected to involve neglect, IDPH must be notified. Incident report must be filed within 24 hours — no exceptions.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📞</span>
+              <span><strong>Notify:</strong> Client's family, client's physician, and the referring CCU (if CCP client). Document who you notified and when in the incident report.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 5: Homemaker misses a visit -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="incident">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon incident">❌</div>
+        <div class="scenario-info">
+          <div class="scenario-label incident">Incident</div>
+          <div class="scenario-title">Homemaker no-shows a scheduled visit</div>
+          <div class="scenario-desc">Client calls the office to report their homemaker didn't show up. The homemaker isn't answering the phone. The client is alone and needs assistance with daily tasks.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — when discovered</div>
+              <div class="tl-form">C.44 — Incident Report Form <a href="C44_Incident_Report_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document the missed visit: scheduled time, when it was discovered, client's current condition, whether the client had any unmet critical needs, and what the office did in response (sent backup, rescheduled, etc.).</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin fills out</span>
+                <span class="signer supervisor">Supervisor reviews</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Same day</div>
+              <div class="tl-form">C.41 — Monthly Contact Log (note added) <a href="C41_Client_Monthly_Contact_Log.html" target="_blank">Open</a></div>
+              <div class="tl-action">Call the client to confirm they're okay and document the contact. Note the missed visit, client's condition, and whether makeup services were arranged.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor calls & documents</span>
+                <span class="signer client">Client confirms</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>EVV flag:</strong> HHAeXchange will flag the missed visit automatically. Make sure the incident report matches the EVV record. Medicaid can deny payment for unresolved discrepancies.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>HR follow-up:</strong> If the homemaker has a pattern of no-shows, this triggers a progressive discipline process. Document in the employee file — not on a client form.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 6: Annual training renewal season -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="training">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon training">🔄</div>
+        <div class="scenario-info">
+          <div class="scenario-label training">Training</div>
+          <div class="scenario-title">Annual training renewal is due for a homemaker</div>
+          <div class="scenario-desc">A homemaker's anniversary date is approaching. They need to complete their 12 hours of continuing education plus the annual Alzheimer's training before the deadline.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">30 days before anniversary</div>
+              <div class="tl-form">A.1 — 6-Hour Alzheimer's Training <a href="A1_6Hour_Alzheimers_Training.html" target="_blank">Open</a></div>
+              <div class="tl-action">31-section online training module covering Alzheimer's disease, dementia types, communication techniques, and care strategies. Employee self-paces.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee completes training</span>
+                <span class="signer none">Auto-tracked by system</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately after A.1</div>
+              <div class="tl-form">B.1 — Competency Eval: Alzheimer's <a href="B1_Competency_Eval_6Hr_Alzheimers.html" target="_blank">Open</a></div>
+              <div class="tl-action">23-question exam. Must score 80% (19/23) to pass. Failure means retake the training and re-test.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee takes exam</span>
+                <span class="signer none">Auto-scored by system</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">After passing B.1</div>
+              <div class="tl-form">E.36 — Alzheimer's / Dementia Training Ack <a href="E36_Annual_Alzheimers_Dementia_Training_Ack.html" target="_blank">Open</a></div>
+              <div class="tl-action">Employee signs acknowledging completion of the annual Alzheimer's-specific training requirement.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">By anniversary date</div>
+              <div class="tl-form">E.35 — Annual 12 Hours Training Ack <a href="E35_Annual_12_Hours_Training.html" target="_blank">Open</a></div>
+              <div class="tl-action">After completing all 12 hours of continuing education (the 6-hour Alzheimer's module plus 6 additional hours), employee signs the annual acknowledgment.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs</span>
+                <span class="signer supervisor">Supervisor verifies hours</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Section 245.71:</strong> If an employee misses their annual training deadline, they cannot continue working until it's completed. Track anniversaries proactively — don't wait for the deadline to pass.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 7: Monthly and semi-annual supervision -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="ongoing">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon ongoing">📅</div>
+        <div class="scenario-info">
+          <div class="scenario-label ongoing">Ongoing Care</div>
+          <div class="scenario-title">Monthly contact and semi-annual visit are due</div>
+          <div class="scenario-desc">It's been a month since last contact with a client. IDPH requires monthly supervisory contact and a semi-annual in-person visit. Time to schedule both.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Every month — by phone or in person</div>
+              <div class="tl-form">C.41 — Client Monthly Contact Log <a href="C41_Client_Monthly_Contact_Log.html" target="_blank">Open</a></div>
+              <div class="tl-action">Contact the client (or family member) to check on satisfaction, concerns, service changes, and caregiver performance. Can be done by phone. Document the conversation.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client acknowledges (verbal OK for phone)</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Every 6 months — must be in person</div>
+              <div class="tl-form">C.42 — Client Semi-Annual Visit <a href="C42_Client_Semi_Annual_Visit.html" target="_blank">Open</a></div>
+              <div class="tl-action">In-person visit at the client's home. Observe the client, check the home environment, review services, and assess whether the Plan of Care needs updating.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Every 90 days — FHCA clients only</div>
+              <div class="tl-form">C.42C — FHCA Quarterly Visit <a href="C42C_FHCA_Quarterly_Visit.html" target="_blank">Open</a></div>
+              <div class="tl-action">If the client is in the Family Home Care Aide program (family member is the caregiver), quarterly in-person supervisory visits are required instead of semi-annual.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client signs</span>
+                <span class="signer homemaker">FHCA caregiver signs</span>
+              </div>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Tip:</strong> If the semi-annual visit reveals significant changes in the client's condition, also update C.24 (Plan of Care) and C.23 (Physical Health Assessment).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 8: Client's condition worsens and needs discharge -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="change">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon change">🏥</div>
+        <div class="scenario-info">
+          <div class="scenario-label change">Changes</div>
+          <div class="scenario-title">Client is hospitalized and family wants to stop services</div>
+          <div class="scenario-desc">A client is admitted to the hospital for a hip fracture. The family calls to say they're moving the client to a nursing home after discharge and won't need homemaker services anymore.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">When notified of hospitalization</div>
+              <div class="tl-form">C.41 — Monthly Contact Log (note) <a href="C41_Client_Monthly_Contact_Log.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document the call from the family: when the client was hospitalized, the reason, and the family's request to discontinue services.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin documents call</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 5 business days</div>
+              <div class="tl-form">C.43 — Client Discharge Form <a href="C43_Client_Discharge_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Complete the discharge form: reason (hospitalization/nursing home placement), final service date, discharge summary, and whether the client was given info about resuming services if they return home.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor fills out & signs</span>
+                <span class="signer client">Client or family representative signs</span>
+                <span class="signer ceo">CEO reviews & signs</span>
+              </div>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📞</span>
+              <span><strong>Notify the CCU:</strong> If this is a CCP client, notify the referring Care Coordination Unit (AgeOptions, Catholic Charities, etc.) of the discharge within 48 hours.</span>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Records retention:</strong> All client records must be maintained for a minimum of 5 years after discharge per IDPH rules. Do not destroy the file.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 9: Client's needs change mid-service -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="change">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon change">📝</div>
+        <div class="scenario-info">
+          <div class="scenario-label change">Changes</div>
+          <div class="scenario-title">Client's condition changes — Plan of Care needs updating</div>
+          <div class="scenario-desc">During a semi-annual visit, the supervisor notices the client has declining mobility and early signs of cognitive impairment. The current homemaker reports the client needs help with tasks not on the current plan.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">During or after observation</div>
+              <div class="tl-form">C.23 — Physical Health Assessment (update) <a href="C23_Physical_Health_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Update the client's medical profile with new observations: declining mobility, cognitive changes, any new medications or diagnoses reported by the physician.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor updates</span>
+                <span class="signer none">No signature required</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 1 week</div>
+              <div class="tl-form">C.21 — Client Assessment Packet (re-assessment) <a href="C21_Client_Assessment_Packet.html" target="_blank">Open</a></div>
+              <div class="tl-action">Conduct a full re-assessment of ADLs, cognitive function, and support needs. Compare to the original assessment to document changes.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">After re-assessment</div>
+              <div class="tl-form">C.24 — Plan of Care (revised) <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Revise the service plan: add new authorized services, update goals, adjust schedule, add safety instructions related to cognitive decline.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs updated plan</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">If home safety changed</div>
+              <div class="tl-form">C.22 — Home Risk Assessment (update) <a href="C22_Home_Risk_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Re-evaluate home safety given new mobility and cognitive concerns. Recommend modifications: bed rails, stove knob covers, bathroom modifications, door alarms.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client acknowledges & signs</span>
+              </div>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📞</span>
+              <span><strong>Contact the CCU:</strong> If the client's needs have increased significantly, notify the Care Coordination Unit. They may authorize additional service hours or request a DON assessment for skilled nursing referral.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 10: Family member wants to get paid as caregiver -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="hire">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon hire">👨‍👩‍👧</div>
+        <div class="scenario-info">
+          <div class="scenario-label hire">Hiring</div>
+          <div class="scenario-title">Family member wants to become a paid caregiver (FHCA)</div>
+          <div class="scenario-desc">A client's daughter has been caring for her mother unpaid. She learns through VitalTouch that she can get paid through the Family Home Care Aide program under CCP. She wants to apply.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Step 1 — She applies as an employee</div>
+              <div class="tl-form">E.11 — Homemaker Job Application <a href="E11_Homemaker_Job_Application.html" target="_blank">Open</a></div>
+              <div class="tl-action">The daughter fills out the standard application. Even though she's family, she must go through the same hiring process as any other homemaker.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Family member fills out & signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Step 2 — Full onboarding</div>
+              <div class="tl-form">All Employee Onboarding Forms (E.12 → E.37)</div>
+              <div class="tl-action">Complete the same onboarding sequence as any new hire: document uploads, medical docs, vaccination records, background check, employment agreement, HIPAA, handbook, orientation. No shortcuts.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Family member completes all forms</span>
+                <span class="signer admin">Admin processes background check</span>
+                <span class="signer ceo">CEO signs employment agreement</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Step 3 — Full training</div>
+              <div class="tl-form">Pre-Hire Training (A.2, B.2, E.14, A.3, B.3)</div>
+              <div class="tl-action">Complete all 24 hours of pre-hire training and pass both competency evaluations. Being a family member does not exempt her from training requirements.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Family member completes training & exams</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Step 4 — Client is already onboarded</div>
+              <div class="tl-form">C.24 — Plan of Care (update) <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Update the client's Plan of Care to reflect the family member as the assigned caregiver. Note the FHCA designation.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs updated plan</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Ongoing — every 90 days</div>
+              <div class="tl-form">C.42C — FHCA Quarterly Visit <a href="C42C_FHCA_Quarterly_Visit.html" target="_blank">Open</a></div>
+              <div class="tl-action">FHCA clients require quarterly (not semi-annual) supervisory visits. The supervisor visits in person every 90 days to assess care quality, home safety, and client satisfaction.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client signs</span>
+                <span class="signer homemaker">FHCA caregiver signs</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>No shortcuts:</strong> Being a family member does not exempt anyone from background checks, training, or documentation requirements. Every FHCA caregiver goes through the full hiring and training pipeline. IDPH audits these closely.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 11: IDPH survey / audit preparation -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="ongoing">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon ongoing">🔍</div>
+        <div class="scenario-info">
+          <div class="scenario-label ongoing">Ongoing Care</div>
+          <div class="scenario-title">IDPH shows up for a survey — are your files ready?</div>
+          <div class="scenario-desc">You get a call that IDPH will be conducting a survey of your agency. They'll review employee files, client files, and policies. Here's what needs to be in every file.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+
+          <div style="font-size:15px; font-weight:700; color:#1a1a1a; margin-bottom:12px;">Every Employee File Must Contain:</div>
+          <div class="timeline">
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">E.11 — Job Application</div>
+              <div class="tl-action">Completed and signed application on file.</div>
+              <div class="tl-signers"><span class="signer homemaker">Signed by employee</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">E.12 — Document Uploads (ID, SSN copies)</div>
+              <div class="tl-action">Government ID and Social Security card copies on file.</div>
+              <div class="tl-signers"><span class="signer admin">Verified by admin</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">E.25 — IDPH Background Check Results</div>
+              <div class="tl-action">Fingerprint clearance, HCWR verification, sex offender check — all clear and dated before first assignment.</div>
+              <div class="tl-signers"><span class="signer admin">Uploaded by admin</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">E.24 — Medical Documents (TB, Physical)</div>
+              <div class="tl-action">TB test within 90 days of hire, physical exam within 12 months.</div>
+              <div class="tl-signers"><span class="signer homemaker">Provided by employee</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">E.22 + E.23 — Vaccination Records</div>
+              <div class="tl-action">Hep B and flu vaccination status documented. Declinations on file if applicable.</div>
+              <div class="tl-signers"><span class="signer homemaker">Signed by employee</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">E.26 — Employment Agreement</div>
+              <div class="tl-action">Signed and countersigned employment contract.</div>
+              <div class="tl-signers"><span class="signer homemaker">Employee</span> <span class="signer ceo">CEO</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">E.31, E.33, E.34 — Compliance Acknowledgments</div>
+              <div class="tl-action">HIPAA, Employee Handbook, and Civil Rights acknowledgments — all signed.</div>
+              <div class="tl-signers"><span class="signer homemaker">Signed by employee</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">E.14, E.35, E.36 — Training Acknowledgments</div>
+              <div class="tl-action">Pre-hire training completed, annual 12-hour CE current, Alzheimer's training current.</div>
+              <div class="tl-signers"><span class="signer homemaker">Signed by employee</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">E.37 — Orientation Checklist</div>
+              <div class="tl-action">100% complete with dates and initials for every item.</div>
+              <div class="tl-signers"><span class="signer supervisor">Supervisor</span> <span class="signer homemaker">Employee</span></div>
+            </div>
+          </div>
+
+          <div style="font-size:15px; font-weight:700; color:#1a1a1a; margin: 24px 0 12px;">Every Client File Must Contain:</div>
+          <div class="timeline">
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">C.11 — Intake Form</div>
+              <div class="tl-action">Complete demographics, insurance, emergency contacts.</div>
+              <div class="tl-signers"><span class="signer client">Client confirmed</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">C.21 — Assessment Packet</div>
+              <div class="tl-action">Full assessment with dual signatures, dated before services began.</div>
+              <div class="tl-signers"><span class="signer supervisor">Supervisor</span> <span class="signer client">Client</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">C.22 — Home Risk Assessment</div>
+              <div class="tl-action">Completed and signed. Updated after any incident.</div>
+              <div class="tl-signers"><span class="signer supervisor">Supervisor</span> <span class="signer client">Client</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">C.23 — Physical Health Assessment</div>
+              <div class="tl-action">Current within 6 months. Updated when conditions change.</div>
+              <div class="tl-signers"><span class="signer supervisor">Supervisor</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">C.24 — Plan of Care</div>
+              <div class="tl-action">Signed, current, reviewed every 6 months. Must match actual services being delivered.</div>
+              <div class="tl-signers"><span class="signer ceo">CEO</span> <span class="signer client">Client</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">C.12 — Service Agreement</div>
+              <div class="tl-action">Signed by both parties before services started.</div>
+              <div class="tl-signers"><span class="signer client">Client</span> <span class="signer ceo">CEO</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">C.41 — Monthly Contact Logs</div>
+              <div class="tl-action">One for every month of active service. No gaps.</div>
+              <div class="tl-signers"><span class="signer supervisor">Supervisor</span></div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-form">C.42 / C.42C — Supervisory Visits</div>
+              <div class="tl-action">Semi-annual (or quarterly for FHCA). All current with no overdue visits.</div>
+              <div class="tl-signers"><span class="signer supervisor">Supervisor</span> <span class="signer client">Client</span></div>
+            </div>
+          </div>
+
+          <div class="alert-box danger">
+            <span class="alert-icon">🚨</span>
+            <span><strong>Missing any of these is a deficiency finding.</strong> IDPH will pull random employee and client files. Every form must be signed, dated, and filed correctly. Run an internal file audit quarterly to catch gaps before they do.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 12: Hiring a consultant -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="hire">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon hire">💼</div>
+        <div class="scenario-info">
+          <div class="scenario-label hire">Hiring</div>
+          <div class="scenario-title">Engaging an independent consultant</div>
+          <div class="scenario-desc">VitalTouch needs to bring on a consultant — maybe for compliance auditing, marketing, or IT. They're not an employee. Here's the form process.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Before work begins</div>
+              <div class="tl-form">CONSULT — Consulting Agreement <a href="CONSULT_Consulting_Agreement.html" target="_blank">Open</a></div>
+              <div class="tl-action">3-step agreement covering scope of work, compensation, confidentiality, non-solicitation, intellectual property rights, and termination terms. Both parties must sign before any work or payment.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Consultant signs first</span>
+                <span class="signer ceo">CEO countersigns</span>
+              </div>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Note:</strong> Consultants do NOT go through the employee onboarding pipeline (no E.12, E.25, or training forms). But if they'll access any client PHI, they need a separate BAA (Business Associate Agreement) for HIPAA compliance.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 13: Client complains about homemaker -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="incident">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon incident">📞</div>
+        <div class="scenario-info">
+          <div class="scenario-label incident">Incident</div>
+          <div class="scenario-title">Client or family complains about their homemaker</div>
+          <div class="scenario-desc">A client's son calls the office upset. He says the homemaker has been arriving late consistently, leaving early, and his mother's kitchen hasn't been cleaned properly in two weeks. He wants someone new.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — during the call</div>
+              <div class="tl-form">C.41 — Client Monthly Contact Log <a href="C41_Client_Monthly_Contact_Log.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document the complaint in detail: who called, what was reported, specific dates mentioned, the client's current condition, and what resolution the family is requesting.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin documents call</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 24 hours</div>
+              <div class="tl-form">C.44 — Incident Report Form <a href="C44_Incident_Report_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">If the complaint involves service quality failure, late arrivals, or care concerns, file an incident report. This creates a formal record that connects to the employee file for corrective action.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor investigates & files</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 48 hours — unscheduled visit</div>
+              <div class="tl-form">C.42 — Client Semi-Annual Visit (early) <a href="C42_Client_Semi_Annual_Visit.html" target="_blank">Open</a></div>
+              <div class="tl-action">Conduct an unscheduled supervisory visit to the client's home. Observe the environment, speak with the client directly (not just family), assess whether the complaint is substantiated, and check if services match the Plan of Care.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">If reassigning homemaker</div>
+              <div class="tl-form">C.24 — Plan of Care (update) <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">If a new homemaker is assigned, update the Plan of Care to reflect the change. Brief the new homemaker on the client's specific needs and preferences before their first visit.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs updated plan</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>EVV check:</strong> Before responding to the family, pull the homemaker's HHAeXchange clock-in/clock-out records for the dates in question. EVV data either supports or contradicts the complaint — have the facts ready.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>HR side:</strong> The incident report and EVV data go into the homemaker's employee file. If this is a pattern (3+ complaints), it triggers a written warning or termination review. Document everything — you may need it for unemployment claims.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 14: Allegation of abuse or neglect -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="incident">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon incident">🚨</div>
+        <div class="scenario-info">
+          <div class="scenario-label incident">Incident</div>
+          <div class="scenario-title">Allegation of abuse or neglect against a homemaker</div>
+          <div class="scenario-desc">A client's neighbor calls the office to report they saw the homemaker yelling at the client through the window. Or: the supervisor notices unexplained bruising during a visit. Any allegation of abuse, neglect, or exploitation triggers an immediate mandatory response.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — same hour</div>
+              <div class="tl-form">C.44 — Incident Report Form <a href="C44_Incident_Report_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">File the incident report with maximum detail. Select "Abuse/Neglect" as incident type. Include who reported it, what was observed or alleged, the client's current condition, and any statements from the client.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor fills out</span>
+                <span class="signer ceo">CEO reviews immediately</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — same hour</div>
+              <div class="tl-form">No form — mandatory phone calls</div>
+              <div class="tl-action">Call the Illinois Department on Aging Adult Protective Services hotline (1-866-800-1409). If the client is in immediate danger, call 911 first. You are a mandated reporter — failure to report is a criminal offense.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO makes the call</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — pending investigation</div>
+              <div class="tl-form">No form — operational action</div>
+              <div class="tl-action">Suspend the homemaker from all client assignments immediately. Do not wait for the investigation to conclude. Assign a backup homemaker to all affected clients within 24 hours to ensure continuity of care.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO authorizes suspension</span>
+                <span class="signer admin">Admin reassigns clients</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 24 hours</div>
+              <div class="tl-form">C.42 — Client Semi-Annual Visit (emergency) <a href="C42_Client_Semi_Annual_Visit.html" target="_blank">Open</a></div>
+              <div class="tl-action">Conduct an emergency supervisory visit. Assess the client's physical and emotional condition. Document any visible injuries, the client's mental state, and the home environment. Take photos if the client consents.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 24 hours</div>
+              <div class="tl-form">C.24 — Plan of Care (update) <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Update the Plan of Care to reflect the new homemaker assignment and any additional safeguards (increased supervision frequency, emergency contact updates, safety check-ins).</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="alert-box danger">
+              <span class="alert-icon">🚨</span>
+              <span><strong>Mandated reporting (320 ILCS 20):</strong> As a home services agency, VitalTouch staff are mandated reporters under the Adult Protective Services Act. Failure to report suspected abuse or neglect within 24 hours is a Class A misdemeanor. Report FIRST, investigate second.</span>
+            </div>
+
+            <div class="alert-box danger">
+              <span class="alert-icon">🚨</span>
+              <span><strong>IDPH notification:</strong> Notify IDPH of the allegation within 24 hours per 77 Ill. Adm. Code 245. Keep all documentation — IDPH may conduct their own investigation. Cooperate fully.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 15: Homemaker resigns or is terminated -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="change">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon change">🚪</div>
+        <div class="scenario-info">
+          <div class="scenario-label change">Changes</div>
+          <div class="scenario-title">Homemaker resigns or is terminated mid-service</div>
+          <div class="scenario-desc">A homemaker who covers 3 clients calls to say she's quitting effective immediately. Or: a homemaker is terminated after a pattern of no-shows. Either way, those clients need coverage now and the paperwork has to be handled.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — within hours</div>
+              <div class="tl-form">No form — operational action</div>
+              <div class="tl-action">Identify all clients assigned to this homemaker. Contact each client (or family) to inform them of the change. Arrange backup coverage — no client should go more than 24 hours without their scheduled services.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin identifies affected clients</span>
+                <span class="signer ceo">CEO approves reassignments</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 48 hours — for each affected client</div>
+              <div class="tl-form">C.24 — Plan of Care (update) <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Update each client's Plan of Care with the new homemaker assignment. The new homemaker must review the plan and client preferences before their first visit.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs updated plan</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 48 hours — for each affected client</div>
+              <div class="tl-form">C.41 — Client Monthly Contact Log <a href="C41_Client_Monthly_Contact_Log.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document the homemaker change in each client's contact log. Note when the client was informed, their reaction, who the new homemaker is, and when the first visit is scheduled.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor documents</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>EVV update:</strong> Remove the departed homemaker from all client schedules in HHAeXchange immediately. Add the replacement homemaker. Stale EVV schedules cause billing errors and Medicaid audit flags.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Employee file:</strong> Close out the homemaker's file with a termination/resignation note, final timesheet, and any outstanding documentation. Retain the file for at least 5 years per IDPH rules.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 16: New homemaker assigned to existing client -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="ongoing">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon ongoing">🔄</div>
+        <div class="scenario-info">
+          <div class="scenario-label ongoing">Ongoing Care</div>
+          <div class="scenario-title">Assigning a new homemaker to an existing client</div>
+          <div class="scenario-desc">Whether due to scheduling conflicts, a complaint, or a departure, a new homemaker needs to be matched and introduced to a client who is already receiving services.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Before assignment</div>
+              <div class="tl-form">C.24 — Plan of Care (review) <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Pull the client's current Plan of Care. The new homemaker must read it in full before their first visit — services authorized, schedule, safety instructions, dietary needs, cultural preferences, and emergency contacts.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">New homemaker reviews & signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Before assignment</div>
+              <div class="tl-form">C.22 — Home Risk Assessment (review) <a href="C22_Home_Risk_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">New homemaker reviews the home risk assessment to understand fall hazards, pets, accessibility issues, and any safety concerns specific to this home.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">New homemaker reviews</span>
+                <span class="signer none">No new signature needed</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">First visit — introduction</div>
+              <div class="tl-form">C.41 — Client Monthly Contact Log <a href="C41_Client_Monthly_Contact_Log.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document the introduction visit. Ideally the supervisor accompanies the new homemaker on the first visit to make introductions and ensure the client is comfortable with the change.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor accompanies & documents</span>
+                <span class="signer client">Client acknowledges</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 1 week — follow-up</div>
+              <div class="tl-form">C.41 — Client Monthly Contact Log <a href="C41_Client_Monthly_Contact_Log.html" target="_blank">Open</a></div>
+              <div class="tl-action">Follow-up call to the client within one week. Ask specifically about the new homemaker: are they on time, following the care plan, respectful, and meeting the client's needs?</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor calls & documents</span>
+              </div>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>CCP clients:</strong> If the client is a CCP client, notify their Care Coordination Unit of the homemaker change. Some CCUs want to know who is providing care to their clients.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 17: Client passes away while receiving services -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="change">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon change">🕊</div>
+        <div class="scenario-info">
+          <div class="scenario-label change">Changes</div>
+          <div class="scenario-title">Client passes away while receiving services</div>
+          <div class="scenario-desc">The family calls to inform VitalTouch that the client has passed. Or the homemaker arrives for a scheduled visit and discovers the client has died. Both require the same documentation process.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — if homemaker discovers</div>
+              <div class="tl-form">No form — emergency protocol</div>
+              <div class="tl-action">If the homemaker finds the client unresponsive, call 911 immediately. Do NOT move or disturb the client. Call the VitalTouch office next. Stay on scene until emergency services arrive and release you.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Homemaker calls 911 then office</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 24 hours</div>
+              <div class="tl-form">C.44 — Incident Report Form <a href="C44_Incident_Report_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">File an incident report documenting the circumstances. If the homemaker was present: time of discovery, client's last known condition, what the homemaker observed, and all emergency response actions taken.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor completes</span>
+                <span class="signer ceo">CEO reviews</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 48 hours</div>
+              <div class="tl-form">C.43 — Client Discharge Form <a href="C43_Client_Discharge_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Complete the discharge form with "Deceased" as the reason. Document the last date of service, total service period, and final notes. Handle with sensitivity — this is part of the permanent record.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor fills out</span>
+                <span class="signer ceo">CEO reviews & signs</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Notify:</strong> Inform the referring CCU, the client's physician (if applicable), and HHAeXchange (to close out the case and stop scheduling). Billing must be cut off as of the last actual service date.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Homemaker support:</strong> Discovering a client's death is traumatic. Check in with the homemaker afterward. Offer support and be understanding if they need time before their next assignment. Document this follow-up.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 18: CCP authorizes additional hours -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="change">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon change">📝</div>
+        <div class="scenario-info">
+          <div class="scenario-label change">Changes</div>
+          <div class="scenario-title">CCP authorizes increased service hours</div>
+          <div class="scenario-desc">The Care Coordination Unit calls to inform VitalTouch that a client's determination has been updated. They're now authorized for 20 hours/week instead of 12. The homemaker's schedule and plan need to be adjusted.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">When notified by CCU</div>
+              <div class="tl-form">C.41 — Client Monthly Contact Log <a href="C41_Client_Monthly_Contact_Log.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document the CCU notification: who called, new authorization details (hours, effective date, any new services authorized), and the Determination of Need reference number if provided.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin documents</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 5 business days</div>
+              <div class="tl-form">C.24 — Plan of Care (update) <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Revise the Plan of Care to reflect the new authorized hours, updated schedule, and any additional services now covered. The schedule must match the new authorization — no more, no less.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs updated plan</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Same week</div>
+              <div class="tl-form">No form — operational action</div>
+              <div class="tl-action">Update HHAeXchange scheduling to reflect the new hours. Confirm the homemaker can cover the additional time. If not, assign a second homemaker or find a replacement who can cover the full schedule.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin updates EVV schedule</span>
+                <span class="signer homemaker">Homemaker confirms availability</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Billing alignment:</strong> Make sure the new EVV schedule in HHAeXchange exactly matches the CCP authorization. Billing more hours than authorized is fraud. Billing fewer means you're leaving money on the table and the client isn't getting their full benefit.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 19: Homemaker injured on the job -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="incident">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon incident">🏥</div>
+        <div class="scenario-info">
+          <div class="scenario-label incident">Incident</div>
+          <div class="scenario-title">Homemaker gets injured at a client's home</div>
+          <div class="scenario-desc">A homemaker is mopping the client's kitchen, slips on the wet floor, and twists her ankle. She can't put weight on it. She calls the office from the client's home.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — during the call</div>
+              <div class="tl-form">No form — immediate response</div>
+              <div class="tl-action">Advise the homemaker to seek medical attention if needed (urgent care or ER). Confirm the client is safe and not left alone if they need supervision. Arrange backup coverage for the remainder of the visit.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin coordinates</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 24 hours</div>
+              <div class="tl-form">C.44 — Incident Report Form <a href="C44_Incident_Report_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">File an incident report with full details: what happened, where in the home, the injury sustained, whether the homemaker sought medical treatment, and how the client was affected.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor completes</span>
+                <span class="signer homemaker">Homemaker provides statement</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 24 hours</div>
+              <div class="tl-form">C.22 — Home Risk Assessment (update) <a href="C22_Home_Risk_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Re-assess the home for the hazard that caused the injury. Document the specific risk and what needs to change (non-slip mats, better cleaning procedures, cleared pathways).</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client acknowledges</span>
+              </div>
+            </div>
+
+            <div class="alert-box danger">
+              <span class="alert-icon">🚨</span>
+              <span><strong>Workers' compensation:</strong> If the homemaker seeks medical treatment, file a workers' comp claim with your NSO insurance carrier immediately. VitalTouch's policy (NSO Professional Liability) covers workplace injuries. Document everything — the insurance company will ask for the incident report.</span>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>OSHA recordkeeping:</strong> If the injury requires medical treatment beyond first aid, results in days away from work, or involves restricted duties, it must be recorded on your OSHA 300 log.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 20: Flu season — vaccination tracking -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="ongoing">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon ongoing">💉</div>
+        <div class="scenario-info">
+          <div class="scenario-label ongoing">Ongoing Care</div>
+          <div class="scenario-title">Flu season starts — tracking vaccinations and declinations</div>
+          <div class="scenario-desc">It's October. Flu season is here. Every homemaker needs to either get vaccinated or sign a declination. You need to track compliance across all staff before they visit clients.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">October 1 — season start</div>
+              <div class="tl-form">E.23 — Influenza Vaccination Record <a href="E23_Influenza_Vaccination_Record.html" target="_blank">Open</a></div>
+              <div class="tl-action">Send the vaccination form to every active homemaker. They must either provide proof of vaccination (date, facility, lot number) or complete the declination section with their signature.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Each homemaker fills out individually</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">October 15 — first deadline</div>
+              <div class="tl-form">No form — admin tracking</div>
+              <div class="tl-action">Run a compliance report. Identify any homemakers who haven't submitted their vaccination form. Follow up individually — call, text, email. No one should be visiting clients without this on file.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin tracks compliance</span>
+                <span class="signer supervisor">Supervisor follows up on stragglers</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">November 1 — hard deadline</div>
+              <div class="tl-form">No form — operational decision</div>
+              <div class="tl-action">Any homemaker without a vaccination record or signed declination on file by this date should be suspended from client assignments until the form is completed. No exceptions during flu season.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO enforces deadline</span>
+              </div>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Declinations are acceptable</strong> — you cannot force employees to get vaccinated. But the declination must be signed and on file. Some clients or CCUs may request only vaccinated homemakers — know your staff's status before making assignments.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 21: Client moves to a new address -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="change">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon change">🏠</div>
+        <div class="scenario-info">
+          <div class="scenario-label change">Changes</div>
+          <div class="scenario-title">Client moves to a new address within the service area</div>
+          <div class="scenario-desc">A client's family moves them from their apartment in Harvey to a house in Homewood. Same client, same services, but a completely new home environment that needs to be assessed.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">When notified of the move</div>
+              <div class="tl-form">C.11 — Client Intake Form (update) <a href="C11_Client_Intake_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Update the client's address, emergency contact addresses, and any changes to physician or pharmacy locations based on the new neighborhood.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin updates</span>
+                <span class="signer client">Client confirms new info</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Before first visit at new address</div>
+              <div class="tl-form">C.22 — Home Risk Assessment (new home) <a href="C22_Home_Risk_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Conduct a full home risk assessment of the new address. This is a completely new environment — previous assessment does not carry over. Check for fall hazards, accessibility, fire safety, sanitation, and any modifications needed.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client acknowledges & signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">After home assessment</div>
+              <div class="tl-form">C.24 — Plan of Care (update) <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Update the Plan of Care if the new home environment changes service needs (e.g., stairs now require mobility assistance, larger home means more cleaning time, new kitchen layout).</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Service area check:</strong> Confirm the new address is within VitalTouch's service area (South Suburban Cook County, Cook, Will, Kankakee Counties). If they're moving outside the area, this becomes a discharge and referral to another agency.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Update everywhere:</strong> New address must be updated in CareSmartz360, HHAeXchange, and the CCU file. The homemaker needs the new address and driving directions before their first visit.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 22: Private pay client (non-Medicaid) -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="onboard">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon onboard">💰</div>
+        <div class="scenario-info">
+          <div class="scenario-label onboard">Client Onboarding</div>
+          <div class="scenario-title">Onboarding a private pay client (non-Medicaid)</div>
+          <div class="scenario-desc">A family contacts VitalTouch directly — no CCU referral, no Medicaid. They want to pay out of pocket for homemaker services for their aging parent. The process is the same as Medicaid, but there are key differences in authorization and billing.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1 — Initial inquiry</div>
+              <div class="tl-form">C.11 — Client Intake Form <a href="C11_Client_Intake_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Collect all demographics, emergency contacts, and physician information — same as Medicaid clients. Mark payer as "Private Pay" and document the family member who will be responsible for payment.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin fills out</span>
+                <span class="signer client">Client or family confirms info</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — Home visit</div>
+              <div class="tl-form">C.21, C.22, C.23 — Full Assessment Package</div>
+              <div class="tl-action">Conduct the same assessment, home risk evaluation, and physical health documentation as any other client. Private pay clients get the same standard of care and documentation — IDPH rules apply to all clients, not just Medicaid.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts all three</span>
+                <span class="signer client">Client signs C.21 and C.22</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 2–5 — Before services</div>
+              <div class="tl-form">C.24 — Plan of Care <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Create the service plan. For private pay, the authorized hours and services are based on what the family agrees to pay for — not a CCP determination. Be clear about what's included and what's not.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client or authorized rep signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 2–5 — Before services</div>
+              <div class="tl-form">C.12 — Client Service Agreement <a href="C12_Client_Service_Agreement.html" target="_blank">Open</a></div>
+              <div class="tl-action">Critical for private pay. The service agreement must clearly state the hourly rate, billing frequency, payment terms, cancellation policy, and who is financially responsible. This is your contract.</div>
+              <div class="tl-signers">
+                <span class="signer client">Client or authorized rep signs</span>
+                <span class="signer ceo">CEO countersigns</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Same rules apply:</strong> Private pay clients are subject to the same IDPH documentation requirements as Medicaid clients. If IDPH surveys your agency, they can pull any client file — private pay included. Cutting corners on private pay documentation is a deficiency finding.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 23: Client referred by hospital discharge planner -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="onboard">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon onboard">🏥</div>
+        <div class="scenario-info">
+          <div class="scenario-label onboard">Client Onboarding</div>
+          <div class="scenario-title">Client referred by a hospital discharge planner</div>
+          <div class="scenario-desc">A hospital social worker calls VitalTouch. A 78-year-old patient is being discharged after hip surgery and needs homemaker services starting within 48 hours. The patient already has CCP authorization through AgeOptions. Time is tight.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Same day — during the referral call</div>
+              <div class="tl-form">C.11 — Client Intake Form <a href="C11_Client_Intake_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Collect as much demographic and insurance info as possible from the discharge planner over the phone. Get the client's Medicaid RIN, CCP authorization number, discharge date, and any special post-surgical needs. You'll confirm details with the client or family at the home visit.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin fills out from referral call</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day of discharge or next day — urgent home visit</div>
+              <div class="tl-form">C.21 — Client Assessment Packet <a href="C21_Client_Assessment_Packet.html" target="_blank">Open</a></div>
+              <div class="tl-action">Conduct the full assessment at the client's home as soon as they're settled after discharge. Pay special attention to post-surgical limitations, weight-bearing restrictions, wound care needs (even though you don't provide skilled nursing — document for awareness), and fall risk.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Same visit</div>
+              <div class="tl-form">C.22 — Home Risk Assessment <a href="C22_Home_Risk_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Critical for post-surgical clients. Check: can they get to the bathroom safely with a walker? Are there throw rugs that need to be removed? Is the bed at the right height? Are grab bars needed? Is the path from bed to bathroom clear at night?</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor fills out & signs</span>
+                <span class="signer client">Client acknowledges & signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Same visit</div>
+              <div class="tl-form">C.23 — Physical Health Assessment <a href="C23_Physical_Health_Assessment.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document the surgical procedure, discharge medications (there will be new ones — pain meds, blood thinners, antibiotics), post-op restrictions, follow-up appointment dates, and the surgeon's contact information.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor fills out</span>
+                <span class="signer none">No signature required</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Same day or next day</div>
+              <div class="tl-form">C.24 — Plan of Care <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Build the care plan around post-surgical recovery: meal prep (nutritional needs for healing), light housekeeping (client can't bend or lift), laundry, medication reminders, and mobility assistance. Note any weight-bearing restrictions from the surgeon.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Before first homemaker visit</div>
+              <div class="tl-form">C.12 — Client Service Agreement <a href="C12_Client_Service_Agreement.html" target="_blank">Open</a></div>
+              <div class="tl-action">Have the client (or authorized representative) sign the service agreement. If the client is still groggy or medicated post-surgery, the authorized rep can sign — but get the client's signature within 5 business days.</div>
+              <div class="tl-signers">
+                <span class="signer client">Client or authorized rep signs</span>
+                <span class="signer ceo">CEO countersigns</span>
+              </div>
+            </div>
+
+            <div class="alert-box danger">
+              <span class="alert-icon">🚨</span>
+              <span><strong>48-hour window:</strong> Hospital discharge referrals move fast. You may have less than 48 hours between the referral call and the first scheduled visit. Have a go-bag ready: blank forms, assessment toolkit, and a homemaker on standby who can start same-week.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Skilled nursing boundary:</strong> VitalTouch provides homemaker services, not skilled nursing. If the client needs wound care, injections, or catheter management, document the need and refer to a home health agency. Do not let homemakers perform clinical tasks — that's a scope-of-practice violation.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 24: Client with dementia — Power of Attorney signs -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="onboard">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon onboard">📋</div>
+        <div class="scenario-info">
+          <div class="scenario-label onboard">Client Onboarding</div>
+          <div class="scenario-title">Client has dementia — family member holds Power of Attorney</div>
+          <div class="scenario-desc">A new CCP referral comes in. The client has moderate Alzheimer's and cannot sign documents independently. The client's daughter has Power of Attorney for Healthcare and wants to set up services. Who signs what?</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Before anything else</div>
+              <div class="tl-form">No form — verification step</div>
+              <div class="tl-action">Request a copy of the Power of Attorney document. Verify it specifically authorizes healthcare decisions (not just financial). Keep a copy in the client file. The POA holder becomes the "Authorized Representative" on all VitalTouch forms.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin obtains and files POA copy</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1</div>
+              <div class="tl-form">C.11 — Client Intake Form <a href="C11_Client_Intake_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Fill out with the client's information as usual. In the Authorized Representative section, enter the daughter's name, relationship, contact info, and note "Healthcare POA on file." The daughter confirms all client info.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin fills out</span>
+                <span class="signer client">Authorized Rep (daughter) confirms</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — Home visit</div>
+              <div class="tl-form">C.21, C.22, C.23 — Full Assessment Package</div>
+              <div class="tl-action">Conduct all assessments at the client's home. The client should be present during the assessment even if they can't sign. Observe their cognitive state, communication ability, wandering risk, and safety awareness. The authorized rep signs on the client's behalf.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts all three</span>
+                <span class="signer client">Authorized Rep signs for client</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 2–5</div>
+              <div class="tl-form">C.24 — Plan of Care <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">The care plan for a dementia client requires specific instructions: supervision level, wandering precautions, communication techniques, routine consistency, and what to do during episodes of confusion or agitation. Be detailed — the homemaker needs clear guidance.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Authorized Rep signs for client</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 2–5</div>
+              <div class="tl-form">C.12 — Client Service Agreement <a href="C12_Client_Service_Agreement.html" target="_blank">Open</a></div>
+              <div class="tl-action">The authorized representative signs the service agreement on the client's behalf. Make sure the agreement identifies the signer as "Authorized Representative under Healthcare POA" — not as the client.</div>
+              <div class="tl-signers">
+                <span class="signer client">Authorized Rep signs for client</span>
+                <span class="signer ceo">CEO countersigns</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>POA validity:</strong> A Power of Attorney must be properly executed under Illinois law (755 ILCS 45). If the document looks questionable or the family member can't produce it, do not proceed until you have a valid copy. Consult an attorney if uncertain.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Homemaker match:</strong> Dementia clients benefit from consistency. Assign one primary homemaker and one backup — not a rotating cast. The homemaker should complete A.1 (Alzheimer's Training) and pass B.1 (Competency Eval) before being assigned to this client.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 25: Client referred by AgeOptions CCU -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="onboard">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon onboard">📞</div>
+        <div class="scenario-info">
+          <div class="scenario-label onboard">Client Onboarding</div>
+          <div class="scenario-title">AgeOptions CCU calls with a new CCP referral</div>
+          <div class="scenario-desc">A case manager from AgeOptions (the Area Agency on Aging for suburban Cook County) calls with a new Community Care Program client. They have the Determination of Need, authorized hours, and the client is ready for services. This is your most common referral pathway.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">During the referral call — take detailed notes</div>
+              <div class="tl-form">No form yet — capture referral details</div>
+              <div class="tl-action">Get the following from the case manager: client's full name, DOB, Medicaid RIN, address, phone, authorized service type (homemaker), authorized hours per week, DON score, start date, case manager name and direct number, and any special notes (language, pets, mobility aids, family dynamics).</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin takes the call</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 24 hours of referral</div>
+              <div class="tl-form">C.11 — Client Intake Form <a href="C11_Client_Intake_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Start the intake form with referral details. Call the client or family to confirm demographics, collect emergency contacts, physician info, and pharmacy. Schedule the home visit assessment.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin fills out</span>
+                <span class="signer client">Client confirms over phone</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 3 days — home visit</div>
+              <div class="tl-form">C.21 + C.22 + C.23 — Full Assessment Package</div>
+              <div class="tl-action">Supervisor goes to the client's home for the full assessment suite: ADL evaluation, home safety walk-through, and physical health documentation. All three done in one visit to avoid multiple trips.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts all three</span>
+                <span class="signer client">Client signs C.21 and C.22</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 5 days</div>
+              <div class="tl-form">C.24 — Plan of Care <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">Build the care plan based on the CCP authorization AND the assessment findings. Services must stay within what CCP authorized — you can't add services the DON doesn't support. Match the weekly schedule to the authorized hours exactly.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Within 5 days</div>
+              <div class="tl-form">C.12 — Client Service Agreement <a href="C12_Client_Service_Agreement.html" target="_blank">Open</a></div>
+              <div class="tl-action">Have the client sign the service agreement. For CCP clients, explain that Medicaid covers the cost — but the client needs to understand what services are included, their rights, and the complaint process.</div>
+              <div class="tl-signers">
+                <span class="signer client">Client signs</span>
+                <span class="signer ceo">CEO countersigns</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Before first homemaker visit</div>
+              <div class="tl-form">No form — system setup</div>
+              <div class="tl-action">Enter the client into HHAeXchange with the correct authorization, create the recurring schedule, and assign the homemaker. Add the client to CareSmartz360. Confirm the homemaker has reviewed the Plan of Care.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin sets up systems</span>
+                <span class="signer homemaker">Homemaker reviews care plan</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Authorization match:</strong> The hours in HHAeXchange MUST match the CCP authorization exactly. If the CCU authorized 15 hours/week, you schedule 15 hours/week. Billing over authorization is fraud. Billing under means the client isn't getting their full benefit and you're losing revenue.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Callback to CCU:</strong> After the assessment, call the case manager back to confirm services are set up, report any concerns observed during the home visit, and confirm the start date. Building a relationship with the case manager leads to more referrals.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 26: Bilingual client needs Spanish-speaking homemaker -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="onboard">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon onboard">🗣</div>
+        <div class="scenario-info">
+          <div class="scenario-label onboard">Client Onboarding</div>
+          <div class="scenario-title">Client speaks limited English — needs a bilingual homemaker</div>
+          <div class="scenario-desc">A new CCP referral comes in for a Spanish-speaking client in Blue Island. The client speaks very limited English. The family requests a Spanish-speaking homemaker. This is one of VitalTouch's differentiators — but it adds steps to the matching process.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">During referral — note the language need</div>
+              <div class="tl-form">C.11 — Client Intake Form <a href="C11_Client_Intake_Form.html" target="_blank">Open</a></div>
+              <div class="tl-action">Document the client's primary language as Spanish. Note the level of English proficiency. Record if any family member can interpret for the assessment visit, and their availability.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin documents language needs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Before the home visit</div>
+              <div class="tl-form">No form — staffing decision</div>
+              <div class="tl-action">Check your roster for Spanish-speaking homemakers in the Blue Island/South Suburban area. If you have one available, assign them. If not, arrange for a bilingual family member or staff interpreter to be present during the assessment. Document the language accommodation plan.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin checks homemaker availability</span>
+                <span class="signer ceo">CEO approves assignment</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Home visit — with language support</div>
+              <div class="tl-form">C.21, C.22, C.23 — Full Assessment Package</div>
+              <div class="tl-action">Conduct all assessments with the interpreter present. Take extra time — ensure the client truly understands what services will be provided, the schedule, and their rights. Cultural preferences around food prep, hygiene, and personal space should be documented in the assessment notes.</div>
+              <div class="tl-signers">
+                <span class="signer supervisor">Supervisor conducts (with interpreter)</span>
+                <span class="signer client">Client signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Plan of Care — language-specific instructions</div>
+              <div class="tl-form">C.24 — Plan of Care <a href="C24_Plan_of_Care.html" target="_blank">Open</a></div>
+              <div class="tl-action">In the special instructions section, document: client's primary language, communication strategies for the homemaker, cultural dietary preferences, any religious observances that affect scheduling or meal prep, and family contact for interpretation if needed.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews & signs</span>
+                <span class="signer client">Client signs (with family interpretation)</span>
+              </div>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>VitalTouch differentiator:</strong> Bilingual service capacity is one of VitalTouch's competitive advantages in South Suburban Cook County. When you successfully serve a limited-English client, let the CCU case manager know — they will remember you when the next Spanish-speaking referral comes in.</span>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Civil rights compliance:</strong> Under Title VI of the Civil Rights Act, you cannot refuse service based on language. If you can't match a bilingual homemaker, you must still provide services with reasonable language accommodation (interpreter, bilingual family support). Document all accommodation efforts.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 27: Applicant has CNA certification -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="hire">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon hire">🎓</div>
+        <div class="scenario-info">
+          <div class="scenario-label hire">Hiring</div>
+          <div class="scenario-title">Applicant is a certified CNA — does that change anything?</div>
+          <div class="scenario-desc">A CNA with 5 years of nursing home experience applies through the website. She already has clinical training. Do you still need all the onboarding forms and pre-hire training?</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 0 — Application</div>
+              <div class="tl-form">E.11 — Homemaker Job Application <a href="E11_Homemaker_Job_Application.html" target="_blank">Open</a></div>
+              <div class="tl-action">Same application as any other candidate. Note the CNA certification in the qualifications section. CNA experience is a plus but does not exempt her from VitalTouch-specific onboarding.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Applicant fills out & signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — Document collection</div>
+              <div class="tl-form">E.12 — Homemaker Document Upload <a href="E12_Homemaker_Document_Upload.html" target="_blank">Open</a></div>
+              <div class="tl-action">Standard document uploads PLUS: CNA certificate copy, IDPH Health Care Worker Registry (HCWR) printout showing active status, and CPR/First Aid certification if current. A CNA's HCWR status is a major verification point.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">New hire uploads docs</span>
+                <span class="signer admin">Admin verifies CNA status on HCWR</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–5 — Background check</div>
+              <div class="tl-form">E.25 — IDPH Registry Uploads <a href="E25_IDPH_Registry_Uploads.html" target="_blank">Open</a></div>
+              <div class="tl-action">Same background check process as any hire. Even though she's already on the HCWR as a CNA, VitalTouch must run its own fingerprint-based background check. Previous employer's clearance does not transfer.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin processes background check</span>
+                <span class="signer ceo">CEO reviews clearance</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">After background clears — full onboarding</div>
+              <div class="tl-form">E.26, E.31, E.33, E.34, E.21, E.37 — Complete Onboarding Suite</div>
+              <div class="tl-action">Employment agreement, HIPAA, handbook, civil rights, non-solicitation, and orientation checklist — all required regardless of prior experience. The CNA may find some of this familiar, but VitalTouch-specific policies and procedures still need to be reviewed and acknowledged.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee signs all forms</span>
+                <span class="signer ceo">CEO countersigns employment agreement</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Training — still required</div>
+              <div class="tl-form">A.2 + B.2 + E.14 + A.3 + B.3 — Full Pre-Hire Training</div>
+              <div class="tl-action">Yes, the CNA still completes all 24 hours of pre-hire training and passes both competency evals. CNA training covers clinical skills — VitalTouch training covers home services-specific topics like client rights, IDPH home services regulations, and non-medical care boundaries. Different scope.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee completes training & exams</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>No shortcuts:</strong> CNA certification does NOT exempt anyone from VitalTouch's 24-hour pre-hire training requirement under 77 Ill. Adm. Code 245.71. The training covers home services-specific content that CNA programs don't. IDPH auditors will check completion records regardless of prior credentials.</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Upside:</strong> CNAs tend to pass competency evals on the first try and adapt quickly. They're also eligible for more complex client assignments (dementia clients, post-surgical, high fall-risk). Use their clinical background as a matching advantage.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 28: Applicant fails the background check -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="hire">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon hire">🚫</div>
+        <div class="scenario-info">
+          <div class="scenario-label hire">Hiring</div>
+          <div class="scenario-title">Applicant's background check comes back with a disqualifying finding</div>
+          <div class="scenario-desc">You've been onboarding a promising applicant. Three days in, the IDPH background check results arrive and there's a hit — either a disqualifying conviction, a sex offender registry match, or an abuse/neglect finding on the HCWR. Now what?</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Immediately — upon receiving results</div>
+              <div class="tl-form">E.25 — IDPH Registry Uploads <a href="E25_IDPH_Registry_Uploads.html" target="_blank">Open</a></div>
+              <div class="tl-action">Upload the background check results to the employee file even though the person won't be hired. The results and your response must be documented. This is your proof of due diligence if IDPH ever audits the decision.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin uploads results</span>
+                <span class="signer ceo">CEO reviews finding</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Same day</div>
+              <div class="tl-form">No form — adverse action notification</div>
+              <div class="tl-action">Notify the applicant that their background check returned a disqualifying finding and VitalTouch cannot proceed with employment. Under the Fair Credit Reporting Act (FCRA), you must provide: the name of the background check company, a copy of the report, and a notice of their right to dispute the finding.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO makes the call or sends the letter</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Same day — stop all onboarding</div>
+              <div class="tl-form">No form — operational halt</div>
+              <div class="tl-action">Immediately revoke any system access. If the applicant was given login credentials to CareSmartz360 or any training platform during onboarding, disable them. Do not proceed with any training or orientation activities. The applicant must not have access to any client information.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin revokes access</span>
+              </div>
+            </div>
+
+            <div class="alert-box danger">
+              <span class="alert-icon">🚨</span>
+              <span><strong>77 Ill. Adm. Code 955.115:</strong> Disqualifying offenses include any felony conviction, sex offenses, crimes of violence, theft from a person with a disability, and any finding on the IDPH Nurse Aide Registry for abuse, neglect, or misappropriation. There is no discretion here — these are automatic disqualifiers by law.</span>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Confirm the person never worked a client visit.</strong> If they somehow were assigned to a client before the background check cleared (which should never happen), this is a licensing violation. File an internal incident report, notify IDPH if required, and document exactly what happened and how it will be prevented in the future.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 29: Applicant from Indeed/ZipRecruiter applies -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="hire">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon hire">💻</div>
+        <div class="scenario-info">
+          <div class="scenario-label hire">Hiring</div>
+          <div class="scenario-title">Screening and processing an Indeed/ZipRecruiter applicant</div>
+          <div class="scenario-desc">Someone applies through Indeed. Their resume looks decent. How do you move them from job board applicant to fully onboarded homemaker? Here's the full funnel with timelines and decision points.</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 0 — Application comes in</div>
+              <div class="tl-form">No form yet — phone screen</div>
+              <div class="tl-action">Call the applicant within 24 hours. Speed matters — good candidates are interviewing with multiple agencies. Confirm: Do they have reliable transportation? Are they available for the shifts you need? Are they comfortable with home care work (cleaning, cooking, personal care assistance)? Do they have a CNA or HHA certification? Are they legally authorized to work in the US?</div>
+              <div class="tl-signers">
+                <span class="signer admin">Office Admin conducts phone screen</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 1–3 — If phone screen passes</div>
+              <div class="tl-form">E.11 — Homemaker Job Application <a href="E11_Homemaker_Job_Application.html" target="_blank">Open</a></div>
+              <div class="tl-action">Send them the VitalTouch application link. They complete the 5-step application online. Review for completeness — incomplete applications (missing employment history, unsigned) go back for corrections before proceeding.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Applicant fills out & signs</span>
+                <span class="signer ceo">CEO reviews application</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 3–5 — In-person or video interview</div>
+              <div class="tl-form">No form — interview evaluation</div>
+              <div class="tl-action">Conduct a structured interview. Key questions: Why home care? Tell me about a difficult client situation. How do you handle being alone in someone's home? What would you do if a client fell? Evaluate communication skills, professionalism, empathy, and reliability indicators.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO or supervisor conducts interview</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 5 — Conditional offer</div>
+              <div class="tl-form">No form — verbal offer</div>
+              <div class="tl-action">Extend a conditional offer of employment contingent on background check clearance, medical document verification, and training completion. Be clear: this is not a final offer — they cannot work until everything clears.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO extends conditional offer</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 5–10 — Onboarding begins</div>
+              <div class="tl-form">E.12, E.24, E.22, E.23, E.25 — Document Collection</div>
+              <div class="tl-action">Send all document upload and medical forms at once. Set a clear deadline: "We need everything uploaded within 5 business days." The background check (E.25) gets initiated by admin immediately — this is the longest lead time item.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">New hire uploads all docs</span>
+                <span class="signer admin">Admin initiates background check</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Day 10–14 — Background clears</div>
+              <div class="tl-form">E.26 + E.31 + E.33 + E.34 + E.21 + E.37 — Full Onboarding + Training</div>
+              <div class="tl-action">Once background clears: sign the employment agreement, complete all acknowledgments, start orientation and 24-hour pre-hire training. Target: fully onboarded and ready for first client assignment within 14–21 days of initial application.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee completes all</span>
+                <span class="signer ceo">CEO countersigns employment agreement</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>Speed kills attrition:</strong> The #1 reason applicants ghost home care agencies is a slow hiring process. If your onboarding takes more than 3 weeks, you'll lose candidates to competitors. Move fast on phone screens (24 hrs), interviews (within the week), and document collection (parallel, not sequential).</span>
+            </div>
+
+            <div class="alert-box info">
+              <span class="alert-icon">📋</span>
+              <span><strong>Track in pipeline:</strong> Log every applicant in the VitalTouch Candidate Pipeline in Notion — name, source (Indeed/ZipRecruiter/Facebook), date applied, current stage, and next follow-up date. No candidate should go 3+ days without contact during active onboarding.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCENARIO 30: Rehiring a former homemaker -->
+    <!-- ============================================================ -->
+    <div class="scenario" data-cat="hire">
+      <div class="scenario-header" onclick="toggleScenario(this)">
+        <div class="scenario-icon hire">🔄</div>
+        <div class="scenario-info">
+          <div class="scenario-label hire">Hiring</div>
+          <div class="scenario-title">A former homemaker wants to come back</div>
+          <div class="scenario-desc">A homemaker who left VitalTouch 8 months ago calls and wants to return. She left on good terms. Can you skip any of the onboarding steps?</div>
+        </div>
+        <div class="scenario-toggle">▼</div>
+      </div>
+      <div class="scenario-body">
+        <div class="scenario-content">
+          <div class="timeline">
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Step 1 — Check the old file</div>
+              <div class="tl-form">No form — file review</div>
+              <div class="tl-action">Pull her previous employee file. Check: Why did she leave? Were there any complaints, incidents, or disciplinary actions? Was her training current when she left? Were all forms properly signed? This tells you if rehiring is appropriate and what might still be valid.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO reviews file and decides</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">New application required</div>
+              <div class="tl-form">E.11 — Homemaker Job Application <a href="E11_Homemaker_Job_Application.html" target="_blank">Open</a></div>
+              <div class="tl-action">A new application is required regardless of prior employment. Information may have changed — address, phone, certifications, criminal history. Treat it as a new hire for documentation purposes.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Former employee fills out & signs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">New background check required</div>
+              <div class="tl-form">E.25 — IDPH Registry Uploads <a href="E25_IDPH_Registry_Uploads.html" target="_blank">Open</a></div>
+              <div class="tl-action">A new background check is mandatory. Previous clearance does not carry over after separation from employment. Fingerprints, HCWR verification, and sex offender registry check must all be run fresh. She cannot work until new clearance is confirmed.</div>
+              <div class="tl-signers">
+                <span class="signer admin">Admin initiates new background check</span>
+                <span class="signer ceo">CEO reviews clearance</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Updated documents</div>
+              <div class="tl-form">E.12 + E.24 + E.22 + E.23 — Document & Medical Updates</div>
+              <div class="tl-action">New ID copies, updated medical docs (TB test must be within 90 days of rehire date, physical within 12 months), and current vaccination records. Previous uploads in the old file are expired.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Returning employee uploads new docs</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Acknowledgments — all must be re-signed</div>
+              <div class="tl-form">E.26, E.31, E.33, E.34, E.21 — Full Acknowledgment Suite</div>
+              <div class="tl-action">All agreements and acknowledgments must be re-signed with current dates. Policies may have changed since she was last employed. The employment agreement is a new contract, not a continuation of the old one.</div>
+              <div class="tl-signers">
+                <span class="signer homemaker">Employee re-signs all</span>
+                <span class="signer ceo">CEO countersigns employment agreement</span>
+              </div>
+            </div>
+
+            <div class="tl-step">
+              <div class="tl-dot"></div>
+              <div class="tl-timing">Training — depends on gap length</div>
+              <div class="tl-form">Training forms — situational</div>
+              <div class="tl-action">If she's been gone less than 12 months AND her annual training was current when she left, she may not need to redo the full 24-hour pre-hire training — but she does need to complete any annual CE hours that lapsed during the gap. If gone 12+ months, full pre-hire training is required again. Check with IDPH guidance if unsure.</div>
+              <div class="tl-signers">
+                <span class="signer ceo">CEO determines training requirements</span>
+                <span class="signer homemaker">Employee completes required training</span>
+              </div>
+            </div>
+
+            <div class="alert-box warn">
+              <span class="alert-icon">⚠️</span>
+              <span><strong>IDPH position on rehires:</strong> There is no formal "rehire exemption" in 77 Ill. Adm. Code 245. When in doubt, treat a rehire as a new hire. The cost of re-doing paperwork is nothing compared to the cost of an IDPH deficiency finding for an incomplete employee file.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- end scenarioList -->
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. · 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 · <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+  <p style="margin-top: 8px; font-size: 12px;">Internal document — not for distribution</p>
+</div>
+
+<script>
+// ===== TOGGLE SCENARIO =====
+function toggleScenario(header) {
+  const card = header.closest('.scenario');
+  card.classList.toggle('open');
+}
+
+// ===== FILTER TABS =====
+document.getElementById('tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const filter = tab.dataset.filter;
+  document.querySelectorAll('.scenario').forEach(s => {
+    if (filter === 'all') {
+      s.style.display = '';
+    } else {
+      s.style.display = s.dataset.cat === filter ? '' : 'none';
+    }
+  });
+});
+
+// ===== AUTO-OPEN FIRST SCENARIO =====
+document.querySelector('.scenario').classList.add('open');
+</script>
+
+</body>
+</html>

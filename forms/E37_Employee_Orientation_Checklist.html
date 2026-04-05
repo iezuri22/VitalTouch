@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Orientation Checklist — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM BODY ===== */
+  .form-body {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label.field-label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label.field-label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 14px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== CHECKLIST ITEMS ===== */
+  .check-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); margin-bottom: 10px;
+    cursor: pointer; transition: all 0.2s;
+    user-select: none;
+  }
+  .check-item:hover { border-color: var(--green); background: transparent; }
+  .check-item.checked { border-color: #94A3B8; background: #F8FAFC; }
+  .check-item.checked .check-label { text-decoration: none; color: #1a1a1a; }
+  .check-item input[type="checkbox"] {
+    width: 26px; height: 26px; margin-top: 3px;
+    accent-color: var(--green); cursor: pointer; flex-shrink: 0;
+  }
+  .check-label {
+    font-size: 16px; cursor: pointer; line-height: 1.6; color: #1a1a1a;
+    transition: color 0.2s;
+  }
+
+  /* ===== CATEGORY CARD COLLAPSIBLE ===== */
+  .category-card {
+    margin: 18px 0;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--white);
+  }
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: var(--bg);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .category-header:hover {
+    background: #E2E8F0;
+  }
+  .category-header.expanded {
+    background: var(--green-light);
+    border-bottom-color: var(--green);
+  }
+  .category-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .category-monogram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 12px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .category-monogram.ob { background: var(--green); }
+  .category-monogram.sf { background: var(--red); }
+  .category-monogram.tr { background: #3B82F6; }
+  .category-monogram.dc { background: var(--amber); color: #1a1a1a; }
+  .category-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .category-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .category-counter {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+  }
+  .category-toggle {
+    font-size: 18px;
+    color: #6b7280;
+    transition: transform 0.3s ease;
+  }
+  .category-header.expanded .category-toggle {
+    transform: rotate(180deg);
+  }
+  .category-items {
+    display: none;
+    padding: 12px 16px;
+  }
+  .category-items.expanded {
+    display: block;
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-section {
+    margin: 28px 0 8px;
+    padding: 20px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .progress-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #6b7280;
+  }
+  .progress-count {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--green-dark);
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 12px;
+    background: var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green), #22C55E);
+    border-radius: 6px;
+    transition: width 0.4s ease;
+  }
+  .progress-pct {
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-lighter);
+    margin-top: 4px;
+  }
+
+  /* ===== SUBMIT AREA ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-submit {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn-submit:hover {
+    background: var(--green-dark);
+    box-shadow: 0 6px 20px rgba(22,163,74,0.35);
+  }
+  .btn-submit:active { background: var(--green-dark); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+  .conf-summary {
+    margin-top: 16px; font-size: 14px; color: var(--text-light);
+    font-weight: 600;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .trust-bar, .footer { display: none !important; }
+    .form-body { padding: 12px 16px; }
+    .progress-section { break-inside: avoid; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .check-item { padding: 6px 8px; }
+    .section-label { margin: 14px 0 8px; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; gap: 14px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-body { padding: 24px 20px 20px; }
+    .form-nav { padding: 16px 20px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+    .progress-section { padding: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Employee Orientation Checklist</h1>
+    <p>VitalTouch Health Network &mdash; New employee orientation tracking</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- FORM -->
+    <div class="form-body" id="formBody">
+
+      <!-- ===== EMPLOYEE INFORMATION ===== -->
+      <div class="section-label" style="margin-top:0;">Employee Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Employee Name <span class="req">*</span></label>
+          <input type="text" id="employeeName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Employee ID / Last 4 SSN</label>
+          <input type="text" id="employeeId" placeholder="Optional">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Hire Date <span class="req">*</span></label>
+          <input type="date" id="hireDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Orientation Date <span class="req">*</span></label>
+          <input type="date" id="orientationDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Supervisor Name <span class="req">*</span></label>
+        <input type="text" id="supervisorName" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- ===== ONBOARDING SECTION ===== -->
+      <div class="category-card">
+        <div class="category-header expanded" onclick="toggleCategory(this)">
+          <div class="category-left">
+            <div class="category-monogram ob">OB</div>
+            <div class="category-title">Onboarding</div>
+          </div>
+          <div class="category-right">
+            <span class="category-counter" id="counter-ob">0 of 5</span>
+            <span class="category-toggle">V</span>
+          </div>
+        </div>
+        <div class="category-items expanded">
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="ob">
+            <span class="check-label">Agency history, mission, and values reviewed</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="ob">
+            <span class="check-label">Organizational structure explained</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="ob">
+            <span class="check-label">Employee handbook provided</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="ob">
+            <span class="check-label">Office location and contact information reviewed</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="ob">
+            <span class="check-label">Introduction to key staff members</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SAFETY SECTION ===== -->
+      <div class="category-card">
+        <div class="category-header" onclick="toggleCategory(this)">
+          <div class="category-left">
+            <div class="category-monogram sf">SF</div>
+            <div class="category-title">Safety &amp; Procedures</div>
+          </div>
+          <div class="category-right">
+            <span class="category-counter" id="counter-sf">0 of 8</span>
+            <span class="category-toggle">V</span>
+          </div>
+        </div>
+        <div class="category-items">
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="sf">
+            <span class="check-label">Attendance and punctuality policy</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="sf">
+            <span class="check-label">Dress code and personal hygiene</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="sf">
+            <span class="check-label">Cell phone and social media policy</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="sf">
+            <span class="check-label">Grievance and complaint procedures</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="sf">
+            <span class="check-label">Mandated reporting obligations</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="sf">
+            <span class="check-label">Client confidentiality (HIPAA overview)</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="sf">
+            <span class="check-label">Emergency procedures</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="sf">
+            <span class="check-label">Workplace safety</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TRAINING SECTION ===== -->
+      <div class="category-card">
+        <div class="category-header" onclick="toggleCategory(this)">
+          <div class="category-left">
+            <div class="category-monogram tr">TR</div>
+            <div class="category-title">Training &amp; Skills</div>
+          </div>
+          <div class="category-right">
+            <span class="category-counter" id="counter-tr">0 of 8</span>
+            <span class="category-toggle">V</span>
+          </div>
+        </div>
+        <div class="category-items">
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="tr">
+            <span class="check-label">Homemaker job duties and responsibilities</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="tr">
+            <span class="check-label">Client interaction and communication skills</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="tr">
+            <span class="check-label">Cultural sensitivity and diversity training</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="tr">
+            <span class="check-label">Infection control and universal precautions</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="tr">
+            <span class="check-label">Body mechanics and injury prevention</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="tr">
+            <span class="check-label">Meal preparation and nutrition basics</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="tr">
+            <span class="check-label">Housekeeping standards and procedures</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="tr">
+            <span class="check-label">Documentation and time-keeping (EVV)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== DOCUMENTATION SECTION ===== -->
+      <div class="category-card">
+        <div class="category-header" onclick="toggleCategory(this)">
+          <div class="category-left">
+            <div class="category-monogram dc">DC</div>
+            <div class="category-title">Documentation &amp; Compliance</div>
+          </div>
+          <div class="category-right">
+            <span class="category-counter" id="counter-dc">0 of 13</span>
+            <span class="category-toggle">V</span>
+          </div>
+        </div>
+        <div class="category-items">
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">IDPH regulations overview (77 Ill. Adm. Code 245)</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Background check process explained</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Health screening requirements reviewed</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Abuse, neglect, and exploitation prevention</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Client rights and responsibilities</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Incident reporting procedures</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Job application completed (E.11)</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Documents uploaded (E.12)</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Service agreement signed (E.26)</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">HIPAA acknowledgment signed (E.31)</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Hepatitis B record completed (E.22)</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Influenza vaccination record (E.23)</span>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this)">
+            <input type="checkbox" class="checklist-cb" data-category="dc">
+            <span class="check-label">Medical documents uploaded (E.24)</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ===== PROGRESS TRACKER ===== -->
+      <div class="progress-section" id="progressSection">
+        <div class="progress-header">
+          <span class="progress-title">Orientation Progress</span>
+          <span class="progress-count" id="progressCount">0 of 34 items completed</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-pct" id="progressPct">0%</div>
+      </div>
+
+    </div><!-- /form-body -->
+
+    <!-- SUBMIT NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-submit" onclick="submitForm()">
+        Submit Orientation Checklist &rarr;
+      </button>
+    </div>
+
+    <!-- CONFIRMATION -->
+    <div class="confirmation" id="confirmation">
+      <div class="conf-check">&#10003;</div>
+      <h2>Orientation Checklist Submitted</h2>
+      <p>The employee orientation checklist has been recorded. A copy has been saved for your records.</p>
+      <div class="conf-summary" id="confSummary"></div>
+      <div class="conf-id" id="confId"></div>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <span class="trust-item">&#128274; HIPAA Compliant</span>
+      <span class="trust-item">&#127973; IDPH Licensed</span>
+      <span class="trust-item">&#128203; Form E.37</span>
+    </div>
+  </div><!-- /card -->
+
+  <div class="footer">
+    VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430<br>
+    (708) 774-4850 &middot; <a href="https://vitaltouchcares.com" target="_blank">vitaltouchcares.com</a>
+  </div>
+</div><!-- /main-container -->
+
+<script>
+  // ===== Set default orientation date to today =====
+  (function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('orientationDate').value = today;
+  })();
+
+  // ===== Total checklist items =====
+  const totalItems = document.querySelectorAll('.checklist-cb').length;
+
+  // ===== Toggle checkbox items =====
+  function toggleCheck(el) {
+    const cb = el.querySelector('input[type="checkbox"]');
+    cb.checked = !cb.checked;
+    el.classList.toggle('checked', cb.checked);
+    updateProgress();
+    updateCategoryCounters();
+  }
+
+  // ===== Toggle category sections =====
+  function toggleCategory(el) {
+    el.classList.toggle('expanded');
+    const itemsContainer = el.nextElementSibling;
+    if (itemsContainer) {
+      itemsContainer.classList.toggle('expanded');
+    }
+  }
+
+  // ===== Update category counters =====
+  function updateCategoryCounters() {
+    ['ob', 'sf', 'tr', 'dc'].forEach(category => {
+      const items = document.querySelectorAll(`.checklist-cb[data-category="${category}"]`);
+      const checked = document.querySelectorAll(`.checklist-cb[data-category="${category}"]:checked`).length;
+      const counter = document.getElementById(`counter-${category}`);
+      if (counter) {
+        counter.textContent = checked + ' of ' + items.length;
+      }
+    });
+  }
+
+  // ===== Progress tracker =====
+  function updateProgress() {
+    const checked = document.querySelectorAll('.checklist-cb:checked').length;
+    const pct = Math.round((checked / totalItems) * 100);
+
+    document.getElementById('progressCount').textContent = checked + ' of ' + totalItems + ' items completed';
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+
+    // Change bar color at milestones
+    const fill = document.getElementById('progressFill');
+    if (pct === 100) {
+      fill.style.background = 'linear-gradient(90deg, #16A34A, #059669)';
+    } else if (pct >= 75) {
+      fill.style.background = 'linear-gradient(90deg, #16A34A, #22C55E)';
+    } else if (pct >= 50) {
+      fill.style.background = 'linear-gradient(90deg, #CA8A04, #EAB308)';
+    } else {
+      fill.style.background = 'linear-gradient(90deg, var(--green), #22C55E)';
+    }
+  }
+
+  // ===== Validation =====
+  function validate() {
+    let valid = true;
+    const requiredFields = ['employeeName', 'hireDate', 'orientationDate', 'supervisorName'];
+
+    // Clear previous errors
+    document.querySelectorAll('.field').forEach(f => f.classList.remove('has-error'));
+    document.querySelectorAll('.invalid').forEach(f => f.classList.remove('invalid'));
+
+    requiredFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const val = el.value.trim();
+      if (!val) {
+        valid = false;
+        el.classList.add('invalid');
+        el.closest('.field').classList.add('has-error');
+      }
+    });
+
+    if (!valid) {
+      const firstError = document.querySelector('.invalid');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    return valid;
+  }
+
+  // ===== Collect checklist data =====
+  function getChecklistData() {
+    const sections = {};
+    let currentSection = '';
+    const body = document.getElementById('formBody');
+    const children = body.children;
+
+    for (let i = 0; i < children.length; i++) {
+      const el = children[i];
+      if (el.classList.contains('section-label')) {
+        currentSection = el.textContent.trim();
+        if (currentSection !== 'Employee Information') {
+          sections[currentSection] = [];
+        }
+      } else if (el.classList.contains('check-item') && currentSection && currentSection !== 'Employee Information') {
+        const cb = el.querySelector('.checklist-cb');
+        const label = el.querySelector('.check-label').textContent.trim();
+        sections[currentSection].push({
+          item: label,
+          completed: cb.checked
+        });
+      }
+    }
+
+    return sections;
+  }
+
+  // ===== Submit =====
+  function submitForm() {
+    if (!validate()) return;
+
+    // Generate submission ID
+    const submissionId = 'E37-' + Date.now().toString(36);
+
+    // Get counts
+    const checked = document.querySelectorAll('.checklist-cb:checked').length;
+
+    // Collect checklist data
+    const checklistData = getChecklistData();
+
+    // Collect form data
+    const data = {
+      id: submissionId,
+      timestamp: new Date().toISOString(),
+      formId: 'E37',
+      formName: 'Employee Orientation Checklist',
+      employeeName: document.getElementById('employeeName').value.trim(),
+      employeeId: document.getElementById('employeeId').value.trim(),
+      hireDate: document.getElementById('hireDate').value,
+      orientationDate: document.getElementById('orientationDate').value,
+      supervisorName: document.getElementById('supervisorName').value.trim(),
+      completedItems: checked,
+      totalItems: totalItems,
+      completionPct: Math.round((checked / totalItems) * 100),
+      checklist: checklistData
+    };
+
+    // Save to localStorage
+    let submissions = [];
+    try { submissions = JSON.parse(localStorage.getItem('vt_submissions') || '[]'); } catch(e) {}
+    submissions.push(data);
+    localStorage.setItem('vt_submissions', JSON.stringify(submissions));
+
+    // Show confirmation
+    document.getElementById('formBody').style.display = 'none';
+    document.getElementById('formNav').style.display = 'none';
+    document.getElementById('confirmation').style.display = 'block';
+    document.getElementById('confId').textContent = 'Submission ID: ' + submissionId;
+    document.getElementById('confSummary').textContent = checked + ' of ' + totalItems + ' items completed (' + data.completionPct + '%)';
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Initialize progress on load
+  updateProgress();
+  updateCategoryCounters();
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

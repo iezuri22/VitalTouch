@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitalTouch — All Forms</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #16A34A; --green-dark: #15803D; --green-deeper: #166534;
+    --green-light: #DCFCE7; --green-glow: rgba(22,163,74,0.12);
+    --text: #1E293B; --text-light: #4a5568; --text-lighter: #6b7280;
+    --white: #FFFFFF; --border: #E2E8F0; --bg: #F8FAFC;
+    --blue: #3B82F6; --blue-light: #DBEAFE;
+    --orange: #F97316; --orange-light: #FFF7ED;
+    --purple: #8B5CF6; --purple-light: #EDE9FE;
+    --teal: #14B8A6; --teal-light: #F0FDFA;
+    --radius: 6px; --radius-sm: 6px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+    --sidebar-w: 260px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 32px 40px;
+    position: relative; z-index: 100;
+  }
+  .header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
+  .header-logo { height: 52px; width: auto; }
+  .header-text h1 { font-size: 32px; font-weight: 800; color: #1a1a1a; }
+  .header-text p { font-size: 15px; color: var(--text-light); margin-top: 4px; }
+  .header-back {
+    margin-left: auto; font-size: 14px; font-weight: 600; color: var(--green-dark);
+    text-decoration: none; padding: 8px 18px; border-radius: 6px;
+    border: 1.5px solid var(--green-dark); transition: all 0.2s; white-space: nowrap;
+  }
+  .header-back:hover { background: var(--green-dark); color: var(--white); }
+
+  /* ===== LAYOUT ===== */
+  .layout { display: flex; min-height: calc(100vh - 120px); }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: var(--sidebar-w); position: fixed; top: 120px; left: 0; bottom: 0;
+    background: var(--white); border-right: 1px solid var(--border);
+    overflow-y: auto; padding: 20px 0; z-index: 50;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.04);
+  }
+  .sidebar-group { margin-bottom: 16px; }
+  .sidebar-group-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    padding: 6px 20px; color: var(--text-lighter);
+  }
+  .sidebar-link {
+    display: block; padding: 7px 20px; font-size: 13px; font-weight: 500;
+    color: var(--text-light); text-decoration: none; transition: all 0.15s;
+    border-left: 3px solid transparent;
+  }
+  .sidebar-link:hover { background: var(--bg); color: var(--text); }
+  .sidebar-link.active {
+    background: var(--green-light); color: var(--green-deeper);
+    border-left-color: var(--green); font-weight: 600;
+  }
+  .sidebar-link .sid { font-weight: 700; margin-right: 6px; }
+
+  /* ===== MAIN CONTENT ===== */
+  .main-content {
+    margin-left: var(--sidebar-w); flex: 1; padding: 24px 32px 60px;
+    max-width: calc(100% - var(--sidebar-w));
+  }
+
+  /* ===== CONTROLS ===== */
+  .controls {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+    position: sticky; top: 0; z-index: 40; background: var(--bg);
+    padding: 12px 0; border-bottom: 1px solid var(--border);
+  }
+  .btn {
+    padding: 8px 18px; border-radius: 50px; font-size: 13px; font-weight: 600;
+    cursor: pointer; border: 1.5px solid var(--border); background: var(--white);
+    color: var(--text-light); transition: all 0.2s; font-family: inherit;
+  }
+  .btn:hover { border-color: var(--green); color: var(--green); }
+  .btn.active { background: var(--green); color: var(--white); border-color: var(--green); }
+  .controls-count { font-size: 14px; color: var(--text-lighter); margin-left: auto; }
+
+  /* ===== FORM SECTIONS ===== */
+  .form-section { margin-bottom: 32px; scroll-margin-top: 70px; }
+  .form-section-header {
+    display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow); cursor: pointer; user-select: none;
+    transition: all 0.2s; border: 1.5px solid transparent;
+  }
+  .form-section-header:hover { border-color: var(--green); box-shadow: var(--shadow-lg); }
+
+  .form-badge {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    padding: 3px 10px; border-radius: 20px; flex-shrink: 0;
+  }
+  .form-badge.client { background: var(--blue-light); color: var(--blue); }
+  .form-badge.employee { background: var(--orange-light); color: var(--orange); }
+  .form-badge.training { background: var(--purple-light); color: var(--purple); }
+  .form-badge.eval { background: var(--teal-light); color: var(--teal); }
+  .form-badge.other { background: #F3F4F6; color: var(--text-lighter); }
+
+  .form-section-title { font-size: 17px; font-weight: 700; color: #1a1a1a; flex: 1; }
+  .form-section-id { font-size: 13px; color: var(--text-lighter); font-weight: 600; }
+
+  .toggle-icon {
+    font-size: 18px; color: var(--text-lighter); transition: transform 0.2s;
+    width: 24px; text-align: center; flex-shrink: 0;
+  }
+  .form-section.collapsed .toggle-icon { transform: rotate(-90deg); }
+
+  .form-section-body {
+    margin-top: 12px; overflow: hidden; transition: max-height 0.3s ease;
+  }
+  .form-section.collapsed .form-section-body { max-height: 0 !important; margin-top: 0; }
+
+  .form-iframe-wrap {
+    border: 1.5px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; background: var(--white);
+  }
+  .form-iframe-wrap iframe {
+    width: 100%; height: 800px; border: none; display: block;
+  }
+  .form-embed {
+    min-height: 200px; background: var(--white); border-radius: var(--radius);
+    border: 1.5px solid var(--border); overflow: hidden;
+  }
+  .form-embed-loading {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 48px 20px; color: var(--text-lighter); font-size: 14px;
+  }
+  .form-embed-loading .spinner {
+    width: 20px; height: 20px; border: 2.5px solid var(--border);
+    border-top-color: var(--green); border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .form-embed-error {
+    padding: 32px 20px; text-align: center; color: var(--text-lighter); font-size: 14px;
+  }
+  .form-section-footer {
+    display: flex; align-items: center; gap: 16px; margin-top: 8px;
+  }
+  .open-tab-link {
+    font-size: 13px; font-weight: 600; color: var(--green); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .open-tab-link:hover { color: var(--green-dark); }
+
+  .form-divider {
+    border: none; border-top: 2px solid var(--green-light); margin: 0;
+  }
+
+  /* ===== MOBILE TOC DROPDOWN ===== */
+  .mobile-toc { display: none; }
+  .mobile-toc-btn {
+    width: 100%; padding: 12px 20px; font-size: 14px; font-weight: 600;
+    font-family: inherit; background: var(--white); border: 1.5px solid var(--border);
+    border-radius: var(--radius); cursor: pointer; text-align: left;
+    display: flex; align-items: center; justify-content: space-between;
+    color: var(--text);
+  }
+  .mobile-toc-btn:hover { border-color: var(--green); }
+  .mobile-toc-dropdown {
+    display: none; background: var(--white); border: 1.5px solid var(--border);
+    border-radius: var(--radius); margin-top: 8px; max-height: 60vh;
+    overflow-y: auto; box-shadow: var(--shadow-lg);
+  }
+  .mobile-toc-dropdown.open { display: block; }
+  .mobile-toc-dropdown .sidebar-group { margin-bottom: 8px; }
+  .mobile-toc-dropdown .sidebar-group-title { padding: 8px 16px; }
+  .mobile-toc-dropdown .sidebar-link { padding: 8px 16px; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; max-width: 100%; padding: 16px; }
+    .mobile-toc { display: block; margin-bottom: 16px; position: sticky; top: 0; z-index: 40; background: var(--bg); padding: 8px 0; }
+    .header { padding: 20px 16px; }
+    .header-text h1 { font-size: 22px; }
+    .header-inner { flex-wrap: wrap; gap: 12px; }
+    .header-back { font-size: 12px; padding: 6px 12px; }
+    .form-embed { min-height: 150px; }
+    .controls { flex-wrap: wrap; }
+  }
+
+  /* Scrollbar styling for sidebar */
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .sidebar::-webkit-scrollbar-thumb:hover { background: var(--text-lighter); }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div class="header-inner">
+    <img src="images/logo-symbol.png" alt="VitalTouch" class="header-logo">
+    <div class="header-text">
+      <h1>VitalTouch — All Forms</h1>
+      <p>Browse all 35 forms in one scrollable page</p>
+    </div>
+    <a href="index.html" class="header-back">&larr; Forms Guide</a>
+  </div>
+</div>
+
+<!-- ===== LAYOUT ===== -->
+<div class="layout">
+
+  <!-- ===== SIDEBAR TOC ===== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-group">
+      <div class="sidebar-group-title" style="color:var(--blue);">Client Forms</div>
+      <div id="toc-client"></div>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-title" style="color:var(--orange);">Employee Forms</div>
+      <div id="toc-employee"></div>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-title" style="color:var(--purple);">Training Modules</div>
+      <div id="toc-training"></div>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-title" style="color:var(--teal);">Competency Evals</div>
+      <div id="toc-eval"></div>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">Other</div>
+      <div id="toc-other"></div>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-content">
+
+    <!-- Mobile TOC -->
+    <div class="mobile-toc" id="mobileToc">
+      <button class="mobile-toc-btn" id="mobileTocBtn">
+        <span>Jump to Form...</span>
+        <span style="font-size:12px;">&#9660;</span>
+      </button>
+      <div class="mobile-toc-dropdown" id="mobileTocDropdown"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn" id="collapseAllBtn">Collapse All</button>
+      <button class="btn" id="expandAllBtn">Expand All</button>
+      <span class="controls-count">35 forms</span>
+    </div>
+
+    <!-- Forms rendered by JS -->
+    <div id="formsContainer"></div>
+
+  </div>
+</div>
+
+<script>
+const forms = [
+  { id: 'C.11', anchor: 'C11', name: 'Client Intake Form', cat: 'client', file: 'C11_Client_Intake_Form.html' },
+  { id: 'C.12', anchor: 'C12', name: 'Client Service Agreement', cat: 'client', file: 'C12_Client_Service_Agreement.html' },
+  { id: 'C.21', anchor: 'C21', name: 'Client Assessment Packet', cat: 'client', file: 'C21_Client_Assessment_Packet.html' },
+  { id: 'C.22', anchor: 'C22', name: 'Home Risk Assessment', cat: 'client', file: 'C22_Home_Risk_Assessment.html' },
+  { id: 'C.23', anchor: 'C23', name: 'Physical Health Assessment', cat: 'client', file: 'C23_Physical_Health_Assessment.html' },
+  { id: 'C.24', anchor: 'C24', name: 'Plan of Care', cat: 'client', file: 'C24_Plan_of_Care.html' },
+  { id: 'C.41', anchor: 'C41', name: 'Client Monthly Contact Log', cat: 'client', file: 'C41_Client_Monthly_Contact_Log.html' },
+  { id: 'C.42', anchor: 'C42', name: 'Client Semi-Annual Visit', cat: 'client', file: 'C42_Client_Semi_Annual_Visit.html' },
+  { id: 'C.42C', anchor: 'C42C', name: 'FHCA Quarterly Visit', cat: 'client', file: 'C42C_FHCA_Quarterly_Visit.html' },
+  { id: 'C.43', anchor: 'C43', name: 'Client Discharge Form', cat: 'client', file: 'C43_Client_Discharge_Form.html' },
+  { id: 'C.44', anchor: 'C44', name: 'Incident Report Form', cat: 'client', file: 'C44_Incident_Report_Form.html' },
+  { id: 'E.11', anchor: 'E11', name: 'Homemaker Job Application', cat: 'employee', file: 'E11_Homemaker_Job_Application.html' },
+  { id: 'E.12', anchor: 'E12', name: 'Homemaker Document Upload', cat: 'employee', file: 'E12_Homemaker_Document_Upload.html' },
+  { id: 'E.12.1', anchor: 'E121', name: 'Will Not Drive Acknowledgment', cat: 'employee', file: 'E121_Will_Not_Drive_Acknowledgment.html' },
+  { id: 'E.13', anchor: 'E13', name: 'Orientation File Uploads', cat: 'employee', file: 'E13_Orientation_File_Uploads.html' },
+  { id: 'E.14', anchor: 'E14', name: '24-Hour Pre-Hire Training Ack', cat: 'employee', file: 'E14_24Hour_PreHire_Training_Ack.html' },
+  { id: 'E.21', anchor: 'E21', name: 'Limitations on Marketing/Recruiting', cat: 'employee', file: 'E21_Limitations_on_Marketing_Recruiting.html' },
+  { id: 'E.22', anchor: 'E22', name: 'Hepatitis B Vaccination Record', cat: 'employee', file: 'E22_Hepatitis_B_Vaccination_Record.html' },
+  { id: 'E.23', anchor: 'E23', name: 'Influenza Vaccination Record', cat: 'employee', file: 'E23_Influenza_Vaccination_Record.html' },
+  { id: 'E.24', anchor: 'E24', name: 'Required Medical Documents', cat: 'employee', file: 'E24_Required_Medical_Documents.html' },
+  { id: 'E.25', anchor: 'E25', name: 'IDPH Registry Uploads', cat: 'employee', file: 'E25_IDPH_Registry_Uploads.html' },
+  { id: 'E.26', anchor: 'E26', name: 'Homemaker Employment Agreement', cat: 'employee', file: 'E26_Homemaker_Employment_Agreement.html' },
+  { id: 'E.31', anchor: 'E31', name: 'HIPAA Compliance Acknowledgment', cat: 'employee', file: 'E31_HIPAA_Compliance_Acknowledgment.html' },
+  { id: 'E.33', anchor: 'E33', name: 'Employee Handbook Acknowledgment', cat: 'employee', file: 'E33_Employee_Handbook_Acknowledgment.html' },
+  { id: 'E.34', anchor: 'E34', name: 'Civil Rights/Anti-Discrimination Ack', cat: 'employee', file: 'E34_Civil_Rights_Anti_Discrimination_Ack.html' },
+  { id: 'E.35', anchor: 'E35', name: 'Annual 12 Hours Training', cat: 'employee', file: 'E35_Annual_12_Hours_Training.html' },
+  { id: 'E.36', anchor: 'E36', name: "Alzheimer's/Dementia Training Ack", cat: 'employee', file: 'E36_Annual_Alzheimers_Dementia_Training_Ack.html' },
+  { id: 'E.37', anchor: 'E37', name: 'Employee Orientation Checklist', cat: 'employee', file: 'E37_Employee_Orientation_Checklist.html' },
+  { id: 'A.1', anchor: 'A1', name: "6-Hour Alzheimer's Training", cat: 'training', file: 'A1_6Hour_Alzheimers_Training.html' },
+  { id: 'A.2', anchor: 'A2', name: 'Initial 5-Hour Training (Prior)', cat: 'training', file: 'A2_Initial_5Hour_Training_Prior.html' },
+  { id: 'A.3', anchor: 'A3', name: 'Initial 5-Hour Training (30 Days)', cat: 'training', file: 'A3_Initial_5Hour_Training_30Days.html' },
+  { id: 'B.1', anchor: 'B1', name: "Competency Eval: 6 Hr Alzheimer's", cat: 'eval', file: 'B1_Competency_Eval_6Hr_Alzheimers.html' },
+  { id: 'B.2', anchor: 'B2', name: 'Competency Eval: 5 Hr (Prior)', cat: 'eval', file: 'B2_Competency_Eval_5Hr_Prior.html' },
+  { id: 'B.3', anchor: 'B3', name: 'Competency Eval: 5 Hr (30 Days)', cat: 'eval', file: 'B3_Competency_Eval_5Hr_30Days.html' },
+  { id: 'CONSULT', anchor: 'CONSULT', name: 'Consulting Agreement', cat: 'other', file: 'CONSULT_Consulting_Agreement.html' },
+];
+
+// ===== RENDER TOC =====
+function renderTOC() {
+  const groups = { client: [], employee: [], training: [], eval: [], other: [] };
+  forms.forEach(f => groups[f.cat].push(f));
+
+  Object.keys(groups).forEach(cat => {
+    const container = document.getElementById('toc-' + cat);
+    if (!container) return;
+    container.innerHTML = groups[cat].map(f =>
+      `<a class="sidebar-link" href="#${f.anchor}" data-anchor="${f.anchor}"><span class="sid">${f.id}</span>${f.name}</a>`
+    ).join('');
+  });
+
+  // Mobile TOC
+  const mobileDrop = document.getElementById('mobileTocDropdown');
+  const catLabels = { client: 'Client Forms', employee: 'Employee Forms', training: 'Training Modules', eval: 'Competency Evals', other: 'Other' };
+  const catColors = { client: 'var(--blue)', employee: 'var(--orange)', training: 'var(--purple)', eval: 'var(--teal)', other: 'var(--text-lighter)' };
+  let mobileHTML = '';
+  Object.keys(groups).forEach(cat => {
+    mobileHTML += `<div class="sidebar-group"><div class="sidebar-group-title" style="color:${catColors[cat]}">${catLabels[cat]}</div>`;
+    mobileHTML += groups[cat].map(f =>
+      `<a class="sidebar-link" href="#${f.anchor}" data-anchor="${f.anchor}" onclick="closeMobileToc()"><span class="sid">${f.id}</span>${f.name}</a>`
+    ).join('');
+    mobileHTML += '</div>';
+  });
+  mobileDrop.innerHTML = mobileHTML;
+}
+
+// ===== RENDER FORM SECTIONS =====
+function renderForms() {
+  const container = document.getElementById('formsContainer');
+  container.innerHTML = forms.map((f, i) => {
+    const catClass = f.cat;
+    return `
+      <section class="form-section collapsed" id="${f.anchor}" data-anchor="${f.anchor}">
+        <div class="form-section-header" onclick="toggleSection(this)">
+          <span class="form-badge ${catClass}">${f.id}</span>
+          <span class="form-section-title">${f.name}</span>
+          <span class="form-section-id">${f.id}</span>
+          <span class="toggle-icon">&#9660;</span>
+        </div>
+        <div class="form-section-body">
+          <div class="form-iframe-wrap">
+            <iframe data-src="${f.file}?preview" title="${f.name}" tabindex="-1" sandbox="allow-same-origin allow-scripts"></iframe>
+          </div>
+          <div class="form-section-footer">
+            <a href="${f.file}" target="_blank" class="open-tab-link">Open in New Tab &#8599;</a>
+          </div>
+        </div>
+      </section>
+      ${i < forms.length - 1 ? '<hr class="form-divider">' : ''}`;
+  }).join('');
+}
+
+// ===== TOGGLE SECTION =====
+function toggleSection(header) {
+  const section = header.closest('.form-section');
+  section.classList.toggle('collapsed');
+  // Lazy-load iframe on first expand
+  if (!section.classList.contains('collapsed')) {
+    loadIframe(section);
+  }
+}
+
+function loadIframe(section) {
+  const iframe = section.querySelector('iframe[data-src]');
+  if (iframe) {
+    iframe.src = iframe.getAttribute('data-src');
+    iframe.removeAttribute('data-src');
+  }
+}
+
+// ===== COLLAPSE / EXPAND ALL =====
+document.getElementById('collapseAllBtn').addEventListener('click', () => {
+  document.querySelectorAll('.form-section').forEach(s => s.classList.add('collapsed'));
+});
+document.getElementById('expandAllBtn').addEventListener('click', () => {
+  const scrollPos = window.scrollY;
+  document.querySelectorAll('.form-section').forEach(s => {
+    s.classList.remove('collapsed');
+    loadIframe(s);
+  });
+  // Lock scroll position — prevent iframes from stealing focus
+  window.scrollTo(0, scrollPos);
+  const lockScroll = () => window.scrollTo(0, scrollPos);
+  window.addEventListener('scroll', lockScroll);
+  setTimeout(() => window.removeEventListener('scroll', lockScroll), 3000);
+});
+
+// ===== MOBILE TOC =====
+document.getElementById('mobileTocBtn').addEventListener('click', () => {
+  document.getElementById('mobileTocDropdown').classList.toggle('open');
+});
+function closeMobileToc() {
+  document.getElementById('mobileTocDropdown').classList.remove('open');
+}
+
+// ===== INTERSECTION OBSERVER — highlight active TOC link =====
+function setupObserver() {
+  const sections = document.querySelectorAll('.form-section');
+  const tocLinks = document.querySelectorAll('.sidebar-link');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const anchor = entry.target.dataset.anchor;
+        tocLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.anchor === anchor);
+        });
+        // Update mobile button text
+        const form = forms.find(f => f.anchor === anchor);
+        if (form) {
+          document.querySelector('#mobileTocBtn span:first-child').textContent = `${form.id} — ${form.name}`;
+        }
+      }
+    });
+  }, {
+    rootMargin: '-80px 0px -60% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(section => observer.observe(section));
+}
+
+// ===== SIDEBAR CLICK — expand + load iframe =====
+document.addEventListener('click', e => {
+  const link = e.target.closest('.sidebar-link');
+  if (!link) return;
+  const anchor = link.dataset.anchor;
+  const section = document.getElementById(anchor);
+  if (section) {
+    section.classList.remove('collapsed');
+    loadIframe(section);
+  }
+});
+
+// ===== INIT =====
+renderTOC();
+renderForms();
+setupObserver();
+
+</script>
+
+</body>
+</html>

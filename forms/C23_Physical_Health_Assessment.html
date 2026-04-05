@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physical Health Assessment — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 6px;
+    --radius-sm: 6px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HEADER ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM CONTENT ===== */
+  .form-content {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field-row-3 { display: flex; gap: 12px; }
+  .field-row-3 .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field textarea.large { min-height: 120px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS (radio) ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: background-color 0.2s, border-color 0.2s, color 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--green); color: var(--green); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CHECKBOX PILLS (multi-select) ===== */
+  .pills-check { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill-check { position: relative; cursor: pointer; }
+  .pill-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill-check span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: background-color 0.2s, border-color 0.2s, color 0.2s; user-select: none;
+  }
+  .pill-check:hover span { border-color: var(--green); color: var(--green); }
+  .pill-check input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== CONDITIONAL ===== */
+  .conditional { display: none; margin-top: 12px; padding: 14px; background: #FFFBEB; border: 1px solid #FDE68A; border-radius: var(--radius-sm); }
+  .conditional.visible { display: block; }
+
+  /* ===== FUNCTIONAL STATUS TABLE ===== */
+  .func-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 4px; }
+  .func-table th {
+    font-size: 13px; font-weight: 600; color: #6b7280;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    padding: 10px 12px; text-align: center;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+  }
+  .func-table th:first-child { text-align: left; }
+  .func-table td {
+    padding: 12px; border-bottom: 1px solid var(--border);
+    text-align: center; font-size: 16px;
+  }
+  .func-table td:first-child {
+    text-align: left; font-weight: 600; color: #1a1a1a;
+  }
+  .func-table tr:last-child td { border-bottom: none; }
+  .func-table input[type="radio"] {
+    width: 20px; height: 20px; accent-color: var(--green); cursor: pointer;
+  }
+
+  /* ===== NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    border: 1.5px solid var(--green);
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+  }
+  .btn-next:active { background: var(--green-dark); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: fadeIn 0.4s ease;
+  }
+  .vital-sign-card {
+    border-radius: 0;
+  }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PHI CALLOUT ===== */
+  .phi-callout {
+    background: #FEF2F2; border: 1px solid #FECACA;
+    border-radius: var(--radius-sm); padding: 14px 18px;
+    margin-bottom: 20px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 14px; color: #991B1B;
+  }
+  .phi-callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer, .phi-callout { display: none !important; }
+    .form-content { padding: 12px 16px; }
+    .section-label { font-size: 11px; margin: 16px 0 8px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .pill span, .pill-check span { border: 1px solid #ccc; padding: 3px 10px; font-size: 11px; border-radius: 4px; }
+    .pill input:not(:checked) + span, .pill-check input:not(:checked) + span { opacity: 0.3; }
+    .func-table th { font-size: 9px; padding: 4px; }
+    .func-table td { font-size: 10px; padding: 4px; }
+    .conditional { background: white; border: 1px solid #ddd; }
+    .confirmation { page-break-before: avoid; }
+  }
+
+  /* ===== VITAL SIGNS CARDS ===== */
+  .vital-sign-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px; margin-top: 12px; margin-bottom: 24px;
+  }
+  .vital-sign-card {
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 0; background: transparent;
+    border: none; border-radius: 0;
+    border-top: 3px solid #E2E8F0;
+    margin-bottom: 0; transition: none;
+  }
+  .vital-sign-card:focus-within {
+    border-color: #E2E8F0;
+  }
+  .vital-monogram {
+    display: none;
+  }
+  .vital-monogram.bp { display: none; }
+  .vital-monogram.hr { display: none; }
+  .vital-monogram.tm { display: none; }
+  .vital-monogram.wt { display: none; }
+  .vital-monogram.ht { display: none; }
+  .vital-monogram.rr { display: none; }
+  .vital-content {
+    flex: 1; min-width: 0;
+  }
+  .vital-label { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+  .vital-input {
+    width: 100%; padding: 10px 12px;
+    border: 1px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: border-color 0.2s;
+  }
+  .vital-input:focus { outline: none; border-color: var(--green); background: var(--white); }
+
+  /* ===== STRUCTURED TABLES ===== */
+  .data-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 12px; border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .data-table th {
+    background: #F8FAFC; color: #1a1a1a;
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 12px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 12px; border-bottom: 1px solid var(--border);
+    font-size: 15px; color: var(--text);
+  }
+  .data-table td:first-child {
+    width: 40px; text-align: center; font-weight: 600; color: #9CA3AF;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table input[type="text"], .data-table select {
+    width: 100%; padding: 8px 10px;
+    border: 1px solid var(--border); border-radius: 4px;
+    font-size: 14px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: border-color 0.2s;
+  }
+  .data-table input:focus, .data-table select:focus {
+    outline: none; border-color: var(--green);
+  }
+  .add-row-btn {
+    margin-top: 12px; padding: 10px 16px;
+    background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE;
+    border-radius: var(--radius-sm); font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .add-row-btn:hover {
+    background: #DBEAFE; border-color: #3B82F6;
+  }
+
+  /* ===== DIETARY CHIPS ===== */
+  .chips-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px; margin-top: 12px;
+  }
+  .chip {
+    position: relative; cursor: pointer;
+  }
+  .chip input {
+    position: absolute; opacity: 0; width: 0; height: 0;
+  }
+  .chip label {
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: 6px; background: var(--white); color: #4a5568;
+    font-size: 15px; font-weight: 500; cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s; user-select: none; margin: 0;
+  }
+  .chip input:checked + label {
+    background: #F0F4FF; color: #1E293B; border-color: #93A3C4; font-weight: 600;
+  }
+  .chip:hover label {
+    border-color: #93A3C4; color: #1E293B;
+  }
+  .dietary-counter {
+    margin-top: 12px; font-size: 14px; color: #64748B;
+  }
+  .dietary-other-input {
+    margin-top: 12px; padding: 10px 14px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    width: 100%; font-size: 15px; font-family: inherit; color: var(--text);
+    background: var(--white); display: none;
+  }
+  .dietary-other-input.visible { display: block; }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .hero { padding: 20px 16px; flex-direction: column; text-align: center; }
+    .hero-text h1 { font-size: 22px; }
+    .field-row { flex-direction: column; gap: 0; }
+    .field-row-3 { flex-direction: column; gap: 0; }
+    .form-content { padding: 24px 20px 20px; }
+    .pills, .pills-check { gap: 6px; }
+    .pill span, .pill-check span { padding: 10px 14px; font-size: 14px; }
+    .func-table { font-size: 14px; }
+    .func-table th { font-size: 11px; padding: 8px 4px; }
+    .func-table td { padding: 8px 4px; }
+    .func-table td:first-child { font-size: 14px; }
+    .vital-sign-card { flex-direction: column; align-items: flex-start; gap: 8px; border-top: 3px solid #E2E8F0; }
+    .chips-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+    .chip label { padding: 8px 12px; font-size: 14px; }
+    .data-table { font-size: 13px; }
+    .data-table th, .data-table td { padding: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Physical Health Assessment</h1>
+    <p>VitalTouch Health Network — Client health status evaluation</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- FORM -->
+    <div class="form-content" id="formContent">
+
+      <div class="phi-callout">
+        <span class="phi-callout-icon">&#128274;</span>
+        <span><strong>Protected Health Information (PHI):</strong> This form contains sensitive health data. All information is stored locally on your device and protected under HIPAA guidelines.</span>
+      </div>
+
+      <!-- CLIENT INFORMATION -->
+      <div class="section-label">Client Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Client Name <span class="req">*</span></label>
+          <input type="text" id="clientName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" id="clientDOB" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Assessment Date <span class="req">*</span></label>
+          <input type="date" id="assessDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Assessor Name <span class="req">*</span></label>
+          <input type="text" id="assessorName" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <!-- VITAL SIGNS -->
+      <div class="section-label">Vital Signs</div>
+
+      <div class="vital-sign-grid">
+        <div class="vital-sign-card">
+          <div class="vital-content">
+            <div class="vital-label">Blood Pressure</div>
+            <input type="text" id="vitalBP" class="vital-input" placeholder="120/80">
+          </div>
+        </div>
+
+        <div class="vital-sign-card">
+          <div class="vital-content">
+            <div class="vital-label">Heart Rate</div>
+            <input type="text" id="vitalHR" class="vital-input" placeholder="72 bpm">
+          </div>
+        </div>
+
+        <div class="vital-sign-card">
+          <div class="vital-content">
+            <div class="vital-label">Temperature</div>
+            <input type="text" id="vitalTemp" class="vital-input" placeholder="98.6°F">
+          </div>
+        </div>
+
+        <div class="vital-sign-card">
+          <div class="vital-content">
+            <div class="vital-label">Weight</div>
+            <input type="text" id="vitalWeight" class="vital-input" placeholder="lbs">
+          </div>
+        </div>
+
+        <div class="vital-sign-card">
+          <div class="vital-content">
+            <div class="vital-label">Height</div>
+            <input type="text" id="vitalHeight" class="vital-input" placeholder="ft/in">
+          </div>
+        </div>
+
+        <div class="vital-sign-card">
+          <div class="vital-content">
+            <div class="vital-label">Respiratory Rate</div>
+            <input type="text" id="vitalResp" class="vital-input" placeholder="breaths/min">
+          </div>
+        </div>
+      </div>
+
+      <!-- CURRENT MEDICAL DIAGNOSES -->
+      <div class="section-label">Current Medical Diagnoses</div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 40px;">#</th>
+            <th>Diagnosis</th>
+            <th style="width: 140px;">Date of Onset</th>
+            <th style="width: 120px;">Status</th>
+          </tr>
+        </thead>
+        <tbody id="diagnosesTableBody">
+          <tr>
+            <td>1</td>
+            <td><input type="text" placeholder="Diagnosis name"></td>
+            <td><input type="date"></td>
+            <td><select><option value="">Select</option><option value="active">Active</option><option value="resolved">Resolved</option></select></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" placeholder="Diagnosis name"></td>
+            <td><input type="date"></td>
+            <td><select><option value="">Select</option><option value="active">Active</option><option value="resolved">Resolved</option></select></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><input type="text" placeholder="Diagnosis name"></td>
+            <td><input type="date"></td>
+            <td><select><option value="">Select</option><option value="active">Active</option><option value="resolved">Resolved</option></select></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><input type="text" placeholder="Diagnosis name"></td>
+            <td><input type="date"></td>
+            <td><select><option value="">Select</option><option value="active">Active</option><option value="resolved">Resolved</option></select></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><input type="text" placeholder="Diagnosis name"></td>
+            <td><input type="date"></td>
+            <td><select><option value="">Select</option><option value="active">Active</option><option value="resolved">Resolved</option></select></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="add-row-btn" onclick="addDxRow()">+ Add Diagnosis Row</button>
+
+      <!-- CURRENT MEDICATIONS -->
+      <div class="section-label">Current Medications</div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 40px;">#</th>
+            <th>Medication Name</th>
+            <th style="width: 110px;">Dose</th>
+            <th style="width: 130px;">Frequency</th>
+            <th style="width: 100px;">Route</th>
+          </tr>
+        </thead>
+        <tbody id="medicationsTableBody">
+          <tr>
+            <td>1</td>
+            <td><input type="text" placeholder="Medication name"></td>
+            <td><input type="text" placeholder="e.g., 10mg"></td>
+            <td><input type="text" placeholder="e.g., twice daily"></td>
+            <td><input type="text" placeholder="e.g., oral"></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" placeholder="Medication name"></td>
+            <td><input type="text" placeholder="e.g., 10mg"></td>
+            <td><input type="text" placeholder="e.g., twice daily"></td>
+            <td><input type="text" placeholder="e.g., oral"></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><input type="text" placeholder="Medication name"></td>
+            <td><input type="text" placeholder="e.g., 10mg"></td>
+            <td><input type="text" placeholder="e.g., twice daily"></td>
+            <td><input type="text" placeholder="e.g., oral"></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><input type="text" placeholder="Medication name"></td>
+            <td><input type="text" placeholder="e.g., 10mg"></td>
+            <td><input type="text" placeholder="e.g., twice daily"></td>
+            <td><input type="text" placeholder="e.g., oral"></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><input type="text" placeholder="Medication name"></td>
+            <td><input type="text" placeholder="e.g., 10mg"></td>
+            <td><input type="text" placeholder="e.g., twice daily"></td>
+            <td><input type="text" placeholder="e.g., oral"></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><input type="text" placeholder="Medication name"></td>
+            <td><input type="text" placeholder="e.g., 10mg"></td>
+            <td><input type="text" placeholder="e.g., twice daily"></td>
+            <td><input type="text" placeholder="e.g., oral"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="add-row-btn" onclick="addMedRow()">+ Add Medication Row</button>
+
+      <!-- ALLERGIES -->
+      <div class="section-label">Allergies</div>
+
+      <div class="field">
+        <label>Known Allergies</label>
+        <div class="pills-check">
+          <label class="pill-check"><input type="checkbox" name="allergyType" value="none" onchange="handleAllergyToggle(this)"><span>No Known Allergies</span></label>
+          <label class="pill-check"><input type="checkbox" name="allergyType" value="medication" onchange="handleAllergyToggle(this)"><span>Medication Allergies</span></label>
+          <label class="pill-check"><input type="checkbox" name="allergyType" value="food" onchange="handleAllergyToggle(this)"><span>Food Allergies</span></label>
+          <label class="pill-check"><input type="checkbox" name="allergyType" value="environmental" onchange="handleAllergyToggle(this)"><span>Environmental Allergies</span></label>
+        </div>
+      </div>
+
+      <div class="conditional" id="allergyDetails">
+        <div class="field" style="margin-bottom:0;">
+          <label>Allergy Details</label>
+          <textarea id="allergyDetailsText" placeholder="Describe allergies and any known reactions..."></textarea>
+        </div>
+      </div>
+
+      <!-- PAIN ASSESSMENT -->
+      <div class="section-label">Pain Assessment</div>
+
+      <div class="field">
+        <label>Current Pain Level</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="painLevel" value="0" onchange="handlePainChange()"><span>0 - None</span></label>
+          <label class="pill"><input type="radio" name="painLevel" value="1-3" onchange="handlePainChange()"><span>1-3 Mild</span></label>
+          <label class="pill"><input type="radio" name="painLevel" value="4-6" onchange="handlePainChange()"><span>4-6 Moderate</span></label>
+          <label class="pill"><input type="radio" name="painLevel" value="7-10" onchange="handlePainChange()"><span>7-10 Severe</span></label>
+        </div>
+      </div>
+
+      <div class="conditional" id="painDetails">
+        <div class="field">
+          <label>Pain Location</label>
+          <input type="text" id="painLocation" placeholder="Where is the pain located?">
+        </div>
+        <div class="field" style="margin-bottom:0;">
+          <label>Pain Description</label>
+          <input type="text" id="painDescription" placeholder="e.g. sharp, dull, throbbing, constant, intermittent">
+        </div>
+      </div>
+
+      <!-- FUNCTIONAL STATUS -->
+      <div class="section-label">Functional Status</div>
+
+      <table class="func-table">
+        <thead>
+          <tr>
+            <th>Function</th>
+            <th>Normal</th>
+            <th>Impaired</th>
+            <th>Severely Impaired</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vision</td>
+            <td><input type="radio" name="funcVision" value="normal"></td>
+            <td><input type="radio" name="funcVision" value="impaired"></td>
+            <td><input type="radio" name="funcVision" value="severely-impaired"></td>
+          </tr>
+          <tr>
+            <td>Hearing</td>
+            <td><input type="radio" name="funcHearing" value="normal"></td>
+            <td><input type="radio" name="funcHearing" value="impaired"></td>
+            <td><input type="radio" name="funcHearing" value="severely-impaired"></td>
+          </tr>
+          <tr>
+            <td>Speech</td>
+            <td><input type="radio" name="funcSpeech" value="normal"></td>
+            <td><input type="radio" name="funcSpeech" value="impaired"></td>
+            <td><input type="radio" name="funcSpeech" value="severely-impaired"></td>
+          </tr>
+          <tr>
+            <td>Mobility</td>
+            <td><input type="radio" name="funcMobility" value="normal"></td>
+            <td><input type="radio" name="funcMobility" value="impaired"></td>
+            <td><input type="radio" name="funcMobility" value="severely-impaired"></td>
+          </tr>
+          <tr>
+            <td>Skin Integrity</td>
+            <td><input type="radio" name="funcSkin" value="normal"></td>
+            <td><input type="radio" name="funcSkin" value="impaired"></td>
+            <td><input type="radio" name="funcSkin" value="severely-impaired"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- NUTRITIONAL STATUS -->
+      <div class="section-label">Nutritional Status</div>
+
+      <div class="field">
+        <label>Appetite</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="appetite" value="good"><span>Good</span></label>
+          <label class="pill"><input type="radio" name="appetite" value="fair"><span>Fair</span></label>
+          <label class="pill"><input type="radio" name="appetite" value="poor"><span>Poor</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Dietary Restrictions</label>
+        <div class="chips-grid">
+          <div class="chip">
+            <input type="checkbox" id="diet-lowSodium" name="dietaryRestriction" value="Low Sodium" onchange="updateDietaryCounter()">
+            <label for="diet-lowSodium">Low Sodium</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-diabetic" name="dietaryRestriction" value="Diabetic Diet" onchange="updateDietaryCounter()">
+            <label for="diet-diabetic">Diabetic Diet</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-glutenFree" name="dietaryRestriction" value="Gluten-Free" onchange="updateDietaryCounter()">
+            <label for="diet-glutenFree">Gluten-Free</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-vegetarian" name="dietaryRestriction" value="Vegetarian" onchange="updateDietaryCounter()">
+            <label for="diet-vegetarian">Vegetarian</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-pureed" name="dietaryRestriction" value="Pureed" onchange="updateDietaryCounter()">
+            <label for="diet-pureed">Pureed</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-thickened" name="dietaryRestriction" value="Thickened Liquids" onchange="updateDietaryCounter()">
+            <label for="diet-thickened">Thickened Liquids</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-renal" name="dietaryRestriction" value="Renal Diet" onchange="updateDietaryCounter()">
+            <label for="diet-renal">Renal Diet</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-lowFat" name="dietaryRestriction" value="Low Fat" onchange="updateDietaryCounter()">
+            <label for="diet-lowFat">Low Fat</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-dairyFree" name="dietaryRestriction" value="Dairy-Free" onchange="updateDietaryCounter()">
+            <label for="diet-dairyFree">Dairy-Free</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-nutFree" name="dietaryRestriction" value="Nut-Free" onchange="updateDietaryCounter()">
+            <label for="diet-nutFree">Nut-Free</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-kosher" name="dietaryRestriction" value="Kosher" onchange="updateDietaryCounter()">
+            <label for="diet-kosher">Kosher</label>
+          </div>
+          <div class="chip">
+            <input type="checkbox" id="diet-other" name="dietaryRestriction" value="Other" onchange="updateDietaryCounter(); handleOtherDiet(this)">
+            <label for="diet-other">Other</label>
+          </div>
+        </div>
+        <div class="dietary-counter" id="dietaryCounter"></div>
+        <input type="text" id="dietaryOtherText" class="dietary-other-input" placeholder="Please specify other dietary restrictions...">
+      </div>
+
+      <div class="field">
+        <label>Recent Weight Change</label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="weightChange" value="none"><span>None</span></label>
+          <label class="pill"><input type="radio" name="weightChange" value="gain"><span>Gain</span></label>
+          <label class="pill"><input type="radio" name="weightChange" value="loss"><span>Loss</span></label>
+        </div>
+      </div>
+
+      <!-- ADDITIONAL NOTES -->
+      <div class="section-label">Additional Notes</div>
+
+      <div class="field">
+        <label>Assessor Notes</label>
+        <textarea id="assessorNotes" placeholder="Any additional observations, concerns, or notes..."></textarea>
+      </div>
+
+    </div>
+
+    <!-- CONFIRMATION (hidden by default) -->
+    <div class="confirmation" id="confirmationScreen">
+      <div class="conf-check">&#10003;</div>
+      <h2>Assessment Submitted</h2>
+      <p>The Physical Health Assessment has been saved successfully. This record is stored locally and protected under HIPAA guidelines.</p>
+      <div class="conf-id">Assessment ID: <span id="confId"></span></div>
+      <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-next" onclick="window.print()" style="background: var(--text); box-shadow: none;">Print Copy</button>
+      </div>
+    </div>
+
+    <!-- SUBMIT NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-next" id="btnSubmit" onclick="submitForm()">Submit Assessment &#8594;</button>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">&#128274; HIPAA Compliant</div>
+      <div class="trust-item">&#127973; IDPH Licensed</div>
+      <div class="trust-item">&#128203; Form C.23</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== STATE =====
+var formId = 'C.23';
+var formVersion = '1.0';
+
+// ===== ALLERGY TOGGLE =====
+function handleAllergyToggle(el) {
+  var checkboxes = document.querySelectorAll('input[name="allergyType"]');
+
+  // If "No Known Allergies" is checked, uncheck others
+  if (el.value === 'none' && el.checked) {
+    checkboxes.forEach(function(cb) {
+      if (cb.value !== 'none') cb.checked = false;
+    });
+  }
+
+  // If any allergy type is checked, uncheck "none"
+  if (el.value !== 'none' && el.checked) {
+    checkboxes.forEach(function(cb) {
+      if (cb.value === 'none') cb.checked = false;
+    });
+  }
+
+  // Show/hide allergy details
+  var hasAllergySelected = false;
+  checkboxes.forEach(function(cb) {
+    if (cb.checked && cb.value !== 'none') hasAllergySelected = true;
+  });
+  document.getElementById('allergyDetails').classList.toggle('visible', hasAllergySelected);
+}
+
+// ===== PAIN LEVEL CHANGE =====
+function handlePainChange() {
+  var selected = document.querySelector('input[name="painLevel"]:checked');
+  var showDetails = selected && selected.value !== '0';
+  document.getElementById('painDetails').classList.toggle('visible', showDetails);
+}
+
+// ===== PHONE FORMATTING =====
+document.querySelectorAll('input[type="tel"]').forEach(function(input) {
+  input.addEventListener('input', function() {
+    var v = this.value.replace(/\D/g, '');
+    if (v.length > 0) {
+      if (v.length <= 3) v = '(' + v;
+      else if (v.length <= 6) v = '(' + v.slice(0,3) + ') ' + v.slice(3);
+      else v = '(' + v.slice(0,3) + ') ' + v.slice(3,6) + '-' + v.slice(6,10);
+    }
+    this.value = v;
+  });
+});
+
+// ===== VALIDATION =====
+function validateForm() {
+  var container = document.getElementById('formContent');
+  var valid = true;
+
+  // Required text/date inputs
+  container.querySelectorAll('input[required], select[required], textarea[required]').forEach(function(el) {
+    var field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  if (!valid) {
+    var firstError = container.querySelector('.invalid, .has-error input');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+// ===== HELPER: GET RADIO VALUE =====
+function getRadioValue(name) {
+  var el = document.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.value : '';
+}
+
+// ===== HELPER: GET CHECKED VALUES =====
+function getCheckedValues(name) {
+  return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked')).map(function(cb) { return cb.value; });
+}
+
+// ===== TABLE: ADD DIAGNOSIS ROW =====
+function addDxRow() {
+  var body = document.getElementById('diagnosesTableBody');
+  var rowCount = body.rows.length + 1;
+  var row = body.insertRow();
+  row.innerHTML = '<td>' + rowCount + '</td>' +
+    '<td><input type="text" placeholder="Diagnosis name"></td>' +
+    '<td><input type="date"></td>' +
+    '<td><select><option value="">Select</option><option value="active">Active</option><option value="resolved">Resolved</option></select></td>';
+}
+
+// ===== TABLE: ADD MEDICATION ROW =====
+function addMedRow() {
+  var body = document.getElementById('medicationsTableBody');
+  var rowCount = body.rows.length + 1;
+  var row = body.insertRow();
+  row.innerHTML = '<td>' + rowCount + '</td>' +
+    '<td><input type="text" placeholder="Medication name"></td>' +
+    '<td><input type="text" placeholder="e.g., 10mg"></td>' +
+    '<td><input type="text" placeholder="e.g., twice daily"></td>' +
+    '<td><input type="text" placeholder="e.g., oral"></td>';
+}
+
+// ===== TABLE: COLLECT DIAGNOSIS DATA =====
+function collectDxTableData() {
+  var body = document.getElementById('diagnosesTableBody');
+  var data = [];
+  for (var i = 0; i < body.rows.length; i++) {
+    var inputs = body.rows[i].querySelectorAll('input, select');
+    if (inputs[0].value.trim()) {
+      data.push({
+        diagnosis: inputs[0].value,
+        dateOfOnset: inputs[1].value,
+        status: inputs[2].value
+      });
+    }
+  }
+  return data;
+}
+
+// ===== TABLE: COLLECT MEDICATION DATA =====
+function collectMedTableData() {
+  var body = document.getElementById('medicationsTableBody');
+  var data = [];
+  for (var i = 0; i < body.rows.length; i++) {
+    var inputs = body.rows[i].querySelectorAll('input');
+    if (inputs[0].value.trim()) {
+      data.push({
+        medicationName: inputs[0].value,
+        dose: inputs[1].value,
+        frequency: inputs[2].value,
+        route: inputs[3].value
+      });
+    }
+  }
+  return data;
+}
+
+// ===== DIETARY: UPDATE COUNTER =====
+function updateDietaryCounter() {
+  var checked = document.querySelectorAll('input[name="dietaryRestriction"]:checked');
+  var count = checked.length;
+  var counter = document.getElementById('dietaryCounter');
+  if (count > 0) {
+    counter.textContent = count + ' selected';
+  } else {
+    counter.textContent = '';
+  }
+}
+
+// ===== DIETARY: HANDLE OTHER OPTION =====
+function handleOtherDiet(checkbox) {
+  var otherInput = document.getElementById('dietaryOtherText');
+  if (checkbox.checked) {
+    otherInput.classList.add('visible');
+  } else {
+    otherInput.classList.remove('visible');
+    otherInput.value = '';
+  }
+}
+
+// ===== DIETARY: COLLECT RESTRICTIONS =====
+function collectDietaryRestrictions() {
+  var checked = document.querySelectorAll('input[name="dietaryRestriction"]:checked');
+  var restrictions = Array.from(checked).map(function(cb) { return cb.value; });
+  var otherInput = document.getElementById('dietaryOtherText');
+  if (restrictions.includes('Other') && otherInput.value.trim()) {
+    restrictions[restrictions.indexOf('Other')] = 'Other: ' + otherInput.value;
+  }
+  return restrictions;
+}
+
+// ===== SUBMIT =====
+function submitForm() {
+  if (!validateForm()) return;
+
+  var data = {
+    formId: formId,
+    formVersion: formVersion,
+    timestamp: new Date().toISOString(),
+    client: {
+      name: document.getElementById('clientName').value,
+      dob: document.getElementById('clientDOB').value,
+    },
+    assessmentDate: document.getElementById('assessDate').value,
+    assessorName: document.getElementById('assessorName').value,
+    vitalSigns: {
+      bloodPressure: document.getElementById('vitalBP').value,
+      heartRate: document.getElementById('vitalHR').value,
+      temperature: document.getElementById('vitalTemp').value,
+      weight: document.getElementById('vitalWeight').value,
+      height: document.getElementById('vitalHeight').value,
+      respiratoryRate: document.getElementById('vitalResp').value,
+    },
+    diagnoses: collectDxTableData(),
+    medications: collectMedTableData(),
+    allergies: {
+      types: getCheckedValues('allergyType'),
+      details: document.getElementById('allergyDetailsText').value,
+    },
+    painAssessment: {
+      level: getRadioValue('painLevel'),
+      location: document.getElementById('painLocation').value,
+      description: document.getElementById('painDescription').value,
+    },
+    functionalStatus: {
+      vision: getRadioValue('funcVision'),
+      hearing: getRadioValue('funcHearing'),
+      speech: getRadioValue('funcSpeech'),
+      mobility: getRadioValue('funcMobility'),
+      skinIntegrity: getRadioValue('funcSkin'),
+    },
+    nutritionalStatus: {
+      appetite: getRadioValue('appetite'),
+      dietaryRestrictions: collectDietaryRestrictions(),
+      recentWeightChange: getRadioValue('weightChange'),
+    },
+    additionalNotes: document.getElementById('assessorNotes').value,
+  };
+
+  // Generate submission ID
+  var id = 'C23-' + Date.now().toString(36).toUpperCase();
+  document.getElementById('confId').textContent = id;
+  data.submissionId = id;
+
+  // Store locally
+  var stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+    // ── Flow Engine Integration ──
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const flowId = params.get('flowId');
+        if (flowId) {
+          VTFlow.recordSubmission(flowId, 'C23', data);
+          console.log('VTFlow: Recorded C.23 submission for flow ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+  // Show confirmation
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formNav').style.display = 'none';
+  document.getElementById('confirmationScreen').style.display = 'block';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  console.log('Assessment submitted:', data);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  // Set today's date as default for assessment date
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('assessDate').value = today;
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

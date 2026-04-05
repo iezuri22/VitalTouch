@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Initial 5-Hour Training (30 Days) — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 6px;
+    --radius-sm: 6px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #F8FAFC 0%, #F8FAFC 100%);
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM BODY ===== */
+  .form-body {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label.field-label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label.field-label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red);
+  }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 14px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== MONOGRAM BADGES ===== */
+  .monogram-badge {
+    display: none !important;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .monogram-badge.blue {
+    background: #DBEAFE;
+    color: #1E40AF;
+  }
+  .monogram-badge.green {
+    background: #DCFCE7;
+    color: #166534;
+  }
+  .monogram-badge.amber {
+    background: #FEF3C7;
+    color: #92400E;
+  }
+
+  /* ===== DEADLINE NOTICE CARD ===== */
+  .deadline-card {
+    background: #FEF3C7;
+    border: 2px solid #F59E0B;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    border-left: 5px solid #92400E;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .deadline-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
+  }
+  .deadline-card-content {
+    flex: 1;
+  }
+  .deadline-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #92400E;
+    margin-bottom: 4px;
+  }
+  .deadline-card-text {
+    font-size: 15px;
+    color: #92400E;
+    line-height: 1.5;
+  }
+  .deadline-card-emphasis {
+    font-weight: 700;
+    color: #7C2D12;
+  }
+
+  /* ===== PROGRESS SECTION ===== */
+  .progress-section {
+    margin: 0 0 24px;
+    padding: 20px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .progress-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #6b7280;
+  }
+  .progress-count {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-light);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+  .progress-bar-bg {
+    width: 100%;
+    height: 12px;
+    background: var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green), #22C55E);
+    border-radius: 6px;
+    transition: width 0.4s ease;
+  }
+  .progress-pct {
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-lighter);
+    margin-top: 4px;
+  }
+
+  /* ===== TRAINING CARDS ===== */
+  .training-card {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    background: var(--white);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  .training-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .training-card.completed {
+    border-color: var(--green);
+    background: linear-gradient(135deg, #F8FAFC 0%, #F8FAFC 100%) 100%);
+  }
+  .training-card.completed .training-card-header {
+    background: var(--green-light);
+  }
+  .training-card.completed .section-badge {
+    background: var(--green);
+    color: var(--white);
+  }
+  .training-card.completed .section-title {
+    color: var(--green-dark);
+  }
+  .training-card.completed .mark-complete-btn {
+    background: var(--green);
+    color: var(--white);
+    border-color: var(--green);
+  }
+
+  .training-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+    background: var(--bg);
+  }
+  .training-card-header:hover {
+    background: #f1f5f9;
+  }
+  .training-card.completed .training-card-header:hover {
+    background: #dcfce7;
+  }
+
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #e2e8f0;
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+
+  .section-title {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    transition: color 0.3s;
+  }
+
+  .card-toggle {
+    font-size: 18px;
+    color: var(--text-lighter);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .training-card.open .card-toggle {
+    transform: rotate(180deg);
+  }
+
+  .completed-check {
+    display: none;
+    color: var(--green);
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-right: 4px;
+  }
+  .training-card.completed .completed-check {
+    display: inline-block;
+  }
+
+  .training-card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .training-card.open .training-card-body {
+    max-height: 600px;
+  }
+
+  .training-card-content {
+    padding: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-desc {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    padding-left: 12px;
+    border-left: 3px solid var(--border);
+    transition: border-color 0.3s;
+  }
+  .training-card[data-section="1"] .section-desc,
+  .training-card[data-section="5"] .section-desc,
+  .training-card[data-section="7"] .section-desc,
+  .training-card[data-section="8"] .section-desc,
+  .training-card[data-section="9"] .section-desc,
+  .training-card[data-section="10"] .section-desc,
+  .training-card[data-section="11"] .section-desc,
+  .training-card[data-section="12"] .section-desc,
+  .training-card[data-section="13"] .section-desc,
+  .training-card[data-section="14"] .section-desc,
+  .training-card[data-section="15"] .section-desc,
+  .training-card[data-section="20"] .section-desc,
+  .training-card[data-section="21"] .section-desc,
+  .training-card[data-section="22"] .section-desc,
+  .training-card[data-section="23"] .section-desc,
+  .training-card[data-section="25"] .section-desc {
+    border-left-color: #E2E8F0;
+  }
+  .training-card[data-section="2"] .section-desc,
+  .training-card[data-section="3"] .section-desc,
+  .training-card[data-section="4"] .section-desc,
+  .training-card[data-section="6"] .section-desc,
+  .training-card[data-section="16"] .section-desc,
+  .training-card[data-section="17"] .section-desc,
+  .training-card[data-section="18"] .section-desc,
+  .training-card[data-section="24"] .section-desc {
+    border-left-color: #E2E8F0;
+  }
+  .training-card[data-section="19"] .section-desc {
+    border-left-color: #E2E8F0;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    height: 200px;
+    background: #F8FAFC;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #E2E8F0;
+  }
+  .video-placeholder:hover {
+    background: #F8FAFC;
+    border-color: #E2E8F0;
+  }
+  .video-placeholder::before {
+    display: none;
+  }
+  .play-icon {
+    display: none;
+  }
+  .video-placeholder:hover .play-icon {
+    display: none;
+  }
+  .play-icon::after {
+    display: none;
+  }
+  .video-label {
+    color: #64748B;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mark-complete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    background: var(--white);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+    width: 100%;
+    justify-content: center;
+  }
+  .mark-complete-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+    background: var(--white);
+  }
+  .training-card.completed .mark-complete-btn:hover {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    color: var(--white);
+  }
+
+  /* ===== SUBMIT AREA ===== */
+  .form-nav {
+    padding: 20px 28px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .form-nav.hidden { display: none; }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-submit {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: none;
+  }
+  .btn-submit:hover {
+    background: var(--green-dark);
+  }
+  .btn-submit:active { background: var(--green-dark); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 460px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+  .conf-summary {
+    margin-top: 16px; font-size: 14px; color: var(--text-light);
+    font-weight: 600;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== DEADLINE NOTICE ===== */
+  .deadline-notice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #FEF3C7;
+    border: 1.5px solid #F59E0B;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #92400E;
+  }
+  .deadline-notice .deadline-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .deadline-notice .deadline-days {
+    font-weight: 700;
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .trust-bar, .footer { display: none !important; }
+    .form-body { padding: 12px 16px; }
+    .progress-section { break-inside: avoid; }
+    .training-card-body { max-height: none !important; }
+    .training-card-content { padding: 8px 12px; }
+    .video-placeholder { display: none; }
+    .mark-complete-btn { display: none; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; gap: 14px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-body { padding: 24px 20px 20px; }
+    .form-nav { padding: 16px 20px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+    .progress-section { padding: 14px; }
+    .training-card-header { padding: 14px 16px; gap: 10px; }
+    .section-badge { width: 34px; height: 34px; font-size: 12px; }
+    .section-title { font-size: 15px; }
+    .training-card-content { padding: 16px; }
+    .video-placeholder { height: 160px; }
+    .progress-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .deadline-notice { flex-direction: column; text-align: center; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Initial 5-Hour Training (30 Days of Hire)</h1>
+    <p>VitalTouch Health Network &mdash; Required within 30 days of employment</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- FORM -->
+    <div class="form-body" id="formBody">
+
+      <!-- ===== EMPLOYEE INFORMATION ===== -->
+      <div class="section-label" style="margin-top:0; display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+        <span class="monogram-badge green">EI</span>
+        <span>Employee Information</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Employee Name <span class="req">*</span></label>
+          <input type="text" id="employeeName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Employee ID</label>
+          <input type="text" id="employeeId" placeholder="Optional">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Hire Date <span class="req">*</span></label>
+          <input type="date" id="hireDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Start Date</label>
+          <input type="date" id="startDate">
+        </div>
+      </div>
+
+      <!-- ===== DEADLINE NOTICE CARD ===== -->
+      <div class="deadline-card" id="deadlineNotice">
+        <div class="deadline-card-header">
+          <span class="monogram-badge amber">DL</span>
+        </div>
+        <div class="deadline-card-content">
+          <div class="deadline-card-title">30-Day Deadline</div>
+          <div class="deadline-card-text">This training must be completed within <span class="deadline-card-emphasis">30 days</span> of your hire date. Enter your hire date above to see your deadline.</div>
+        </div>
+      </div>
+
+      <!-- ===== PROGRESS TRACKER ===== -->
+      <div class="section-label">Training Progress</div>
+
+      <div class="progress-section" id="progressSection">
+        <div class="progress-header">
+          <span class="progress-title">Sections Completed</span>
+          <span class="progress-count" id="progressCount"><span id="progressNum">0</span>/25</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-pct" id="progressPct">0%</div>
+      </div>
+
+      <!-- ===== TRAINING SECTIONS ===== -->
+      <div class="section-label">Training Sections</div>
+
+      <div id="trainingCards"></div>
+
+    </div><!-- /form-body -->
+
+    <!-- SUBMIT NAV -->
+    <div class="form-nav hidden" id="formNav">
+      <button class="btn btn-submit" id="submitBtn" onclick="submitForm()">
+        Submit Training Completion &rarr;
+      </button>
+    </div>
+
+    <!-- CONFIRMATION -->
+    <div class="confirmation" id="confirmation">
+      <div class="conf-check">&#10003;</div>
+      <h2>Training Completed!</h2>
+      <p>Your Initial 5-Hour Training (30 Days) has been successfully recorded. A notification has been sent to the VitalTouch office.</p>
+      <div class="conf-summary" id="confSummary"></div>
+      <div class="conf-id" id="confId"></div>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <span class="trust-item">&#128274; HIPAA Compliant</span>
+      <span class="trust-item">&#127973; IDPH Licensed</span>
+      <span class="trust-item">&#128203; Form A.3</span>
+    </div>
+  </div><!-- /card -->
+
+  <div class="footer">
+    VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430<br>
+    (708) 774-4850 &middot; <a href="https://vitaltouchcares.com" target="_blank">vitaltouchcares.com</a>
+  </div>
+</div><!-- /main-container -->
+
+<script>
+  // ===== TRAINING SECTIONS DATA =====
+  const sections = [
+    { num: 1,  title: 'Advanced Communication Techniques', desc: 'Building rapport with clients and handling difficult situations.' },
+    { num: 2,  title: 'Understanding Client Care Plans', desc: 'Reading and following individualized care plans.' },
+    { num: 3,  title: 'Medication Awareness', desc: 'Understanding common medications and when to alert a supervisor.' },
+    { num: 4,  title: 'Chronic Conditions Overview', desc: 'Diabetes, heart disease, COPD, and arthritis basics.' },
+    { num: 5,  title: 'Mental Health Awareness', desc: 'Depression, anxiety, and behavioral health in elderly clients.' },
+    { num: 6,  title: 'Alzheimer\'s and Dementia Introduction', desc: 'Basic understanding of cognitive impairments.' },
+    { num: 7,  title: 'Working with Clients with Disabilities', desc: 'Physical, intellectual, and developmental disabilities.' },
+    { num: 8,  title: 'Advanced Personal Care Techniques', desc: 'Specialized bathing, grooming, and dressing approaches.' },
+    { num: 9,  title: 'Mobility and Transfer Assistance', desc: 'Safe lifting, transferring, and ambulation techniques.' },
+    { num: 10, title: 'Nutrition: Special Dietary Needs', desc: 'Diabetic, low-sodium, heart-healthy, and pureed diets.' },
+    { num: 11, title: 'Advanced Meal Preparation', desc: 'Preparing meals for clients with special dietary requirements.' },
+    { num: 12, title: 'Laundry and Clothing Care', desc: 'Proper laundry procedures and clothing management.' },
+    { num: 13, title: 'Deep Cleaning Procedures', desc: 'Thorough cleaning techniques for client homes.' },
+    { num: 14, title: 'Managing Client Finances', desc: 'Assisting with bill payment and avoiding financial exploitation.' },
+    { num: 15, title: 'Transportation Safety', desc: 'Safe practices when clients need transportation assistance.' },
+    { num: 16, title: 'Technology in Home Care', desc: 'Using tablets, phones, and monitoring devices.' },
+    { num: 17, title: 'EVV Advanced Training', desc: 'Troubleshooting EVV issues and proper documentation.' },
+    { num: 18, title: 'Incident Reporting: Detailed Procedures', desc: 'Step-by-step incident documentation and reporting.' },
+    { num: 19, title: 'Abuse Prevention: Advanced Scenarios', desc: 'Case studies and response protocols.' },
+    { num: 20, title: 'Client and Family Dynamics', desc: 'Navigating family relationships and caregiver coordination.' },
+    { num: 21, title: 'End-of-Life Care Basics', desc: 'Comfort care, hospice awareness, and supporting grieving families.' },
+    { num: 22, title: 'Self-Care for Caregivers', desc: 'Managing stress, compassion fatigue, and work-life balance.' },
+    { num: 23, title: 'Quality of Care Standards', desc: 'VitalTouch\'s quality expectations and performance standards.' },
+    { num: 24, title: 'Continuing Education Requirements', desc: 'Ongoing training obligations and career development.' },
+    { num: 25, title: 'Training Completion and Assessment', desc: 'Final review, Q&A, and training acknowledgment.' }
+  ];
+
+  const TOTAL_SECTIONS = sections.length;
+  const completedSections = new Set();
+
+  // ===== SET DEFAULT START DATE =====
+  (function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('startDate').value = today;
+  })();
+
+  // ===== DEADLINE CALCULATION =====
+  document.getElementById('hireDate').addEventListener('change', function() {
+    const hireDate = new Date(this.value + 'T00:00:00');
+    if (isNaN(hireDate.getTime())) return;
+
+    const deadline = new Date(hireDate);
+    deadline.setDate(deadline.getDate() + 30);
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const daysLeft = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+    const deadlineStr = deadline.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    const notice = document.getElementById('deadlineNotice');
+    const contentDiv = notice.querySelector('.deadline-card-content');
+    if (daysLeft <= 0) {
+      notice.style.background = '#FEE2E2';
+      notice.style.borderColor = '#EF4444';
+      notice.style.borderLeftColor = '#DC2626';
+      notice.querySelector('.monogram-badge').textContent = 'EX';
+      notice.querySelector('.monogram-badge').className = 'monogram-badge';
+      notice.querySelector('.monogram-badge').style.background = '#FECACA';
+      notice.querySelector('.monogram-badge').style.color = '#7F1D1D';
+      contentDiv.innerHTML = '<div class="deadline-card-title" style="color:#DC2626;">Training Overdue</div><div class="deadline-card-text" style="color:#7F1D1D;">Your training deadline has <span class="deadline-card-emphasis">passed</span>. Deadline was ' + deadlineStr + '. Please complete immediately.</div>';
+    } else if (daysLeft <= 7) {
+      notice.style.background = '#FEF3C7';
+      notice.style.borderColor = '#F59E0B';
+      notice.style.borderLeftColor = '#92400E';
+      notice.querySelector('.monogram-badge').textContent = 'DL';
+      notice.querySelector('.monogram-badge').className = 'monogram-badge amber';
+      contentDiv.innerHTML = '<div class="deadline-card-title">Urgent: Deadline Approaching</div><div class="deadline-card-text"><span class="deadline-card-emphasis">' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + '</span> remaining to complete training. Deadline: ' + deadlineStr + '</div>';
+    } else {
+      notice.style.background = '#DCFCE7';
+      notice.style.borderColor = '#16A34A';
+      notice.style.borderLeftColor = '#166534';
+      notice.querySelector('.monogram-badge').textContent = 'OK';
+      notice.querySelector('.monogram-badge').className = 'monogram-badge green';
+      contentDiv.innerHTML = '<div class="deadline-card-title" style="color:#166534;">On Track</div><div class="deadline-card-text" style="color:#166534;"><span class="deadline-card-emphasis">' + daysLeft + ' days</span> remaining to complete training. Deadline: ' + deadlineStr + '</div>';
+    }
+  });
+
+  // ===== BUILD TRAINING CARDS =====
+  function buildCards() {
+    const container = document.getElementById('trainingCards');
+    let html = '';
+
+    sections.forEach(function(s) {
+      html += '<div class="training-card" id="card-' + s.num + '">' +
+        '<div class="training-card-header" onclick="toggleCard(' + s.num + ')">' +
+          '<span class="section-badge">' + s.num + '</span>' +
+          '<span class="section-title">' + s.title + '</span>' +
+          '<span class="completed-check">&#10003;</span>' +
+          '<span class="card-toggle">&#9660;</span>' +
+        '</div>' +
+        '<div class="training-card-body">' +
+          '<div class="training-card-content">' +
+            '<p class="section-desc">' + s.desc + '</p>' +
+            '<div class="video-placeholder" onclick="playVideo(' + s.num + ')">' +
+              '<div class="play-icon"></div>' +
+              '<span class="video-label">Section ' + s.num + ' &mdash; Training Video</span>' +
+            '</div>' +
+            '<button class="mark-complete-btn" id="btn-' + s.num + '" onclick="markComplete(' + s.num + ')">' +
+              '<span class="btn-icon">&#9744;</span> Mark Section as Complete' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    });
+
+    container.innerHTML = html;
+  }
+
+  // ===== TOGGLE CARD ACCORDION =====
+  function toggleCard(num) {
+    const card = document.getElementById('card-' + num);
+    const wasOpen = card.classList.contains('open');
+
+    // Close all open cards
+    document.querySelectorAll('.training-card.open').forEach(function(c) {
+      c.classList.remove('open');
+    });
+
+    // Toggle the clicked card
+    if (!wasOpen) {
+      card.classList.add('open');
+      // Scroll into view smoothly
+      setTimeout(function() {
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+  }
+
+  // ===== PLAY VIDEO PLACEHOLDER =====
+  function playVideo(num) {
+    // Placeholder — in production, this would launch a video player
+    alert('Video for Section ' + num + ': "' + sections[num - 1].title + '"\n\nVideo content will be available when training videos are uploaded.');
+  }
+
+  // ===== MARK COMPLETE / TOGGLE =====
+  function markComplete(num) {
+    const card = document.getElementById('card-' + num);
+    const btn = document.getElementById('btn-' + num);
+
+    if (completedSections.has(num)) {
+      // Undo completion
+      completedSections.delete(num);
+      card.classList.remove('completed');
+      btn.innerHTML = '<span class="btn-icon">&#9744;</span> Mark Section as Complete';
+    } else {
+      // Mark complete
+      completedSections.add(num);
+      card.classList.add('completed');
+      btn.innerHTML = '<span class="btn-icon">&#9745;</span> Completed';
+
+      // Auto-close and open next
+      card.classList.remove('open');
+      if (num < TOTAL_SECTIONS) {
+        var nextCard = document.getElementById('card-' + (num + 1));
+        if (nextCard && !nextCard.classList.contains('completed')) {
+          setTimeout(function() {
+            nextCard.classList.add('open');
+            nextCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 300);
+        }
+      }
+    }
+
+    updateProgress();
+  }
+
+  // ===== PROGRESS TRACKER =====
+  function updateProgress() {
+    var count = completedSections.size;
+    var pct = Math.round((count / TOTAL_SECTIONS) * 100);
+
+    document.getElementById('progressNum').textContent = count;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+
+    // Change bar color at milestones
+    var fill = document.getElementById('progressFill');
+    if (pct === 100) {
+      fill.style.background = 'linear-gradient(90deg, #16A34A, #059669)';
+    } else if (pct >= 75) {
+      fill.style.background = 'linear-gradient(90deg, #16A34A, #22C55E)';
+    } else if (pct >= 50) {
+      fill.style.background = 'linear-gradient(90deg, #CA8A04, #EAB308)';
+    } else {
+      fill.style.background = 'linear-gradient(90deg, var(--green), #22C55E)';
+    }
+
+    // Show/hide submit button
+    var nav = document.getElementById('formNav');
+    if (count === TOTAL_SECTIONS) {
+      nav.classList.remove('hidden');
+      nav.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      nav.classList.add('hidden');
+    }
+  }
+
+  // ===== VALIDATION =====
+  function validate() {
+    var valid = true;
+    var requiredFields = ['employeeName', 'hireDate'];
+
+    // Clear previous errors
+    document.querySelectorAll('.field').forEach(function(f) { f.classList.remove('has-error'); });
+    document.querySelectorAll('.invalid').forEach(function(f) { f.classList.remove('invalid'); });
+
+    requiredFields.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var val = el.value.trim();
+      if (!val) {
+        valid = false;
+        el.classList.add('invalid');
+        el.closest('.field').classList.add('has-error');
+      }
+    });
+
+    if (completedSections.size < TOTAL_SECTIONS) {
+      valid = false;
+      alert('Please complete all 25 training sections before submitting.');
+    }
+
+    if (!valid) {
+      var firstError = document.querySelector('.invalid');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    return valid;
+  }
+
+  // ===== SUBMIT =====
+  function submitForm() {
+    if (!validate()) return;
+
+    // Generate submission ID
+    var submissionId = 'A3-' + Date.now().toString(36);
+
+    // Build completion details
+    var completionDetails = [];
+    sections.forEach(function(s) {
+      completionDetails.push({
+        section: s.num,
+        title: s.title,
+        completed: completedSections.has(s.num)
+      });
+    });
+
+    // Collect form data
+    var data = {
+      id: submissionId,
+      timestamp: new Date().toISOString(),
+      formId: 'A.3',
+      formName: 'Initial 5-Hour Training (Within 30 Days of Hire)',
+      employeeName: document.getElementById('employeeName').value.trim(),
+      employeeId: document.getElementById('employeeId').value.trim(),
+      hireDate: document.getElementById('hireDate').value,
+      startDate: document.getElementById('startDate').value,
+      completedSections: completedSections.size,
+      totalSections: TOTAL_SECTIONS,
+      completionPct: Math.round((completedSections.size / TOTAL_SECTIONS) * 100),
+      sections: completionDetails
+    };
+
+    // Save to localStorage
+    var submissions = [];
+    try { submissions = JSON.parse(localStorage.getItem('vt_submissions') || '[]'); } catch(e) {}
+    submissions.push(data);
+    localStorage.setItem('vt_submissions', JSON.stringify(submissions));
+
+    // Send email notification
+    var subject = encodeURIComponent('Training Completed: A.3 Initial 5-Hour Training — ' + data.employeeName);
+    var body = encodeURIComponent(
+      'TRAINING COMPLETION NOTIFICATION\n' +
+      '================================\n\n' +
+      'Form: A.3 — Initial 5-Hour Training (Within 30 Days of Hire)\n' +
+      'Submission ID: ' + submissionId + '\n' +
+      'Date: ' + new Date().toLocaleString() + '\n\n' +
+      'EMPLOYEE DETAILS\n' +
+      '----------------\n' +
+      'Name: ' + data.employeeName + '\n' +
+      'Employee ID: ' + (data.employeeId || 'N/A') + '\n' +
+      'Hire Date: ' + data.hireDate + '\n' +
+      'Start Date: ' + data.startDate + '\n\n' +
+      'TRAINING STATUS\n' +
+      '---------------\n' +
+      'Sections Completed: ' + data.completedSections + ' of ' + data.totalSections + '\n' +
+      'Completion: ' + data.completionPct + '%\n\n' +
+      'All 25 sections have been marked as complete.\n\n' +
+      '---\n' +
+      'VitalTouch Health Network Inc.\n' +
+      'This submission is stored locally and can be viewed in the admin portal.'
+    );
+
+    window.location.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+
+    // Show confirmation
+    document.getElementById('formBody').style.display = 'none';
+    document.getElementById('formNav').style.display = 'none';
+    document.getElementById('confirmation').style.display = 'block';
+    document.getElementById('confId').textContent = 'Submission ID: ' + submissionId;
+    document.getElementById('confSummary').textContent = data.completedSections + ' of ' + data.totalSections + ' sections completed (' + data.completionPct + '%)';
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ===== INITIALIZE MONOGRAM BADGES =====
+  function initMonogramBadges() {
+    var categoryMap = {
+      1: { badge: 'CM', color: 'green' },   // Communication
+      2: { badge: 'CP', color: 'blue' },    // Care Plans
+      3: { badge: 'MD', color: 'blue' },    // Medication
+      4: { badge: 'CC', color: 'blue' },    // Chronic Conditions
+      5: { badge: 'MH', color: 'green' },   // Mental Health
+      6: { badge: 'AD', color: 'blue' },    // Alzheimer's/Dementia
+      7: { badge: 'DI', color: 'green' },   // Disabilities
+      8: { badge: 'CS', color: 'green' },   // Personal Care
+      9: { badge: 'MB', color: 'green' },   // Mobility
+      10: { badge: 'NU', color: 'green' },  // Nutrition
+      11: { badge: 'MP', color: 'green' },  // Meal Prep
+      12: { badge: 'LC', color: 'green' },  // Laundry/Clothing
+      13: { badge: 'HC', color: 'green' },  // Housekeeping
+      14: { badge: 'CF', color: 'green' },  // Client Finances
+      15: { badge: 'TS', color: 'green' },  // Transportation
+      16: { badge: 'TK', color: 'blue' },   // Technology
+      17: { badge: 'SY', color: 'blue' },   // EVV/System
+      18: { badge: 'IR', color: 'blue' },   // Incident Reporting
+      19: { badge: 'AP', color: 'amber' },  // Abuse Prevention
+      20: { badge: 'FC', color: 'green' },  // Family Care
+      21: { badge: 'EL', color: 'green' },  // End of Life
+      22: { badge: 'SC', color: 'green' },  // Self Care
+      23: { badge: 'QC', color: 'green' },  // Quality Standards
+      24: { badge: 'CE', color: 'blue' },   // Continuing Education
+      25: { badge: 'AC', color: 'green' }   // Assessment/Completion
+    };
+
+    document.querySelectorAll('.training-card').forEach(function(card) {
+      var sectionNum = parseInt(card.getAttribute('data-section'));
+      var category = categoryMap[sectionNum];
+      if (category) {
+        var header = card.querySelector('.training-card-header');
+        var badge = document.createElement('span');
+        badge.className = 'monogram-badge ' + category.color;
+        badge.textContent = category.badge;
+        header.insertBefore(badge, header.querySelector('.section-title'));
+      }
+    });
+  }
+
+  // ===== INITIALIZE =====
+  buildCards();
+  initMonogramBadges();
+  updateProgress();
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

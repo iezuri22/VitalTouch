@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Monthly Contact Log — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 6px;
+    --radius-sm: 6px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM BODY ===== */
+  .form-body {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: background-color 0.2s, border-color 0.2s, color 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--green); color: var(--green); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 24px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== CONDITIONAL FIELD ===== */
+  .conditional { display: none; }
+  .conditional.visible { display: block; }
+
+  /* ===== SECTION CARDS & MONOGRAMS ===== */
+  .section-card {
+    background: var(--white);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin: 20px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .section-monogram {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .monogram-ci { background: var(--green-light); color: var(--green-deeper); }
+  .monogram-sr { background: #DBEAFE; color: #1E40AF; }
+  .monogram-fu { background: #FEF3C7; color: #92400E; }
+  .section-content { flex: 1; }
+
+  /* ===== ACTION ITEMS SECTION ===== */
+  .action-items { margin-top: 16px; }
+  .action-item-card {
+    background: #F8FAFC;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 150px;
+    gap: 12px;
+    align-items: flex-end;
+  }
+  .action-item-card input, .action-item-card label {
+    margin: 0;
+  }
+  .action-item-card label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+  .action-item-card input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .action-item-remove {
+    background: none;
+    border: 1px solid #FCA5A5;
+    color: #DC2626;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .action-item-remove:hover {
+    background: #FEE2E2;
+    border-color: #DC2626;
+  }
+  .add-action-btn {
+    background: none;
+    border: 1.5px dashed var(--green);
+    color: var(--green);
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .add-action-btn:hover {
+    background: var(--green-light);
+    border-style: solid;
+  }
+
+  /* ===== CHARACTER COUNTER ===== */
+  .char-counter {
+    font-size: 12px;
+    color: var(--text-lighter);
+    margin-top: 4px;
+    text-align: right;
+  }
+  .char-counter.warning { color: #EAB308; }
+  .char-counter.exceeded { color: var(--red); }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+  }
+  .sig-pad.signed { border-color: var(--green); border-style: solid; }
+  .sig-actions {
+    display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end;
+  }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== SUBMIT NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    border: 1.5px solid var(--green);
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+  }
+  .btn-next:active { background: var(--green-dark); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .confirmation.active { display: block; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: fadeIn 0.4s ease;
+  }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-body { padding: 12px 16px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .confirmation { page-break-before: avoid; }
+    .conditional { display: block !important; }
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; flex-wrap: wrap; }
+    .hero-text h1 { font-size: 22px; }
+    .form-body { padding: 24px 20px 20px; }
+    .form-nav { padding: 16px 20px; }
+    .pills { gap: 6px; }
+    .pill span { padding: 10px 16px; font-size: 14px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+    .section-card { flex-direction: column; gap: 12px; }
+    .section-monogram { width: 48px; height: 48px; font-size: 16px; }
+    .action-item-card { grid-template-columns: 1fr; }
+    .action-item-remove { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Client Monthly Contact Log</h1>
+    <p>VitalTouch Health Network — Monthly supervisory contact</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- ===== FORM BODY ===== -->
+    <div class="form-body" id="formBody">
+
+      <!-- SECTION: CONTACT INFORMATION -->
+      <div class="section-card">
+        <div class="section-monogram monogram-ci">CI</div>
+        <div class="section-content">
+          <div style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px;">Contact Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Client Name <span class="req">*</span></label>
+          <input type="text" id="clientName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Medicaid/RIN #</label>
+          <input type="text" id="medicaidRIN">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Contact Date <span class="req">*</span></label>
+          <input type="date" id="contactDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Contact Time</label>
+          <input type="text" id="contactTime" placeholder="e.g. 2:30 PM">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Method of Contact <span class="req">*</span></label>
+        <div class="pills" id="methodPills">
+          <label class="pill"><input type="radio" name="contactMethod" value="Telephone" required><span>Telephone</span></label>
+          <label class="pill"><input type="radio" name="contactMethod" value="In-Person Visit"><span>In-Person Visit</span></label>
+          <label class="pill"><input type="radio" name="contactMethod" value="Video Call"><span>Video Call</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Person Contacted <span class="req">*</span></label>
+        <div class="pills" id="personPills">
+          <label class="pill"><input type="radio" name="personContacted" value="Client" required><span>Client</span></label>
+          <label class="pill"><input type="radio" name="personContacted" value="Authorized Representative"><span>Authorized Representative</span></label>
+          <label class="pill"><input type="radio" name="personContacted" value="Both"><span>Both</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field conditional" id="repNameField">
+        <label>Representative Name</label>
+        <input type="text" id="repName" placeholder="Enter representative name">
+      </div>
+        </div>
+      </div>
+
+      <!-- SECTION: SERVICE REVIEW -->
+      <div class="section-card">
+        <div class="section-monogram monogram-sr">SR</div>
+        <div class="section-content">
+          <div style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px;">Service Review</div>
+
+      <div class="field">
+        <label>Is the client satisfied with current services? <span class="req">*</span></label>
+        <div class="pills" id="satisfiedPills">
+          <label class="pill"><input type="radio" name="satisfied" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="satisfied" value="No"><span>No</span></label>
+          <label class="pill"><input type="radio" name="satisfied" value="Somewhat"><span>Somewhat</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field conditional" id="concernsField">
+        <label>Concerns / Issues</label>
+        <textarea id="concerns" placeholder="Describe the client's concerns or issues"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Are services being provided as scheduled? <span class="req">*</span></label>
+        <div class="pills" id="scheduledPills">
+          <label class="pill"><input type="radio" name="scheduled" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="scheduled" value="No"><span>No</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field conditional" id="scheduleExplainField">
+        <label>Explanation</label>
+        <textarea id="scheduleExplain" placeholder="Explain what services are not being provided as scheduled"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Any changes in client condition? <span class="req">*</span></label>
+        <div class="pills" id="conditionPills">
+          <label class="pill"><input type="radio" name="conditionChange" value="No Changes" required><span>No Changes</span></label>
+          <label class="pill"><input type="radio" name="conditionChange" value="Improvement"><span>Improvement</span></label>
+          <label class="pill"><input type="radio" name="conditionChange" value="Decline"><span>Decline</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field conditional" id="conditionDescField">
+        <label>Description</label>
+        <textarea id="conditionDesc" placeholder="Describe the change in client condition"></textarea>
+      </div>
+        </div>
+      </div>
+
+      <!-- SECTION: CONTACT SUMMARY -->
+      <div class="section-card">
+        <div class="section-monogram monogram-fu">FU</div>
+        <div class="section-content">
+          <div style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px;">Follow-Up & Notes</div>
+
+      <div class="field">
+        <label>Summary of Conversation <span class="req">*</span></label>
+        <textarea id="summary" style="min-height: 150px;" placeholder="Summarize the key points discussed during this contact" required></textarea>
+        <div class="char-counter"><span id="summaryCount">0</span> / 500 characters</div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Issues or Concerns Noted</label>
+        <textarea id="issuesNoted" placeholder="Any additional issues or concerns identified"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Follow-Up Actions Required</label>
+        <div class="action-items" id="actionItemsContainer">
+          <div class="action-item-card">
+            <div>
+              <label>Description</label>
+              <input type="text" class="action-description" placeholder="e.g. Schedule supervisory visit">
+            </div>
+            <div>
+              <label>Owner/Assignee</label>
+              <input type="text" class="action-owner" placeholder="e.g. Care Coordinator">
+            </div>
+            <div>
+              <label>Due Date</label>
+              <input type="date" class="action-due-date">
+            </div>
+            <button type="button" class="action-item-remove" onclick="removeActionItem(this)">Remove</button>
+          </div>
+        </div>
+        <button type="button" class="add-action-btn" onclick="addActionItem()">+ Add Action</button>
+      </div>
+
+      <div class="field">
+        <label>Next Scheduled Contact Date</label>
+        <input type="date" id="nextContactDate">
+      </div>
+        </div>
+      </div>
+
+      <!-- SECTION: SUPERVISOR SIGNATURE -->
+      <div class="section-label">Supervisor Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Supervisor Name <span class="req">*</span></label>
+          <input type="text" id="sig1Name" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Title <span class="req">*</span></label>
+          <input type="text" id="sig1Title" placeholder="e.g. RN Supervisor" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad1"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Date <span class="req">*</span></label>
+        <input type="date" id="sig1Date" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+    </div>
+
+    <!-- ===== CONFIRMATION ===== -->
+    <div class="confirmation" id="confirmationPanel">
+      <div class="conf-check">&#10003;</div>
+      <h2>Contact Log Submitted</h2>
+      <p>The monthly contact log has been recorded and a notification sent to VitalTouch leadership.</p>
+      <div class="conf-id">Log ID: <span id="confId"></span></div>
+      <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-next" onclick="window.print()" style="background: var(--text); box-shadow: none;">&#128424; Print Copy</button>
+      </div>
+      <p style="margin-top: 20px; font-size: 13px; color: var(--text-lighter);">A notification has been sent to iezuri22@gmail.com.</p>
+    </div>
+
+    <!-- NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-next" id="btnSubmit" onclick="submitForm()">Submit Contact Log &#8594;</button>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">&#128274; HIPAA Compliant</div>
+      <div class="trust-item">&#127973; IDPH Licensed</div>
+      <div class="trust-item">&#128203; Form C.41</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== STATE =====
+var formId = 'C.41';
+var formVersion = '1.0';
+var sig1Signed = false;
+var sigPads = {};
+
+// ===== CONDITIONAL FIELD LOGIC =====
+
+// Person Contacted: show rep name if Representative or Both
+document.querySelectorAll('input[name="personContacted"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="personContacted"]:checked').value;
+    var field = document.getElementById('repNameField');
+    if (val === 'Authorized Representative' || val === 'Both') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// Satisfaction: show concerns if No or Somewhat
+document.querySelectorAll('input[name="satisfied"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="satisfied"]:checked').value;
+    var field = document.getElementById('concernsField');
+    if (val === 'No' || val === 'Somewhat') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// Scheduled: show explanation if No
+document.querySelectorAll('input[name="scheduled"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="scheduled"]:checked').value;
+    var field = document.getElementById('scheduleExplainField');
+    if (val === 'No') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// Condition Change: show description if Improvement or Decline
+document.querySelectorAll('input[name="conditionChange"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    var val = document.querySelector('input[name="conditionChange"]:checked').value;
+    var field = document.getElementById('conditionDescField');
+    if (val === 'Improvement' || val === 'Decline') {
+      field.classList.add('visible');
+    } else {
+      field.classList.remove('visible');
+    }
+  });
+});
+
+// ===== ACTION ITEMS & CHARACTER COUNTER =====
+function addActionItem() {
+  var container = document.getElementById('actionItemsContainer');
+  var card = document.createElement('div');
+  card.className = 'action-item-card';
+  card.innerHTML = '<div><label>Description</label><input type="text" class="action-description" placeholder="e.g. Schedule supervisory visit"></div>' +
+                   '<div><label>Owner/Assignee</label><input type="text" class="action-owner" placeholder="e.g. Care Coordinator"></div>' +
+                   '<div><label>Due Date</label><input type="date" class="action-due-date"></div>' +
+                   '<button type="button" class="action-item-remove" onclick="removeActionItem(this)">Remove</button>';
+  container.appendChild(card);
+}
+
+function removeActionItem(btn) {
+  var container = document.getElementById('actionItemsContainer');
+  btn.closest('.action-item-card').remove();
+}
+
+function updateCharCounter() {
+  var textarea = document.getElementById('summary');
+  var counter = document.getElementById('summaryCount');
+  var wrapper = counter.closest('.char-counter');
+  var len = textarea.value.length;
+  counter.textContent = len;
+
+  wrapper.classList.remove('warning', 'exceeded');
+  if (len > 500) {
+    wrapper.classList.add('exceeded');
+  } else if (len > 400) {
+    wrapper.classList.add('warning');
+  }
+}
+
+// ===== VALIDATION =====
+function validateForm() {
+  var valid = true;
+  var container = document.getElementById('formBody');
+
+  // Required text/date inputs, selects, and textareas
+  container.querySelectorAll('input[required], select[required], textarea[required]').forEach(function(el) {
+    var field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  // Required radio groups (pills)
+  var radioGroups = ['contactMethod', 'personContacted', 'satisfied', 'scheduled', 'conditionChange'];
+  radioGroups.forEach(function(name) {
+    var checked = document.querySelector('input[name="' + name + '"]:checked');
+    if (!checked) {
+      valid = false;
+    }
+  });
+
+  // Signature must exist
+  if (!sig1Signed) {
+    valid = false;
+    alert('Please provide the Supervisor signature.');
+    return false;
+  }
+
+  if (!valid) {
+    var firstError = container.querySelector('.invalid, .has-error input');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+// ===== SIGNATURE PAD =====
+function initSigPad(id) {
+  var canvas = document.getElementById(id);
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var drawing = false;
+  var lastX = 0, lastY = 0;
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    var rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    var pos = getPos(e);
+    lastX = pos.x;
+    lastY = pos.y;
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    ctx.lineTo(pos.x + 0.1, pos.y + 0.1);
+    ctx.stroke();
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    var pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
+    canvas.classList.add('signed');
+    if (id === 'sigPad1') sig1Signed = true;
+  }
+
+  function end(e) {
+    if (e) e.preventDefault();
+    drawing = false;
+  }
+
+  canvas.addEventListener('mousedown', start, { passive: false });
+  canvas.addEventListener('mousemove', draw, { passive: false });
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas: canvas, ctx: ctx, resize: resize };
+
+  requestAnimationFrame(function() { resize(); });
+  window.addEventListener('resize', function() { resize(); });
+}
+
+function clearSig(n) {
+  var id = 'sigPad' + n;
+  var pad = sigPads[id];
+  if (pad) {
+    pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+    pad.resize();
+    pad.canvas.classList.remove('signed');
+    if (n === 1) sig1Signed = false;
+  }
+}
+
+// ===== PHONE FORMATTING =====
+document.querySelectorAll('input[type="tel"]').forEach(function(input) {
+  input.addEventListener('input', function() {
+    var v = this.value.replace(/\D/g, '');
+    if (v.length > 0) {
+      if (v.length <= 3) v = '(' + v;
+      else if (v.length <= 6) v = '(' + v.slice(0,3) + ') ' + v.slice(3);
+      else v = '(' + v.slice(0,3) + ') ' + v.slice(3,6) + '-' + v.slice(6,10);
+    }
+    this.value = v;
+  });
+});
+
+// ===== SUBMIT =====
+function submitForm() {
+  if (!validateForm()) return;
+
+  var contactMethod = document.querySelector('input[name="contactMethod"]:checked');
+  var personContacted = document.querySelector('input[name="personContacted"]:checked');
+  var satisfied = document.querySelector('input[name="satisfied"]:checked');
+  var scheduled = document.querySelector('input[name="scheduled"]:checked');
+  var conditionChange = document.querySelector('input[name="conditionChange"]:checked');
+
+  // Collect action items
+  var actionItems = [];
+  document.querySelectorAll('.action-item-card').forEach(function(card) {
+    var desc = card.querySelector('.action-description').value;
+    var owner = card.querySelector('.action-owner').value;
+    var due = card.querySelector('.action-due-date').value;
+    if (desc || owner || due) {
+      actionItems.push({ description: desc, owner: owner, dueDate: due });
+    }
+  });
+
+  var data = {
+    formId: formId,
+    formVersion: formVersion,
+    timestamp: new Date().toISOString(),
+    contact: {
+      clientName: document.getElementById('clientName').value,
+      medicaidRIN: document.getElementById('medicaidRIN').value,
+      contactDate: document.getElementById('contactDate').value,
+      contactTime: document.getElementById('contactTime').value,
+      method: contactMethod ? contactMethod.value : '',
+      personContacted: personContacted ? personContacted.value : '',
+      repName: document.getElementById('repName').value,
+    },
+    serviceReview: {
+      satisfied: satisfied ? satisfied.value : '',
+      concerns: document.getElementById('concerns').value,
+      scheduledAsPlanned: scheduled ? scheduled.value : '',
+      scheduleExplanation: document.getElementById('scheduleExplain').value,
+      conditionChange: conditionChange ? conditionChange.value : '',
+      conditionDescription: document.getElementById('conditionDesc').value,
+    },
+    summary: {
+      conversation: document.getElementById('summary').value,
+      issuesNoted: document.getElementById('issuesNoted').value,
+      actionItems: actionItems,
+      nextContactDate: document.getElementById('nextContactDate').value,
+    },
+    supervisorSignature: {
+      name: document.getElementById('sig1Name').value,
+      title: document.getElementById('sig1Title').value,
+      date: document.getElementById('sig1Date').value,
+      signatureData: document.getElementById('sigPad1').toDataURL(),
+    },
+    status: 'submitted',
+  };
+
+  // Generate submission ID
+  var id = 'C41-' + Date.now().toString(36).toUpperCase();
+  document.getElementById('confId').textContent = id;
+  data.submissionId = id;
+
+  // Store locally
+  var stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+    // ── Flow Engine Integration ──
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const flowId = params.get('flowId');
+        if (flowId) {
+          VTFlow.recordSubmission(flowId, 'C41', data);
+          console.log('VTFlow: Recorded C.41 submission for flow ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+  // Send email notification to CEO
+  var clientName = data.contact.clientName;
+  var subject = encodeURIComponent('[VitalTouch] Monthly Contact Log — ' + clientName + ' (' + id + ')');
+  var actionItemsSummary = data.summary.actionItems.length > 0
+    ? 'Follow-Up Actions:\n' + data.summary.actionItems.map(function(a) {
+        return '  - ' + (a.description || 'N/A') + ' (Owner: ' + (a.owner || 'N/A') + ', Due: ' + (a.dueDate || 'N/A') + ')';
+      }).join('\n') + '\n'
+    : 'Follow-Up Actions: None\n';
+  var body = encodeURIComponent(
+    'A monthly contact log has been submitted.\n\n' +
+    'Client: ' + clientName + '\n' +
+    'Medicaid/RIN: ' + data.contact.medicaidRIN + '\n' +
+    'Contact Date: ' + data.contact.contactDate + '\n' +
+    'Method: ' + data.contact.method + '\n' +
+    'Person Contacted: ' + data.contact.personContacted + '\n' +
+    'Satisfied: ' + data.serviceReview.satisfied + '\n' +
+    'Services as Scheduled: ' + data.serviceReview.scheduledAsPlanned + '\n' +
+    'Condition Change: ' + data.serviceReview.conditionChange + '\n' +
+    'Summary: ' + data.summary.conversation + '\n' +
+    actionItemsSummary +
+    'Supervisor: ' + data.supervisorSignature.name + ', ' + data.supervisorSignature.title + '\n' +
+    'Log ID: ' + id + '\n\n' +
+    'Log into the admin portal to review:\nhttps://vitaltouchcares.com/admin/'
+  );
+
+  var mailLink = document.createElement('a');
+  mailLink.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+  mailLink.click();
+
+  // Show confirmation
+  document.getElementById('formBody').style.display = 'none';
+  document.getElementById('formNav').style.display = 'none';
+  document.getElementById('confirmationPanel').classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  console.log('Contact Log submitted:', data);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  initSigPad('sigPad1');
+
+  // Set today's date as default
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('contactDate').value = today;
+  document.getElementById('sig1Date').value = today;
+
+  // Attach character counter listener
+  document.getElementById('summary').addEventListener('input', updateCharCounter);
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

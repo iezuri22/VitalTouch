@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Service Agreement — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== STEP BAR ===== */
+  .step-indicator {
+    display: flex;
+    padding: 16px 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    gap: 4px;
+  }
+  .step-bar {
+    flex: 1; height: 4px; border-radius: 4px;
+    background: var(--border);
+    transition: background 0.4s ease;
+  }
+  .step-bar.done { background: var(--green); }
+  .step-bar.active {
+    background: linear-gradient(90deg, var(--green), #22C55E);
+    animation: pulse-bar 2s ease-in-out infinite;
+  }
+  @keyframes pulse-bar { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+  /* ===== FORM STEPS ===== */
+  .form-step {
+    display: none;
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  .form-step.active { display: block; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  .step-label {
+    font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--green); margin-bottom: 6px;
+  }
+  .step-title { font-size: 26px; font-weight: 700; line-height: 1.3; color: #1a1a1a; }
+  .step-subtitle { font-size: 16px; color: #4a5568; margin-top: 6px; }
+  .step-header { margin-bottom: 24px; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pills.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pills.grid .pill span {
+    display: block; text-align: center; padding: 18px 16px; border-radius: 6px;
+    border: 1.5px solid var(--border); font-size: 15px; line-height: 1.5;
+  }
+  .pill:hover span { border-color: var(--border); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+  .pill.pill-checked span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CHECKBOX ===== */
+  .check-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 16px 18px; border: 1.5px solid var(--border);
+    border-radius: 6px; margin-bottom: 12px;
+    cursor: pointer; transition: all 0.2s; background: var(--white);
+  }
+  .check-item:hover { border-color: var(--border); background: var(--white); }
+  .check-item.checked { border-color: var(--border); background: var(--white); }
+  .check-item input {
+    width: 24px; height: 24px; margin-top: 1px; accent-color: var(--green);
+    cursor: pointer; flex-shrink: 0; border-radius: 4px;
+  }
+  .check-item label {
+    font-size: 16px; cursor: pointer; line-height: 1.6; color: #1a1a1a;
+    font-weight: 500;
+  }
+  .check-item.checked label { color: var(--green-darker); }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-weight: 600; font-size: 15px; color: #64748B;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    border-bottom: 2px solid #E2E8F0; padding-bottom: 8px;
+    margin-bottom: 16px; margin-top: 24px;
+  }
+
+  /* ===== SECTION CARD ===== */
+  .section-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 24px;
+    margin-bottom: 24px; position: relative;
+  }
+  .section-card.with-badge {
+    padding-top: 24px;
+  }
+  .card-badge {
+    display: none;
+  }
+  .card-badge.client-badge {
+    display: none;
+  }
+  .card-badge.rep-badge {
+    display: none;
+  }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--warm); border: 1px solid #FDE68A;
+    border-radius: var(--radius-sm); padding: 16px 18px;
+    margin-bottom: 20px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 15px; color: #78350f;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== AGREEMENT TEXT ===== */
+  .agreement-box {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 20px;
+    font-size: 15px; color: #374151; line-height: 1.8;
+    max-height: 300px; overflow-y: auto; margin-bottom: 20px;
+  }
+  .agreement-box h3 {
+    font-size: 17px; font-weight: 700; color: #1a1a1a;
+    margin: 16px 0 8px;
+  }
+  .agreement-box h3:first-child { margin-top: 0; }
+  .agreement-box ul { padding-left: 20px; margin: 8px 0; }
+  .agreement-box li { margin-bottom: 4px; }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    background: var(--white);
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+  }
+  .sig-pad.signed { border-color: var(--border); border-style: dashed; }
+  .sig-actions {
+    display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end;
+  }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-back { background: transparent; color: var(--text-light); padding: 10px 16px; }
+  .btn-back:hover { color: var(--text); }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: none;
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    box-shadow: none;
+  }
+  .btn-next:active { }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .step-indicator, .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-step { display: block !important; padding: 12px 16px; page-break-inside: avoid; }
+    .step-title { font-size: 15px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .agreement-box { max-height: none; overflow: visible; }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 36px 20px 32px; }
+    .form-step { padding: 24px 20px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Client Service Agreement</h1>
+    <p>VitalTouch Health Network — Services, rights, and mutual responsibilities</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- STEP BAR -->
+    <div class="step-indicator" id="stepBar">
+      <div class="step-bar active"></div>
+      <div class="step-bar"></div>
+      <div class="step-bar"></div>
+      <div class="step-bar"></div>
+    </div>
+
+    <!-- ===== STEP 1: CLIENT INFORMATION ===== -->
+    <div class="form-step active" data-step="1">
+      <div class="step-header">
+        <div class="step-label">Step 1 of 4</div>
+        <div class="step-title">Client Information</div>
+        <div class="step-subtitle">Enter the client's details and authorized representative information.</div>
+      </div>
+
+      <div class="section-card with-badge">
+        <div class="card-badge client-badge">CL</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Client First Name <span class="req">*</span></label>
+            <input type="text" id="clientFirst" required>
+            <div class="error-msg">Required</div>
+          </div>
+          <div class="field">
+            <label>Client Last Name <span class="req">*</span></label>
+            <input type="text" id="clientLast" required>
+            <div class="error-msg">Required</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" id="clientDOB" required>
+          <div class="error-msg">Required</div>
+        </div>
+
+        <div class="field">
+          <label>Home Address <span class="req">*</span></label>
+          <input type="text" id="clientAddress" placeholder="Street address" required>
+          <div class="error-msg">Required</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>City <span class="req">*</span></label>
+            <input type="text" id="clientCity" required>
+            <div class="error-msg">Required</div>
+          </div>
+          <div class="field">
+            <label>State</label>
+            <input type="text" id="clientState" value="Illinois" readonly>
+          </div>
+          <div class="field">
+            <label>Zip Code <span class="req">*</span></label>
+            <input type="text" id="clientZip" required>
+            <div class="error-msg">Required</div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Phone <span class="req">*</span></label>
+            <input type="tel" id="clientPhone" placeholder="(708) 555-1234" required>
+            <div class="error-msg">Required</div>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" id="clientEmail" placeholder="Optional">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card with-badge">
+        <div class="card-badge rep-badge">AR</div>
+
+        <div class="callout">
+          <span class="callout-icon">ℹ️</span>
+          <span>If someone other than the client will be making decisions or signing on their behalf, enter their information below.</span>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Representative Name</label>
+            <input type="text" id="repName" placeholder="If applicable">
+          </div>
+          <div class="field">
+            <label>Relationship to Client</label>
+            <select id="repRelationship">
+              <option value="">Select...</option>
+              <option value="spouse">Spouse</option>
+              <option value="child">Adult Child</option>
+              <option value="sibling">Sibling</option>
+              <option value="guardian">Legal Guardian</option>
+              <option value="poa">Power of Attorney</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Representative Phone</label>
+            <input type="tel" id="repPhone" placeholder="(708) 555-1234">
+          </div>
+          <div class="field">
+            <label>Representative Email</label>
+            <input type="email" id="repEmail" placeholder="Optional">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Emergency Contact</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Emergency Contact Name <span class="req">*</span></label>
+          <input type="text" id="emergName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Relationship <span class="req">*</span></label>
+          <input type="text" id="emergRelation" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Emergency Contact Phone <span class="req">*</span></label>
+        <input type="tel" id="emergPhone" placeholder="(708) 555-1234" required>
+        <div class="error-msg">Required</div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 2: SERVICES & SCHEDULE ===== -->
+    <div class="form-step" data-step="2">
+      <div class="step-header">
+        <div class="step-label">Step 2 of 4</div>
+        <div class="step-title">Services & Schedule</div>
+        <div class="step-subtitle">Select the services to be provided and the agreed schedule.</div>
+      </div>
+
+      <div class="section-label">Payer Source</div>
+
+      <div class="field">
+        <label>Primary Payer <span class="req">*</span></label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="payer" value="medicaid" required><span>Illinois Medicaid</span></label>
+          <label class="pill"><input type="radio" name="payer" value="ccp"><span>Community Care Program</span></label>
+          <label class="pill"><input type="radio" name="payer" value="private"><span>Private Pay</span></label>
+          <label class="pill"><input type="radio" name="payer" value="other"><span>Other</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field" id="payerOtherField" style="display:none;">
+        <label>Specify Payer</label>
+        <input type="text" id="payerOther" placeholder="Enter payer name">
+      </div>
+
+      <div class="section-card">
+        <div class="callout">
+          <span class="callout-icon">📋</span>
+          <span>Check all services that have been authorized for this client. These must align with the client's Plan of Care.</span>
+        </div>
+
+        <div class="pills grid">
+          <label class="pill"><input type="checkbox" name="services" value="light-housekeeping"><span>Light Housekeeping<br><span style="font-size:13px;font-weight:400;color:#6b7280;">Vacuuming, mopping, dusting</span></span></label>
+          <label class="pill"><input type="checkbox" name="services" value="meal-prep"><span>Meal Preparation<br><span style="font-size:13px;font-weight:400;color:#6b7280;">Planning, cooking, serving</span></span></label>
+          <label class="pill"><input type="checkbox" name="services" value="laundry"><span>Laundry<br><span style="font-size:13px;font-weight:400;color:#6b7280;">Washing, drying, folding</span></span></label>
+          <label class="pill"><input type="checkbox" name="services" value="grocery-errands"><span>Grocery & Errands<br><span style="font-size:13px;font-weight:400;color:#6b7280;">Shopping, supplies</span></span></label>
+          <label class="pill"><input type="checkbox" name="services" value="companionship"><span>Companionship<br><span style="font-size:13px;font-weight:400;color:#6b7280;">Social interaction, appointments</span></span></label>
+          <label class="pill"><input type="checkbox" name="services" value="personal-care"><span>Personal Care<br><span style="font-size:13px;font-weight:400;color:#6b7280;">Bathing, grooming (CNA)</span></span></label>
+          <label class="pill"><input type="checkbox" name="services" value="medication-reminder"><span>Medication Reminders<br><span style="font-size:13px;font-weight:400;color:#6b7280;">Verbal medication reminders</span></span></label>
+        </div>
+      </div>
+
+      <div class="section-label">Schedule</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Authorized Hours per Week <span class="req">*</span></label>
+          <input type="number" id="hoursPerWeek" min="1" max="80" placeholder="e.g. 20" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Service Start Date <span class="req">*</span></label>
+          <input type="date" id="startDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Preferred Days & Times</label>
+        <textarea id="schedule" placeholder="e.g. Monday-Friday, 9am-1pm"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Special Instructions or Preferences</label>
+        <textarea id="specialInstructions" placeholder="Dietary restrictions, cultural preferences, pet in home, etc."></textarea>
+      </div>
+    </div>
+
+    <!-- ===== STEP 3: TERMS & CONDITIONS ===== -->
+    <div class="form-step" data-step="3">
+      <div class="step-header">
+        <div class="step-label">Step 3 of 4</div>
+        <div class="step-title">Terms & Conditions</div>
+        <div class="step-subtitle">Please review the terms of this service agreement.</div>
+      </div>
+
+      <div class="agreement-box">
+        <h3>1. Services</h3>
+        <p>VitalTouch Health Network Inc. ("Agency") agrees to provide non-medical home services to the Client as authorized by the Client's Plan of Care and approved by the applicable payer source. Services will be performed by trained homemakers or certified nursing assistants employed by the Agency.</p>
+
+        <h3>2. Client Rights</h3>
+        <p>The Client has the right to:</p>
+        <ul>
+          <li>Receive services in a safe, respectful, and dignified manner</li>
+          <li>Participate in the development and revision of their Plan of Care</li>
+          <li>Be informed of any changes to services, schedule, or assigned caregiver</li>
+          <li>Refuse any service or caregiver assignment</li>
+          <li>File a complaint without fear of retaliation</li>
+          <li>Access their records upon written request</li>
+          <li>Privacy and confidentiality of personal and health information (HIPAA)</li>
+          <li>Be free from abuse, neglect, and exploitation</li>
+        </ul>
+
+        <h3>3. Client Responsibilities</h3>
+        <p>The Client agrees to:</p>
+        <ul>
+          <li>Maintain a safe and accessible home environment for the caregiver</li>
+          <li>Provide reasonable notice (at least 24 hours) when canceling a scheduled visit</li>
+          <li>Notify the Agency of any changes in health condition, medication, or emergency contacts</li>
+          <li>Treat caregivers with respect and dignity</li>
+          <li>Not request caregivers to perform tasks outside the scope of their authorized services</li>
+        </ul>
+
+        <h3>4. Agency Responsibilities</h3>
+        <p>VitalTouch Health Network agrees to:</p>
+        <ul>
+          <li>Provide qualified, trained, and background-checked caregivers</li>
+          <li>Supervise caregivers in accordance with IDPH regulations (77 Ill. Adm. Code Part 245)</li>
+          <li>Conduct an initial supervisory visit within 90 days and ongoing visits per regulation</li>
+          <li>Maintain all required insurance and licensure</li>
+          <li>Respond to client concerns within 24 business hours</li>
+          <li>Replace a caregiver upon reasonable request</li>
+        </ul>
+
+        <h3>5. Billing & Payment</h3>
+        <p>Services will be billed to the payer source identified in this agreement. For private pay clients, the current hourly rate will be provided in writing and any changes will require 30 days advance notice. The Client is responsible for any services not covered by their payer source.</p>
+
+        <h3>6. Cancellation & Discharge</h3>
+        <p>Either party may terminate this agreement with 30 days written notice. The Agency may discharge a client immediately if the home environment poses a safety risk to the caregiver, or if the Client engages in abusive or threatening behavior. The Agency will assist with transition to another provider when possible.</p>
+
+        <h3>7. Complaints & Grievances</h3>
+        <p>Complaints may be directed to VitalTouch Health Network at (708) 774-4850 or info@vitaltouchcares.com. Complaints may also be filed with the Illinois Department of Public Health at 1-800-252-4343.</p>
+
+        <h3>8. Confidentiality</h3>
+        <p>All client information is protected under HIPAA and Illinois state law. The Agency will not disclose personal or health information without written consent except as required by law or for treatment, payment, and healthcare operations.</p>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">⚖️</span>
+        <span>By checking the boxes below, you confirm that you have read, understood, and agree to each section of this agreement.</span>
+      </div>
+
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ackRights" required>
+        <label>I have been informed of the Client's Rights and Responsibilities</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ackTerms" required>
+        <label>I agree to the terms and conditions of this Service Agreement</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ackBilling" required>
+        <label>I understand the billing and payment terms described above</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ackDischarge" required>
+        <label>I understand the cancellation and discharge policy</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ackHIPAA" required>
+        <label>I acknowledge the Agency's HIPAA confidentiality practices</label>
+      </div>
+    </div>
+
+    <!-- ===== STEP 4: CLIENT SIGNATURE ===== -->
+    <div class="form-step" data-step="4">
+      <div class="step-header">
+        <div class="step-label">Step 4 of 4</div>
+        <div class="step-title">Your Signature</div>
+        <div class="step-subtitle">Sign below to confirm you've read and agree to this Service Agreement. It will then be sent to VitalTouch's CEO for countersignature.</div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">✍️</span>
+        <span>Use your finger or mouse to sign in the box below. After you sign, the agreement will be emailed to Ifeanyi Ezurike, CEO of VitalTouch, for final approval and countersignature.</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Printed Name <span class="req">*</span></label>
+          <input type="text" id="sig1Name" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Relationship to Client <span class="req">*</span></label>
+          <select id="sig1Relation" required>
+            <option value="">Select...</option>
+            <option value="self">Self (Client)</option>
+            <option value="spouse">Spouse</option>
+            <option value="child">Adult Child</option>
+            <option value="guardian">Legal Guardian</option>
+            <option value="poa">Power of Attorney</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad1"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Date <span class="req">*</span></label>
+        <input type="date" id="sig1Date" required>
+        <div class="error-msg">Required</div>
+      </div>
+    </div>
+
+    <!-- ===== CONFIRMATION — SENT TO CEO ===== -->
+    <div class="form-step" data-step="5">
+      <div class="confirmation">
+        <div class="conf-check">✓</div>
+        <h2>Agreement Signed & Sent</h2>
+        <p>Thank you! Your signed Service Agreement has been sent to <strong>Ifeanyi Ezurike, CEO</strong> at VitalTouch Health Network for countersignature. You'll receive a fully executed copy once both parties have signed.</p>
+        <div class="conf-id">Agreement ID: <span id="confId"></span></div>
+        <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-next" onclick="window.print()" style="background: var(--text); box-shadow: none;">🖨 Print Copy</button>
+        </div>
+        <p style="margin-top: 20px; font-size: 13px; color: var(--text-lighter);">A notification has been sent to iezuri22@gmail.com. The CEO will review and countersign your agreement.</p>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-back" id="btnBack" onclick="prevStep()" style="visibility:hidden;">← Back</button>
+      <button class="btn btn-next" id="btnNext" onclick="nextStep()">Continue →</button>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">🔒 HIPAA Compliant</div>
+      <div class="trust-item">🏥 IDPH Licensed</div>
+      <div class="trust-item">📋 Form C.12</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. · 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 · <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== STATE =====
+const TOTAL_STEPS = 4;
+let currentStep = 1;
+const formId = 'C.12';
+const formVersion = '1.0';
+
+// ===== NAVIGATION =====
+function showStep(n) {
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.form-step[data-step="${n}"]`).classList.add('active');
+
+  // Update step bars
+  document.querySelectorAll('.step-bar').forEach((bar, i) => {
+    bar.className = 'step-bar';
+    if (i < n - 1) bar.classList.add('done');
+    else if (i === n - 1) bar.classList.add('active');
+  });
+
+  // Nav buttons
+  document.getElementById('btnBack').style.visibility = n === 1 ? 'hidden' : 'visible';
+  if (n > TOTAL_STEPS) {
+    document.getElementById('formNav').style.display = 'none';
+    document.getElementById('stepBar').style.display = 'none';
+  } else {
+    document.getElementById('btnNext').textContent = n === TOTAL_STEPS ? 'Sign & Send to VitalTouch →' : 'Continue →';
+  }
+
+  // Resize signature pads when step 4 becomes visible
+  if (n === 4) {
+    setTimeout(() => resizeSigPads(), 100);
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep() {
+  if (!validateStep(currentStep)) return;
+  if (currentStep === TOTAL_STEPS) {
+    submitForm();
+    return;
+  }
+  currentStep++;
+  showStep(currentStep);
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
+}
+
+// ===== VALIDATION =====
+function validateStep(step) {
+  const section = document.querySelector(`.form-step[data-step="${step}"]`);
+  let valid = true;
+
+  // Required text/date/email/tel/number inputs
+  section.querySelectorAll('input[required], select[required], textarea[required]').forEach(el => {
+    const field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  // Required radio groups
+  section.querySelectorAll('.pills').forEach(group => {
+    const name = group.querySelector('input[type="radio"]')?.name;
+    if (name && group.querySelector('input[required]')) {
+      const checked = group.querySelector(`input[name="${name}"]:checked`);
+      if (!checked) {
+        valid = false;
+      }
+    }
+  });
+
+  // Step 3: all checkboxes must be checked
+  if (step === 3) {
+    section.querySelectorAll('input[type="checkbox"][required]').forEach(cb => {
+      if (!cb.checked) valid = false;
+    });
+  }
+
+  // Step 4: client signature must exist
+  if (step === 4) {
+    if (!sig1Signed) {
+      valid = false;
+      alert('Please sign in the signature box to continue.');
+    }
+  }
+
+  if (!valid && step !== 4) {
+    const firstError = section.querySelector('.invalid, .has-error input');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+// ===== CHECKBOX TOGGLE =====
+function toggleCheck(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+}
+
+// ===== PILL CHECKBOX TOGGLE =====
+document.querySelectorAll('.pills.grid .pill').forEach(pill => {
+  pill.addEventListener('click', function(e) {
+    const checkbox = this.querySelector('input[type="checkbox"]');
+    if (e.target !== checkbox) {
+      checkbox.checked = !checkbox.checked;
+    }
+    this.classList.toggle('pill-checked', checkbox.checked);
+  });
+});
+
+// Add CSS class to pills when checkbox is checked
+document.querySelectorAll('.pills.grid .pill input[type="checkbox"]').forEach(cb => {
+  cb.addEventListener('change', function() {
+    this.closest('.pill').classList.toggle('pill-checked', this.checked);
+  });
+  // Initial state
+  if (cb.checked) {
+    cb.closest('.pill').classList.add('pill-checked');
+  }
+});
+
+// ===== PAYER OTHER =====
+document.querySelectorAll('input[name="payer"]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.getElementById('payerOtherField').style.display = r.value === 'other' && r.checked ? 'block' : 'none';
+  });
+});
+
+// ===== SIGNATURE PADS =====
+let sig1Signed = false, sig2Signed = false;
+const sigPads = {};
+
+function initSigPad(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return; // not visible yet
+    const dpr = window.devicePixelRatio || 1;
+    // Save existing drawing
+    const imgData = canvas.width > 0 ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    const pos = getPos(e);
+    lastX = pos.x;
+    lastY = pos.y;
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    // Draw a dot for single clicks
+    ctx.lineTo(pos.x + 0.1, pos.y + 0.1);
+    ctx.stroke();
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
+    canvas.classList.add('signed');
+    if (id === 'sigPad1') sig1Signed = true;
+    if (id === 'sigPad2') sig2Signed = true;
+  }
+
+  function end(e) {
+    if (e) e.preventDefault();
+    drawing = false;
+  }
+
+  canvas.addEventListener('mousedown', start, { passive: false });
+  canvas.addEventListener('mousemove', draw, { passive: false });
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas, ctx, resize };
+
+  // Initial resize if visible
+  requestAnimationFrame(() => resize());
+  window.addEventListener('resize', () => resize());
+}
+
+function resizeSigPads() {
+  Object.values(sigPads).forEach(pad => pad.resize());
+}
+
+function clearSig(n) {
+  const id = `sigPad${n}`;
+  const pad = sigPads[id];
+  if (pad) {
+    pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+    pad.resize();
+    pad.canvas.classList.remove('signed');
+    if (n === 1) sig1Signed = false;
+    if (n === 2) sig2Signed = false;
+  }
+}
+
+// ===== PHONE FORMATTING =====
+document.querySelectorAll('input[type="tel"]').forEach(input => {
+  input.addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 0) {
+      if (v.length <= 3) v = `(${v}`;
+      else if (v.length <= 6) v = `(${v.slice(0,3)}) ${v.slice(3)}`;
+      else v = `(${v.slice(0,3)}) ${v.slice(3,6)}-${v.slice(6,10)}`;
+    }
+    this.value = v;
+  });
+});
+
+// ===== SUBMIT =====
+function submitForm() {
+  const data = {
+    formId, formVersion,
+    timestamp: new Date().toISOString(),
+    client: {
+      firstName: document.getElementById('clientFirst').value,
+      lastName: document.getElementById('clientLast').value,
+      dob: document.getElementById('clientDOB').value,
+      address: document.getElementById('clientAddress').value,
+      city: document.getElementById('clientCity').value,
+      state: document.getElementById('clientState').value,
+      zip: document.getElementById('clientZip').value,
+      phone: document.getElementById('clientPhone').value,
+      email: document.getElementById('clientEmail').value,
+    },
+    representative: {
+      name: document.getElementById('repName').value,
+      relationship: document.getElementById('repRelationship').value,
+      phone: document.getElementById('repPhone').value,
+      email: document.getElementById('repEmail').value,
+    },
+    emergency: {
+      name: document.getElementById('emergName').value,
+      relationship: document.getElementById('emergRelation').value,
+      phone: document.getElementById('emergPhone').value,
+    },
+    services: {
+      payer: document.querySelector('input[name="payer"]:checked')?.value,
+      authorized: [...document.querySelectorAll('input[name="services"]:checked')].map(cb => cb.value),
+      hoursPerWeek: document.getElementById('hoursPerWeek').value,
+      startDate: document.getElementById('startDate').value,
+      schedule: document.getElementById('schedule').value,
+      specialInstructions: document.getElementById('specialInstructions').value,
+    },
+    clientSignature: {
+      name: document.getElementById('sig1Name').value,
+      relationship: document.getElementById('sig1Relation').value,
+      date: document.getElementById('sig1Date').value,
+      signatureData: document.getElementById('sigPad1').toDataURL(),
+    },
+    ceoSignature: null, // To be completed by CEO
+    status: 'awaiting_ceo_signature',
+  };
+
+  // Generate agreement ID
+  const id = `C12-${Date.now().toString(36).toUpperCase()}`;
+  document.getElementById('confId').textContent = id;
+  data.agreementId = id;
+
+  // Store locally
+  const stored = JSON.parse(localStorage.getItem('vt_agreements') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_agreements', JSON.stringify(stored));
+
+    // ── Flow Engine Integration ──
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const flowId = params.get('flowId');
+        if (flowId) {
+          VTFlow.recordSubmission(flowId, 'C12', data);
+          console.log('VTFlow: Recorded C.12 submission for flow ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+  // Send email notification to CEO
+  const clientName = data.client.firstName + ' ' + data.client.lastName;
+  const subject = encodeURIComponent(`[VitalTouch] New Service Agreement — ${clientName} (${id})`);
+  const body = encodeURIComponent(
+    `A new Client Service Agreement has been signed and is awaiting your countersignature.\n\n` +
+    `Client: ${clientName}\n` +
+    `Address: ${data.client.address}, ${data.client.city}, IL ${data.client.zip}\n` +
+    `Phone: ${data.client.phone}\n` +
+    `Payer: ${data.services.payer}\n` +
+    `Hours/Week: ${data.services.hoursPerWeek}\n` +
+    `Start Date: ${data.services.startDate}\n` +
+    `Signed By: ${data.clientSignature.name} (${data.clientSignature.relationship})\n` +
+    `Date Signed: ${data.clientSignature.date}\n` +
+    `Agreement ID: ${id}\n\n` +
+    `Log into the admin portal to review and countersign:\nhttps://vitaltouchcares.com/admin/`
+  );
+
+  // Open mailto link to send notification
+  const mailLink = document.createElement('a');
+  mailLink.href = `mailto:iezuri22@gmail.com?subject=${subject}&body=${body}`;
+  mailLink.click();
+
+  // Show confirmation
+  currentStep = 5;
+  showStep(5);
+
+  console.log('Agreement submitted:', data);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  initSigPad('sigPad1');
+
+  // Set today's date as default for signature date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('sig1Date').value = today;
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competency Evaluation: 5-Hour Training — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 800px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM SECTIONS ===== */
+  .form-section {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 0 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--warm); border: 1px solid #FDE68A;
+    border-radius: 6px; padding: 16px 18px;
+    margin-bottom: 24px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 16px; color: #78350f;
+  }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== PROGRESS ===== */
+  .progress-section {
+    padding: 16px 28px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+  .progress-bar-wrapper {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), #22C55E);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-score {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-lighter);
+    white-space: nowrap;
+  }
+
+  /* ===== QUIZ CARDS ===== */
+  .quiz-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .quiz-card.answered {
+    border-color: var(--green);
+    box-shadow: none;
+  }
+  .quiz-card.correct {
+    border-color: var(--green) !important;
+    background: #F8FAF8;
+  }
+  .quiz-card.incorrect {
+    border-color: var(--red) !important;
+    background: #FEF8F8;
+  }
+
+  .quiz-number {
+    font-weight: 600;
+    color: #64748B;
+    font-size: 15px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .quiz-card.incorrect .quiz-number {
+    color: #64748B;
+  }
+
+  .quiz-question {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #FFFFFF;
+    user-select: none;
+  }
+  .quiz-option:hover {
+    background: #F8FAFC;
+    border-color: #CBD5E1;
+  }
+  .quiz-option.selected {
+    background: #F1F5F9;
+    border-color: #94A3B8;
+  }
+  .quiz-option.selected .option-letter {
+    background: #F1F5F9;
+    color: #475569;
+    border: none;
+  }
+  .quiz-option.graded-correct {
+    border-color: var(--green) !important;
+    background: #F8FAF8 !important;
+  }
+  .quiz-option.graded-incorrect {
+    border-color: var(--red) !important;
+    background: #FEF8F8 !important;
+  }
+  .quiz-option.graded-incorrect .option-letter {
+    background: #FEF8F8;
+    color: #64748B;
+    border: none;
+  }
+  .quiz-option.show-correct {
+    border-color: var(--green) !important;
+    background: #F8FAF8 !important;
+  }
+  .quiz-option.show-correct .option-letter {
+    background: #F1F5F9;
+    color: #475569;
+    border: none;
+  }
+  .quiz-option.disabled {
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .option-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #475569;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    background: #F1F5F9;
+  }
+
+  .option-text {
+    font-size: 16px;
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+
+  .correct-answer {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #F8FAF8;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1E293B;
+    font-weight: 500;
+  }
+  .correct-answer.visible { display: block; }
+
+  /* ===== RESULTS ===== */
+  .results-section {
+    display: none;
+    padding: 40px 28px;
+    text-align: center;
+  }
+  .results-section.visible { display: block; }
+
+  .results-circle {
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    border: 6px solid;
+  }
+  .results-circle.pass {
+    border-color: var(--green);
+    background: #F8FAF8;
+  }
+  .results-circle.fail {
+    border-color: var(--red);
+    background: #FEF8F8;
+  }
+
+  .results-score {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .results-circle.pass .results-score { color: var(--green-deeper); }
+  .results-circle.fail .results-score { color: var(--red); }
+
+  .results-label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+  .results-circle.pass .results-label { color: var(--green); }
+  .results-circle.fail .results-label { color: var(--red); }
+
+  .results-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .results-badge.pass {
+    background: var(--green-light);
+    color: var(--green-deeper);
+  }
+  .results-badge.fail {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  .results-detail {
+    font-size: 16px;
+    color: var(--text-light);
+    max-width: 500px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+
+  .results-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  .breakdown-item {
+    text-align: center;
+  }
+  .breakdown-num {
+    font-size: 28px;
+    font-weight: 800;
+  }
+  .breakdown-num.green { color: var(--green); }
+  .breakdown-num.red { color: var(--red); }
+  .breakdown-label {
+    font-size: 12px;
+    color: var(--text-lighter);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  .conf-id {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--text-lighter);
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 16px;
+    border: none; border-radius: 6px;
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-submit {
+    background: var(--green); color: white;
+    padding: 14px 32px; border-radius: 6px;
+    font-size: 17px;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn-submit:hover {
+    background: var(--green-dark);
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn-submit:active { }
+  .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-secondary {
+    background: var(--text); color: white;
+    padding: 13px 28px; border-radius: 6px;
+    box-shadow: none;
+  }
+  .btn-secondary:hover { background: #334155; }
+
+  .submit-area {
+    padding: 24px 28px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .submit-area .unanswered-note {
+    font-size: 14px;
+    color: var(--red);
+    margin-bottom: 12px;
+    display: none;
+  }
+  .submit-area .unanswered-note.visible { display: block; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 12px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .progress-section, .submit-area, .trust-bar, .footer { display: none !important; }
+    .quiz-card { break-inside: avoid; page-break-inside: avoid; margin-bottom: 10px; padding: 12px; }
+    .quiz-option { padding: 6px 10px; }
+    .results-section { break-before: page; }
+    .results-section.visible { display: block !important; }
+    input, select {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 12px;
+    }
+  }
+
+  /* Results Review Table */
+  .results-table-wrapper {
+    margin-top: 24px; overflow-x: auto;
+  }
+  .results-table {
+    width: 100%; border-collapse: collapse; font-size: 15px;
+  }
+  .results-table thead {
+    background: var(--bg); border-bottom: 2px solid var(--border);
+  }
+  .results-table th {
+    padding: 12px 14px; text-align: left; font-weight: 700; color: #1a1a1a;
+  }
+  .results-table td {
+    padding: 12px 14px; border-bottom: 1px solid var(--border);
+  }
+  .results-table .result-icon { font-size: 14px; text-align: center; width: 32px; color: #64748B; }
+  .results-table tr.correct-row { background: #F8FAF8; }
+  .results-table tr.incorrect-row { background: #FEF8F8; }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px; flex-direction: column; text-align: center; }
+    .hero-text h1 { font-size: 22px; }
+    .form-section { padding: 24px 20px 20px; }
+    .quiz-card { padding: 18px; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .quiz-option { padding: 12px 14px; }
+    .option-text { font-size: 15px; }
+    .results-breakdown { gap: 20px; }
+    .progress-section { flex-wrap: wrap; gap: 8px; padding: 12px 20px; }
+    .results-table { font-size: 13px; }
+    .results-table th, .results-table td { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Competency Evaluation: 5-Hour Training (Prior to Assignment)</h1>
+    <p>VitalTouch Health Network — Pre-assignment knowledge assessment</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-section" id="progressSection">
+      <span class="progress-text" id="progressText">Question 0 of 22</span>
+      <div class="progress-bar-wrapper">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-score" id="progressScore">0 answered</span>
+    </div>
+
+    <!-- ===== EMPLOYEE INFO ===== -->
+    <div class="form-section" id="infoSection">
+      <div class="section-label">Employee Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Name <span class="req">*</span></label>
+          <input type="text" id="empName" placeholder="Full name" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Employee ID</label>
+          <input type="text" id="empId" placeholder="Optional">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Training Completion Date <span class="req">*</span></label>
+        <input type="date" id="trainingDate" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- INSTRUCTIONS -->
+      <div class="callout" style="margin-top: 24px;">
+        <span class="callout-icon">&#x1F4CB;</span>
+        <span>You must score <strong>80% or higher</strong> (18 of 22 correct) to pass. Select the best answer for each question.</span>
+      </div>
+    </div>
+
+    <!-- ===== QUIZ SECTION ===== -->
+    <div class="form-section" id="quizSection" style="padding-top: 0;">
+
+      <!-- Q1 -->
+      <div class="quiz-card" data-question="1" data-correct="B">
+        <div class="quiz-number">1</div>
+        <div class="quiz-question">What is the primary role of a homemaker at VitalTouch?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Provide medical treatment</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Assist clients with daily living activities in their home</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Drive clients to appointments</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Manage client finances</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: B — Assist clients with daily living activities in their home</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-card" data-question="2" data-correct="B">
+        <div class="quiz-number">2</div>
+        <div class="quiz-question">Which regulation governs Home Services Agencies in Illinois?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">OSHA standards</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">77 Ill. Adm. Code Part 245</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">FDA regulations</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">ADA guidelines</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: B — 77 Ill. Adm. Code Part 245</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-card" data-question="3" data-correct="C">
+        <div class="quiz-number">3</div>
+        <div class="quiz-question">A client has the right to:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Unlimited free services</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Choose their homemaker's schedule</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Refuse services at any time</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Access other clients' records</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Refuse services at any time</div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="quiz-card" data-question="4" data-correct="C">
+        <div class="quiz-number">4</div>
+        <div class="quiz-question">HIPAA protects:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Employee salaries</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Company trade secrets</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Client health information</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Agency licensing records</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Client health information</div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="quiz-card" data-question="5" data-correct="D">
+        <div class="quiz-number">5</div>
+        <div class="quiz-question">What should you do if you accidentally see a client's medical information you don't need?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Share it with coworkers</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Take a photo for your records</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Post about it on social media</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Do not share it and report the incident to your supervisor</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: D — Do not share it and report the incident to your supervisor</div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="quiz-card" data-question="6" data-correct="C">
+        <div class="quiz-number">6</div>
+        <div class="quiz-question">A professional boundary violation would be:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Arriving on time</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Following the care plan</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Accepting gifts or money from a client</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Documenting services provided</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Accepting gifts or money from a client</div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="quiz-card" data-question="7" data-correct="C">
+        <div class="quiz-number">7</div>
+        <div class="quiz-question">When communicating with an elderly client, you should:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Speak very loudly</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Use medical terminology</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Speak clearly, face them, and be patient</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Finish their sentences for them</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Speak clearly, face them, and be patient</div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="quiz-card" data-question="8" data-correct="C">
+        <div class="quiz-number">8</div>
+        <div class="quiz-question">Cultural sensitivity means:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Treating all clients exactly the same</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Ignoring cultural differences</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Respecting and adapting to clients' cultural preferences and beliefs</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Imposing your own cultural values</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Respecting and adapting to clients' cultural preferences and beliefs</div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="quiz-card" data-question="9" data-correct="B">
+        <div class="quiz-number">9</div>
+        <div class="quiz-question">The most important step in infection control is:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Wearing gloves at all times</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Proper hand washing</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Using bleach on everything</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Avoiding all physical contact</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: B — Proper hand washing</div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="quiz-card" data-question="10" data-correct="B">
+        <div class="quiz-number">10</div>
+        <div class="quiz-question">Universal precautions means:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Only protecting yourself from known infections</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Treating all blood and body fluids as potentially infectious</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Wearing a mask at all times</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Avoiding clients who are sick</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: B — Treating all blood and body fluids as potentially infectious</div>
+      </div>
+
+      <!-- Q11 -->
+      <div class="quiz-card" data-question="11" data-correct="B">
+        <div class="quiz-number">11</div>
+        <div class="quiz-question">You notice a throw rug in a client's hallway. You should:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Ignore it</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Remove it or secure it to prevent tripping</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Step over it each time</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Report it to the police</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: B — Remove it or secure it to prevent tripping</div>
+      </div>
+
+      <!-- Q12 -->
+      <div class="quiz-card" data-question="12" data-correct="C">
+        <div class="quiz-number">12</div>
+        <div class="quiz-question">What should you do FIRST in a medical emergency?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Call the client's family</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Drive the client to the hospital</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Call 911</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Administer medication</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Call 911</div>
+      </div>
+
+      <!-- Q13 -->
+      <div class="quiz-card" data-question="13" data-correct="C">
+        <div class="quiz-number">13</div>
+        <div class="quiz-question">The best fall prevention strategy includes:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Keeping clients in bed</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Dimming all lights</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Ensuring clear pathways and adequate lighting</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Removing all furniture</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Ensuring clear pathways and adequate lighting</div>
+      </div>
+
+      <!-- Q14 -->
+      <div class="quiz-card" data-question="14" data-correct="D">
+        <div class="quiz-number">14</div>
+        <div class="quiz-question">When assisting a client with bathing, you should:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Rush to finish quickly</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Leave them alone in the tub</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Use very hot water</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Maintain their privacy and dignity at all times</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: D — Maintain their privacy and dignity at all times</div>
+      </div>
+
+      <!-- Q15 -->
+      <div class="quiz-card" data-question="15" data-correct="B">
+        <div class="quiz-number">15</div>
+        <div class="quiz-question">A balanced meal for an elderly client should include:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Only liquids</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Protein, vegetables, grains, and adequate fluids</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">High-sugar foods for energy</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Whatever is easiest to prepare</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: B — Protein, vegetables, grains, and adequate fluids</div>
+      </div>
+
+      <!-- Q16 -->
+      <div class="quiz-card" data-question="16" data-correct="C">
+        <div class="quiz-number">16</div>
+        <div class="quiz-question">When cleaning a client's home, you should:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Use your own cleaning products</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Rearrange furniture to your preference</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Follow the care plan and use the client's preferred products</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Clean only what you think is necessary</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Follow the care plan and use the client's preferred products</div>
+      </div>
+
+      <!-- Q17 -->
+      <div class="quiz-card" data-question="17" data-correct="C">
+        <div class="quiz-number">17</div>
+        <div class="quiz-question">EVV (Electronic Visit Verification) is used to:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Track the client's health</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Monitor the client's diet</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Verify the time, location, and duration of home visits</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Replace paper timesheets only</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Verify the time, location, and duration of home visits</div>
+      </div>
+
+      <!-- Q18 -->
+      <div class="quiz-card" data-question="18" data-correct="D">
+        <div class="quiz-number">18</div>
+        <div class="quiz-question">You must report suspected abuse:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Only if you witness it directly</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Only if the client tells you</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Only if there's physical evidence</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Whenever you have reasonable cause to suspect it</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: D — Whenever you have reasonable cause to suspect it</div>
+      </div>
+
+      <!-- Q19 -->
+      <div class="quiz-card" data-question="19" data-correct="B">
+        <div class="quiz-number">19</div>
+        <div class="quiz-question">If a client tells you they're being hurt by a family member, you should:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Confront the family member</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Report it immediately to your supervisor</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Wait to see if it happens again</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Tell other clients</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: B — Report it immediately to your supervisor</div>
+      </div>
+
+      <!-- Q20 -->
+      <div class="quiz-card" data-question="20" data-correct="C">
+        <div class="quiz-number">20</div>
+        <div class="quiz-question">Which is NOT appropriate workplace conduct?</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Arriving on time</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Following the dress code</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Using your phone during client care</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Documenting services accurately</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Using your phone during client care</div>
+      </div>
+
+      <!-- Q21 -->
+      <div class="quiz-card" data-question="21" data-correct="B">
+        <div class="quiz-number">21</div>
+        <div class="quiz-question">If you are running late to a client visit, you should:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Skip the visit</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Call your supervisor and the client to let them know</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Rush and cut the visit short</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Show up whenever you can</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: B — Call your supervisor and the client to let them know</div>
+      </div>
+
+      <!-- Q22 -->
+      <div class="quiz-card" data-question="22" data-correct="C">
+        <div class="quiz-number">22</div>
+        <div class="quiz-question">The purpose of incident reporting is to:</div>
+        <div class="quiz-options">
+          <div class="quiz-option" data-value="A" onclick="selectOption(this)">
+            <div class="option-letter">A</div>
+            <div class="option-text">Get coworkers in trouble</div>
+          </div>
+          <div class="quiz-option" data-value="B" onclick="selectOption(this)">
+            <div class="option-letter">B</div>
+            <div class="option-text">Create unnecessary paperwork</div>
+          </div>
+          <div class="quiz-option" data-value="C" onclick="selectOption(this)">
+            <div class="option-letter">C</div>
+            <div class="option-text">Document events for safety, quality, and regulatory compliance</div>
+          </div>
+          <div class="quiz-option" data-value="D" onclick="selectOption(this)">
+            <div class="option-letter">D</div>
+            <div class="option-text">Blame others for problems</div>
+          </div>
+        </div>
+        <div class="correct-answer">Correct answer: C — Document events for safety, quality, and regulatory compliance</div>
+      </div>
+
+    </div>
+
+    <!-- SUBMIT AREA -->
+    <div class="submit-area" id="submitArea">
+      <div class="unanswered-note" id="unansweredNote">Please answer all 22 questions before submitting.</div>
+      <button class="btn btn-submit" id="btnSubmit" onclick="gradeQuiz()">Submit Evaluation</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-section" id="resultsSection">
+      <div class="results-circle" id="resultsCircle">
+        <div class="results-score" id="resultsScoreNum"></div>
+        <div class="results-label" id="resultsScoreLabel"></div>
+      </div>
+
+      <div class="results-badge" id="resultsBadge"></div>
+
+      <div class="results-detail" id="resultsDetail"></div>
+
+      <div class="results-breakdown">
+        <div class="breakdown-item">
+          <div class="breakdown-num green" id="correctCount">0</div>
+          <div class="breakdown-label">Correct</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-num red" id="incorrectCount">0</div>
+          <div class="breakdown-label">Incorrect</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-num" id="percentScore" style="color: var(--text);">0%</div>
+          <div class="breakdown-label">Score</div>
+        </div>
+      </div>
+
+      <div class="conf-id">Evaluation ID: <span id="confId"></span></div>
+
+      <div class="results-table-wrapper" id="resultsTableWrapper" style="display: none; margin-top: 24px;">
+        <table class="results-table" id="resultsTable">
+          <thead>
+            <tr>
+              <th style="width: 10%;">Q</th>
+              <th style="width: 35%;">Your Answer</th>
+              <th style="width: 35%;">Correct Answer</th>
+              <th style="width: 10%; text-align: center;">Result</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTableBody">
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-submit" onclick="window.print()">Print Results</button>
+        <button class="btn btn-secondary" onclick="reviewAnswers()">Review Answers</button>
+      </div>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">&#x1F512; Stored Locally</div>
+      <div class="trust-item">&#x1F3E5; IDPH Licensed</div>
+      <div class="trust-item">&#x1F4CB; Form B.2</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== STATE =====
+const TOTAL_QUESTIONS = 22;
+const PASS_THRESHOLD = 18; // 80% of 22
+const formId = 'B.2';
+const formVersion = '1.0';
+let answers = {};
+let graded = false;
+
+// ===== BUILD RESULTS TABLE =====
+function buildResultsTable(correct, total) {
+  const tbody = document.getElementById('resultsTableBody');
+  tbody.innerHTML = '';
+  const cards = document.querySelectorAll('.quiz-card');
+
+  cards.forEach(card => {
+    const qNum = card.dataset.question;
+    const selected = answers[qNum];
+    const correctAnswer = card.dataset.correct;
+    const isCorrect = selected === correctAnswer;
+
+    const selectedOpt = card.querySelector(`.quiz-option[data-value="${selected}"]`);
+    const correctOpt = card.querySelector(`.quiz-option[data-value="${correctAnswer}"]`);
+
+    const userAnswerText = selectedOpt ? selectedOpt.querySelector('.option-text').textContent : selected;
+    const correctAnswerText = correctOpt ? correctOpt.querySelector('.option-text').textContent : correctAnswer;
+
+    const row = document.createElement('tr');
+    row.className = isCorrect ? 'correct-row' : 'incorrect-row';
+    row.innerHTML = `
+      <td><strong>Q${qNum}</strong></td>
+      <td>${userAnswerText}</td>
+      <td>${correctAnswerText}</td>
+      <td class="result-icon">${isCorrect ? 'Correct' : 'Incorrect'}</td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  document.getElementById('resultsTableWrapper').style.display = 'block';
+}
+
+// ===== SELECT OPTION =====
+function selectOption(el) {
+  if (graded) return;
+
+  const card = el.closest('.quiz-card');
+  const qNum = card.dataset.question;
+  const value = el.dataset.value;
+
+  // Deselect siblings
+  card.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+
+  // Select this one
+  el.classList.add('selected');
+  answers[qNum] = value;
+
+  // Mark card as answered
+  card.classList.add('answered');
+
+  updateProgress();
+}
+
+// ===== PROGRESS =====
+function updateProgress() {
+  const count = Object.keys(answers).length;
+  const pct = Math.round((count / TOTAL_QUESTIONS) * 100);
+
+  document.getElementById('progressText').textContent = `Question ${count} of ${TOTAL_QUESTIONS}`;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressScore').textContent = count + ' answered';
+}
+
+// ===== VALIDATE INFO =====
+function validateInfo() {
+  let valid = true;
+  const name = document.getElementById('empName');
+  const date = document.getElementById('trainingDate');
+
+  [name, date].forEach(el => {
+    const field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  return valid;
+}
+
+// ===== GRADE QUIZ =====
+function gradeQuiz() {
+  // Validate employee info
+  if (!validateInfo()) {
+    document.getElementById('empName').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // Check all questions answered
+  const answered = Object.keys(answers).length;
+  if (answered < TOTAL_QUESTIONS) {
+    const note = document.getElementById('unansweredNote');
+    note.textContent = `Please answer all 22 questions before submitting. You have answered ${answered} of ${TOTAL_QUESTIONS}.`;
+    note.classList.add('visible');
+
+    // Scroll to first unanswered
+    const cards = document.querySelectorAll('.quiz-card');
+    for (const card of cards) {
+      if (!card.classList.contains('answered')) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.style.animation = 'none';
+        card.offsetHeight; // force reflow
+        card.style.animation = 'shake 0.5s ease';
+        break;
+      }
+    }
+    return;
+  }
+
+  graded = true;
+
+  // Score
+  let correct = 0;
+  const cards = document.querySelectorAll('.quiz-card');
+
+  cards.forEach(card => {
+    const qNum = card.dataset.question;
+    const correctAnswer = card.dataset.correct;
+    const selected = answers[qNum];
+
+    // Disable all options
+    card.querySelectorAll('.quiz-option').forEach(opt => opt.classList.add('disabled'));
+
+    if (selected === correctAnswer) {
+      correct++;
+      card.classList.add('correct');
+      // Mark the selected option as graded-correct
+      const selectedOpt = card.querySelector(`.quiz-option[data-value="${selected}"]`);
+      if (selectedOpt) selectedOpt.classList.add('graded-correct');
+    } else {
+      card.classList.add('incorrect');
+      // Mark the selected option as graded-incorrect
+      const selectedOpt = card.querySelector(`.quiz-option[data-value="${selected}"]`);
+      if (selectedOpt) selectedOpt.classList.add('graded-incorrect');
+      // Show the correct answer
+      const correctOpt = card.querySelector(`.quiz-option[data-value="${correctAnswer}"]`);
+      if (correctOpt) correctOpt.classList.add('show-correct');
+      // Show correct answer text
+      card.querySelector('.correct-answer').classList.add('visible');
+    }
+  });
+
+  const incorrect = TOTAL_QUESTIONS - correct;
+  const pct = Math.round((correct / TOTAL_QUESTIONS) * 100);
+  const passed = correct >= PASS_THRESHOLD;
+
+  // Build results table
+  buildResultsTable(correct, TOTAL_QUESTIONS);
+
+  // Update results
+  const circle = document.getElementById('resultsCircle');
+  circle.classList.add(passed ? 'pass' : 'fail');
+  document.getElementById('resultsScoreNum').textContent = `${correct}/${TOTAL_QUESTIONS}`;
+  document.getElementById('resultsScoreLabel').textContent = `${pct}%`;
+
+  const badge = document.getElementById('resultsBadge');
+  badge.classList.add(passed ? 'pass' : 'fail');
+  badge.textContent = passed ? 'PASSED' : 'DID NOT PASS';
+
+  document.getElementById('resultsDetail').textContent = passed
+    ? `Congratulations! You scored ${pct}% (${correct} of ${TOTAL_QUESTIONS} correct) and have passed the 5-Hour Training competency evaluation.`
+    : `You scored ${pct}% (${correct} of ${TOTAL_QUESTIONS} correct). A score of 80% (18 of 22) is required to pass. Please review the material and retake the evaluation.`;
+
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('incorrectCount').textContent = incorrect;
+  document.getElementById('percentScore').textContent = pct + '%';
+
+  // Generate submission ID
+  const submissionId = `B2-${Date.now().toString(36).toUpperCase()}`;
+  document.getElementById('confId').textContent = submissionId;
+
+  // Build data
+  const data = {
+    formId,
+    formVersion,
+    submissionId,
+    timestamp: new Date().toISOString(),
+    employee: {
+      name: document.getElementById('empName').value,
+      id: document.getElementById('empId').value,
+      trainingDate: document.getElementById('trainingDate').value,
+    },
+    score: {
+      correct,
+      total: TOTAL_QUESTIONS,
+      percentage: pct,
+      passed,
+    },
+    answers: { ...answers },
+    status: passed ? 'passed' : 'failed',
+  };
+
+  // Store to localStorage
+  const stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+  // Hide submit, show results
+  document.getElementById('submitArea').style.display = 'none';
+  document.getElementById('resultsSection').classList.add('visible');
+
+  // Show results section and scroll to it
+  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Send email if passed
+  if (passed) {
+    const empName = data.employee.name;
+    const subject = encodeURIComponent(`[VitalTouch] Competency Eval Passed — ${empName} (${submissionId})`);
+    const body = encodeURIComponent(
+      `5-Hour Training Competency Evaluation — PASSED\n\n` +
+      `Employee: ${empName}\n` +
+      `Employee ID: ${data.employee.id || 'N/A'}\n` +
+      `Training Date: ${data.employee.trainingDate}\n` +
+      `Score: ${correct}/${TOTAL_QUESTIONS} (${pct}%)\n` +
+      `Result: PASSED\n` +
+      `Submission ID: ${submissionId}\n` +
+      `Submitted: ${new Date().toLocaleString()}\n\n` +
+      `This evaluation has been stored locally. Log into the admin portal to review:\nhttps://vitaltouchcares.com/admin/`
+    );
+
+    const mailLink = document.createElement('a');
+    mailLink.href = `mailto:iezuri22@gmail.com?subject=${subject}&body=${body}`;
+    mailLink.click();
+  }
+
+  console.log('Evaluation submitted:', data);
+}
+
+// ===== REVIEW ANSWERS =====
+function reviewAnswers() {
+  const firstCard = document.querySelector('.quiz-card');
+  if (firstCard) {
+    firstCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// ===== SHAKE ANIMATION =====
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = `
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+`;
+document.head.appendChild(shakeStyle);
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  // Set today's date as default
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('trainingDate').value = today;
+
+  updateProgress();
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

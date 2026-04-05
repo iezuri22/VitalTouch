@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client CRM — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<!-- MSAL.js for OneDrive auth — uncomment after Azure AD setup -->
+<!-- <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script> -->
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.10);
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --amber: #F59E0B;
+    --blue: #3B82F6;
+    --purple: #8B5CF6;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: var(--white);
+    border-bottom: 3px solid var(--green);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .header-logo { height: 40px; }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .header h1 span { color: var(--green); }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+  }
+  #onedrive-status {
+    font-weight: 600;
+    color: var(--text-lighter);
+  }
+  .btn-sm {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-green {
+    background: var(--green);
+    color: white;
+  }
+  .btn-green:hover { background: var(--green-dark); }
+  .btn-outline {
+    background: white;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--green); color: var(--green); }
+
+  /* ===== LAYOUT ===== */
+  .main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 32px;
+  }
+
+  /* ===== STATS ROW ===== */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+  }
+  .stat-green .stat-value { color: var(--green); }
+  .stat-blue .stat-value { color: var(--blue); }
+  .stat-amber .stat-value { color: var(--amber); }
+  .stat-red .stat-value { color: var(--red); }
+  .stat-purple .stat-value { color: var(--purple); }
+
+  /* ===== ALERTS BAR ===== */
+  .alerts-bar {
+    margin-bottom: 24px;
+  }
+  .alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .alert-amber {
+    background: #FEF3C7;
+    border: 1px solid #FCD34D;
+    color: #92400E;
+  }
+  .alert-red {
+    background: #FEE2E2;
+    border: 1px solid #FCA5A5;
+    color: #991B1B;
+  }
+  .alert-icon { font-size: 18px; flex-shrink: 0; }
+  .alert-action {
+    margin-left: auto;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    background: rgba(0,0,0,0.08);
+    color: inherit;
+  }
+  .alert-action:hover { background: rgba(0,0,0,0.14); }
+
+  /* ===== TABS ===== */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0;
+  }
+  .tab {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+  }
+  .tab.active {
+    color: var(--green);
+    border-bottom-color: var(--green);
+  }
+  .tab:hover:not(.active) { color: var(--text); }
+  .tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 1px 8px;
+    margin-left: 6px;
+  }
+
+  /* ===== CLIENT TABLE ===== */
+  .table-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .table-title { font-size: 16px; font-weight: 700; }
+  .search-input {
+    padding: 8px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    width: 240px;
+    font-family: inherit;
+    outline: none;
+    transition: border 0.2s;
+  }
+  .search-input:focus { border-color: var(--green); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    text-align: left;
+    padding: 12px 24px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    background: #F1F5F9;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 14px 24px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #F8FAFC; }
+  .client-name {
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .client-name:hover { color: var(--green); }
+
+  /* Status badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-green { background: var(--green-light); color: var(--green-deeper); }
+  .badge-blue { background: #DBEAFE; color: #1E40AF; }
+  .badge-amber { background: #FEF3C7; color: #92400E; }
+  .badge-red { background: #FEE2E2; color: #991B1B; }
+  .badge-gray { background: #F1F5F9; color: var(--text-light); }
+  .badge-purple { background: #EDE9FE; color: #5B21B6; }
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .badge-green .badge-dot { background: var(--green); }
+  .badge-blue .badge-dot { background: var(--blue); }
+  .badge-amber .badge-dot { background: var(--amber); }
+  .badge-red .badge-dot { background: var(--red); }
+  .badge-gray .badge-dot { background: var(--text-lighter); }
+
+  /* Progress bar */
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 8px;
+    background: #E2E8F0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .progress-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-light);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* Next step link */
+  .next-step-link {
+    color: var(--green);
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .next-step-link:hover { text-decoration: underline; }
+
+  /* ===== CLIENT DETAIL PANEL ===== */
+  .detail-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 200;
+  }
+  .detail-overlay.open { display: flex; justify-content: flex-end; }
+  .detail-panel {
+    width: 580px;
+    max-width: 100%;
+    background: var(--white);
+    height: 100%;
+    overflow-y: auto;
+    box-shadow: -8px 0 40px rgba(0,0,0,0.15);
+    padding: 0;
+  }
+  .detail-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+  }
+  .detail-header h2 {
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .detail-header .badge { margin-top: 4px; }
+  .detail-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-light);
+    padding: 4px;
+  }
+  .detail-close:hover { color: var(--text); }
+  .detail-body { padding: 24px; }
+
+  .detail-section {
+    margin-bottom: 28px;
+  }
+  .detail-section h3 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  /* Flow timeline */
+  .flow-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .flow-timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--border);
+  }
+  .flow-step {
+    position: relative;
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--white);
+  }
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 18px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: white;
+  }
+  .flow-step.step-approved::before {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .flow-step.step-awaiting::before {
+    background: var(--amber);
+    border-color: var(--amber);
+  }
+  .flow-step.step-current::before {
+    background: var(--blue);
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(59,130,246,0.2);
+  }
+  .flow-step.step-pending::before {
+    background: white;
+    border-color: var(--border);
+  }
+
+  .flow-step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .flow-step-name {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .flow-step-id {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-lighter);
+  }
+  .flow-step-meta {
+    font-size: 12px;
+    color: var(--text-light);
+  }
+  .flow-step-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .btn-approve {
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn-approve:hover { background: var(--green-dark); }
+  .btn-reject {
+    background: white;
+    color: var(--red);
+    border: 1.5px solid var(--red);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn-reject:hover { background: #FEE2E2; }
+  .btn-open-form {
+    background: white;
+    color: var(--blue);
+    border: 1.5px solid var(--blue);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-open-form:hover { background: #DBEAFE; }
+
+  /* OneDrive links */
+  .onedrive-link {
+    font-size: 12px;
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .onedrive-link:hover { text-decoration: underline; }
+
+  /* ===== NEW CLIENT MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white;
+    border-radius: var(--radius);
+    padding: 32px;
+    width: 480px;
+    max-width: 90%;
+    box-shadow: var(--shadow-lg);
+  }
+  .modal h2 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+  .form-group {
+    margin-bottom: 16px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+  }
+  .form-group input:focus { border-color: var(--green); }
+  .modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    justify-content: flex-end;
+  }
+  .btn-cancel {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    background: white;
+    cursor: pointer;
+  }
+
+  /* ===== EMPTY STATE ===== */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+  }
+  .empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+  .empty-state h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .empty-state p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .header { padding: 12px 16px; }
+    .main { padding: 16px; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .detail-panel { width: 100%; }
+    th, td { padding: 10px 12px; }
+    .search-input { width: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div class="header-left">
+    <img src="images/logo-symbol.png" alt="VitalTouch" class="header-logo">
+    <h1>Client <span>CRM</span></h1>
+  </div>
+  <div class="header-right">
+    <span id="onedrive-status">○ OneDrive Not Set Up</span>
+    <button class="btn-sm btn-outline" id="btnOneDrive" onclick="handleOneDrive()">Connect OneDrive</button>
+    <button class="btn-sm btn-green" onclick="openNewClientModal()">+ New Client</button>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+
+  <!-- Stats Row -->
+  <div class="stats-row" id="statsRow">
+    <div class="stat-card stat-green">
+      <div class="stat-value" id="statTotal">0</div>
+      <div class="stat-label">Total Clients</div>
+    </div>
+    <div class="stat-card stat-blue">
+      <div class="stat-value" id="statOnboarding">0</div>
+      <div class="stat-label">In Onboarding</div>
+    </div>
+    <div class="stat-card stat-green">
+      <div class="stat-value" id="statActive">0</div>
+      <div class="stat-label">Active</div>
+    </div>
+    <div class="stat-card stat-amber">
+      <div class="stat-value" id="statApprovals">0</div>
+      <div class="stat-label">Pending Approvals</div>
+    </div>
+    <div class="stat-card stat-red">
+      <div class="stat-value" id="statOverdue">0</div>
+      <div class="stat-label">Overdue Items</div>
+    </div>
+    <div class="stat-card stat-purple">
+      <div class="stat-value" id="statOnHold">0</div>
+      <div class="stat-label">On Hold</div>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  <div class="alerts-bar" id="alertsBar"></div>
+
+  <!-- Tabs -->
+  <div class="tab-bar">
+    <button class="tab active" data-tab="all" onclick="switchTab('all')">All Clients</button>
+    <button class="tab" data-tab="onboarding" onclick="switchTab('onboarding')">Onboarding</button>
+    <button class="tab" data-tab="active" onclick="switchTab('active')">Active</button>
+    <button class="tab" data-tab="approvals" onclick="switchTab('approvals')">Approvals <span class="tab-count" id="tabApprovalCount">0</span></button>
+    <button class="tab" data-tab="overdue" onclick="switchTab('overdue')">Overdue</button>
+  </div>
+
+  <!-- Client Table -->
+  <div class="table-card">
+    <div class="table-header">
+      <span class="table-title" id="tableTitle">All Clients</span>
+      <input type="text" class="search-input" placeholder="Search clients..." id="searchInput" oninput="filterClients()">
+    </div>
+    <div id="tableBody">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ===== CLIENT DETAIL PANEL ===== -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+  <div class="detail-panel" id="detailPanel">
+    <div class="detail-header">
+      <div>
+        <h2 id="detailName">Client Name</h2>
+        <div id="detailBadge"></div>
+      </div>
+      <button class="detail-close" onclick="closeDetailPanel()">&times;</button>
+    </div>
+    <div class="detail-body" id="detailBody">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ===== NEW CLIENT MODAL ===== -->
+<div class="modal-overlay" id="newClientModal" onclick="closeModalOverlay(event)">
+  <div class="modal">
+    <h2>New Client Flow</h2>
+    <p style="font-size:14px; color:var(--text-light); margin-bottom:20px;">
+      Start a new client onboarding flow. This creates a tracked lifecycle from intake through active monitoring.
+    </p>
+    <div class="form-group">
+      <label>First Name *</label>
+      <input type="text" id="newFirstName" placeholder="First name">
+    </div>
+    <div class="form-group">
+      <label>Last Name *</label>
+      <input type="text" id="newLastName" placeholder="Last name">
+    </div>
+    <div class="form-group">
+      <label>Phone</label>
+      <input type="tel" id="newPhone" placeholder="(xxx) xxx-xxxx">
+    </div>
+    <div class="form-group">
+      <label>Medicaid Number</label>
+      <input type="text" id="newMedicaid" placeholder="Optional">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeNewClientModal()">Cancel</button>
+      <button class="btn-sm btn-green" onclick="createNewClient()">Create Flow &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ─────────────────────────────────────────
+  // STATE
+  // ─────────────────────────────────────────
+  let currentTab = 'all';
+  let selectedFlowId = null;
+
+  // ─────────────────────────────────────────
+  // INIT
+  // ─────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', function () {
+    renderDashboard();
+    // Init OneDrive (will show not-configured if no client ID)
+    if (typeof VTOneDrive !== 'undefined') {
+      VTOneDrive.init();
+    }
+  });
+
+  // ─────────────────────────────────────────
+  // RENDER DASHBOARD
+  // ─────────────────────────────────────────
+  function renderDashboard() {
+    renderStats();
+    renderAlerts();
+    renderTable();
+    updateTabCounts();
+  }
+
+  function renderStats() {
+    var stats = VTFlow.getDashboardStats();
+    document.getElementById('statTotal').textContent = stats.totalClients;
+    document.getElementById('statOnboarding').textContent = stats.inOnboarding;
+    document.getElementById('statActive').textContent = stats.active;
+    document.getElementById('statApprovals').textContent = stats.pendingApprovals;
+    document.getElementById('statOverdue').textContent = stats.overdueItems;
+    document.getElementById('statOnHold').textContent = stats.onHold;
+  }
+
+  function renderAlerts() {
+    var html = '';
+    var approvals = VTFlow.getPendingApprovals();
+    var overdue = VTFlow.getOverdueRecurring();
+
+    approvals.forEach(function (a) {
+      html += '<div class="alert alert-amber">'
+        + '<span class="alert-icon">⏳</span>'
+        + '<span><strong>' + esc(a.clientName) + '</strong> — ' + esc(a.stepName) + ' awaiting ' + esc(a.approvalLabel) + '</span>'
+        + '<button class="alert-action" onclick="openDetail(\'' + a.flowId + '\')">Review</button>'
+        + '</div>';
+    });
+
+    overdue.forEach(function (o) {
+      html += '<div class="alert alert-red">'
+        + '<span class="alert-icon">🔴</span>'
+        + '<span><strong>' + esc(o.clientName) + '</strong> — ' + esc(o.stepName) + ' overdue since ' + formatDate(o.dueDate) + '</span>'
+        + '<button class="alert-action" onclick="openDetail(\'' + o.flowId + '\')">View</button>'
+        + '</div>';
+    });
+
+    document.getElementById('alertsBar').innerHTML = html;
+  }
+
+  function renderTable() {
+    var flows = getFilteredFlows();
+    var search = document.getElementById('searchInput').value.toLowerCase();
+
+    if (search) {
+      flows = flows.filter(function (f) {
+        return (f.entity.firstName + ' ' + f.entity.lastName).toLowerCase().indexOf(search) !== -1;
+      });
+    }
+
+    if (flows.length === 0) {
+      document.getElementById('tableBody').innerHTML =
+        '<div class="empty-state">'
+        + '<div class="empty-state-icon">📋</div>'
+        + '<h3>No clients found</h3>'
+        + '<p>Click "+ New Client" to start a client onboarding flow.</p>'
+        + '<button class="btn-sm btn-green" onclick="openNewClientModal()">+ New Client</button>'
+        + '</div>';
+      return;
+    }
+
+    var html = '<table><thead><tr>'
+      + '<th>Client</th>'
+      + '<th>Status</th>'
+      + '<th>Current Step</th>'
+      + '<th>Progress</th>'
+      + '<th>Last Updated</th>'
+      + '<th>Action</th>'
+      + '</tr></thead><tbody>';
+
+    flows.forEach(function (f) {
+      var progress = VTFlow.getProgress(f.flowId);
+      var statusBadge = getStatusBadge(f);
+      var template = VTFlow.getTemplate(f.flowType);
+      var currentStepName = getStepNameById(template, f.currentStep);
+      var nextUrl = VTFlow.getNextStepUrl(f.flowId);
+
+      html += '<tr>'
+        + '<td><span class="client-name" onclick="openDetail(\'' + f.flowId + '\')">'
+        + esc(f.entity.lastName) + ', ' + esc(f.entity.firstName) + '</span></td>'
+        + '<td>' + statusBadge + '</td>'
+        + '<td style="font-size:13px;">' + esc(currentStepName) + '</td>'
+        + '<td><div class="progress-wrap">'
+        + '<div class="progress-bar"><div class="progress-fill" style="width:' + progress + '%"></div></div>'
+        + '<span class="progress-text">' + progress + '%</span></div></td>'
+        + '<td style="font-size:13px; color:var(--text-light);">' + formatDate(f.updatedAt) + '</td>'
+        + '<td>' + (nextUrl
+          ? '<a class="next-step-link" href="' + nextUrl + '">Open Form →</a>'
+          : '<span style="font-size:12px;color:var(--text-lighter);">—</span>')
+        + '</td>'
+        + '</tr>';
+    });
+
+    html += '</tbody></table>';
+    document.getElementById('tableBody').innerHTML = html;
+  }
+
+  function getFilteredFlows() {
+    switch (currentTab) {
+      case 'onboarding':
+        return VTFlow.getFlowsByStatus('in_progress');
+      case 'active':
+        return VTFlow.getFlowsByStatus('active');
+      case 'approvals':
+        var ids = VTFlow.getPendingApprovals().map(function (a) { return a.flowId; });
+        return VTFlow.getAllFlows('client').filter(function (f) { return ids.indexOf(f.flowId) !== -1; });
+      case 'overdue':
+        var oIds = VTFlow.getOverdueRecurring().map(function (o) { return o.flowId; });
+        return VTFlow.getAllFlows('client').filter(function (f) { return oIds.indexOf(f.flowId) !== -1; });
+      default:
+        return VTFlow.getAllFlows('client');
+    }
+  }
+
+  function updateTabCounts() {
+    document.getElementById('tabApprovalCount').textContent = VTFlow.getPendingApprovals().length;
+  }
+
+  // ─────────────────────────────────────────
+  // CLIENT DETAIL PANEL
+  // ─────────────────────────────────────────
+  function openDetail(flowId) {
+    selectedFlowId = flowId;
+    var flow = VTFlow.getFlow(flowId);
+    if (!flow) return;
+
+    document.getElementById('detailName').textContent =
+      flow.entity.firstName + ' ' + flow.entity.lastName;
+    document.getElementById('detailBadge').innerHTML = getStatusBadge(flow);
+
+    var template = VTFlow.getTemplate(flow.flowType);
+    var html = '';
+
+    // Client Info
+    html += '<div class="detail-section"><h3>Client Info</h3>';
+    html += '<div style="font-size:14px; line-height:2;">';
+    if (flow.entity.phone) html += '<div><strong>Phone:</strong> ' + esc(flow.entity.phone) + '</div>';
+    if (flow.entity.email) html += '<div><strong>Email:</strong> ' + esc(flow.entity.email) + '</div>';
+    if (flow.entity.medicaidNumber) html += '<div><strong>Medicaid #:</strong> ' + esc(flow.entity.medicaidNumber) + '</div>';
+    html += '<div><strong>Flow ID:</strong> ' + esc(flow.flowId) + '</div>';
+    html += '<div><strong>Created:</strong> ' + formatDate(flow.createdAt) + '</div>';
+    if (flow.oneDriveFolder) {
+      html += '<div><strong>OneDrive:</strong> <a class="onedrive-link" href="#">' + esc(flow.oneDriveFolder) + '</a></div>';
+    }
+    html += '</div></div>';
+
+    // Flow actions
+    html += '<div class="detail-section" style="display:flex; gap:8px;">';
+    if (flow.status === 'in_progress' || flow.status === 'active') {
+      html += '<button class="btn-sm btn-outline" onclick="holdClient(\'' + flowId + '\')">Pause Flow</button>';
+    }
+    if (flow.status === 'on_hold') {
+      html += '<button class="btn-sm btn-green" onclick="resumeClient(\'' + flowId + '\')">Resume Flow</button>';
+    }
+    html += '</div>';
+
+    // Flow Timeline per phase
+    template.phases.forEach(function (phase) {
+      html += '<div class="detail-section"><h3>' + esc(phase.name) + '</h3>';
+      html += '<div class="flow-timeline">';
+
+      phase.steps.forEach(function (stepDef) {
+        var step = flow.steps[stepDef.id];
+        var stepClass = 'step-pending';
+        if (step.status === 'approved') stepClass = 'step-approved';
+        else if (step.status === 'awaiting_approval') stepClass = 'step-awaiting';
+        else if (flow.currentStep === stepDef.id) stepClass = 'step-current';
+
+        html += '<div class="flow-step ' + stepClass + '">';
+        html += '<div class="flow-step-header">';
+        html += '<span class="flow-step-name">' + esc(stepDef.name) + '</span>';
+        html += '<span class="flow-step-id">' + esc(stepDef.id) + '</span>';
+        html += '</div>';
+
+        // Meta info
+        html += '<div class="flow-step-meta">';
+        if (step.status === 'approved') {
+          html += 'Completed ' + formatDate(step.approvedAt || step.submittedAt);
+          if (step.approvedBy) html += ' — Approved by ' + esc(step.approvedBy);
+        } else if (step.status === 'awaiting_approval') {
+          html += 'Submitted ' + formatDate(step.submittedAt) + ' — Awaiting ' + esc(stepDef.approvalLabel || 'approval');
+        } else if (step.status === 'submitted' && stepDef.type === 'recurring') {
+          html += 'Last completed ' + formatDate(step.history[step.history.length - 1].submittedAt);
+          if (step.nextDue) html += ' — Next due ' + formatDate(step.nextDue);
+        } else if (step.nextDue) {
+          html += 'Due ' + formatDate(step.nextDue);
+        } else if (flow.currentStep === stepDef.id) {
+          html += 'Ready to start';
+        } else {
+          html += 'Pending';
+        }
+        html += '</div>';
+
+        // OneDrive link
+        if (step.oneDrivePath) {
+          html += '<div style="margin-top:6px;"><a class="onedrive-link" href="' + esc(step.oneDrivePath) + '" target="_blank">View in OneDrive ↗</a></div>';
+        }
+
+        // Notes
+        if (step.notes) {
+          html += '<div style="margin-top:6px; font-size:12px; color:var(--amber); font-weight:600;">' + esc(step.notes) + '</div>';
+        }
+
+        // Actions
+        if (step.status === 'awaiting_approval') {
+          html += '<div class="flow-step-actions">';
+          html += '<button class="btn-approve" onclick="approveStep(\'' + flowId + '\',\'' + stepDef.id + '\')">Approve</button>';
+          html += '<button class="btn-reject" onclick="rejectStep(\'' + flowId + '\',\'' + stepDef.id + '\')">Reject</button>';
+          html += '</div>';
+        } else if (step.status === 'pending' && flow.currentStep === stepDef.id) {
+          var formUrl = stepDef.file + '?flowId=' + encodeURIComponent(flowId);
+          html += '<div class="flow-step-actions">';
+          html += '<a class="btn-open-form" href="' + formUrl + '">Open Form →</a>';
+          html += '</div>';
+        } else if (stepDef.type === 'recurring' && flow.status === 'active') {
+          var recUrl = stepDef.file + '?flowId=' + encodeURIComponent(flowId);
+          html += '<div class="flow-step-actions">';
+          html += '<a class="btn-open-form" href="' + recUrl + '">Log New Entry →</a>';
+          html += '</div>';
+        }
+
+        html += '</div>'; // end flow-step
+      });
+
+      html += '</div></div>'; // end flow-timeline, detail-section
+    });
+
+    // Ad-hoc submissions (incidents)
+    if (flow.adHocSubmissions.length > 0) {
+      html += '<div class="detail-section"><h3>Incident Reports</h3>';
+      flow.adHocSubmissions.forEach(function (sub) {
+        html += '<div style="padding:10px; border:1px solid var(--border); border-radius:8px; margin-bottom:8px; font-size:13px;">';
+        html += '<strong>' + esc(sub.formId) + '</strong> — ' + formatDate(sub.submittedAt);
+        html += ' <span style="color:var(--text-lighter);">' + esc(sub.submissionId) + '</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    // File incident button
+    html += '<div class="detail-section">';
+    html += '<a class="btn-open-form" href="C44_Incident_Report_Form.html?flowId=' + encodeURIComponent(flowId) + '">File Incident Report</a>';
+    html += '</div>';
+
+    document.getElementById('detailBody').innerHTML = html;
+    document.getElementById('detailOverlay').classList.add('open');
+  }
+
+  function closeDetail(e) {
+    if (e.target === document.getElementById('detailOverlay')) {
+      closeDetailPanel();
+    }
+  }
+
+  function closeDetailPanel() {
+    document.getElementById('detailOverlay').classList.remove('open');
+    selectedFlowId = null;
+  }
+
+  // ─────────────────────────────────────────
+  // APPROVAL ACTIONS
+  // ─────────────────────────────────────────
+  function approveStep(flowId, stepId) {
+    if (!confirm('Approve this step?')) return;
+    VTFlow.approveStep(flowId, stepId, 'Ifeanyi Ezurike');
+    openDetail(flowId); // refresh panel
+    renderDashboard();
+  }
+
+  function rejectStep(flowId, stepId) {
+    var reason = prompt('Reason for rejection:');
+    if (reason === null) return;
+    VTFlow.rejectStep(flowId, stepId, reason);
+    openDetail(flowId);
+    renderDashboard();
+  }
+
+  function holdClient(flowId) {
+    var reason = prompt('Reason for putting on hold:');
+    if (reason === null) return;
+    VTFlow.holdFlow(flowId, reason);
+    openDetail(flowId);
+    renderDashboard();
+  }
+
+  function resumeClient(flowId) {
+    VTFlow.resumeFlow(flowId);
+    openDetail(flowId);
+    renderDashboard();
+  }
+
+  // ─────────────────────────────────────────
+  // NEW CLIENT
+  // ─────────────────────────────────────────
+  function openNewClientModal() {
+    document.getElementById('newClientModal').classList.add('open');
+    document.getElementById('newFirstName').focus();
+  }
+
+  function closeNewClientModal() {
+    document.getElementById('newClientModal').classList.remove('open');
+  }
+
+  function closeModalOverlay(e) {
+    if (e.target === document.getElementById('newClientModal')) {
+      closeNewClientModal();
+    }
+  }
+
+  function createNewClient() {
+    var first = document.getElementById('newFirstName').value.trim();
+    var last = document.getElementById('newLastName').value.trim();
+
+    if (!first || !last) {
+      alert('First name and last name are required.');
+      return;
+    }
+
+    var flow = VTFlow.createFlow('client', {
+      firstName: first,
+      lastName: last,
+      phone: document.getElementById('newPhone').value.trim(),
+      medicaidNumber: document.getElementById('newMedicaid').value.trim()
+    });
+
+    // Clear form
+    document.getElementById('newFirstName').value = '';
+    document.getElementById('newLastName').value = '';
+    document.getElementById('newPhone').value = '';
+    document.getElementById('newMedicaid').value = '';
+
+    closeNewClientModal();
+    renderDashboard();
+
+    // Open detail for new client
+    setTimeout(function () { openDetail(flow.flowId); }, 100);
+  }
+
+  // ─────────────────────────────────────────
+  // TAB SWITCHING
+  // ─────────────────────────────────────────
+  function switchTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab').forEach(function (t) {
+      t.classList.toggle('active', t.dataset.tab === tab);
+    });
+    var titles = { all: 'All Clients', onboarding: 'In Onboarding', active: 'Active Clients', approvals: 'Pending Approvals', overdue: 'Overdue Items' };
+    document.getElementById('tableTitle').textContent = titles[tab] || 'All Clients';
+    renderTable();
+  }
+
+  function filterClients() {
+    renderTable();
+  }
+
+  // ─────────────────────────────────────────
+  // OneDrive
+  // ─────────────────────────────────────────
+  function handleOneDrive() {
+    if (typeof VTOneDrive === 'undefined') return;
+    if (VTOneDrive.isReady()) {
+      if (confirm('Disconnect OneDrive?')) VTOneDrive.signOut();
+    } else {
+      VTOneDrive.signIn().then(function (ok) {
+        if (ok) {
+          document.getElementById('btnOneDrive').textContent = 'Disconnect OneDrive';
+          VTOneDrive.retryQueue();
+        }
+      });
+    }
+  }
+
+  // ─────────────────────────────────────────
+  // HELPERS
+  // ─────────────────────────────────────────
+  function getStatusBadge(flow) {
+    var map = {
+      'in_progress': '<span class="badge badge-blue"><span class="badge-dot"></span>Onboarding</span>',
+      'active': '<span class="badge badge-green"><span class="badge-dot"></span>Active</span>',
+      'on_hold': '<span class="badge badge-amber"><span class="badge-dot"></span>On Hold</span>',
+      'discharged': '<span class="badge badge-gray"><span class="badge-dot"></span>Discharged</span>'
+    };
+    return map[flow.status] || '<span class="badge badge-gray">' + flow.status + '</span>';
+  }
+
+  function getStepNameById(template, stepId) {
+    for (var i = 0; i < template.phases.length; i++) {
+      for (var j = 0; j < template.phases[i].steps.length; j++) {
+        if (template.phases[i].steps[j].id === stepId) {
+          return template.phases[i].steps[j].name;
+        }
+      }
+    }
+    return stepId;
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '—';
+    var d = new Date(iso);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function esc(str) {
+    if (!str) return '';
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+</script>
+</body>
+</html>

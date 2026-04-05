@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitalTouch Forms Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #16A34A; --green-dark: #15803D; --green-deeper: #166534;
+    --green-light: #DCFCE7; --green-glow: rgba(22,163,74,0.12);
+    --text: #1E293B; --text-light: #4a5568; --text-lighter: #6b7280;
+    --white: #FFFFFF; --border: #E2E8F0; --bg: #F8FAFC;
+    --blue: #3B82F6; --blue-light: #DBEAFE;
+    --orange: #F97316; --orange-light: #FFF7ED;
+    --purple: #8B5CF6; --purple-light: #EDE9FE;
+    --red: #EF4444; --red-light: #FEF2F2;
+    --teal: #14B8A6; --teal-light: #F0FDFA;
+    --radius: 12px; --radius-sm: 8px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #f0fdf4 100%);
+    border-bottom: 3px solid var(--green);
+    padding: 32px 40px;
+  }
+  .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
+  .header-logo { height: 52px; width: auto; }
+  .header-text h1 { font-size: 32px; font-weight: 800; color: #1a1a1a; }
+  .header-text p { font-size: 15px; color: var(--text-light); margin-top: 4px; }
+
+  /* ===== STATS BAR ===== */
+  .stats-bar {
+    max-width: 1200px; margin: -20px auto 0; padding: 0 24px;
+    position: relative; z-index: 2;
+  }
+  .stats-row {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow-lg); padding: 20px 32px;
+    display: flex; justify-content: space-around; flex-wrap: wrap; gap: 16px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; color: var(--green); }
+  .stat-label { font-size: 12px; color: var(--text-lighter); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+
+  /* ===== MAIN ===== */
+  .main { max-width: 1200px; margin: 32px auto; padding: 0 24px; }
+
+  /* ===== TABS ===== */
+  .tabs {
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 10; background: var(--bg);
+    padding: 12px 0;
+  }
+  .tab {
+    padding: 10px 20px; border-radius: 50px; font-size: 14px; font-weight: 600;
+    cursor: pointer; border: 1.5px solid var(--border); background: var(--white);
+    color: var(--text-light); transition: all 0.2s; user-select: none;
+  }
+  .tab:hover { border-color: var(--green); color: var(--green); }
+  .tab.active { background: var(--green); color: var(--white); border-color: var(--green); }
+  .tab .tab-count {
+    display: inline-block; background: rgba(255,255,255,0.25);
+    padding: 1px 8px; border-radius: 20px; font-size: 12px; margin-left: 6px;
+  }
+  .tab.active .tab-count { background: rgba(255,255,255,0.3); }
+
+  /* ===== SEARCH ===== */
+  .search-bar {
+    margin-bottom: 24px; position: relative;
+  }
+  .search-bar input {
+    width: 100%; padding: 14px 16px 14px 44px; border: 1.5px solid var(--border);
+    border-radius: var(--radius); font-size: 16px; font-family: inherit;
+    background: var(--white); transition: all 0.2s;
+  }
+  .search-bar input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-glow); }
+  .search-bar .search-icon {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    color: var(--text-lighter); font-size: 18px;
+  }
+
+  /* ===== USER STORIES ===== */
+  .stories-section { margin-bottom: 40px; }
+  .stories-title {
+    font-size: 22px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .stories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+
+  .story-card {
+    background: var(--white); border-radius: var(--radius); padding: 24px;
+    box-shadow: var(--shadow); border-left: 4px solid var(--green);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .story-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .story-card.client { border-left-color: var(--blue); }
+  .story-card.employee { border-left-color: var(--orange); }
+  .story-card.training { border-left-color: var(--purple); }
+  .story-card.admin { border-left-color: var(--teal); }
+
+  .story-persona { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .story-card.client .story-persona { color: var(--blue); }
+  .story-card.employee .story-persona { color: var(--orange); }
+  .story-card.training .story-persona { color: var(--purple); }
+  .story-card.admin .story-persona { color: var(--teal); }
+
+  .story-title { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+  .story-desc { font-size: 14px; color: var(--text-light); margin-bottom: 16px; }
+
+  .story-sequence {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .seq-step {
+    display: flex; align-items: center; gap: 10px; font-size: 13px;
+    padding: 8px 12px; background: var(--bg); border-radius: var(--radius-sm);
+    transition: all 0.15s;
+  }
+  .seq-step:hover { background: var(--green-light); }
+  .seq-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--green); color: white; font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .seq-form { font-weight: 600; color: #1a1a1a; }
+  .seq-link {
+    margin-left: auto; color: var(--green); text-decoration: none;
+    font-weight: 600; font-size: 12px; opacity: 0; transition: opacity 0.2s;
+  }
+  .seq-step:hover .seq-link { opacity: 1; }
+
+  /* ===== FORM CARDS ===== */
+  .forms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+  .form-card {
+    background: var(--white); border-radius: var(--radius); padding: 24px;
+    box-shadow: var(--shadow); transition: all 0.2s; position: relative;
+    border: 1.5px solid transparent;
+  }
+  .form-card:hover { box-shadow: var(--shadow-lg); border-color: var(--green); transform: translateY(-2px); }
+  .form-card.hidden { display: none; }
+
+  .form-id {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; padding: 3px 10px; border-radius: 20px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .form-id.client { background: var(--blue-light); color: var(--blue); }
+  .form-id.employee { background: var(--orange-light); color: var(--orange); }
+  .form-id.training { background: var(--purple-light); color: var(--purple); }
+  .form-id.eval { background: var(--teal-light); color: var(--teal); }
+  .form-id.other { background: #F3F4F6; color: var(--text-lighter); }
+
+  .form-name { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+  .form-desc { font-size: 14px; color: var(--text-light); margin-bottom: 16px; line-height: 1.5; }
+
+  .form-meta {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+  }
+  .meta-tag {
+    font-size: 11px; font-weight: 600; padding: 3px 10px;
+    border-radius: 20px; background: var(--bg); color: var(--text-lighter);
+  }
+  .meta-tag.sig { background: #FEF3C7; color: #92400E; }
+  .meta-tag.upload { background: #E0E7FF; color: #4338CA; }
+  .meta-tag.phi-high { background: var(--red-light); color: var(--red); }
+  .meta-tag.phi-medium { background: #FFF7ED; color: var(--orange); }
+  .meta-tag.multi { background: var(--green-light); color: var(--green-dark); }
+
+  .form-when {
+    font-size: 13px; color: var(--text-light); padding-top: 12px;
+    border-top: 1px solid var(--border); line-height: 1.5;
+  }
+  .form-when strong { color: #1a1a1a; }
+
+  .form-open {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px; padding: 8px 16px; border-radius: 50px;
+    background: var(--green); color: white; text-decoration: none;
+    font-size: 13px; font-weight: 600; transition: all 0.2s;
+  }
+  .form-open:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+  .priority-badge {
+    position: absolute; top: 16px; right: 16px;
+    font-size: 10px; font-weight: 700; padding: 3px 8px;
+    border-radius: 4px; text-transform: uppercase;
+  }
+  .priority-badge.p1 { background: var(--red-light); color: var(--red); }
+  .priority-badge.p2 { background: #FFF7ED; color: var(--orange); }
+  .priority-badge.p3 { background: #F3F4F6; color: var(--text-lighter); }
+
+  /* ===== FOOTER ===== */
+  .footer { text-align: center; padding: 40px 24px 24px; font-size: 13px; color: var(--text-lighter); }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .header { padding: 24px 20px; }
+    .header-text h1 { font-size: 24px; }
+    .stats-row { padding: 16px 20px; }
+    .stories-grid, .forms-grid { grid-template-columns: 1fr; }
+    .tabs { gap: 6px; }
+    .tab { padding: 8px 14px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <img src="images/logo-symbol.png" alt="VitalTouch" class="header-logo">
+    <div class="header-text">
+      <h1>VitalTouch Forms Guide</h1>
+      <p>Complete inventory of all 35 forms — when to use them, in what order, and why</p>
+    </div>
+    <div style="margin-left:auto;">
+      <a href="all-forms.html" style="font-size:14px;font-weight:600;color:#15803D;text-decoration:none;padding:8px 18px;border-radius:6px;border:1.5px solid #15803D;margin-right:10px;">View All Forms →</a>
+      <a href="scenarios.html" style="font-size:14px;font-weight:600;color:#15803D;text-decoration:none;padding:8px 18px;border-radius:6px;border:1.5px solid #15803D;">Real-World Scenarios →</a>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num">35</div><div class="stat-label">Total Forms</div></div>
+    <div class="stat"><div class="stat-num">11</div><div class="stat-label">Client Forms</div></div>
+    <div class="stat"><div class="stat-num">15</div><div class="stat-label">Employee Forms</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Training</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Competency Evals</div></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ===== USER STORIES ===== -->
+  <div class="stories-section">
+    <div class="stories-title">📖 User Stories — Common Workflows</div>
+    <div class="stories-grid">
+
+      <div class="story-card client">
+        <div class="story-persona">New Client Onboarding</div>
+        <div class="story-title">A new client is referred to VitalTouch</div>
+        <div class="story-desc">When a new client is accepted through Medicaid, CCP, or private pay, these forms must be completed before services begin.</div>
+        <div class="story-sequence">
+          <div class="seq-step"><span class="seq-num">1</span><span class="seq-form">C.11 — Client Intake Form</span><a href="C11_Client_Intake_Form.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">2</span><span class="seq-form">C.21 — Client Assessment Packet</span><a href="C21_Client_Assessment_Packet.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">3</span><span class="seq-form">C.22 — Home Risk Assessment</span><a href="C22_Home_Risk_Assessment.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">4</span><span class="seq-form">C.23 — Physical Health Assessment</span><a href="C23_Physical_Health_Assessment.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">5</span><span class="seq-form">C.24 — Plan of Care</span><a href="C24_Plan_of_Care.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">6</span><span class="seq-form">C.12 — Client Service Agreement</span><a href="C12_Client_Service_Agreement.html" class="seq-link" target="_blank">Open →</a></div>
+        </div>
+      </div>
+
+      <div class="story-card employee">
+        <div class="story-persona">New Homemaker Hire</div>
+        <div class="story-title">A new homemaker passes the interview</div>
+        <div class="story-desc">After a candidate is selected, they must complete these forms before their first client assignment. Order matters — some are prerequisites for others.</div>
+        <div class="story-sequence">
+          <div class="seq-step"><span class="seq-num">1</span><span class="seq-form">E.11 — Job Application</span><a href="E11_Homemaker_Job_Application.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">2</span><span class="seq-form">E.12 — Document Upload (ID, SSN)</span><a href="E12_Homemaker_Document_Upload.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">3</span><span class="seq-form">E.24 — Required Medical Documents</span><a href="E24_Required_Medical_Documents.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">4</span><span class="seq-form">E.22 — Hepatitis B Vaccination</span><a href="E22_Hepatitis_B_Vaccination_Record.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">5</span><span class="seq-form">E.23 — Influenza Vaccination</span><a href="E23_Influenza_Vaccination_Record.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">6</span><span class="seq-form">E.26 — Employment Agreement</span><a href="E26_Homemaker_Employment_Agreement.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">7</span><span class="seq-form">E.31 — HIPAA Acknowledgment</span><a href="E31_HIPAA_Compliance_Acknowledgment.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">8</span><span class="seq-form">E.21 — Marketing Limitations</span><a href="E21_Limitations_on_Marketing_Recruiting.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">9</span><span class="seq-form">E.37 — Orientation Checklist</span><a href="E37_Employee_Orientation_Checklist.html" class="seq-link" target="_blank">Open →</a></div>
+        </div>
+      </div>
+
+      <div class="story-card training">
+        <div class="story-persona">Pre-Hire Training</div>
+        <div class="story-title">New hire completes required training</div>
+        <div class="story-desc">Before being assigned to a client, every new homemaker must complete 24 hours of training. These forms track completion and acknowledgment.</div>
+        <div class="story-sequence">
+          <div class="seq-step"><span class="seq-num">1</span><span class="seq-form">A.2 — Initial 5-Hour Training (Prior)</span><a href="A2_Initial_5Hour_Training_Prior.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">2</span><span class="seq-form">B.2 — Competency Eval (Prior)</span><a href="B2_Competency_Eval_5Hr_Prior.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">3</span><span class="seq-form">E.14 — 24-Hour Pre-Hire Training Ack</span><a href="E14_24Hour_PreHire_Training_Ack.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">4</span><span class="seq-form">A.3 — Initial 5-Hour Training (30 Days)</span><a href="A3_Initial_5Hour_Training_30Days.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">5</span><span class="seq-form">B.3 — Competency Eval (30 Days)</span><a href="B3_Competency_Eval_5Hr_30Days.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">6</span><span class="seq-form">E.33 — Employee Handbook Ack</span><a href="E33_Employee_Handbook_Acknowledgment.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">7</span><span class="seq-form">E.34 — Civil Rights Ack</span><a href="E34_Civil_Rights_Anti_Discrimination_Ack.html" class="seq-link" target="_blank">Open →</a></div>
+        </div>
+      </div>
+
+      <div class="story-card training">
+        <div class="story-persona">Annual Training Renewal</div>
+        <div class="story-title">Existing staff completes annual requirements</div>
+        <div class="story-desc">Every year, all homemakers must complete 12 hours of continuing education plus Alzheimer's/dementia training per 77 Ill. Adm. Code 245.71.</div>
+        <div class="story-sequence">
+          <div class="seq-step"><span class="seq-num">1</span><span class="seq-form">A.1 — 6-Hour Alzheimer's Training</span><a href="A1_6Hour_Alzheimers_Training.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">2</span><span class="seq-form">B.1 — Competency Eval: Alzheimer's</span><a href="B1_Competency_Eval_6Hr_Alzheimers.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">3</span><span class="seq-form">E.35 — Annual 12 Hours Training Ack</span><a href="E35_Annual_12_Hours_Training.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">4</span><span class="seq-form">E.36 — Alzheimer's/Dementia Training Ack</span><a href="E36_Annual_Alzheimers_Dementia_Training_Ack.html" class="seq-link" target="_blank">Open →</a></div>
+        </div>
+      </div>
+
+      <div class="story-card client">
+        <div class="story-persona">Ongoing Supervision</div>
+        <div class="story-title">Maintaining compliance for active clients</div>
+        <div class="story-desc">IDPH requires regular supervisory contact. Monthly logs and semi-annual visits must be documented per 77 Ill. Adm. Code Part 245.</div>
+        <div class="story-sequence">
+          <div class="seq-step"><span class="seq-num">1</span><span class="seq-form">C.41 — Monthly Contact Log</span><a href="C41_Client_Monthly_Contact_Log.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">2</span><span class="seq-form">C.42 — Semi-Annual Visit</span><a href="C42_Client_Semi_Annual_Visit.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">3</span><span class="seq-form">C.42C — FHCA Quarterly Visit</span><a href="C42C_FHCA_Quarterly_Visit.html" class="seq-link" target="_blank">Open →</a></div>
+        </div>
+      </div>
+
+      <div class="story-card admin">
+        <div class="story-persona">Incident / Discharge</div>
+        <div class="story-title">Something goes wrong or a client leaves</div>
+        <div class="story-desc">When an incident occurs during care or a client needs to be discharged from services.</div>
+        <div class="story-sequence">
+          <div class="seq-step"><span class="seq-num">1</span><span class="seq-form">C.44 — Incident Report Form</span><a href="C44_Incident_Report_Form.html" class="seq-link" target="_blank">Open →</a></div>
+          <div class="seq-step"><span class="seq-num">2</span><span class="seq-form">C.43 — Client Discharge Form</span><a href="C43_Client_Discharge_Form.html" class="seq-link" target="_blank">Open →</a></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== FILTER TABS ===== -->
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-filter="all">All Forms <span class="tab-count">35</span></div>
+    <div class="tab" data-filter="client">Client <span class="tab-count">11</span></div>
+    <div class="tab" data-filter="employee">Employee <span class="tab-count">15</span></div>
+    <div class="tab" data-filter="training">Training <span class="tab-count">6</span></div>
+    <div class="tab" data-filter="eval">Competency <span class="tab-count">3</span></div>
+  </div>
+
+  <!-- ===== SEARCH ===== -->
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search forms by name, ID, or keyword...">
+  </div>
+
+  <!-- ===== FORM CARDS ===== -->
+  <div class="forms-grid" id="formsGrid">
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. · 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 · <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+  <p style="margin-top: 8px; font-size: 12px;">Internal document — not for distribution</p>
+</div>
+
+<script>
+const forms = [
+  { id: 'C.11', name: 'Client Intake Form', cat: 'client', type: 'Multi-page Form', pages: 3, sig: false, upload: false, phi: 'HIGH', priority: 'P1', file: 'C11_Client_Intake_Form.html',
+    desc: 'Captures new client demographics, insurance, emergency contacts, and initial service preferences.',
+    when: 'First form completed when a new client is accepted. Must be done before assessment or service agreement.' },
+
+  { id: 'C.12', name: 'Client Service Agreement', cat: 'client', type: 'Sign Document', pages: 4, sig: true, upload: false, phi: 'HIGH', priority: 'P1', file: 'C12_Client_Service_Agreement.html',
+    desc: 'Formal contract between VitalTouch and the client covering services, rights, responsibilities, billing, and discharge.',
+    when: 'Signed after assessment is complete and Plan of Care is established. Required before services begin.' },
+
+  { id: 'C.21', name: 'Client Assessment Packet', cat: 'client', type: 'Multi-page Form', pages: 5, sig: true, upload: false, phi: 'HIGH', priority: 'P1', file: 'C21_Client_Assessment_Packet.html',
+    desc: 'Comprehensive assessment of client health, ADL needs, cognitive status, and home environment. Requires dual signatures.',
+    when: 'Completed during the initial home visit after intake. Informs the Plan of Care.' },
+
+  { id: 'C.22', name: 'Home Risk Assessment', cat: 'client', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'MEDIUM', priority: 'P1', file: 'C22_Home_Risk_Assessment.html',
+    desc: 'Safety checklist evaluating the client\'s home for fall risks, fire hazards, accessibility issues, and sanitation.',
+    when: 'Completed during the initial home visit alongside the assessment packet. Updated annually or after incidents.' },
+
+  { id: 'C.23', name: 'Physical Health Assessment', cat: 'client', type: 'Single-page Form', pages: 1, sig: false, upload: false, phi: 'HIGH', priority: 'P1', file: 'C23_Physical_Health_Assessment.html',
+    desc: 'Records client medical conditions, medications, allergies, physician info, and functional limitations.',
+    when: 'Completed during initial assessment. Updated when health status changes or at minimum every 6 months.' },
+
+  { id: 'C.24', name: 'Plan of Care', cat: 'client', type: 'Multi-page Form', pages: 2, sig: true, upload: false, phi: 'HIGH', priority: 'P1', file: 'C24_Plan_of_Care.html',
+    desc: 'Formal service plan listing authorized services, goals, schedule, and special instructions. Requires client and agency signatures.',
+    when: 'Created after assessment, before services begin. Reviewed and updated every 6 months or when needs change.' },
+
+  { id: 'C.41', name: 'Client Monthly Contact Log', cat: 'client', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'MEDIUM', priority: 'P1', file: 'C41_Client_Monthly_Contact_Log.html',
+    desc: 'Documents monthly supervisory contact with the client — satisfaction, concerns, service changes, and caregiver performance.',
+    when: 'Required every month for each active client. Part of ongoing IDPH supervision compliance.' },
+
+  { id: 'C.42', name: 'Client Semi-Annual Visit', cat: 'client', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'MEDIUM', priority: 'P2', file: 'C42_Client_Semi_Annual_Visit.html',
+    desc: 'In-person supervisory visit documenting client condition, home environment, service quality, and Plan of Care review.',
+    when: 'Required every 6 months per IDPH. Must be an in-person visit at the client\'s home.' },
+
+  { id: 'C.42C', name: 'FHCA Quarterly Visit', cat: 'client', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'MEDIUM', priority: 'P2', file: 'C42C_FHCA_Quarterly_Visit.html',
+    desc: 'Quarterly in-home supervisory visit for clients enrolled in the Family Home Care Aide program.',
+    when: 'Required every 90 days for FHCA clients. Similar to semi-annual but more frequent.' },
+
+  { id: 'C.43', name: 'Client Discharge Form', cat: 'client', type: 'Sign Document', pages: 2, sig: true, upload: false, phi: 'HIGH', priority: 'P2', file: 'C43_Client_Discharge_Form.html',
+    desc: 'Documents reason for discharge, final service date, discharge summary, and transition plan. Requires dual signatures.',
+    when: 'Completed when a client leaves services — by choice, moving, hospitalization, death, or agency-initiated discharge.' },
+
+  { id: 'C.44', name: 'Incident Report Form', cat: 'client', type: 'Single-page Form', pages: 1, sig: false, upload: false, phi: 'HIGH', priority: 'P1', file: 'C44_Incident_Report_Form.html',
+    desc: 'Documents any incident during care — falls, injuries, medication errors, missed visits, property damage, or abuse allegations.',
+    when: 'Must be completed within 24 hours of any incident. Triggers follow-up investigation and may require IDPH notification.' },
+
+  { id: 'E.11', name: 'Homemaker Job Application', cat: 'employee', type: 'Multi-page Form', pages: 5, sig: true, upload: true, phi: 'HIGH', priority: 'P1', file: 'E11_Homemaker_Job_Application.html',
+    desc: '5-step application form collecting personal info, qualifications, availability, experience, and employment authorization.',
+    when: 'First step for any applicant. Submitted through the website or in person. Leads to interview scheduling.' },
+
+  { id: 'E.12', name: 'Homemaker Document Upload', cat: 'employee', type: 'Upload Form', pages: 1, sig: false, upload: true, phi: 'HIGH', priority: 'P1', file: 'E12_Homemaker_Document_Upload.html',
+    desc: 'Collects required onboarding documents — government ID, Social Security card, CNA cert, CPR card, auto insurance.',
+    when: 'Immediately after job offer is accepted. Must be completed before background check can proceed.' },
+
+  { id: 'E.12.1', name: 'Will Not Drive Acknowledgment', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'LOW', priority: 'P2', file: 'E121_Will_Not_Drive_Acknowledgment.html',
+    desc: 'Employee acknowledges they will not drive clients or use a personal vehicle for work purposes.',
+    when: 'Signed during onboarding if the employee does not have a valid license or auto insurance.' },
+
+  { id: 'E.13', name: 'Orientation File Uploads', cat: 'employee', type: 'Upload Form', pages: 1, sig: false, upload: true, phi: 'MEDIUM', priority: 'P2', file: 'E13_Orientation_File_Uploads.html',
+    desc: 'Collects additional onboarding documents — training certificates, reference letters, and orientation materials.',
+    when: 'During orientation week. Supplements the initial document upload (E.12).' },
+
+  { id: 'E.14', name: '24-Hour Pre-Hire Training Ack', cat: 'employee', type: 'Sign Document', pages: 3, sig: true, upload: false, phi: 'LOW', priority: 'P2', file: 'E14_24Hour_PreHire_Training_Ack.html',
+    desc: 'Acknowledges completion of the required 24-hour pre-hire training program per 77 Ill. Adm. Code 245.71.',
+    when: 'Signed after completing all pre-hire training modules. Required before first client assignment.' },
+
+  { id: 'E.21', name: 'Limitations on Marketing/Recruiting', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'LOW', priority: 'P3', file: 'E21_Limitations_on_Marketing_Recruiting.html',
+    desc: 'Employee agrees to restrictions on marketing, client solicitation, and staff recruiting during and after employment.',
+    when: 'Signed during onboarding as part of the compliance packet. Non-solicitation lasts 12 months post-employment.' },
+
+  { id: 'E.22', name: 'Hepatitis B Vaccination Record', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'MEDIUM', priority: 'P1', file: 'E22_Hepatitis_B_Vaccination_Record.html',
+    desc: 'Records Hepatitis B vaccination status — vaccinated, in-progress, or declined with signed declination.',
+    when: 'Required during onboarding. If declining, employee must sign declination. Per OSHA Bloodborne Pathogens Standard.' },
+
+  { id: 'E.23', name: 'Influenza Vaccination Record', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'MEDIUM', priority: 'P1', file: 'E23_Influenza_Vaccination_Record.html',
+    desc: 'Records annual flu vaccination status — vaccinated or declined with signed declination.',
+    when: 'Required annually during flu season (Oct-Mar). New hires complete during onboarding.' },
+
+  { id: 'E.24', name: 'Required Medical Documents', cat: 'employee', type: 'Upload Form', pages: 1, sig: false, upload: true, phi: 'HIGH', priority: 'P1', file: 'E24_Required_Medical_Documents.html',
+    desc: 'Collects TB test results, physical exam form, and other required medical clearance documents.',
+    when: 'During onboarding before first assignment. TB test must be within 90 days. Physical within 12 months.' },
+
+  { id: 'E.25', name: 'IDPH Registry Uploads', cat: 'employee', type: 'Upload Form', pages: 1, sig: false, upload: true, phi: 'HIGH', priority: 'P1', file: 'E25_IDPH_Registry_Uploads.html',
+    desc: 'Admin form for uploading IDPH background check results — fingerprint clearance, HCWR verification, sex offender check.',
+    when: 'Completed by admin after receiving IDPH background check results. Employee cannot work until cleared.' },
+
+  { id: 'E.26', name: 'Homemaker Employment Agreement', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'MEDIUM', priority: 'P1', file: 'E26_Homemaker_Employment_Agreement.html',
+    desc: 'Employment contract covering pay rate, schedule expectations, conduct requirements, and at-will employment terms.',
+    when: 'Signed after background check clears and before first assignment. This is the official hire document.' },
+
+  { id: 'E.31', name: 'HIPAA Compliance Acknowledgment', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'LOW', priority: 'P1', file: 'E31_HIPAA_Compliance_Acknowledgment.html',
+    desc: 'Employee acknowledges HIPAA privacy and security rules, PHI handling requirements, and breach reporting obligations.',
+    when: 'Signed during onboarding. Required before any access to client information or assignment to clients.' },
+
+  { id: 'E.33', name: 'Employee Handbook Acknowledgment', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'LOW', priority: 'P2', file: 'E33_Employee_Handbook_Acknowledgment.html',
+    desc: 'Acknowledges receipt and understanding of the VitalTouch Employee Handbook policies and procedures.',
+    when: 'Signed during orientation after reviewing the handbook. Kept in employee file Section 3.' },
+
+  { id: 'E.34', name: 'Civil Rights/Anti-Discrimination Ack', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'LOW', priority: 'P2', file: 'E34_Civil_Rights_Anti_Discrimination_Ack.html',
+    desc: 'Acknowledges training on civil rights, anti-discrimination, and equal opportunity policies.',
+    when: 'Signed during orientation as part of the compliance training packet.' },
+
+  { id: 'E.35', name: 'Annual 12 Hours Training', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'LOW', priority: 'P2', file: 'E35_Annual_12_Hours_Training.html',
+    desc: 'Acknowledges completion of the required annual 12-hour continuing education per Section 245.71.',
+    when: 'Signed annually after completing 12 hours of CE. Due by employee anniversary date.' },
+
+  { id: 'E.36', name: 'Alzheimer\'s/Dementia Training Ack', cat: 'employee', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'LOW', priority: 'P2', file: 'E36_Annual_Alzheimers_Dementia_Training_Ack.html',
+    desc: 'Acknowledges completion of annual Alzheimer\'s and dementia-specific training requirements.',
+    when: 'Signed annually after completing the Alzheimer\'s training module and passing the competency eval.' },
+
+  { id: 'E.37', name: 'Employee Orientation Checklist', cat: 'employee', type: 'Checklist', pages: 1, sig: false, upload: false, phi: 'LOW', priority: 'P1', file: 'E37_Employee_Orientation_Checklist.html',
+    desc: '34-item checklist tracking completion of all orientation activities — policies reviewed, forms signed, training done.',
+    when: 'Started on Day 1 of orientation. Must be 100% complete before first client assignment.' },
+
+  { id: 'A.1', name: '6-Hour Alzheimer\'s Training', cat: 'training', type: 'Card Form (31 sections)', pages: 31, sig: false, upload: false, phi: 'NONE', priority: 'P2', file: 'A1_6Hour_Alzheimers_Training.html',
+    desc: '31-section training module covering Alzheimer\'s disease, dementia types, communication techniques, and care strategies.',
+    when: 'Required annually for all staff. Also required for new hires within 30 days. Followed by competency eval (B.1).' },
+
+  { id: 'A.2', name: 'Initial 5-Hour Training (Prior)', cat: 'training', type: 'Card Form (20 sections)', pages: 20, sig: false, upload: false, phi: 'NONE', priority: 'P2', file: 'A2_Initial_5Hour_Training_Prior.html',
+    desc: '20-section training covering basic home care skills, safety, infection control, and client rights. Must be done before first assignment.',
+    when: 'Required before first client assignment. Part of the 24-hour pre-hire training requirement.' },
+
+  { id: 'A.3', name: 'Initial 5-Hour Training (30 Days)', cat: 'training', type: 'Card Form (25 sections)', pages: 25, sig: false, upload: false, phi: 'NONE', priority: 'P2', file: 'A3_Initial_5Hour_Training_30Days.html',
+    desc: '25-section training covering advanced care topics — nutrition, emergency response, and documentation. Due within 30 days of hire.',
+    when: 'Must be completed within 30 days of hire. Builds on the Prior training (A.2). Followed by competency eval (B.3).' },
+
+  { id: 'B.1', name: 'Competency Eval: 6 Hr Alzheimer\'s', cat: 'eval', type: 'Quiz (23 questions)', pages: 23, sig: false, upload: false, phi: 'NONE', priority: 'P2', file: 'B1_Competency_Eval_6Hr_Alzheimers.html',
+    desc: '23-question multiple choice exam testing knowledge from the 6-Hour Alzheimer\'s Training. 80% passing score required.',
+    when: 'Taken immediately after completing A.1 training. Must pass with 80% (19/23) to receive credit.' },
+
+  { id: 'B.2', name: 'Competency Eval: 5 Hr (Prior)', cat: 'eval', type: 'Quiz (22 questions)', pages: 22, sig: false, upload: false, phi: 'NONE', priority: 'P2', file: 'B2_Competency_Eval_5Hr_Prior.html',
+    desc: '22-question exam testing knowledge from the Initial 5-Hour Training (Prior to Assignment). 80% passing score.',
+    when: 'Taken immediately after completing A.2 training. Must pass before first client assignment.' },
+
+  { id: 'B.3', name: 'Competency Eval: 5 Hr (30 Days)', cat: 'eval', type: 'Quiz (22 questions)', pages: 22, sig: false, upload: false, phi: 'NONE', priority: 'P2', file: 'B3_Competency_Eval_5Hr_30Days.html',
+    desc: '22-question exam testing knowledge from the Initial 5-Hour Training (30 Days of Hire). 80% passing score.',
+    when: 'Taken after completing A.3 training. Must pass within 30 days of hire.' },
+
+  { id: 'CONSULT', name: 'Consulting Agreement', cat: 'other', type: 'Sign Document', pages: 1, sig: true, upload: false, phi: 'LOW', priority: 'P3', file: 'CONSULT_Consulting_Agreement.html',
+    desc: '3-step consulting agreement covering scope, compensation, confidentiality, non-solicitation, IP rights, and termination.',
+    when: 'Used when engaging independent consultants. Sent to consultant for signature, then CEO countersigns.' },
+];
+
+// ===== RENDER CARDS =====
+function renderCards() {
+  const grid = document.getElementById('formsGrid');
+  grid.innerHTML = forms.map(f => {
+    const catClass = f.cat === 'eval' ? 'eval' : f.cat === 'other' ? 'other' : f.cat;
+    const priClass = f.priority.toLowerCase();
+    let tags = '';
+    if (f.sig) tags += '<span class="meta-tag sig">Signature</span>';
+    if (f.upload) tags += '<span class="meta-tag upload">File Upload</span>';
+    if (f.phi === 'HIGH') tags += '<span class="meta-tag phi-high">HIGH PHI</span>';
+    else if (f.phi === 'MEDIUM') tags += '<span class="meta-tag phi-medium">MEDIUM PHI</span>';
+    if (f.pages > 1) tags += `<span class="meta-tag multi">${f.pages} pages</span>`;
+    tags += `<span class="meta-tag">${f.type}</span>`;
+
+    return `
+      <div class="form-card" data-cat="${f.cat}" data-search="${f.id} ${f.name} ${f.desc} ${f.type} ${f.when}".toLowerCase()>
+        <span class="priority-badge ${priClass}">${f.priority}</span>
+        <span class="form-id ${catClass}">${f.id}</span>
+        <div class="form-name">${f.name}</div>
+        <div class="form-desc">${f.desc}</div>
+        <div class="form-meta">${tags}</div>
+        <div class="form-when"><strong>When to use:</strong> ${f.when}</div>
+        <a href="${f.file}" class="form-open">Open Form →</a>
+      </div>`;
+  }).join('');
+}
+
+// ===== FILTER =====
+function filterCards() {
+  const activeTab = document.querySelector('.tab.active').dataset.filter;
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+
+  document.querySelectorAll('.form-card').forEach(card => {
+    const matchCat = activeTab === 'all' || card.dataset.cat === activeTab;
+    const matchSearch = !query || card.dataset.search.toLowerCase().includes(query);
+    card.classList.toggle('hidden', !(matchCat && matchSearch));
+  });
+}
+
+// ===== TABS =====
+document.getElementById('tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  filterCards();
+});
+
+// ===== SEARCH =====
+document.getElementById('searchInput').addEventListener('input', filterCards);
+
+// ===== INIT =====
+renderCards();
+</script>
+
+</body>
+</html>

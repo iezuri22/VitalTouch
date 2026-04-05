@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will Not Drive Acknowledgment — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM CONTENT ===== */
+  .form-content {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: #94A3B8; color: #1E293B; }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== ACKNOWLEDGMENT CARDS (Toggle) ===== */
+  .check-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 16px 18px; border: 2px solid var(--border);
+    border-radius: var(--radius-sm); margin-bottom: 12px;
+    cursor: pointer; transition: all 0.25s ease;
+    background: var(--white);
+  }
+  .check-item:hover { border-color: #94A3B8; background: #FFFFFF; }
+  .check-item.checked { border-color: #94A3B8; background: #FFFFFF; }
+  .check-item input { width: 24px; height: 24px; margin-top: 3px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+  .check-item label { font-size: 16px; font-weight: 500; cursor: pointer; line-height: 1.6; color: #1a1a1a; }
+
+  /* ===== ACK PROGRESS ===== */
+  .ack-progress-container {
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ack-progress-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    flex: 1;
+  }
+
+  .ack-progress-count {
+    font-size: 14px;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  /* ===== AGREEMENT TEXT ===== */
+  .agreement-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-left: 4px solid var(--green);
+    border-radius: var(--radius-sm); padding: 20px;
+    font-size: 15px; color: #374151; line-height: 1.8;
+    max-height: 300px; overflow-y: auto; margin-bottom: 20px;
+  }
+  .agreement-box h3 {
+    font-size: 17px; font-weight: 700; color: #1a1a1a;
+    margin: 16px 0 8px;
+  }
+  .agreement-box h3:first-child { margin-top: 0; }
+  .agreement-box ul { padding-left: 20px; margin: 8px 0; }
+  .agreement-box li { margin-bottom: 4px; }
+  .agreement-box ol { padding-left: 20px; margin: 8px 0; }
+  .agreement-box ol li { margin-bottom: 8px; }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border); border-radius: var(--radius-sm);
+    background: var(--white); cursor: crosshair; touch-action: none; display: block;
+  }
+  .sig-pad.signed { border-color: var(--green); border-style: solid; }
+  .sig-actions { display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end; }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 14px; cursor: pointer; transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== SUBMIT NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    box-shadow: 0 6px 20px rgba(22,163,74,0.35);
+  }
+  .btn-next:active { }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-content { padding: 12px 16px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .agreement-box { max-height: none; overflow: visible; }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .confirmation { display: none !important; }
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-content { padding: 24px 20px 20px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Will Not Drive Acknowledgment</h1>
+    <p>VitalTouch Health Network — Transportation policy acknowledgment</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- ===== FORM ===== -->
+    <div class="form-content" id="formContent">
+
+      <!-- EMPLOYEE INFORMATION -->
+      <div class="section-label">Employee Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Name <span class="req">*</span></label>
+          <input type="text" id="empName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Employee ID / Last 4 SSN</label>
+          <input type="text" id="empId" placeholder="Optional" maxlength="10">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Position <span class="req">*</span></label>
+        <div class="pills" id="positionPills">
+          <label class="pill">
+            <input type="radio" name="position" value="Homemaker" required>
+            <span>Homemaker</span>
+          </label>
+          <label class="pill">
+            <input type="radio" name="position" value="CNA">
+            <span>CNA</span>
+          </label>
+          <label class="pill">
+            <input type="radio" name="position" value="Administrative Staff">
+            <span>Administrative Staff</span>
+          </label>
+        </div>
+        <div class="error-msg">Please select a position</div>
+      </div>
+
+      <div class="field">
+        <label>Date of Hire <span class="req">*</span></label>
+        <input type="date" id="hireDate" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- TRANSPORTATION POLICY -->
+      <div class="section-label">Transportation Policy</div>
+
+      <div class="agreement-box">
+        <h3>TRANSPORTATION POLICY ACKNOWLEDGMENT — VitalTouch Health Network Inc.</h3>
+
+        <p>As an employee of VitalTouch Health Network Inc., I understand and acknowledge the following regarding transportation:</p>
+
+        <ol>
+          <li>I will NOT be required to drive clients in my personal vehicle or any vehicle as part of my job duties.</li>
+          <li>I will NOT transport clients to medical appointments, errands, or any other destinations.</li>
+          <li>If a client requests transportation, I will decline and notify my supervisor immediately.</li>
+          <li>VitalTouch Health Network does not provide auto insurance coverage for employees' personal vehicles.</li>
+          <li>Any transportation of clients is strictly prohibited and may result in disciplinary action, up to and including termination.</li>
+          <li>If I observe any safety concerns related to a client's transportation needs, I will report them to my supervisor.</li>
+        </ol>
+
+        <p>This policy is in place to protect both employees and clients. If you have questions about this policy, please contact your supervisor or the VitalTouch office at (708) 774-4850.</p>
+      </div>
+
+      <!-- ACKNOWLEDGMENT CHECKBOXES -->
+      <div class="section-label">Acknowledgment</div>
+
+      <div class="ack-progress-container">
+        <span class="ack-progress-text">Policy acknowledgments completed:</span>
+        <span class="ack-progress-count"><span id="ackCount">0</span> of 3</span>
+      </div>
+
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack1">
+        <label for="ack1">I understand that I am not required or permitted to drive clients</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack2">
+        <label for="ack2">I will notify my supervisor if a client requests transportation</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack3">
+        <label for="ack3">I understand that transporting clients may result in disciplinary action</label>
+      </div>
+
+      <!-- EMPLOYEE SIGNATURE -->
+      <div class="section-label">Employee Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Printed Name <span class="req">*</span></label>
+          <input type="text" id="sigName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" id="sigDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span class="req">*</span></div>
+        <canvas id="sigPad1" class="sig-pad"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear Signature</button>
+        </div>
+      </div>
+
+    </div><!-- /form-content -->
+
+    <!-- CONFIRMATION (hidden until submit) -->
+    <div class="confirmation" id="confirmSection">
+      <div class="conf-check">&#10003;</div>
+      <h2>Acknowledgment Signed &amp; Sent</h2>
+      <p>Your signed Will Not Drive Acknowledgment has been submitted. This will be added to your employee file.</p>
+      <div class="conf-id" id="confId"></div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-next" onclick="submitForm()">Sign &amp; Submit Acknowledgment &rarr;</button>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <span class="trust-item">&#128274; HIPAA Compliant</span>
+      <span class="trust-item">&#127973; IDPH Licensed</span>
+      <span class="trust-item">&#128203; Form E.12.1</span>
+    </div>
+
+  </div><!-- /card -->
+</div><!-- /main-container -->
+
+<div class="footer">
+  VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430<br>
+  (708) 774-4850 &middot; <a href="https://vitaltouchcares.com" target="_blank">vitaltouchcares.com</a>
+</div>
+
+<script>
+/* ===== SET TODAY'S DATE ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('sigDate').value = today;
+  initSigPad('sigPad1');
+});
+
+/* ===== CHECKBOX TOGGLE ===== */
+function toggleCheck(el) {
+  var cb = el.querySelector('input[type="checkbox"]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+  updateAckProgress();
+}
+
+function updateAckProgress() {
+  var total = document.querySelectorAll('.check-item input[type="checkbox"]:checked').length;
+  document.getElementById('ackCount').textContent = total;
+}
+
+/* ===== SIGNATURE PAD ===== */
+var sig1Signed = false;
+var sigPads = {};
+
+function initSigPad(id) {
+  var canvas = document.getElementById(id);
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var drawing = false, lastX = 0, lastY = 0;
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    var rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) { e.preventDefault(); drawing = true; var pos = getPos(e); lastX = pos.x; lastY = pos.y; ctx.beginPath(); ctx.moveTo(pos.x, pos.y); ctx.lineTo(pos.x + 0.1, pos.y + 0.1); ctx.stroke(); }
+  function draw(e) { if (!drawing) return; e.preventDefault(); var pos = getPos(e); ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke(); lastX = pos.x; lastY = pos.y; canvas.classList.add('signed'); sig1Signed = true; }
+  function end(e) { if (e) e.preventDefault(); drawing = false; }
+
+  canvas.addEventListener('mousedown', start, {passive:false});
+  canvas.addEventListener('mousemove', draw, {passive:false});
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', draw, {passive:false});
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas: canvas, ctx: ctx, resize: resize };
+  requestAnimationFrame(function() { resize(); });
+  window.addEventListener('resize', function() { resize(); });
+}
+
+function clearSig(n) {
+  var id = 'sigPad' + n;
+  var pad = sigPads[id];
+  if (pad) { pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height); pad.resize(); pad.canvas.classList.remove('signed'); sig1Signed = false; }
+}
+
+/* ===== VALIDATION ===== */
+function clearErrors() {
+  document.querySelectorAll('.field.has-error').forEach(function(f) { f.classList.remove('has-error'); });
+  document.querySelectorAll('.invalid').forEach(function(f) { f.classList.remove('invalid'); });
+  document.querySelectorAll('.check-item').forEach(function(ci) { ci.style.borderColor = ''; });
+  var sigPad = document.getElementById('sigPad1');
+  if (sigPad) sigPad.style.borderColor = '';
+}
+
+function validateForm() {
+  clearErrors();
+  var valid = true;
+
+  // Required text/date fields
+  var requiredFields = ['empName', 'hireDate', 'sigName', 'sigDate'];
+  requiredFields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      el.closest('.field').classList.add('has-error');
+      valid = false;
+    }
+  });
+
+  // Position pill
+  var posSelected = document.querySelector('input[name="position"]:checked');
+  if (!posSelected) {
+    document.getElementById('positionPills').closest('.field').classList.add('has-error');
+    valid = false;
+  }
+
+  // All 3 checkboxes
+  var checkboxes = ['ack1', 'ack2', 'ack3'];
+  checkboxes.forEach(function(id) {
+    var cb = document.getElementById(id);
+    if (!cb.checked) {
+      cb.closest('.check-item').style.borderColor = 'var(--red)';
+      valid = false;
+    }
+  });
+
+  // Signature
+  if (!sig1Signed) {
+    document.getElementById('sigPad1').style.borderColor = 'var(--red)';
+    valid = false;
+  }
+
+  if (!valid) {
+    var firstError = document.querySelector('.has-error, .invalid, [style*="border-color"]');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+/* ===== SUBMIT ===== */
+function submitForm() {
+  if (!validateForm()) return;
+
+  var empName = document.getElementById('empName').value.trim();
+  var empId = document.getElementById('empId').value.trim();
+  var position = document.querySelector('input[name="position"]:checked').value;
+  var hireDate = document.getElementById('hireDate').value;
+  var sigName = document.getElementById('sigName').value.trim();
+  var sigDate = document.getElementById('sigDate').value;
+
+  // Generate submission ID
+  var submissionId = 'E121-' + Date.now().toString(36);
+
+  // Build submission object
+  var submission = {
+    id: submissionId,
+    formId: 'E.12.1',
+    formName: 'Will Not Drive Acknowledgment',
+    empName: empName,
+    empId: empId || 'N/A',
+    position: position,
+    hireDate: hireDate,
+    signedBy: sigName,
+    signedDate: sigDate,
+    timestamp: new Date().toISOString()
+  };
+
+  // Save to localStorage
+  try {
+    var existing = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+    existing.push(submission);
+    localStorage.setItem('vt_submissions', JSON.stringify(existing));
+  } catch(e) { console.warn('localStorage save failed:', e); }
+
+  // Trigger mailto
+  var subject = encodeURIComponent('[VitalTouch] Will Not Drive Acknowledgment — ' + empName + ' (' + submissionId + ')');
+  var body = encodeURIComponent(
+    'Will Not Drive Acknowledgment Submission\n' +
+    '============================================\n\n' +
+    'Submission ID: ' + submissionId + '\n' +
+    'Employee Name: ' + empName + '\n' +
+    'Employee ID/Last 4 SSN: ' + (empId || 'N/A') + '\n' +
+    'Position: ' + position + '\n' +
+    'Date of Hire: ' + hireDate + '\n' +
+    'Signed By: ' + sigName + '\n' +
+    'Signed Date: ' + sigDate + '\n\n' +
+    'All 3 acknowledgment checkboxes were checked.\n' +
+    'Signature captured on canvas.\n\n' +
+    'View full submission in the admin portal.'
+  );
+  window.location.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+
+  // Show confirmation
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formNav').style.display = 'none';
+  document.getElementById('confirmSection').style.display = 'block';
+  document.getElementById('confId').textContent = 'Submission ID: ' + submissionId;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

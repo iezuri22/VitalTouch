@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competency Evaluation: 5-Hour Training (30 Days of Hire) — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM CONTENT ===== */
+  .form-content {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--warm); border: 1px solid #FDE68A;
+    border-radius: 6px; padding: 16px 18px;
+    margin-bottom: 20px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 15px; color: #78350f;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== PROGRESS ===== */
+  .progress-section {
+    padding: 16px 28px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-radius: 6px;
+  }
+  .progress-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+  .progress-bar-wrap {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), #22C55E);
+    border-radius: 8px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-pct {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* ===== QUIZ CARDS ===== */
+  .quiz-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+  }
+  .quiz-card:hover {
+    border-color: #CBD5E1;
+    box-shadow: none;
+  }
+  .quiz-card.answered {
+    border-color: var(--green);
+    background: #F8FAFC;
+  }
+  .quiz-card.correct {
+    border-color: var(--green);
+    background: #F8FAF8;
+  }
+  .quiz-card.incorrect {
+    border-color: var(--red);
+    background: #FEF8F8;
+  }
+
+  .quiz-number {
+    font-weight: 600;
+    color: #64748B;
+    font-size: 15px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .quiz-card.incorrect .quiz-number {
+    color: #64748B;
+  }
+
+  .quiz-question {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    background: #FFFFFF;
+  }
+  .quiz-option:hover {
+    background: #F8FAFC;
+    border-color: #CBD5E1;
+  }
+  .quiz-option.selected {
+    background: #F1F5F9;
+    border-color: #94A3B8;
+  }
+  .quiz-option.disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+  .quiz-option.selected.correct-answer {
+    background: #F8FAF8;
+    border-color: var(--green);
+  }
+  .quiz-option.show-correct {
+    background: #F8FAF8;
+    border-color: var(--green);
+  }
+  .quiz-option.selected.wrong-answer {
+    background: #FEF8F8;
+    border-color: var(--red);
+  }
+
+  .option-letter {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #475569;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    background: #F1F5F9;
+  }
+  .quiz-option.selected .option-letter {
+    background: #F1F5F9;
+    border: none;
+    color: #475569;
+  }
+  .quiz-option.selected.wrong-answer .option-letter {
+    background: #FEF8F8;
+    border: none;
+    color: #64748B;
+  }
+  .quiz-option.show-correct .option-letter {
+    background: #F1F5F9;
+    border: none;
+    color: #475569;
+  }
+
+  .option-text {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .quiz-feedback {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb {
+    background: #F8FAF8;
+    color: #1E293B;
+  }
+  .quiz-feedback.incorrect-fb {
+    background: #FEF8F8;
+    color: #64748B;
+  }
+
+  /* ===== RESULTS ===== */
+  .results-container {
+    text-align: center;
+    padding: 40px 28px;
+    animation: fadeIn 0.5s ease;
+  }
+  .results-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 40px;
+    color: white;
+    animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .results-icon.pass { background: var(--green); }
+  .results-icon.fail { background: var(--red); }
+
+  .results-title {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .results-subtitle {
+    font-size: 16px;
+    color: var(--text-light);
+    margin-bottom: 24px;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .score-display {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .score-big {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .score-big.pass { color: var(--green); }
+  .score-big.fail { color: var(--red); }
+  .score-total {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-light);
+  }
+  .score-pct {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .score-pct.pass { color: var(--green-dark); }
+  .score-pct.fail { color: var(--red); }
+
+  .pass-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .pass-badge.pass {
+    background: var(--green-light);
+    color: var(--green-deeper);
+  }
+  .pass-badge.fail {
+    background: #FEF2F2;
+    color: #991B1B;
+  }
+
+  .results-details {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 24px auto;
+    max-width: 400px;
+    text-align: left;
+    font-size: 15px;
+  }
+  .results-details .detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .results-details .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: var(--text-light); }
+  .detail-value { font-weight: 600; color: var(--text); }
+
+  .results-actions {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .conf-id {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--text-lighter);
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: 6px;
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-primary {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn-primary:hover {
+    background: var(--green-dark);
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn-primary:active { }
+  .btn-secondary {
+    background: var(--text); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: none;
+  }
+  .btn-secondary:hover { background: #334155; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .form-nav {
+    padding: 20px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn-back { background: transparent; color: var(--text-light); padding: 10px 16px; border: none; font-family: inherit; font-weight: 600; font-size: 15px; cursor: pointer; }
+  .btn-back:hover { color: var(--text); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== SECTIONS ===== */
+  .form-section { display: none; }
+  .form-section.active { display: block; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 16px; }
+    .hero-text p { font-size: 10px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .progress-section, .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-section { display: block !important; }
+    .quiz-card { page-break-inside: avoid; padding: 12px; margin-bottom: 8px; border: 1px solid #999; }
+    .quiz-option { padding: 6px 10px; border: 1px solid #ccc; }
+    .results-container { page-break-before: always; }
+    input, select { border: none !important; border-bottom: 1px solid #999 !important; border-radius: 0 !important; padding: 3px 0 !important; box-shadow: none !important; font-size: 11px; }
+    .btn, .results-actions { display: none !important; }
+  }
+
+  /* Results Review Table */
+  .results-table-wrapper {
+    margin-top: 24px; overflow-x: auto;
+  }
+  .results-table {
+    width: 100%; border-collapse: collapse; font-size: 15px;
+  }
+  .results-table thead {
+    background: var(--bg); border-bottom: 2px solid var(--border);
+  }
+  .results-table th {
+    padding: 12px 14px; text-align: left; font-weight: 700; color: #1a1a1a;
+  }
+  .results-table .result-icon { font-size: 14px; text-align: center; width: 32px; color: #64748B; }
+  .results-table tr.correct-row { background: #F8FAF8; }
+  .results-table tr.incorrect-row { background: #FEF8F8; }
+  .results-table td {
+    padding: 12px 14px; border-bottom: 1px solid var(--border);
+  }
+  .results-table .result-icon { font-size: 14px; text-align: center; width: 32px; color: #64748B; }
+  .results-table tr.correct-row { background: #F8FAF8; }
+  .results-table tr.incorrect-row { background: #FEF8F8; }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; flex-direction: column; text-align: center; }
+    .hero-text h1 { font-size: 22px; }
+    .form-content { padding: 24px 20px 20px; }
+    .quiz-card { padding: 18px; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .quiz-question { font-size: 16px; }
+    .option-text { font-size: 15px; }
+    .progress-section { padding: 12px 20px; }
+    .results-container { padding: 30px 20px; }
+    .score-big { font-size: 44px; }
+    .results-title { font-size: 22px; }
+    .results-table { font-size: 13px; }
+    .results-table th, .results-table td { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Competency Evaluation: 5-Hour Training (30 Days of Hire)</h1>
+    <p>VitalTouch Health Network &mdash; Post-training knowledge assessment</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-section" id="progressSection">
+      <span class="progress-label" id="progressLabel">Question 0 of 22</span>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-pct" id="progressPct">0%</span>
+    </div>
+
+    <!-- ===== SECTION 1: EMPLOYEE INFO ===== -->
+    <div class="form-section active" id="sectionInfo">
+      <div class="form-content">
+        <div class="section-label">Employee Information</div>
+
+        <div class="field">
+          <label>Employee Name <span class="req">*</span></label>
+          <input type="text" id="employeeName" placeholder="Full legal name" required>
+          <div class="error-msg">Required</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Employee ID</label>
+            <input type="text" id="employeeId" placeholder="Optional">
+          </div>
+          <div class="field">
+            <label>Training Date <span class="req">*</span></label>
+            <input type="date" id="trainingDate" required>
+            <div class="error-msg">Required</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-icon">&#128218;</span>
+          <span>This evaluation covers knowledge from the 5-hour training completed within 30 days of hire. You must score <strong>80% or higher (18 of 22 correct)</strong> to pass.</span>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <span></span>
+        <button class="btn btn-primary" onclick="startQuiz()">Begin Evaluation &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 2: QUIZ ===== -->
+    <div class="form-section" id="sectionQuiz">
+      <div class="form-content" id="quizContainer">
+        <!-- Quiz cards rendered by JS -->
+      </div>
+
+      <div class="form-nav" id="quizNav">
+        <span></span>
+        <button class="btn btn-primary" id="btnSubmitQuiz" onclick="gradeQuiz()" disabled>Submit Evaluation &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 3: RESULTS ===== -->
+    <div class="form-section" id="sectionResults">
+      <div class="results-container" id="resultsContainer">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <div class="trust-item">&#128274; HIPAA Compliant</div>
+      <div class="trust-item">&#127973; IDPH Licensed</div>
+      <div class="trust-item">&#128203; Form B.3</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== QUIZ DATA =====
+var QUESTIONS = [
+  {
+    q: "When reading a client's care plan, the most important thing to look for is:",
+    options: [
+      "The client's insurance type",
+      "The specific services and tasks you are assigned to perform",
+      "The client's phone number",
+      "Previous homemaker notes only"
+    ],
+    correct: 1
+  },
+  {
+    q: "A client with diabetes asks you to prepare a meal. You should:",
+    options: [
+      "Make whatever is fastest",
+      "Follow the dietary guidelines in their care plan",
+      "Give them extra sugar for energy",
+      "Skip meal preparation"
+    ],
+    correct: 1
+  },
+  {
+    q: "Which medication situation requires you to notify your supervisor immediately?",
+    options: [
+      "The client takes their medication on time",
+      "The client's medication bottle is empty and no refill is available",
+      "The client drinks water with their medication",
+      "The medication is stored properly"
+    ],
+    correct: 1
+  },
+  {
+    q: "A client with COPD is having difficulty breathing. Your FIRST action should be:",
+    options: [
+      "Open a window",
+      "Give them their neighbor's inhaler",
+      "Help them into a comfortable position and call 911 if severe",
+      "Wait and see if it improves"
+    ],
+    correct: 2
+  },
+  {
+    q: "When working with a client who has depression, you should:",
+    options: [
+      "Tell them to cheer up",
+      "Ignore their mood",
+      "Be patient, listen actively, and encourage them gently",
+      "Diagnose their condition"
+    ],
+    correct: 2
+  },
+  {
+    q: "The early signs of Alzheimer's disease include:",
+    options: [
+      "Sudden paralysis",
+      "Difficulty remembering recent events and conversations",
+      "Fever and chills",
+      "Skin rashes"
+    ],
+    correct: 1
+  },
+  {
+    q: "When assisting a client with a physical disability, the most important principle is:",
+    options: [
+      "Do everything for them",
+      "Encourage as much independence as possible",
+      "Avoid helping with anything",
+      "Rush through tasks"
+    ],
+    correct: 1
+  },
+  {
+    q: "The correct way to transfer a client from a bed to a wheelchair is to:",
+    options: [
+      "Grab their arms and pull",
+      "Use proper body mechanics, lock the wheelchair, and follow training procedures",
+      "Let them do it alone",
+      "Lift them by their clothing"
+    ],
+    correct: 1
+  },
+  {
+    q: "A client on a low-sodium diet should avoid:",
+    options: [
+      "Fresh fruits",
+      "Canned soups and processed foods",
+      "Fresh vegetables",
+      "Water"
+    ],
+    correct: 1
+  },
+  {
+    q: "When preparing a pureed diet for a client, you should:",
+    options: [
+      "Blend everything together in one mixture",
+      "Puree each food separately so the client can taste each item",
+      "Add extra salt for flavor",
+      "Skip vegetables"
+    ],
+    correct: 1
+  },
+  {
+    q: "When doing a client's laundry, you should:",
+    options: [
+      "Mix all clothes together",
+      "Use the hottest water setting for everything",
+      "Follow the care instructions on labels and the client's preferences",
+      "Use extra bleach on all items"
+    ],
+    correct: 2
+  },
+  {
+    q: "A deep cleaning task would include:",
+    options: [
+      "Quick vacuuming only",
+      "Cleaning behind appliances, inside cabinets, and thorough bathroom sanitizing",
+      "Rearranging all furniture",
+      "Throwing away the client's belongings"
+    ],
+    correct: 1
+  },
+  {
+    q: "If a client asks you to help pay their bills, you should:",
+    options: [
+      "Only assist if specified in the care plan, and never handle cash alone",
+      "Pay the bills with your own money",
+      "Take their checkbook home",
+      "Refuse any financial assistance"
+    ],
+    correct: 0
+  },
+  {
+    q: "Electronic Visit Verification (EVV) requires you to:",
+    options: [
+      "Only clock in",
+      "Clock in/out but location doesn't matter",
+      "Clock in and out at the client's location with accurate times",
+      "Have the client clock in for you"
+    ],
+    correct: 2
+  },
+  {
+    q: "If the EVV system isn't working, you should:",
+    options: [
+      "Skip the visit",
+      "Document the visit manually and report the issue to your supervisor",
+      "Leave early",
+      "Make up the times later"
+    ],
+    correct: 1
+  },
+  {
+    q: "An incident report should be filed when:",
+    options: [
+      "A client complains about the weather",
+      "Everything goes as planned",
+      "There is an injury, accident, near-miss, or unusual event",
+      "Only when a supervisor is present"
+    ],
+    correct: 2
+  },
+  {
+    q: "Which is a sign that an elderly client may be experiencing financial exploitation?",
+    options: [
+      "They pay their bills on time",
+      "Sudden changes in bank accounts or missing money",
+      "They receive regular mail",
+      "They have a family visitor"
+    ],
+    correct: 1
+  },
+  {
+    q: "You notice bruises on a client that weren't there before. You should:",
+    options: [
+      "Ask the client to cover them up",
+      "Assume they bumped into something",
+      "Document what you observe and report to your supervisor immediately",
+      "Apply medication to the bruises"
+    ],
+    correct: 2
+  },
+  {
+    q: "When a client's family member asks you to do tasks not in the care plan, you should:",
+    options: [
+      "Politely explain your assigned duties and suggest they contact the office",
+      "Do whatever they ask",
+      "Argue with the family member",
+      "Ignore them"
+    ],
+    correct: 0
+  },
+  {
+    q: "A hospice client's family is grieving. An appropriate response is to:",
+    options: [
+      "Avoid the family",
+      "Share your own experiences with death",
+      "Offer compassionate presence and listen without judgment",
+      "Tell them not to be sad"
+    ],
+    correct: 2
+  },
+  {
+    q: "Signs of caregiver burnout include:",
+    options: [
+      "Feeling energized",
+      "Improved patience",
+      "Chronic fatigue, irritability, and feeling detached",
+      "Wanting to take on more clients"
+    ],
+    correct: 2
+  },
+  {
+    q: "Continuing education for homemakers requires:",
+    options: [
+      "No additional training after hiring",
+      "Training only when problems occur",
+      "A minimum of 12 hours of training annually",
+      "Training every 5 years"
+    ],
+    correct: 2
+  }
+];
+
+var TOTAL_QUESTIONS = QUESTIONS.length;
+var PASS_THRESHOLD = 18;
+var PASS_PERCENT = 80;
+var answers = {};
+var formId = 'B.3';
+var formVersion = '1.0';
+var isGraded = false;
+
+// ===== RENDER QUIZ =====
+function renderQuiz() {
+  var container = document.getElementById('quizContainer');
+  var html = '';
+
+  for (var i = 0; i < QUESTIONS.length; i++) {
+    var q = QUESTIONS[i];
+    var letters = ['A', 'B', 'C', 'D'];
+    html += '<div class="quiz-card" id="qcard-' + i + '">';
+    html += '<div class="quiz-number">QUESTION ' + (i + 1) + '</div>';
+    html += '<div class="quiz-question">' + q.q + '</div>';
+    html += '<div class="quiz-options">';
+    for (var j = 0; j < q.options.length; j++) {
+      html += '<div class="quiz-option" data-q="' + i + '" data-opt="' + j + '" onclick="selectOption(' + i + ',' + j + ')">';
+      html += '<div class="option-letter">' + letters[j] + '</div>';
+      html += '<div class="option-text">' + q.options[j] + '</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+    html += '<div class="quiz-feedback" id="feedback-' + i + '"></div>';
+    html += '</div>';
+  }
+
+  container.innerHTML = html;
+}
+
+// ===== SELECT OPTION =====
+function selectOption(qIndex, optIndex) {
+  if (isGraded) return;
+
+  // Remove previous selection for this question
+  var card = document.getElementById('qcard-' + qIndex);
+  card.querySelectorAll('.quiz-option').forEach(function(opt) {
+    opt.classList.remove('selected');
+  });
+
+  // Select clicked option
+  var selected = card.querySelector('.quiz-option[data-opt="' + optIndex + '"]');
+  selected.classList.add('selected');
+  card.classList.add('answered');
+
+  // Store answer
+  answers[qIndex] = optIndex;
+
+  // Update progress
+  updateProgress();
+
+  // Enable submit if all answered
+  var answeredCount = Object.keys(answers).length;
+  document.getElementById('btnSubmitQuiz').disabled = answeredCount < TOTAL_QUESTIONS;
+}
+
+// ===== UPDATE PROGRESS =====
+function updateProgress() {
+  var answeredCount = Object.keys(answers).length;
+  var pct = Math.round((answeredCount / TOTAL_QUESTIONS) * 100);
+  document.getElementById('progressLabel').textContent = 'Question ' + answeredCount + ' of ' + TOTAL_QUESTIONS;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+// ===== GRADE QUIZ =====
+function gradeQuiz() {
+  if (isGraded) return;
+  if (Object.keys(answers).length < TOTAL_QUESTIONS) {
+    alert('Please answer all 22 questions before submitting.');
+    return;
+  }
+
+  isGraded = true;
+  var correctCount = 0;
+  var letters = ['A', 'B', 'C', 'D'];
+
+  for (var i = 0; i < QUESTIONS.length; i++) {
+    var card = document.getElementById('qcard-' + i);
+    var feedback = document.getElementById('feedback-' + i);
+    var isCorrect = answers[i] === QUESTIONS[i].correct;
+
+    if (isCorrect) {
+      correctCount++;
+      card.classList.add('correct');
+      card.classList.remove('answered');
+      feedback.className = 'quiz-feedback show correct-fb';
+      feedback.innerHTML = '&#10003; Correct';
+    } else {
+      card.classList.add('incorrect');
+      card.classList.remove('answered');
+      feedback.className = 'quiz-feedback show incorrect-fb';
+      feedback.innerHTML = '&#10007; Incorrect &mdash; Correct answer: ' + letters[QUESTIONS[i].correct] + ') ' + QUESTIONS[i].options[QUESTIONS[i].correct];
+
+      // Mark the wrong selected option
+      var selectedOpt = card.querySelector('.quiz-option[data-opt="' + answers[i] + '"]');
+      if (selectedOpt) {
+        selectedOpt.classList.add('wrong-answer');
+      }
+
+      // Highlight the correct option
+      var correctOpt = card.querySelector('.quiz-option[data-opt="' + QUESTIONS[i].correct + '"]');
+      if (correctOpt) {
+        correctOpt.classList.add('show-correct');
+      }
+    }
+
+    // Disable all options
+    card.querySelectorAll('.quiz-option').forEach(function(opt) {
+      opt.classList.add('disabled');
+    });
+  }
+
+  // Disable submit button
+  document.getElementById('btnSubmitQuiz').disabled = true;
+
+  // Calculate results
+  var pct = Math.round((correctCount / TOTAL_QUESTIONS) * 100);
+  var passed = correctCount >= PASS_THRESHOLD;
+
+  // Save and show results
+  showResults(correctCount, pct, passed);
+}
+
+// ===== SHOW RESULTS =====
+function showResults(correctCount, pct, passed) {
+  var empName = document.getElementById('employeeName').value;
+  var empId = document.getElementById('employeeId').value;
+  var trainingDate = document.getElementById('trainingDate').value;
+  var submissionId = 'B3-' + Date.now().toString(36).toUpperCase();
+
+  // Build results HTML
+  var resultsHTML = '';
+  resultsHTML += '<div class="results-icon ' + (passed ? 'pass' : 'fail') + '">' + (passed ? '&#10003;' : '&#10007;') + '</div>';
+  resultsHTML += '<div class="results-title">' + (passed ? 'Evaluation Passed!' : 'Evaluation Not Passed') + '</div>';
+  resultsHTML += '<div class="results-subtitle">' + (passed
+    ? 'Congratulations! You have demonstrated sufficient knowledge of the 5-hour training material.'
+    : 'You did not meet the minimum passing score of 80%. Please review the training material and retake the evaluation.')
+    + '</div>';
+
+  resultsHTML += '<div class="score-display"><span class="score-big ' + (passed ? 'pass' : 'fail') + '">' + correctCount + '</span><span class="score-total">/ ' + TOTAL_QUESTIONS + '</span></div>';
+  resultsHTML += '<div class="score-pct ' + (passed ? 'pass' : 'fail') + '">' + pct + '% Score</div>';
+  resultsHTML += '<div class="pass-badge ' + (passed ? 'pass' : 'fail') + '">' + (passed ? 'PASSED' : 'NOT PASSED') + '</div>';
+
+  resultsHTML += '<div class="results-details">';
+  resultsHTML += '<div class="detail-row"><span class="detail-label">Employee</span><span class="detail-value">' + empName + '</span></div>';
+  if (empId) {
+    resultsHTML += '<div class="detail-row"><span class="detail-label">Employee ID</span><span class="detail-value">' + empId + '</span></div>';
+  }
+  resultsHTML += '<div class="detail-row"><span class="detail-label">Training Date</span><span class="detail-value">' + trainingDate + '</span></div>';
+  resultsHTML += '<div class="detail-row"><span class="detail-label">Correct Answers</span><span class="detail-value">' + correctCount + ' of ' + TOTAL_QUESTIONS + '</span></div>';
+  resultsHTML += '<div class="detail-row"><span class="detail-label">Score</span><span class="detail-value">' + pct + '%</span></div>';
+  resultsHTML += '<div class="detail-row"><span class="detail-label">Required to Pass</span><span class="detail-value">' + PASS_PERCENT + '% (' + PASS_THRESHOLD + '/' + TOTAL_QUESTIONS + ')</span></div>';
+  resultsHTML += '<div class="detail-row"><span class="detail-label">Result</span><span class="detail-value" style="color:' + (passed ? 'var(--green)' : 'var(--red)') + '">' + (passed ? 'PASSED' : 'NOT PASSED') + '</span></div>';
+  resultsHTML += '</div>';
+
+  // Build results table
+  resultsHTML += '<div class="results-table-wrapper" style="margin-top: 24px;">';
+  resultsHTML += '<table class="results-table"><thead><tr><th style="width: 10%;">Q</th><th style="width: 35%;">Your Answer</th><th style="width: 35%;">Correct Answer</th><th style="width: 10%; text-align: center;">Result</th></tr></thead><tbody>';
+  for (var i = 0; i < answers.length; i++) {
+    var isCorrect = answers[i] === QUESTIONS[i].correct;
+    var userAnswerText = QUESTIONS[i].options[answers[i]];
+    var correctAnswerText = QUESTIONS[i].options[QUESTIONS[i].correct];
+    var rowClass = isCorrect ? 'correct-row' : 'incorrect-row';
+    resultsHTML += '<tr class="' + rowClass + '"><td><strong>Q' + (i+1) + '</strong></td><td>' + userAnswerText + '</td><td>' + correctAnswerText + '</td><td class="result-icon" style="text-align:center;">' + (isCorrect ? 'Correct' : 'Incorrect') + '</td></tr>';
+  }
+  resultsHTML += '</tbody></table></div>';
+
+  resultsHTML += '<div class="results-actions">';
+  resultsHTML += '<button class="btn btn-secondary" onclick="window.print()">&#128424; Print Results</button>';
+  if (!passed) {
+    resultsHTML += '<button class="btn btn-primary" onclick="location.reload()">&#128260; Retake Evaluation</button>';
+  }
+  resultsHTML += '</div>';
+
+  resultsHTML += '<div class="conf-id">Submission ID: ' + submissionId + '</div>';
+  resultsHTML += '<p style="margin-top:16px;font-size:13px;color:var(--text-lighter);">' + (passed ? 'A notification has been sent to iezuri22@gmail.com.' : 'Please review the training material and try again.') + '</p>';
+
+  document.getElementById('resultsContainer').innerHTML = resultsHTML;
+
+  // Show results section
+  document.getElementById('sectionQuiz').classList.remove('active');
+  document.getElementById('sectionResults').classList.add('active');
+  document.getElementById('progressSection').style.display = 'none';
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Build submission data
+  var data = {
+    formId: formId,
+    formVersion: formVersion,
+    submissionId: submissionId,
+    timestamp: new Date().toISOString(),
+    employee: {
+      name: empName,
+      employeeId: empId,
+      trainingDate: trainingDate
+    },
+    quiz: {
+      totalQuestions: TOTAL_QUESTIONS,
+      correctAnswers: correctCount,
+      scorePercent: pct,
+      passed: passed,
+      passThreshold: PASS_THRESHOLD,
+      answers: answers
+    },
+    status: passed ? 'passed' : 'failed'
+  };
+
+  // Store in localStorage
+  var stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+  // Send email if passed
+  if (passed) {
+    var subject = encodeURIComponent('[VitalTouch] Competency Eval B.3 PASSED \u2014 ' + empName + ' (' + submissionId + ')');
+    var body = encodeURIComponent(
+      'A 5-Hour Training Competency Evaluation (30 Days of Hire) has been completed.\n\n' +
+      'Employee: ' + empName + '\n' +
+      'Employee ID: ' + (empId || 'N/A') + '\n' +
+      'Training Date: ' + trainingDate + '\n' +
+      'Score: ' + correctCount + '/' + TOTAL_QUESTIONS + ' (' + pct + '%)\n' +
+      'Result: PASSED\n' +
+      'Submission ID: ' + submissionId + '\n\n' +
+      'Log into the admin portal to review:\nhttps://vitaltouchcares.com/admin/'
+    );
+
+    var mailLink = document.createElement('a');
+    mailLink.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+    mailLink.click();
+  }
+
+  console.log('Competency evaluation submitted:', data);
+}
+
+// ===== START QUIZ =====
+function startQuiz() {
+  // Validate employee info
+  var valid = true;
+  var name = document.getElementById('employeeName');
+  var date = document.getElementById('trainingDate');
+
+  if (!name.value.trim()) {
+    name.classList.add('invalid');
+    name.closest('.field').classList.add('has-error');
+    valid = false;
+  } else {
+    name.classList.remove('invalid');
+    name.closest('.field').classList.remove('has-error');
+  }
+
+  if (!date.value) {
+    date.classList.add('invalid');
+    date.closest('.field').classList.add('has-error');
+    valid = false;
+  } else {
+    date.classList.remove('invalid');
+    date.closest('.field').classList.remove('has-error');
+  }
+
+  if (!valid) {
+    var firstErr = document.querySelector('.invalid');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // Switch to quiz section
+  document.getElementById('sectionInfo').classList.remove('active');
+  document.getElementById('sectionQuiz').classList.add('active');
+  document.getElementById('progressSection').style.display = 'flex';
+
+  // Render quiz
+  renderQuiz();
+  updateProgress();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  // Set today's date as default
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('trainingDate').value = today;
+
+  // Hide progress initially
+  document.getElementById('progressSection').style.display = 'none';
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

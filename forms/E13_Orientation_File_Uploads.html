@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orientation File Uploads — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #4a5568;
+    --text-lighter: #6b7280;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .card-body {
+    padding: 36px 32px;
+  }
+
+  /* ===== SECTION ===== */
+  .section-header {
+    margin-bottom: 28px;
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+  .section-subtitle {
+    font-size: 16px;
+    color: var(--text-light);
+  }
+
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 32px 0 16px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 20px; }
+  .field-row { display: flex; gap: 16px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field select {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field .error-msg { color: var(--red); font-size: 14px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--warm); border: 1px solid #FDE68A;
+    border-radius: var(--radius-sm); padding: 16px 18px;
+    margin-bottom: 24px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 15px; color: #78350f;
+  }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+  .callout-secure {
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    border-radius: var(--radius-sm); padding: 16px 18px;
+    margin-bottom: 24px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 15px; color: var(--green-deeper);
+  }
+
+  /* ===== FILE UPLOAD ZONES ===== */
+  .upload-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 700px) {
+    .upload-grid { grid-template-columns: 1fr; }
+    .field-row { flex-direction: column; gap: 0; }
+  }
+
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: var(--bg);
+    position: relative;
+  }
+  .upload-zone:hover {
+    border-color: var(--green);
+    background: var(--green-light);
+  }
+  .upload-zone.has-file {
+    border-color: var(--green);
+    border-style: solid;
+    background: var(--green-light);
+  }
+  .upload-zone.dragover {
+    border-color: var(--green);
+    background: var(--green-light);
+  }
+
+  .upload-icon { font-size: 36px; margin-bottom: 12px; }
+  .upload-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .upload-desc { font-size: 14px; color: var(--text-lighter); margin-bottom: 8px; }
+  .upload-hint { font-size: 13px; color: var(--text-lighter); }
+  .upload-hint strong { color: var(--green); }
+  .upload-zone input[type="file"] { display: none; }
+
+  .upload-status {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+  .upload-status.visible { display: flex; }
+  .upload-status .file-icon { color: var(--green); font-size: 18px; }
+  .upload-status .file-name { flex: 1; font-weight: 600; color: #1a1a1a; word-break: break-all; }
+  .upload-status .file-size { color: var(--text-lighter); font-size: 13px; }
+  .upload-status .file-remove {
+    color: var(--red); font-weight: 700; cursor: pointer;
+    font-size: 18px; line-height: 1; padding: 4px;
+  }
+  .upload-status .file-remove:hover { opacity: 0.7; }
+
+  .upload-required {
+    display: inline-block;
+    background: #FEF2F2;
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  .upload-optional {
+    display: inline-block;
+    background: #F3F4F6;
+    color: var(--text-lighter);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  /* ===== MONOGRAM BADGES ===== */
+  .upload-monogram {
+    display: none;
+  }
+
+  .monogram-tn { display: none; }
+  .monogram-cp { display: none; }
+  .monogram-fa { display: none; }
+  .monogram-fh { display: none; }
+  .monogram-ha { display: none; }
+  .monogram-od { display: none; }
+
+  /* ===== SECTION HEADERS ===== */
+  .upload-section-header {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 28px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--green);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .upload-section-header.collapsible {
+    cursor: pointer;
+  }
+
+  .upload-section-header .collapse-icon {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    display: none;
+  }
+
+  .upload-section-header.collapsible .collapse-icon {
+    display: inline-block;
+  }
+
+  .upload-section-header.collapsed .collapse-icon {
+    transform: rotate(-90deg);
+  }
+
+  .upload-section-badge {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .upload-section-badge.optional {
+    background: #9CA3AF;
+  }
+
+  .upload-grid.collapsible-content {
+    max-height: 2000px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+  }
+
+  .upload-grid.collapsible-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  /* ===== PROGRESS CONTAINER ===== */
+  .progress-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+  }
+
+  .progress-info {
+    flex: 1;
+  }
+
+  .progress-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+
+  .progress-ring-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .progress-ring {
+    position: relative;
+    width: 56px;
+    height: 56px;
+  }
+
+  .progress-ring svg {
+    transform: rotate(-90deg);
+  }
+
+  .progress-circle {
+    fill: none;
+    stroke: #E5E7EB;
+    stroke-width: 3;
+  }
+
+  .progress-circle-fill {
+    fill: none;
+    stroke: #94A3B8;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.3s ease;
+  }
+
+  .progress-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748B;
+  }
+
+  /* ===== NAV ===== */
+  .form-nav {
+    padding: 24px 32px; display: flex;
+    justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 17px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-submit {
+    background: var(--green); color: white;
+    padding: 14px 32px; border-radius: 6px; font-size: 17px;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+    margin-left: auto;
+  }
+  .btn-submit:hover {
+    background: var(--green-dark);
+    box-shadow: 0 6px 20px rgba(22,163,74,0.35);
+  }
+  .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 16px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 6px; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 32px; display: none; }
+  .confirmation.visible { display: block; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 16px; max-width: 480px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 13px; color: var(--text-lighter); }
+
+  .form-content.hidden { display: none; }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 13px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 13px; }
+    .hero { padding: 16px 20px; border-bottom: 2px solid #333; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer { display: none !important; }
+    .upload-zone { border: 1px solid #999; padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Orientation File Uploads</h1>
+    <p>VitalTouch Health Network — Orientation and training documents</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- FORM CONTENT -->
+    <div class="form-content" id="formContent">
+      <div class="card-body">
+
+        <div class="section-header">
+          <div class="section-title">Upload Your Orientation Documents</div>
+          <div class="section-subtitle">Please upload the following orientation and training documents. All uploads are encrypted and stored securely.</div>
+        </div>
+
+        <div class="callout-secure">
+          <span class="callout-icon">🔒</span>
+          <span>Your documents are protected under HIPAA and stored securely. Only authorized VitalTouch staff can access your files.</span>
+        </div>
+
+        <div class="section-label">Employee Identification</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Employee Name <span class="req">*</span></label>
+            <input type="text" id="empName" placeholder="Full legal name" required>
+            <div class="error-msg">Required</div>
+          </div>
+          <div class="field">
+            <label>Employee ID / Last 4 SSN <span class="req">*</span></label>
+            <input type="text" id="empId" placeholder="e.g. 1234" maxlength="4" required>
+            <div class="error-msg">Required</div>
+          </div>
+        </div>
+
+        <!-- PROGRESS INDICATOR -->
+        <div class="progress-container">
+          <div class="progress-info">
+            <div class="progress-label">Overall Upload Progress</div>
+            <div style="font-size: 13px; color: var(--text-lighter);" id="progressLabel">0 of 6 documents uploaded</div>
+          </div>
+          <div class="progress-ring-container">
+            <div class="progress-ring">
+              <svg width="56" height="56" viewBox="0 0 56 56">
+                <circle class="progress-circle" cx="28" cy="28" r="24"></circle>
+                <circle class="progress-circle-fill" id="progressCircle" cx="28" cy="28" r="24" style="stroke-dasharray: 150.8; stroke-dashoffset: 150.8;"></circle>
+              </svg>
+              <div class="progress-percentage" id="progressPercent">0%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label">Required Documents</div>
+
+        <div class="callout">
+          <span class="callout-icon">📋</span>
+          <span>Please upload clear photos or scans. Accepted formats: JPG, PNG, or PDF. Max file size: 10MB each.</span>
+        </div>
+
+        <div class="upload-section-header">
+          <span class="upload-section-badge">REQUIRED</span>
+          Core Training Documents
+        </div>
+
+        <div class="upload-grid">
+
+          <!-- 24-Hour Training Certificate -->
+          <div class="upload-zone" id="zone-training" onclick="document.getElementById('file-training').click()">
+            <div class="upload-monogram monogram-tn">TN</div>
+            <div class="upload-icon">📜</div>
+            <div class="upload-title">24-Hour Training Certificate</div>
+            <div class="upload-desc">Pre-hire 24-hour training completion certificate</div>
+            <div class="upload-hint">Tap to upload or <strong>drag & drop</strong></div>
+            <input type="file" id="file-training" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFile(this, 'zone-training')">
+            <div class="upload-status" id="status-zone-training">
+              <span class="file-icon">✅</span>
+              <span class="file-name"></span>
+              <span class="file-size"></span>
+              <span class="file-remove" onclick="removeFile(event, 'zone-training')">&times;</span>
+            </div>
+          </div>
+
+          <!-- CPR / First Aid Certificate -->
+          <div class="upload-zone" id="zone-cpr" onclick="document.getElementById('file-cpr').click()">
+            <div class="upload-monogram monogram-cp">CP</div>
+            <div class="upload-icon">❤️‍🩹</div>
+            <div class="upload-title">CPR / First Aid Certificate</div>
+            <div class="upload-desc">Current CPR or First Aid certification</div>
+            <div class="upload-hint">Tap to upload or <strong>drag & drop</strong></div>
+            <input type="file" id="file-cpr" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFile(this, 'zone-cpr')">
+            <div class="upload-status" id="status-zone-cpr">
+              <span class="file-icon">✅</span>
+              <span class="file-name"></span>
+              <span class="file-size"></span>
+              <span class="file-remove" onclick="removeFile(event, 'zone-cpr')">&times;</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CONDITIONAL SECTION -->
+        <div class="upload-section-header collapsible" onclick="toggleSection(this)">
+          <span class="collapse-icon">&#9658;</span>
+          <span class="upload-section-badge optional">CONDITIONAL</span>
+          Conditional & Additional Documents
+        </div>
+
+        <div class="upload-grid collapsible-content" id="conditional-section">
+
+          <!-- Food Handler's Certificate -->
+          <div class="upload-zone" id="zone-food" onclick="document.getElementById('file-food').click()">
+            <div class="upload-monogram monogram-fh">FH</div>
+            <div class="upload-icon">🍽️</div>
+            <div class="upload-title">Food Handler's Certificate</div>
+            <div class="upload-desc">Food handler's certification (if applicable)</div>
+            <div class="upload-hint">Tap to upload or <strong>drag & drop</strong></div>
+            <input type="file" id="file-food" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFile(this, 'zone-food')">
+            <div class="upload-status" id="status-zone-food">
+              <span class="file-icon">✅</span>
+              <span class="file-name"></span>
+              <span class="file-size"></span>
+              <span class="file-remove" onclick="removeFile(event, 'zone-food')">&times;</span>
+            </div>
+          </div>
+
+          <!-- Employee Handbook Acknowledgment -->
+          <div class="upload-zone" id="zone-handbook" onclick="document.getElementById('file-handbook').click()">
+            <div class="upload-monogram monogram-ha">HA</div>
+            <div class="upload-icon">📖</div>
+            <div class="upload-title">Employee Handbook Acknowledgment</div>
+            <div class="upload-desc">Signed employee handbook acknowledgment</div>
+            <div class="upload-hint">Tap to upload or <strong>drag & drop</strong></div>
+            <input type="file" id="file-handbook" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFile(this, 'zone-handbook')">
+            <div class="upload-status" id="status-zone-handbook">
+              <span class="file-icon">✅</span>
+              <span class="file-name"></span>
+              <span class="file-size"></span>
+              <span class="file-remove" onclick="removeFile(event, 'zone-handbook')">&times;</span>
+            </div>
+          </div>
+
+          <!-- Orientation Completion Form -->
+          <div class="upload-zone" id="zone-orientation" onclick="document.getElementById('file-orientation').click()">
+            <div class="upload-monogram monogram-od">OD</div>
+            <div class="upload-icon">✅</div>
+            <div class="upload-title">Orientation Completion Form</div>
+            <div class="upload-desc">Signed orientation completion form</div>
+            <div class="upload-hint">Tap to upload or <strong>drag & drop</strong></div>
+            <input type="file" id="file-orientation" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFile(this, 'zone-orientation')">
+            <div class="upload-status" id="status-zone-orientation">
+              <span class="file-icon">✅</span>
+              <span class="file-name"></span>
+              <span class="file-size"></span>
+              <span class="file-remove" onclick="removeFile(event, 'zone-orientation')">&times;</span>
+            </div>
+          </div>
+
+          <!-- Additional Training Document -->
+          <div class="upload-zone" id="zone-other" onclick="document.getElementById('file-other').click()">
+            <span class="upload-optional">OPTIONAL</span>
+            <div class="upload-icon">📎</div>
+            <div class="upload-title">Additional Training Document</div>
+            <div class="upload-desc">Any other training or orientation document</div>
+            <div class="upload-hint">Tap to upload or <strong>drag & drop</strong></div>
+            <input type="file" id="file-other" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFile(this, 'zone-other')">
+            <div class="upload-status" id="status-zone-other">
+              <span class="file-icon">✅</span>
+              <span class="file-name"></span>
+              <span class="file-size"></span>
+              <span class="file-remove" onclick="removeFile(event, 'zone-other')">&times;</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- NAV -->
+      <div class="form-nav">
+        <span style="font-size: 14px; color: var(--text-lighter);" id="uploadCount">0 of 2 required documents uploaded</span>
+        <button class="btn btn-submit" id="btnSubmit" onclick="submitForm()">Upload & Send →</button>
+      </div>
+
+    </div>
+
+    <!-- CONFIRMATION -->
+    <div class="confirmation" id="confirmation">
+      <div class="conf-check">✓</div>
+      <h2>Documents Uploaded</h2>
+      <p>Your orientation documents have been submitted to VitalTouch Health Network. The CEO has been notified and will review your uploads.</p>
+      <div class="conf-id">Submission ID: <span id="confId"></span></div>
+      <p style="margin-top: 20px; font-size: 14px; color: var(--text-lighter);">A notification has been sent to iezuri22@gmail.com for review.</p>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">🔒 HIPAA Compliant</div>
+      <div class="trust-item">🏥 IDPH Licensed</div>
+      <div class="trust-item">📋 Form E.13</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. · 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 · <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+const formId = 'E.13';
+const formVersion = '1.0';
+const uploadedFiles = {};
+
+// ===== FILE HANDLING =====
+function handleFile(input, zoneId) {
+  const file = input.files[0];
+  if (!file) return;
+
+  // Validate size (10MB)
+  if (file.size > 10 * 1024 * 1024) {
+    alert('File is too large. Maximum size is 10MB.');
+    input.value = '';
+    return;
+  }
+
+  const zone = document.getElementById(zoneId);
+  const status = document.getElementById('status-' + zoneId);
+
+  zone.classList.add('has-file');
+  status.classList.add('visible');
+  status.querySelector('.file-name').textContent = file.name;
+  status.querySelector('.file-size').textContent = formatSize(file.size);
+
+  uploadedFiles[zoneId] = file;
+  updateCount();
+}
+
+function removeFile(e, zoneId) {
+  e.stopPropagation();
+  const zone = document.getElementById(zoneId);
+  const status = document.getElementById('status-' + zoneId);
+  const input = zone.querySelector('input[type="file"]');
+
+  zone.classList.remove('has-file');
+  status.classList.remove('visible');
+  input.value = '';
+  delete uploadedFiles[zoneId];
+  updateCount();
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / 1048576).toFixed(1) + ' MB';
+}
+
+function updateCount() {
+  const required = ['zone-training', 'zone-cpr'];
+  const allZones = ['zone-training', 'zone-cpr', 'zone-food', 'zone-handbook', 'zone-orientation', 'zone-other'];
+  const uploaded = required.filter(z => uploadedFiles[z]).length;
+  const totalUploaded = allZones.filter(z => uploadedFiles[z]).length;
+
+  document.getElementById('uploadCount').textContent = `${uploaded} of ${required.length} required documents uploaded`;
+
+  // Update progress indicator
+  const progressPercent = Math.round((totalUploaded / allZones.length) * 100);
+  document.getElementById('progressLabel').textContent = `${totalUploaded} of ${allZones.length} documents uploaded`;
+  document.getElementById('progressPercent').textContent = progressPercent + '%';
+
+  // Update progress circle (circumference = 2 * pi * 24 = 150.8)
+  const circumference = 150.8;
+  const offset = circumference - (progressPercent / 100) * circumference;
+  document.getElementById('progressCircle').style.strokeDashoffset = offset;
+}
+
+function toggleSection(headerEl) {
+  const content = document.getElementById('conditional-section');
+  headerEl.classList.toggle('collapsed');
+  content.classList.toggle('collapsed');
+}
+
+// ===== DRAG & DROP =====
+document.querySelectorAll('.upload-zone').forEach(zone => {
+  zone.addEventListener('dragover', e => {
+    e.preventDefault();
+    zone.classList.add('dragover');
+  });
+  zone.addEventListener('dragleave', () => {
+    zone.classList.remove('dragover');
+  });
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (!file) return;
+    const input = zone.querySelector('input[type="file"]');
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    input.files = dt.files;
+    handleFile(input, zone.id);
+  });
+});
+
+// ===== VALIDATION & SUBMIT =====
+function submitForm() {
+  let valid = true;
+
+  // Check required fields
+  document.querySelectorAll('input[required]').forEach(el => {
+    const field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  // Check required uploads
+  if (!uploadedFiles['zone-training']) {
+    document.getElementById('zone-training').style.borderColor = 'var(--red)';
+    valid = false;
+  }
+  if (!uploadedFiles['zone-cpr']) {
+    document.getElementById('zone-cpr').style.borderColor = 'var(--red)';
+    valid = false;
+  }
+
+  if (!valid) {
+    alert('Please fill in all required fields and upload required documents (24-Hour Training Certificate and CPR / First Aid Certificate).');
+    return;
+  }
+
+  // Build submission data
+  const id = `E13-${Date.now().toString(36).toUpperCase()}`;
+  const data = {
+    formId, formVersion,
+    submissionId: id,
+    timestamp: new Date().toISOString(),
+    employee: {
+      name: document.getElementById('empName').value,
+      idLast4: document.getElementById('empId').value,
+    },
+    files: Object.keys(uploadedFiles).map(zone => ({
+      zone,
+      fileName: uploadedFiles[zone].name,
+      fileSize: uploadedFiles[zone].size,
+      fileType: uploadedFiles[zone].type,
+    })),
+  };
+
+  // Store locally
+  const stored = JSON.parse(localStorage.getItem('vt_uploads') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_uploads', JSON.stringify(stored));
+
+  // Email notification to CEO
+  const empName = data.employee.name;
+  const fileList = data.files.map(f => `  - ${f.fileName} (${formatSize(f.fileSize)})`).join('\n');
+  const subject = encodeURIComponent(`[VitalTouch] Orientation File Upload — ${empName} (${id})`);
+  const body = encodeURIComponent(
+    `New orientation documents have been uploaded and require review.\n\n` +
+    `Employee: ${empName}\n` +
+    `Last 4 SSN: ${data.employee.idLast4}\n` +
+    `Submission ID: ${id}\n\n` +
+    `Files Uploaded:\n${fileList}\n\n` +
+    `Log into the admin portal to review:\nhttps://vitaltouchcares.com/admin/`
+  );
+  const mailLink = document.createElement('a');
+  mailLink.href = `mailto:iezuri22@gmail.com?subject=${subject}&body=${body}`;
+  mailLink.click();
+
+  // Show confirmation
+  document.getElementById('confId').textContent = id;
+  document.getElementById('formContent').classList.add('hidden');
+  document.getElementById('confirmation').classList.add('visible');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  console.log('Orientation documents submitted:', data);
+}
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Handbook Acknowledgment — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM CONTENT ===== */
+  .form-content {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--green); color: var(--green); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CHECKBOX ===== */
+  .check-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 14px 16px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); margin-bottom: 10px;
+    cursor: pointer; transition: all 0.2s; background: var(--white);
+  }
+  .check-item:hover { border-color: var(--green); background: transparent; }
+  .check-item.checked { border-color: #94A3B8; background: #F8FAFC; }
+  .check-item input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+  .check-item label { font-size: 16px; cursor: pointer; line-height: 1.6; color: #1a1a1a; }
+
+  /* ===== COLLAPSIBLE SECTION ===== */
+  .collapsible-section {
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; background: var(--white);
+    cursor: pointer; transition: all 0.2s; user-select: none;
+  }
+  .section-header:hover { background: var(--bg); }
+  .section-header.open { background: var(--bg); border-bottom: 1px solid var(--border); }
+  .section-monogram {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; flex-shrink: 0;
+  }
+  .section-header-text { flex: 1; }
+  .section-header-text .section-title { font-size: 16px; font-weight: 600; color: #1a1a1a; margin: 0; }
+  .section-header-text .section-subtitle { font-size: 14px; color: var(--text-light); margin: 2px 0 0; }
+  .section-toggle { font-size: 18px; color: var(--text-light); transition: transform 0.2s; flex-shrink: 0; }
+  .section-header.open .section-toggle { transform: rotate(180deg); }
+  .section-content {
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+    padding: 0 16px; background: var(--white);
+  }
+  .section-header.open + .section-content { max-height: 2000px; padding: 0 16px 16px; }
+  .section-content p { margin: 12px 0; font-size: 15px; color: #374151; line-height: 1.8; }
+  .section-content h4 { font-size: 16px; font-weight: 600; color: #1a1a1a; margin: 16px 0 8px; }
+  .section-content ul { padding-left: 20px; margin: 8px 0; }
+  .section-content li { margin-bottom: 4px; font-size: 15px; color: #374151; }
+
+  .expand-collapse-toggle {
+    display: flex; gap: 8px; margin-bottom: 16px;
+    justify-content: flex-end;
+  }
+  .toggle-btn {
+    font-size: 13px; font-weight: 600; padding: 6px 12px;
+    border: 1px solid var(--border); border-radius: 6px;
+    background: var(--white); color: #4a5568;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .toggle-btn:hover { border-color: var(--green); color: var(--green); }
+
+  /* ===== MONOGRAM COLORS ===== */
+  .monogram-pl { background: var(--green-light); color: var(--green-deeper); }
+  .monogram-be { background: #DBEAFE; color: #1E40AF; }
+  .monogram-at { background: #FEF3C7; color: #92400E; }
+  .monogram-cd { background: #E0E7FF; color: #4338CA; }
+  .monogram-ei { background: var(--green-light); color: var(--green-deeper); }
+
+  /* ===== TABLE OF CONTENTS ===== */
+  .toc-container {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 16px;
+    margin-bottom: 20px;
+  }
+  .toc-title { font-size: 14px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: #6b7280; margin-bottom: 12px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .toc-item { display: flex; align-items: center; gap: 8px; font-size: 14px;
+    color: #4a5568; padding: 8px; background: var(--white);
+    border-radius: 6px; border: 1px solid var(--border); }
+  .toc-icon { width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 11px; flex-shrink: 0; }
+
+  /* ===== EMPLOYEE INFO CARD ===== */
+  .employee-info-card {
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    padding: 16px; background: var(--white); margin-bottom: 20px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .info-monogram { width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; flex-shrink: 0;
+  }
+  .info-fields { flex: 1; display: flex; gap: 12px; flex-wrap: wrap; }
+  .info-field { flex: 1; min-width: 200px; }
+  .info-field-label { font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: #6b7280; margin-bottom: 4px; }
+  .info-field-value { font-size: 15px; color: #1a1a1a; }
+  .info-field-value.required::after { content: ' *'; color: var(--red); font-weight: 700; }
+
+  /* ===== AGREEMENT TEXT ===== */
+  .agreement-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 20px;
+    font-size: 15px; color: #374151; line-height: 1.8;
+    max-height: 300px; overflow-y: auto; margin-bottom: 20px;
+  }
+  .agreement-box h3 {
+    font-size: 17px; font-weight: 700; color: #1a1a1a;
+    margin: 16px 0 8px;
+  }
+  .agreement-box h3:first-child { margin-top: 0; }
+  .agreement-box ul { padding-left: 20px; margin: 8px 0; }
+  .agreement-box li { margin-bottom: 4px; }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border); border-radius: var(--radius-sm);
+    background: var(--white); cursor: crosshair; touch-action: none; display: block;
+  }
+  .sig-pad.signed { border-color: var(--green); border-style: solid; }
+  .sig-actions { display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end; }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 14px; cursor: pointer; transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== SUBMIT NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    box-shadow: 0 6px 20px rgba(22,163,74,0.35);
+  }
+  .btn-next:active { background: var(--green-dark); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-content { padding: 12px 16px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .agreement-box { max-height: none; overflow: visible; }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .confirmation { display: none !important; }
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-content { padding: 24px 20px 20px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Employee Handbook Acknowledgment</h1>
+    <p>VitalTouch Health Network — Employee handbook receipt &amp; acknowledgment</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- ===== FORM ===== -->
+    <div class="form-content" id="formContent">
+
+      <!-- EMPLOYEE INFORMATION CARD -->
+      <div class="employee-info-card">
+        <div class="info-monogram monogram-ei">EI</div>
+        <div class="info-fields">
+          <div class="info-field">
+            <div class="info-field-label">Employee Name</div>
+            <input type="text" id="empName" class="info-field-value required" required>
+            <div class="error-msg">Required</div>
+          </div>
+          <div class="info-field">
+            <div class="info-field-label">Employee ID / Last 4 SSN</div>
+            <input type="text" id="empId" class="info-field-value" placeholder="Optional" maxlength="10">
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Position <span class="req">*</span></label>
+        <div class="pills" id="positionPills">
+          <label class="pill">
+            <input type="radio" name="position" value="Homemaker" required>
+            <span>Homemaker</span>
+          </label>
+          <label class="pill">
+            <input type="radio" name="position" value="CNA">
+            <span>CNA</span>
+          </label>
+          <label class="pill">
+            <input type="radio" name="position" value="Administrative Staff">
+            <span>Administrative Staff</span>
+          </label>
+        </div>
+        <div class="error-msg">Please select a position</div>
+      </div>
+
+      <div class="field">
+        <label>Date of Hire <span class="req">*</span></label>
+        <input type="date" id="hireDate" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- EMPLOYEE HANDBOOK -->
+      <div class="section-label">Employee Handbook</div>
+
+      <div class="toc-container">
+        <div class="toc-title">Handbook Sections (4 sections)</div>
+        <div class="toc-grid">
+          <div class="toc-item">
+            <div class="toc-icon monogram-pl">PL</div>
+            <span>Policies</span>
+          </div>
+          <div class="toc-item">
+            <div class="toc-icon monogram-be">BE</div>
+            <span>Benefits</span>
+          </div>
+          <div class="toc-item">
+            <div class="toc-icon monogram-at">AT</div>
+            <span>Attendance</span>
+          </div>
+          <div class="toc-item">
+            <div class="toc-icon monogram-cd">CD</div>
+            <span>Code of Conduct</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="expand-collapse-toggle">
+        <button type="button" class="toggle-btn" onclick="expandAllSections()">Expand All</button>
+        <button type="button" class="toggle-btn" onclick="collapseAllSections()">Collapse All</button>
+      </div>
+
+      <div class="collapsible-section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-monogram monogram-pl">PL</div>
+          <div class="section-header-text">
+            <p class="section-title">Policies</p>
+            <p class="section-subtitle">Sections 1-3: Employment Relationship, Handbook Contents & Changes</p>
+          </div>
+          <div class="section-toggle">&#10095;</div>
+        </div>
+        <div class="section-content">
+          <p><strong>I acknowledge that I have received a copy of the VitalTouch Health Network Employee Handbook. I understand that:</strong></p>
+
+          <h4>1. Employment Relationship</h4>
+          <p>My employment with VitalTouch Health Network is at-will. This means that either I or VitalTouch may terminate the employment relationship at any time, with or without cause or notice.</p>
+
+          <h4>2. Handbook Contents</h4>
+          <p>The Employee Handbook contains important information about VitalTouch's policies, procedures, and expectations, including but not limited to:</p>
+          <ul>
+            <li>Attendance and punctuality requirements</li>
+            <li>Dress code and personal appearance standards</li>
+            <li>Cell phone and social media policies</li>
+            <li>Workplace conduct expectations</li>
+            <li>Anti-harassment and anti-discrimination policies</li>
+            <li>Safety and emergency procedures</li>
+            <li>Disciplinary procedures</li>
+          </ul>
+
+          <h4>3. Policy Changes</h4>
+          <p>VitalTouch Health Network reserves the right to modify, revise, or eliminate any of the policies described in the handbook at any time. I understand that I will be notified of any significant changes.</p>
+        </div>
+      </div>
+
+      <div class="collapsible-section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-monogram monogram-be">BE</div>
+          <div class="section-header-text">
+            <p class="section-title">Benefits</p>
+            <p class="section-subtitle">Compensation and Leave Information</p>
+          </div>
+          <div class="section-toggle">&#10095;</div>
+        </div>
+        <div class="section-content">
+          <p>Your benefits and compensation information is detailed in the Employee Handbook, including:</p>
+          <ul>
+            <li>Benefits and compensation information</li>
+            <li>Leave policies</li>
+            <li>Health insurance coverage options</li>
+            <li>Retirement plan details</li>
+          </ul>
+          <p>Please refer to the handbook for complete details on all available benefits and how to enroll.</p>
+        </div>
+      </div>
+
+      <div class="collapsible-section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-monogram monogram-at">AT</div>
+          <div class="section-header-text">
+            <p class="section-title">Attendance</p>
+            <p class="section-subtitle">Responsibilities & Compliance</p>
+          </div>
+          <div class="section-toggle">&#10095;</div>
+        </div>
+        <div class="section-content">
+          <h4>4. My Responsibilities</h4>
+          <p>I agree to read the handbook thoroughly and comply with all policies and procedures outlined within it. If I have questions about any policy, I will ask my supervisor or the HR department for clarification. This includes maintaining reliable attendance and punctuality as required by VitalTouch Health Network.</p>
+        </div>
+      </div>
+
+      <div class="collapsible-section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-monogram monogram-cd">CD</div>
+          <div class="section-header-text">
+            <p class="section-title">Code of Conduct</p>
+            <p class="section-subtitle">Confidentiality & Questions</p>
+          </div>
+          <div class="section-toggle">&#10095;</div>
+        </div>
+        <div class="section-content">
+          <h4>5. Confidential Information</h4>
+          <p>I understand that during my employment, I may have access to confidential information about VitalTouch, its clients, and other employees. I agree to maintain the confidentiality of all such information during and after my employment.</p>
+
+          <h4>6. Questions and Concerns</h4>
+          <p>For questions regarding any policy in the Employee Handbook, contact:</p>
+          <p><strong>Ifeanyi Ezurike, CEO</strong><br>(708) 774-4850 | iezuri22@gmail.com</p>
+        </div>
+      </div>
+
+      <!-- ACKNOWLEDGMENT CHECKBOXES -->
+      <div class="section-label">Acknowledgment</div>
+
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack1">
+        <label for="ack1">I have received a copy of the VitalTouch Employee Handbook</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack2">
+        <label for="ack2">I understand that it is my responsibility to read and comply with the policies in the handbook</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack3">
+        <label for="ack3">I understand that my employment is at-will and may be terminated at any time</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack4">
+        <label for="ack4">I understand that VitalTouch may modify handbook policies at any time</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack5">
+        <label for="ack5">I agree to maintain the confidentiality of information obtained during my employment</label>
+      </div>
+
+      <!-- EMPLOYEE SIGNATURE -->
+      <div class="section-label">Employee Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Printed Name <span class="req">*</span></label>
+          <input type="text" id="sigName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" id="sigDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span class="req">*</span></div>
+        <canvas id="sigPad1" class="sig-pad"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear Signature</button>
+        </div>
+      </div>
+
+    </div><!-- /form-content -->
+
+    <!-- CONFIRMATION (hidden until submit) -->
+    <div class="confirmation" id="confirmSection">
+      <div class="conf-check">&#10003;</div>
+      <h2>Employee Handbook Acknowledgment Signed &amp; Sent</h2>
+      <p>Your signed Employee Handbook Acknowledgment has been submitted. This will be added to your employee file.</p>
+      <div class="conf-id" id="confId"></div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-next" onclick="submitForm()">Sign &amp; Submit Acknowledgment &rarr;</button>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <span class="trust-item">&#128274; HIPAA Compliant</span>
+      <span class="trust-item">&#127973; IDPH Licensed</span>
+      <span class="trust-item">&#128203; Form E.33</span>
+    </div>
+
+  </div><!-- /card -->
+</div><!-- /main-container -->
+
+<div class="footer">
+  VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430<br>
+  (708) 774-4850 &middot; <a href="https://vitaltouchcares.com" target="_blank">vitaltouchcares.com</a>
+</div>
+
+<script>
+/* ===== COLLAPSIBLE SECTIONS ===== */
+function toggleSection(header) {
+  header.classList.toggle('open');
+}
+
+function expandAllSections() {
+  document.querySelectorAll('.section-header').forEach(function(h) {
+    h.classList.add('open');
+  });
+}
+
+function collapseAllSections() {
+  document.querySelectorAll('.section-header').forEach(function(h) {
+    h.classList.remove('open');
+  });
+}
+
+/* ===== SET TODAY'S DATE ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('sigDate').value = today;
+  initSigPad('sigPad1');
+});
+
+/* ===== CHECKBOX TOGGLE ===== */
+function toggleCheck(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+}
+
+/* ===== SIGNATURE PAD ===== */
+let sig1Signed = false;
+const sigPads = {};
+
+function initSigPad(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let drawing = false, lastX = 0, lastY = 0;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) { e.preventDefault(); drawing = true; const pos = getPos(e); lastX = pos.x; lastY = pos.y; ctx.beginPath(); ctx.moveTo(pos.x, pos.y); ctx.lineTo(pos.x + 0.1, pos.y + 0.1); ctx.stroke(); }
+  function draw(e) { if (!drawing) return; e.preventDefault(); const pos = getPos(e); ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke(); lastX = pos.x; lastY = pos.y; canvas.classList.add('signed'); sig1Signed = true; }
+  function end(e) { if (e) e.preventDefault(); drawing = false; }
+
+  canvas.addEventListener('mousedown', start, {passive:false});
+  canvas.addEventListener('mousemove', draw, {passive:false});
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', draw, {passive:false});
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas, ctx, resize };
+  requestAnimationFrame(() => resize());
+  window.addEventListener('resize', () => resize());
+}
+
+function clearSig(n) {
+  const id = 'sigPad' + n;
+  const pad = sigPads[id];
+  if (pad) { pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height); pad.resize(); pad.canvas.classList.remove('signed'); sig1Signed = false; }
+}
+
+/* ===== VALIDATION ===== */
+function clearErrors() {
+  document.querySelectorAll('.field.has-error').forEach(f => f.classList.remove('has-error'));
+  document.querySelectorAll('.invalid').forEach(f => f.classList.remove('invalid'));
+  document.querySelectorAll('.check-item').forEach(ci => ci.style.borderColor = '');
+  const sigPad = document.getElementById('sigPad1');
+  if (sigPad) sigPad.style.borderColor = '';
+}
+
+function validateForm() {
+  clearErrors();
+  let valid = true;
+
+  // Required text/date fields
+  const requiredFields = ['empName', 'hireDate', 'sigName', 'sigDate'];
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      el.closest('.field').classList.add('has-error');
+      valid = false;
+    }
+  });
+
+  // Position pill
+  const posSelected = document.querySelector('input[name="position"]:checked');
+  if (!posSelected) {
+    document.getElementById('positionPills').closest('.field').classList.add('has-error');
+    valid = false;
+  }
+
+  // All checkboxes (5)
+  const checkboxes = ['ack1', 'ack2', 'ack3', 'ack4', 'ack5'];
+  checkboxes.forEach(id => {
+    const cb = document.getElementById(id);
+    if (!cb.checked) {
+      cb.closest('.check-item').style.borderColor = 'var(--red)';
+      valid = false;
+    }
+  });
+
+  // Signature
+  if (!sig1Signed) {
+    document.getElementById('sigPad1').style.borderColor = 'var(--red)';
+    valid = false;
+  }
+
+  if (!valid) {
+    const firstError = document.querySelector('.has-error, .invalid, [style*="border-color"]');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+/* ===== SUBMIT ===== */
+function submitForm() {
+  if (!validateForm()) return;
+
+  const empName = document.getElementById('empName').value.trim();
+  const empId = document.getElementById('empId').value.trim();
+  const position = document.querySelector('input[name="position"]:checked').value;
+  const hireDate = document.getElementById('hireDate').value;
+  const sigName = document.getElementById('sigName').value.trim();
+  const sigDate = document.getElementById('sigDate').value;
+
+  // Generate submission ID
+  const submissionId = 'E33-' + Date.now().toString(36);
+
+  // Build submission object
+  const submission = {
+    id: submissionId,
+    formId: 'E33',
+    formName: 'Employee Handbook Acknowledgment',
+    empName: empName,
+    empId: empId || 'N/A',
+    position: position,
+    hireDate: hireDate,
+    signedBy: sigName,
+    signedDate: sigDate,
+    timestamp: new Date().toISOString()
+  };
+
+  // Save to localStorage
+  try {
+    const existing = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+    existing.push(submission);
+    localStorage.setItem('vt_submissions', JSON.stringify(existing));
+  } catch(e) { console.warn('localStorage save failed:', e); }
+
+  // Trigger mailto
+  const subject = encodeURIComponent('[VitalTouch] Employee Handbook Acknowledgment — ' + empName + ' (' + submissionId + ')');
+  const body = encodeURIComponent(
+    'Employee Handbook Acknowledgment Submission\n' +
+    '============================================\n\n' +
+    'Submission ID: ' + submissionId + '\n' +
+    'Employee Name: ' + empName + '\n' +
+    'Employee ID/Last 4 SSN: ' + (empId || 'N/A') + '\n' +
+    'Position: ' + position + '\n' +
+    'Date of Hire: ' + hireDate + '\n' +
+    'Signed By: ' + sigName + '\n' +
+    'Signed Date: ' + sigDate + '\n\n' +
+    'All 5 acknowledgment checkboxes were checked.\n' +
+    'Signature captured on canvas.\n\n' +
+    'View full submission in the admin portal.'
+  );
+  window.location.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+
+  // Show confirmation
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formNav').style.display = 'none';
+  document.getElementById('confirmSection').style.display = 'block';
+  document.getElementById('confId').textContent = 'Submission ID: ' + submissionId;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

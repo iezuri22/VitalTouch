@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FHCA Quarterly Visit — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 6px;
+    --radius-sm: 6px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM BODY ===== */
+  .form-body {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--green); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CONDITIONAL FIELDS ===== */
+  .conditional { display: none; margin-top: 8px; }
+  .conditional.show { display: block; }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 14px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== SECTION CARD ===== */
+  .section-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    margin: 24px 0;
+    position: relative;
+  }
+  .section-card-header {
+    font-weight: 600;
+    font-size: 15px;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #E2E8F0;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  .monogram-badge {
+    display: none;
+  }
+  .section-card-title {
+    display: inline;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
+
+  /* ===== CHARACTER COUNTER ===== */
+  .char-counter {
+    font-size: 12px;
+    color: var(--text-lighter);
+    margin-top: 4px;
+    text-align: right;
+  }
+  .char-counter.warn { color: #ea580c; }
+  .char-counter.error { color: var(--red); }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+  }
+  .sig-pad.signed { border-color: var(--green); border-style: solid; }
+  .sig-actions {
+    display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end;
+  }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== SUBMIT AREA ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-submit {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+  }
+  .btn-submit:hover {
+    background: var(--green-dark);
+  }
+  .btn-submit:active { }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  .btn-print {
+    background: none; color: var(--green); border: 1.5px solid var(--green);
+    padding: 10px 22px; border-radius: 6px; font-size: 14px;
+    margin-top: 18px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-print:hover { background: var(--green-light); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white;
+  }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .trust-bar, .footer, .btn-print { display: none !important; }
+    .form-body { padding: 12px 16px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .pill span { padding: 4px 10px; font-size: 10px; }
+    .section-label { margin: 14px 0 8px; }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .confirmation { padding: 30px 16px; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; gap: 14px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-body { padding: 24px 20px 20px; }
+    .form-nav { padding: 16px 20px; }
+    .pills { gap: 6px; }
+    .pill span { padding: 10px 16px; font-size: 14px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>FHCA Quarterly Visit</h1>
+    <p>VitalTouch Health Network &mdash; Quarterly supervisory home visit</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- FORM -->
+    <div class="form-body" id="formBody">
+
+      <!-- ===== VISIT INFORMATION ===== -->
+      <div class="section-label">Visit Information</div>
+
+      <div class="field">
+        <label>Client Name <span class="req">*</span></label>
+        <input type="text" id="clientName" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Medicaid / RIN #</label>
+        <input type="text" id="medicaidRin" placeholder="Optional">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Visit Date <span class="req">*</span></label>
+          <input type="date" id="visitDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Visit Time</label>
+          <input type="text" id="visitTime" placeholder="e.g. 10:00 AM">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>FHCA / Homemaker Name <span class="req">*</span></label>
+        <input type="text" id="fhcaName" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- ===== HOME ENVIRONMENT ===== -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="monogram-badge blue">HA</div>
+          <div class="section-card-title">Home Assessment</div>
+        </div>
+
+      <div class="field">
+        <label>Is the home clean and safe? <span class="req">*</span></label>
+        <div class="pills" id="homeCleanPills">
+          <label class="pill"><input type="radio" name="homeClean" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="homeClean" value="No"><span>No</span></label>
+          <label class="pill"><input type="radio" name="homeClean" value="Needs Improvement"><span>Needs Improvement</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+      <div class="conditional" id="homeCleanDetail">
+        <div class="field">
+          <label>Please describe the issue</label>
+          <textarea id="homeCleanNotes" placeholder="Describe cleanliness or safety concerns" maxlength="500"></textarea>
+          <div class="char-counter"><span id="homeCleanNotesCount">0</span> / 500 characters</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Any safety hazards? <span class="req">*</span></label>
+        <div class="pills" id="safetyHazardPills">
+          <label class="pill"><input type="radio" name="safetyHazard" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="safetyHazard" value="No"><span>No</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+      <div class="conditional" id="safetyHazardDetail">
+        <div class="field">
+          <label>Describe the hazards</label>
+          <textarea id="safetyHazardNotes" placeholder="Describe any safety hazards observed" maxlength="500"></textarea>
+          <div class="char-counter"><span id="safetyHazardNotesCount">0</span> / 500 characters</div>
+        </div>
+      </div>
+      </div><!-- /section-card -->
+
+      <!-- ===== SERVICE REVIEW ===== -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <div class="monogram-badge green">CS</div>
+          <div class="section-card-title">Client Satisfaction</div>
+        </div>
+
+      <div class="field">
+        <label>Client satisfied? <span class="req">*</span></label>
+        <div class="pills" id="clientSatisfiedPills">
+          <label class="pill"><input type="radio" name="clientSatisfied" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="clientSatisfied" value="No"><span>No</span></label>
+          <label class="pill"><input type="radio" name="clientSatisfied" value="Somewhat"><span>Somewhat</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+      <div class="conditional" id="clientSatisfiedDetail">
+        <div class="field">
+          <label>Please explain</label>
+          <textarea id="clientSatisfiedNotes" placeholder="Explain satisfaction concerns" maxlength="500"></textarea>
+          <div class="char-counter"><span id="clientSatisfiedNotesCount">0</span> / 500 characters</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Services per plan of care? <span class="req">*</span></label>
+        <div class="pills" id="servicesPlanPills">
+          <label class="pill"><input type="radio" name="servicesPlan" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="servicesPlan" value="No"><span>No</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+      <div class="conditional" id="servicesPlanDetail">
+        <div class="field">
+          <label>Please explain the discrepancy</label>
+          <textarea id="servicesPlanNotes" placeholder="Describe how services differ from the plan of care" maxlength="500"></textarea>
+          <div class="char-counter"><span id="servicesPlanNotesCount">0</span> / 500 characters</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Changes in client condition? <span class="req">*</span></label>
+        <div class="pills" id="conditionChangePills">
+          <label class="pill"><input type="radio" name="conditionChange" value="No Changes" required><span>No Changes</span></label>
+          <label class="pill"><input type="radio" name="conditionChange" value="Improvement"><span>Improvement</span></label>
+          <label class="pill"><input type="radio" name="conditionChange" value="Decline"><span>Decline</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+      <div class="conditional" id="conditionChangeDetail">
+        <div class="field">
+          <label>Describe the changes</label>
+          <textarea id="conditionChangeNotes" placeholder="Describe the improvement or decline in condition" maxlength="500"></textarea>
+          <div class="char-counter"><span id="conditionChangeNotesCount">0</span> / 500 characters</div>
+        </div>
+      </div>
+      </div><!-- /section-card -->
+
+      <!-- ===== FHCA PERFORMANCE ===== -->
+      <div class="section-label">FHCA Performance</div>
+
+      <div class="field">
+        <label>Duties performed satisfactorily? <span class="req">*</span></label>
+        <div class="pills" id="dutiesPills">
+          <label class="pill"><input type="radio" name="duties" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="duties" value="No"><span>No</span></label>
+          <label class="pill"><input type="radio" name="duties" value="Needs Improvement"><span>Needs Improvement</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+      <div class="conditional" id="dutiesDetail">
+        <div class="field">
+          <label>Please explain</label>
+          <textarea id="dutiesNotes" placeholder="Describe performance issues or areas for improvement" maxlength="500"></textarea>
+          <div class="char-counter"><span id="dutiesNotesCount">0</span> / 500 characters</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Following care plan? <span class="req">*</span></label>
+        <div class="pills" id="followingCarePills">
+          <label class="pill"><input type="radio" name="followingCare" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="followingCare" value="No"><span>No</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Arriving on time? <span class="req">*</span></label>
+        <div class="pills" id="onTimePills">
+          <label class="pill"><input type="radio" name="onTime" value="Yes" required><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="onTime" value="No"><span>No</span></label>
+          <label class="pill"><input type="radio" name="onTime" value="Sometimes"><span>Sometimes</span></label>
+        </div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- ===== VISIT SUMMARY ===== -->
+      <div class="section-label">Visit Summary</div>
+
+      <div class="field">
+        <label>Summary of Visit <span class="req">*</span></label>
+        <textarea id="visitSummary" style="min-height:150px;" placeholder="Summarize the overall visit, observations, and any key discussion points" maxlength="500" required></textarea>
+        <div class="char-counter"><span id="visitSummaryCount">0</span> / 500 characters</div>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Recommendations / Follow-Up Actions</label>
+        <textarea id="recommendations" placeholder="Note any recommendations or follow-up actions needed" maxlength="500"></textarea>
+        <div class="char-counter"><span id="recommendationsCount">0</span> / 500 characters</div>
+      </div>
+
+      <div class="field">
+        <label>Next Quarterly Visit Date</label>
+        <input type="date" id="nextVisitDate">
+      </div>
+
+      <!-- ===== SUPERVISOR SIGNATURE ===== -->
+      <div class="section-label">Supervisor Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Supervisor Name <span class="req">*</span></label>
+          <input type="text" id="supervisorName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Title <span class="req">*</span></label>
+          <input type="text" id="supervisorTitle" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad1"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear</button>
+        </div>
+        <div class="error-msg" id="sigError" style="display:none;">Signature is required</div>
+      </div>
+
+      <div class="field">
+        <label>Date <span class="req">*</span></label>
+        <input type="date" id="signatureDate" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+    </div><!-- /form-body -->
+
+    <!-- SUBMIT NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-submit" onclick="submitForm()">
+        Submit Quarterly Visit Report &rarr;
+      </button>
+    </div>
+
+    <!-- CONFIRMATION -->
+    <div class="confirmation" id="confirmation">
+      <div class="conf-check">&#10003;</div>
+      <h2>Quarterly Visit Report Submitted</h2>
+      <p>Your FHCA quarterly supervisory visit report has been recorded and an email notification has been sent to the CEO.</p>
+      <div class="conf-id" id="confId"></div>
+      <button class="btn btn-print" onclick="window.print()">Print a Copy</button>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <span class="trust-item">&#128274; HIPAA Compliant</span>
+      <span class="trust-item">&#127973; IDPH Licensed</span>
+      <span class="trust-item">&#128203; Form C.42C</span>
+    </div>
+  </div><!-- /card -->
+
+  <div class="footer">
+    VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430<br>
+    (708) 774-4850 &middot; <a href="https://vitaltouchcares.com" target="_blank">vitaltouchcares.com</a>
+  </div>
+</div><!-- /main-container -->
+
+<script>
+  // ===== Set default dates to today =====
+  (function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('visitDate').value = today;
+    document.getElementById('signatureDate').value = today;
+  })();
+
+  // ===== Conditional field logic =====
+  function setupConditional(radioName, conditionalId, triggerValues) {
+    document.querySelectorAll('input[name="' + radioName + '"]').forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        const el = document.getElementById(conditionalId);
+        if (triggerValues.includes(this.value)) {
+          el.classList.add('show');
+        } else {
+          el.classList.remove('show');
+        }
+      });
+    });
+  }
+
+  setupConditional('homeClean', 'homeCleanDetail', ['No', 'Needs Improvement']);
+  setupConditional('safetyHazard', 'safetyHazardDetail', ['Yes']);
+  setupConditional('clientSatisfied', 'clientSatisfiedDetail', ['No', 'Somewhat']);
+  setupConditional('servicesPlan', 'servicesPlanDetail', ['No']);
+  setupConditional('conditionChange', 'conditionChangeDetail', ['Improvement', 'Decline']);
+  setupConditional('duties', 'dutiesDetail', ['No', 'Needs Improvement']);
+
+  // ===== SIGNATURE PAD =====
+  let sig1Signed = false;
+  const sigPads = {};
+
+  function initSigPad(id) {
+    const canvas = document.getElementById(id);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    let lastX = 0, lastY = 0;
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0) return;
+      const dpr = window.devicePixelRatio || 1;
+      const imgData = canvas.width > 0 ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.scale(dpr, dpr);
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#1E293B';
+    }
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      if (e.touches && e.touches.length > 0) {
+        return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+      }
+      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function start(e) {
+      e.preventDefault();
+      drawing = true;
+      const pos = getPos(e);
+      lastX = pos.x;
+      lastY = pos.y;
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+      ctx.lineTo(pos.x + 0.1, pos.y + 0.1);
+      ctx.stroke();
+    }
+
+    function draw(e) {
+      if (!drawing) return;
+      e.preventDefault();
+      const pos = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      lastX = pos.x;
+      lastY = pos.y;
+      canvas.classList.add('signed');
+      sig1Signed = true;
+    }
+
+    function end(e) {
+      if (e) e.preventDefault();
+      drawing = false;
+    }
+
+    canvas.addEventListener('mousedown', start, { passive: false });
+    canvas.addEventListener('mousemove', draw, { passive: false });
+    canvas.addEventListener('mouseup', end);
+    canvas.addEventListener('mouseleave', end);
+    canvas.addEventListener('touchstart', start, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    canvas.addEventListener('touchend', end);
+
+    sigPads[id] = { canvas, ctx, resize };
+
+    requestAnimationFrame(function() { resize(); });
+    window.addEventListener('resize', function() { resize(); });
+  }
+
+  function clearSig(n) {
+    const id = 'sigPad' + n;
+    const pad = sigPads[id];
+    if (pad) {
+      pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+      pad.resize();
+      pad.canvas.classList.remove('signed');
+      sig1Signed = false;
+    }
+  }
+
+  // Initialize signature pad
+  initSigPad('sigPad1');
+
+  // ===== Character counters =====
+  const textareas = [
+    'homeCleanNotes', 'safetyHazardNotes', 'clientSatisfiedNotes',
+    'servicesPlanNotes', 'conditionChangeNotes', 'dutiesNotes',
+    'visitSummary', 'recommendations'
+  ];
+
+  textareas.forEach(function(id) {
+    const ta = document.getElementById(id);
+    if (!ta) return;
+    const countEl = document.getElementById(id + 'Count');
+    if (!countEl) return;
+
+    function updateCounter() {
+      const len = ta.value.length;
+      countEl.textContent = len;
+      const counter = ta.parentElement.querySelector('.char-counter');
+      if (counter) {
+        counter.classList.remove('warn', 'error');
+        if (len >= 450) counter.classList.add('error');
+        else if (len >= 400) counter.classList.add('warn');
+      }
+    }
+
+    ta.addEventListener('input', updateCounter);
+    updateCounter();
+  });
+
+  // ===== Helper: get selected pill value =====
+  function pillVal(name) {
+    const sel = document.querySelector('input[name="' + name + '"]:checked');
+    return sel ? sel.value : '';
+  }
+
+  // ===== Validation =====
+  function validate() {
+    let valid = true;
+
+    // Clear previous errors
+    document.querySelectorAll('.field').forEach(function(f) { f.classList.remove('has-error'); });
+    document.querySelectorAll('.invalid').forEach(function(f) { f.classList.remove('invalid'); });
+    document.getElementById('sigError').style.display = 'none';
+
+    // Required text/date fields
+    var requiredFields = [
+      'clientName', 'visitDate', 'fhcaName',
+      'visitSummary',
+      'supervisorName', 'supervisorTitle', 'signatureDate'
+    ];
+
+    requiredFields.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (!el.value.trim()) {
+        valid = false;
+        el.classList.add('invalid');
+        el.closest('.field').classList.add('has-error');
+      }
+    });
+
+    // Required pill groups
+    var requiredPills = [
+      'homeClean', 'safetyHazard', 'clientSatisfied',
+      'servicesPlan', 'conditionChange', 'duties',
+      'followingCare', 'onTime'
+    ];
+
+    requiredPills.forEach(function(name) {
+      if (!pillVal(name)) {
+        valid = false;
+        var pillContainer = document.getElementById(name + 'Pills');
+        if (pillContainer) {
+          var parentField = pillContainer.closest('.field');
+          if (parentField) parentField.classList.add('has-error');
+        }
+      }
+    });
+
+    // Signature check
+    if (!sig1Signed) {
+      valid = false;
+      document.getElementById('sigError').style.display = 'block';
+    }
+
+    if (!valid) {
+      var firstError = document.querySelector('.invalid, .has-error .error-msg[style*="block"], .has-error');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    return valid;
+  }
+
+  // ===== Submit =====
+  function submitForm() {
+    if (!validate()) return;
+
+    // Generate submission ID
+    var submissionId = 'C42C-' + Date.now().toString(36);
+
+    // Collect form data
+    var data = {
+      id: submissionId,
+      timestamp: new Date().toISOString(),
+      formId: 'C.42C',
+      formName: 'FHCA Quarterly Visit',
+      clientName: document.getElementById('clientName').value.trim(),
+      medicaidRin: document.getElementById('medicaidRin').value.trim(),
+      visitDate: document.getElementById('visitDate').value,
+      visitTime: document.getElementById('visitTime').value.trim(),
+      fhcaName: document.getElementById('fhcaName').value.trim(),
+      homeClean: pillVal('homeClean'),
+      homeCleanNotes: document.getElementById('homeCleanNotes').value.trim(),
+      safetyHazard: pillVal('safetyHazard'),
+      safetyHazardNotes: document.getElementById('safetyHazardNotes').value.trim(),
+      clientSatisfied: pillVal('clientSatisfied'),
+      clientSatisfiedNotes: document.getElementById('clientSatisfiedNotes').value.trim(),
+      servicesPlan: pillVal('servicesPlan'),
+      servicesPlanNotes: document.getElementById('servicesPlanNotes').value.trim(),
+      conditionChange: pillVal('conditionChange'),
+      conditionChangeNotes: document.getElementById('conditionChangeNotes').value.trim(),
+      duties: pillVal('duties'),
+      dutiesNotes: document.getElementById('dutiesNotes').value.trim(),
+      followingCare: pillVal('followingCare'),
+      onTime: pillVal('onTime'),
+      visitSummary: document.getElementById('visitSummary').value.trim(),
+      recommendations: document.getElementById('recommendations').value.trim(),
+      nextVisitDate: document.getElementById('nextVisitDate').value,
+      supervisorName: document.getElementById('supervisorName').value.trim(),
+      supervisorTitle: document.getElementById('supervisorTitle').value.trim(),
+      signatureData: document.getElementById('sigPad1').toDataURL(),
+      signatureDate: document.getElementById('signatureDate').value
+    };
+
+    // Save to localStorage
+    var submissions = [];
+    try { submissions = JSON.parse(localStorage.getItem('vt_submissions') || '[]'); } catch(e) {}
+    submissions.push(data);
+    localStorage.setItem('vt_submissions', JSON.stringify(submissions));
+
+    // ── Flow Engine Integration ──
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        var params = new URLSearchParams(window.location.search);
+        var flowId = params.get('flowId');
+        if (flowId) {
+          VTFlow.recordSubmission(flowId, 'C42C', data);
+          console.log('VTFlow: Recorded C.42C submission for flow ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+    // Build mailto
+    var subject = encodeURIComponent('[VitalTouch] FHCA Quarterly Visit — ' + data.clientName + ' (' + submissionId + ')');
+    var body = encodeURIComponent(
+      'FHCA QUARTERLY VISIT REPORT — ' + submissionId + '\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+      'Client: ' + data.clientName + (data.medicaidRin ? ' (Medicaid/RIN: ' + data.medicaidRin + ')' : '') + '\n' +
+      'Visit Date: ' + data.visitDate + (data.visitTime ? ' at ' + data.visitTime : '') + '\n' +
+      'FHCA / Homemaker: ' + data.fhcaName + '\n\n' +
+      'HOME ENVIRONMENT\n' +
+      'Home clean & safe: ' + data.homeClean + (data.homeCleanNotes ? ' — ' + data.homeCleanNotes : '') + '\n' +
+      'Safety hazards: ' + data.safetyHazard + (data.safetyHazardNotes ? ' — ' + data.safetyHazardNotes : '') + '\n\n' +
+      'SERVICE REVIEW\n' +
+      'Client satisfied: ' + data.clientSatisfied + (data.clientSatisfiedNotes ? ' — ' + data.clientSatisfiedNotes : '') + '\n' +
+      'Services per plan: ' + data.servicesPlan + (data.servicesPlanNotes ? ' — ' + data.servicesPlanNotes : '') + '\n' +
+      'Condition changes: ' + data.conditionChange + (data.conditionChangeNotes ? ' — ' + data.conditionChangeNotes : '') + '\n\n' +
+      'FHCA PERFORMANCE\n' +
+      'Duties satisfactory: ' + data.duties + (data.dutiesNotes ? ' — ' + data.dutiesNotes : '') + '\n' +
+      'Following care plan: ' + data.followingCare + '\n' +
+      'Arriving on time: ' + data.onTime + '\n\n' +
+      'VISIT SUMMARY\n' + data.visitSummary + '\n\n' +
+      (data.recommendations ? 'RECOMMENDATIONS\n' + data.recommendations + '\n\n' : '') +
+      (data.nextVisitDate ? 'Next Quarterly Visit: ' + data.nextVisitDate + '\n\n' : '') +
+      'Supervisor: ' + data.supervisorName + ', ' + data.supervisorTitle + '\n' +
+      'Signed: ' + data.signatureDate + '\n\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+      'Submission ID: ' + submissionId + '\n' +
+      'View in Admin Portal: https://vitaltouchcares.com/admin'
+    );
+    window.location.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+
+    // Show confirmation
+    document.getElementById('formBody').style.display = 'none';
+    document.getElementById('formNav').style.display = 'none';
+    document.getElementById('confirmation').style.display = 'block';
+    document.getElementById('confId').textContent = 'Submission ID: ' + submissionId;
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

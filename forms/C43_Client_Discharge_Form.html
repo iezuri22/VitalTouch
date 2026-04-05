@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Discharge Form — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 6px;
+    --radius-sm: 6px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== STEP BAR ===== */
+  .step-indicator {
+    display: flex;
+    padding: 16px 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    gap: 4px;
+  }
+  .step-bar {
+    flex: 1; height: 4px; border-radius: 4px;
+    background: var(--border);
+    transition: background 0.4s ease;
+  }
+  .step-bar.done { background: var(--green); }
+  .step-bar.active {
+    background: linear-gradient(90deg, var(--green), #22C55E);
+    animation: pulse-bar 2s ease-in-out infinite;
+  }
+  @keyframes pulse-bar { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+  /* ===== FORM STEPS ===== */
+  .form-step {
+    display: none;
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  .form-step.active { display: block; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  .step-label {
+    font-size: 14px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--green); margin-bottom: 6px;
+  }
+  .step-title { font-size: 26px; font-weight: 700; line-height: 1.3; color: #1a1a1a; }
+  .step-subtitle { font-size: 16px; color: #4a5568; margin-top: 6px; }
+  .step-header { margin-bottom: 24px; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--green); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CHIP GRID ===== */
+  .chip-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 10px; margin-top: 4px;
+  }
+  .chip {
+    position: relative; cursor: pointer;
+  }
+  .chip input {
+    position: absolute; opacity: 0; width: 0; height: 0;
+  }
+  .chip span {
+    display: block; padding: 14px 16px; text-align: center;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .chip:hover span {
+    border-color: #3B82F6;
+  }
+  .chip input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== MONOGRAM BADGE ===== */
+  .monogram-badge {
+    display: none;
+  }
+  .badge-discharge {
+    display: none;
+  }
+  .badge-referral {
+    display: none;
+  }
+
+  /* ===== INFO CARD ===== */
+  .info-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 16px;
+    margin-bottom: 20px; display: flex; gap: 14px; align-items: flex-start;
+  }
+  .info-card-content { flex: 1; min-width: 0; }
+
+  /* ===== TABLE ===== */
+  .services-table {
+    width: 100%; border-collapse: collapse;
+    margin: 12px 0 20px; font-size: 15px;
+  }
+  .services-table thead {
+    background: var(--green-light);
+  }
+  .services-table th {
+    padding: 12px; text-align: left; font-weight: 600;
+    color: var(--green-dark); border-bottom: 2px solid var(--green);
+  }
+  .services-table td {
+    padding: 12px; border-bottom: 1px solid var(--border);
+  }
+  .services-table tr:hover {
+    background: var(--bg);
+  }
+  .table-footer {
+    display: flex; justify-content: flex-end; margin-top: 12px;
+  }
+  .btn-add-row {
+    font-size: 14px; font-weight: 600; color: var(--green);
+    background: transparent; border: 1px solid var(--green);
+    padding: 8px 14px; border-radius: 6px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-add-row:hover {
+    background: var(--green-light);
+  }
+
+  /* ===== CHECKBOX ===== */
+  .check-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 12px 14px; border: 1.5px solid var(--border);
+    border-radius: 6px; margin-bottom: 10px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .check-item:hover { border-color: var(--green); background: var(--green-light); }
+  .check-item.checked { border-color: var(--green); background: var(--green-light); }
+  .check-item input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+  .check-item label { font-size: 16px; cursor: pointer; line-height: 1.6; color: #1a1a1a; }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 24px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ===== CALLOUT ===== */
+  .callout {
+    background: var(--warm); border: 1px solid #FDE68A;
+    border-radius: 6px; padding: 16px 18px;
+    margin-bottom: 20px; display: flex; gap: 12px;
+    align-items: flex-start; font-size: 15px; color: #78350f;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== AGREEMENT TEXT ===== */
+  .agreement-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 20px;
+    font-size: 15px; color: #374151; line-height: 1.8;
+    max-height: 300px; overflow-y: auto; margin-bottom: 20px;
+  }
+  .agreement-box h3 {
+    font-size: 17px; font-weight: 700; color: #1a1a1a;
+    margin: 16px 0 8px;
+  }
+  .agreement-box h3:first-child { margin-top: 0; }
+  .agreement-box ul { padding-left: 20px; margin: 8px 0; }
+  .agreement-box li { margin-bottom: 4px; }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    background: var(--white);
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+  }
+  .sig-pad.signed { border-color: var(--green); border-style: solid; }
+  .sig-actions {
+    display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end;
+  }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-back { background: transparent; color: var(--text-light); padding: 10px 16px; }
+  .btn-back:hover { color: var(--text); }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+  }
+  .btn-next:active { }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white;
+  }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .step-indicator, .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-step { display: block !important; padding: 12px 16px; page-break-inside: avoid; }
+    .step-title { font-size: 15px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .agreement-box { max-height: none; overflow: visible; }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 36px 20px 32px; }
+    .form-step { padding: 24px 20px 20px; }
+    .chip-grid { grid-template-columns: repeat(2, 1fr); }
+    .info-card { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Client Discharge Form</h1>
+    <p>VitalTouch Health Network — Discharge documentation and acknowledgment</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- STEP BAR -->
+    <div class="step-indicator" id="stepBar">
+      <div class="step-bar active"></div>
+      <div class="step-bar"></div>
+    </div>
+
+    <!-- ===== STEP 1: DISCHARGE INFORMATION ===== -->
+    <div class="form-step active" data-step="1">
+      <div class="step-header">
+        <div class="step-label">Step 1 of 2</div>
+        <div class="step-title">Discharge Information</div>
+        <div class="step-subtitle">Enter the client's details, discharge dates, and summary of services.</div>
+      </div>
+
+      <div class="info-card">
+        <div class="monogram-badge badge-discharge">DC</div>
+        <div class="info-card-content">
+          <div class="section-label" style="margin-top: 0;">Client Details</div>
+
+          <div class="field">
+            <label>Client Name <span class="req">*</span></label>
+            <input type="text" id="clientName" placeholder="Full name" required>
+            <div class="error-msg">Required</div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label>Medicaid/RIN #</label>
+              <input type="text" id="medicaidRIN" placeholder="If applicable">
+            </div>
+            <div class="field">
+              <label>Date of Birth</label>
+              <input type="date" id="clientDOB">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Address</label>
+            <input type="text" id="clientAddress" placeholder="Street address, City, State, Zip">
+          </div>
+
+          <div class="field">
+            <label>Phone</label>
+            <input type="tel" id="clientPhone" placeholder="(708) 555-1234">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Discharge Details</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Admission Date <span class="req">*</span></label>
+          <input type="date" id="admissionDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Discharge Date <span class="req">*</span></label>
+          <input type="date" id="dischargeDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Reason for Discharge <span class="req">*</span></label>
+        <div class="chip-grid" id="reasonChips">
+          <label class="chip"><input type="radio" name="dischargeReason" value="Client Improved" required><span>Client Improved</span></label>
+          <label class="chip"><input type="radio" name="dischargeReason" value="Moved Out of Area"><span>Moved Out of Area</span></label>
+          <label class="chip"><input type="radio" name="dischargeReason" value="Transferred to Facility"><span>Transferred to Facility</span></label>
+          <label class="chip"><input type="radio" name="dischargeReason" value="Client Request"><span>Client Request</span></label>
+          <label class="chip"><input type="radio" name="dischargeReason" value="Non-Compliance"><span>Non-Compliance</span></label>
+          <label class="chip"><input type="radio" name="dischargeReason" value="Hospitalized"><span>Hospitalized</span></label>
+          <label class="chip"><input type="radio" name="dischargeReason" value="Deceased"><span>Deceased</span></label>
+          <label class="chip"><input type="radio" name="dischargeReason" value="Insurance Change"><span>Insurance Change</span></label>
+          <label class="chip"><input type="radio" name="dischargeReason" value="Service No Longer Needed"><span>Service No Longer Needed</span></label>
+          <label class="chip"><input type="radio" name="dischargeReason" value="Other"><span>Other</span></label>
+        </div>
+        <div class="error-msg">Please select a reason</div>
+      </div>
+
+      <div class="field" id="otherReasonField" style="display:none;">
+        <label>Specify reason <span class="req">*</span></label>
+        <textarea id="otherReason" placeholder="Please describe the reason for discharge"></textarea>
+        <div class="error-msg">Required when "Other" is selected</div>
+      </div>
+
+      <div class="field">
+        <label>Services Provided Summary <span class="req">*</span></label>
+        <table class="services-table">
+          <thead>
+            <tr>
+              <th>Service Type</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Total Hours</th>
+            </tr>
+          </thead>
+          <tbody id="servicesTableBody">
+            <tr>
+              <td><input type="text" placeholder="e.g. Personal Care" style="width:100%; border:none; padding:0; font-size:15px;"></td>
+              <td><input type="date" style="width:100%; border:none; padding:0; font-size:15px;"></td>
+              <td><input type="date" style="width:100%; border:none; padding:0; font-size:15px;"></td>
+              <td><input type="number" placeholder="0" step="0.5" style="width:100%; border:none; padding:0; font-size:15px;"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-footer">
+          <button type="button" class="btn-add-row" onclick="addServiceRow()">+ Add Row</button>
+        </div>
+        <textarea id="dischargeSummary" placeholder="Brief summary of services provided and reason for discharge" required style="min-height: 100px;"></textarea>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <div class="field">
+        <label>Final Status of Care Plan Goals <span class="req">*</span></label>
+        <div class="pills" id="goalsPills">
+          <label class="pill"><input type="radio" name="goalStatus" value="Met" required><span>Met</span></label>
+          <label class="pill"><input type="radio" name="goalStatus" value="Partially Met"><span>Partially Met</span></label>
+          <label class="pill"><input type="radio" name="goalStatus" value="Not Met"><span>Not Met</span></label>
+        </div>
+        <div class="error-msg">Please select a status</div>
+      </div>
+
+      <div class="info-card">
+        <div class="monogram-badge badge-referral">RF</div>
+        <div class="info-card-content">
+          <div class="section-label" style="margin-top: 0;">Referrals Made at Discharge</div>
+          <div class="field" style="margin-bottom: 0;">
+            <textarea id="referrals" placeholder="e.g. other agencies, medical providers, community resources (optional)"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 2: SIGNATURES & ACKNOWLEDGMENT ===== -->
+    <div class="form-step" data-step="2">
+      <div class="step-header">
+        <div class="step-label">Step 2 of 2</div>
+        <div class="step-title">Signatures & Acknowledgment</div>
+        <div class="step-subtitle">Review the discharge acknowledgment, then sign below to confirm.</div>
+      </div>
+
+      <div class="agreement-box">
+        <h3>DISCHARGE ACKNOWLEDGMENT — VitalTouch Health Network Inc.</h3>
+        <p>This document confirms the discharge of the above-named client from home services provided by VitalTouch Health Network Inc.</p>
+
+        <h3>Upon discharge:</h3>
+        <ul>
+          <li>All services provided by VitalTouch Health Network will cease as of the discharge date noted above</li>
+          <li>The client's records will be maintained per Illinois record retention requirements</li>
+          <li>The client may request copies of their records at any time</li>
+          <li>If the client wishes to resume services in the future, a new intake and assessment will be required</li>
+        </ul>
+
+        <p style="margin-top: 12px;">The client (or authorized representative) acknowledges that they have been informed of the discharge and the reasons stated above. Any concerns about this discharge may be directed to VitalTouch Health Network at (708) 774-4850.</p>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">&#9888;&#65039;</span>
+        <span>Please read the discharge acknowledgment above, then check each box below to confirm your understanding.</span>
+      </div>
+
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack1" required>
+        <label>I have been informed of the discharge and understand the reasons stated above</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack2" required>
+        <label>I understand that all services from VitalTouch will cease as of the discharge date</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack3" required>
+        <label>I have been informed of my right to request copies of my records</label>
+      </div>
+
+      <!-- CLIENT / REPRESENTATIVE SIGNATURE -->
+      <div class="section-label">Client / Representative Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Printed Name <span class="req">*</span></label>
+          <input type="text" id="sig1Name" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Relationship</label>
+          <div class="pills" id="relationPills">
+            <label class="pill"><input type="radio" name="sig1Relation" value="Client"><span>Client</span></label>
+            <label class="pill"><input type="radio" name="sig1Relation" value="Authorized Representative"><span>Authorized Representative</span></label>
+            <label class="pill"><input type="radio" name="sig1Relation" value="Family Member"><span>Family Member</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad1"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Date <span class="req">*</span></label>
+        <input type="date" id="sig1Date" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- SUPERVISOR SIGNATURE -->
+      <div class="section-label">Supervisor Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Supervisor Name <span class="req">*</span></label>
+          <input type="text" id="sig2Name" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="sig2Title" placeholder="e.g. RN Supervisor, Care Coordinator">
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad2"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(2)">Clear</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Date <span class="req">*</span></label>
+        <input type="date" id="sig2Date" required>
+        <div class="error-msg">Required</div>
+      </div>
+    </div>
+
+    <!-- ===== CONFIRMATION ===== -->
+    <div class="form-step" data-step="3">
+      <div class="confirmation">
+        <div class="conf-check">&#10003;</div>
+        <h2>Discharge Form Submitted</h2>
+        <p>The Client Discharge Form has been signed and sent to <strong>Ifeanyi Ezurike, CEO</strong> at VitalTouch Health Network for review and filing.</p>
+        <div class="conf-id">Submission ID: <span id="confId"></span></div>
+        <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn btn-next" onclick="window.print()" style="background: var(--text); box-shadow: none;">Print Copy</button>
+        </div>
+        <p style="margin-top: 20px; font-size: 13px; color: var(--text-lighter);">A notification has been sent to iezuri22@gmail.com. The discharge will be documented in the client's record.</p>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-back" id="btnBack" onclick="prevStep()" style="visibility:hidden;">&larr; Back</button>
+      <button class="btn btn-next" id="btnNext" onclick="nextStep()">Continue &rarr;</button>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">&#128274; HIPAA Compliant</div>
+      <div class="trust-item">&#127973; IDPH Licensed</div>
+      <div class="trust-item">&#128203; Form C.43</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== STATE =====
+const TOTAL_STEPS = 2;
+let currentStep = 1;
+const formId = 'C.43';
+const formVersion = '1.0';
+
+// ===== NAVIGATION =====
+function showStep(n) {
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.form-step[data-step="${n}"]`).classList.add('active');
+
+  // Update step bars
+  document.querySelectorAll('.step-bar').forEach((bar, i) => {
+    bar.className = 'step-bar';
+    if (i < n - 1) bar.classList.add('done');
+    else if (i === n - 1) bar.classList.add('active');
+  });
+
+  // Nav buttons
+  document.getElementById('btnBack').style.visibility = n === 1 ? 'hidden' : 'visible';
+  if (n > TOTAL_STEPS) {
+    document.getElementById('formNav').style.display = 'none';
+    document.getElementById('stepBar').style.display = 'none';
+  } else {
+    document.getElementById('btnNext').textContent = n === TOTAL_STEPS ? 'Sign & Submit Discharge \u2192' : 'Continue \u2192';
+  }
+
+  // Resize signature pads when step 2 becomes visible
+  if (n === 2) {
+    setTimeout(() => resizeSigPads(), 100);
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextStep() {
+  if (!validateStep(currentStep)) return;
+  if (currentStep === TOTAL_STEPS) {
+    submitForm();
+    return;
+  }
+  currentStep++;
+  showStep(currentStep);
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
+}
+
+// ===== VALIDATION =====
+function validateStep(step) {
+  const section = document.querySelector(`.form-step[data-step="${step}"]`);
+  let valid = true;
+
+  // Required text/date/email/tel/number inputs
+  section.querySelectorAll('input[required], select[required], textarea[required]').forEach(el => {
+    // Skip hidden radio inputs (pills) — validated separately
+    if (el.type === 'radio') return;
+    const field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  // Required radio groups (pills)
+  section.querySelectorAll('.pills').forEach(group => {
+    const radio = group.querySelector('input[type="radio"]');
+    if (!radio) return;
+    const name = radio.name;
+    if (group.querySelector('input[required]')) {
+      const checked = group.querySelector(`input[name="${name}"]:checked`);
+      const field = group.closest('.field');
+      if (!checked) {
+        if (field) field.classList.add('has-error');
+        valid = false;
+      } else {
+        if (field) field.classList.remove('has-error');
+      }
+    }
+  });
+
+  // Step 1: if "Other" reason selected, require the textarea
+  if (step === 1) {
+    const otherRadio = document.querySelector('input[name="dischargeReason"][value="Other"]');
+    if (otherRadio && otherRadio.checked) {
+      const otherField = document.getElementById('otherReason');
+      const field = otherField.closest('.field');
+      if (!otherField.value.trim()) {
+        otherField.classList.add('invalid');
+        if (field) field.classList.add('has-error');
+        valid = false;
+      } else {
+        otherField.classList.remove('invalid');
+        if (field) field.classList.remove('has-error');
+      }
+    }
+  }
+
+  // Step 2: all acknowledgment checkboxes must be checked
+  if (step === 2) {
+    section.querySelectorAll('input[type="checkbox"][required]').forEach(cb => {
+      if (!cb.checked) {
+        valid = false;
+        const item = cb.closest('.check-item');
+        if (item) item.style.borderColor = 'var(--red)';
+      } else {
+        const item = cb.closest('.check-item');
+        if (item && cb.checked) item.style.borderColor = '';
+      }
+    });
+
+    // Both signatures must exist
+    if (!sig1Signed) {
+      valid = false;
+      alert('Please provide the client/representative signature.');
+    } else if (!sig2Signed) {
+      valid = false;
+      alert('Please provide the supervisor signature.');
+    }
+  }
+
+  if (!valid && !(step === 2 && (!sig1Signed || !sig2Signed))) {
+    const firstError = section.querySelector('.invalid, .has-error input, .has-error textarea');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+// ===== CHECKBOX TOGGLE =====
+function toggleCheck(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+  // Reset border color on check
+  if (cb.checked) el.style.borderColor = '';
+}
+
+// ===== ADD SERVICE ROW =====
+function addServiceRow() {
+  const tbody = document.getElementById('servicesTableBody');
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = `
+    <td><input type="text" placeholder="e.g. Personal Care" style="width:100%; border:none; padding:0; font-size:15px;"></td>
+    <td><input type="date" style="width:100%; border:none; padding:0; font-size:15px;"></td>
+    <td><input type="date" style="width:100%; border:none; padding:0; font-size:15px;"></td>
+    <td><input type="number" placeholder="0" step="0.5" style="width:100%; border:none; padding:0; font-size:15px;"></td>
+  `;
+  tbody.appendChild(newRow);
+}
+
+// ===== CONDITIONAL: OTHER REASON =====
+document.querySelectorAll('input[name="dischargeReason"]').forEach(r => {
+  r.addEventListener('change', () => {
+    const otherField = document.getElementById('otherReasonField');
+    const selected = document.querySelector('input[name="dischargeReason"]:checked');
+    otherField.style.display = (selected && selected.value === 'Other') ? 'block' : 'none';
+  });
+});
+
+// ===== SIGNATURE PADS =====
+let sig1Signed = false, sig2Signed = false;
+const sigPads = {};
+
+function initSigPad(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    const pos = getPos(e);
+    lastX = pos.x;
+    lastY = pos.y;
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    ctx.lineTo(pos.x + 0.1, pos.y + 0.1);
+    ctx.stroke();
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
+    canvas.classList.add('signed');
+    if (id === 'sigPad1') sig1Signed = true;
+    if (id === 'sigPad2') sig2Signed = true;
+  }
+
+  function end(e) {
+    if (e) e.preventDefault();
+    drawing = false;
+  }
+
+  canvas.addEventListener('mousedown', start, { passive: false });
+  canvas.addEventListener('mousemove', draw, { passive: false });
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas, ctx, resize };
+
+  requestAnimationFrame(() => resize());
+  window.addEventListener('resize', () => resize());
+}
+
+function resizeSigPads() {
+  Object.values(sigPads).forEach(pad => pad.resize());
+}
+
+function clearSig(n) {
+  const id = `sigPad${n}`;
+  const pad = sigPads[id];
+  if (pad) {
+    pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+    pad.resize();
+    pad.canvas.classList.remove('signed');
+    if (n === 1) sig1Signed = false;
+    if (n === 2) sig2Signed = false;
+  }
+}
+
+// ===== PHONE FORMATTING =====
+document.querySelectorAll('input[type="tel"]').forEach(input => {
+  input.addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 0) {
+      if (v.length <= 3) v = `(${v}`;
+      else if (v.length <= 6) v = `(${v.slice(0,3)}) ${v.slice(3)}`;
+      else v = `(${v.slice(0,3)}) ${v.slice(3,6)}-${v.slice(6,10)}`;
+    }
+    this.value = v;
+  });
+});
+
+// ===== SUBMIT =====
+function submitForm() {
+  const dischargeReason = document.querySelector('input[name="dischargeReason"]:checked')?.value || '';
+  const goalStatus = document.querySelector('input[name="goalStatus"]:checked')?.value || '';
+  const sig1Relation = document.querySelector('input[name="sig1Relation"]:checked')?.value || '';
+
+  // Collect services from table
+  const servicesRows = [];
+  document.querySelectorAll('#servicesTableBody tr').forEach(row => {
+    const cells = row.querySelectorAll('input');
+    if (cells[0].value.trim()) {
+      servicesRows.push({
+        serviceType: cells[0].value,
+        startDate: cells[1].value,
+        endDate: cells[2].value,
+        totalHours: cells[3].value,
+      });
+    }
+  });
+
+  const data = {
+    formId, formVersion,
+    timestamp: new Date().toISOString(),
+    client: {
+      name: document.getElementById('clientName').value,
+      medicaidRIN: document.getElementById('medicaidRIN').value,
+      dob: document.getElementById('clientDOB').value,
+      address: document.getElementById('clientAddress').value,
+      phone: document.getElementById('clientPhone').value,
+    },
+    discharge: {
+      admissionDate: document.getElementById('admissionDate').value,
+      dischargeDate: document.getElementById('dischargeDate').value,
+      reason: dischargeReason,
+      otherReason: dischargeReason === 'Other' ? document.getElementById('otherReason').value : '',
+      services: servicesRows,
+      summary: document.getElementById('dischargeSummary').value,
+      goalStatus: goalStatus,
+      referrals: document.getElementById('referrals').value,
+    },
+    clientSignature: {
+      name: document.getElementById('sig1Name').value,
+      relationship: sig1Relation,
+      date: document.getElementById('sig1Date').value,
+      signatureData: document.getElementById('sigPad1').toDataURL(),
+    },
+    supervisorSignature: {
+      name: document.getElementById('sig2Name').value,
+      title: document.getElementById('sig2Title').value,
+      date: document.getElementById('sig2Date').value,
+      signatureData: document.getElementById('sigPad2').toDataURL(),
+    },
+    status: 'submitted',
+  };
+
+  // Generate submission ID
+  const id = `C43-${Date.now().toString(36).toUpperCase()}`;
+  document.getElementById('confId').textContent = id;
+  data.submissionId = id;
+
+  // Store locally
+  const stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+    // ── Flow Engine Integration ──
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const flowId = params.get('flowId');
+        if (flowId) {
+          VTFlow.recordSubmission(flowId, 'C43', data);
+          console.log('VTFlow: Recorded C.43 submission for flow ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+  // Send email notification to CEO
+  const clientName = data.client.name;
+  const reasonText = dischargeReason === 'Other' ? `Other: ${data.discharge.otherReason}` : dischargeReason;
+  const subject = encodeURIComponent(`[VitalTouch] Client Discharge — ${clientName} (${id})`);
+  const body = encodeURIComponent(
+    `A Client Discharge Form has been completed and submitted.\n\n` +
+    `Client: ${clientName}\n` +
+    `Medicaid/RIN: ${data.client.medicaidRIN || 'N/A'}\n` +
+    `Address: ${data.client.address || 'N/A'}\n` +
+    `Phone: ${data.client.phone || 'N/A'}\n\n` +
+    `Admission Date: ${data.discharge.admissionDate}\n` +
+    `Discharge Date: ${data.discharge.dischargeDate}\n` +
+    `Reason: ${reasonText}\n` +
+    `Care Plan Goals: ${goalStatus}\n\n` +
+    `Discharge Summary:\n${data.discharge.summary}\n\n` +
+    `Referrals: ${data.discharge.referrals || 'None'}\n\n` +
+    `Signed By (Client/Rep): ${data.clientSignature.name} (${data.clientSignature.relationship || 'N/A'})\n` +
+    `Supervisor: ${data.supervisorSignature.name} (${data.supervisorSignature.title || 'N/A'})\n` +
+    `Submission ID: ${id}\n\n` +
+    `Log into the admin portal to review:\nhttps://vitaltouchcares.com/admin/`
+  );
+
+  const mailLink = document.createElement('a');
+  mailLink.href = `mailto:iezuri22@gmail.com?subject=${subject}&body=${body}`;
+  mailLink.click();
+
+  // Show confirmation
+  currentStep = 3;
+  showStep(3);
+
+  console.log('Discharge form submitted:', data);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  initSigPad('sigPad1');
+  initSigPad('sigPad2');
+
+  // Set today's date as default for discharge date and signature dates
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('dischargeDate').value = today;
+  document.getElementById('sig1Date').value = today;
+  document.getElementById('sig2Date').value = today;
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alzheimer's / Dementia Training Acknowledgment — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #3B82F6;
+    --blue-dark: #1E40AF;
+    --blue-light: #EFF6FF;
+    --blue-glow: rgba(59,130,246,0.15);
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-light: #DCFCE7;
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--blue);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM CONTENT ===== */
+  .form-content {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #6b7280;
+    margin: 28px 0 12px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--blue);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--blue); color: var(--blue); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CHECKBOX ===== */
+  .check-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 14px 16px; border: 1.5px solid var(--border);
+    border-radius: 6px; margin-bottom: 10px;
+    cursor: pointer; transition: border-color 0.2s, background 0.2s;
+  }
+  .check-item:hover { border-color: var(--blue); background: transparent; }
+  .check-item.checked { border-color: #94A3B8; background: #F8FAFC; }
+  .check-item input { width: 24px; height: 24px; margin-top: 2px; accent-color: var(--blue); cursor: pointer; flex-shrink: 0; }
+  .check-item label { font-size: 16px; cursor: pointer; line-height: 1.6; color: #1a1a1a; }
+
+  /* ===== MONOGRAM BADGES ===== */
+  .badge {
+    display: none;
+  }
+
+  /* ===== COLLAPSIBLE SECTIONS ===== */
+  .collapsible-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    margin: 18px 0 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  .collapsible-header:hover {
+    background: transparent;
+  }
+  .collapsible-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1E293B;
+  }
+  .collapsible-toggle {
+    font-size: 18px;
+    color: var(--blue);
+    transition: transform 0.3s ease;
+  }
+  .collapsible-content {
+    display: none;
+    padding-left: 0;
+  }
+  .collapsible-content.expanded {
+    display: block;
+  }
+
+  /* ===== AGREEMENT TEXT ===== */
+  .agreement-box {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 20px;
+    font-size: 15px; color: #374151; line-height: 1.8;
+    max-height: 300px; overflow-y: auto; margin-bottom: 20px;
+  }
+  .agreement-box h3 {
+    font-size: 17px; font-weight: 700; color: #1a1a1a;
+    margin: 16px 0 8px;
+  }
+  .agreement-box h3:first-child { margin-top: 0; }
+  .agreement-box ul { padding-left: 20px; margin: 8px 0; }
+  .agreement-box li { margin-bottom: 4px; }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border); border-radius: var(--radius-sm);
+    background: var(--white); cursor: crosshair; touch-action: none; display: block;
+  }
+  .sig-pad.signed { border-color: var(--blue); border-style: solid; }
+  .sig-actions { display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end; }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 14px; cursor: pointer; transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== SUBMIT NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-next {
+    background: var(--blue); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+  }
+  .btn-next:hover {
+    background: var(--blue-dark);
+    box-shadow: 0 6px 20px rgba(59,130,246,0.35);
+  }
+  .btn-next:active { background: var(--blue-dark); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--blue);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--blue); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-content { padding: 12px 16px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .agreement-box { max-height: none; overflow: visible; }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .confirmation { display: none !important; }
+  }
+
+  @media (max-width: 600px) {
+    .field-row { flex-direction: column; gap: 0; }
+    .hero { padding: 20px 16px; }
+    .hero-text h1 { font-size: 22px; }
+    .form-content { padding: 24px 20px 20px; }
+    .trust-bar { flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Alzheimer's / Dementia Training Acknowledgment</h1>
+    <p>VitalTouch Health Network — Annual dementia care training</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- ===== FORM ===== -->
+    <div class="form-content" id="formContent">
+
+      <!-- EMPLOYEE INFORMATION -->
+      <div class="section-label">Employee Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Name <span class="req">*</span></label>
+          <input type="text" id="empName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Employee ID / Last 4 SSN</label>
+          <input type="text" id="empId" placeholder="Optional" maxlength="10">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Position <span class="req">*</span></label>
+        <div class="pills" id="positionPills">
+          <label class="pill">
+            <input type="radio" name="position" value="Homemaker" required>
+            <span>Homemaker</span>
+          </label>
+          <label class="pill">
+            <input type="radio" name="position" value="CNA">
+            <span>CNA</span>
+          </label>
+        </div>
+        <div class="error-msg">Please select a position</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Date of Hire <span class="req">*</span></label>
+          <input type="date" id="hireDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Training Completion Date <span class="req">*</span></label>
+          <input type="date" id="trainingDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <!-- ALZHEIMER'S / DEMENTIA TRAINING -->
+      <div class="section-label">Alzheimer's / Dementia Training</div>
+
+      <div class="agreement-box">
+        <h3>ANNUAL ALZHEIMER'S AND DEMENTIA TRAINING — VitalTouch Health Network Inc.</h3>
+
+        <p>In accordance with the Illinois Alzheimer's Disease Assistance Act and IDPH regulations, all employees who provide direct care to clients with Alzheimer's disease or related dementias must receive specialized training.</p>
+
+        <p>This training covers the following topics:</p>
+
+        <h3>1. Understanding Alzheimer's Disease and Dementia</h3>
+        <ul>
+          <li>Types of dementia (Alzheimer's, vascular, Lewy body, frontotemporal)</li>
+          <li>Stages and progression of Alzheimer's disease</li>
+          <li>Current research and treatments</li>
+        </ul>
+
+        <h3>2. Communication Strategies</h3>
+        <ul>
+          <li>Communicating with individuals with cognitive impairment</li>
+          <li>Non-verbal communication techniques</li>
+          <li>Active listening and patience</li>
+          <li>Reducing confusion and agitation through communication</li>
+        </ul>
+
+        <h3>3. Behavioral Management</h3>
+        <ul>
+          <li>Understanding behavioral changes in dementia</li>
+          <li>Common behaviors: wandering, sundowning, aggression, repetition</li>
+          <li>Non-pharmacological interventions</li>
+          <li>Creating a calm and supportive environment</li>
+        </ul>
+
+        <h3>4. Safety Considerations</h3>
+        <ul>
+          <li>Home safety modifications for dementia clients</li>
+          <li>Wandering prevention and response</li>
+          <li>Fall prevention strategies</li>
+          <li>Medication safety</li>
+        </ul>
+
+        <h3>5. Activities of Daily Living (ADLs)</h3>
+        <ul>
+          <li>Assisting with personal care while maintaining dignity</li>
+          <li>Nutrition and hydration challenges</li>
+          <li>Sleep disturbances and management</li>
+          <li>Maintaining routines and structure</li>
+        </ul>
+
+        <h3>6. Caregiver Self-Care</h3>
+        <ul>
+          <li>Recognizing caregiver stress and burnout</li>
+          <li>Resources for support</li>
+          <li>Setting healthy boundaries</li>
+          <li>When to seek help</li>
+        </ul>
+
+        <h3>7. Legal and Ethical Considerations</h3>
+        <ul>
+          <li>Decision-making capacity</li>
+          <li>Advance directives and guardianship</li>
+          <li>Reporting abuse and neglect</li>
+          <li>Maintaining dignity and respect</li>
+        </ul>
+
+        <p>This training satisfies the annual dementia care training requirement. Records are maintained per IDPH regulations.</p>
+      </div>
+
+      <!-- ACKNOWLEDGMENT CHECKBOXES -->
+      <div class="section-label">Acknowledgment &amp; Competency</div>
+
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack1">
+        <label for="ack1"><span class="badge">AL</span>I have completed the required Alzheimer's/Dementia training</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack2">
+        <label for="ack2"><span class="badge">DT</span>I understand the unique needs of clients with dementia</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack3">
+        <label for="ack3"><span class="badge">AP</span>I am prepared to apply dementia care techniques in my work</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack4">
+        <label for="ack4"><span class="badge">DG</span>I understand the importance of maintaining dignity and patience with dementia clients</label>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <input type="checkbox" id="ack5">
+        <label for="ack5"><span class="badge">RC</span>I know how to report concerns about a client's cognitive status or safety</label>
+      </div>
+
+      <!-- EMPLOYEE SIGNATURE -->
+      <div class="section-label">Employee Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Employee Printed Name <span class="req">*</span></label>
+          <input type="text" id="sigName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" id="sigDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span class="req">*</span></div>
+        <canvas id="sigPad1" class="sig-pad"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear Signature</button>
+        </div>
+      </div>
+
+    </div><!-- /form-content -->
+
+    <!-- CONFIRMATION (hidden until submit) -->
+    <div class="confirmation" id="confirmSection">
+      <div class="conf-check">&#10003;</div>
+      <h2>Alzheimer's/Dementia Training Acknowledgment Signed &amp; Sent</h2>
+      <p>Your signed Alzheimer's/Dementia Training Acknowledgment has been submitted. This will be added to your employee file.</p>
+      <div class="conf-id" id="confId"></div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-next" onclick="submitForm()">Sign &amp; Submit Acknowledgment &rarr;</button>
+    </div>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <span class="trust-item">&#128274; HIPAA Compliant</span>
+      <span class="trust-item">&#127973; IDPH Licensed</span>
+      <span class="trust-item">&#128203; Form E.36</span>
+    </div>
+
+  </div><!-- /card -->
+</div><!-- /main-container -->
+
+<div class="footer">
+  VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430<br>
+  (708) 774-4850 &middot; <a href="https://vitaltouchcares.com" target="_blank">vitaltouchcares.com</a>
+</div>
+
+<script>
+/* ===== SET TODAY'S DATE ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('sigDate').value = today;
+  document.getElementById('trainingDate').value = today;
+  initSigPad('sigPad1');
+});
+
+/* ===== CHECKBOX TOGGLE ===== */
+function toggleCheck(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+}
+
+/* ===== SIGNATURE PAD ===== */
+let sig1Signed = false;
+const sigPads = {};
+
+function initSigPad(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let drawing = false, lastX = 0, lastY = 0;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) { e.preventDefault(); drawing = true; const pos = getPos(e); lastX = pos.x; lastY = pos.y; ctx.beginPath(); ctx.moveTo(pos.x, pos.y); ctx.lineTo(pos.x + 0.1, pos.y + 0.1); ctx.stroke(); }
+  function draw(e) { if (!drawing) return; e.preventDefault(); const pos = getPos(e); ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke(); lastX = pos.x; lastY = pos.y; canvas.classList.add('signed'); sig1Signed = true; }
+  function end(e) { if (e) e.preventDefault(); drawing = false; }
+
+  canvas.addEventListener('mousedown', start, {passive:false});
+  canvas.addEventListener('mousemove', draw, {passive:false});
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', draw, {passive:false});
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas, ctx, resize };
+  requestAnimationFrame(() => resize());
+  window.addEventListener('resize', () => resize());
+}
+
+function clearSig(n) {
+  const id = 'sigPad' + n;
+  const pad = sigPads[id];
+  if (pad) { pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height); pad.resize(); pad.canvas.classList.remove('signed'); sig1Signed = false; }
+}
+
+/* ===== VALIDATION ===== */
+function clearErrors() {
+  document.querySelectorAll('.field.has-error').forEach(f => f.classList.remove('has-error'));
+  document.querySelectorAll('.invalid').forEach(f => f.classList.remove('invalid'));
+  document.querySelectorAll('.check-item').forEach(ci => ci.style.borderColor = '');
+  const sigPad = document.getElementById('sigPad1');
+  if (sigPad) sigPad.style.borderColor = '';
+}
+
+function validateForm() {
+  clearErrors();
+  let valid = true;
+
+  // Required text/date fields
+  const requiredFields = ['empName', 'hireDate', 'trainingDate', 'sigName', 'sigDate'];
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      el.closest('.field').classList.add('has-error');
+      valid = false;
+    }
+  });
+
+  // Position pill
+  const posSelected = document.querySelector('input[name="position"]:checked');
+  if (!posSelected) {
+    document.getElementById('positionPills').closest('.field').classList.add('has-error');
+    valid = false;
+  }
+
+  // All checkboxes (5)
+  const checkboxes = ['ack1', 'ack2', 'ack3', 'ack4', 'ack5'];
+  checkboxes.forEach(id => {
+    const cb = document.getElementById(id);
+    if (!cb.checked) {
+      cb.closest('.check-item').style.borderColor = 'var(--red)';
+      valid = false;
+    }
+  });
+
+  // Signature
+  if (!sig1Signed) {
+    document.getElementById('sigPad1').style.borderColor = 'var(--red)';
+    valid = false;
+  }
+
+  if (!valid) {
+    const firstError = document.querySelector('.has-error, .invalid, [style*="border-color"]');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+/* ===== SUBMIT ===== */
+function submitForm() {
+  if (!validateForm()) return;
+
+  const empName = document.getElementById('empName').value.trim();
+  const empId = document.getElementById('empId').value.trim();
+  const position = document.querySelector('input[name="position"]:checked').value;
+  const hireDate = document.getElementById('hireDate').value;
+  const trainingDate = document.getElementById('trainingDate').value;
+  const sigName = document.getElementById('sigName').value.trim();
+  const sigDate = document.getElementById('sigDate').value;
+
+  // Generate submission ID
+  const submissionId = 'E36-' + Date.now().toString(36);
+
+  // Build submission object
+  const submission = {
+    id: submissionId,
+    formId: 'E36',
+    formName: "Alzheimer's / Dementia Training Acknowledgment",
+    empName: empName,
+    empId: empId || 'N/A',
+    position: position,
+    hireDate: hireDate,
+    trainingDate: trainingDate,
+    signedBy: sigName,
+    signedDate: sigDate,
+    timestamp: new Date().toISOString()
+  };
+
+  // Save to localStorage
+  try {
+    const existing = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+    existing.push(submission);
+    localStorage.setItem('vt_submissions', JSON.stringify(existing));
+  } catch(e) { console.warn('localStorage save failed:', e); }
+
+  // Trigger mailto
+  const subject = encodeURIComponent("[VitalTouch] Alzheimer's/Dementia Training Ack — " + empName + ' (' + submissionId + ')');
+  const body = encodeURIComponent(
+    "Alzheimer's / Dementia Training Acknowledgment Submission\n" +
+    '============================================\n\n' +
+    'Submission ID: ' + submissionId + '\n' +
+    'Employee Name: ' + empName + '\n' +
+    'Employee ID/Last 4 SSN: ' + (empId || 'N/A') + '\n' +
+    'Position: ' + position + '\n' +
+    'Date of Hire: ' + hireDate + '\n' +
+    'Training Completion Date: ' + trainingDate + '\n' +
+    'Signed By: ' + sigName + '\n' +
+    'Signed Date: ' + sigDate + '\n\n' +
+    'All 5 acknowledgment checkboxes were checked.\n' +
+    'Signature captured on canvas.\n\n' +
+    'View full submission in the admin portal.'
+  );
+  window.location.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+
+  // Show confirmation
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formNav').style.display = 'none';
+  document.getElementById('confirmSection').style.display = 'block';
+  document.getElementById('confId').textContent = 'Submission ID: ' + submissionId;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Risk Assessment — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="flow-engine.js"></script>
+<script src="onedrive-sync.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --green-glow: rgba(22,163,74,0.15);
+    --warm: #FEF9F0;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #EF4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== HEADER ===== */
+  .hero {
+    background: #F8FAFC;
+    border-bottom: 3px solid var(--green);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-logo {
+    height: 48px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-text p {
+    font-size: 15px;
+    color: #4a5568;
+    margin-top: 4px;
+  }
+
+  /* ===== CONTAINER ===== */
+  .main-container {
+    max-width: 900px;
+    margin: 24px auto 40px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  /* ===== FORM CONTENT ===== */
+  .form-content {
+    padding: 32px 28px 28px;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ===== FIELDS ===== */
+  .field { margin-bottom: 18px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; min-width: 0; }
+  .field label { display: block; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .field label .req { color: var(--red); }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"],
+  .field input[type="date"], .field input[type="number"], .field select, .field textarea {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 17px; font-family: inherit; color: var(--text);
+    background: var(--white); transition: all 0.2s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--green);
+    box-shadow: none;
+  }
+  .field input.invalid, .field select.invalid, .field textarea.invalid {
+    border-color: var(--red); box-shadow: none;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
+  .field.has-error .error-msg { display: block; }
+
+  /* ===== PILLS ===== */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill { position: relative; cursor: pointer; }
+  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .pill span {
+    display: inline-block; padding: 12px 20px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    font-size: 16px; font-weight: 500; color: #4a5568;
+    background: var(--white); transition: all 0.2s; user-select: none;
+  }
+  .pill:hover span { border-color: var(--border); }
+  .pill input:checked + span {
+    background: #F1F5F9; border-color: #94A3B8;
+    color: #1E293B; font-weight: 600;
+  }
+
+  /* ===== CHECKBOX ITEMS ===== */
+  /* ===== ROOM CARD ===== */
+  .room-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 6px; margin-bottom: 20px;
+    overflow: hidden; transition: border-color 0.2s;
+  }
+  .room-card:hover { border-color: #CBD5E1; }
+  .room-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px; background: #F8FAFC;
+    border-bottom: 1px solid var(--border);
+  }
+  .room-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+    letter-spacing: -0.5px;
+  }
+  .room-icon.general { background: #DBEAFE; color: #1E40AF; }
+  .room-icon.kitchen { background: #FEF3C7; color: #92400E; }
+  .room-icon.bathroom { background: #E0E7FF; color: #4338CA; }
+  .room-icon.bedroom { background: #FCE7F3; color: #9D174D; }
+  .room-name { font-size: 15px; font-weight: 700; color: #1a1a1a; }
+  .room-counter {
+    margin-left: auto; font-size: 14px; font-weight: 400;
+    padding: 4px 12px; border-radius: 0;
+    background: transparent; color: #64748B;
+    transition: all 0.3s;
+  }
+  .room-counter.has-checks { background: transparent; color: #64748B; }
+  .room-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; padding: 0;
+  }
+  .check-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 14px 18px; cursor: pointer; transition: all 0.15s;
+    border-bottom: 1px solid #F1F5F9;
+    border-right: 1px solid #F1F5F9;
+  }
+  .room-grid .check-item:nth-child(2n) { border-right: none; }
+  .room-grid .check-item:nth-last-child(-n+2) { border-bottom: none; }
+  .check-item:hover { background: #F0FDF4; }
+  .check-item.checked { background: #F0FDF4; }
+  .check-item input {
+    width: 20px; height: 20px; margin-top: 2px;
+    accent-color: var(--green); cursor: pointer; flex-shrink: 0;
+    border-radius: 4px;
+  }
+  .check-item label {
+    font-size: 15px; cursor: pointer; line-height: 1.5; color: #374151;
+    font-weight: 500;
+  }
+  .check-item.checked label { color: #1a1a1a; font-weight: 600; }
+  @media (max-width: 600px) {
+    .room-grid { grid-template-columns: 1fr; }
+    .room-grid .check-item { border-right: none; }
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section-label {
+    font-weight: 600; font-size: 15px; color: #64748B;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    border-bottom: 2px solid #E2E8F0; padding-bottom: 8px;
+    margin-bottom: 16px; margin-top: 24px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ===== SIGNATURE ===== */
+  .sig-container { margin-bottom: 20px; }
+  .sig-label { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  .sig-pad {
+    width: 100%; height: 180px;
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    background: var(--white);
+    cursor: crosshair;
+    touch-action: none;
+    display: block;
+  }
+  .sig-pad.signed { border-color: var(--border); border-style: dashed; }
+  .sig-actions {
+    display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end;
+  }
+  .sig-clear {
+    font-size: 12px; font-weight: 600; color: var(--text-lighter);
+    background: none; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sig-clear:hover { border-color: var(--red); color: var(--red); }
+
+  /* ===== NAV ===== */
+  .form-nav {
+    padding: 20px 28px; display: flex;
+    justify-content: flex-end; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-weight: 600; font-size: 15px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-next {
+    background: var(--green); color: white;
+    padding: 13px 28px; border-radius: 6px; font-size: 16px;
+    box-shadow: none;
+  }
+  .btn-next:hover {
+    background: var(--green-dark);
+    box-shadow: none;
+  }
+  .btn-next:active { }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar {
+    display: flex; justify-content: center; gap: 24px;
+    padding: 14px 24px; background: var(--bg);
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text-lighter);
+  }
+  .trust-item { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== CONFIRMATION ===== */
+  .confirmation { text-align: center; padding: 50px 28px; display: none; }
+  .conf-check {
+    width: 72px; height: 72px; background: var(--green);
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 20px;
+    font-size: 36px; color: white; animation: scaleIn 0.4s ease;
+  }
+  @keyframes scaleIn { from{opacity:0} to{opacity:1} }
+  .confirmation h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .confirmation p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto; }
+  .conf-id { margin-top: 20px; font-size: 12px; color: var(--text-lighter); }
+
+  .footer {
+    text-align: center; padding: 20px;
+    font-size: 12px; color: var(--text-lighter);
+  }
+  .footer a { color: var(--green); text-decoration: none; }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 11px; }
+    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
+    .hero-text h1 { font-size: 18px; }
+    .hero-text p { font-size: 11px; }
+    .main-container { margin: 0; max-width: 100%; padding: 0; }
+    .card { box-shadow: none; border: none; }
+    .form-nav, .trust-bar, .footer { display: none !important; }
+    .form-content { padding: 12px 16px; }
+    .section-label { font-size: 11px; margin: 16px 0 8px; }
+    input, select, textarea {
+      border: none !important; border-bottom: 1px solid #999 !important;
+      border-radius: 0 !important; padding: 3px 0 !important;
+      box-shadow: none !important; font-size: 11px;
+    }
+    .pill span { border: 1px solid #ccc; padding: 3px 10px; font-size: 11px; border-radius: 20px; }
+    .pill input:not(:checked) + span { opacity: 0.3; }
+    .room-card { border: 1px solid #ccc; margin-bottom: 10px; page-break-inside: avoid; }
+    .room-header { padding: 6px 10px; }
+    .room-icon { width: 24px; height: 24px; font-size: 14px; }
+    .room-name { font-size: 12px; }
+    .room-counter { font-size: 10px; }
+    .room-grid { grid-template-columns: 1fr 1fr; }
+    .check-item { padding: 4px 8px; }
+    .check-item label { font-size: 11px; }
+    .check-item input { width: 14px; height: 14px; }
+    .sig-pad { height: 80px; border: 1px solid #999; }
+    .confirmation { page-break-before: avoid; }
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .hero { padding: 20px 16px; flex-direction: column; text-align: center; }
+    .hero-text h1 { font-size: 22px; }
+    .field-row { flex-direction: column; gap: 0; }
+    .field-row-3 { flex-direction: column; gap: 0; }
+    .form-content { padding: 24px 20px 20px; }
+    .pills { gap: 6px; }
+    .pill span { padding: 10px 14px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch" class="hero-logo">
+  <div class="hero-text">
+    <h1>Home Risk Assessment</h1>
+    <p>VitalTouch Health Network — Home safety evaluation</p>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+  <div class="card">
+
+    <!-- FORM -->
+    <div class="form-content" id="formContent">
+
+      <!-- CLIENT INFORMATION -->
+      <div class="section-label">Client Information</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Client Name <span class="req">*</span></label>
+          <input type="text" id="clientName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Assessment Date <span class="req">*</span></label>
+          <input type="date" id="assessDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field" style="flex:2;">
+          <label>Address <span class="req">*</span></label>
+          <input type="text" id="clientAddress" placeholder="Street address" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>City <span class="req">*</span></label>
+          <input type="text" id="clientCity" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field" style="flex:0.6;">
+          <label>Zip <span class="req">*</span></label>
+          <input type="text" id="clientZip" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Assessor Name <span class="req">*</span></label>
+        <input type="text" id="assessorName" required>
+        <div class="error-msg">Required</div>
+      </div>
+
+      <!-- GENERAL SAFETY -->
+      <div class="room-card" data-room="generalSafety">
+        <div class="room-header">
+          <div class="room-icon general">G</div>
+          <div class="room-name">General Safety</div>
+          <div class="room-counter" id="count-generalSafety">0 / 9</div>
+        </div>
+        <div class="room-grid">
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="generalSafety" value="smoke-detectors"><label>Smoke detectors present and working</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="generalSafety" value="co-detector"><label>Carbon monoxide detector present</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="generalSafety" value="fire-extinguisher"><label>Fire extinguisher accessible</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="generalSafety" value="emergency-numbers"><label>Emergency numbers posted</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="generalSafety" value="adequate-lighting"><label>Adequate lighting throughout</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="generalSafety" value="clear-pathways"><label>Clear pathways (no tripping hazards)</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="generalSafety" value="handrails"><label>Handrails on all stairways</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="generalSafety" value="deadbolt-locks"><label>Deadbolt locks on exterior doors</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="generalSafety" value="working-phone"><label>Working telephone accessible</label></div>
+        </div>
+      </div>
+
+      <!-- KITCHEN SAFETY -->
+      <div class="room-card" data-room="kitchenSafety">
+        <div class="room-header">
+          <div class="room-icon kitchen">K</div>
+          <div class="room-name">Kitchen Safety</div>
+          <div class="room-counter" id="count-kitchenSafety">0 / 5</div>
+        </div>
+        <div class="room-grid">
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kitchenSafety" value="stove-working"><label>Stove/oven in working condition</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kitchenSafety" value="no-expired-food"><label>No expired food or unsanitary conditions</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kitchenSafety" value="sharp-objects"><label>Sharp objects stored safely</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kitchenSafety" value="appliances-good"><label>Small appliances in good condition</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="kitchenSafety" value="food-supply"><label>Adequate food supply</label></div>
+        </div>
+      </div>
+
+      <!-- BATHROOM SAFETY -->
+      <div class="room-card" data-room="bathroomSafety">
+        <div class="room-header">
+          <div class="room-icon bathroom">B</div>
+          <div class="room-name">Bathroom Safety</div>
+          <div class="room-counter" id="count-bathroomSafety">0 / 5</div>
+        </div>
+        <div class="room-grid">
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bathroomSafety" value="grab-bars"><label>Grab bars installed near toilet/shower</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bathroomSafety" value="non-slip-mat"><label>Non-slip mat in tub/shower</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bathroomSafety" value="bathroom-lighting"><label>Adequate lighting</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bathroomSafety" value="water-temp"><label>Hot water temperature safe (below 120&#176;F)</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bathroomSafety" value="meds-stored"><label>Medications stored safely</label></div>
+        </div>
+      </div>
+
+      <!-- BEDROOM SAFETY -->
+      <div class="room-card" data-room="bedroomSafety">
+        <div class="room-header">
+          <div class="room-icon bedroom">R</div>
+          <div class="room-name">Bedroom Safety</div>
+          <div class="room-counter" id="count-bedroomSafety">0 / 5</div>
+        </div>
+        <div class="room-grid">
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bedroomSafety" value="bed-height"><label>Bed at appropriate height</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bedroomSafety" value="clear-path-bathroom"><label>Clear path from bed to bathroom</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bedroomSafety" value="night-light"><label>Night light available</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bedroomSafety" value="phone-accessible"><label>Phone accessible from bed</label></div>
+          <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="bedroomSafety" value="smoke-detector-nearby"><label>Working smoke detector nearby</label></div>
+        </div>
+      </div>
+
+      <!-- OVERALL ASSESSMENT -->
+      <div class="section-label">Overall Assessment</div>
+
+      <div class="field">
+        <label>Overall Risk Level <span class="req">*</span></label>
+        <div class="pills">
+          <label class="pill"><input type="radio" name="riskLevel" value="low" required><span>Low Risk</span></label>
+          <label class="pill"><input type="radio" name="riskLevel" value="moderate"><span>Moderate Risk</span></label>
+          <label class="pill"><input type="radio" name="riskLevel" value="high"><span>High Risk</span></label>
+        </div>
+        <div class="error-msg">Please select a risk level</div>
+      </div>
+
+      <div class="field">
+        <label>Corrective Actions Needed</label>
+        <textarea id="correctiveActions" placeholder="Describe any corrective actions that need to be taken..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Additional Notes / Observations</label>
+        <textarea id="additionalNotes" placeholder="Any other observations about the home environment..."></textarea>
+      </div>
+
+      <!-- SIGNATURE -->
+      <div class="section-label">Assessor Signature</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Assessor Name <span class="req">*</span></label>
+          <input type="text" id="sigName" required>
+          <div class="error-msg">Required</div>
+        </div>
+        <div class="field">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" id="sigDate" required>
+          <div class="error-msg">Required</div>
+        </div>
+      </div>
+
+      <div class="sig-container">
+        <div class="sig-label">Signature <span style="color:var(--red)">*</span></div>
+        <canvas class="sig-pad" id="sigPad1"></canvas>
+        <div class="sig-actions">
+          <button type="button" class="sig-clear" onclick="clearSig(1)">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIRMATION (hidden by default) -->
+    <div class="confirmation" id="confirmationScreen">
+      <div class="conf-check">&#10003;</div>
+      <h2>Assessment Submitted & Sent</h2>
+      <p>Thank you! The Home Risk Assessment has been sent to <strong>Ifeanyi Ezurike, CEO</strong> at VitalTouch Health Network for review.</p>
+      <div class="conf-id">Assessment ID: <span id="confId"></span></div>
+      <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn btn-next" onclick="window.print()" style="background: var(--text); box-shadow: none;">Print Copy</button>
+      </div>
+      <p style="margin-top: 20px; font-size: 13px; color: var(--text-lighter);">A notification has been sent to iezuri22@gmail.com.</p>
+    </div>
+
+    <!-- SUBMIT NAV -->
+    <div class="form-nav" id="formNav">
+      <button class="btn btn-next" id="btnSubmit" onclick="submitForm()">Submit Assessment &#8594;</button>
+    </div>
+
+    <!-- TRUST -->
+    <div class="trust-bar">
+      <div class="trust-item">&#128274; HIPAA Compliant</div>
+      <div class="trust-item">&#127973; IDPH Licensed</div>
+      <div class="trust-item">&#128203; Form C.22</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <p>VitalTouch Health Network Inc. &middot; 18000 Dixie Hwy, Homewood, IL 60430</p>
+  <p>(708) 774-4850 &middot; <a href="https://vitaltouchcares.com">vitaltouchcares.com</a></p>
+</div>
+
+<script>
+// ===== STATE =====
+const formId = 'C.22';
+const formVersion = '1.0';
+let sig1Signed = false;
+const sigPads = {};
+
+// ===== CHECKBOX TOGGLE =====
+function toggleCheck(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+  updateRoomCounter(el);
+}
+
+function updateRoomCounter(el) {
+  var card = el.closest('.room-card');
+  if (!card) return;
+  var room = card.dataset.room;
+  var total = card.querySelectorAll('input[type="checkbox"]').length;
+  var checked = card.querySelectorAll('input[type="checkbox"]:checked').length;
+  var counter = document.getElementById('count-' + room);
+  if (counter) {
+    counter.textContent = checked + ' / ' + total;
+    counter.classList.toggle('has-checks', checked > 0);
+  }
+}
+
+// ===== SIGNATURE PAD =====
+function initSigPad(id) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1E293B';
+  }
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    const pos = getPos(e);
+    lastX = pos.x;
+    lastY = pos.y;
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    ctx.lineTo(pos.x + 0.1, pos.y + 0.1);
+    ctx.stroke();
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const pos = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x;
+    lastY = pos.y;
+    canvas.classList.add('signed');
+    if (id === 'sigPad1') sig1Signed = true;
+  }
+
+  function end(e) {
+    if (e) e.preventDefault();
+    drawing = false;
+  }
+
+  canvas.addEventListener('mousedown', start, { passive: false });
+  canvas.addEventListener('mousemove', draw, { passive: false });
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', end);
+
+  sigPads[id] = { canvas, ctx, resize };
+
+  requestAnimationFrame(() => resize());
+  window.addEventListener('resize', () => resize());
+}
+
+function clearSig(n) {
+  const id = 'sigPad' + n;
+  const pad = sigPads[id];
+  if (pad) {
+    pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height);
+    pad.resize();
+    pad.canvas.classList.remove('signed');
+    if (n === 1) sig1Signed = false;
+  }
+}
+
+// ===== PHONE FORMATTING =====
+document.querySelectorAll('input[type="tel"]').forEach(function(input) {
+  input.addEventListener('input', function() {
+    var v = this.value.replace(/\D/g, '');
+    if (v.length > 0) {
+      if (v.length <= 3) v = '(' + v;
+      else if (v.length <= 6) v = '(' + v.slice(0,3) + ') ' + v.slice(3);
+      else v = '(' + v.slice(0,3) + ') ' + v.slice(3,6) + '-' + v.slice(6,10);
+    }
+    this.value = v;
+  });
+});
+
+// ===== VALIDATION =====
+function validateForm() {
+  const container = document.getElementById('formContent');
+  let valid = true;
+
+  // Required text/date inputs
+  container.querySelectorAll('input[required], select[required], textarea[required]').forEach(function(el) {
+    const field = el.closest('.field');
+    if (!el.value.trim()) {
+      el.classList.add('invalid');
+      if (field) field.classList.add('has-error');
+      valid = false;
+    } else {
+      el.classList.remove('invalid');
+      if (field) field.classList.remove('has-error');
+    }
+  });
+
+  // Required radio group (risk level)
+  const riskChecked = document.querySelector('input[name="riskLevel"]:checked');
+  if (!riskChecked) {
+    const riskField = document.querySelector('input[name="riskLevel"]').closest('.field');
+    if (riskField) riskField.classList.add('has-error');
+    valid = false;
+  } else {
+    const riskField = document.querySelector('input[name="riskLevel"]').closest('.field');
+    if (riskField) riskField.classList.remove('has-error');
+  }
+
+  // Signature required
+  if (!sig1Signed) {
+    valid = false;
+    alert('Please sign in the signature box to continue.');
+    return false;
+  }
+
+  if (!valid) {
+    const firstError = container.querySelector('.invalid, .has-error input');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  return valid;
+}
+
+// ===== COLLECT CHECKLIST DATA =====
+function getChecklist(name) {
+  return [...document.querySelectorAll('input[name="' + name + '"]:checked')].map(function(cb) { return cb.value; });
+}
+
+// ===== SUBMIT =====
+function submitForm() {
+  if (!validateForm()) return;
+
+  var data = {
+    formId: formId,
+    formVersion: formVersion,
+    timestamp: new Date().toISOString(),
+    client: {
+      name: document.getElementById('clientName').value,
+      address: document.getElementById('clientAddress').value,
+      city: document.getElementById('clientCity').value,
+      zip: document.getElementById('clientZip').value,
+    },
+    assessmentDate: document.getElementById('assessDate').value,
+    assessorName: document.getElementById('assessorName').value,
+    checklists: {
+      generalSafety: getChecklist('generalSafety'),
+      kitchenSafety: getChecklist('kitchenSafety'),
+      bathroomSafety: getChecklist('bathroomSafety'),
+      bedroomSafety: getChecklist('bedroomSafety'),
+    },
+    overallAssessment: {
+      riskLevel: document.querySelector('input[name="riskLevel"]:checked').value,
+      correctiveActions: document.getElementById('correctiveActions').value,
+      additionalNotes: document.getElementById('additionalNotes').value,
+    },
+    signature: {
+      name: document.getElementById('sigName').value,
+      date: document.getElementById('sigDate').value,
+      signatureData: document.getElementById('sigPad1').toDataURL(),
+    },
+  };
+
+  // Generate submission ID
+  var id = 'C22-' + Date.now().toString(36).toUpperCase();
+  document.getElementById('confId').textContent = id;
+  data.submissionId = id;
+
+  // Store locally
+  var stored = JSON.parse(localStorage.getItem('vt_submissions') || '[]');
+  stored.push(data);
+  localStorage.setItem('vt_submissions', JSON.stringify(stored));
+
+    // ── Flow Engine Integration ──
+    try {
+      if (typeof VTFlow !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const flowId = params.get('flowId');
+        if (flowId) {
+          VTFlow.recordSubmission(flowId, 'C22', data);
+          console.log('VTFlow: Recorded C.22 submission for flow ' + flowId);
+        }
+      }
+    } catch (fe) {
+      console.error('VTFlow integration error:', fe);
+    }
+
+  // Send email notification to CEO
+  var clientName = data.client.name;
+  var riskLabel = data.overallAssessment.riskLevel === 'low' ? 'Low Risk' : data.overallAssessment.riskLevel === 'moderate' ? 'Moderate Risk' : 'High Risk';
+  var subject = encodeURIComponent('[VitalTouch] Home Risk Assessment — ' + clientName + ' (' + id + ')');
+  var body = encodeURIComponent(
+    'A new Home Risk Assessment has been submitted.\n\n' +
+    'Client: ' + clientName + '\n' +
+    'Address: ' + data.client.address + ', ' + data.client.city + ', IL ' + data.client.zip + '\n' +
+    'Assessment Date: ' + data.assessmentDate + '\n' +
+    'Assessor: ' + data.assessorName + '\n' +
+    'Risk Level: ' + riskLabel + '\n' +
+    'Corrective Actions: ' + (data.overallAssessment.correctiveActions || 'None noted') + '\n' +
+    'Assessment ID: ' + id + '\n\n' +
+    'Log into the admin portal to review:\nhttps://vitaltouchcares.com/admin/'
+  );
+
+  var mailLink = document.createElement('a');
+  mailLink.href = 'mailto:iezuri22@gmail.com?subject=' + subject + '&body=' + body;
+  mailLink.click();
+
+  // Show confirmation
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formNav').style.display = 'none';
+  document.getElementById('confirmationScreen').style.display = 'block';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  console.log('Assessment submitted:', data);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  initSigPad('sigPad1');
+
+  // Set today's date as default
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('assessDate').value = today;
+  document.getElementById('sigDate').value = today;
+
+  // Pre-fill signature assessor name when assessor name changes
+  document.getElementById('assessorName').addEventListener('input', function() {
+    document.getElementById('sigName').value = this.value;
+  });
+});
+</script>
+
+<!-- Preview Mode -->
+<script>
+if(new URLSearchParams(window.location.search).has("preview")){
+  var s=document.createElement("style");
+  s.textContent=".form-step,.form-page,[data-step],fieldset,.conditional{display:block!important;opacity:1!important;visibility:visible!important;position:relative!important;max-height:none!important;overflow:visible!important;transform:none!important}.step-indicator,.step-bar,.form-nav,.nav-buttons,.form-footer,.trust-bar,.footer,button[type=submit],.btn-submit,.submit-btn{display:none!important}";
+  document.head.appendChild(s);
+  document.querySelectorAll("[required]").forEach(function(e){e.removeAttribute("required")});
+  document.querySelectorAll("[hidden]").forEach(function(e){e.removeAttribute("hidden")});
+}
+</script>
+</body>
+</html>
