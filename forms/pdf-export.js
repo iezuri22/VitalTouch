@@ -210,52 +210,53 @@ const VTPdf = (function () {
   // ──────────────────────────────────────────────
 
   function _drawHeader(doc, formTitle, formId, data, margin, contentW, pageW) {
-    // ── GREEN HEADER BAR with gradient feel ──
-    // Main bar
-    doc.setFillColor(22, 163, 74);
-    doc.rect(0, 0, pageW, 38, 'F');
-    // Darker strip at bottom
-    doc.setFillColor(21, 128, 61);
-    doc.rect(0, 35, pageW, 3, 'F');
+    // ── WHITE HEADER — Logo + Form Title prominent ──
+    var y = 14;
 
-    // Logo
+    // Logo — large and prominent on the left
+    var logoSize = 22;
     try {
-      doc.addImage(LOGO_B64, 'PNG', margin, 6, 26, 26);
+      doc.addImage(LOGO_B64, 'PNG', margin, y - 6, logoSize, logoSize);
     } catch (e) { /* logo failed — continue without it */ }
 
-    // Company name next to logo
-    var textX = margin + 30;
+    // Form title — BIG, right of logo
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(17);
-    doc.setTextColor(255, 255, 255);
-    doc.text('VitalTouch Health Network', textX, 17);
+    doc.setFontSize(22);
+    doc.setTextColor(30, 41, 59);
+    doc.text(formTitle, margin + logoSize + 6, y + 4);
 
-    // Subtitle
+    // Company info — small, right-aligned
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(220, 252, 231); // green-light
-    doc.text(BRAND.address + '   |   ' + BRAND.phone + '   |   ' + BRAND.website, textX, 25);
+    doc.setFontSize(7.5);
+    doc.setTextColor(100, 116, 139);
+    var companyLine = BRAND.companyName;
+    var cw = doc.getTextWidth(companyLine);
+    doc.text(companyLine, pageW - margin - cw, y - 2);
+    var contactLine = BRAND.phone + '  |  ' + BRAND.website;
+    var ctw = doc.getTextWidth(contactLine);
+    doc.text(contactLine, pageW - margin - ctw, y + 3);
+
+    // ── THICK GREEN ACCENT BAR ──
+    y += 14;
+    doc.setFillColor(22, 163, 74);
+    doc.rect(margin, y, contentW, 2.5, 'F');
+    // Thin darker line below
+    doc.setFillColor(21, 128, 61);
+    doc.rect(margin, y + 2.5, contentW * 0.3, 0.8, 'F');
 
     // ── CLIENT NAME — BIG AND PROMINENT ──
     var clientFirst = data.firstName || data.clientFirstName || '';
     var clientLast = data.lastName || data.clientLastName || '';
     var clientFull = (clientFirst + ' ' + clientLast).trim() || 'Client Record';
 
-    var y = 52;
+    y += 14;
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(24);
-    doc.setTextColor(30, 41, 59);
+    doc.setFontSize(20);
+    doc.setTextColor(22, 163, 74);
     doc.text(clientFull, margin, y);
 
-    // ── FORM TITLE as subtitle ──
-    y += 9;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(13);
-    doc.setTextColor(22, 163, 74);
-    doc.text(formTitle, margin, y);
-
     // ── META INFO BADGES ──
-    y += 10;
+    y += 9;
     var badges = [];
     if (data.submissionId) badges.push('ID: ' + data.submissionId);
     badges.push('Form: ' + formId);
@@ -276,13 +277,13 @@ const VTPdf = (function () {
       badgeX += tw + 3;
     });
 
-    // ── GREEN DIVIDER ──
+    // ── THIN SEPARATOR ──
     y += 9;
-    doc.setDrawColor(22, 163, 74);
-    doc.setLineWidth(0.6);
+    doc.setDrawColor(226, 232, 240);
+    doc.setLineWidth(0.3);
     doc.line(margin, y, margin + contentW, y);
 
-    y += 7;
+    y += 6;
     return y;
   }
 
