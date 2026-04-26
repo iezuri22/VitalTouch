@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitalTouch Client Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #16A34A; --green-dark: #15803D; --green-deeper: #166534;
+    --green-light: #DCFCE7; --green-glow: rgba(22,163,74,0.12);
+    --text: #1E293B; --text-light: #4a5568; --text-lighter: #6b7280;
+    --white: #FFFFFF; --border: #E2E8F0; --bg: #F8FAFC;
+    --blue: #3B82F6; --blue-light: #DBEAFE;
+    --orange: #F97316; --orange-light: #FFF7ED;
+    --purple: #8B5CF6; --purple-light: #EDE9FE;
+    --red: #EF4444; --red-light: #FEF2F2;
+    --teal: #14B8A6; --teal-light: #F0FDFA;
+    --amber: #F59E0B; --amber-light: #FEF3C7;
+    --radius: 12px; --radius-sm: 8px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #f0fdf4 100%);
+    border-bottom: 3px solid var(--green);
+    padding: 32px 40px;
+  }
+  .header-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
+  .header-logo { height: 52px; width: auto; }
+  .header-text h1 { font-size: 32px; font-weight: 800; color: #1a1a1a; }
+  .header-text p { font-size: 15px; color: var(--text-light); margin-top: 4px; }
+  .header-actions { margin-left: auto; display: flex; gap: 10px; }
+  .header-link {
+    font-size: 14px; font-weight: 600; color: var(--green-dark);
+    text-decoration: none; padding: 8px 18px; border-radius: 6px;
+    border: 1.5px solid var(--green-dark);
+  }
+  .header-link:hover { background: var(--green-dark); color: var(--white); }
+
+  /* ===== STATS BAR ===== */
+  .stats-bar {
+    max-width: 1280px; margin: -20px auto 0; padding: 0 24px;
+    position: relative; z-index: 2;
+  }
+  .stats-row {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow-lg); padding: 20px 32px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; color: var(--green); line-height: 1.1; }
+  .stat-num.amber { color: var(--amber); }
+  .stat-num.red { color: var(--red); }
+  .stat-num.blue { color: var(--blue); }
+  .stat-label { font-size: 12px; color: var(--text-lighter); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-top: 4px; }
+
+  /* ===== MAIN ===== */
+  .main { max-width: 1280px; margin: 32px auto; padding: 0 24px; }
+
+  /* ===== TABS ===== */
+  .toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+  .tabs {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .tab {
+    padding: 10px 18px; border-radius: 50px; font-size: 13.5px; font-weight: 600;
+    cursor: pointer; border: 1.5px solid var(--border); background: var(--white);
+    color: var(--text-light); transition: all 0.18s; user-select: none;
+    font-family: inherit;
+  }
+  .tab:hover { border-color: var(--green); color: var(--green); }
+  .tab.active { background: var(--green); color: var(--white); border-color: var(--green); }
+  .tab-count {
+    display: inline-block; background: rgba(255,255,255,0.25);
+    padding: 1px 8px; border-radius: 20px; font-size: 11.5px; margin-left: 6px;
+    color: var(--text-lighter);
+    background: var(--bg);
+  }
+  .tab.active .tab-count { background: rgba(255,255,255,0.3); color: var(--white); }
+
+  /* ===== SEARCH ===== */
+  .search {
+    flex: 1; min-width: 240px; max-width: 360px;
+    margin-left: auto;
+    position: relative;
+  }
+  .search input {
+    width: 100%; padding: 11px 14px 11px 40px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 14px; font-family: inherit; background: var(--white);
+    transition: all 0.18s;
+  }
+  .search input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-glow); }
+  .search-icon {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--text-lighter); pointer-events: none;
+  }
+
+  /* ===== CLIENT LIST ===== */
+  .clients { display: grid; gap: 14px; }
+  .client-card {
+    background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 22px 26px;
+    border-left: 4px solid var(--green);
+    transition: box-shadow 0.18s, transform 0.18s;
+    cursor: pointer;
+  }
+  .client-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+  .client-card.pop-senior_pp        { border-left-color: var(--blue); }
+  .client-card.pop-disabilities_pp  { border-left-color: var(--purple); }
+  .client-card.pop-drs_hsp          { border-left-color: var(--teal); }
+  .client-card.pop-idoa_ccp         { border-left-color: var(--orange); }
+
+  .client-row {
+    display: grid;
+    grid-template-columns: 56px 1.6fr 1.4fr 2fr 110px 28px;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-light), var(--green));
+    color: var(--green-deeper);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px;
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 1px var(--border);
+  }
+  .pop-senior_pp .avatar       { background: linear-gradient(135deg, var(--blue-light), var(--blue));      color: white; box-shadow: 0 0 0 1px var(--blue-light); }
+  .pop-disabilities_pp .avatar { background: linear-gradient(135deg, var(--purple-light), var(--purple));  color: white; box-shadow: 0 0 0 1px var(--purple-light); }
+  .pop-drs_hsp .avatar         { background: linear-gradient(135deg, var(--teal-light), var(--teal));      color: white; box-shadow: 0 0 0 1px var(--teal-light); }
+  .pop-idoa_ccp .avatar        { background: linear-gradient(135deg, var(--orange-light), var(--orange));  color: white; box-shadow: 0 0 0 1px var(--orange-light); }
+
+  .client-name {
+    font-size: 16px; font-weight: 700; color: #1a1a1a;
+    line-height: 1.3;
+  }
+  .client-id {
+    font-size: 12px; color: var(--text-lighter);
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    margin-top: 2px;
+  }
+
+  .client-payer {
+    font-size: 13px; color: var(--text-light);
+  }
+  .client-payer .pop-tag {
+    display: inline-block;
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 3px 10px; border-radius: 20px;
+    margin-bottom: 4px;
+  }
+  .pop-senior_pp        .pop-tag { background: var(--blue-light);    color: var(--blue); }
+  .pop-disabilities_pp  .pop-tag { background: var(--purple-light);  color: var(--purple); }
+  .pop-drs_hsp          .pop-tag { background: var(--teal-light);    color: var(--teal); }
+  .pop-idoa_ccp         .pop-tag { background: var(--orange-light);  color: var(--orange); }
+
+  /* progress dots */
+  .progress {
+    display: flex; gap: 6px; align-items: center;
+  }
+  .dot {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    position: relative;
+  }
+  .dot.done { background: var(--green); }
+  .dot.late { background: var(--amber); }
+  .dot.missing { background: var(--red-light); border: 1px dashed var(--red); }
+  .dot[title]:hover::after {
+    content: attr(title);
+    position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+    background: #1a1a1a; color: white; padding: 4px 8px; border-radius: 4px;
+    font-size: 11px; white-space: nowrap; pointer-events: none; z-index: 10;
+  }
+
+  .progress-summary {
+    font-size: 12px; color: var(--text-lighter); margin-top: 6px;
+  }
+  .progress-summary b { color: var(--text); font-weight: 600; }
+
+  /* status pill */
+  .status-pill {
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px; border-radius: 20px;
+    text-align: center; white-space: nowrap;
+  }
+  .status-pill.active        { background: var(--green-light);  color: var(--green-deeper); }
+  .status-pill.intake        { background: var(--blue-light);   color: var(--blue); }
+  .status-pill.assessment    { background: var(--purple-light); color: var(--purple); }
+  .status-pill.audit-ready   { background: var(--green-light);  color: var(--green-deeper); }
+  .status-pill.needs-attn    { background: var(--amber-light);  color: #92400E; }
+  .status-pill.discharged    { background: #F3F4F6;             color: var(--text-lighter); }
+
+  .chev {
+    color: var(--text-lighter);
+    font-size: 18px;
+    transition: transform 0.18s;
+  }
+  .client-card.open .chev { transform: rotate(90deg); color: var(--green); }
+
+  /* ===== EXPANDED DETAIL ===== */
+  .client-detail {
+    display: none;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+  .client-card.open .client-detail { display: block; }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .detail-section h3 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--text-lighter); font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .detail-row {
+    display: flex; justify-content: space-between; padding: 6px 0;
+    font-size: 13.5px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-row .key { color: var(--text-light); }
+  .detail-row .val { color: var(--text); font-weight: 500; }
+
+  /* form timeline */
+  .timeline { display: flex; flex-direction: column; gap: 6px; }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto 90px;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+  }
+  .tl-row.done { background: var(--green-light); }
+  .tl-row.late { background: var(--amber-light); }
+  .tl-row.missing { background: var(--red-light); border: 1px dashed var(--red); }
+  .tl-formid {
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 11.5px; font-weight: 600; color: var(--text);
+  }
+  .tl-name { color: var(--text); }
+  .tl-action {
+    font-size: 12px; padding: 4px 10px; border-radius: 4px;
+    text-decoration: none; font-weight: 600;
+    background: var(--white); color: var(--green-dark);
+    border: 1px solid var(--border);
+  }
+  .tl-action:hover { border-color: var(--green); }
+  .tl-date { font-size: 12px; color: var(--text-light); text-align: right; }
+
+  /* actions row */
+  .client-actions {
+    display: flex; gap: 8px; margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    padding: 8px 16px; border-radius: var(--radius-sm);
+    cursor: pointer; border: 1.5px solid var(--border);
+    background: var(--white); color: var(--text);
+    transition: all 0.18s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn:hover { border-color: var(--green); color: var(--green); }
+  .btn-primary {
+    background: var(--green); color: var(--white); border-color: var(--green);
+  }
+  .btn-primary:hover { background: var(--green-dark); border-color: var(--green-dark); color: var(--white); }
+  .btn-ghost {
+    background: transparent; border-color: transparent; color: var(--text-light);
+  }
+  .btn-ghost:hover { background: var(--bg); color: var(--text); }
+
+  /* ===== EMPTY ===== */
+  .empty {
+    background: var(--white); border-radius: var(--radius);
+    padding: 60px 24px; text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .empty .emoji { font-size: 36px; margin-bottom: 8px; }
+  .empty .title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .empty .sub { font-size: 14px; color: var(--text-light); }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: #1a1a1a; color: white;
+    padding: 11px 18px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500;
+    opacity: 0; pointer-events: none;
+    transition: all 0.2s;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 960px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .client-row {
+      grid-template-columns: 48px 1fr auto;
+      grid-template-rows: auto auto auto;
+      gap: 12px;
+    }
+    .client-row .client-payer,
+    .client-row .progress-wrap { grid-column: 1 / -1; }
+    .detail-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .header { padding: 20px 16px; }
+    .header-text h1 { font-size: 22px; }
+    .main { padding: 0 16px; }
+    .stats-bar { padding: 0 16px; }
+    .header-actions { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <img src="images/logo-symbol.png" alt="VitalTouch" class="header-logo" onerror="this.style.display='none';">
+    <div class="header-text">
+      <h1>Client Tracker</h1>
+      <p>Live view of every client, every form, every audit-readiness check</p>
+    </div>
+    <div class="header-actions">
+      <a href="index.html" class="header-link">← Forms Guide</a>
+      <a href="triage.html" class="header-link">Triage Inbox</a>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num blue" id="statTotal">0</div><div class="stat-label">Active Clients</div></div>
+    <div class="stat"><div class="stat-num" id="statReady">0</div><div class="stat-label">Audit-Ready</div></div>
+    <div class="stat"><div class="stat-num amber" id="statAttn">0</div><div class="stat-label">Needs Attention</div></div>
+    <div class="stat"><div class="stat-num red" id="statOverdue">0</div><div class="stat-label">Overdue Forms</div></div>
+    <div class="stat"><div class="stat-num" id="statThisWeek">0</div><div class="stat-label">Forms This Week</div></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="toolbar">
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-pop="all">All <span class="tab-count" id="tcAll">0</span></button>
+      <button class="tab" data-pop="senior_pp">Senior · Private Pay <span class="tab-count" id="tcSPP">0</span></button>
+      <button class="tab" data-pop="disabilities_pp">Disabilities · Private Pay <span class="tab-count" id="tcDPP">0</span></button>
+      <button class="tab" data-pop="drs_hsp">DRS-HSP <span class="tab-count" id="tcDRS">0</span></button>
+      <button class="tab" data-pop="idoa_ccp">IDoA-CCP <span class="tab-count" id="tcCCP">0</span></button>
+      <button class="tab" data-pop="discharged">Discharged <span class="tab-count" id="tcDis">0</span></button>
+    </div>
+    <div class="search">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search by name or client ID…">
+    </div>
+  </div>
+
+  <div id="list"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ========================================================
+  // MOCK DATA — replace with Graph fetch from VT_Client_Roster
+  // ========================================================
+  const REQUIRED_FORMS = ['C.11', 'C.12', 'C.21', 'C.22', 'C.23', 'C.24'];
+  const FORM_NAMES = {
+    'C.11': 'Client Intake',
+    'C.12': 'Service Agreement',
+    'C.21': 'Assessment Packet',
+    'C.22': 'Home Risk Assessment',
+    'C.23': 'Physical Health Assessment',
+    'C.24': 'Plan of Care',
+    'C.41': 'Monthly Contact Log',
+    'C.42': 'Semi-Annual Visit',
+    'C.44': 'Incident Report',
+  };
+
+  const CLIENTS = [
+    { id: 'VT-2026-014', name: 'J. Smith', fullName: 'John Smith', dob: '1955-03-12',
+      population: 'senior_pp', popLabel: 'Senior · Private Pay', payer: 'Self-Pay',
+      status: 'active', intakeDate: '2026-04-01', lastActivity: '2026-04-25T14:23:00Z',
+      forms: { 'C.11': '2026-04-01', 'C.12': '2026-04-03', 'C.21': '2026-04-05', 'C.22': '2026-04-05', 'C.23': '2026-04-08', 'C.24': '2026-04-10' },
+      lastMonthly: '2026-04-15', incidentsYTD: 0,
+      address: '15014 South Park Ave, Dolton, IL', phone: '(708) 555-0142', supervisor: 'Sarah K.' },
+
+    { id: 'VT-2026-007', name: 'M. Davis', fullName: 'Mary Davis', dob: '1942-07-08',
+      population: 'idoa_ccp', popLabel: 'IDoA-CCP', payer: 'Community Care Program (IDoA)',
+      status: 'active', intakeDate: '2026-02-12', lastActivity: '2026-04-25T13:01:00Z',
+      forms: { 'C.11': '2026-02-12', 'C.12': '2026-02-14', 'C.21': '2026-02-18', 'C.22': '2026-02-18', 'C.23': '2026-02-22', 'C.24': '2026-02-25' },
+      lastMonthly: '2026-04-25', lastSemiAnnual: '2026-03-10', incidentsYTD: 0,
+      address: '17240 Lincoln Pkwy, South Holland, IL', phone: '(708) 555-0207', supervisor: 'Maria T.' },
+
+    { id: 'VT-2025-001', name: 'W. Lacey', fullName: 'Wayne Lacey', dob: '1949-02-15',
+      population: 'idoa_ccp', popLabel: 'IDoA-CCP', payer: 'Community Care Program (IDoA)',
+      status: 'needs-attn', intakeDate: '2025-08-15', lastActivity: '2026-04-25T09:12:00Z',
+      forms: { 'C.11': '2025-08-15', 'C.12': '2025-08-16', 'C.21': '2025-08-20', 'C.22': '2025-08-20', 'C.23': '2025-08-23', 'C.24': '2025-08-25' },
+      lastMonthly: '2026-03-18', lastSemiAnnual: '2025-09-22', incidentsYTD: 1,
+      address: '14723 Halsted St, Harvey, IL', phone: '(708) 555-0301', supervisor: 'Maria T.',
+      flags: ['Monthly log 38 days late', 'Annual review overdue 33 days', '1 open incident'] },
+
+    { id: 'VT-2026-019', name: 'R. Williams', fullName: 'Robert Williams', dob: '1968-11-22',
+      population: 'drs_hsp', popLabel: 'DRS-HSP', payer: 'DRS Home Services Program (IDHS)',
+      status: 'intake', intakeDate: '2026-04-25', lastActivity: '2026-04-25T11:45:00Z',
+      forms: { 'C.11': '2026-04-25' },
+      flags: ['Awaiting Service Agreement (C.12)', 'Awaiting full assessment'] },
+
+    { id: 'VT-2026-022', name: 'L. Garcia', fullName: 'Luis Garcia', dob: '1972-05-09',
+      population: 'disabilities_pp', popLabel: 'Disabilities · Private Pay', payer: 'Self-Pay',
+      status: 'assessment', intakeDate: '2026-04-12', lastActivity: '2026-04-22T10:15:00Z',
+      forms: { 'C.11': '2026-04-12', 'C.12': '2026-04-14', 'C.21': '2026-04-18' },
+      flags: ['C.22 Home Risk pending', 'C.23 Physical Health pending'] },
+
+    { id: 'VT-2025-004', name: 'B. Anderson', fullName: 'Barbara Anderson', dob: '1948-09-30',
+      population: 'senior_pp', popLabel: 'Senior · Private Pay', payer: 'Long-Term Care Insurance',
+      status: 'active', intakeDate: '2025-11-03', lastActivity: '2026-04-22T16:00:00Z',
+      forms: { 'C.11': '2025-11-03', 'C.12': '2025-11-05', 'C.21': '2025-11-08', 'C.22': '2025-11-08', 'C.23': '2025-11-12', 'C.24': '2025-11-15' },
+      lastMonthly: '2026-04-22', lastSemiAnnual: '2026-02-08', incidentsYTD: 0,
+      address: '2401 W 167th St, Markham, IL', phone: '(708) 555-0455', supervisor: 'Sarah K.' },
+
+    { id: 'VT-2026-011', name: 'D. Patel', fullName: 'Deepak Patel', dob: '1980-06-18',
+      population: 'drs_hsp', popLabel: 'DRS-HSP', payer: 'Aetna Better Health (Medicaid Managed Care)',
+      status: 'active', intakeDate: '2026-03-04', lastActivity: '2026-04-20T09:30:00Z',
+      forms: { 'C.11': '2026-03-04', 'C.12': '2026-03-06', 'C.21': '2026-03-10', 'C.22': '2026-03-10', 'C.23': '2026-03-12', 'C.24': '2026-03-15' },
+      lastMonthly: '2026-04-20', incidentsYTD: 0,
+      address: '801 W 175th St, Homewood, IL', phone: '(708) 555-0521', supervisor: 'Sarah K.' },
+
+    { id: 'VT-2025-009', name: 'E. Thompson', fullName: 'Eleanor Thompson', dob: '1944-12-04',
+      population: 'idoa_ccp', popLabel: 'IDoA-CCP', payer: 'Community Care Program (IDoA)',
+      status: 'discharged', intakeDate: '2025-06-20', dischargeDate: '2026-04-15',
+      lastActivity: '2026-04-15T14:00:00Z',
+      forms: { 'C.11': '2025-06-20', 'C.12': '2025-06-22', 'C.21': '2025-06-25', 'C.22': '2025-06-25', 'C.23': '2025-06-28', 'C.24': '2025-07-02', 'C.43': '2026-04-15' },
+      lastMonthly: '2026-04-08', incidentsYTD: 0,
+      address: '12330 S Western Ave, Blue Island, IL', phone: '(708) 555-0612' },
+  ];
+
+  // ========================================================
+  // STATE
+  // ========================================================
+  let filter = 'all';
+  let searchTerm = '';
+  let openId = null;
+
+  // ========================================================
+  // RENDER
+  // ========================================================
+  function isOverdue(dateStr, daysAllowed) {
+    if (!dateStr) return false;
+    const d = new Date(dateStr);
+    const ageDays = (Date.now() - d.getTime()) / (1000 * 60 * 60 * 24);
+    return ageDays > daysAllowed;
+  }
+
+  function progressDots(client) {
+    return REQUIRED_FORMS.map(f => {
+      const submitted = client.forms[f];
+      const cls = submitted ? 'done' : 'missing';
+      const title = submitted ? `${f} ${FORM_NAMES[f]} — ${submitted}` : `${f} ${FORM_NAMES[f]} — missing`;
+      return `<div class="dot ${cls}" title="${title}"></div>`;
+    }).join('');
+  }
+
+  function progressSummary(client) {
+    const filed = REQUIRED_FORMS.filter(f => client.forms[f]).length;
+    const total = REQUIRED_FORMS.length;
+    let extra = '';
+    if (client.lastMonthly) {
+      const overdue = isOverdue(client.lastMonthly, 30);
+      extra = ' · ' + (overdue
+        ? `<b style="color:var(--amber);">Monthly log ${Math.floor((Date.now() - new Date(client.lastMonthly)) / 86400000)}d</b>`
+        : `Last log <b>${formatDateRel(client.lastMonthly)}</b>`);
+    }
+    return `<b>${filed}/${total}</b> intake forms${extra}`;
+  }
+
+  function statusPillHtml(c) {
+    if (c.status === 'discharged') return `<div class="status-pill discharged">Discharged</div>`;
+    if (c.status === 'needs-attn')  return `<div class="status-pill needs-attn">Needs Attention</div>`;
+    if (c.status === 'intake')      return `<div class="status-pill intake">Intake</div>`;
+    if (c.status === 'assessment')  return `<div class="status-pill assessment">Assessment</div>`;
+    return `<div class="status-pill audit-ready">Audit-Ready</div>`;
+  }
+
+  function avatar(name) {
+    const parts = name.replace('.', '').split(' ');
+    const initials = parts.length >= 2 ? parts[0][0] + parts[1][0] : parts[0].slice(0, 2);
+    return initials.toUpperCase();
+  }
+
+  function formatDateRel(iso) {
+    const d = new Date(iso);
+    const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+    if (days === 0) return 'today';
+    if (days === 1) return 'yesterday';
+    if (days < 7)   return days + 'd ago';
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function clientCardHtml(c) {
+    const isOpen = c.id === openId;
+    const popClass = `pop-${c.population}`;
+    return `
+      <div class="client-card ${popClass}${isOpen ? ' open' : ''}" data-id="${c.id}">
+        <div class="client-row">
+          <div class="avatar">${avatar(c.name)}</div>
+          <div>
+            <div class="client-name">${c.name}</div>
+            <div class="client-id">${c.id} · DOB ${c.dob}</div>
+          </div>
+          <div class="client-payer">
+            <span class="pop-tag">${c.popLabel}</span>
+            <div>${c.payer}</div>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress">${progressDots(c)}</div>
+            <div class="progress-summary">${progressSummary(c)}</div>
+          </div>
+          ${statusPillHtml(c)}
+          <div class="chev">›</div>
+        </div>
+        <div class="client-detail">${detailHtml(c)}</div>
+      </div>`;
+  }
+
+  function detailHtml(c) {
+    const formRows = Object.keys(FORM_NAMES).map(f => {
+      const submitted = c.forms[f];
+      let cls = '';
+      let dateStr = '—';
+      let action = `<a href="${formFile(f)}" target="_blank" class="tl-action">Submit →</a>`;
+      if (submitted) {
+        cls = 'done';
+        dateStr = submitted;
+        action = `<a href="#" onclick="event.preventDefault(); toast('Open PDF — wired in next phase')" class="tl-action">View →</a>`;
+      } else if (REQUIRED_FORMS.includes(f) && c.status !== 'intake') {
+        cls = 'missing';
+      }
+      return `
+        <div class="tl-row ${cls}">
+          <div class="tl-formid">${f}</div>
+          <div class="tl-name">${FORM_NAMES[f]}</div>
+          ${action}
+          <div class="tl-date">${dateStr}</div>
+        </div>`;
+    }).join('');
+
+    const flags = c.flags ? `
+      <div class="detail-section">
+        <h3>Action Items</h3>
+        ${c.flags.map(f => `<div class="detail-row"><span class="key">⚠</span><span class="val">${f}</span></div>`).join('')}
+      </div>` : '';
+
+    return `
+      <div class="detail-grid">
+        <div>
+          <div class="detail-section">
+            <h3>Client Info</h3>
+            <div class="detail-row"><span class="key">Full name</span><span class="val">${c.fullName}</span></div>
+            <div class="detail-row"><span class="key">DOB</span><span class="val">${c.dob}</span></div>
+            ${c.address ? `<div class="detail-row"><span class="key">Address</span><span class="val">${c.address}</span></div>` : ''}
+            ${c.phone   ? `<div class="detail-row"><span class="key">Phone</span><span class="val">${c.phone}</span></div>` : ''}
+            ${c.supervisor ? `<div class="detail-row"><span class="key">Supervisor</span><span class="val">${c.supervisor}</span></div>` : ''}
+            <div class="detail-row"><span class="key">Intake date</span><span class="val">${c.intakeDate}</span></div>
+            ${c.dischargeDate ? `<div class="detail-row"><span class="key">Discharged</span><span class="val">${c.dischargeDate}</span></div>` : ''}
+            ${c.lastSemiAnnual ? `<div class="detail-row"><span class="key">Last semi-annual</span><span class="val">${c.lastSemiAnnual}</span></div>` : ''}
+            ${c.incidentsYTD !== undefined ? `<div class="detail-row"><span class="key">Incidents YTD</span><span class="val">${c.incidentsYTD}</span></div>` : ''}
+          </div>
+          ${flags}
+        </div>
+        <div>
+          <div class="detail-section">
+            <h3>Form Timeline</h3>
+            <div class="timeline">${formRows}</div>
+          </div>
+        </div>
+      </div>
+      <div class="client-actions">
+        <button class="btn btn-primary" onclick="event.stopPropagation(); openFolder('${c.id}')">Open Client Folder ↗</button>
+        <button class="btn" onclick="event.stopPropagation(); addNote('${c.id}')">Add Note</button>
+        <button class="btn" onclick="event.stopPropagation(); markComplete('${c.id}')">Mark Audit-Ready</button>
+        <button class="btn btn-ghost" onclick="event.stopPropagation(); discharge('${c.id}')">Discharge…</button>
+      </div>`;
+  }
+
+  function formFile(formId) {
+    const map = {
+      'C.11': 'C11_Client_Intake_Form.html',
+      'C.12': 'C12_Client_Service_Agreement.html',
+      'C.21': 'C21_Client_Assessment_Packet.html',
+      'C.22': 'C22_Home_Risk_Assessment.html',
+      'C.23': 'C23_Physical_Health_Assessment.html',
+      'C.24': 'C24_Plan_of_Care.html',
+      'C.41': 'C41_Client_Monthly_Contact_Log.html',
+      'C.42': 'C42_Client_Semi_Annual_Visit.html',
+      'C.44': 'C44_Incident_Report_Form.html',
+    };
+    return map[formId] || '#';
+  }
+
+  function render() {
+    let list = CLIENTS.slice();
+
+    if (filter === 'discharged') {
+      list = list.filter(c => c.status === 'discharged');
+    } else if (filter !== 'all') {
+      list = list.filter(c => c.population === filter && c.status !== 'discharged');
+    } else {
+      list = list.filter(c => c.status !== 'discharged');
+    }
+
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      list = list.filter(c =>
+        c.name.toLowerCase().includes(q) ||
+        c.id.toLowerCase().includes(q) ||
+        (c.fullName && c.fullName.toLowerCase().includes(q))
+      );
+    }
+
+    // Stats
+    const active = CLIENTS.filter(c => c.status !== 'discharged');
+    const ready = active.filter(c => c.status === 'active' || c.status === 'audit-ready').length;
+    const attn = active.filter(c => c.status === 'needs-attn' || c.status === 'intake' || c.status === 'assessment').length;
+    const overdue = active.reduce((sum, c) => {
+      let n = 0;
+      if (c.lastMonthly && isOverdue(c.lastMonthly, 30)) n++;
+      if (c.flags) n += c.flags.length;
+      return sum + n;
+    }, 0);
+    const thisWeek = CLIENTS.reduce((s, c) => {
+      const recent = Object.values(c.forms).filter(d => {
+        const ageDays = (Date.now() - new Date(d).getTime()) / 86400000;
+        return ageDays >= 0 && ageDays <= 7;
+      });
+      return s + recent.length;
+    }, 0);
+
+    document.getElementById('statTotal').textContent = active.length;
+    document.getElementById('statReady').textContent = ready;
+    document.getElementById('statAttn').textContent = attn;
+    document.getElementById('statOverdue').textContent = overdue;
+    document.getElementById('statThisWeek').textContent = thisWeek;
+
+    // Tab counts
+    document.getElementById('tcAll').textContent = active.length;
+    document.getElementById('tcSPP').textContent = active.filter(c => c.population === 'senior_pp').length;
+    document.getElementById('tcDPP').textContent = active.filter(c => c.population === 'disabilities_pp').length;
+    document.getElementById('tcDRS').textContent = active.filter(c => c.population === 'drs_hsp').length;
+    document.getElementById('tcCCP').textContent = active.filter(c => c.population === 'idoa_ccp').length;
+    document.getElementById('tcDis').textContent = CLIENTS.filter(c => c.status === 'discharged').length;
+
+    // List
+    const listEl = document.getElementById('list');
+    if (list.length === 0) {
+      listEl.innerHTML = `
+        <div class="empty">
+          <div class="emoji">🔍</div>
+          <div class="title">No clients match</div>
+          <div class="sub">${searchTerm ? `No results for "${searchTerm}".` : 'Try a different filter.'}</div>
+        </div>`;
+      return;
+    }
+
+    listEl.innerHTML = `<div class="clients">${list.map(clientCardHtml).join('')}</div>`;
+
+    // Bind click handlers (only on row, not on action buttons)
+    listEl.querySelectorAll('.client-card').forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (e.target.closest('.btn') || e.target.closest('.tl-action')) return;
+        toggle(el.dataset.id);
+      });
+    });
+  }
+
+  function toggle(id) {
+    openId = (openId === id) ? null : id;
+    render();
+  }
+
+  function setFilter(p) {
+    filter = p;
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.pop === p));
+    render();
+  }
+
+  // ========================================================
+  // ACTIONS (placeholder)
+  // ========================================================
+  function openFolder(id) { toast(`Open SharePoint folder for ${id} — Graph link to be wired`); }
+  function addNote(id) { toast(`Add note for ${id} — wiring later`); }
+  function markComplete(id) { toast(`${id} marked audit-ready`); }
+  function discharge(id) { toast(`Discharge wizard for ${id} — opens C.43`); }
+
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // ========================================================
+  // INIT
+  // ========================================================
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => setFilter(t.dataset.pop));
+  });
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    searchTerm = e.target.value;
+    render();
+  });
+  render();
+</script>
+</body>
+</html>
