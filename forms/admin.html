@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitalTouch Admin Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #16A34A; --green-dark: #15803D; --green-deeper: #166534;
+    --green-light: #DCFCE7; --green-glow: rgba(22,163,74,0.12);
+    --text: #1E293B; --text-light: #4a5568; --text-lighter: #6b7280;
+    --white: #FFFFFF; --border: #E2E8F0; --bg: #F8FAFC;
+    --blue: #3B82F6; --blue-light: #DBEAFE;
+    --orange: #F97316; --orange-light: #FFF7ED;
+    --purple: #8B5CF6; --purple-light: #EDE9FE;
+    --red: #EF4444; --red-light: #FEF2F2;
+    --teal: #14B8A6; --teal-light: #F0FDFA;
+    --amber: #F59E0B; --amber-light: #FEF3C7;
+    --radius: 12px; --radius-sm: 8px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .header { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #f0fdf4 100%); border-bottom: 3px solid var(--green); padding: 32px 40px; }
+  .header-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
+  .header-logo { height: 52px; }
+  .header-text h1 { font-size: 32px; font-weight: 800; color: #1a1a1a; }
+  .header-text p { font-size: 15px; color: var(--text-light); margin-top: 4px; }
+  .header-actions { margin-left: auto; display: flex; gap: 10px; }
+  .header-link {
+    font-size: 14px; font-weight: 600; color: var(--green-dark);
+    text-decoration: none; padding: 8px 18px; border-radius: 6px;
+    border: 1.5px solid var(--green-dark);
+  }
+  .header-link:hover { background: var(--green-dark); color: var(--white); }
+
+  .stats-bar { max-width: 1280px; margin: -20px auto 0; padding: 0 24px; position: relative; z-index: 2; }
+  .stats-row {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow-lg); padding: 20px 32px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; color: var(--green); line-height: 1.1; }
+  .stat-num.amber { color: var(--amber); } .stat-num.red { color: var(--red); }
+  .stat-num.blue { color: var(--blue); } .stat-num.purple { color: var(--purple); }
+  .stat-label { font-size: 12px; color: var(--text-lighter); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-top: 4px; }
+
+  .main { max-width: 1280px; margin: 32px auto; padding: 0 24px; }
+
+  .toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tab {
+    padding: 10px 18px; border-radius: 50px; font-size: 13.5px; font-weight: 600;
+    cursor: pointer; border: 1.5px solid var(--border); background: var(--white);
+    color: var(--text-light); transition: all 0.18s; user-select: none; font-family: inherit;
+  }
+  .tab:hover { border-color: var(--green); color: var(--green); }
+  .tab.active { background: var(--green); color: var(--white); border-color: var(--green); }
+  .tab-count { display: inline-block; background: var(--bg); padding: 1px 8px; border-radius: 20px; font-size: 11.5px; margin-left: 6px; color: var(--text-lighter); }
+  .tab.active .tab-count { background: rgba(255,255,255,0.3); color: var(--white); }
+
+  .stage-label { font-size: 12px; font-weight: 700; color: var(--text-lighter); text-transform: uppercase; letter-spacing: 0.6px; padding: 6px 0; flex-shrink: 0; }
+  .stage-tab { padding: 7px 14px; font-size: 12.5px; }
+  .stage-tab.active { background: var(--text); border-color: var(--text); color: var(--white); }
+  .stage-tab.active .tab-count { background: rgba(255,255,255,0.25); color: var(--white); }
+
+  .search { flex: 1; min-width: 240px; max-width: 360px; margin-left: auto; position: relative; }
+  .search input {
+    width: 100%; padding: 11px 14px 11px 40px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 14px; font-family: inherit; background: var(--white); transition: all 0.18s;
+  }
+  .search input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-glow); }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-lighter); pointer-events: none; }
+
+  /* CATEGORY ICON COLORS */
+  .item-list { display: grid; gap: 14px; }
+  .item-card {
+    background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 22px 26px; border-left: 4px solid var(--green);
+    transition: box-shadow 0.18s, transform 0.18s; cursor: pointer;
+  }
+  .item-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+  .item-card.cat-licensing  { border-left-color: var(--blue); }
+  .item-card.cat-realestate { border-left-color: var(--orange); }
+  .item-card.cat-insurance  { border-left-color: var(--purple); }
+  .item-card.cat-financial  { border-left-color: var(--teal); }
+  .item-card.cat-strategic  { border-left-color: var(--green); }
+  .item-card.overdue        { border-left-color: var(--red); background: linear-gradient(to right, #FEF2F230, var(--white) 8%); }
+
+  .item-row {
+    display: grid;
+    grid-template-columns: 56px 2fr 1.6fr 140px 110px 28px;
+    align-items: center; gap: 18px;
+  }
+  .icon-tile {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700;
+    background: var(--bg);
+  }
+  .cat-licensing .icon-tile  { background: var(--blue-light);   color: var(--blue); }
+  .cat-realestate .icon-tile { background: var(--orange-light); color: var(--orange); }
+  .cat-insurance .icon-tile  { background: var(--purple-light); color: var(--purple); }
+  .cat-financial .icon-tile  { background: var(--teal-light);   color: var(--teal); }
+  .cat-strategic .icon-tile  { background: var(--green-light);  color: var(--green-deeper); }
+
+  .item-name { font-size: 16px; font-weight: 700; color: #1a1a1a; line-height: 1.3; }
+  .item-meta { font-size: 12.5px; color: var(--text-light); margin-top: 3px; }
+  .item-meta .cat-tag {
+    display: inline-block;
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;
+    padding: 2px 8px; border-radius: 20px; margin-right: 6px;
+  }
+  .cat-licensing .cat-tag  { background: var(--blue-light);   color: var(--blue); }
+  .cat-realestate .cat-tag { background: var(--orange-light); color: var(--orange); }
+  .cat-insurance .cat-tag  { background: var(--purple-light); color: var(--purple); }
+  .cat-financial .cat-tag  { background: var(--teal-light);   color: var(--teal); }
+  .cat-strategic .cat-tag  { background: var(--green-light);  color: var(--green-deeper); }
+
+  .last-update {
+    font-size: 13px; color: var(--text-light);
+  }
+  .last-update b { color: var(--text); font-weight: 600; }
+  .last-update .preview { font-size: 12.5px; color: var(--text-light); margin-top: 3px; line-height: 1.4; max-height: 38px; overflow: hidden; text-overflow: ellipsis; }
+
+  .deadline {
+    text-align: center;
+  }
+  .deadline-label {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-lighter);
+  }
+  .deadline-val {
+    font-size: 16px; font-weight: 700; color: var(--text); margin-top: 3px;
+  }
+  .deadline-val.overdue { color: var(--red); }
+  .deadline-val.soon    { color: var(--amber); }
+  .deadline-val.ok      { color: var(--green-deeper); }
+  .deadline-val.none    { color: var(--text-lighter); font-weight: 500; font-size: 13px; }
+
+  .status-pill {
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 4px 10px; border-radius: 20px;
+    text-align: center; white-space: nowrap;
+  }
+  .status-pill.pending      { background: var(--blue-light);  color: var(--blue); }
+  .status-pill.in-progress  { background: var(--purple-light); color: var(--purple); }
+  .status-pill.awaiting     { background: var(--amber-light); color: #92400E; }
+  .status-pill.at-risk      { background: var(--red-light);   color: var(--red); }
+  .status-pill.completed    { background: var(--green-light); color: var(--green-deeper); }
+  .status-pill.recurring    { background: var(--bg);          color: var(--text-light); }
+
+  .chev { color: var(--text-lighter); font-size: 18px; transition: transform 0.18s; }
+  .item-card.open .chev { transform: rotate(90deg); color: var(--green); }
+
+  /* expanded detail */
+  .item-detail { display: none; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--border); }
+  .item-card.open .item-detail { display: block; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 32px; }
+  .detail-section h3 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--text-lighter); font-weight: 700; margin-bottom: 12px;
+  }
+  .detail-row {
+    display: flex; justify-content: space-between; padding: 6px 0;
+    font-size: 13.5px; border-bottom: 1px dashed var(--border);
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-row .key { color: var(--text-light); }
+  .detail-row .val { color: var(--text); font-weight: 500; text-align: right; }
+  .detail-row .val a { color: var(--green-dark); text-decoration: none; }
+
+  .action-list { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .action-item {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--bg); padding: 8px 12px; border-radius: 6px;
+    font-size: 13.5px;
+  }
+  .action-item.done { background: var(--green-light); color: var(--green-deeper); text-decoration: line-through; opacity: 0.7; }
+  .action-item .checkbox {
+    width: 16px; height: 16px; border-radius: 3px;
+    border: 1.5px solid var(--border); display: inline-block; flex-shrink: 0;
+  }
+  .action-item.done .checkbox { background: var(--green); border-color: var(--green); }
+
+  /* updates timeline */
+  .updates { display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; padding-right: 4px; }
+  .update-entry {
+    display: grid; grid-template-columns: 24px 1fr; gap: 12px;
+    padding: 10px 0; border-bottom: 1px dashed var(--border);
+  }
+  .update-entry:last-child { border-bottom: none; }
+  .update-source {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--bg); display: flex; align-items: center; justify-content: center;
+    font-size: 12px; flex-shrink: 0;
+  }
+  .update-source.email   { background: var(--blue-light);   color: var(--blue); }
+  .update-source.phone   { background: var(--green-light);  color: var(--green); }
+  .update-source.event   { background: var(--purple-light); color: var(--purple); }
+  .update-source.note    { background: var(--bg); color: var(--text-light); }
+  .update-meta {
+    font-size: 11.5px; color: var(--text-lighter);
+    display: flex; gap: 8px; align-items: center;
+  }
+  .update-meta b { color: var(--text); font-weight: 600; }
+  .update-content {
+    font-size: 13.5px; color: var(--text); margin-top: 4px;
+    background: var(--bg); padding: 10px 14px; border-radius: var(--radius-sm);
+    line-height: 1.5; white-space: pre-wrap;
+  }
+
+  .actions-row {
+    display: flex; gap: 8px; margin-top: 18px;
+    padding-top: 18px; border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    padding: 8px 16px; border-radius: var(--radius-sm);
+    cursor: pointer; border: 1.5px solid var(--border);
+    background: var(--white); color: var(--text); transition: all 0.18s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn:hover { border-color: var(--green); color: var(--green); }
+  .btn-primary { background: var(--green); color: var(--white); border-color: var(--green); }
+  .btn-primary:hover { background: var(--green-dark); border-color: var(--green-dark); color: var(--white); }
+  .btn-ghost { background: transparent; border-color: transparent; color: var(--text-light); }
+  .btn-ghost:hover { background: var(--bg); color: var(--text); }
+
+  /* Verification queue */
+  .verify-section {
+    background: #FEF9E7;
+    border: 1.5px solid #F4D03F;
+    border-radius: var(--radius);
+    padding: 16px 22px;
+    margin-bottom: 24px;
+  }
+  .verify-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .verify-head h3 {
+    font-size: 13px; font-weight: 700;
+    color: #7A6700; text-transform: uppercase; letter-spacing: 0.6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .verify-head .clear-all {
+    font-size: 12px; color: #7A6700;
+    background: none; border: none; cursor: pointer;
+    text-decoration: underline; font-family: inherit;
+  }
+  .verify-row {
+    display: grid; grid-template-columns: 24px 1fr auto auto; gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px dashed #E8C941;
+    font-size: 13.5px;
+  }
+  .verify-row:first-of-type { border-top: none; }
+  .verify-checkbox {
+    width: 20px; height: 20px; border-radius: 4px;
+    border: 1.5px solid #C49A00; background: var(--white);
+    cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--green-deeper);
+    font-weight: 700;
+  }
+  .verify-checkbox:hover { border-color: var(--green); }
+  .verify-checkbox.done { background: var(--green); border-color: var(--green); color: white; }
+  .verify-text { color: var(--text); line-height: 1.4; }
+  .verify-text b { color: #1a1a1a; }
+  .verify-text code {
+    background: var(--white); padding: 1px 6px; border-radius: 3px;
+    font-family: 'JetBrains Mono', Consolas, monospace; font-size: 12px;
+    border: 1px solid #E8C941;
+  }
+  .verify-link {
+    font-size: 12px; font-weight: 600;
+    color: var(--green-dark); text-decoration: none;
+    padding: 5px 10px; border-radius: 4px;
+    background: var(--white); border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .verify-link:hover { border-color: var(--green); }
+  .verify-time { font-size: 11.5px; color: var(--text-lighter); white-space: nowrap; }
+
+  /* Inline add forms in detail */
+  .inline-add { display: flex; gap: 6px; margin-top: 8px; }
+  .inline-add input {
+    flex: 1; padding: 6px 10px; font-size: 13px; font-family: inherit;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--white);
+  }
+  .inline-add input:focus { outline: none; border-color: var(--green); }
+  .inline-add .btn-mini {
+    padding: 6px 12px; font-size: 12px; font-weight: 600;
+    background: var(--green); color: white; border: none;
+    border-radius: var(--radius-sm); cursor: pointer; font-family: inherit;
+  }
+  .inline-add .btn-mini:hover { background: var(--green-dark); }
+
+  /* Add-update modal */
+  .modal-bg { position: fixed; inset: 0; background: rgba(15,17,21,0.45); z-index: 200; display: none; align-items: center; justify-content: center; }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--white); border-radius: var(--radius);
+    padding: 28px; width: 92%; max-width: 600px;
+    box-shadow: var(--shadow-lg);
+  }
+  .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .modal-sub { font-size: 13px; color: var(--text-light); margin-bottom: 18px; }
+  .modal label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; margin-top: 14px; }
+  .modal label:first-of-type { margin-top: 0; }
+  .modal input, .modal textarea, .modal select {
+    width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;
+    background: var(--white); resize: vertical;
+  }
+  .modal input:focus, .modal textarea:focus, .modal select:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-glow); }
+  .modal textarea { min-height: 120px; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+
+  .empty {
+    background: var(--white); border-radius: var(--radius);
+    padding: 60px 24px; text-align: center; box-shadow: var(--shadow);
+  }
+  .empty .emoji { font-size: 36px; margin-bottom: 8px; }
+  .empty .title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .empty .sub { font-size: 14px; color: var(--text-light); }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: #1a1a1a; color: white;
+    padding: 11px 18px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; opacity: 0;
+    pointer-events: none; transition: all 0.2s; z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 960px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .item-row {
+      grid-template-columns: 48px 1fr auto;
+      grid-template-rows: auto auto auto auto; gap: 12px;
+    }
+    .item-row .last-update,
+    .item-row .deadline { grid-column: 1 / -1; text-align: left; }
+    .detail-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <img src="images/logo-symbol.png" alt="VitalTouch" class="header-logo" onerror="this.style.display='none';">
+    <div class="header-text">
+      <h1>Admin Tracker</h1>
+      <p>Renewals · contracts · email-driven business operations</p>
+    </div>
+    <div class="header-actions">
+      <a href="tracker.html" class="header-link">Clients</a>
+      <a href="staff.html" class="header-link">Staff</a>
+      <button class="header-link" style="background:var(--green-dark); color:white; cursor:pointer; font-family:inherit;" onclick="openAddItem()">+ New Item</button>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num blue" id="statTotal">0</div><div class="stat-label">Active Items</div></div>
+    <div class="stat"><div class="stat-num red" id="statOverdue">0</div><div class="stat-label">Overdue</div></div>
+    <div class="stat"><div class="stat-num amber" id="statSoon">0</div><div class="stat-label">Due ≤ 30 days</div></div>
+    <div class="stat"><div class="stat-num purple" id="statAwaiting">0</div><div class="stat-label">Awaiting Response</div></div>
+    <div class="stat"><div class="stat-num" id="statThisWeek">0</div><div class="stat-label">Updates This Week</div></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- VERIFICATION QUEUE — appears when there are unverified actions -->
+  <div class="verify-section" id="verifySection" style="display:none;">
+    <div class="verify-head">
+      <h3>⚠ Verify on SharePoint <span style="background:#fff;color:#7A6700;font-size:11px;padding:2px 8px;border-radius:10px;" id="verifyCount">0</span></h3>
+      <button class="clear-all" onclick="clearAllVerified()">Clear all checked</button>
+    </div>
+    <div id="verifyList"></div>
+  </div>
+
+  <div class="toolbar">
+    <div class="tabs" id="catTabs">
+      <button class="tab active" data-cat="all">All <span class="tab-count" id="tcAll">0</span></button>
+      <button class="tab" data-cat="licensing">Licensing & Regulatory <span class="tab-count" id="tcLic">0</span></button>
+      <button class="tab" data-cat="realestate">Real Estate <span class="tab-count" id="tcRE">0</span></button>
+      <button class="tab" data-cat="insurance">Insurance & Legal <span class="tab-count" id="tcIns">0</span></button>
+      <button class="tab" data-cat="financial">Financial <span class="tab-count" id="tcFin">0</span></button>
+      <button class="tab" data-cat="strategic">Strategic <span class="tab-count" id="tcStr">0</span></button>
+    </div>
+    <div class="search">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search items…">
+    </div>
+  </div>
+
+  <div class="toolbar" style="margin-top:-8px; margin-bottom:24px;">
+    <div class="stage-label">Status:</div>
+    <div class="tabs" id="statusTabs">
+      <button class="tab stage-tab active" data-status="all">Any <span class="tab-count" id="ssAll">0</span></button>
+      <button class="tab stage-tab" data-status="overdue">Overdue <span class="tab-count" id="ssOver">0</span></button>
+      <button class="tab stage-tab" data-status="awaiting">Awaiting <span class="tab-count" id="ssAwait">0</span></button>
+      <button class="tab stage-tab" data-status="in-progress">In progress <span class="tab-count" id="ssProg">0</span></button>
+      <button class="tab stage-tab" data-status="pending">Pending <span class="tab-count" id="ssPend">0</span></button>
+      <button class="tab stage-tab" data-status="completed">Completed <span class="tab-count" id="ssDone">0</span></button>
+    </div>
+  </div>
+
+  <div id="itemList"></div>
+</div>
+
+<!-- New Item Modal -->
+<div class="modal-bg" id="newItemModalBg" onclick="if(event.target===this) closeNewItemModal()">
+  <div class="modal">
+    <h2>New Admin Item</h2>
+    <div class="modal-sub">Track a new deadline, renewal, contract, or strategic initiative.</div>
+    <label>Name</label>
+    <input type="text" id="niName" placeholder="e.g. NPI Revalidation 2027">
+    <label>Category</label>
+    <select id="niCategory">
+      <option value="licensing">Licensing & Regulatory</option>
+      <option value="realestate">Real Estate</option>
+      <option value="insurance">Insurance & Legal</option>
+      <option value="financial">Financial</option>
+      <option value="strategic">Strategic</option>
+    </select>
+    <label>Status</label>
+    <select id="niStatus">
+      <option value="pending">Pending</option>
+      <option value="in-progress">In progress</option>
+      <option value="awaiting">Awaiting response</option>
+      <option value="recurring">Recurring</option>
+    </select>
+    <label>Icon (single emoji)</label>
+    <input type="text" id="niIcon" placeholder="📋" maxlength="3" value="📋">
+    <label>Reference / context</label>
+    <input type="text" id="niRef" placeholder="e.g. Application ID, contract number, brief context">
+    <label>Next action date (optional)</label>
+    <input type="date" id="niNextDate">
+    <label>Owner</label>
+    <input type="text" id="niOwner" value="Ifeanyi">
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeNewItemModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveNewItem()">Create Item</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Update Modal -->
+<div class="modal-bg" id="updateModalBg" onclick="if(event.target===this) closeUpdateModal()">
+  <div class="modal">
+    <h2 id="updateModalTitle">Add Update</h2>
+    <div class="modal-sub">Log an email, phone call, event, or internal note for this item.</div>
+    <label>Source</label>
+    <select id="updSource">
+      <option value="email">Email</option>
+      <option value="phone">Phone call</option>
+      <option value="event">Meeting / Event</option>
+      <option value="note">Internal note</option>
+    </select>
+    <label>From / Contact</label>
+    <input type="text" id="updFrom" placeholder="e.g. Rosie Dada (rosie.dada@illinois.gov)">
+    <label>Subject / Summary</label>
+    <input type="text" id="updSubject" placeholder="One-line summary">
+    <label>Content</label>
+    <textarea id="updContent" placeholder="Paste the email content, call notes, or update text…"></textarea>
+    <label>Set Next Action Date (optional)</label>
+    <input type="date" id="updNextDate">
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeUpdateModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveUpdate()">Save Update</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ========================================================
+  // MOCK DATA — replace with VT_Admin_Tracker SharePoint List
+  // ========================================================
+  const ITEMS = [
+    {
+      id: 'imp01', icon: '🏥',
+      name: 'IMPACT Medicaid Enrollment',
+      category: 'licensing',
+      status: 'awaiting',
+      owner: 'Ifeanyi',
+      nextDate: '2026-05-02',
+      appId: '20250716494433',
+      ref: 'NPI 1336951458',
+      links: [{ label: 'HFS IMPACT contact', url: 'https://hfs.illinois.gov/impact/contactimpact.html' }],
+      actions: [
+        { text: 'Send 5th status follow-up to IMPACT.HELP', done: false },
+        { text: 'Escalate to State Rep constituent services if no reply by May 2', done: false },
+        { text: 'Document call notes from each weekly check-in', done: true }
+      ],
+      updates: [
+        { source: 'email', from: 'Rosie Dada (HSP/IDHS)', subject: 'DRS HSP Vendor Onboarding Guidance', date: '2026-04-25T10:14:00Z',
+          content: 'Apologies for the delay. We had to revamp our onboarding process and have attached our new comprehensive DRS/HSP Vendor Onboarding guidance document. Please review and let us know if you would like to proceed with enrollment.' },
+        { source: 'email', from: 'Ifeanyi (sent)', subject: 'IMPACT Status Request — App ID 20250716494433', date: '2026-04-22T09:30:00Z',
+          content: 'Following up on Application ID 20250716494433 for VitalTouch Health Network Inc. Submitted July 17, 2025; in "Submitted" status for 9 months. Requesting status, assigned reviewer, and expected timeline.' },
+        { source: 'note', from: 'Ifeanyi', subject: 'Pattern flagged — 9th week without progress', date: '2026-04-15T08:00:00Z',
+          content: 'IMPACT.HELP not responding. Tried calling 1-877-782-5565 four times this week. Will escalate to legislator if next week no reply.' }
+      ]
+    },
+    {
+      id: 'idph01', icon: '📋',
+      name: 'IDPH Home Services Agency License',
+      category: 'licensing',
+      status: 'in-progress',
+      owner: 'Ifeanyi',
+      nextDate: '2026-10-04',
+      ref: 'License #6014218',
+      links: [{ label: 'IDPH portal', url: 'https://dph.illinois.gov' }],
+      actions: [
+        { text: 'Send change-of-address notification to IDPH (4 weeks overdue)', done: false },
+        { text: 'Review Part 245 amendment effective 1/30/2026', done: false },
+        { text: 'Renewal cycle begins 162 days from now', done: false }
+      ],
+      updates: [
+        { source: 'note', from: 'Regulatory Scan', subject: 'No new IDPH HHCS bulletins April 13–20', date: '2026-04-20T10:00:00Z',
+          content: 'Carry-forward: Part 245 amendment (50 Ill. Reg. 2147, effective 1/30/2026) policy manual review still due April 30.' }
+      ]
+    },
+    {
+      id: 'hsp01', icon: '🤝',
+      name: 'DRS HSP Vendor Onboarding',
+      category: 'licensing',
+      status: 'pending',
+      owner: 'Ifeanyi',
+      nextDate: '2026-05-05',
+      ref: 'Onboarding Step 1',
+      links: [],
+      actions: [
+        { text: 'Confirm intent to proceed (Step 2)', done: false },
+        { text: 'Review HSP Vendor Onboarding Guidance PDF', done: true }
+      ],
+      updates: [
+        { source: 'email', from: 'Rosie Dada (HSP Budget Manager)', subject: 'DRS/HSP Vendor Onboarding Guidance', date: '2026-04-25T10:14:00Z',
+          content: 'Please review this document in its entirety, as it is intended to provide a clear and thorough overview to support your interest and decision to become an approved HSP provider. After completing your review, please let us know if you would like to proceed with enrollment and we\'ll proceed to Step 2.' }
+      ]
+    },
+    {
+      id: 'ccp01', icon: '👵',
+      name: 'IDoA Community Care Program (CCP)',
+      category: 'licensing',
+      status: 'awaiting',
+      owner: 'Ifeanyi',
+      nextDate: '2026-05-15',
+      ref: 'Application submitted Aug 19, 2025',
+      links: [],
+      actions: [
+        { text: 'Follow up on CCP review status', done: false }
+      ],
+      updates: []
+    },
+    {
+      id: 'rent01', icon: '🏢',
+      name: 'Office Lease — 3325 W. 183rd St., Suite B',
+      category: 'realestate',
+      status: 'recurring',
+      owner: 'Ifeanyi',
+      nextDate: '2026-05-01',
+      ref: 'Monthly rent · $2,400 · 1st of month',
+      links: [],
+      actions: [
+        { text: 'Pay May rent by May 1', done: false },
+        { text: 'Schedule lease renewal discussion 90 days before term end', done: false }
+      ],
+      updates: [
+        { source: 'note', from: 'Ifeanyi', subject: 'April rent paid', date: '2026-04-01T08:00:00Z',
+          content: 'ACH transfer to landlord, confirmation #VT-RENT-202604.' }
+      ]
+    },
+    {
+      id: 'nso01', icon: '🛡',
+      name: 'NSO Professional Liability Insurance',
+      category: 'insurance',
+      status: 'recurring',
+      owner: 'Ifeanyi',
+      nextDate: '2026-07-16',
+      ref: 'Policy renewal · annual · $2.1M / $4.2M',
+      links: [],
+      actions: [
+        { text: 'Begin renewal review window May 16', done: false },
+        { text: 'Confirm coverage limits still appropriate', done: false }
+      ],
+      updates: []
+    },
+    {
+      id: 'tax01', icon: '📊',
+      name: 'Federal Tax — Form 1120-S + Q1 Estimated',
+      category: 'financial',
+      status: 'overdue',
+      owner: 'Ifeanyi',
+      nextDate: '2026-04-15',
+      ref: 'Filing deadline missed Apr 15',
+      links: [],
+      actions: [
+        { text: 'Hire CPA (decision 2 days past due)', done: false },
+        { text: 'File Form 7004 extension request', done: false },
+        { text: 'Avoid IRC §6651 5%/month late-filing penalty', done: false }
+      ],
+      updates: [
+        { source: 'note', from: 'Weekly Review', subject: 'TAX DEADLINE MISSED', date: '2026-04-15T17:00:00Z',
+          content: 'Q1 estimated tax + 2025 Form 1120-S both due today. No CPA hired, all 3 financial DBs still empty. Late-filing penalty accruing at 5%/month.' }
+      ]
+    },
+    {
+      id: 'cna01', icon: '🎓',
+      name: 'Zurich Healthcare Institute (CNA School Acquisition)',
+      category: 'strategic',
+      status: 'in-progress',
+      owner: 'Ifeanyi',
+      nextDate: '2026-07-01',
+      ref: 'Target operational July 2026',
+      links: [],
+      actions: [
+        { text: 'Confirm cohort dates with mom', done: false },
+        { text: 'Pipeline first 3 CNAs from school', done: false }
+      ],
+      updates: []
+    },
+    {
+      id: 'expand01', icon: '🗺',
+      name: 'Service Area Expansion — Will & Kankakee Counties',
+      category: 'strategic',
+      status: 'pending',
+      owner: 'Ifeanyi',
+      nextDate: null,
+      ref: 'Phase 2 after first 5 active clients',
+      links: [],
+      actions: [
+        { text: 'Verify IDPH license covers expansion zip codes', done: false },
+        { text: 'Update zip code list with HFS', done: false }
+      ],
+      updates: []
+    }
+  ];
+
+  // ========================================================
+  // STATE
+  // ========================================================
+  let categoryFilter = 'all';
+  let statusFilter = 'all';
+  let searchTerm = '';
+  let openId = null;
+  let activeUpdateItemId = null;
+  // Verification queue lives in localStorage so it survives a page reload
+  let verifications = [];
+  function loadVerifications() {
+    try { verifications = JSON.parse(localStorage.getItem('vt_verifications') || '[]'); }
+    catch (e) { verifications = []; }
+  }
+  function saveVerifications() {
+    try { localStorage.setItem('vt_verifications', JSON.stringify(verifications)); } catch (e) {}
+  }
+  function addVerification(v) {
+    verifications.unshift(Object.assign({ id: 'v' + Date.now() + Math.random(), checked: false, createdAt: new Date().toISOString() }, v));
+    saveVerifications();
+    renderVerifications();
+  }
+  loadVerifications();
+
+  // ========================================================
+  // HELPERS
+  // ========================================================
+  function daysUntil(dateStr) {
+    if (!dateStr) return null;
+    const d = new Date(dateStr);
+    const ms = d.getTime() - Date.now();
+    return Math.ceil(ms / 86400000);
+  }
+  function deadlineClass(days) {
+    if (days === null) return 'none';
+    if (days < 0) return 'overdue';
+    if (days <= 30) return 'soon';
+    return 'ok';
+  }
+  function deadlineText(days, dateStr) {
+    if (days === null) return 'no deadline';
+    if (days < 0) return Math.abs(days) + 'd overdue';
+    if (days === 0) return 'today';
+    if (days === 1) return 'tomorrow';
+    return days + 'd';
+  }
+  function effectiveStatus(item) {
+    const days = daysUntil(item.nextDate);
+    if (item.status === 'completed') return 'completed';
+    if (days !== null && days < 0) return 'overdue';
+    return item.status;
+  }
+  function statusLabel(s) {
+    return ({
+      'pending':     'Pending',
+      'in-progress': 'In progress',
+      'awaiting':    'Awaiting',
+      'at-risk':     'At risk',
+      'overdue':     'Overdue',
+      'completed':   'Completed',
+      'recurring':   'Recurring'
+    })[s] || s;
+  }
+
+  function lastUpdate(item) {
+    if (!item.updates || item.updates.length === 0) return null;
+    return item.updates.slice().sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+  }
+  function formatRelative(iso) {
+    const d = new Date(iso);
+    const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+    if (days === 0) return 'today';
+    if (days === 1) return 'yesterday';
+    if (days < 7)   return days + 'd ago';
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  // ========================================================
+  // RENDER
+  // ========================================================
+  function itemCardHtml(item) {
+    const isOpen = item.id === openId;
+    const days = daysUntil(item.nextDate);
+    const dCls = deadlineClass(days);
+    const eStatus = effectiveStatus(item);
+    const last = lastUpdate(item);
+    const overdueClass = (days !== null && days < 0) ? ' overdue' : '';
+
+    return `
+      <div class="item-card cat-${item.category}${overdueClass}${isOpen ? ' open' : ''}" data-id="${item.id}">
+        <div class="item-row">
+          <div class="icon-tile">${item.icon}</div>
+          <div>
+            <div class="item-name">${item.name}</div>
+            <div class="item-meta">
+              <span class="cat-tag">${categoryLabel(item.category)}</span>
+              ${item.ref || ''}
+            </div>
+          </div>
+          <div class="last-update">
+            ${last ? `
+              <div><b>${last.subject}</b> · ${formatRelative(last.date)}</div>
+              <div class="preview">${last.content.substring(0, 110)}${last.content.length > 110 ? '…' : ''}</div>
+            ` : `<span style="color:var(--text-lighter);">No updates yet</span>`}
+          </div>
+          <div class="deadline">
+            <div class="deadline-label">${days !== null && days < 0 ? 'Overdue' : 'Next action'}</div>
+            <div class="deadline-val ${dCls}">${deadlineText(days, item.nextDate)}</div>
+          </div>
+          <div class="status-pill ${eStatus}">${statusLabel(eStatus)}</div>
+          <div class="chev">›</div>
+        </div>
+        <div class="item-detail">${detailHtml(item)}</div>
+      </div>`;
+  }
+
+  function categoryLabel(cat) {
+    return ({
+      licensing:  'Licensing',
+      realestate: 'Real Estate',
+      insurance:  'Insurance & Legal',
+      financial:  'Financial',
+      strategic:  'Strategic'
+    })[cat] || cat;
+  }
+
+  function detailHtml(item) {
+    const updatesHtml = item.updates.length > 0
+      ? item.updates.slice().sort((a, b) => new Date(b.date) - new Date(a.date)).map(u => `
+        <div class="update-entry">
+          <div class="update-source ${u.source}">${{ email: '✉', phone: '☎', event: '📅', note: '✎' }[u.source] || '·'}</div>
+          <div>
+            <div class="update-meta">
+              <b>${u.from || 'Unknown'}</b>
+              <span>·</span>
+              <span>${new Date(u.date).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>
+              <span>·</span>
+              <span style="text-transform:capitalize;">${u.source}</span>
+            </div>
+            <div style="font-weight:600; color:var(--text); margin-top:2px;">${u.subject}</div>
+            <div class="update-content">${u.content}</div>
+          </div>
+        </div>`).join('')
+      : `<div style="color:var(--text-lighter); font-size:13.5px;">No updates logged yet. Use "Add Update" below to log emails or notes.</div>`;
+
+    const actionsHtml = item.actions.length > 0
+      ? `<div class="action-list">
+          ${item.actions.map((a, i) => `
+            <div class="action-item ${a.done ? 'done' : ''}" onclick="event.stopPropagation(); toggleAction('${item.id}', ${i})">
+              <span class="checkbox">${a.done ? '✓' : ''}</span>
+              <span>${a.text}</span>
+            </div>`).join('')}
+        </div>`
+      : `<div style="color:var(--text-lighter); font-size:13.5px;">No action items.</div>`;
+
+    return `
+      <div class="detail-grid">
+        <div>
+          <div class="detail-section">
+            <h3>Item Info</h3>
+            <div class="detail-row"><span class="key">Category</span><span class="val">${categoryLabel(item.category)}</span></div>
+            <div class="detail-row"><span class="key">Status</span><span class="val">${statusLabel(effectiveStatus(item))}</span></div>
+            <div class="detail-row"><span class="key">Owner</span><span class="val">${item.owner}</span></div>
+            ${item.appId ? `<div class="detail-row"><span class="key">Application ID</span><span class="val" style="font-family:monospace;">${item.appId}</span></div>` : ''}
+            ${item.ref ? `<div class="detail-row"><span class="key">Reference</span><span class="val">${item.ref}</span></div>` : ''}
+            ${item.nextDate ? `<div class="detail-row"><span class="key">Next action date</span><span class="val">${item.nextDate}</span></div>` : ''}
+            ${item.links && item.links.length > 0 ? item.links.map(l => `<div class="detail-row"><span class="key">Link</span><span class="val"><a href="${l.url}" target="_blank">${l.label} ↗</a></span></div>`).join('') : ''}
+          </div>
+          <div class="detail-section" style="margin-top:18px;">
+            <h3>Action Items (${item.actions.filter(a => !a.done).length} open)</h3>
+            ${actionsHtml}
+            <div class="inline-add">
+              <input type="text" id="newAction-${item.id}" placeholder="Add action item…" onkeydown="if(event.key==='Enter'){addAction('${item.id}'); event.stopPropagation();}">
+              <button class="btn-mini" onclick="event.stopPropagation(); addAction('${item.id}')">+ Add</button>
+            </div>
+          </div>
+          <div class="detail-section" style="margin-top:18px;">
+            <h3>Set Next Action Date</h3>
+            <div class="inline-add">
+              <input type="date" id="newDate-${item.id}" value="${item.nextDate || ''}">
+              <button class="btn-mini" onclick="event.stopPropagation(); updateNextDate('${item.id}')">Save</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="detail-section">
+            <h3>Updates Timeline (${item.updates.length})</h3>
+            <div class="updates">${updatesHtml}</div>
+          </div>
+        </div>
+      </div>
+      <div class="actions-row">
+        <button class="btn btn-primary" onclick="event.stopPropagation(); openAddUpdate('${item.id}')">+ Add Update</button>
+        <button class="btn" onclick="event.stopPropagation(); markComplete('${item.id}')">Mark Complete</button>
+        <button class="btn" onclick="event.stopPropagation(); snooze('${item.id}')">Snooze…</button>
+        <button class="btn btn-ghost" onclick="event.stopPropagation(); openSP('${item.id}')">Open SharePoint Folder ↗</button>
+      </div>`;
+  }
+
+  function render() {
+    let list = ITEMS.slice();
+
+    if (categoryFilter !== 'all') {
+      list = list.filter(i => i.category === categoryFilter);
+    }
+    if (statusFilter !== 'all') {
+      list = list.filter(i => effectiveStatus(i) === statusFilter);
+    }
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      list = list.filter(i =>
+        i.name.toLowerCase().includes(q) ||
+        (i.ref && i.ref.toLowerCase().includes(q)) ||
+        (i.appId && i.appId.toLowerCase().includes(q))
+      );
+    }
+
+    // Stats
+    const active = ITEMS.filter(i => effectiveStatus(i) !== 'completed');
+    const overdue = ITEMS.filter(i => effectiveStatus(i) === 'overdue');
+    const soon = active.filter(i => { const d = daysUntil(i.nextDate); return d !== null && d >= 0 && d <= 30; });
+    const awaiting = active.filter(i => i.status === 'awaiting');
+    const updatesThisWeek = ITEMS.reduce((sum, i) => {
+      return sum + (i.updates ? i.updates.filter(u => {
+        const ageDays = (Date.now() - new Date(u.date).getTime()) / 86400000;
+        return ageDays >= 0 && ageDays <= 7;
+      }).length : 0);
+    }, 0);
+
+    document.getElementById('statTotal').textContent = active.length;
+    document.getElementById('statOverdue').textContent = overdue.length;
+    document.getElementById('statSoon').textContent = soon.length;
+    document.getElementById('statAwaiting').textContent = awaiting.length;
+    document.getElementById('statThisWeek').textContent = updatesThisWeek;
+
+    // Tab counts (category)
+    document.getElementById('tcAll').textContent = ITEMS.length;
+    document.getElementById('tcLic').textContent = ITEMS.filter(i => i.category === 'licensing').length;
+    document.getElementById('tcRE').textContent  = ITEMS.filter(i => i.category === 'realestate').length;
+    document.getElementById('tcIns').textContent = ITEMS.filter(i => i.category === 'insurance').length;
+    document.getElementById('tcFin').textContent = ITEMS.filter(i => i.category === 'financial').length;
+    document.getElementById('tcStr').textContent = ITEMS.filter(i => i.category === 'strategic').length;
+
+    // Status tab counts
+    const statusBase = (categoryFilter === 'all') ? ITEMS : ITEMS.filter(i => i.category === categoryFilter);
+    const byStatus = (s) => statusBase.filter(i => effectiveStatus(i) === s).length;
+    document.getElementById('ssAll').textContent   = statusBase.length;
+    document.getElementById('ssOver').textContent  = byStatus('overdue');
+    document.getElementById('ssAwait').textContent = byStatus('awaiting');
+    document.getElementById('ssProg').textContent  = byStatus('in-progress');
+    document.getElementById('ssPend').textContent  = byStatus('pending');
+    document.getElementById('ssDone').textContent  = byStatus('completed');
+
+    // Render list
+    const listEl = document.getElementById('itemList');
+    if (list.length === 0) {
+      listEl.innerHTML = `<div class="empty"><div class="emoji">📋</div><div class="title">No items match</div><div class="sub">${searchTerm ? `No results for "${searchTerm}".` : 'Try a different filter.'}</div></div>`;
+      return;
+    }
+    listEl.innerHTML = `<div class="item-list">${list.map(itemCardHtml).join('')}</div>`;
+    listEl.querySelectorAll('.item-card').forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (e.target.closest('.btn') || e.target.closest('.action-item')) return;
+        toggle(el.dataset.id);
+      });
+    });
+  }
+
+  function toggle(id) { openId = (openId === id) ? null : id; render(); }
+  function setCategory(c) {
+    categoryFilter = c;
+    document.querySelectorAll('#catTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.cat === c));
+    render();
+  }
+  function setStatusFilter(s) {
+    statusFilter = s;
+    document.querySelectorAll('#statusTabs .stage-tab').forEach(t => t.classList.toggle('active', t.dataset.status === s));
+    render();
+  }
+
+  function toggleAction(id, idx) {
+    const item = ITEMS.find(i => i.id === id);
+    if (!item) return;
+    item.actions[idx].done = !item.actions[idx].done;
+    render();
+  }
+
+  // ============= Modal: Add Update =============
+  function openAddUpdate(id) {
+    activeUpdateItemId = id;
+    const item = ITEMS.find(i => i.id === id);
+    document.getElementById('updateModalTitle').textContent = 'Add Update — ' + (item ? item.name : '');
+    document.getElementById('updFrom').value = '';
+    document.getElementById('updSubject').value = '';
+    document.getElementById('updContent').value = '';
+    document.getElementById('updNextDate').value = '';
+    document.getElementById('updateModalBg').classList.add('open');
+  }
+  function openAddItem() {
+    document.getElementById('niName').value = '';
+    document.getElementById('niCategory').value = 'licensing';
+    document.getElementById('niStatus').value = 'pending';
+    document.getElementById('niIcon').value = '📋';
+    document.getElementById('niRef').value = '';
+    document.getElementById('niNextDate').value = '';
+    document.getElementById('niOwner').value = 'Ifeanyi';
+    document.getElementById('newItemModalBg').classList.add('open');
+  }
+  function closeNewItemModal() {
+    document.getElementById('newItemModalBg').classList.remove('open');
+  }
+  function saveNewItem() {
+    const name = document.getElementById('niName').value.trim();
+    if (!name) { toast('Name is required'); return; }
+    const item = {
+      id: 'i' + Date.now(),
+      icon: document.getElementById('niIcon').value || '📋',
+      name: name,
+      category: document.getElementById('niCategory').value,
+      status: document.getElementById('niStatus').value,
+      owner: document.getElementById('niOwner').value || 'Ifeanyi',
+      nextDate: document.getElementById('niNextDate').value || null,
+      ref: document.getElementById('niRef').value || '',
+      links: [],
+      actions: [],
+      updates: [{
+        source: 'note',
+        from: 'Ifeanyi',
+        subject: 'Item created',
+        date: new Date().toISOString(),
+        content: 'Item created via dashboard.'
+      }]
+    };
+    ITEMS.unshift(item);
+    closeNewItemModal();
+    render();
+    addVerification({
+      action: 'create_item',
+      itemId: item.id,
+      message: `Created admin item <b>${item.name}</b>. Confirm a corresponding entry exists in SharePoint List <code>VT_Admin_Tracker</code> (or relevant folder under <code>/01_Licensing/</code> if regulatory).`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Admin_Tracker'
+    });
+    toast('Item created — verify on SharePoint');
+  }
+
+  function addAction(itemId) {
+    const input = document.getElementById('newAction-' + itemId);
+    if (!input) return;
+    const text = input.value.trim();
+    if (!text) return;
+    const item = ITEMS.find(i => i.id === itemId);
+    if (!item) return;
+    item.actions.push({ text: text, done: false });
+    input.value = '';
+    render();
+    toast('Action item added');
+  }
+
+  function updateNextDate(itemId) {
+    const input = document.getElementById('newDate-' + itemId);
+    if (!input) return;
+    const item = ITEMS.find(i => i.id === itemId);
+    if (!item) return;
+    const oldDate = item.nextDate;
+    item.nextDate = input.value || null;
+    render();
+    addVerification({
+      action: 'update_date',
+      itemId: itemId,
+      message: `Changed next-action date for <b>${item.name}</b> from <code>${oldDate || 'none'}</code> to <code>${item.nextDate || 'none'}</code>. Confirm SharePoint List row reflects this date.`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Admin_Tracker'
+    });
+    toast('Date saved — verify on SharePoint');
+  }
+  function closeUpdateModal() {
+    document.getElementById('updateModalBg').classList.remove('open');
+    activeUpdateItemId = null;
+  }
+  function saveUpdate() {
+    const item = ITEMS.find(i => i.id === activeUpdateItemId);
+    if (!item) return closeUpdateModal();
+    const newUpd = {
+      source:  document.getElementById('updSource').value,
+      from:    document.getElementById('updFrom').value || 'Unknown',
+      subject: document.getElementById('updSubject').value || '(no subject)',
+      content: document.getElementById('updContent').value || '',
+      date:    new Date().toISOString()
+    };
+    item.updates.push(newUpd);
+    const nd = document.getElementById('updNextDate').value;
+    if (nd) item.nextDate = nd;
+    closeUpdateModal();
+    render();
+    addVerification({
+      action: 'log_update',
+      itemId: item.id,
+      message: `Logged a <b>${newUpd.source}</b> update on <b>${item.name}</b> from ${newUpd.from}: "${newUpd.subject}". Confirm the update is reflected in SharePoint List <code>VT_Admin_Tracker</code> for this item.`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Admin_Tracker'
+    });
+    toast('Update logged — verify on SharePoint');
+  }
+
+  // Action placeholders
+  function markComplete(id) {
+    const item = ITEMS.find(i => i.id === id);
+    if (!item) return;
+    item.status = 'completed';
+    render();
+    addVerification({
+      action: 'mark_complete',
+      itemId: id,
+      message: `Marked <b>${item.name}</b> complete. Confirm the SharePoint List row is also marked complete and that any final documentation is filed in the appropriate folder.`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Admin_Tracker'
+    });
+    toast(`${item.name} marked complete — verify on SharePoint`);
+  }
+  function snooze(id) { toast('Snooze picker — wiring later'); }
+  function openSP(id) { toast('Open SharePoint folder — wiring later'); }
+
+  // ============= Verification queue rendering =============
+  function renderVerifications() {
+    const open = verifications.filter(v => !v.checked);
+    const sec = document.getElementById('verifySection');
+    const list = document.getElementById('verifyList');
+    const count = document.getElementById('verifyCount');
+
+    if (verifications.length === 0) {
+      sec.style.display = 'none';
+      return;
+    }
+    sec.style.display = 'block';
+    count.textContent = open.length + ' open';
+
+    list.innerHTML = verifications.map(v => `
+      <div class="verify-row">
+        <div class="verify-checkbox ${v.checked ? 'done' : ''}" onclick="toggleVerification('${v.id}')">${v.checked ? '✓' : ''}</div>
+        <div class="verify-text">${v.message}</div>
+        ${v.sharepointUrl ? `<a href="${v.sharepointUrl}" target="_blank" class="verify-link">Open in SharePoint ↗</a>` : ''}
+        <span class="verify-time">${formatRelative(v.createdAt)}</span>
+      </div>
+    `).join('');
+  }
+  function toggleVerification(id) {
+    const v = verifications.find(x => x.id === id);
+    if (!v) return;
+    v.checked = !v.checked;
+    saveVerifications();
+    renderVerifications();
+  }
+  function clearAllVerified() {
+    verifications = verifications.filter(v => !v.checked);
+    saveVerifications();
+    renderVerifications();
+  }
+
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // INIT
+  renderVerifications();
+  document.querySelectorAll('#catTabs .tab').forEach(t => t.addEventListener('click', () => setCategory(t.dataset.cat)));
+  document.querySelectorAll('#statusTabs .stage-tab').forEach(t => t.addEventListener('click', () => setStatusFilter(t.dataset.status)));
+  document.getElementById('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value; render(); });
+  render();
+</script>
+</body>
+</html>

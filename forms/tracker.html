@@ -306,6 +306,58 @@
   }
   .btn-ghost:hover { background: var(--bg); color: var(--text); }
 
+  /* ===== VERIFICATION QUEUE ===== */
+  .verify-section {
+    background: #FEF9E7;
+    border: 1.5px solid #F4D03F;
+    border-radius: var(--radius);
+    padding: 16px 22px;
+    margin-bottom: 24px;
+  }
+  .verify-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .verify-head h3 {
+    font-size: 13px; font-weight: 700;
+    color: #7A6700; text-transform: uppercase; letter-spacing: 0.6px;
+  }
+  .verify-head .clear-all {
+    font-size: 12px; color: #7A6700;
+    background: none; border: none; cursor: pointer;
+    text-decoration: underline; font-family: inherit;
+  }
+  .verify-row {
+    display: grid; grid-template-columns: 24px 1fr auto auto; gap: 12px;
+    align-items: center; padding: 10px 0;
+    border-top: 1px dashed #E8C941; font-size: 13.5px;
+  }
+  .verify-row:first-of-type { border-top: none; }
+  .verify-checkbox {
+    width: 20px; height: 20px; border-radius: 4px;
+    border: 1.5px solid #C49A00; background: var(--white);
+    cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .verify-checkbox.done { background: var(--green); border-color: var(--green); color: white; }
+  .verify-text { color: var(--text); line-height: 1.4; }
+  .verify-text b { color: #1a1a1a; }
+  .verify-text code {
+    background: var(--white); padding: 1px 6px; border-radius: 3px;
+    font-family: 'JetBrains Mono', Consolas, monospace; font-size: 12px;
+    border: 1px solid #E8C941;
+  }
+  .verify-link {
+    font-size: 12px; font-weight: 600;
+    color: var(--green-dark); text-decoration: none;
+    padding: 5px 10px; border-radius: 4px;
+    background: var(--white); border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .verify-link:hover { border-color: var(--green); }
+  .verify-time { font-size: 11.5px; color: var(--text-lighter); white-space: nowrap; }
+
   /* ===== INBOX SECTION ===== */
   .inbox-section { margin-bottom: 32px; }
   .section-head {
@@ -440,8 +492,9 @@
       <p>Triage incoming submissions and track every client through the form lifecycle</p>
     </div>
     <div class="header-actions">
-      <a href="index.html" class="header-link">← Forms Guide</a>
-      <a href="staff.html" class="header-link">Staff Tracker →</a>
+      <a href="index.html" class="header-link">← Forms</a>
+      <a href="staff.html" class="header-link">Staff</a>
+      <a href="admin.html" class="header-link">Admin</a>
     </div>
   </div>
 </div>
@@ -457,6 +510,15 @@
 </div>
 
 <div class="main">
+
+  <!-- VERIFICATION QUEUE — appears when there are unverified actions -->
+  <div class="verify-section" id="verifySection" style="display:none;">
+    <div class="verify-head">
+      <h3>⚠ Verify on SharePoint <span style="background:#fff;color:#7A6700;font-size:11px;padding:2px 8px;border-radius:10px;" id="verifyCount">0</span></h3>
+      <button class="clear-all" onclick="clearAllVerified()">Clear all checked</button>
+    </div>
+    <div id="verifyList"></div>
+  </div>
 
   <!-- ===== INBOX SECTION ===== -->
   <div class="inbox-section" id="inboxSection">
@@ -620,6 +682,61 @@
   // STATE
   // ========================================================
   let inbox = INBOX.slice();
+
+  // Verification queue (shared across dashboard via localStorage)
+  let verifications = [];
+  function loadVerifications() {
+    try { verifications = JSON.parse(localStorage.getItem('vt_verifications') || '[]'); }
+    catch (e) { verifications = []; }
+  }
+  function saveVerifications() {
+    try { localStorage.setItem('vt_verifications', JSON.stringify(verifications)); } catch (e) {}
+  }
+  function addVerification(v) {
+    verifications.unshift(Object.assign({ id: 'v' + Date.now() + Math.random(), checked: false, createdAt: new Date().toISOString() }, v));
+    saveVerifications();
+    renderVerifications();
+  }
+  function toggleVerification(id) {
+    const v = verifications.find(x => x.id === id);
+    if (!v) return;
+    v.checked = !v.checked;
+    saveVerifications();
+    renderVerifications();
+  }
+  function clearAllVerified() {
+    verifications = verifications.filter(v => !v.checked);
+    saveVerifications();
+    renderVerifications();
+  }
+  function relTime(iso) {
+    const d = new Date(iso);
+    const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+    const hrs = Math.floor((Date.now() - d.getTime()) / 3600000);
+    const mins = Math.floor((Date.now() - d.getTime()) / 60000);
+    if (days >= 1) return days + 'd ago';
+    if (hrs >= 1) return hrs + 'h ago';
+    if (mins >= 1) return mins + 'm ago';
+    return 'just now';
+  }
+  function renderVerifications() {
+    const sec = document.getElementById('verifySection');
+    const list = document.getElementById('verifyList');
+    const count = document.getElementById('verifyCount');
+    if (verifications.length === 0) { sec.style.display = 'none'; return; }
+    sec.style.display = 'block';
+    const open = verifications.filter(v => !v.checked).length;
+    count.textContent = open + ' open';
+    list.innerHTML = verifications.map(v => `
+      <div class="verify-row">
+        <div class="verify-checkbox ${v.checked ? 'done' : ''}" onclick="toggleVerification('${v.id}')">${v.checked ? '✓' : ''}</div>
+        <div class="verify-text">${v.message}</div>
+        ${v.sharepointUrl ? `<a href="${v.sharepointUrl}" target="_blank" class="verify-link">Open in SharePoint ↗</a>` : '<span></span>'}
+        <span class="verify-time">${relTime(v.createdAt)}</span>
+      </div>
+    `).join('');
+  }
+  loadVerifications();
   let categoryFilter = 'active';
   let filter = 'all';
   let stageFilter = 'all';
@@ -885,25 +1002,45 @@
     list.innerHTML = `<div class="inbox-grid">${inbox.map(inboxCardHtml).join('')}</div>`;
   }
 
-  // Inbox actions (placeholders)
+  // Inbox actions — every mutation enqueues a verification todo
+  function spLink(folder) {
+    const base = 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Shared%20Documents/IL%20-%20Home%20Services';
+    return base + (folder ? '/' + folder.replace(/\//g, '%2F') : '');
+  }
   function approveInbox(id) {
     const it = inbox.find(i => i.id === id);
     inbox = inbox.filter(i => i.id !== id);
     renderInbox();
-    toast(`Filed → ${it.match.name} · ${it.match.id}`);
+    addVerification({
+      action: 'approve_route',
+      message: `Routed <code>${it.filename}</code> to <b>${it.match.name}</b>'s folder. Confirm the file is in <code>${it.destination}</code> and the matching column is updated on <b>VT_Client_Roster</b>.`,
+      sharepointUrl: spLink(it.destination.replace(/\s\/\s/g, '/'))
+    });
+    toast(`Filed → ${it.match.name} · verify on SharePoint`);
   }
   function createNewInbox(id) {
     const it = inbox.find(i => i.id === id);
     inbox = inbox.filter(i => i.id !== id);
     renderInbox();
-    toast(`Created roster entry · ${it.newClient.name}`);
+    addVerification({
+      action: 'create_client',
+      message: `Created new client roster entry for <b>${it.newClient.name}</b> (DOB ${it.newClient.dob}). Confirm: (1) row exists in <code>VT_Client_Roster</code>, (2) folder structure created under <code>${it.destination}</code>, (3) C.11 PDF is in 1_Intake.`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Client_Roster'
+    });
+    toast(`Created · ${it.newClient.name} · verify on SharePoint`);
   }
   function reassignInbox(id) { toast('Reassign — picker not wired'); }
   function rejectInbox(id) {
     if (!confirm('Reject this submission? It moves to /99_Archive/_Rejected/.')) return;
+    const it = inbox.find(i => i.id === id);
     inbox = inbox.filter(i => i.id !== id);
     renderInbox();
-    toast('Submission rejected');
+    addVerification({
+      action: 'reject',
+      message: `Rejected <code>${it.filename}</code>. Confirm the file moved to <code>/99_Archive/_Rejected/</code> on SharePoint.`,
+      sharepointUrl: spLink('99_Archive/_Rejected')
+    });
+    toast('Submission rejected — verify on SharePoint');
   }
 
   function render() {
@@ -1036,9 +1173,33 @@
   // ========================================================
   function openFolder(id) { toast(`Open SharePoint folder for ${id} — Graph link to be wired`); }
   function addNote(id) { toast(`Add note for ${id} — wiring later`); }
-  function markComplete(id) { toast(`${id} marked audit-ready`); }
-  function discharge(id) { toast(`Discharge wizard for ${id} — opens C.43`); }
-  function assignHSW(id) { toast(`Assign HSW picker for ${id} — wiring later`); }
+  function markComplete(id) {
+    const c = CLIENTS.find(x => x.id === id);
+    addVerification({
+      action: 'mark_audit_ready',
+      message: `Marked <b>${c.name} (${c.id})</b> audit-ready. Confirm <code>VT_Client_Roster</code> Status column reads "Active" and all required forms are tagged correctly.`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Client_Roster'
+    });
+    toast(`${id} marked audit-ready — verify on SharePoint`);
+  }
+  function discharge(id) {
+    const c = CLIENTS.find(x => x.id === id);
+    addVerification({
+      action: 'discharge',
+      message: `Started discharge for <b>${c.name} (${c.id})</b>. Confirm: (1) C.43 form filed, (2) Status set to Discharged on roster, (3) folder moved from <code>Active_${c.population}</code> to <code>Terminated_${c.population}</code> within 30 days.`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Client_Roster'
+    });
+    toast(`Discharge wizard for ${id} — verify on SharePoint`);
+  }
+  function assignHSW(id) {
+    const c = CLIENTS.find(x => x.id === id);
+    addVerification({
+      action: 'assign_hsw',
+      message: `Assigning HSW for <b>${c.name} (${c.id})</b>. Confirm assignment is reflected on <b>VT_Client_Roster</b> AssignedHSW column AND on the HSW's own roster row.`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Client_Roster'
+    });
+    toast(`Assign HSW picker for ${id} — verify on SharePoint`);
+  }
 
   function toast(msg) {
     const t = document.getElementById('toast');
@@ -1050,6 +1211,7 @@
   // ========================================================
   // INIT
   // ========================================================
+  renderVerifications();
   document.querySelectorAll('#catTabs .tab').forEach(t => {
     t.addEventListener('click', () => setCategory(t.dataset.cat));
   });
