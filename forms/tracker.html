@@ -441,6 +441,7 @@
     </div>
     <div class="header-actions">
       <a href="index.html" class="header-link">← Forms Guide</a>
+      <a href="staff.html" class="header-link">Staff Tracker →</a>
     </div>
   </div>
 </div>
@@ -473,17 +474,26 @@
   </div>
 
   <div class="toolbar">
-    <div class="tabs" id="tabs">
-      <button class="tab active" data-pop="all">All <span class="tab-count" id="tcAll">0</span></button>
-      <button class="tab" data-pop="senior_pp">Senior · Private Pay <span class="tab-count" id="tcSPP">0</span></button>
-      <button class="tab" data-pop="disabilities_pp">Disabilities · Private Pay <span class="tab-count" id="tcDPP">0</span></button>
-      <button class="tab" data-pop="drs_hsp">DRS-HSP <span class="tab-count" id="tcDRS">0</span></button>
-      <button class="tab" data-pop="idoa_ccp">IDoA-CCP <span class="tab-count" id="tcCCP">0</span></button>
-      <button class="tab" data-pop="discharged">Discharged <span class="tab-count" id="tcDis">0</span></button>
+    <div class="tabs" id="catTabs">
+      <button class="tab active" data-cat="active">Active <span class="tab-count" id="tcCatActive">0</span></button>
+      <button class="tab" data-cat="pending">Pending <span class="tab-count" id="tcCatPending">0</span></button>
+      <button class="tab" data-cat="terminated">Terminated <span class="tab-count" id="tcCatTerm">0</span></button>
+      <button class="tab" data-cat="all">All <span class="tab-count" id="tcCatAll">0</span></button>
     </div>
     <div class="search">
       <span class="search-icon">⌕</span>
       <input type="text" id="searchInput" placeholder="Search by name or client ID…">
+    </div>
+  </div>
+
+  <div class="toolbar" style="margin-top:-8px;">
+    <div class="stage-label">Population:</div>
+    <div class="tabs stage-tabs" id="popTabs">
+      <button class="tab stage-tab active" data-pop="all">All <span class="tab-count" id="tcAll">0</span></button>
+      <button class="tab stage-tab" data-pop="senior_pp">Senior · PP <span class="tab-count" id="tcSPP">0</span></button>
+      <button class="tab stage-tab" data-pop="disabilities_pp">Disabilities · PP <span class="tab-count" id="tcDPP">0</span></button>
+      <button class="tab stage-tab" data-pop="drs_hsp">DRS-HSP <span class="tab-count" id="tcDRS">0</span></button>
+      <button class="tab stage-tab" data-pop="idoa_ccp">IDoA-CCP <span class="tab-count" id="tcCCP">0</span></button>
     </div>
   </div>
 
@@ -553,21 +563,21 @@
       population: 'senior_pp', popLabel: 'Senior · Private Pay', payer: 'Self-Pay',
       status: 'active', intakeDate: '2026-04-01', lastActivity: '2026-04-25T14:23:00Z',
       forms: { 'C.11': '2026-04-01', 'C.12': '2026-04-03', 'C.21': '2026-04-05', 'C.22': '2026-04-05', 'C.23': '2026-04-08', 'C.24': '2026-04-10' },
-      lastMonthly: '2026-04-15', incidentsYTD: 0,
+      lastMonthly: '2026-04-15', incidentsYTD: 0, assignedHSW: 'Ana Reyes (VTE-2026-003)',
       address: '15014 South Park Ave, Dolton, IL', phone: '(708) 555-0142', supervisor: 'Sarah K.' },
 
     { id: 'VT-2026-007', name: 'M. Davis', fullName: 'Mary Davis', dob: '1942-07-08',
       population: 'idoa_ccp', popLabel: 'IDoA-CCP', payer: 'Community Care Program (IDoA)',
       status: 'active', intakeDate: '2026-02-12', lastActivity: '2026-04-25T13:01:00Z',
       forms: { 'C.11': '2026-02-12', 'C.12': '2026-02-14', 'C.21': '2026-02-18', 'C.22': '2026-02-18', 'C.23': '2026-02-22', 'C.24': '2026-02-25' },
-      lastMonthly: '2026-04-25', lastSemiAnnual: '2026-03-10', incidentsYTD: 0,
+      lastMonthly: '2026-04-25', lastSemiAnnual: '2026-03-10', incidentsYTD: 0, assignedHSW: 'Patrice Johnson (VTE-2026-001)',
       address: '17240 Lincoln Pkwy, South Holland, IL', phone: '(708) 555-0207', supervisor: 'Maria T.' },
 
     { id: 'VT-2025-001', name: 'W. Lacey', fullName: 'Wayne Lacey', dob: '1949-02-15',
       population: 'idoa_ccp', popLabel: 'IDoA-CCP', payer: 'Community Care Program (IDoA)',
       status: 'needs-attn', intakeDate: '2025-08-15', lastActivity: '2026-04-25T09:12:00Z',
       forms: { 'C.11': '2025-08-15', 'C.12': '2025-08-16', 'C.21': '2025-08-20', 'C.22': '2025-08-20', 'C.23': '2025-08-23', 'C.24': '2025-08-25' },
-      lastMonthly: '2026-03-18', lastSemiAnnual: '2025-09-22', incidentsYTD: 1,
+      lastMonthly: '2026-03-18', lastSemiAnnual: '2025-09-22', incidentsYTD: 1, assignedHSW: 'Yolanda Pierce (VTE-2025-002)',
       address: '14723 Halsted St, Harvey, IL', phone: '(708) 555-0301', supervisor: 'Maria T.',
       flags: ['Monthly log 38 days late', 'Annual review overdue 33 days', '1 open incident'] },
 
@@ -587,14 +597,14 @@
       population: 'senior_pp', popLabel: 'Senior · Private Pay', payer: 'Long-Term Care Insurance',
       status: 'active', intakeDate: '2025-11-03', lastActivity: '2026-04-22T16:00:00Z',
       forms: { 'C.11': '2025-11-03', 'C.12': '2025-11-05', 'C.21': '2025-11-08', 'C.22': '2025-11-08', 'C.23': '2025-11-12', 'C.24': '2025-11-15' },
-      lastMonthly: '2026-04-22', lastSemiAnnual: '2026-02-08', incidentsYTD: 0,
+      lastMonthly: '2026-04-22', lastSemiAnnual: '2026-02-08', incidentsYTD: 0, assignedHSW: 'Ana Reyes (VTE-2026-003)',
       address: '2401 W 167th St, Markham, IL', phone: '(708) 555-0455', supervisor: 'Sarah K.' },
 
     { id: 'VT-2026-011', name: 'D. Patel', fullName: 'Deepak Patel', dob: '1980-06-18',
       population: 'drs_hsp', popLabel: 'DRS-HSP', payer: 'Aetna Better Health (Medicaid Managed Care)',
       status: 'active', intakeDate: '2026-03-04', lastActivity: '2026-04-20T09:30:00Z',
       forms: { 'C.11': '2026-03-04', 'C.12': '2026-03-06', 'C.21': '2026-03-10', 'C.22': '2026-03-10', 'C.23': '2026-03-12', 'C.24': '2026-03-15' },
-      lastMonthly: '2026-04-20', incidentsYTD: 0,
+      lastMonthly: '2026-04-20', incidentsYTD: 0, assignedHSW: 'Patrice Johnson (VTE-2026-001)',
       address: '801 W 175th St, Homewood, IL', phone: '(708) 555-0521', supervisor: 'Sarah K.' },
 
     { id: 'VT-2025-009', name: 'E. Thompson', fullName: 'Eleanor Thompson', dob: '1944-12-04',
@@ -610,10 +620,21 @@
   // STATE
   // ========================================================
   let inbox = INBOX.slice();
+  let categoryFilter = 'active';
   let filter = 'all';
   let stageFilter = 'all';
   let searchTerm = '';
   let openId = null;
+
+  // A client's category — drives the primary tab.
+  // Active     = HSW assigned, services running
+  // Pending    = client is in pipeline (intake/assessment/etc) but no HSW yet
+  // Terminated = discharged
+  function clientCategory(c) {
+    if (c.status === 'discharged') return 'terminated';
+    if (c.assignedHSW) return 'active';
+    return 'pending';
+  }
 
   // ========================================================
   // RENDER
@@ -684,6 +705,9 @@
           <div class="client-payer">
             <span class="pop-tag">${c.popLabel}</span>
             <div>${c.payer}</div>
+            <div style="margin-top:4px; font-size:12px; color:${c.assignedHSW ? 'var(--text-light)' : 'var(--amber)'};">
+              ${c.assignedHSW ? '🧑‍⚕ ' + c.assignedHSW : '⚠ HSW unassigned'}
+            </div>
           </div>
           <div class="progress-wrap">
             <div class="progress">${progressDots(c)}</div>
@@ -734,6 +758,7 @@
             ${c.address ? `<div class="detail-row"><span class="key">Address</span><span class="val">${c.address}</span></div>` : ''}
             ${c.phone   ? `<div class="detail-row"><span class="key">Phone</span><span class="val">${c.phone}</span></div>` : ''}
             ${c.supervisor ? `<div class="detail-row"><span class="key">Supervisor</span><span class="val">${c.supervisor}</span></div>` : ''}
+            <div class="detail-row"><span class="key">Assigned HSW</span><span class="val" style="${c.assignedHSW ? '' : 'color:var(--amber);'}">${c.assignedHSW || '⚠ Unassigned'}</span></div>
             <div class="detail-row"><span class="key">Intake date</span><span class="val">${c.intakeDate}</span></div>
             ${c.dischargeDate ? `<div class="detail-row"><span class="key">Discharged</span><span class="val">${c.dischargeDate}</span></div>` : ''}
             ${c.lastSemiAnnual ? `<div class="detail-row"><span class="key">Last semi-annual</span><span class="val">${c.lastSemiAnnual}</span></div>` : ''}
@@ -750,9 +775,10 @@
       </div>
       <div class="client-actions">
         <button class="btn btn-primary" onclick="event.stopPropagation(); openFolder('${c.id}')">Open Client Folder ↗</button>
+        ${!c.assignedHSW && c.status !== 'discharged' ? `<button class="btn" onclick="event.stopPropagation(); assignHSW('${c.id}')">Assign HSW</button>` : ''}
         <button class="btn" onclick="event.stopPropagation(); addNote('${c.id}')">Add Note</button>
         <button class="btn" onclick="event.stopPropagation(); markComplete('${c.id}')">Mark Audit-Ready</button>
-        <button class="btn btn-ghost" onclick="event.stopPropagation(); discharge('${c.id}')">Discharge…</button>
+        ${c.status !== 'discharged' ? `<button class="btn btn-ghost" onclick="event.stopPropagation(); discharge('${c.id}')">Discharge…</button>` : ''}
       </div>`;
   }
 
@@ -884,18 +910,22 @@
     renderInbox();
     let list = CLIENTS.slice();
 
-    if (filter === 'discharged') {
-      list = list.filter(c => c.status === 'discharged');
-    } else if (filter !== 'all') {
-      list = list.filter(c => c.population === filter && c.status !== 'discharged');
-    } else {
-      list = list.filter(c => c.status !== 'discharged');
+    // 1. Category filter (primary)
+    if (categoryFilter !== 'all') {
+      list = list.filter(c => clientCategory(c) === categoryFilter);
     }
 
+    // 2. Population filter (secondary)
+    if (filter !== 'all') {
+      list = list.filter(c => c.population === filter);
+    }
+
+    // 3. Stage filter (tertiary) — only relevant for non-terminated
     if (stageFilter !== 'all') {
       list = list.filter(c => clientStage(c) === stageFilter);
     }
 
+    // 4. Search
     if (searchTerm) {
       const q = searchTerm.toLowerCase();
       list = list.filter(c =>
@@ -929,18 +959,24 @@
     document.getElementById('statOverdue').textContent = overdue;
     document.getElementById('statThisWeek').textContent = thisWeek;
 
-    // Tab counts
-    document.getElementById('tcAll').textContent = active.length;
-    document.getElementById('tcSPP').textContent = active.filter(c => c.population === 'senior_pp').length;
-    document.getElementById('tcDPP').textContent = active.filter(c => c.population === 'disabilities_pp').length;
-    document.getElementById('tcDRS').textContent = active.filter(c => c.population === 'drs_hsp').length;
-    document.getElementById('tcCCP').textContent = active.filter(c => c.population === 'idoa_ccp').length;
-    document.getElementById('tcDis').textContent = CLIENTS.filter(c => c.status === 'discharged').length;
+    // Category tab counts
+    const byCat = (cat) => CLIENTS.filter(c => clientCategory(c) === cat).length;
+    document.getElementById('tcCatActive').textContent  = byCat('active');
+    document.getElementById('tcCatPending').textContent = byCat('pending');
+    document.getElementById('tcCatTerm').textContent    = byCat('terminated');
+    document.getElementById('tcCatAll').textContent     = CLIENTS.length;
 
-    // Stage tab counts (computed against the population-filtered base, before stage filter applied)
-    const stageBase = (filter === 'discharged')
-      ? CLIENTS.filter(c => c.status === 'discharged')
-      : (filter === 'all' ? active : active.filter(c => c.population === filter));
+    // Population tab counts (within current category)
+    const popBase = (categoryFilter === 'all') ? CLIENTS : CLIENTS.filter(c => clientCategory(c) === categoryFilter);
+    document.getElementById('tcAll').textContent = popBase.length;
+    document.getElementById('tcSPP').textContent = popBase.filter(c => c.population === 'senior_pp').length;
+    document.getElementById('tcDPP').textContent = popBase.filter(c => c.population === 'disabilities_pp').length;
+    document.getElementById('tcDRS').textContent = popBase.filter(c => c.population === 'drs_hsp').length;
+    document.getElementById('tcCCP').textContent = popBase.filter(c => c.population === 'idoa_ccp').length;
+
+    // Stage tab counts (within current category × population)
+    let stageBase = popBase;
+    if (filter !== 'all') stageBase = stageBase.filter(c => c.population === filter);
     const byStage = (s) => stageBase.filter(c => clientStage(c) === s).length;
     document.getElementById('tsAll').textContent    = stageBase.length;
     document.getElementById('tsIntake').textContent = byStage('intake');
@@ -977,9 +1013,15 @@
     render();
   }
 
+  function setCategory(c) {
+    categoryFilter = c;
+    document.querySelectorAll('#catTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.cat === c));
+    render();
+  }
+
   function setFilter(p) {
     filter = p;
-    document.querySelectorAll('#tabs .tab').forEach(t => t.classList.toggle('active', t.dataset.pop === p));
+    document.querySelectorAll('#popTabs .stage-tab').forEach(t => t.classList.toggle('active', t.dataset.pop === p));
     render();
   }
 
@@ -996,6 +1038,7 @@
   function addNote(id) { toast(`Add note for ${id} — wiring later`); }
   function markComplete(id) { toast(`${id} marked audit-ready`); }
   function discharge(id) { toast(`Discharge wizard for ${id} — opens C.43`); }
+  function assignHSW(id) { toast(`Assign HSW picker for ${id} — wiring later`); }
 
   function toast(msg) {
     const t = document.getElementById('toast');
@@ -1007,7 +1050,10 @@
   // ========================================================
   // INIT
   // ========================================================
-  document.querySelectorAll('#tabs .tab').forEach(t => {
+  document.querySelectorAll('#catTabs .tab').forEach(t => {
+    t.addEventListener('click', () => setCategory(t.dataset.cat));
+  });
+  document.querySelectorAll('#popTabs .stage-tab').forEach(t => {
     t.addEventListener('click', () => setFilter(t.dataset.pop));
   });
   document.querySelectorAll('#stageTabs .stage-tab').forEach(t => {

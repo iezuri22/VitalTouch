@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VitalTouch Staff Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #16A34A; --green-dark: #15803D; --green-deeper: #166534;
+    --green-light: #DCFCE7; --green-glow: rgba(22,163,74,0.12);
+    --text: #1E293B; --text-light: #4a5568; --text-lighter: #6b7280;
+    --white: #FFFFFF; --border: #E2E8F0; --bg: #F8FAFC;
+    --blue: #3B82F6; --blue-light: #DBEAFE;
+    --orange: #F97316; --orange-light: #FFF7ED;
+    --purple: #8B5CF6; --purple-light: #EDE9FE;
+    --red: #EF4444; --red-light: #FEF2F2;
+    --teal: #14B8A6; --teal-light: #F0FDFA;
+    --amber: #F59E0B; --amber-light: #FEF3C7;
+    --radius: 12px; --radius-sm: 8px;
+    --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+  }
+  body { font-family: 'Inter', -apple-system, sans-serif; font-size: 16px; color: var(--text); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #f0fdf4 100%);
+    border-bottom: 3px solid var(--green); padding: 32px 40px;
+  }
+  .header-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
+  .header-logo { height: 52px; width: auto; }
+  .header-text h1 { font-size: 32px; font-weight: 800; color: #1a1a1a; }
+  .header-text p { font-size: 15px; color: var(--text-light); margin-top: 4px; }
+  .header-actions { margin-left: auto; display: flex; gap: 10px; }
+  .header-link {
+    font-size: 14px; font-weight: 600; color: var(--green-dark);
+    text-decoration: none; padding: 8px 18px; border-radius: 6px;
+    border: 1.5px solid var(--green-dark);
+  }
+  .header-link:hover { background: var(--green-dark); color: var(--white); }
+
+  /* ===== STATS ===== */
+  .stats-bar { max-width: 1280px; margin: -20px auto 0; padding: 0 24px; position: relative; z-index: 2; }
+  .stats-row {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow-lg); padding: 20px 32px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; color: var(--green); line-height: 1.1; }
+  .stat-num.amber { color: var(--amber); }
+  .stat-num.red { color: var(--red); }
+  .stat-num.blue { color: var(--blue); }
+  .stat-num.purple { color: var(--purple); }
+  .stat-label { font-size: 12px; color: var(--text-lighter); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-top: 4px; }
+
+  .main { max-width: 1280px; margin: 32px auto; padding: 0 24px; }
+
+  /* ===== FILTERS ===== */
+  .toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tab {
+    padding: 10px 18px; border-radius: 50px; font-size: 13.5px; font-weight: 600;
+    cursor: pointer; border: 1.5px solid var(--border); background: var(--white);
+    color: var(--text-light); transition: all 0.18s; user-select: none;
+    font-family: inherit;
+  }
+  .tab:hover { border-color: var(--green); color: var(--green); }
+  .tab.active { background: var(--green); color: var(--white); border-color: var(--green); }
+  .tab-count {
+    display: inline-block; background: var(--bg); padding: 1px 8px;
+    border-radius: 20px; font-size: 11.5px; margin-left: 6px;
+    color: var(--text-lighter);
+  }
+  .tab.active .tab-count { background: rgba(255,255,255,0.3); color: var(--white); }
+
+  .stage-label {
+    font-size: 12px; font-weight: 700; color: var(--text-lighter);
+    text-transform: uppercase; letter-spacing: 0.6px; padding: 6px 0; flex-shrink: 0;
+  }
+  .stage-tab { padding: 7px 14px; font-size: 12.5px; }
+  .stage-tab.active { background: var(--text); border-color: var(--text); color: var(--white); }
+  .stage-tab.active .tab-count { background: rgba(255,255,255,0.25); color: var(--white); }
+
+  .search { flex: 1; min-width: 240px; max-width: 360px; margin-left: auto; position: relative; }
+  .search input {
+    width: 100%; padding: 11px 14px 11px 40px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 14px; font-family: inherit; background: var(--white);
+    transition: all 0.18s;
+  }
+  .search input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-glow); }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-lighter); pointer-events: none; }
+
+  /* ===== STAFF CARDS ===== */
+  .staff-list { display: grid; gap: 14px; }
+  .staff-card {
+    background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 22px 26px; border-left: 4px solid var(--green);
+    transition: box-shadow 0.18s, transform 0.18s; cursor: pointer;
+  }
+  .staff-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+  .staff-card.cat-onboarding { border-left-color: var(--blue); }
+  .staff-card.cat-separated  { border-left-color: var(--text-lighter); }
+  .staff-card.cat-attn       { border-left-color: var(--amber); }
+
+  .staff-row {
+    display: grid;
+    grid-template-columns: 56px 1.6fr 1fr 2fr 110px 28px;
+    align-items: center; gap: 18px;
+  }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-light), var(--green));
+    color: var(--green-deeper);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px;
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 1px var(--border);
+  }
+  .cat-onboarding .avatar { background: linear-gradient(135deg, var(--blue-light), var(--blue));      color: white; }
+  .cat-separated .avatar  { background: linear-gradient(135deg, #F3F4F6, var(--text-lighter));        color: white; }
+  .cat-attn .avatar       { background: linear-gradient(135deg, var(--amber-light), var(--amber));    color: white; }
+
+  .staff-name { font-size: 16px; font-weight: 700; color: #1a1a1a; line-height: 1.3; }
+  .staff-id   { font-size: 12px; color: var(--text-lighter); font-family: 'JetBrains Mono', Consolas, monospace; margin-top: 2px; }
+
+  .staff-info {
+    font-size: 13px; color: var(--text-light);
+  }
+  .staff-info b { color: var(--text); font-weight: 600; }
+  .role-tag {
+    display: inline-block;
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px; padding: 3px 10px; border-radius: 20px;
+    background: var(--green-light); color: var(--green-deeper);
+    margin-bottom: 4px;
+  }
+
+  /* category progress (3 segments: Personal, Health, Training) */
+  .cat-progress { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .cat-seg {
+    background: var(--bg); border-radius: 6px; padding: 8px 10px;
+    text-align: center;
+  }
+  .cat-seg.done { background: var(--green-light); color: var(--green-deeper); }
+  .cat-seg.partial { background: var(--amber-light); color: #92400E; }
+  .cat-seg.missing { background: var(--red-light); color: var(--red); }
+  .cat-seg-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; opacity: 0.85;
+  }
+  .cat-seg-val { font-size: 14px; font-weight: 700; margin-top: 2px; }
+
+  .status-pill {
+    font-size: 11.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 4px 10px; border-radius: 20px;
+    text-align: center; white-space: nowrap;
+  }
+  .status-pill.active     { background: var(--green-light);  color: var(--green-deeper); }
+  .status-pill.onboarding { background: var(--blue-light);   color: var(--blue); }
+  .status-pill.attn       { background: var(--amber-light);  color: #92400E; }
+  .status-pill.separated  { background: #F3F4F6;             color: var(--text-lighter); }
+
+  .chev { color: var(--text-lighter); font-size: 18px; transition: transform 0.18s; }
+  .staff-card.open .chev { transform: rotate(90deg); color: var(--green); }
+
+  /* expanded detail */
+  .staff-detail { display: none; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--border); }
+  .staff-card.open .staff-detail { display: block; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .detail-section h3 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px;
+    color: var(--text-lighter); font-weight: 700; margin-bottom: 12px;
+  }
+  .detail-row {
+    display: flex; justify-content: space-between; padding: 6px 0;
+    font-size: 13.5px; border-bottom: 1px dashed var(--border);
+  }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-row .key { color: var(--text-light); }
+  .detail-row .val { color: var(--text); font-weight: 500; }
+
+  .timeline { display: flex; flex-direction: column; gap: 6px; }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto 90px;
+    gap: 12px; align-items: center;
+    padding: 8px 12px; background: var(--bg);
+    border-radius: var(--radius-sm); font-size: 13px;
+  }
+  .tl-row.done { background: var(--green-light); }
+  .tl-row.late { background: var(--amber-light); }
+  .tl-row.missing { background: var(--red-light); border: 1px dashed var(--red); }
+  .tl-formid { font-family: 'JetBrains Mono', Consolas, monospace; font-size: 11.5px; font-weight: 600; color: var(--text); }
+  .tl-name { color: var(--text); }
+  .tl-action {
+    font-size: 12px; padding: 4px 10px; border-radius: 4px;
+    text-decoration: none; font-weight: 600;
+    background: var(--white); color: var(--green-dark);
+    border: 1px solid var(--border);
+  }
+  .tl-action:hover { border-color: var(--green); }
+  .tl-date { font-size: 12px; color: var(--text-light); text-align: right; }
+
+  /* assigned clients chip list */
+  .client-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .client-chip {
+    display: inline-block; font-size: 12px; font-weight: 500;
+    background: var(--bg); padding: 4px 10px; border-radius: 20px;
+    color: var(--text); border: 1px solid var(--border);
+  }
+
+  .actions-row {
+    display: flex; gap: 8px; margin-top: 18px;
+    padding-top: 18px; border-top: 1px solid var(--border);
+  }
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    padding: 8px 16px; border-radius: var(--radius-sm);
+    cursor: pointer; border: 1.5px solid var(--border);
+    background: var(--white); color: var(--text); transition: all 0.18s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn:hover { border-color: var(--green); color: var(--green); }
+  .btn-primary { background: var(--green); color: var(--white); border-color: var(--green); }
+  .btn-primary:hover { background: var(--green-dark); border-color: var(--green-dark); color: var(--white); }
+  .btn-ghost { background: transparent; border-color: transparent; color: var(--text-light); }
+  .btn-ghost:hover { background: var(--bg); color: var(--text); }
+
+  .empty {
+    background: var(--white); border-radius: var(--radius);
+    padding: 60px 24px; text-align: center; box-shadow: var(--shadow);
+  }
+  .empty .emoji { font-size: 36px; margin-bottom: 8px; }
+  .empty .title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .empty .sub { font-size: 14px; color: var(--text-light); }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: #1a1a1a; color: white;
+    padding: 11px 18px; border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; opacity: 0;
+    pointer-events: none; transition: all 0.2s; z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 960px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .staff-row {
+      grid-template-columns: 48px 1fr auto;
+      grid-template-rows: auto auto auto; gap: 12px;
+    }
+    .staff-row .staff-info, .cat-progress-wrap { grid-column: 1 / -1; }
+    .detail-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <img src="images/logo-symbol.png" alt="VitalTouch" class="header-logo" onerror="this.style.display='none';">
+    <div class="header-text">
+      <h1>Staff Tracker</h1>
+      <p>HSW pipeline · onboarding completion · training currency · client assignments</p>
+    </div>
+    <div class="header-actions">
+      <a href="index.html" class="header-link">← Forms Guide</a>
+      <a href="tracker.html" class="header-link">Client Tracker →</a>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num blue" id="statTotal">0</div><div class="stat-label">Active HSWs</div></div>
+    <div class="stat"><div class="stat-num purple" id="statOnboard">0</div><div class="stat-label">Onboarding</div></div>
+    <div class="stat"><div class="stat-num amber" id="statAttn">0</div><div class="stat-label">Needs Attention</div></div>
+    <div class="stat"><div class="stat-num red" id="statTrainOver">0</div><div class="stat-label">Training Overdue</div></div>
+    <div class="stat"><div class="stat-num" id="statClients">0</div><div class="stat-label">Clients Served</div></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="toolbar">
+    <div class="tabs" id="catTabs">
+      <button class="tab active" data-cat="active">Active <span class="tab-count" id="tcActive">0</span></button>
+      <button class="tab" data-cat="onboarding">Onboarding <span class="tab-count" id="tcOnboard">0</span></button>
+      <button class="tab" data-cat="separated">Separated <span class="tab-count" id="tcSep">0</span></button>
+      <button class="tab" data-cat="all">All <span class="tab-count" id="tcAll">0</span></button>
+    </div>
+    <div class="search">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search by name or employee ID…">
+    </div>
+  </div>
+
+  <div class="toolbar" style="margin-top:-8px; margin-bottom:24px;">
+    <div class="stage-label">Filter:</div>
+    <div class="tabs" id="filterTabs">
+      <button class="tab stage-tab active" data-filter="all">Any <span class="tab-count" id="fAll">0</span></button>
+      <button class="tab stage-tab" data-filter="audit-ready">Audit-ready <span class="tab-count" id="fReady">0</span></button>
+      <button class="tab stage-tab" data-filter="missing-forms">Missing forms <span class="tab-count" id="fMissing">0</span></button>
+      <button class="tab stage-tab" data-filter="training-overdue">Training overdue <span class="tab-count" id="fTrain">0</span></button>
+      <button class="tab stage-tab" data-filter="unassigned">No active clients <span class="tab-count" id="fUnassigned">0</span></button>
+    </div>
+  </div>
+
+  <div id="staffList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ========================================================
+  // FORMS BY CATEGORY
+  // ========================================================
+  const FORM_NAMES = {
+    'E.11': 'Job Application',
+    'E.12': 'Document Upload',
+    'E.14': '24-Hour Pre-Hire Training Ack',
+    'E.21': 'Marketing Limitations Ack',
+    'E.22': 'Hep B Vaccination',
+    'E.23': 'Influenza Vaccination',
+    'E.24': 'Required Medical Documents',
+    'E.25': 'IDPH Registry Uploads',
+    'E.26': 'Employment Agreement',
+    'E.31': 'HIPAA Acknowledgment',
+    'E.33': 'Handbook Acknowledgment',
+    'E.35': 'Annual 12-Hour Training',
+    'E.36': 'Alzheimer’s/Dementia Training',
+    'E.37': 'Orientation Checklist',
+  };
+  const FORM_CATEGORIES = {
+    personal: ['E.11', 'E.12', 'E.26'],
+    health:   ['E.22', 'E.23', 'E.24', 'E.25'],
+    training: ['E.14', 'E.31', 'E.33', 'E.35', 'E.36'],
+  };
+  const ALL_REQUIRED = [].concat(FORM_CATEGORIES.personal, FORM_CATEGORIES.health, FORM_CATEGORIES.training);
+
+  // ========================================================
+  // MOCK DATA — replace with Graph fetch from VT_Employee_Roster
+  // ========================================================
+  const STAFF = [
+    { id: 'VTE-2026-001', name: 'Patrice Johnson', initials: 'PJ', dob: '1985-04-12',
+      role: 'Homemaker (HSW)', hireDate: '2026-01-08', lastTraining: '2026-04-10',
+      status: 'active',
+      assignedClients: [
+        { id: 'VT-2026-007', name: 'M. Davis' },
+        { id: 'VT-2026-011', name: 'D. Patel' }
+      ],
+      forms: { 'E.11':'2026-01-08', 'E.12':'2026-01-09', 'E.14':'2026-01-10', 'E.22':'2026-01-12',
+               'E.23':'2026-01-12', 'E.24':'2026-01-15', 'E.25':'2026-01-15', 'E.26':'2026-01-18',
+               'E.31':'2026-01-18', 'E.33':'2026-01-18', 'E.35':'2026-04-10', 'E.36':'2026-04-10' },
+      phone: '(708) 555-1010', address: '14523 Lincoln Ave, Dolton, IL', supervisor: 'Sarah K.' },
+
+    { id: 'VTE-2025-002', name: 'Yolanda Pierce', initials: 'YP', dob: '1978-09-22',
+      role: 'Homemaker (HSW)', hireDate: '2025-09-15', lastTraining: '2025-10-01',
+      status: 'attn',
+      assignedClients: [{ id: 'VT-2025-001', name: 'W. Lacey' }],
+      forms: { 'E.11':'2025-09-15', 'E.12':'2025-09-16', 'E.14':'2025-09-18', 'E.22':'2025-09-22',
+               'E.23':'2025-09-22', 'E.24':'2025-09-25', 'E.25':'2025-09-25', 'E.26':'2025-10-01',
+               'E.31':'2025-10-01', 'E.33':'2025-10-01' },
+      flags: ['E.35 Annual training overdue (203d)', 'E.36 Alzheimer’s training overdue (203d)'],
+      phone: '(708) 555-1180', address: '12203 Halsted St, Riverdale, IL', supervisor: 'Maria T.' },
+
+    { id: 'VTE-2026-003', name: 'Ana Reyes', initials: 'AR', dob: '1990-12-05',
+      role: 'Homemaker (HSW)', hireDate: '2026-02-22', lastTraining: '2026-03-15',
+      status: 'active',
+      assignedClients: [
+        { id: 'VT-2026-014', name: 'J. Smith' },
+        { id: 'VT-2025-004', name: 'B. Anderson' }
+      ],
+      forms: { 'E.11':'2026-02-22', 'E.12':'2026-02-23', 'E.14':'2026-02-26', 'E.22':'2026-03-01',
+               'E.23':'2026-03-01', 'E.24':'2026-03-04', 'E.25':'2026-03-04', 'E.26':'2026-03-08',
+               'E.31':'2026-03-08', 'E.33':'2026-03-08', 'E.35':'2026-03-15', 'E.36':'2026-03-15' },
+      phone: '(708) 555-1245', address: '1801 Center Ave, Markham, IL', supervisor: 'Sarah K.' },
+
+    { id: 'VTE-2026-004', name: 'Marcus Bell', initials: 'MB', dob: '1995-06-30',
+      role: 'Homemaker (HSW)', hireDate: '2026-04-15', lastTraining: '2026-04-18',
+      status: 'onboarding',
+      assignedClients: [],
+      forms: { 'E.11':'2026-04-15', 'E.12':'2026-04-16', 'E.14':'2026-04-18',
+               'E.22':'2026-04-22', 'E.23':'2026-04-22' },
+      flags: ['E.24 Medical docs pending', 'E.25 IDPH registry pending', 'E.26 Employment agreement pending', 'E.31 HIPAA ack pending'],
+      phone: '(708) 555-1360', address: '15010 South Park Ave, Dolton, IL', supervisor: 'Sarah K.' },
+
+    { id: 'VTE-2026-005', name: 'Crystal Owusu', initials: 'CO', dob: '1988-03-19',
+      role: 'Homemaker (HSW)', hireDate: '2026-04-22', lastTraining: null,
+      status: 'onboarding',
+      assignedClients: [],
+      forms: { 'E.11':'2026-04-22' },
+      flags: ['Documents upload pending', 'Pre-hire training pending', 'Vaccinations pending', 'IDPH registry pending'],
+      phone: '(708) 555-1488', address: '17200 Ridge Rd, Lansing, IL' },
+
+    { id: 'VTE-2025-006', name: 'Diana Holmes', initials: 'DH', dob: '1968-11-14',
+      role: 'Homemaker (HSW)', hireDate: '2025-04-01', separationDate: '2026-03-12',
+      status: 'separated',
+      assignedClients: [],
+      forms: { 'E.11':'2025-04-01', 'E.12':'2025-04-02', 'E.14':'2025-04-03', 'E.22':'2025-04-08',
+               'E.23':'2025-04-08', 'E.24':'2025-04-12', 'E.25':'2025-04-12', 'E.26':'2025-04-15',
+               'E.31':'2025-04-15', 'E.33':'2025-04-15', 'E.35':'2026-03-12', 'E.36':'2026-03-12' },
+      phone: '(708) 555-1502' },
+  ];
+
+  // ========================================================
+  // STATE
+  // ========================================================
+  let categoryFilter = 'active';
+  let extraFilter = 'all';
+  let searchTerm = '';
+  let openId = null;
+
+  // ========================================================
+  // HELPERS
+  // ========================================================
+  function isOverdue(dateStr, daysAllowed) {
+    if (!dateStr) return true;
+    const d = new Date(dateStr);
+    const ageDays = (Date.now() - d.getTime()) / (1000 * 60 * 60 * 24);
+    return ageDays > daysAllowed;
+  }
+
+  function staffCategory(s) {
+    if (s.status === 'separated') return 'separated';
+    if (s.status === 'onboarding') return 'onboarding';
+    return 'active';
+  }
+
+  function categoryProgress(s, formIds) {
+    const filed = formIds.filter(f => s.forms[f]).length;
+    const total = formIds.length;
+    let cls = 'missing';
+    if (filed === total) cls = 'done';
+    else if (filed > 0) cls = 'partial';
+    return { filed, total, cls };
+  }
+
+  function isTrainingOverdue(s) {
+    if (s.status === 'separated') return false;
+    return isOverdue(s.lastTraining, 365);
+  }
+
+  function isMissingForms(s) {
+    if (s.status === 'separated') return false;
+    return ALL_REQUIRED.some(f => !s.forms[f]);
+  }
+
+  // ========================================================
+  // RENDER
+  // ========================================================
+  function statusPillHtml(s) {
+    if (s.status === 'separated')  return `<div class="status-pill separated">Separated</div>`;
+    if (s.status === 'onboarding') return `<div class="status-pill onboarding">Onboarding</div>`;
+    if (s.status === 'attn')       return `<div class="status-pill attn">Needs Attention</div>`;
+    return `<div class="status-pill active">Active</div>`;
+  }
+
+  function categoryProgressHtml(s) {
+    const p = categoryProgress(s, FORM_CATEGORIES.personal);
+    const h = categoryProgress(s, FORM_CATEGORIES.health);
+    const t = categoryProgress(s, FORM_CATEGORIES.training);
+    return `
+      <div class="cat-progress">
+        <div class="cat-seg ${p.cls}">
+          <div class="cat-seg-label">Personal</div>
+          <div class="cat-seg-val">${p.filed}/${p.total}</div>
+        </div>
+        <div class="cat-seg ${h.cls}">
+          <div class="cat-seg-label">Health</div>
+          <div class="cat-seg-val">${h.filed}/${h.total}</div>
+        </div>
+        <div class="cat-seg ${t.cls}">
+          <div class="cat-seg-label">Training</div>
+          <div class="cat-seg-val">${t.filed}/${t.total}</div>
+        </div>
+      </div>`;
+  }
+
+  function staffCardHtml(s) {
+    const isOpen = s.id === openId;
+    const cat = staffCategory(s);
+    const cardClass = (cat === 'active' && s.status === 'attn') ? 'cat-attn' : 'cat-' + cat;
+    const clientsCount = s.assignedClients ? s.assignedClients.length : 0;
+    const clientsLabel = clientsCount === 0
+      ? '<span style="color:var(--amber);">No active clients</span>'
+      : `<b>${clientsCount}</b> client${clientsCount !== 1 ? 's' : ''}`;
+
+    return `
+      <div class="staff-card ${cardClass}${isOpen ? ' open' : ''}" data-id="${s.id}">
+        <div class="staff-row">
+          <div class="avatar">${s.initials}</div>
+          <div>
+            <div class="staff-name">${s.name}</div>
+            <div class="staff-id">${s.id} · DOB ${s.dob}</div>
+          </div>
+          <div class="staff-info">
+            <span class="role-tag">${s.role}</span>
+            <div>Hired <b>${s.hireDate}</b></div>
+            <div style="margin-top:2px;">${clientsLabel}</div>
+          </div>
+          <div class="cat-progress-wrap">
+            ${categoryProgressHtml(s)}
+          </div>
+          ${statusPillHtml(s)}
+          <div class="chev">›</div>
+        </div>
+        <div class="staff-detail">${detailHtml(s)}</div>
+      </div>`;
+  }
+
+  function detailHtml(s) {
+    const formRows = Object.keys(FORM_NAMES).map(f => {
+      const filed = s.forms[f];
+      let cls = '';
+      let dateStr = '—';
+      let action = `<a href="${formFile(f)}" target="_blank" class="tl-action">Submit →</a>`;
+      const required = ALL_REQUIRED.includes(f);
+      if (filed) {
+        cls = 'done';
+        dateStr = filed;
+        action = `<a href="#" onclick="event.preventDefault(); toast('Open PDF — wired in next phase')" class="tl-action">View →</a>`;
+      } else if (required) {
+        cls = 'missing';
+      }
+      return `
+        <div class="tl-row ${cls}">
+          <div class="tl-formid">${f}</div>
+          <div class="tl-name">${FORM_NAMES[f]}${required ? '' : ' <span style="color:var(--text-lighter);font-size:11px;">(optional)</span>'}</div>
+          ${action}
+          <div class="tl-date">${dateStr}</div>
+        </div>`;
+    }).join('');
+
+    const flagsBlock = s.flags ? `
+      <div class="detail-section">
+        <h3>Action Items</h3>
+        ${s.flags.map(f => `<div class="detail-row"><span class="key">⚠</span><span class="val">${f}</span></div>`).join('')}
+      </div>` : '';
+
+    const clientsBlock = `
+      <div class="detail-section">
+        <h3>Assigned Clients (${s.assignedClients.length})</h3>
+        ${s.assignedClients.length > 0
+          ? `<div class="client-chips">${s.assignedClients.map(c => `<a href="tracker.html#${c.id}" class="client-chip">${c.name} (${c.id})</a>`).join('')}</div>`
+          : `<div class="detail-row"><span class="val" style="color:var(--text-light);">No clients currently assigned.</span></div>`
+        }
+      </div>`;
+
+    return `
+      <div class="detail-grid">
+        <div>
+          <div class="detail-section">
+            <h3>Employee Info</h3>
+            <div class="detail-row"><span class="key">Full name</span><span class="val">${s.name}</span></div>
+            <div class="detail-row"><span class="key">DOB</span><span class="val">${s.dob}</span></div>
+            ${s.address ? `<div class="detail-row"><span class="key">Address</span><span class="val">${s.address}</span></div>` : ''}
+            ${s.phone ? `<div class="detail-row"><span class="key">Phone</span><span class="val">${s.phone}</span></div>` : ''}
+            ${s.supervisor ? `<div class="detail-row"><span class="key">Supervisor</span><span class="val">${s.supervisor}</span></div>` : ''}
+            <div class="detail-row"><span class="key">Hire date</span><span class="val">${s.hireDate}</span></div>
+            ${s.separationDate ? `<div class="detail-row"><span class="key">Separation date</span><span class="val">${s.separationDate}</span></div>` : ''}
+            <div class="detail-row"><span class="key">Last training</span><span class="val" style="${isTrainingOverdue(s) ? 'color:var(--amber);' : ''}">${s.lastTraining || '⚠ Not recorded'}</span></div>
+          </div>
+          ${clientsBlock}
+          ${flagsBlock}
+        </div>
+        <div>
+          <div class="detail-section">
+            <h3>Form Timeline</h3>
+            <div class="timeline">${formRows}</div>
+          </div>
+        </div>
+      </div>
+      <div class="actions-row">
+        <button class="btn btn-primary" onclick="event.stopPropagation(); openFolder('${s.id}')">Open Employee Folder ↗</button>
+        <button class="btn" onclick="event.stopPropagation(); assignClient('${s.id}')">Assign Client</button>
+        <button class="btn" onclick="event.stopPropagation(); recordTraining('${s.id}')">Record Training</button>
+        <button class="btn" onclick="event.stopPropagation(); addNote('${s.id}')">Add Note</button>
+        ${s.status !== 'separated' ? `<button class="btn btn-ghost" onclick="event.stopPropagation(); separate('${s.id}')">Separate…</button>` : ''}
+      </div>`;
+  }
+
+  function formFile(f) {
+    return f.replace('.', '') + '_' + (FORM_NAMES[f].replace(/[^A-Za-z0-9]+/g, '_')) + '.html';
+  }
+
+  function render() {
+    let list = STAFF.slice();
+
+    if (categoryFilter !== 'all') {
+      list = list.filter(s => staffCategory(s) === categoryFilter);
+    }
+
+    if (extraFilter === 'audit-ready') {
+      list = list.filter(s => !isMissingForms(s) && !isTrainingOverdue(s) && s.status !== 'separated');
+    } else if (extraFilter === 'missing-forms') {
+      list = list.filter(s => isMissingForms(s) && s.status !== 'separated');
+    } else if (extraFilter === 'training-overdue') {
+      list = list.filter(s => isTrainingOverdue(s) && s.status !== 'separated');
+    } else if (extraFilter === 'unassigned') {
+      list = list.filter(s => s.assignedClients.length === 0 && s.status !== 'separated');
+    }
+
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase();
+      list = list.filter(s =>
+        s.name.toLowerCase().includes(q) ||
+        s.id.toLowerCase().includes(q)
+      );
+    }
+
+    // Stats
+    const active = STAFF.filter(s => s.status === 'active' || s.status === 'attn');
+    const onboard = STAFF.filter(s => s.status === 'onboarding');
+    const attn = STAFF.filter(s => s.status === 'attn' || (s.status !== 'separated' && (isMissingForms(s) || isTrainingOverdue(s))));
+    const trainOver = STAFF.filter(s => isTrainingOverdue(s));
+    const totalClients = STAFF.reduce((sum, s) => sum + (s.assignedClients ? s.assignedClients.length : 0), 0);
+
+    document.getElementById('statTotal').textContent = active.length;
+    document.getElementById('statOnboard').textContent = onboard.length;
+    document.getElementById('statAttn').textContent = attn.length;
+    document.getElementById('statTrainOver').textContent = trainOver.length;
+    document.getElementById('statClients').textContent = totalClients;
+
+    // Tab counts
+    const byCat = (cat) => STAFF.filter(s => staffCategory(s) === cat).length;
+    document.getElementById('tcActive').textContent  = byCat('active');
+    document.getElementById('tcOnboard').textContent = byCat('onboarding');
+    document.getElementById('tcSep').textContent     = byCat('separated');
+    document.getElementById('tcAll').textContent     = STAFF.length;
+
+    // Filter tab counts (within category base)
+    const filterBase = (categoryFilter === 'all') ? STAFF : STAFF.filter(s => staffCategory(s) === categoryFilter);
+    document.getElementById('fAll').textContent        = filterBase.length;
+    document.getElementById('fReady').textContent      = filterBase.filter(s => !isMissingForms(s) && !isTrainingOverdue(s) && s.status !== 'separated').length;
+    document.getElementById('fMissing').textContent    = filterBase.filter(s => isMissingForms(s) && s.status !== 'separated').length;
+    document.getElementById('fTrain').textContent      = filterBase.filter(s => isTrainingOverdue(s) && s.status !== 'separated').length;
+    document.getElementById('fUnassigned').textContent = filterBase.filter(s => s.assignedClients.length === 0 && s.status !== 'separated').length;
+
+    // List
+    const listEl = document.getElementById('staffList');
+    if (list.length === 0) {
+      listEl.innerHTML = `
+        <div class="empty">
+          <div class="emoji">🔍</div>
+          <div class="title">No staff match</div>
+          <div class="sub">${searchTerm ? `No results for "${searchTerm}".` : 'Try a different filter.'}</div>
+        </div>`;
+      return;
+    }
+
+    listEl.innerHTML = `<div class="staff-list">${list.map(staffCardHtml).join('')}</div>`;
+    listEl.querySelectorAll('.staff-card').forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (e.target.closest('.btn') || e.target.closest('.tl-action') || e.target.closest('.client-chip')) return;
+        toggle(el.dataset.id);
+      });
+    });
+  }
+
+  function toggle(id) { openId = (openId === id) ? null : id; render(); }
+  function setCategory(c) {
+    categoryFilter = c;
+    document.querySelectorAll('#catTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.cat === c));
+    render();
+  }
+  function setExtraFilter(f) {
+    extraFilter = f;
+    document.querySelectorAll('#filterTabs .stage-tab').forEach(t => t.classList.toggle('active', t.dataset.filter === f));
+    render();
+  }
+
+  // Action placeholders
+  function openFolder(id) { toast(`Open SharePoint folder for ${id} — to be wired`); }
+  function assignClient(id) { toast(`Open client picker for ${id}`); }
+  function recordTraining(id) { toast(`Record training session for ${id}`); }
+  function addNote(id) { toast(`Add note for ${id}`); }
+  function separate(id) { if (confirm('Begin separation for this employee?')) toast(`Separation wizard for ${id}`); }
+
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // INIT
+  document.querySelectorAll('#catTabs .tab').forEach(t => t.addEventListener('click', () => setCategory(t.dataset.cat)));
+  document.querySelectorAll('#filterTabs .stage-tab').forEach(t => t.addEventListener('click', () => setExtraFilter(t.dataset.filter)));
+  document.getElementById('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value; render(); });
+  render();
+</script>
+</body>
+</html>
