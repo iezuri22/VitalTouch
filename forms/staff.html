@@ -453,6 +453,7 @@
       <a href="index.html" class="header-link">← Forms</a>
       <a href="tracker.html" class="header-link">Clients</a>
       <a href="admin.html" class="header-link">Admin</a>
+      <button class="header-link" id="phiBtn" style="cursor:pointer;font-family:inherit;" onclick="togglePhi()" title="Toggle PHI visibility">👁 PHI hidden</button>
       <button class="header-link" id="verifyBtn" style="cursor:pointer;font-family:inherit;display:none;" onclick="openDrawer()">⚠ Verify <span class="header-badge" id="verifyHeaderCount">0</span></button>
     </div>
   </div>
@@ -673,6 +674,54 @@
   let searchTerm = '';
   let openId = null;
   let inbox = INBOX.slice();
+
+  // ============= PHI VISIBILITY =============
+  let showPhi = false;
+  function loadPhiPref() {
+    try { showPhi = localStorage.getItem('vt_show_phi') === 'true'; } catch (e) {}
+  }
+  function updatePhiButton() {
+    const btn = document.getElementById('phiBtn');
+    if (!btn) return;
+    btn.textContent = showPhi ? '👁 PHI on' : '👁 PHI hidden';
+    btn.style.background = showPhi ? 'var(--amber-light)' : '';
+    btn.style.color = showPhi ? '#92400E' : '';
+    btn.style.borderColor = showPhi ? 'var(--amber)' : '';
+  }
+  function togglePhi() {
+    showPhi = !showPhi;
+    try { localStorage.setItem('vt_show_phi', showPhi); } catch (e) {}
+    updatePhiButton();
+    render();
+  }
+  function maskName(s) {
+    if (showPhi || !s.name) return s.name;
+    const parts = s.name.split(' ');
+    if (parts.length >= 2) return parts[0][0] + '. ' + parts.slice(-1)[0];
+    return s.name;
+  }
+  function maskDob(dob) {
+    if (!dob) return '—';
+    if (showPhi) return dob;
+    const year = parseInt(dob.split('-')[0], 10);
+    const age = new Date().getFullYear() - year;
+    return `Born ${year} (age ${age})`;
+  }
+  function maskAddress(addr) {
+    if (!addr) return '—';
+    if (showPhi) return addr;
+    const parts = addr.split(',').map(s => s.trim()).filter(Boolean);
+    if (parts.length >= 2) return '••• ' + parts.slice(-2).join(', ');
+    return '••• (hidden)';
+  }
+  function maskPhone(phone) {
+    if (!phone) return '—';
+    if (showPhi) return phone;
+    const digits = phone.replace(/\D/g, '');
+    if (digits.length >= 4) return '(•••) •••-' + digits.slice(-4);
+    return '••• (hidden)';
+  }
+  loadPhiPref();
 
   // Verification queue
   let verifications = [];
@@ -897,8 +946,8 @@
         <div class="staff-row">
           <div class="avatar">${s.initials}</div>
           <div>
-            <div class="staff-name">${s.name}</div>
-            <div class="staff-id">${s.id} · DOB ${s.dob}</div>
+            <div class="staff-name">${maskName(s)}</div>
+            <div class="staff-id">${s.id} · ${showPhi ? 'DOB ' + s.dob : 'b. ' + (s.dob ? s.dob.split('-')[0] : '')}</div>
           </div>
           <div class="staff-info">
             <span class="role-tag">${s.role}</span>
@@ -977,11 +1026,11 @@
       <div class="detail-grid">
         <div>
           <div class="detail-section">
-            <h3>Employee Info</h3>
-            <div class="detail-row"><span class="key">Full name</span><span class="val">${s.name}</span></div>
-            <div class="detail-row"><span class="key">DOB</span><span class="val">${s.dob}</span></div>
-            ${s.address ? `<div class="detail-row"><span class="key">Address</span><span class="val">${s.address}</span></div>` : ''}
-            ${s.phone ? `<div class="detail-row"><span class="key">Phone</span><span class="val">${s.phone}</span></div>` : ''}
+            <h3>Employee Info ${showPhi ? '<span style="color:var(--amber);font-weight:600;text-transform:none;letter-spacing:0;">· PHI visible</span>' : ''}</h3>
+            <div class="detail-row"><span class="key">Name</span><span class="val">${maskName(s)}</span></div>
+            <div class="detail-row"><span class="key">DOB</span><span class="val">${maskDob(s.dob)}</span></div>
+            ${s.address ? `<div class="detail-row"><span class="key">Address</span><span class="val">${maskAddress(s.address)}</span></div>` : ''}
+            ${s.phone ? `<div class="detail-row"><span class="key">Phone</span><span class="val">${maskPhone(s.phone)}</span></div>` : ''}
             ${s.supervisor ? `<div class="detail-row"><span class="key">Supervisor</span><span class="val">${s.supervisor}</span></div>` : ''}
             <div class="detail-row"><span class="key">Hire date</span><span class="val">${s.hireDate}</span></div>
             ${s.separationDate ? `<div class="detail-row"><span class="key">Separation date</span><span class="val">${s.separationDate}</span></div>` : ''}
@@ -1206,6 +1255,7 @@
   }
 
   // INIT
+  updatePhiButton();
   document.querySelectorAll('#catTabs .tab').forEach(t => t.addEventListener('click', () => setCategory(t.dataset.cat)));
   document.querySelectorAll('#filterTabs .stage-tab').forEach(t => t.addEventListener('click', () => setExtraFilter(t.dataset.filter)));
   document.getElementById('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value; render(); });
