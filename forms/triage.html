@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submission Triage — VitalTouch</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --amber: #F59E0B;
+    --amber-light: #FEF3C7;
+    --red: #DC2626;
+    --red-light: #FEE2E2;
+    --blue: #2563EB;
+    --blue-light: #DBEAFE;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
+  }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* ===== HEADER ===== */
+  .topbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--green);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .brand-name { font-weight: 700; font-size: 15px; color: var(--text); }
+  .brand-sub { font-size: 12px; color: var(--text-light); }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .user-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    background: var(--bg);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .signout-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .signout-btn:hover { border-color: var(--text-light); color: var(--text); }
+
+  /* ===== PAGE WRAPPER ===== */
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 32px;
+  }
+  .page-title {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .page-title h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .page-title .count-badge {
+    background: var(--amber-light);
+    color: #92400E;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .page-subtitle {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 24px;
+  }
+
+  /* ===== STATS ===== */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .stat.amber .stat-value { color: #B45309; }
+  .stat.green .stat-value { color: var(--green-deeper); }
+  .stat.red .stat-value { color: #B91C1C; }
+
+  /* ===== TABS / FILTERS ===== */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+    background: var(--white);
+    border-radius: 10px 10px 0 0;
+    padding: 4px 4px 0;
+  }
+  .tab {
+    background: none;
+    border: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--text-light);
+    cursor: pointer;
+    font-weight: 500;
+    font-family: inherit;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+  .tab:hover { color: var(--text); background: var(--bg); }
+  .tab.active {
+    color: var(--green-deeper);
+    border-bottom-color: var(--green);
+    background: var(--white);
+  }
+  .tab-count {
+    background: var(--bg);
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .tab.active .tab-count { background: var(--green-light); color: var(--green-deeper); }
+
+  /* ===== QUEUE ===== */
+  .queue {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 16px;
+  }
+  .card-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .card-item:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--text-lighter);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+  .form-tag {
+    background: var(--blue-light);
+    color: #1E40AF;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+  }
+  .submitted-at {
+    font-size: 12px;
+    color: var(--text-lighter);
+  }
+  .card-filename {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 12px;
+    color: var(--text-light);
+    background: var(--bg);
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    word-break: break-all;
+  }
+
+  /* match suggestion */
+  .match-block {
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 14px;
+  }
+  .match-block.matched {
+    background: var(--green-light);
+    border: 1px solid #86EFAC;
+  }
+  .match-block.unmatched {
+    background: var(--amber-light);
+    border: 1px solid #FCD34D;
+  }
+  .match-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .match-block.matched .match-label { color: var(--green-deeper); }
+  .match-block.unmatched .match-label { color: #92400E; }
+  .match-name { font-size: 15px; font-weight: 600; color: var(--text); }
+  .match-meta {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 2px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .match-meta span { display: inline-flex; align-items: center; gap: 4px; }
+  .match-meta .dot { width: 4px; height: 4px; background: var(--text-lighter); border-radius: 50%; }
+
+  /* destination */
+  .destination {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .destination .icon { color: var(--green); font-size: 14px; }
+  .destination code {
+    background: var(--bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    color: var(--green-deeper);
+  }
+
+  /* actions */
+  .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--green-dark); }
+  .btn-secondary {
+    background: var(--white);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--text-light); background: var(--bg); }
+  .btn-danger {
+    background: var(--white);
+    color: var(--red);
+    border: 1px solid var(--red-light);
+  }
+  .btn-danger:hover { background: var(--red-light); }
+
+  /* ===== EMPTY STATE ===== */
+  .empty-state {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 60px 32px;
+    text-align: center;
+  }
+  .empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+  .empty-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .empty-sub {
+    font-size: 14px;
+    color: var(--text-light);
+  }
+
+  /* ===== LOGIN OVERLAY ===== */
+  .login-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, var(--green-light), var(--bg));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  .login-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    padding: 40px;
+    max-width: 400px;
+    width: calc(100% - 48px);
+    text-align: center;
+  }
+  .login-card .logo-mark {
+    width: 56px; height: 56px; font-size: 24px;
+    margin: 0 auto 20px;
+  }
+  .login-card h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .login-card p {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 24px;
+  }
+  .ms-signin-btn {
+    width: 100%;
+    background: #2F2F2F;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.15s;
+  }
+  .ms-signin-btn:hover { background: #1F1F1F; }
+  .ms-logo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1px;
+    width: 18px;
+    height: 18px;
+  }
+  .ms-logo span { display: block; }
+  .ms-logo span:nth-child(1) { background: #F25022; }
+  .ms-logo span:nth-child(2) { background: #7FBA00; }
+  .ms-logo span:nth-child(3) { background: #00A4EF; }
+  .ms-logo span:nth-child(4) { background: #FFB900; }
+  .login-footer {
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--text-lighter);
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--text);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 200;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: all 0.2s;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.success { background: var(--green-deeper); }
+
+  @media (max-width: 760px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .queue { grid-template-columns: 1fr; }
+    .wrap { padding: 16px; }
+    .topbar { padding: 12px 16px; }
+    .actions { flex-direction: column; }
+    .actions .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN OVERLAY ===== -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <div class="logo-mark">VT</div>
+    <h2>VitalTouch Operations</h2>
+    <p>Sign in with your VitalTouch Microsoft account to access the submission triage queue.</p>
+    <button class="ms-signin-btn" onclick="signIn()">
+      <span class="ms-logo"><span></span><span></span><span></span><span></span></span>
+      Sign in with Microsoft
+    </button>
+    <div class="login-footer">Authorized personnel only</div>
+  </div>
+</div>
+
+<!-- ===== TOPBAR ===== -->
+<div class="topbar" style="display:none;" id="topbar">
+  <div class="topbar-left">
+    <div class="logo-mark">VT</div>
+    <div class="brand">
+      <div class="brand-name">VitalTouch Operations</div>
+      <div class="brand-sub">Submission Triage</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="user-chip">
+      <div class="user-avatar" id="userAvatar">IE</div>
+      <span id="userName">Ifeanyi Ezurike</span>
+    </div>
+    <button class="signout-btn" onclick="signOut()">Sign out</button>
+  </div>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="wrap" style="display:none;" id="mainContent">
+
+  <div class="page-title">
+    <h1>Submission Triage</h1>
+    <span class="count-badge" id="pendingBadge">0 pending</span>
+  </div>
+  <div class="page-subtitle">Review incoming form submissions and route them to the right client folder.</div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat amber">
+      <div class="stat-label">Pending Review</div>
+      <div class="stat-value" id="statPending">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Submitted Today</div>
+      <div class="stat-value" id="statToday">0</div>
+    </div>
+    <div class="stat green">
+      <div class="stat-label">Routed Today</div>
+      <div class="stat-value" id="statRouted">0</div>
+    </div>
+    <div class="stat red">
+      <div class="stat-label">Needs Attention</div>
+      <div class="stat-value" id="statAttention">0</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" data-filter="all" onclick="setFilter('all')">
+      All <span class="tab-count" id="tabAllCount">0</span>
+    </button>
+    <button class="tab" data-filter="matched" onclick="setFilter('matched')">
+      Auto-Matched <span class="tab-count" id="tabMatchedCount">0</span>
+    </button>
+    <button class="tab" data-filter="unmatched" onclick="setFilter('unmatched')">
+      No Match <span class="tab-count" id="tabUnmatchedCount">0</span>
+    </button>
+    <button class="tab" data-filter="needsreview" onclick="setFilter('needsreview')">
+      Needs Review <span class="tab-count" id="tabNeedsReviewCount">0</span>
+    </button>
+  </div>
+
+  <!-- QUEUE -->
+  <div id="queueContainer"></div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ============================================
+  // MOCK DATA — replaced with real Graph API calls
+  // ============================================
+  const MOCK_QUEUE = [
+    {
+      id: '1',
+      filename: 'C.11_Smith-John_1955-03-12_2026-04-25.pdf',
+      formId: 'C.11',
+      formName: 'Client Intake Form',
+      submittedAt: '2026-04-25T14:23:00Z',
+      submittedBy: 'web form (vitaltouchcares.com)',
+      matchStatus: 'matched',
+      suggested: {
+        clientId: 'VT-2026-014',
+        initial_last: 'J. Smith',
+        dob: '1955-03-12',
+        population: 'Senior_Private_Pay',
+      },
+      payer: { category: 'Private Pay', carrier: 'Self-Pay (cash, check, ACH)' },
+      destination: '/06_Clients/Active_Senior_Private_Pay/VT-2026-014/1_Intake/',
+    },
+    {
+      id: '2',
+      filename: 'C.41_Davis-Mary_1942-07-08_2026-04-25.pdf',
+      formId: 'C.41',
+      formName: 'Monthly Contact Log',
+      submittedAt: '2026-04-25T13:01:00Z',
+      submittedBy: 'CSM Sarah K.',
+      matchStatus: 'matched',
+      suggested: {
+        clientId: 'VT-2026-007',
+        initial_last: 'M. Davis',
+        dob: '1942-07-08',
+        population: 'IDoA-CCP',
+      },
+      payer: { category: 'Public Program', carrier: 'Community Care Program (IDoA)' },
+      destination: '/06_Clients/Active_IDoA-CCP/VT-2026-007/3_Ongoing_Service_Records/',
+    },
+    {
+      id: '3',
+      filename: 'C.11_Williams-Robert_1968-11-22_2026-04-25.pdf',
+      formId: 'C.11',
+      formName: 'Client Intake Form',
+      submittedAt: '2026-04-25T11:45:00Z',
+      submittedBy: 'web form (vitaltouchcares.com)',
+      matchStatus: 'unmatched',
+      suggested: null,
+      payer: { category: 'Public Program', carrier: 'DRS Home Services Program (IDHS)' },
+      destination: '/06_Clients/Active_DRS-HSP/[NEW]/1_Intake/',
+      newClient: { initial_last: 'R. Williams', dob: '1968-11-22', population: 'DRS-HSP' },
+    },
+    {
+      id: '4',
+      filename: 'C.44_Lacey-Wayne_1949-02-15_2026-04-25.pdf',
+      formId: 'C.44',
+      formName: 'Incident Report',
+      submittedAt: '2026-04-25T09:12:00Z',
+      submittedBy: 'CSM Maria T.',
+      matchStatus: 'matched',
+      urgent: true,
+      suggested: {
+        clientId: 'VT-2025-001',
+        initial_last: 'W. Lacey',
+        dob: '1949-02-15',
+        population: 'IDoA-CCP',
+      },
+      payer: { category: 'Public Program', carrier: 'Community Care Program (IDoA)' },
+      destination: '/06_Clients/Active_IDoA-CCP/VT-2025-001/5_Incidents_and_Communications/',
+    },
+    {
+      id: '5',
+      filename: 'C.11_unknown_2026-04-24.pdf',
+      formId: 'C.11',
+      formName: 'Client Intake Form',
+      submittedAt: '2026-04-24T16:30:00Z',
+      submittedBy: 'unknown — bad filename',
+      matchStatus: 'needsreview',
+      suggested: null,
+      reviewReason: 'Filename does not match expected format. Could not parse name or DOB.',
+      payer: null,
+      destination: null,
+    },
+  ];
+
+  // ============================================
+  // STATE
+  // ============================================
+  let currentFilter = 'all';
+  let queueData = [];
+
+  // ============================================
+  // AUTH (placeholder)
+  // ============================================
+  function signIn() {
+    // TODO: wire to MSAL.js
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('topbar').style.display = 'flex';
+    document.getElementById('mainContent').style.display = 'block';
+    loadQueue();
+  }
+
+  function signOut() {
+    // TODO: wire to MSAL.js
+    document.getElementById('loginOverlay').style.display = 'flex';
+    document.getElementById('topbar').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'none';
+  }
+
+  // ============================================
+  // QUEUE LOADING (placeholder — replace with Graph fetch)
+  // ============================================
+  async function loadQueue() {
+    queueData = MOCK_QUEUE.slice();
+    renderStats();
+    renderQueue();
+  }
+
+  function renderStats() {
+    const today = new Date().toISOString().split('T')[0];
+    const todayCount = queueData.filter(item => item.submittedAt.startsWith(today)).length;
+    const pendingCount = queueData.length;
+    const needsReviewCount = queueData.filter(item => item.matchStatus === 'needsreview').length;
+    const urgentCount = queueData.filter(item => item.urgent).length;
+
+    document.getElementById('statPending').textContent = pendingCount;
+    document.getElementById('statToday').textContent = todayCount;
+    document.getElementById('statRouted').textContent = '0';
+    document.getElementById('statAttention').textContent = needsReviewCount + urgentCount;
+    document.getElementById('pendingBadge').textContent = pendingCount + ' pending';
+
+    // Tab counts
+    document.getElementById('tabAllCount').textContent = queueData.length;
+    document.getElementById('tabMatchedCount').textContent = queueData.filter(i => i.matchStatus === 'matched').length;
+    document.getElementById('tabUnmatchedCount').textContent = queueData.filter(i => i.matchStatus === 'unmatched').length;
+    document.getElementById('tabNeedsReviewCount').textContent = queueData.filter(i => i.matchStatus === 'needsreview').length;
+  }
+
+  function renderQueue() {
+    const container = document.getElementById('queueContainer');
+    let visible = queueData;
+    if (currentFilter !== 'all') {
+      visible = queueData.filter(i => i.matchStatus === currentFilter);
+    }
+
+    if (visible.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">📭</div>
+          <div class="empty-title">All clear</div>
+          <div class="empty-sub">No submissions in this view. Newly submitted forms will appear here automatically.</div>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = '<div class="queue">' +
+      visible.map(item => renderCard(item)).join('') +
+      '</div>';
+  }
+
+  function renderCard(item) {
+    const submittedDate = new Date(item.submittedAt);
+    const submittedDisplay = submittedDate.toLocaleString('en-US', {
+      month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
+    });
+
+    let matchBlock = '';
+    if (item.matchStatus === 'matched') {
+      matchBlock = `
+        <div class="match-block matched">
+          <div class="match-label">✓ Auto-matched to existing client</div>
+          <div class="match-name">${item.suggested.initial_last} <span style="color:var(--text-light); font-weight:400; font-size:13px;">(${item.suggested.clientId})</span></div>
+          <div class="match-meta">
+            <span>DOB ${item.suggested.dob}</span>
+            <span class="dot"></span>
+            <span>${item.suggested.population.replace(/_/g, ' ')}</span>
+          </div>
+        </div>`;
+    } else if (item.matchStatus === 'unmatched' && item.newClient) {
+      matchBlock = `
+        <div class="match-block unmatched">
+          <div class="match-label">⚠ No existing match — looks like a new client</div>
+          <div class="match-name">${item.newClient.initial_last}</div>
+          <div class="match-meta">
+            <span>DOB ${item.newClient.dob}</span>
+            <span class="dot"></span>
+            <span>${item.newClient.population.replace(/_/g, ' ')}</span>
+          </div>
+        </div>`;
+    } else if (item.matchStatus === 'needsreview') {
+      matchBlock = `
+        <div class="match-block unmatched">
+          <div class="match-label">⚠ Needs manual review</div>
+          <div class="match-name">${item.reviewReason || 'Unknown reason'}</div>
+        </div>`;
+    }
+
+    let destinationBlock = '';
+    if (item.destination) {
+      destinationBlock = `
+        <div class="destination">
+          <span class="icon">→</span>
+          Files to <code>${item.destination}</code>
+        </div>`;
+    }
+
+    let actions;
+    if (item.matchStatus === 'matched') {
+      actions = `
+        <button class="btn btn-primary" onclick="approveAndFile('${item.id}')">Approve &amp; File</button>
+        <button class="btn btn-secondary" onclick="reassign('${item.id}')">Reassign</button>
+        <button class="btn btn-secondary" onclick="viewPdf('${item.id}')">View PDF</button>
+        <button class="btn btn-danger" onclick="reject('${item.id}')">Reject</button>`;
+    } else if (item.matchStatus === 'unmatched') {
+      actions = `
+        <button class="btn btn-primary" onclick="addAsNewClient('${item.id}')">Add as New Client</button>
+        <button class="btn btn-secondary" onclick="reassign('${item.id}')">Match to Existing</button>
+        <button class="btn btn-secondary" onclick="viewPdf('${item.id}')">View PDF</button>
+        <button class="btn btn-danger" onclick="reject('${item.id}')">Reject</button>`;
+    } else {
+      actions = `
+        <button class="btn btn-primary" onclick="reassign('${item.id}')">Manual Match</button>
+        <button class="btn btn-secondary" onclick="viewPdf('${item.id}')">View PDF</button>
+        <button class="btn btn-danger" onclick="reject('${item.id}')">Reject</button>`;
+    }
+
+    return `
+      <div class="card-item" data-id="${item.id}">
+        <div class="card-header">
+          <span class="form-tag">${item.formId} · ${item.formName}</span>
+          <span class="submitted-at">${submittedDisplay}</span>
+        </div>
+        <div class="card-filename">${item.filename}</div>
+        ${matchBlock}
+        ${destinationBlock}
+        <div class="actions">${actions}</div>
+      </div>`;
+  }
+
+  // ============================================
+  // ACTIONS (placeholders — wire to Power Automate)
+  // ============================================
+  function approveAndFile(id) {
+    const item = queueData.find(i => i.id === id);
+    if (!item) return;
+    showToast(`✓ ${item.filename} routed to ${item.suggested.initial_last}`, 'success');
+    queueData = queueData.filter(i => i.id !== id);
+    renderStats();
+    renderQueue();
+    // TODO: POST to VT_Triage_Actions list with action=approve_route
+  }
+
+  function addAsNewClient(id) {
+    const item = queueData.find(i => i.id === id);
+    if (!item) return;
+    showToast(`✓ Created roster entry for ${item.newClient.initial_last}`, 'success');
+    queueData = queueData.filter(i => i.id !== id);
+    renderStats();
+    renderQueue();
+    // TODO: POST to VT_Triage_Actions list with action=create_new_client
+  }
+
+  function reassign(id) {
+    showToast('Reassign — opens client picker (not wired yet)');
+  }
+
+  function viewPdf(id) {
+    const item = queueData.find(i => i.id === id);
+    showToast(`View PDF — opens ${item.filename} (not wired yet)`);
+  }
+
+  function reject(id) {
+    if (!confirm('Reject this submission? It will move to the archive.')) return;
+    const item = queueData.find(i => i.id === id);
+    showToast(`✗ ${item.filename} rejected`);
+    queueData = queueData.filter(i => i.id !== id);
+    renderStats();
+    renderQueue();
+  }
+
+  function setFilter(filter) {
+    currentFilter = filter;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.tab[data-filter="${filter}"]`).classList.add('active');
+    renderQueue();
+  }
+
+  function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (type ? ' ' + type : '');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ============================================
+  // INIT
+  // ============================================
+  // Auto-bypass login in mock mode for quick preview.
+  // Comment this out to see the login screen first.
+  signIn();
+</script>
+</body>
+</html>
