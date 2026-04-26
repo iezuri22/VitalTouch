@@ -258,7 +258,7 @@
   .tl-row {
     display: grid;
     grid-template-columns: 60px 1fr auto 90px;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
     padding: 8px 12px;
     background: var(--bg);
@@ -494,6 +494,50 @@
   .empty .title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
   .empty .sub { font-size: 14px; color: var(--text-light); }
 
+  /* ===== LOG MODAL ===== */
+  .modal-bg {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(15,17,21,0.45);
+    display: none; align-items: center; justify-content: center;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--white); border-radius: var(--radius);
+    padding: 28px; width: 92%; max-width: 540px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+  }
+  .modal h2 { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .modal .modal-sub { font-size: 13px; color: var(--text-light); margin-bottom: 18px; }
+  .modal label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; margin-top: 14px; }
+  .modal label:first-of-type { margin-top: 0; }
+  .modal input, .modal textarea {
+    width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;
+    background: var(--white);
+  }
+  .modal input:focus, .modal textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-glow); }
+  .modal textarea { min-height: 80px; resize: vertical; }
+  .modal-form-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 12px; font-weight: 600;
+    background: var(--bg); padding: 4px 10px; border-radius: 4px;
+    color: var(--text); margin-bottom: 8px;
+  }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 22px; }
+  .modal-hint {
+    font-size: 12px; color: var(--text-lighter); margin-top: 4px; line-height: 1.4;
+  }
+
+  /* small "Log" button on timeline rows */
+  .tl-log {
+    font-size: 12px; padding: 4px 10px; border-radius: 4px;
+    text-decoration: none; font-weight: 600;
+    background: var(--white); color: var(--text-light);
+    border: 1px solid var(--border); cursor: pointer; font-family: inherit;
+  }
+  .tl-log:hover { border-color: var(--green); color: var(--green); }
+
   /* ===== TOAST ===== */
   .toast {
     position: fixed; bottom: 24px; left: 50%;
@@ -605,6 +649,33 @@
 
   <!-- ===== CLIENT LIST (shown for all categories except Inbox) ===== -->
   <div id="list"></div>
+</div>
+
+<!-- LOG SUBMISSION MODAL -->
+<div class="modal-bg" id="logModalBg" onclick="if(event.target===this) closeLogModal()">
+  <div class="modal">
+    <h2 id="logModalTitle">Log existing submission</h2>
+    <div class="modal-sub">Manually record a form that was filed elsewhere — paper, email, or pre-existing on SharePoint.</div>
+
+    <label>Form</label>
+    <div class="modal-form-tag" id="logFormTag">—</div>
+
+    <label>Submission date</label>
+    <input type="date" id="logDate">
+
+    <label>SharePoint URL (paste the link to the PDF)</label>
+    <input type="text" id="logUrl" placeholder="https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/...">
+    <div class="modal-hint">Optional. If you have the PDF on SharePoint, paste the link so the timeline links straight to it.</div>
+
+    <label>Notes (optional)</label>
+    <textarea id="logNote" placeholder="e.g. Received via fax 4/22, scanned to SharePoint"></textarea>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeLogModal()">Cancel</button>
+      <button class="btn" onclick="clearLogEntry()" id="logClearBtn" style="display:none; color:var(--red); border-color:var(--red-light);">Clear entry</button>
+      <button class="btn btn-primary" onclick="saveLogEntry()">Save</button>
+    </div>
+  </div>
 </div>
 
 <!-- VERIFICATION DRAWER -->
@@ -914,16 +985,37 @@
       </div>`;
   }
 
+  // Each form entry can be either a date string ("2026-04-01") or
+  // an object { date, url, note } — for backwards compat.
+  function getFormDate(c, f) {
+    const v = c.forms && c.forms[f];
+    if (!v) return null;
+    return (typeof v === 'object') ? v.date : v;
+  }
+  function getFormUrl(c, f) {
+    const v = c.forms && c.forms[f];
+    return (v && typeof v === 'object') ? v.url : null;
+  }
+  function getFormNote(c, f) {
+    const v = c.forms && c.forms[f];
+    return (v && typeof v === 'object') ? v.note : null;
+  }
+
   function detailHtml(c) {
     const formRows = Object.keys(FORM_NAMES).map(f => {
-      const submitted = c.forms[f];
+      const submitted = getFormDate(c, f);
+      const url = getFormUrl(c, f);
       let cls = '';
       let dateStr = '—';
-      let action = `<a href="${formFile(f)}" target="_blank" class="tl-action">Submit →</a>`;
+      let viewBtn = `<a href="${formFile(f)}" target="_blank" class="tl-action">Submit →</a>`;
+      let logBtn = `<button class="tl-log" onclick="event.stopPropagation(); openLogModal('${c.id}','${f}')">+ Log</button>`;
       if (submitted) {
         cls = 'done';
         dateStr = submitted;
-        action = `<a href="#" onclick="event.preventDefault(); toast('Open PDF — wired in next phase')" class="tl-action">View →</a>`;
+        viewBtn = url
+          ? `<a href="${url}" target="_blank" class="tl-action">View →</a>`
+          : `<a href="#" onclick="event.preventDefault(); toast('No URL on file — click Edit to add one')" class="tl-action">View →</a>`;
+        logBtn = `<button class="tl-log" onclick="event.stopPropagation(); openLogModal('${c.id}','${f}')">Edit</button>`;
       } else if (REQUIRED_FORMS.includes(f) && c.status !== 'intake') {
         cls = 'missing';
       }
@@ -931,7 +1023,7 @@
         <div class="tl-row ${cls}">
           <div class="tl-formid">${f}</div>
           <div class="tl-name">${FORM_NAMES[f]}</div>
-          ${action}
+          <div style="display:flex; gap:6px;">${viewBtn}${logBtn}</div>
           <div class="tl-date">${dateStr}</div>
         </div>`;
     }).join('');
@@ -1280,7 +1372,7 @@
     // Bind click handlers (only on row, not on action buttons)
     listEl.querySelectorAll('.client-card').forEach(el => {
       el.addEventListener('click', (e) => {
-        if (e.target.closest('.btn') || e.target.closest('.tl-action')) return;
+        if (e.target.closest('.btn') || e.target.closest('.tl-action') || e.target.closest('.tl-log')) return;
         toggle(el.dataset.id);
       });
     });
@@ -1332,6 +1424,73 @@
     });
     toast(`Discharge wizard for ${id} — verify on SharePoint`);
   }
+  // ============= LOG SUBMISSION MODAL =============
+  let logModalCtx = null; // { clientId, formId }
+  function openLogModal(clientId, formId) {
+    const c = CLIENTS.find(x => x.id === clientId);
+    if (!c) return;
+    logModalCtx = { clientId: clientId, formId: formId };
+    const existingDate = getFormDate(c, formId) || '';
+    const existingUrl  = getFormUrl(c, formId) || '';
+    const existingNote = getFormNote(c, formId) || '';
+
+    document.getElementById('logFormTag').textContent = formId + ' · ' + (FORM_NAMES[formId] || '');
+    document.getElementById('logModalTitle').textContent = existingDate ? 'Edit submission' : 'Log existing submission';
+    document.getElementById('logDate').value = existingDate;
+    document.getElementById('logUrl').value = existingUrl;
+    document.getElementById('logNote').value = existingNote;
+    document.getElementById('logClearBtn').style.display = existingDate ? 'inline-flex' : 'none';
+    document.getElementById('logModalBg').classList.add('open');
+  }
+  function closeLogModal() {
+    document.getElementById('logModalBg').classList.remove('open');
+    logModalCtx = null;
+  }
+  function saveLogEntry() {
+    if (!logModalCtx) return;
+    const date = document.getElementById('logDate').value;
+    if (!date) { toast('Submission date is required'); return; }
+    const url = document.getElementById('logUrl').value.trim();
+    const note = document.getElementById('logNote').value.trim();
+    const c = CLIENTS.find(x => x.id === logModalCtx.clientId);
+    if (!c) return;
+    const f = logModalCtx.formId;
+    const wasFiled = !!getFormDate(c, f);
+    c.forms[f] = (url || note) ? { date, url, note } : date;
+
+    // Update milestone roster columns based on form
+    if (f === 'C.11' && !c.intakeDate) c.intakeDate = date;
+    if (f === 'C.12') c.agreementDate = date;
+    if (f === 'C.24') c.carePlanDate = date;
+    if (f === 'C.41') c.lastMonthly = date;
+    if (f === 'C.42') c.lastSemiAnnual = date;
+
+    closeLogModal();
+    render();
+    addVerification({
+      action: wasFiled ? 'edit_submission' : 'log_submission',
+      message: `${wasFiled ? 'Edited' : 'Logged'} <code>${f}</code> submission for <b>${c.name} (${c.id})</b> dated <b>${date}</b>${url ? ' with SharePoint link.' : '.'} Confirm <code>VT_Form_Submissions_Log</code> reflects this entry${url ? ' and the file is at the expected URL' : ''}.`,
+      sharepointUrl: url || 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Form_Submissions_Log'
+    });
+    toast(`${wasFiled ? 'Updated' : 'Logged'} ${f} for ${c.name} — verify on SharePoint`);
+  }
+  function clearLogEntry() {
+    if (!logModalCtx) return;
+    if (!confirm('Remove this submission from the timeline? The PDF on SharePoint is not deleted.')) return;
+    const c = CLIENTS.find(x => x.id === logModalCtx.clientId);
+    if (!c) return;
+    const f = logModalCtx.formId;
+    delete c.forms[f];
+    closeLogModal();
+    render();
+    addVerification({
+      action: 'clear_submission',
+      message: `Removed <code>${f}</code> submission entry for <b>${c.name} (${c.id})</b> from the tracker. Confirm whether the PDF on SharePoint should also be moved or kept.`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Form_Submissions_Log'
+    });
+    toast(`Removed ${f} entry — verify on SharePoint`);
+  }
+
   function assignHSW(id) {
     const c = CLIENTS.find(x => x.id === id);
     addVerification({

@@ -248,6 +248,46 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* ===== LOG MODAL ===== */
+  .modal-bg {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(15,17,21,0.45);
+    display: none; align-items: center; justify-content: center;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--white); border-radius: var(--radius);
+    padding: 28px; width: 92%; max-width: 540px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+  }
+  .modal h2 { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .modal-sub { font-size: 13px; color: var(--text-light); margin-bottom: 18px; }
+  .modal label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; margin-top: 14px; }
+  .modal label:first-of-type { margin-top: 0; }
+  .modal input, .modal textarea {
+    width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;
+    background: var(--white);
+  }
+  .modal input:focus, .modal textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-glow); }
+  .modal textarea { min-height: 80px; resize: vertical; }
+  .modal-form-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 12px; font-weight: 600;
+    background: var(--bg); padding: 4px 10px; border-radius: 4px;
+    color: var(--text); margin-bottom: 8px;
+  }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 22px; }
+  .modal-hint { font-size: 12px; color: var(--text-lighter); margin-top: 4px; line-height: 1.4; }
+  .tl-log {
+    font-size: 12px; padding: 4px 10px; border-radius: 4px;
+    text-decoration: none; font-weight: 600;
+    background: var(--white); color: var(--text-light);
+    border: 1px solid var(--border); cursor: pointer; font-family: inherit;
+  }
+  .tl-log:hover { border-color: var(--green); color: var(--green); }
+
   /* ===== INBOX SECTION ===== */
   .section-head {
     display: flex; align-items: baseline; justify-content: space-between;
@@ -465,6 +505,28 @@
   </div>
 
   <div id="staffList"></div>
+</div>
+
+<!-- LOG SUBMISSION MODAL -->
+<div class="modal-bg" id="logModalBg" onclick="if(event.target===this) closeLogModal()">
+  <div class="modal">
+    <h2 id="logModalTitle">Log existing submission</h2>
+    <div class="modal-sub">Manually record an employee form filed elsewhere — paper, email, or pre-existing on SharePoint.</div>
+    <label>Form</label>
+    <div class="modal-form-tag" id="logFormTag">—</div>
+    <label>Submission date</label>
+    <input type="date" id="logDate">
+    <label>SharePoint URL (optional)</label>
+    <input type="text" id="logUrl" placeholder="https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/...">
+    <div class="modal-hint">Paste the link to the PDF on SharePoint. The timeline will link directly to it.</div>
+    <label>Notes (optional)</label>
+    <textarea id="logNote" placeholder="e.g. Hired 4/15, vaccinations on file from Q1"></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeLogModal()">Cancel</button>
+      <button class="btn" onclick="clearLogEntry()" id="logClearBtn" style="display:none; color:var(--red); border-color:var(--red-light);">Clear entry</button>
+      <button class="btn btn-primary" onclick="saveLogEntry()">Save</button>
+    </div>
+  </div>
 </div>
 
 <!-- VERIFICATION DRAWER -->
@@ -772,7 +834,7 @@
   }
 
   function categoryProgress(s, formIds) {
-    const filed = formIds.filter(f => s.forms[f]).length;
+    const filed = formIds.filter(f => !!getFormDate(s, f)).length;
     const total = formIds.length;
     let cls = 'missing';
     if (filed === total) cls = 'done';
@@ -787,7 +849,7 @@
 
   function isMissingForms(s) {
     if (s.status === 'separated') return false;
-    return ALL_REQUIRED.some(f => !s.forms[f]);
+    return ALL_REQUIRED.some(f => !getFormDate(s, f));
   }
 
   // ========================================================
@@ -853,17 +915,37 @@
       </div>`;
   }
 
+  // Each form entry: date string OR { date, url, note }
+  function getFormDate(s, f) {
+    const v = s.forms && s.forms[f];
+    if (!v) return null;
+    return (typeof v === 'object') ? v.date : v;
+  }
+  function getFormUrl(s, f) {
+    const v = s.forms && s.forms[f];
+    return (v && typeof v === 'object') ? v.url : null;
+  }
+  function getFormNote(s, f) {
+    const v = s.forms && s.forms[f];
+    return (v && typeof v === 'object') ? v.note : null;
+  }
+
   function detailHtml(s) {
     const formRows = Object.keys(FORM_NAMES).map(f => {
-      const filed = s.forms[f];
+      const filed = getFormDate(s, f);
+      const url = getFormUrl(s, f);
+      const required = ALL_REQUIRED.includes(f);
       let cls = '';
       let dateStr = '—';
-      let action = `<a href="${formFile(f)}" target="_blank" class="tl-action">Submit →</a>`;
-      const required = ALL_REQUIRED.includes(f);
+      let viewBtn = `<a href="${formFile(f)}" target="_blank" class="tl-action">Submit →</a>`;
+      let logBtn = `<button class="tl-log" onclick="event.stopPropagation(); openLogModal('${s.id}','${f}')">+ Log</button>`;
       if (filed) {
         cls = 'done';
         dateStr = filed;
-        action = `<a href="#" onclick="event.preventDefault(); toast('Open PDF — wired in next phase')" class="tl-action">View →</a>`;
+        viewBtn = url
+          ? `<a href="${url}" target="_blank" class="tl-action">View →</a>`
+          : `<a href="#" onclick="event.preventDefault(); toast('No URL on file — click Edit to add one')" class="tl-action">View →</a>`;
+        logBtn = `<button class="tl-log" onclick="event.stopPropagation(); openLogModal('${s.id}','${f}')">Edit</button>`;
       } else if (required) {
         cls = 'missing';
       }
@@ -871,7 +953,7 @@
         <div class="tl-row ${cls}">
           <div class="tl-formid">${f}</div>
           <div class="tl-name">${FORM_NAMES[f]}${required ? '' : ' <span style="color:var(--text-lighter);font-size:11px;">(optional)</span>'}</div>
-          ${action}
+          <div style="display:flex; gap:6px;">${viewBtn}${logBtn}</div>
           <div class="tl-date">${dateStr}</div>
         </div>`;
     }).join('');
@@ -1029,7 +1111,7 @@
     listEl.innerHTML = `<div class="staff-list">${list.map(staffCardHtml).join('')}</div>`;
     listEl.querySelectorAll('.staff-card').forEach(el => {
       el.addEventListener('click', (e) => {
-        if (e.target.closest('.btn') || e.target.closest('.tl-action') || e.target.closest('.client-chip')) return;
+        if (e.target.closest('.btn') || e.target.closest('.tl-action') || e.target.closest('.client-chip') || e.target.closest('.tl-log')) return;
         toggle(el.dataset.id);
       });
     });
@@ -1045,6 +1127,68 @@
     extraFilter = f;
     document.querySelectorAll('#filterTabs .stage-tab').forEach(t => t.classList.toggle('active', t.dataset.filter === f));
     render();
+  }
+
+  // ============= LOG SUBMISSION MODAL =============
+  let logModalCtx = null;
+  function openLogModal(staffId, formId) {
+    const s = STAFF.find(x => x.id === staffId);
+    if (!s) return;
+    logModalCtx = { staffId, formId };
+    const existingDate = getFormDate(s, formId) || '';
+    const existingUrl  = getFormUrl(s, formId) || '';
+    const existingNote = getFormNote(s, formId) || '';
+    document.getElementById('logFormTag').textContent = formId + ' · ' + (FORM_NAMES[formId] || '');
+    document.getElementById('logModalTitle').textContent = existingDate ? 'Edit submission' : 'Log existing submission';
+    document.getElementById('logDate').value = existingDate;
+    document.getElementById('logUrl').value = existingUrl;
+    document.getElementById('logNote').value = existingNote;
+    document.getElementById('logClearBtn').style.display = existingDate ? 'inline-flex' : 'none';
+    document.getElementById('logModalBg').classList.add('open');
+  }
+  function closeLogModal() {
+    document.getElementById('logModalBg').classList.remove('open');
+    logModalCtx = null;
+  }
+  function saveLogEntry() {
+    if (!logModalCtx) return;
+    const date = document.getElementById('logDate').value;
+    if (!date) { toast('Submission date is required'); return; }
+    const url = document.getElementById('logUrl').value.trim();
+    const note = document.getElementById('logNote').value.trim();
+    const s = STAFF.find(x => x.id === logModalCtx.staffId);
+    if (!s) return;
+    const f = logModalCtx.formId;
+    const wasFiled = !!getFormDate(s, f);
+    s.forms[f] = (url || note) ? { date, url, note } : date;
+    // Update lastTraining if any training form
+    if (FORM_CATEGORIES.training.includes(f)) {
+      if (!s.lastTraining || new Date(date) > new Date(s.lastTraining)) s.lastTraining = date;
+    }
+    closeLogModal();
+    render();
+    addVerification({
+      action: wasFiled ? 'edit_submission' : 'log_submission',
+      message: `${wasFiled ? 'Edited' : 'Logged'} <code>${f}</code> for <b>${s.name} (${s.id})</b> dated <b>${date}</b>${url ? ' with SharePoint link.' : '.'} Confirm <code>VT_Form_Submissions_Log</code> reflects this entry${url ? ' and the file is at the expected URL' : ''}.`,
+      sharepointUrl: url || 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Form_Submissions_Log'
+    });
+    toast(`${wasFiled ? 'Updated' : 'Logged'} ${f} for ${s.name} — verify on SharePoint`);
+  }
+  function clearLogEntry() {
+    if (!logModalCtx) return;
+    if (!confirm('Remove this submission from the timeline? The PDF on SharePoint is not deleted.')) return;
+    const s = STAFF.find(x => x.id === logModalCtx.staffId);
+    if (!s) return;
+    const f = logModalCtx.formId;
+    delete s.forms[f];
+    closeLogModal();
+    render();
+    addVerification({
+      action: 'clear_submission',
+      message: `Removed <code>${f}</code> entry for <b>${s.name} (${s.id})</b> from tracker. Confirm whether the SharePoint PDF should be moved or kept.`,
+      sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Form_Submissions_Log'
+    });
+    toast(`Removed ${f} entry — verify on SharePoint`);
   }
 
   // Action placeholders
