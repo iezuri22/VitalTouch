@@ -83,6 +83,20 @@
   }
   .tab.active .tab-count { background: rgba(255,255,255,0.3); color: var(--white); }
 
+  /* Stage row — smaller, secondary */
+  .stage-label {
+    font-size: 12px; font-weight: 700; color: var(--text-lighter);
+    text-transform: uppercase; letter-spacing: 0.6px;
+    padding: 6px 0; flex-shrink: 0;
+  }
+  .stage-tab {
+    padding: 7px 14px; font-size: 12.5px;
+  }
+  .stage-tab.active {
+    background: var(--text); border-color: var(--text); color: var(--white);
+  }
+  .stage-tab.active .tab-count { background: rgba(255,255,255,0.25); color: var(--white); }
+
   /* ===== SEARCH ===== */
   .search {
     flex: 1; min-width: 240px; max-width: 360px;
@@ -292,6 +306,87 @@
   }
   .btn-ghost:hover { background: var(--bg); color: var(--text); }
 
+  /* ===== INBOX SECTION ===== */
+  .inbox-section { margin-bottom: 32px; }
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 14px; gap: 12px;
+  }
+  .section-head h2 {
+    font-size: 18px; font-weight: 700; color: #1a1a1a;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-head .badge {
+    background: var(--amber-light); color: #92400E;
+    font-size: 12px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .section-head .badge.empty { background: var(--green-light); color: var(--green-deeper); }
+  .section-sub { font-size: 13px; color: var(--text-lighter); margin-left: auto; }
+
+  .inbox-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 14px;
+  }
+  .inbox-card {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 18px 22px;
+    border-left: 4px solid var(--amber);
+    transition: box-shadow 0.18s, transform 0.18s;
+  }
+  .inbox-card:hover { box-shadow: var(--shadow-lg); }
+  .inbox-card.matched { border-left-color: var(--green); }
+  .inbox-card.review  { border-left-color: var(--red); }
+  .inbox-card.urgent {
+    border-left-color: var(--red);
+    box-shadow: 0 0 0 1px var(--red), var(--shadow);
+  }
+
+  .inbox-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 10px; margin-bottom: 10px;
+  }
+  .inbox-form-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 3px 9px; border-radius: 20px;
+    background: var(--blue-light); color: var(--blue);
+  }
+  .inbox-form-tag.urgent { background: var(--red-light); color: var(--red); }
+  .inbox-time { font-size: 12px; color: var(--text-lighter); }
+  .inbox-filename {
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 12px; color: var(--text-light);
+    background: var(--bg); padding: 6px 10px; border-radius: 4px;
+    margin-bottom: 12px; word-break: break-all;
+  }
+  .inbox-match {
+    margin-bottom: 12px; font-size: 13.5px;
+  }
+  .inbox-match .label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--green-deeper);
+    margin-bottom: 2px;
+  }
+  .inbox-match.unmatched .label { color: #92400E; }
+  .inbox-match.review .label { color: var(--red); }
+  .inbox-match-name {
+    font-size: 14px; font-weight: 600; color: #1a1a1a;
+  }
+  .inbox-match-meta {
+    font-size: 12px; color: var(--text-light); margin-top: 2px;
+  }
+  .inbox-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .inbox-actions .btn { padding: 6px 12px; font-size: 12.5px; }
+
+  .inbox-empty {
+    background: var(--white); border-radius: var(--radius);
+    padding: 28px; text-align: center; box-shadow: var(--shadow);
+    color: var(--text-light); font-size: 14px;
+  }
+  .inbox-empty b { color: var(--green-deeper); }
+
   /* ===== EMPTY ===== */
   .empty {
     background: var(--white); border-radius: var(--radius);
@@ -341,12 +436,11 @@
   <div class="header-inner">
     <img src="images/logo-symbol.png" alt="VitalTouch" class="header-logo" onerror="this.style.display='none';">
     <div class="header-text">
-      <h1>Client Tracker</h1>
-      <p>Live view of every client, every form, every audit-readiness check</p>
+      <h1>Operations Dashboard</h1>
+      <p>Triage incoming submissions and track every client through the form lifecycle</p>
     </div>
     <div class="header-actions">
       <a href="index.html" class="header-link">← Forms Guide</a>
-      <a href="triage.html" class="header-link">Triage Inbox</a>
     </div>
   </div>
 </div>
@@ -363,6 +457,21 @@
 
 <div class="main">
 
+  <!-- ===== INBOX SECTION ===== -->
+  <div class="inbox-section" id="inboxSection">
+    <div class="section-head">
+      <h2>Inbox <span class="badge" id="inboxBadge">0</span></h2>
+      <div class="section-sub">Submissions waiting for review or routing</div>
+    </div>
+    <div id="inboxList"></div>
+  </div>
+
+  <!-- ===== CLIENTS SECTION ===== -->
+  <div class="section-head">
+    <h2>Clients</h2>
+    <div class="section-sub" id="clientsSub"></div>
+  </div>
+
   <div class="toolbar">
     <div class="tabs" id="tabs">
       <button class="tab active" data-pop="all">All <span class="tab-count" id="tcAll">0</span></button>
@@ -375,6 +484,18 @@
     <div class="search">
       <span class="search-icon">⌕</span>
       <input type="text" id="searchInput" placeholder="Search by name or client ID…">
+    </div>
+  </div>
+
+  <div class="toolbar" style="margin-top:-8px; margin-bottom:24px;">
+    <div class="stage-label">Stage:</div>
+    <div class="tabs stage-tabs" id="stageTabs">
+      <button class="tab stage-tab active" data-stage="all">Any stage <span class="tab-count" id="tsAll">0</span></button>
+      <button class="tab stage-tab" data-stage="intake">Intake <span class="tab-count" id="tsIntake">0</span></button>
+      <button class="tab stage-tab" data-stage="assessment">Assessment <span class="tab-count" id="tsAssess">0</span></button>
+      <button class="tab stage-tab" data-stage="active">Active care <span class="tab-count" id="tsActive">0</span></button>
+      <button class="tab stage-tab" data-stage="needs-attn">Needs attention <span class="tab-count" id="tsAttn">0</span></button>
+      <button class="tab stage-tab" data-stage="audit-ready">Audit-ready <span class="tab-count" id="tsReady">0</span></button>
     </div>
   </div>
 
@@ -399,6 +520,33 @@
     'C.42': 'Semi-Annual Visit',
     'C.44': 'Incident Report',
   };
+
+  // Inbox queue — pending submissions (mock; later from VT_Triage_Queue)
+  const INBOX = [
+    { id: 'i1', formId: 'C.41', formName: 'Monthly Log',
+      filename: 'C.41_Davis-Mary_1942-07-08_2026-04-26.pdf',
+      submittedAt: '2026-04-26T08:14:00Z', submittedBy: 'CSM Sarah K.',
+      matchStatus: 'matched', urgent: false,
+      match: { id: 'VT-2026-007', name: 'M. Davis', dob: '1942-07-08', pop: 'IDoA-CCP' },
+      destination: 'Active_IDoA-CCP / VT-2026-007 / 3_Ongoing_Service_Records' },
+    { id: 'i2', formId: 'C.44', formName: 'Incident Report',
+      filename: 'C.44_Lacey-Wayne_1949-02-15_2026-04-26.pdf',
+      submittedAt: '2026-04-26T07:42:00Z', submittedBy: 'CSM Maria T.',
+      matchStatus: 'matched', urgent: true,
+      match: { id: 'VT-2025-001', name: 'W. Lacey', dob: '1949-02-15', pop: 'IDoA-CCP' },
+      destination: 'Active_IDoA-CCP / VT-2025-001 / 5_Incidents_and_Communications' },
+    { id: 'i3', formId: 'C.11', formName: 'Client Intake',
+      filename: 'C.11_Williams-Robert_1968-11-22_2026-04-25.pdf',
+      submittedAt: '2026-04-25T11:45:00Z', submittedBy: 'web · vitaltouchcares.com',
+      matchStatus: 'unmatched', urgent: false,
+      newClient: { name: 'R. Williams', dob: '1968-11-22', pop: 'DRS-HSP' },
+      destination: 'Active_DRS-HSP / [new client] / 1_Intake' },
+    { id: 'i4', formId: '?', formName: 'Unknown',
+      filename: 'C.11_unknown_2026-04-24.pdf',
+      submittedAt: '2026-04-24T16:30:00Z', submittedBy: 'web · vitaltouchcares.com',
+      matchStatus: 'review', urgent: false,
+      reviewReason: 'Filename does not match expected format. Could not parse name or DOB.' },
+  ];
 
   const CLIENTS = [
     { id: 'VT-2026-014', name: 'J. Smith', fullName: 'John Smith', dob: '1955-03-12',
@@ -461,7 +609,9 @@
   // ========================================================
   // STATE
   // ========================================================
+  let inbox = INBOX.slice();
   let filter = 'all';
+  let stageFilter = 'all';
   let searchTerm = '';
   let openId = null;
 
@@ -621,7 +771,117 @@
     return map[formId] || '#';
   }
 
+  // Map a client to its computed stage (covers both raw status and derived states)
+  function clientStage(c) {
+    if (c.status === 'discharged') return 'discharged';
+    if (c.status === 'needs-attn') return 'needs-attn';
+    if (c.status === 'intake')     return 'intake';
+    if (c.status === 'assessment') return 'assessment';
+    // status === 'active' — split into Active care vs Audit-ready based on flags + recent monthly
+    const overdueMonthly = c.lastMonthly && isOverdue(c.lastMonthly, 30);
+    const hasFlags = c.flags && c.flags.length > 0;
+    if (overdueMonthly || hasFlags) return 'active';
+    return 'audit-ready';
+  }
+
+  // ========================================================
+  // INBOX
+  // ========================================================
+  function inboxCardHtml(item) {
+    const time = new Date(item.submittedAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    const cls = item.urgent ? 'urgent' : item.matchStatus;
+
+    let matchBlock;
+    if (item.matchStatus === 'matched') {
+      matchBlock = `
+        <div class="inbox-match matched">
+          <div class="label">${item.urgent ? '⚠ Urgent · matched to existing client' : '✓ Auto-matched'}</div>
+          <div class="inbox-match-name">${item.match.name} <span style="color:var(--text-light); font-weight:400; font-size:12px;">(${item.match.id})</span></div>
+          <div class="inbox-match-meta">DOB ${item.match.dob} · ${item.match.pop.replace(/_/g, ' ')}</div>
+        </div>`;
+    } else if (item.matchStatus === 'unmatched') {
+      matchBlock = `
+        <div class="inbox-match unmatched">
+          <div class="label">⚠ No match — looks like a new client</div>
+          <div class="inbox-match-name">${item.newClient.name}</div>
+          <div class="inbox-match-meta">DOB ${item.newClient.dob} · ${item.newClient.pop.replace(/_/g, ' ')}</div>
+        </div>`;
+    } else {
+      matchBlock = `
+        <div class="inbox-match review">
+          <div class="label">⚠ Manual review required</div>
+          <div class="inbox-match-meta" style="color:var(--text);">${item.reviewReason}</div>
+        </div>`;
+    }
+
+    let actions;
+    if (item.matchStatus === 'matched') {
+      actions = `
+        <button class="btn btn-primary" onclick="approveInbox('${item.id}')">Approve & file</button>
+        <button class="btn" onclick="reassignInbox('${item.id}')">Reassign</button>
+        <button class="btn btn-ghost" onclick="rejectInbox('${item.id}')">Reject</button>`;
+    } else if (item.matchStatus === 'unmatched') {
+      actions = `
+        <button class="btn btn-primary" onclick="createNewInbox('${item.id}')">Create client & file</button>
+        <button class="btn" onclick="reassignInbox('${item.id}')">Match existing</button>
+        <button class="btn btn-ghost" onclick="rejectInbox('${item.id}')">Reject</button>`;
+    } else {
+      actions = `
+        <button class="btn btn-primary" onclick="reassignInbox('${item.id}')">Manual match</button>
+        <button class="btn btn-ghost" onclick="rejectInbox('${item.id}')">Reject</button>`;
+    }
+
+    return `
+      <div class="inbox-card ${cls}">
+        <div class="inbox-top">
+          <span class="inbox-form-tag${item.urgent ? ' urgent' : ''}">${item.formId} · ${item.formName}</span>
+          <span class="inbox-time">${time}</span>
+        </div>
+        <div class="inbox-filename">${item.filename}</div>
+        ${matchBlock}
+        <div class="inbox-actions">${actions}</div>
+      </div>`;
+  }
+
+  function renderInbox() {
+    const badge = document.getElementById('inboxBadge');
+    const list = document.getElementById('inboxList');
+
+    if (inbox.length === 0) {
+      badge.textContent = 'All clear';
+      badge.classList.add('empty');
+      list.innerHTML = `<div class="inbox-empty"><b>Inbox is empty.</b> New form submissions will surface here automatically for review.</div>`;
+      return;
+    }
+
+    badge.textContent = inbox.length + ' pending';
+    badge.classList.remove('empty');
+    list.innerHTML = `<div class="inbox-grid">${inbox.map(inboxCardHtml).join('')}</div>`;
+  }
+
+  // Inbox actions (placeholders)
+  function approveInbox(id) {
+    const it = inbox.find(i => i.id === id);
+    inbox = inbox.filter(i => i.id !== id);
+    renderInbox();
+    toast(`Filed → ${it.match.name} · ${it.match.id}`);
+  }
+  function createNewInbox(id) {
+    const it = inbox.find(i => i.id === id);
+    inbox = inbox.filter(i => i.id !== id);
+    renderInbox();
+    toast(`Created roster entry · ${it.newClient.name}`);
+  }
+  function reassignInbox(id) { toast('Reassign — picker not wired'); }
+  function rejectInbox(id) {
+    if (!confirm('Reject this submission? It moves to /99_Archive/_Rejected/.')) return;
+    inbox = inbox.filter(i => i.id !== id);
+    renderInbox();
+    toast('Submission rejected');
+  }
+
   function render() {
+    renderInbox();
     let list = CLIENTS.slice();
 
     if (filter === 'discharged') {
@@ -630,6 +890,10 @@
       list = list.filter(c => c.population === filter && c.status !== 'discharged');
     } else {
       list = list.filter(c => c.status !== 'discharged');
+    }
+
+    if (stageFilter !== 'all') {
+      list = list.filter(c => clientStage(c) === stageFilter);
     }
 
     if (searchTerm) {
@@ -673,6 +937,18 @@
     document.getElementById('tcCCP').textContent = active.filter(c => c.population === 'idoa_ccp').length;
     document.getElementById('tcDis').textContent = CLIENTS.filter(c => c.status === 'discharged').length;
 
+    // Stage tab counts (computed against the population-filtered base, before stage filter applied)
+    const stageBase = (filter === 'discharged')
+      ? CLIENTS.filter(c => c.status === 'discharged')
+      : (filter === 'all' ? active : active.filter(c => c.population === filter));
+    const byStage = (s) => stageBase.filter(c => clientStage(c) === s).length;
+    document.getElementById('tsAll').textContent    = stageBase.length;
+    document.getElementById('tsIntake').textContent = byStage('intake');
+    document.getElementById('tsAssess').textContent = byStage('assessment');
+    document.getElementById('tsActive').textContent = byStage('active');
+    document.getElementById('tsAttn').textContent   = byStage('needs-attn');
+    document.getElementById('tsReady').textContent  = byStage('audit-ready');
+
     // List
     const listEl = document.getElementById('list');
     if (list.length === 0) {
@@ -703,7 +979,13 @@
 
   function setFilter(p) {
     filter = p;
-    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.pop === p));
+    document.querySelectorAll('#tabs .tab').forEach(t => t.classList.toggle('active', t.dataset.pop === p));
+    render();
+  }
+
+  function setStageFilter(s) {
+    stageFilter = s;
+    document.querySelectorAll('#stageTabs .stage-tab').forEach(t => t.classList.toggle('active', t.dataset.stage === s));
     render();
   }
 
@@ -725,8 +1007,11 @@
   // ========================================================
   // INIT
   // ========================================================
-  document.querySelectorAll('.tab').forEach(t => {
+  document.querySelectorAll('#tabs .tab').forEach(t => {
     t.addEventListener('click', () => setFilter(t.dataset.pop));
+  });
+  document.querySelectorAll('#stageTabs .stage-tab').forEach(t => {
+    t.addEventListener('click', () => setStageFilter(t.dataset.stage));
   });
   document.getElementById('searchInput').addEventListener('input', (e) => {
     searchTerm = e.target.value;
