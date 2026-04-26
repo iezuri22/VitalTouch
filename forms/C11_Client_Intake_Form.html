@@ -288,27 +288,410 @@
   .footer a { color: var(--green); text-decoration: none; }
 
   /* ===== PRINT ===== */
+  /* ===== PRINT STYLESHEET ===== */
   @media print {
-    body { background: white; font-size: 11px; }
-    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
-    .hero-text h1 { font-size: 18px; }
-    .hero-text p { font-size: 11px; }
-    .main-container { margin: 0; max-width: 100%; padding: 0; }
-    .card { box-shadow: none; border: none; }
-    .step-indicator, .form-nav, .trust-bar, .footer { display: none !important; }
-    .form-step { display: block !important; padding: 12px 16px; page-break-inside: avoid; }
-    .step-title { font-size: 15px; }
-    .conditional { display: block !important; }
-    .condition-grid { grid-template-columns: repeat(3, 1fr); gap: 4px; }
-    .condition-chip span { padding: 6px 8px; font-size: 10px; min-height: 28px; border: 1px solid #ccc; }
-    .condition-chip input:checked + span { background: #EFF6FF; border-color: #333; }
-    .condition-count { display: none; }
-    input, select, textarea {
-      border: none !important; border-bottom: 1px solid #999 !important;
-      border-radius: 0 !important; padding: 3px 0 !important;
-      box-shadow: none !important; font-size: 11px;
+    /* --- Page setup --- */
+    @page {
+      size: letter;
+      margin: 0.5in 0.6in;
     }
-    .pill span { padding: 4px 10px; font-size: 10px; }
+
+    /* --- Base reset for print --- */
+    *, *::before, *::after {
+      box-shadow: none !important;
+      text-shadow: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
+
+    body {
+      background: white !important;
+      font-size: 11pt !important;
+      line-height: 1.45 !important;
+      color: #111 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* --- Header / hero: compact professional bar --- */
+    .hero, .form-header, header {
+      background: white !important;
+      padding: 10px 0 8px !important;
+      border-bottom: 2.5px solid #16A34A !important;
+      margin-bottom: 6px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+    .hero::before, .hero::after { display: none !important; }
+    .hero-logo, .form-header img, header img {
+      height: 30px !important;
+      width: auto !important;
+    }
+    .hero-text h1, .form-header h1, header h1 {
+      font-size: 16pt !important;
+      font-weight: 700 !important;
+      color: #111 !important;
+      line-height: 1.2 !important;
+    }
+    .hero-text p, .form-header p {
+      font-size: 9pt !important;
+      color: #555 !important;
+      margin-top: 1px !important;
+    }
+    /* Hide decorative hero elements */
+    .hero-badge, .hero-stats, .hero-stat, .hero-cta,
+    .hero-nav, .hero-bg, .hero-pattern { display: none !important; }
+
+    /* --- Layout: full width, no shadows --- */
+    .main-container, .container, .form-container {
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    .card, .section-card, .form-card {
+      border: none !important;
+      border-radius: 0 !important;
+      overflow: visible !important;
+    }
+
+    /* --- CRITICAL: Show ALL form steps/sections --- */
+    .form-step, .step, [data-step], .form-section,
+    .step-content, .training-section, .quiz-section,
+    .agreement-section, section {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      position: relative !important;
+      transform: none !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+      left: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* --- Conditionals: show all --- */
+    .conditional, .conditional-field, [data-conditional] {
+      display: block !important;
+      opacity: 1 !important;
+    }
+
+    /* --- Scrollable containers: expand fully --- */
+    .disclaimer-box, .agreement-text, .scrollable,
+    .terms-box, .policy-text, [style*="overflow"] {
+      max-height: none !important;
+      overflow: visible !important;
+      height: auto !important;
+    }
+
+    /* --- Hide UI-only elements --- */
+    .step-indicator, .step-bar, .step-dots, .step-pills,
+    .pill-nav, .progress-bar, .progress, .floating-progress,
+    .form-nav, .nav-buttons, .btn-nav,
+    .prev-btn, .next-btn, .back-btn,
+    .btn-back, .btn-next, .btn-submit,
+    .trust-bar, .footer, .toast, .modal, .overlay,
+    .mobile-nav, .confirmation, .conf-check,
+    button[type="button"], .form-actions,
+    [onclick*="prev"], [onclick*="next"],
+    [onclick*="goTo"], [onclick*="showStep"],
+    .error-msg, .help-text-small,
+    .upload-progress, .file-list { display: none !important; }
+
+    /* Keep submit-related labels but hide buttons */
+    .submit-section button, .form-actions button { display: none !important; }
+
+    /* --- Section headers: professional dividers --- */
+    .step-header {
+      border-bottom: 1.5px solid #16A34A !important;
+      padding-bottom: 6px !important;
+      margin-bottom: 10px !important;
+      margin-top: 16px !important;
+    }
+    .step-header:first-child { margin-top: 8px !important; }
+    .step-label {
+      font-size: 8pt !important;
+      color: #16A34A !important;
+      font-weight: 700 !important;
+      letter-spacing: 1.2px !important;
+      text-transform: uppercase !important;
+      margin-bottom: 2px !important;
+    }
+    .step-title, .section-title {
+      font-size: 13pt !important;
+      font-weight: 700 !important;
+      color: #111 !important;
+      line-height: 1.3 !important;
+    }
+    .step-subtitle {
+      font-size: 9pt !important;
+      color: #666 !important;
+      margin-top: 2px !important;
+    }
+    .section-label {
+      font-size: 9pt !important;
+      font-weight: 700 !important;
+      color: #333 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.8px !important;
+      border-bottom: 1px solid #ccc !important;
+      padding-bottom: 4px !important;
+      margin-bottom: 8px !important;
+      margin-top: 14px !important;
+    }
+
+    /* --- Form fields: clean underlines for writing --- */
+    .field { margin-bottom: 10px !important; }
+    .field-row {
+      display: flex !important;
+      gap: 10px !important;
+    }
+    .field-row .field { flex: 1 !important; min-width: 0 !important; }
+
+    label, .field-label, .form-label {
+      display: block !important;
+      font-size: 9pt !important;
+      font-weight: 600 !important;
+      color: #333 !important;
+      margin-bottom: 3px !important;
+    }
+    .req { color: #DC2626 !important; }
+
+    input[type="text"], input[type="email"], input[type="tel"],
+    input[type="date"], input[type="number"], input[type="url"],
+    input[type="time"], input[type="password"] {
+      border: none !important;
+      border-bottom: 1px solid #666 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      padding: 4px 2px !important;
+      font-size: 10pt !important;
+      min-height: 20px !important;
+      width: 100% !important;
+      color: #111 !important;
+    }
+    textarea {
+      border: 1px solid #888 !important;
+      border-radius: 2px !important;
+      background: transparent !important;
+      min-height: 45px !important;
+      font-size: 10pt !important;
+      padding: 4px 6px !important;
+      width: 100% !important;
+      color: #111 !important;
+    }
+    select {
+      border: 1px solid #888 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      font-size: 10pt !important;
+      padding: 3px 4px !important;
+      color: #111 !important;
+    }
+
+    /* --- Checkboxes and radios: native appearance --- */
+    input[type="checkbox"], input[type="radio"] {
+      width: 12px !important;
+      height: 12px !important;
+      opacity: 1 !important;
+      position: relative !important;
+      appearance: auto !important;
+      -webkit-appearance: auto !important;
+      margin-right: 4px !important;
+    }
+
+    /* --- Pills / option cards: compact inline chips --- */
+    .pills { display: flex !important; flex-wrap: wrap !important; gap: 4px !important; }
+    .pill, .option-card, .pill-option, .option-pill {
+      position: relative !important;
+    }
+    .pill span, .option-card span, .pill-option span {
+      display: inline-block !important;
+      border: 1px solid #aaa !important;
+      background: white !important;
+      padding: 2px 8px !important;
+      font-size: 9pt !important;
+      border-radius: 3px !important;
+      color: #333 !important;
+    }
+    .pill input { position: absolute !important; opacity: 0 !important; }
+    .pill input:checked + span {
+      background: #F0FDF4 !important;
+      border-color: #16A34A !important;
+      font-weight: 600 !important;
+    }
+
+    /* --- Condition grids: compact for print --- */
+    .condition-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 3px !important;
+    }
+    .condition-chip { position: relative !important; }
+    .condition-chip span {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 3px 6px !important;
+      font-size: 8pt !important;
+      border: 1px solid #bbb !important;
+      border-radius: 3px !important;
+      min-height: 22px !important;
+      background: white !important;
+      color: #333 !important;
+    }
+    .condition-chip input { position: absolute !important; opacity: 0 !important; }
+    .condition-chip input:checked + span {
+      background: #F0FDF4 !important;
+      border-color: #16A34A !important;
+      font-weight: 600 !important;
+    }
+    .condition-count, .condition-other { display: none !important; }
+
+    /* --- Signature areas --- */
+    .sig-canvas, .signature-pad, canvas[id*="sig"], canvas[id*="Sig"] {
+      border: 1px solid #888 !important;
+      height: 60px !important;
+      width: 100% !important;
+      background: white !important;
+      display: block !important;
+    }
+    .sig-label, .signature-label {
+      font-size: 8pt !important;
+      color: #666 !important;
+    }
+
+    /* --- Upload zones: labeled boxes --- */
+    .upload-zone, .drop-zone, .file-upload, .upload-area {
+      border: 1.5px dashed #999 !important;
+      padding: 10px !important;
+      background: #FAFAFA !important;
+      min-height: 35px !important;
+      border-radius: 4px !important;
+      text-align: center !important;
+      font-size: 9pt !important;
+      color: #666 !important;
+    }
+
+    /* --- Callout boxes: subtle for print --- */
+    .callout, .info-box, .notice {
+      background: #F9FAFB !important;
+      border: 1px solid #E5E7EB !important;
+      border-radius: 3px !important;
+      padding: 6px 10px !important;
+      font-size: 9pt !important;
+      margin-bottom: 10px !important;
+      color: #555 !important;
+    }
+    .callout-icon { font-size: 11pt !important; }
+
+    /* --- Page break control --- */
+    .step-header, h2, h3, .section-label,
+    label, .field-label { break-after: avoid !important; }
+    .field, .field-row { break-inside: avoid !important; }
+    .form-step { break-inside: auto !important; }
+    .callout, .info-box { break-inside: avoid !important; }
+    tr { break-inside: avoid !important; }
+
+    /* --- Tables (for forms that use them) --- */
+    table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+      font-size: 9pt !important;
+    }
+    th, td {
+      border: 1px solid #ccc !important;
+      padding: 4px 6px !important;
+      text-align: left !important;
+    }
+    th {
+      background: #F3F4F6 !important;
+      font-weight: 600 !important;
+    }
+
+    /* --- Training content cards (A series) --- */
+    .training-card, .module-card, .content-card {
+      border: 1px solid #ddd !important;
+      border-radius: 4px !important;
+      padding: 8px 10px !important;
+      margin-bottom: 8px !important;
+      background: white !important;
+      break-inside: avoid !important;
+    }
+    .video-container, .video-section, .video-wrapper,
+    iframe, video {
+      border: 1px solid #ccc !important;
+      background: #F5F5F5 !important;
+      height: 40px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 9pt !important;
+      color: #999 !important;
+    }
+    iframe::after, video::after {
+      content: "[Video content — view online]" !important;
+    }
+
+    /* --- Quiz / eval questions (B series) --- */
+    .question-card, .quiz-card, .eval-question {
+      border: 1px solid #E5E7EB !important;
+      border-radius: 4px !important;
+      padding: 8px 10px !important;
+      margin-bottom: 6px !important;
+      background: white !important;
+      break-inside: avoid !important;
+    }
+    .question-number {
+      font-weight: 700 !important;
+      color: #16A34A !important;
+      font-size: 9pt !important;
+    }
+    .answer-options, .quiz-options {
+      margin-top: 4px !important;
+    }
+    .answer-option, .quiz-option {
+      font-size: 9pt !important;
+      padding: 2px 0 !important;
+    }
+
+    /* --- Checklist items (E37 etc) --- */
+    .checklist-item, .check-item {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 6px !important;
+      padding: 3px 0 !important;
+      font-size: 9pt !important;
+      break-inside: avoid !important;
+    }
+
+    /* --- Acknowledgment sections --- */
+    .acknowledge-section, .ack-section {
+      border: 1px solid #ddd !important;
+      padding: 8px 10px !important;
+      margin-top: 10px !important;
+      background: #FAFAFA !important;
+      break-inside: avoid !important;
+    }
+    .acknowledge-label, .ack-label {
+      font-size: 9pt !important;
+      line-height: 1.4 !important;
+    }
+
+    /* --- Footer with form ID on every page --- */
+    .print-footer {
+      display: block !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 7pt;
+      color: #999;
+      border-top: 0.5px solid #ddd;
+      padding-top: 3px;
+    }
   }
 
   /* ===== MOBILE ===== */
@@ -455,20 +838,51 @@
       </div>
 
       <div class="field">
-        <label>Primary Payer <span class="req">*</span></label>
-        <div class="pills" id="payerPills">
-          <label class="pill"><input type="radio" name="payer" value="Illinois Medicaid" onchange="toggleMedicaid()"><span>Illinois Medicaid</span></label>
-          <label class="pill"><input type="radio" name="payer" value="Community Care Program" onchange="toggleMedicaid()"><span>Community Care Program</span></label>
-          <label class="pill"><input type="radio" name="payer" value="Private Pay" onchange="toggleMedicaid()"><span>Private Pay</span></label>
-          <label class="pill"><input type="radio" name="payer" value="Other" onchange="toggleMedicaid()"><span>Other</span></label>
+        <label>Population Type <span class="req">*</span></label>
+        <div class="pills" id="populationPills">
+          <label class="pill"><input type="radio" name="populationType" value="Senior" onchange="onPayerChange()"><span>Senior (60+)</span></label>
+          <label class="pill"><input type="radio" name="populationType" value="Disabilities" onchange="onPayerChange()"><span>Person with Disabilities (under 60)</span></label>
         </div>
-        <div class="error-msg">Please select a primary payer</div>
+        <div class="error-msg">Please select a population type</div>
+      </div>
+
+      <div class="field">
+        <label>Funding Category <span class="req">*</span></label>
+        <div class="pills" id="fundingCategoryPills">
+          <label class="pill"><input type="radio" name="fundingCategory" value="Public Program" onchange="onPayerChange()"><span>Public Program (State)</span></label>
+          <label class="pill"><input type="radio" name="fundingCategory" value="Medicaid Managed Care" onchange="onPayerChange()"><span>Medicaid Managed Care</span></label>
+          <label class="pill"><input type="radio" name="fundingCategory" value="Medicare Advantage" onchange="onPayerChange()"><span>Medicare Advantage</span></label>
+          <label class="pill"><input type="radio" name="fundingCategory" value="Long-Term Care Insurance" onchange="onPayerChange()"><span>Long-Term Care Insurance</span></label>
+          <label class="pill"><input type="radio" name="fundingCategory" value="Veterans Benefits" onchange="onPayerChange()"><span>Veterans Benefits</span></label>
+          <label class="pill"><input type="radio" name="fundingCategory" value="Private Pay" onchange="onPayerChange()"><span>Private Pay</span></label>
+          <label class="pill"><input type="radio" name="fundingCategory" value="Workers' Compensation" onchange="onPayerChange()"><span>Workers' Compensation</span></label>
+          <label class="pill"><input type="radio" name="fundingCategory" value="Other" onchange="onPayerChange()"><span>Other</span></label>
+        </div>
+        <div class="error-msg">Please select a funding category</div>
+      </div>
+
+      <div class="field conditional" id="carrierField">
+        <label>Specific Carrier / Program <span class="req">*</span></label>
+        <select id="insuranceCarrier" onchange="onPayerChange()">
+          <option value="">-- Select a category above first --</option>
+        </select>
+        <div class="error-msg">Please select a specific carrier or program</div>
+      </div>
+
+      <div class="field conditional" id="carrierOtherField">
+        <label>Carrier / Program Name <span class="req">*</span></label>
+        <input type="text" id="insuranceCarrierOther" placeholder="Enter carrier or program name">
+        <div class="error-msg">Please enter the carrier or program name</div>
       </div>
 
       <div class="field conditional" id="medicaidField">
         <label>Medicaid / RIN Number <span class="req">*</span></label>
         <input type="text" id="medicaidNumber" placeholder="Enter Medicaid or RIN number">
         <div class="error-msg">Medicaid/RIN number is required for this payer</div>
+      </div>
+
+      <div class="field conditional" id="payerWarning" style="background:#FEF3C7;border-left:4px solid #F59E0B;padding:12px 16px;border-radius:6px;">
+        <div style="color:#92400E;font-weight:600;font-size:14px;" id="payerWarningText"></div>
       </div>
 
       <div class="field">
@@ -727,16 +1141,155 @@
   // Apply phone formatting to all tel inputs
   document.querySelectorAll('input[type="tel"]').forEach(formatPhone);
 
-  // ===== Toggle Medicaid Field =====
-  window.toggleMedicaid = function() {
-    const payer = document.querySelector('input[name="payer"]:checked');
-    const field = document.getElementById('medicaidField');
-    if (payer && (payer.value === 'Illinois Medicaid' || payer.value === 'Community Care Program')) {
-      field.classList.add('visible');
+  // ===== Carrier options by funding category =====
+  const CARRIER_OPTIONS = {
+    'Public Program': [
+      'Illinois Medicaid (HFS Fee-for-Service)',
+      'Community Care Program (IDoA)',
+      'DRS Home Services Program (IDHS)'
+    ],
+    'Medicaid Managed Care': [
+      'Aetna Better Health of Illinois',
+      'Blue Cross Community Health Plans (BCBSIL)',
+      'CountyCare Health Plan',
+      'Humana Healthy Horizons in Illinois',
+      'Meridian Health Plan of Illinois',
+      'Molina Healthcare of Illinois'
+    ],
+    'Medicare Advantage': [
+      'Aetna Medicare Advantage',
+      'Blue Cross Blue Shield of Illinois Medicare Advantage',
+      'Cigna Medicare Advantage',
+      'Devoted Health',
+      'Humana Medicare Advantage',
+      'UnitedHealthcare Medicare Advantage',
+      'WellCare Medicare Advantage (Centene)',
+      'Alignment Health Plan',
+      'Clever Care Health Plan'
+    ],
+    'Long-Term Care Insurance': [
+      'Genworth',
+      'John Hancock',
+      'Mutual of Omaha',
+      'New York Life',
+      'Northwestern Mutual',
+      'Thrivent',
+      'Lincoln Financial Group',
+      'MassMutual',
+      'Transamerica',
+      'Bankers Life',
+      'Other LTCI carrier'
+    ],
+    'Veterans Benefits': [
+      'VA Aid & Attendance Pension',
+      'VA HCBS / Veteran Directed Care',
+      'TRICARE for Life'
+    ],
+    'Private Pay': [
+      'Self-Pay (cash, check, ACH)',
+      'Family-Funded',
+      'Trust / Conservatorship'
+    ]
+  };
+
+  // ===== Population × Funding routing rules =====
+  // Returns { folder: 'Active_X' | null, warning: string | null, blocked: bool }
+  function deriveRouting(populationType, fundingCategory, carrier) {
+    if (!populationType || !fundingCategory) return { folder: null, warning: null, blocked: false };
+
+    // Hard blocks — invalid combinations
+    if (populationType === 'Senior' && carrier === 'DRS Home Services Program (IDHS)') {
+      return { folder: null, warning: 'DRS HSP is for working-age adults only (under 60). Senior clients use Community Care Program (IDoA).', blocked: true };
+    }
+    if (populationType === 'Disabilities' && carrier === 'Community Care Program (IDoA)') {
+      return { folder: null, warning: 'CCP serves seniors only (60+). Working-age disabilities clients use DRS HSP.', blocked: true };
+    }
+
+    // Routing logic
+    const isPublic = fundingCategory === 'Public Program';
+    const isMMC = fundingCategory === 'Medicaid Managed Care';
+
+    if (populationType === 'Senior') {
+      if (isPublic && (carrier === 'Illinois Medicaid (HFS Fee-for-Service)' || carrier === 'Community Care Program (IDoA)')) {
+        return { folder: 'Active_IDoA-CCP', warning: null, blocked: false };
+      }
+      if (isMMC) {
+        return { folder: 'Active_IDoA-CCP', warning: null, blocked: false };
+      }
+      if (fundingCategory === 'Other') {
+        return { folder: null, warning: 'Other funding source — submission will be sent to inbox for staff review.', blocked: false };
+      }
+      return { folder: 'Active_Senior_Private_Pay', warning: null, blocked: false };
+    }
+
+    if (populationType === 'Disabilities') {
+      if (isPublic && (carrier === 'Illinois Medicaid (HFS Fee-for-Service)' || carrier === 'DRS Home Services Program (IDHS)')) {
+        return { folder: 'Active_DRS-HSP', warning: null, blocked: false };
+      }
+      if (isMMC) {
+        return { folder: 'Active_DRS-HSP', warning: null, blocked: false };
+      }
+      if (fundingCategory === 'Other') {
+        return { folder: null, warning: 'Other funding source — submission will be sent to inbox for staff review.', blocked: false };
+      }
+      return { folder: 'Active_Disabilities_Private_Pay', warning: null, blocked: false };
+    }
+
+    return { folder: null, warning: null, blocked: false };
+  }
+
+  // ===== Cascading payer / carrier logic =====
+  window.onPayerChange = function() {
+    const populationType = (document.querySelector('input[name="populationType"]:checked') || {}).value;
+    const fundingCategory = (document.querySelector('input[name="fundingCategory"]:checked') || {}).value;
+    const carrierSelect = document.getElementById('insuranceCarrier');
+    const carrierField = document.getElementById('carrierField');
+    const carrierOtherField = document.getElementById('carrierOtherField');
+    const medicaidField = document.getElementById('medicaidField');
+    const warningField = document.getElementById('payerWarning');
+    const warningText = document.getElementById('payerWarningText');
+
+    // 1) Populate carrier dropdown
+    if (fundingCategory && CARRIER_OPTIONS[fundingCategory]) {
+      carrierSelect.innerHTML = '<option value="">-- Select carrier / program --</option>' +
+        CARRIER_OPTIONS[fundingCategory].map(c => `<option value="${c}">${c}</option>`).join('');
+      carrierField.classList.add('visible');
+      carrierOtherField.classList.remove('visible');
+      document.getElementById('insuranceCarrierOther').value = '';
+    } else if (fundingCategory === "Workers' Compensation" || fundingCategory === 'Other') {
+      // Free-text for Workers' Comp / Other
+      carrierField.classList.remove('visible');
+      carrierSelect.value = '';
+      carrierOtherField.classList.add('visible');
     } else {
-      field.classList.remove('visible');
+      carrierField.classList.remove('visible');
+      carrierOtherField.classList.remove('visible');
+      carrierSelect.value = '';
+    }
+
+    // 2) Show/hide Medicaid number field
+    const carrierVal = carrierSelect.value;
+    const needsMedicaidNum = (fundingCategory === 'Public Program' &&
+      (carrierVal === 'Illinois Medicaid (HFS Fee-for-Service)' ||
+       carrierVal === 'Community Care Program (IDoA)' ||
+       carrierVal === 'DRS Home Services Program (IDHS)')) ||
+      fundingCategory === 'Medicaid Managed Care';
+    if (needsMedicaidNum) {
+      medicaidField.classList.add('visible');
+    } else {
+      medicaidField.classList.remove('visible');
       document.getElementById('medicaidNumber').value = '';
       clearError(document.getElementById('medicaidNumber'));
+    }
+
+    // 3) Compute routing + show warning if invalid combination
+    const routing = deriveRouting(populationType, fundingCategory, carrierVal);
+    if (routing.warning) {
+      warningField.classList.add('visible');
+      warningText.textContent = (routing.blocked ? '⚠ Invalid combination: ' : 'ⓘ ') + routing.warning;
+    } else {
+      warningField.classList.remove('visible');
+      warningText.textContent = '';
     }
   };
 
@@ -840,12 +1393,43 @@
     }
 
     if (step === 2) {
-      // Primary Payer
-      const payer = document.querySelector('input[name="payer"]:checked');
-      if (!payer) {
-        const payerField = document.getElementById('payerPills').closest('.field');
-        payerField.classList.add('has-error');
+      // Population Type
+      const populationType = document.querySelector('input[name="populationType"]:checked');
+      if (!populationType) {
+        const popField = document.getElementById('populationPills').closest('.field');
+        popField.classList.add('has-error');
         valid = false;
+      }
+
+      // Funding Category
+      const fundingCategory = document.querySelector('input[name="fundingCategory"]:checked');
+      if (!fundingCategory) {
+        const fcField = document.getElementById('fundingCategoryPills').closest('.field');
+        fcField.classList.add('has-error');
+        valid = false;
+      }
+
+      // Specific Carrier — required if dropdown is visible
+      const carrierField = document.getElementById('carrierField');
+      if (carrierField.classList.contains('visible')) {
+        const carrier = document.getElementById('insuranceCarrier');
+        if (!carrier.value) { showError(carrier); valid = false; }
+      }
+
+      // Carrier free-text — required if visible (Workers' Comp / Other)
+      const carrierOtherField = document.getElementById('carrierOtherField');
+      if (carrierOtherField.classList.contains('visible')) {
+        const carrierOther = document.getElementById('insuranceCarrierOther');
+        if (!carrierOther.value.trim()) { showError(carrierOther); valid = false; }
+      }
+
+      // Block submit if invalid Population × Carrier combination
+      if (populationType && fundingCategory) {
+        const carrierVal = document.getElementById('insuranceCarrier').value;
+        const routing = deriveRouting(populationType.value, fundingCategory.value, carrierVal);
+        if (routing.blocked) {
+          valid = false;
+        }
       }
 
       // Medicaid/RIN if visible
@@ -968,7 +1552,18 @@
       language: (document.querySelector('input[name="language"]:checked') || {}).value || 'English',
 
       // Step 2
-      primaryPayer: (document.querySelector('input[name="payer"]:checked') || {}).value || '',
+      populationType: (document.querySelector('input[name="populationType"]:checked') || {}).value || '',
+      fundingCategory: (document.querySelector('input[name="fundingCategory"]:checked') || {}).value || '',
+      insuranceCarrier: document.getElementById('insuranceCarrier').value ||
+                        document.getElementById('insuranceCarrierOther').value.trim() || '',
+      population: (function() {
+        const pt = (document.querySelector('input[name="populationType"]:checked') || {}).value;
+        const fc = (document.querySelector('input[name="fundingCategory"]:checked') || {}).value;
+        const cv = document.getElementById('insuranceCarrier').value ||
+                   document.getElementById('insuranceCarrierOther').value.trim();
+        const r = (typeof deriveRouting === 'function') ? deriveRouting(pt, fc, cv) : { folder: null };
+        return r.folder || 'NEEDS_REVIEW';
+      })(),
       medicaidNumber: document.getElementById('medicaidNumber').value.trim(),
       secondaryInsurance: document.getElementById('secondaryInsurance').value.trim(),
       caseManagerName: document.getElementById('caseManagerName').value.trim(),

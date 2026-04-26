@@ -258,23 +258,410 @@
   .footer a { color: var(--green); text-decoration: none; }
 
   /* ===== PRINT ===== */
+  /* ===== PRINT STYLESHEET ===== */
   @media print {
-    body { background: white; font-size: 11px; }
-    .hero { background: white !important; padding: 16px 20px; border-bottom: 2px solid #333; }
-    .hero-text h1 { font-size: 18px; }
-    .hero-text p { font-size: 11px; }
-    .main-container { margin: 0; max-width: 100%; padding: 0; }
-    .card { box-shadow: none; border: none; }
-    .form-nav, .trust-bar, .footer { display: none !important; }
-    .form-content { padding: 12px 16px; }
-    input, select, textarea {
-      border: none !important; border-bottom: 1px solid #999 !important;
-      border-radius: 0 !important; padding: 3px 0 !important;
-      box-shadow: none !important; font-size: 11px;
+    /* --- Page setup --- */
+    @page {
+      size: letter;
+      margin: 0.5in 0.6in;
     }
-    .agreement-box { max-height: none; overflow: visible; }
-    .sig-pad { height: 80px; border: 1px solid #999; }
-    .confirmation { display: none !important; }
+
+    /* --- Base reset for print --- */
+    *, *::before, *::after {
+      box-shadow: none !important;
+      text-shadow: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
+
+    body {
+      background: white !important;
+      font-size: 11pt !important;
+      line-height: 1.45 !important;
+      color: #111 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* --- Header / hero: compact professional bar --- */
+    .hero, .form-header, header {
+      background: white !important;
+      padding: 10px 0 8px !important;
+      border-bottom: 2.5px solid #16A34A !important;
+      margin-bottom: 6px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+    .hero::before, .hero::after { display: none !important; }
+    .hero-logo, .form-header img, header img {
+      height: 30px !important;
+      width: auto !important;
+    }
+    .hero-text h1, .form-header h1, header h1 {
+      font-size: 16pt !important;
+      font-weight: 700 !important;
+      color: #111 !important;
+      line-height: 1.2 !important;
+    }
+    .hero-text p, .form-header p {
+      font-size: 9pt !important;
+      color: #555 !important;
+      margin-top: 1px !important;
+    }
+    /* Hide decorative hero elements */
+    .hero-badge, .hero-stats, .hero-stat, .hero-cta,
+    .hero-nav, .hero-bg, .hero-pattern { display: none !important; }
+
+    /* --- Layout: full width, no shadows --- */
+    .main-container, .container, .form-container {
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    .card, .section-card, .form-card {
+      border: none !important;
+      border-radius: 0 !important;
+      overflow: visible !important;
+    }
+
+    /* --- CRITICAL: Show ALL form steps/sections --- */
+    .form-step, .step, [data-step], .form-section,
+    .step-content, .training-section, .quiz-section,
+    .agreement-section, section {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      position: relative !important;
+      transform: none !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+      left: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* --- Conditionals: show all --- */
+    .conditional, .conditional-field, [data-conditional] {
+      display: block !important;
+      opacity: 1 !important;
+    }
+
+    /* --- Scrollable containers: expand fully --- */
+    .disclaimer-box, .agreement-text, .scrollable,
+    .terms-box, .policy-text, [style*="overflow"] {
+      max-height: none !important;
+      overflow: visible !important;
+      height: auto !important;
+    }
+
+    /* --- Hide UI-only elements --- */
+    .step-indicator, .step-bar, .step-dots, .step-pills,
+    .pill-nav, .progress-bar, .progress, .floating-progress,
+    .form-nav, .nav-buttons, .btn-nav,
+    .prev-btn, .next-btn, .back-btn,
+    .btn-back, .btn-next, .btn-submit,
+    .trust-bar, .footer, .toast, .modal, .overlay,
+    .mobile-nav, .confirmation, .conf-check,
+    button[type="button"], .form-actions,
+    [onclick*="prev"], [onclick*="next"],
+    [onclick*="goTo"], [onclick*="showStep"],
+    .error-msg, .help-text-small,
+    .upload-progress, .file-list { display: none !important; }
+
+    /* Keep submit-related labels but hide buttons */
+    .submit-section button, .form-actions button { display: none !important; }
+
+    /* --- Section headers: professional dividers --- */
+    .step-header {
+      border-bottom: 1.5px solid #16A34A !important;
+      padding-bottom: 6px !important;
+      margin-bottom: 10px !important;
+      margin-top: 16px !important;
+    }
+    .step-header:first-child { margin-top: 8px !important; }
+    .step-label {
+      font-size: 8pt !important;
+      color: #16A34A !important;
+      font-weight: 700 !important;
+      letter-spacing: 1.2px !important;
+      text-transform: uppercase !important;
+      margin-bottom: 2px !important;
+    }
+    .step-title, .section-title {
+      font-size: 13pt !important;
+      font-weight: 700 !important;
+      color: #111 !important;
+      line-height: 1.3 !important;
+    }
+    .step-subtitle {
+      font-size: 9pt !important;
+      color: #666 !important;
+      margin-top: 2px !important;
+    }
+    .section-label {
+      font-size: 9pt !important;
+      font-weight: 700 !important;
+      color: #333 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.8px !important;
+      border-bottom: 1px solid #ccc !important;
+      padding-bottom: 4px !important;
+      margin-bottom: 8px !important;
+      margin-top: 14px !important;
+    }
+
+    /* --- Form fields: clean underlines for writing --- */
+    .field { margin-bottom: 10px !important; }
+    .field-row {
+      display: flex !important;
+      gap: 10px !important;
+    }
+    .field-row .field { flex: 1 !important; min-width: 0 !important; }
+
+    label, .field-label, .form-label {
+      display: block !important;
+      font-size: 9pt !important;
+      font-weight: 600 !important;
+      color: #333 !important;
+      margin-bottom: 3px !important;
+    }
+    .req { color: #DC2626 !important; }
+
+    input[type="text"], input[type="email"], input[type="tel"],
+    input[type="date"], input[type="number"], input[type="url"],
+    input[type="time"], input[type="password"] {
+      border: none !important;
+      border-bottom: 1px solid #666 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      padding: 4px 2px !important;
+      font-size: 10pt !important;
+      min-height: 20px !important;
+      width: 100% !important;
+      color: #111 !important;
+    }
+    textarea {
+      border: 1px solid #888 !important;
+      border-radius: 2px !important;
+      background: transparent !important;
+      min-height: 45px !important;
+      font-size: 10pt !important;
+      padding: 4px 6px !important;
+      width: 100% !important;
+      color: #111 !important;
+    }
+    select {
+      border: 1px solid #888 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      font-size: 10pt !important;
+      padding: 3px 4px !important;
+      color: #111 !important;
+    }
+
+    /* --- Checkboxes and radios: native appearance --- */
+    input[type="checkbox"], input[type="radio"] {
+      width: 12px !important;
+      height: 12px !important;
+      opacity: 1 !important;
+      position: relative !important;
+      appearance: auto !important;
+      -webkit-appearance: auto !important;
+      margin-right: 4px !important;
+    }
+
+    /* --- Pills / option cards: compact inline chips --- */
+    .pills { display: flex !important; flex-wrap: wrap !important; gap: 4px !important; }
+    .pill, .option-card, .pill-option, .option-pill {
+      position: relative !important;
+    }
+    .pill span, .option-card span, .pill-option span {
+      display: inline-block !important;
+      border: 1px solid #aaa !important;
+      background: white !important;
+      padding: 2px 8px !important;
+      font-size: 9pt !important;
+      border-radius: 3px !important;
+      color: #333 !important;
+    }
+    .pill input { position: absolute !important; opacity: 0 !important; }
+    .pill input:checked + span {
+      background: #F0FDF4 !important;
+      border-color: #16A34A !important;
+      font-weight: 600 !important;
+    }
+
+    /* --- Condition grids: compact for print --- */
+    .condition-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 3px !important;
+    }
+    .condition-chip { position: relative !important; }
+    .condition-chip span {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 3px 6px !important;
+      font-size: 8pt !important;
+      border: 1px solid #bbb !important;
+      border-radius: 3px !important;
+      min-height: 22px !important;
+      background: white !important;
+      color: #333 !important;
+    }
+    .condition-chip input { position: absolute !important; opacity: 0 !important; }
+    .condition-chip input:checked + span {
+      background: #F0FDF4 !important;
+      border-color: #16A34A !important;
+      font-weight: 600 !important;
+    }
+    .condition-count, .condition-other { display: none !important; }
+
+    /* --- Signature areas --- */
+    .sig-canvas, .signature-pad, canvas[id*="sig"], canvas[id*="Sig"] {
+      border: 1px solid #888 !important;
+      height: 60px !important;
+      width: 100% !important;
+      background: white !important;
+      display: block !important;
+    }
+    .sig-label, .signature-label {
+      font-size: 8pt !important;
+      color: #666 !important;
+    }
+
+    /* --- Upload zones: labeled boxes --- */
+    .upload-zone, .drop-zone, .file-upload, .upload-area {
+      border: 1.5px dashed #999 !important;
+      padding: 10px !important;
+      background: #FAFAFA !important;
+      min-height: 35px !important;
+      border-radius: 4px !important;
+      text-align: center !important;
+      font-size: 9pt !important;
+      color: #666 !important;
+    }
+
+    /* --- Callout boxes: subtle for print --- */
+    .callout, .info-box, .notice {
+      background: #F9FAFB !important;
+      border: 1px solid #E5E7EB !important;
+      border-radius: 3px !important;
+      padding: 6px 10px !important;
+      font-size: 9pt !important;
+      margin-bottom: 10px !important;
+      color: #555 !important;
+    }
+    .callout-icon { font-size: 11pt !important; }
+
+    /* --- Page break control --- */
+    .step-header, h2, h3, .section-label,
+    label, .field-label { break-after: avoid !important; }
+    .field, .field-row { break-inside: avoid !important; }
+    .form-step { break-inside: auto !important; }
+    .callout, .info-box { break-inside: avoid !important; }
+    tr { break-inside: avoid !important; }
+
+    /* --- Tables (for forms that use them) --- */
+    table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+      font-size: 9pt !important;
+    }
+    th, td {
+      border: 1px solid #ccc !important;
+      padding: 4px 6px !important;
+      text-align: left !important;
+    }
+    th {
+      background: #F3F4F6 !important;
+      font-weight: 600 !important;
+    }
+
+    /* --- Training content cards (A series) --- */
+    .training-card, .module-card, .content-card {
+      border: 1px solid #ddd !important;
+      border-radius: 4px !important;
+      padding: 8px 10px !important;
+      margin-bottom: 8px !important;
+      background: white !important;
+      break-inside: avoid !important;
+    }
+    .video-container, .video-section, .video-wrapper,
+    iframe, video {
+      border: 1px solid #ccc !important;
+      background: #F5F5F5 !important;
+      height: 40px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 9pt !important;
+      color: #999 !important;
+    }
+    iframe::after, video::after {
+      content: "[Video content — view online]" !important;
+    }
+
+    /* --- Quiz / eval questions (B series) --- */
+    .question-card, .quiz-card, .eval-question {
+      border: 1px solid #E5E7EB !important;
+      border-radius: 4px !important;
+      padding: 8px 10px !important;
+      margin-bottom: 6px !important;
+      background: white !important;
+      break-inside: avoid !important;
+    }
+    .question-number {
+      font-weight: 700 !important;
+      color: #16A34A !important;
+      font-size: 9pt !important;
+    }
+    .answer-options, .quiz-options {
+      margin-top: 4px !important;
+    }
+    .answer-option, .quiz-option {
+      font-size: 9pt !important;
+      padding: 2px 0 !important;
+    }
+
+    /* --- Checklist items (E37 etc) --- */
+    .checklist-item, .check-item {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 6px !important;
+      padding: 3px 0 !important;
+      font-size: 9pt !important;
+      break-inside: avoid !important;
+    }
+
+    /* --- Acknowledgment sections --- */
+    .acknowledge-section, .ack-section {
+      border: 1px solid #ddd !important;
+      padding: 8px 10px !important;
+      margin-top: 10px !important;
+      background: #FAFAFA !important;
+      break-inside: avoid !important;
+    }
+    .acknowledge-label, .ack-label {
+      font-size: 9pt !important;
+      line-height: 1.4 !important;
+    }
+
+    /* --- Footer with form ID on every page --- */
+    .print-footer {
+      display: block !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 7pt;
+      color: #999;
+      border-top: 0.5px solid #ddd;
+      padding-top: 3px;
+    }
   }
 
   @media (max-width: 600px) {
