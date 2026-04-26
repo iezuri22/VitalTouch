@@ -306,57 +306,102 @@
   }
   .btn-ghost:hover { background: var(--bg); color: var(--text); }
 
-  /* ===== VERIFICATION QUEUE ===== */
-  .verify-section {
-    background: #FEF9E7;
-    border: 1.5px solid #F4D03F;
-    border-radius: var(--radius);
-    padding: 16px 22px;
-    margin-bottom: 24px;
+  /* ===== VERIFICATION DRAWER ===== */
+  .header-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--amber); color: white;
+    font-size: 11px; font-weight: 700;
+    padding: 0 6px; border-radius: 10px;
+    height: 18px; min-width: 18px; margin-left: 4px;
   }
-  .verify-head {
+  .drawer-bg {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(15,17,21,0.42);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .drawer-bg.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; right: 0; top: 0; bottom: 0; z-index: 201;
+    width: 480px; max-width: 100vw;
+    background: var(--white);
+    box-shadow: -12px 0 40px rgba(0,0,0,0.12);
+    transform: translateX(100%);
+    transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+    display: flex; flex-direction: column;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 24px; border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 10px;
   }
-  .verify-head h3 {
-    font-size: 13px; font-weight: 700;
-    color: #7A6700; text-transform: uppercase; letter-spacing: 0.6px;
+  .drawer-head h3 {
+    font-size: 16px; font-weight: 700; color: #1a1a1a;
+    display: flex; align-items: center; gap: 8px;
   }
-  .verify-head .clear-all {
-    font-size: 12px; color: #7A6700;
+  .drawer-head .count-pill {
+    background: var(--amber-light); color: #92400E;
+    font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .drawer-actions { display: flex; gap: 6px; align-items: center; }
+  .drawer-close {
+    background: none; border: none; cursor: pointer;
+    font-size: 26px; color: var(--text-lighter); line-height: 1;
+    padding: 0 6px;
+  }
+  .drawer-close:hover { color: var(--text); }
+  .drawer-clear {
+    font-size: 12px; color: var(--text-light);
     background: none; border: none; cursor: pointer;
     text-decoration: underline; font-family: inherit;
   }
-  .verify-row {
-    display: grid; grid-template-columns: 24px 1fr auto auto; gap: 12px;
-    align-items: center; padding: 10px 0;
-    border-top: 1px dashed #E8C941; font-size: 13.5px;
+  .drawer-clear:hover { color: var(--text); }
+  .drawer-body {
+    flex: 1; overflow-y: auto; padding: 8px 24px 24px;
   }
-  .verify-row:first-of-type { border-top: none; }
+  .verify-row {
+    display: grid; grid-template-columns: 24px 1fr; gap: 12px;
+    align-items: flex-start; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .verify-row:last-child { border-bottom: none; }
   .verify-checkbox {
     width: 20px; height: 20px; border-radius: 4px;
-    border: 1.5px solid #C49A00; background: var(--white);
+    border: 1.5px solid var(--border); background: var(--white);
     cursor: pointer; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
     font-size: 12px; font-weight: 700;
+    margin-top: 1px;
   }
+  .verify-checkbox:hover { border-color: var(--green); }
   .verify-checkbox.done { background: var(--green); border-color: var(--green); color: white; }
-  .verify-text { color: var(--text); line-height: 1.4; }
+  .verify-row.checked .verify-text { color: var(--text-light); text-decoration: line-through; }
+  .verify-text { color: var(--text); line-height: 1.5; font-size: 13.5px; }
   .verify-text b { color: #1a1a1a; }
   .verify-text code {
-    background: var(--white); padding: 1px 6px; border-radius: 3px;
-    font-family: 'JetBrains Mono', Consolas, monospace; font-size: 12px;
-    border: 1px solid #E8C941;
+    background: var(--bg); padding: 1px 6px; border-radius: 3px;
+    font-family: 'JetBrains Mono', Consolas, monospace; font-size: 11.5px;
+    border: 1px solid var(--border);
+  }
+  .verify-meta {
+    display: flex; gap: 10px; align-items: center;
+    margin-top: 6px;
+    font-size: 11.5px; color: var(--text-lighter);
   }
   .verify-link {
     font-size: 12px; font-weight: 600;
     color: var(--green-dark); text-decoration: none;
-    padding: 5px 10px; border-radius: 4px;
+    padding: 4px 10px; border-radius: 4px;
     background: var(--white); border: 1px solid var(--border);
-    white-space: nowrap;
   }
   .verify-link:hover { border-color: var(--green); }
-  .verify-time { font-size: 11.5px; color: var(--text-lighter); white-space: nowrap; }
+  .drawer-empty {
+    text-align: center; padding: 60px 24px;
+    color: var(--text-lighter); font-size: 13.5px;
+  }
+  .drawer-empty .emoji { font-size: 32px; margin-bottom: 8px; }
+  .drawer-empty .title { color: var(--text); font-weight: 600; font-size: 15px; margin-bottom: 4px; }
 
   /* ===== INBOX SECTION ===== */
   .inbox-section { margin-bottom: 32px; }
@@ -495,6 +540,7 @@
       <a href="index.html" class="header-link">← Forms</a>
       <a href="staff.html" class="header-link">Staff</a>
       <a href="admin.html" class="header-link">Admin</a>
+      <button class="header-link" id="verifyBtn" style="cursor:pointer;font-family:inherit;display:none;" onclick="openDrawer()">⚠ Verify <span class="header-badge" id="verifyHeaderCount">0</span></button>
     </div>
   </div>
 </div>
@@ -511,32 +557,9 @@
 
 <div class="main">
 
-  <!-- VERIFICATION QUEUE — appears when there are unverified actions -->
-  <div class="verify-section" id="verifySection" style="display:none;">
-    <div class="verify-head">
-      <h3>⚠ Verify on SharePoint <span style="background:#fff;color:#7A6700;font-size:11px;padding:2px 8px;border-radius:10px;" id="verifyCount">0</span></h3>
-      <button class="clear-all" onclick="clearAllVerified()">Clear all checked</button>
-    </div>
-    <div id="verifyList"></div>
-  </div>
-
-  <!-- ===== INBOX SECTION ===== -->
-  <div class="inbox-section" id="inboxSection">
-    <div class="section-head">
-      <h2>Inbox <span class="badge" id="inboxBadge">0</span></h2>
-      <div class="section-sub">Submissions waiting for review or routing</div>
-    </div>
-    <div id="inboxList"></div>
-  </div>
-
-  <!-- ===== CLIENTS SECTION ===== -->
-  <div class="section-head">
-    <h2>Clients</h2>
-    <div class="section-sub" id="clientsSub"></div>
-  </div>
-
   <div class="toolbar">
     <div class="tabs" id="catTabs">
+      <button class="tab" data-cat="inbox">Inbox <span class="tab-count" id="tcCatInbox">0</span></button>
       <button class="tab active" data-cat="active">Active <span class="tab-count" id="tcCatActive">0</span></button>
       <button class="tab" data-cat="pending">Pending <span class="tab-count" id="tcCatPending">0</span></button>
       <button class="tab" data-cat="terminated">Terminated <span class="tab-count" id="tcCatTerm">0</span></button>
@@ -548,7 +571,7 @@
     </div>
   </div>
 
-  <div class="toolbar" style="margin-top:-8px;">
+  <div class="toolbar" style="margin-top:-8px;" id="popRow">
     <div class="stage-label">Population:</div>
     <div class="tabs stage-tabs" id="popTabs">
       <button class="tab stage-tab active" data-pop="all">All <span class="tab-count" id="tcAll">0</span></button>
@@ -559,7 +582,7 @@
     </div>
   </div>
 
-  <div class="toolbar" style="margin-top:-8px; margin-bottom:24px;">
+  <div class="toolbar" style="margin-top:-8px; margin-bottom:24px;" id="stageRow">
     <div class="stage-label">Stage:</div>
     <div class="tabs stage-tabs" id="stageTabs">
       <button class="tab stage-tab active" data-stage="all">Any stage <span class="tab-count" id="tsAll">0</span></button>
@@ -571,7 +594,30 @@
     </div>
   </div>
 
+  <!-- ===== INBOX SECTION (shown only when Inbox tab is active) ===== -->
+  <div class="inbox-section" id="inboxSection" style="display:none;">
+    <div class="section-head">
+      <h2>Pending submissions</h2>
+      <div class="section-sub">Submissions awaiting review or routing</div>
+    </div>
+    <div id="inboxList"></div>
+  </div>
+
+  <!-- ===== CLIENT LIST (shown for all categories except Inbox) ===== -->
   <div id="list"></div>
+</div>
+
+<!-- VERIFICATION DRAWER -->
+<div class="drawer-bg" id="drawerBg" onclick="if(event.target===this) closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>⚠ Verify on SharePoint <span class="count-pill" id="drawerCount">0</span></h3>
+    <div class="drawer-actions">
+      <button class="drawer-clear" onclick="clearAllVerified()">Clear checked</button>
+      <button class="drawer-close" onclick="closeDrawer()">×</button>
+    </div>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -720,21 +766,52 @@
     return 'just now';
   }
   function renderVerifications() {
-    const sec = document.getElementById('verifySection');
-    const list = document.getElementById('verifyList');
-    const count = document.getElementById('verifyCount');
-    if (verifications.length === 0) { sec.style.display = 'none'; return; }
-    sec.style.display = 'block';
     const open = verifications.filter(v => !v.checked).length;
-    count.textContent = open + ' open';
-    list.innerHTML = verifications.map(v => `
-      <div class="verify-row">
+    const btn = document.getElementById('verifyBtn');
+    const headerCount = document.getElementById('verifyHeaderCount');
+    const drawerCount = document.getElementById('drawerCount');
+    const body = document.getElementById('drawerBody');
+
+    if (verifications.length === 0) {
+      btn.style.display = 'none';
+    } else {
+      btn.style.display = 'inline-flex';
+      btn.style.alignItems = 'center';
+      btn.style.gap = '4px';
+      headerCount.textContent = open;
+      headerCount.style.background = open > 0 ? 'var(--amber)' : 'var(--text-lighter)';
+    }
+    drawerCount.textContent = open + ' open';
+
+    if (verifications.length === 0) {
+      body.innerHTML = `
+        <div class="drawer-empty">
+          <div class="emoji">✓</div>
+          <div class="title">All verified</div>
+          <div>Mutating actions you take here will appear in this drawer until you confirm them on SharePoint.</div>
+        </div>`;
+      return;
+    }
+
+    body.innerHTML = verifications.map(v => `
+      <div class="verify-row ${v.checked ? 'checked' : ''}">
         <div class="verify-checkbox ${v.checked ? 'done' : ''}" onclick="toggleVerification('${v.id}')">${v.checked ? '✓' : ''}</div>
-        <div class="verify-text">${v.message}</div>
-        ${v.sharepointUrl ? `<a href="${v.sharepointUrl}" target="_blank" class="verify-link">Open in SharePoint ↗</a>` : '<span></span>'}
-        <span class="verify-time">${relTime(v.createdAt)}</span>
-      </div>
-    `).join('');
+        <div>
+          <div class="verify-text">${v.message}</div>
+          <div class="verify-meta">
+            <span>${relTime(v.createdAt)}</span>
+            ${v.sharepointUrl ? `<a href="${v.sharepointUrl}" target="_blank" class="verify-link">Open in SharePoint ↗</a>` : ''}
+          </div>
+        </div>
+      </div>`).join('');
+  }
+  function openDrawer() {
+    document.getElementById('drawerBg').classList.add('open');
+    document.getElementById('drawer').classList.add('open');
+  }
+  function closeDrawer() {
+    document.getElementById('drawerBg').classList.remove('open');
+    document.getElementById('drawer').classList.remove('open');
   }
   loadVerifications();
   let categoryFilter = 'active';
@@ -1043,8 +1120,79 @@
     toast('Submission rejected — verify on SharePoint');
   }
 
+  // Stage options visible per category
+  const STAGES_BY_CATEGORY = {
+    inbox:      [],
+    pending:    ['intake', 'assessment', 'needs-attn'],
+    active:     ['active', 'needs-attn', 'audit-ready'],
+    terminated: [],
+    all:        ['intake', 'assessment', 'active', 'needs-attn', 'audit-ready']
+  };
+
+  function applyCategoryUi() {
+    const inboxSec = document.getElementById('inboxSection');
+    const listEl = document.getElementById('list');
+    const popRow = document.getElementById('popRow');
+    const stageRow = document.getElementById('stageRow');
+
+    // Toggle inbox vs client list
+    if (categoryFilter === 'inbox') {
+      inboxSec.style.display = 'block';
+      listEl.style.display = 'none';
+      popRow.style.display = 'none';
+      stageRow.style.display = 'none';
+      return;
+    }
+    inboxSec.style.display = 'none';
+    listEl.style.display = 'block';
+
+    // Population row visible for non-inbox; reset on Terminated to All only
+    popRow.style.display = (categoryFilter === 'terminated') ? 'none' : 'flex';
+
+    // Stage row visibility + which buttons to show
+    const allowed = STAGES_BY_CATEGORY[categoryFilter] || [];
+    if (allowed.length === 0) {
+      stageRow.style.display = 'none';
+      // reset stage filter so it doesn't carry over
+      stageFilter = 'all';
+      document.querySelectorAll('#stageTabs .stage-tab').forEach(t => t.classList.toggle('active', t.dataset.stage === 'all'));
+    } else {
+      stageRow.style.display = 'flex';
+      // Show only allowed stages + the "all" button; hide others
+      document.querySelectorAll('#stageTabs .stage-tab').forEach(t => {
+        const s = t.dataset.stage;
+        const visible = (s === 'all') || allowed.includes(s);
+        t.style.display = visible ? 'inline-flex' : 'none';
+      });
+      // If current stageFilter is not allowed, reset to "all"
+      if (stageFilter !== 'all' && !allowed.includes(stageFilter)) {
+        stageFilter = 'all';
+        document.querySelectorAll('#stageTabs .stage-tab').forEach(t => t.classList.toggle('active', t.dataset.stage === 'all'));
+      }
+    }
+  }
+
+  function updateTabCounts() {
+    // Inbox count
+    document.getElementById('tcCatInbox').textContent = inbox.length;
+    // Category counts
+    const byCat = (cat) => CLIENTS.filter(c => clientCategory(c) === cat).length;
+    document.getElementById('tcCatActive').textContent  = byCat('active');
+    document.getElementById('tcCatPending').textContent = byCat('pending');
+    document.getElementById('tcCatTerm').textContent    = byCat('terminated');
+    document.getElementById('tcCatAll').textContent     = CLIENTS.length;
+  }
+
   function render() {
-    renderInbox();
+    updateTabCounts();
+    applyCategoryUi();
+    renderVerifications();
+
+    if (categoryFilter === 'inbox') {
+      renderInbox();
+      return;
+    }
+
     let list = CLIENTS.slice();
 
     // 1. Category filter (primary)
@@ -1095,13 +1243,6 @@
     document.getElementById('statAttn').textContent = attn;
     document.getElementById('statOverdue').textContent = overdue;
     document.getElementById('statThisWeek').textContent = thisWeek;
-
-    // Category tab counts
-    const byCat = (cat) => CLIENTS.filter(c => clientCategory(c) === cat).length;
-    document.getElementById('tcCatActive').textContent  = byCat('active');
-    document.getElementById('tcCatPending').textContent = byCat('pending');
-    document.getElementById('tcCatTerm').textContent    = byCat('terminated');
-    document.getElementById('tcCatAll').textContent     = CLIENTS.length;
 
     // Population tab counts (within current category)
     const popBase = (categoryFilter === 'all') ? CLIENTS : CLIENTS.filter(c => clientCategory(c) === categoryFilter);

@@ -248,6 +248,147 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* ===== INBOX SECTION ===== */
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 14px; gap: 12px;
+  }
+  .section-head h2 { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+  .section-sub { font-size: 13px; color: var(--text-lighter); margin-left: auto; }
+  .inbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 14px; }
+  .inbox-card {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 18px 22px;
+    border-left: 4px solid var(--amber);
+  }
+  .inbox-card.matched { border-left-color: var(--green); }
+  .inbox-card.review  { border-left-color: var(--red); }
+  .inbox-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 10px; margin-bottom: 10px;
+  }
+  .inbox-form-tag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.6px;
+    padding: 3px 9px; border-radius: 20px;
+    background: var(--purple-light); color: var(--purple);
+  }
+  .inbox-time { font-size: 12px; color: var(--text-lighter); }
+  .inbox-filename {
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 12px; color: var(--text-light);
+    background: var(--bg); padding: 6px 10px; border-radius: 4px;
+    margin-bottom: 12px; word-break: break-all;
+  }
+  .inbox-match { margin-bottom: 12px; font-size: 13.5px; }
+  .inbox-match .label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--green-deeper); margin-bottom: 2px;
+  }
+  .inbox-match.unmatched .label { color: #92400E; }
+  .inbox-match.review .label { color: var(--red); }
+  .inbox-match-name { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+  .inbox-match-meta { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+  .inbox-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  .inbox-actions .btn { padding: 6px 12px; font-size: 12.5px; }
+  .inbox-empty {
+    background: var(--white); border-radius: var(--radius);
+    padding: 28px; text-align: center; box-shadow: var(--shadow);
+    color: var(--text-light); font-size: 14px;
+  }
+  .inbox-empty b { color: var(--green-deeper); }
+
+  /* ===== VERIFICATION DRAWER ===== */
+  .header-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--amber); color: white;
+    font-size: 11px; font-weight: 700;
+    padding: 0 6px; border-radius: 10px;
+    height: 18px; min-width: 18px; margin-left: 4px;
+  }
+  .drawer-bg {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(15,17,21,0.42);
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .drawer-bg.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; right: 0; top: 0; bottom: 0; z-index: 201;
+    width: 480px; max-width: 100vw;
+    background: var(--white);
+    box-shadow: -12px 0 40px rgba(0,0,0,0.12);
+    transform: translateX(100%);
+    transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+    display: flex; flex-direction: column;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 24px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .drawer-head h3 {
+    font-size: 16px; font-weight: 700; color: #1a1a1a;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .drawer-head .count-pill {
+    background: var(--amber-light); color: #92400E;
+    font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .drawer-actions { display: flex; gap: 6px; align-items: center; }
+  .drawer-close {
+    background: none; border: none; cursor: pointer;
+    font-size: 26px; color: var(--text-lighter); line-height: 1; padding: 0 6px;
+  }
+  .drawer-close:hover { color: var(--text); }
+  .drawer-clear {
+    font-size: 12px; color: var(--text-light);
+    background: none; border: none; cursor: pointer;
+    text-decoration: underline; font-family: inherit;
+  }
+  .drawer-clear:hover { color: var(--text); }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 8px 24px 24px; }
+  .verify-row {
+    display: grid; grid-template-columns: 24px 1fr; gap: 12px;
+    align-items: flex-start; padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .verify-row:last-child { border-bottom: none; }
+  .verify-checkbox {
+    width: 20px; height: 20px; border-radius: 4px;
+    border: 1.5px solid var(--border); background: var(--white);
+    cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; margin-top: 1px;
+  }
+  .verify-checkbox:hover { border-color: var(--green); }
+  .verify-checkbox.done { background: var(--green); border-color: var(--green); color: white; }
+  .verify-row.checked .verify-text { color: var(--text-light); text-decoration: line-through; }
+  .verify-text { color: var(--text); line-height: 1.5; font-size: 13.5px; }
+  .verify-text b { color: #1a1a1a; }
+  .verify-text code {
+    background: var(--bg); padding: 1px 6px; border-radius: 3px;
+    font-family: 'JetBrains Mono', Consolas, monospace; font-size: 11.5px;
+    border: 1px solid var(--border);
+  }
+  .verify-meta {
+    display: flex; gap: 10px; align-items: center;
+    margin-top: 6px; font-size: 11.5px; color: var(--text-lighter);
+  }
+  .verify-link {
+    font-size: 12px; font-weight: 600;
+    color: var(--green-dark); text-decoration: none;
+    padding: 4px 10px; border-radius: 4px;
+    background: var(--white); border: 1px solid var(--border);
+  }
+  .verify-link:hover { border-color: var(--green); }
+  .drawer-empty {
+    text-align: center; padding: 60px 24px;
+    color: var(--text-lighter); font-size: 13.5px;
+  }
+  .drawer-empty .emoji { font-size: 32px; margin-bottom: 8px; }
+  .drawer-empty .title { color: var(--text); font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+
   @media (max-width: 960px) {
     .stats-row { grid-template-columns: repeat(2, 1fr); }
     .staff-row {
@@ -272,6 +413,7 @@
       <a href="index.html" class="header-link">← Forms</a>
       <a href="tracker.html" class="header-link">Clients</a>
       <a href="admin.html" class="header-link">Admin</a>
+      <button class="header-link" id="verifyBtn" style="cursor:pointer;font-family:inherit;display:none;" onclick="openDrawer()">⚠ Verify <span class="header-badge" id="verifyHeaderCount">0</span></button>
     </div>
   </div>
 </div>
@@ -290,6 +432,7 @@
 
   <div class="toolbar">
     <div class="tabs" id="catTabs">
+      <button class="tab" data-cat="inbox">Inbox <span class="tab-count" id="tcInbox">0</span></button>
       <button class="tab active" data-cat="active">Active <span class="tab-count" id="tcActive">0</span></button>
       <button class="tab" data-cat="onboarding">Onboarding <span class="tab-count" id="tcOnboard">0</span></button>
       <button class="tab" data-cat="separated">Separated <span class="tab-count" id="tcSep">0</span></button>
@@ -301,7 +444,7 @@
     </div>
   </div>
 
-  <div class="toolbar" style="margin-top:-8px; margin-bottom:24px;">
+  <div class="toolbar" style="margin-top:-8px; margin-bottom:24px;" id="filterRow">
     <div class="stage-label">Filter:</div>
     <div class="tabs" id="filterTabs">
       <button class="tab stage-tab active" data-filter="all">Any <span class="tab-count" id="fAll">0</span></button>
@@ -312,7 +455,29 @@
     </div>
   </div>
 
+  <!-- INBOX (E-series form submissions awaiting routing) -->
+  <div id="inboxSection" style="display:none;">
+    <div class="section-head">
+      <h2>Pending E-series submissions</h2>
+      <div class="section-sub">Employee form submissions awaiting review</div>
+    </div>
+    <div id="inboxList"></div>
+  </div>
+
   <div id="staffList"></div>
+</div>
+
+<!-- VERIFICATION DRAWER -->
+<div class="drawer-bg" id="drawerBg" onclick="if(event.target===this) closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>⚠ Verify on SharePoint <span class="count-pill" id="drawerCount">0</span></h3>
+    <div class="drawer-actions">
+      <button class="drawer-clear" onclick="clearAllVerified()">Clear checked</button>
+      <button class="drawer-close" onclick="closeDrawer()">×</button>
+    </div>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -410,12 +575,185 @@
   ];
 
   // ========================================================
+  // INBOX MOCK — E-series submissions awaiting routing
+  // ========================================================
+  const INBOX = [
+    { id: 'si1', formId: 'E.36', formName: 'Alzheimer’s Training Ack',
+      filename: 'E.36_Pierce-Yolanda_1978-09-22_2026-04-26.pdf',
+      submittedAt: '2026-04-26T07:55:00Z', submittedBy: 'CSM Maria T.',
+      matchStatus: 'matched',
+      match: { id: 'VTE-2025-002', name: 'Y. Pierce', dob: '1978-09-22' },
+      destination: '05_Employees/Active/VTE-2025-002/3_Training_and_Compliance' },
+    { id: 'si2', formId: 'E.22', formName: 'Hep B Vaccination',
+      filename: 'E.22_Bell-Marcus_1995-06-30_2026-04-26.pdf',
+      submittedAt: '2026-04-26T09:10:00Z', submittedBy: 'CSM Sarah K.',
+      matchStatus: 'matched',
+      match: { id: 'VTE-2026-004', name: 'M. Bell', dob: '1995-06-30' },
+      destination: '05_Employees/Active/VTE-2026-004/2_Background_and_Health' },
+    { id: 'si3', formId: 'E.11', formName: 'Job Application',
+      filename: 'E.11_Kim-Soyeon_1992-08-14_2026-04-25.pdf',
+      submittedAt: '2026-04-25T16:24:00Z', submittedBy: 'web · vitaltouchcares.com',
+      matchStatus: 'unmatched',
+      newCandidate: { name: 'S. Kim', dob: '1992-08-14' },
+      destination: '05_Employees/Active/[NEW employee]/1_Personal_and_ID' },
+    { id: 'si4', formId: '?', formName: 'Unknown',
+      filename: 'E_unknown_2026-04-24.pdf',
+      submittedAt: '2026-04-24T18:00:00Z', submittedBy: 'web · vitaltouchcares.com',
+      matchStatus: 'review',
+      reviewReason: 'Filename does not match expected format. Could not parse name or DOB.' },
+  ];
+
+  // ========================================================
   // STATE
   // ========================================================
   let categoryFilter = 'active';
   let extraFilter = 'all';
   let searchTerm = '';
   let openId = null;
+  let inbox = INBOX.slice();
+
+  // Verification queue
+  let verifications = [];
+  function loadVerifications() {
+    try { verifications = JSON.parse(localStorage.getItem('vt_verifications') || '[]'); }
+    catch (e) { verifications = []; }
+  }
+  function saveVerifications() {
+    try { localStorage.setItem('vt_verifications', JSON.stringify(verifications)); } catch (e) {}
+  }
+  function addVerification(v) {
+    verifications.unshift(Object.assign({ id: 'v' + Date.now() + Math.random(), checked: false, createdAt: new Date().toISOString() }, v));
+    saveVerifications();
+    renderVerifications();
+  }
+  function toggleVerification(id) {
+    const v = verifications.find(x => x.id === id);
+    if (!v) return;
+    v.checked = !v.checked;
+    saveVerifications();
+    renderVerifications();
+  }
+  function clearAllVerified() {
+    verifications = verifications.filter(v => !v.checked);
+    saveVerifications();
+    renderVerifications();
+  }
+  function relTime(iso) {
+    const d = new Date(iso);
+    const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+    const hrs = Math.floor((Date.now() - d.getTime()) / 3600000);
+    const mins = Math.floor((Date.now() - d.getTime()) / 60000);
+    if (days >= 1) return days + 'd ago';
+    if (hrs >= 1) return hrs + 'h ago';
+    if (mins >= 1) return mins + 'm ago';
+    return 'just now';
+  }
+  function renderVerifications() {
+    const open = verifications.filter(v => !v.checked).length;
+    const btn = document.getElementById('verifyBtn');
+    const headerCount = document.getElementById('verifyHeaderCount');
+    const drawerCount = document.getElementById('drawerCount');
+    const body = document.getElementById('drawerBody');
+    if (verifications.length === 0) {
+      btn.style.display = 'none';
+    } else {
+      btn.style.display = 'inline-flex';
+      btn.style.alignItems = 'center';
+      btn.style.gap = '4px';
+      headerCount.textContent = open;
+      headerCount.style.background = open > 0 ? 'var(--amber)' : 'var(--text-lighter)';
+    }
+    drawerCount.textContent = open + ' open';
+    if (verifications.length === 0) {
+      body.innerHTML = `<div class="drawer-empty"><div class="emoji">✓</div><div class="title">All verified</div><div>Mutating actions you take here will appear in this drawer until you confirm them on SharePoint.</div></div>`;
+      return;
+    }
+    body.innerHTML = verifications.map(v => `
+      <div class="verify-row ${v.checked ? 'checked' : ''}">
+        <div class="verify-checkbox ${v.checked ? 'done' : ''}" onclick="toggleVerification('${v.id}')">${v.checked ? '✓' : ''}</div>
+        <div>
+          <div class="verify-text">${v.message}</div>
+          <div class="verify-meta">
+            <span>${relTime(v.createdAt)}</span>
+            ${v.sharepointUrl ? `<a href="${v.sharepointUrl}" target="_blank" class="verify-link">Open in SharePoint ↗</a>` : ''}
+          </div>
+        </div>
+      </div>`).join('');
+  }
+  function openDrawer() {
+    document.getElementById('drawerBg').classList.add('open');
+    document.getElementById('drawer').classList.add('open');
+  }
+  function closeDrawer() {
+    document.getElementById('drawerBg').classList.remove('open');
+    document.getElementById('drawer').classList.remove('open');
+  }
+  loadVerifications();
+
+  // ========================================================
+  // INBOX RENDER
+  // ========================================================
+  function inboxCardHtml(item) {
+    const time = new Date(item.submittedAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    const cls = item.matchStatus;
+    let matchBlock;
+    if (item.matchStatus === 'matched') {
+      matchBlock = `<div class="inbox-match"><div class="label">✓ Auto-matched</div><div class="inbox-match-name">${item.match.name} <span style="color:var(--text-light);font-weight:400;font-size:12px;">(${item.match.id})</span></div><div class="inbox-match-meta">DOB ${item.match.dob}</div></div>`;
+    } else if (item.matchStatus === 'unmatched') {
+      matchBlock = `<div class="inbox-match unmatched"><div class="label">⚠ No match — looks like a new hire</div><div class="inbox-match-name">${item.newCandidate.name}</div><div class="inbox-match-meta">DOB ${item.newCandidate.dob}</div></div>`;
+    } else {
+      matchBlock = `<div class="inbox-match review"><div class="label">⚠ Manual review required</div><div class="inbox-match-meta" style="color:var(--text);">${item.reviewReason}</div></div>`;
+    }
+    let actions;
+    if (item.matchStatus === 'matched') {
+      actions = `<button class="btn btn-primary" onclick="approveInbox('${item.id}')">Approve & file</button><button class="btn" onclick="reassignInbox('${item.id}')">Reassign</button><button class="btn btn-ghost" onclick="rejectInbox('${item.id}')">Reject</button>`;
+    } else if (item.matchStatus === 'unmatched') {
+      actions = `<button class="btn btn-primary" onclick="createNewInbox('${item.id}')">Create employee & file</button><button class="btn" onclick="reassignInbox('${item.id}')">Match existing</button><button class="btn btn-ghost" onclick="rejectInbox('${item.id}')">Reject</button>`;
+    } else {
+      actions = `<button class="btn btn-primary" onclick="reassignInbox('${item.id}')">Manual match</button><button class="btn btn-ghost" onclick="rejectInbox('${item.id}')">Reject</button>`;
+    }
+    return `<div class="inbox-card ${cls}">
+      <div class="inbox-top"><span class="inbox-form-tag">${item.formId} · ${item.formName}</span><span class="inbox-time">${time}</span></div>
+      <div class="inbox-filename">${item.filename}</div>
+      ${matchBlock}
+      <div class="inbox-actions">${actions}</div>
+    </div>`;
+  }
+  function renderInbox() {
+    const list = document.getElementById('inboxList');
+    if (inbox.length === 0) {
+      list.innerHTML = `<div class="inbox-empty"><b>Inbox is empty.</b> New employee form submissions will appear here.</div>`;
+      return;
+    }
+    list.innerHTML = `<div class="inbox-grid">${inbox.map(inboxCardHtml).join('')}</div>`;
+  }
+  function spLink(folder) {
+    const base = 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Shared%20Documents/IL%20-%20Home%20Services';
+    return base + (folder ? '/' + folder.replace(/\//g, '%2F') : '');
+  }
+  function approveInbox(id) {
+    const it = inbox.find(i => i.id === id);
+    inbox = inbox.filter(i => i.id !== id);
+    addVerification({ message: `Routed <code>${it.filename}</code> to <b>${it.match.name}</b>'s folder. Confirm the file is in <code>${it.destination}</code> and the matching column is updated on <b>VT_Employee_Roster</b>.`, sharepointUrl: spLink(it.destination) });
+    render();
+    toast(`Filed → ${it.match.name} · verify on SharePoint`);
+  }
+  function createNewInbox(id) {
+    const it = inbox.find(i => i.id === id);
+    inbox = inbox.filter(i => i.id !== id);
+    addVerification({ message: `Created new employee roster entry for <b>${it.newCandidate.name}</b> (DOB ${it.newCandidate.dob}). Confirm row in <code>VT_Employee_Roster</code> and folder structure under <code>05_Employees/Active/</code>.`, sharepointUrl: 'https://vitaltouchhealthnetwork.sharepoint.com/sites/Illinois/Lists/VT_Employee_Roster' });
+    render();
+    toast(`Created · ${it.newCandidate.name} · verify on SharePoint`);
+  }
+  function reassignInbox(id) { toast('Reassign — picker not wired'); }
+  function rejectInbox(id) {
+    if (!confirm('Reject this submission? It moves to /99_Archive/_Rejected/.')) return;
+    const it = inbox.find(i => i.id === id);
+    inbox = inbox.filter(i => i.id !== id);
+    addVerification({ message: `Rejected <code>${it.filename}</code>. Confirm the file moved to <code>/99_Archive/_Rejected/</code> on SharePoint.`, sharepointUrl: spLink('99_Archive/_Rejected') });
+    render();
+    toast('Submission rejected — verify on SharePoint');
+  }
 
   // ========================================================
   // HELPERS
@@ -590,7 +928,40 @@
     return f.replace('.', '') + '_' + (FORM_NAMES[f].replace(/[^A-Za-z0-9]+/g, '_')) + '.html';
   }
 
+  function applyCategoryUi() {
+    const inboxSec = document.getElementById('inboxSection');
+    const listEl = document.getElementById('staffList');
+    const filterRow = document.getElementById('filterRow');
+
+    if (categoryFilter === 'inbox') {
+      inboxSec.style.display = 'block';
+      listEl.style.display = 'none';
+      filterRow.style.display = 'none';
+    } else {
+      inboxSec.style.display = 'none';
+      listEl.style.display = 'block';
+      filterRow.style.display = 'flex';
+    }
+  }
+
   function render() {
+    // Inbox tab count
+    document.getElementById('tcInbox').textContent = inbox.length;
+    // Always render verification + apply category UI
+    renderVerifications();
+    applyCategoryUi();
+
+    if (categoryFilter === 'inbox') {
+      renderInbox();
+      // still update top tab counts
+      const byCat = (cat) => STAFF.filter(s => staffCategory(s) === cat).length;
+      document.getElementById('tcActive').textContent  = byCat('active');
+      document.getElementById('tcOnboard').textContent = byCat('onboarding');
+      document.getElementById('tcSep').textContent     = byCat('separated');
+      document.getElementById('tcAll').textContent     = STAFF.length;
+      return;
+    }
+
     let list = STAFF.slice();
 
     if (categoryFilter !== 'all') {
