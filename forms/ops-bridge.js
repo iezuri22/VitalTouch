@@ -90,7 +90,21 @@
         appendField(payload, key, `[file: ${value.name} (${value.size} bytes)]`);
         continue;
       }
-      appendField(payload, key, typeof value === 'string' ? value : String(value));
+      const str = typeof value === 'string' ? value : String(value);
+      // Detect signature data URLs in hidden form fields
+      if (str.startsWith('data:image/')) {
+        const blob = dataUrlToBlob(str);
+        if (blob) {
+          const ext = (blob.type.split('/')[1] || 'png').replace(/[^a-z0-9]/gi, '');
+          files.push({
+            fieldName: '__sig__' + key,
+            file: new File([blob], `${key}.${ext}`, { type: blob.type }),
+          });
+          appendField(payload, key, '[signature provided]');
+          continue;
+        }
+      }
+      appendField(payload, key, str);
     }
     return { payload, files };
   }
@@ -127,10 +141,47 @@
         return;
       }
       if (typeof el.value === 'string' && el.value.length) {
+        // Signature pads store data URLs in hidden inputs. Convert to a Blob
+        // and treat as a special "signature" file so it embeds in the PDF
+        // instead of polluting the form data.
+        if (el.value.startsWith('data:image/')) {
+          const blob = dataUrlToBlob(el.value);
+          if (blob) {
+            const ext = (blob.type.split('/')[1] || 'png').replace(/[^a-z0-9]/gi, '');
+            files.push({
+              fieldName: '__sig__' + key,
+              file: new File([blob], `${key}.${ext}`, { type: blob.type }),
+            });
+            appendField(payload, key, '[signature provided]');
+            return;
+          }
+        }
         appendField(payload, key, el.value);
       }
     });
     return { payload, files };
+  }
+
+  /**
+   * Convert a data: URL into a Blob. Returns null on parse failure.
+   */
+  function dataUrlToBlob(dataUrl) {
+    try {
+      const match = dataUrl.match(/^data:([^;,]+)(;base64)?,(.*)$/);
+      if (!match) return null;
+      const mime = match[1] || 'application/octet-stream';
+      const isBase64 = !!match[2];
+      const data = match[3];
+      if (isBase64) {
+        const bin = atob(data);
+        const arr = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+        return new Blob([arr], { type: mime });
+      }
+      return new Blob([decodeURIComponent(data)], { type: mime });
+    } catch (err) {
+      return null;
+    }
   }
 
   function appendField(payload, key, value) {
