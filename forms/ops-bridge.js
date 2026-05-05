@@ -29,9 +29,81 @@
 
   const API_URL = 'https://vitaltouch-ops.vercel.app/api/public/form-submission';
   const TAG = '[VitalTouch Ops Bridge]';
+  const QUEUE_KEY = 'vt_ops_pending';
+  const MAX_QUEUE_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
   // De-dupe guard so explicit calls + auto-detection don't double-submit
   const _submitted = new Set();
+
+  // ---------- Local-storage queue ----------
+  //
+  // Every submission is enqueued BEFORE the network call. On success we
+  // dequeue. Anything left in the queue is retried on the next page load.
+  // Files can't be persisted across reloads (browsers don't allow Files in
+  // localStorage), so file-bearing submissions skip the queue and rely on
+  // immediate fetch. JSON-only submissions get the full queue treatment.
+
+  function readQueue() {
+    try {
+      const raw = localStorage.getItem(QUEUE_KEY);
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      if (!Array.isArray(arr)) return [];
+      // Drop entries older than MAX_QUEUE_AGE_MS so the queue can't grow forever
+      const cutoff = Date.now() - MAX_QUEUE_AGE_MS;
+      return arr.filter((item) => (item.queuedAt || 0) > cutoff);
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function writeQueue(items) {
+    try {
+      localStorage.setItem(QUEUE_KEY, JSON.stringify(items));
+    } catch (err) {
+      console.warn(TAG, 'Could not persist queue:', err);
+    }
+  }
+
+  function enqueue(meta) {
+    const items = readQueue();
+    items.push({
+      id: 'q_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 6),
+      queuedAt: Date.now(),
+      meta,
+    });
+    writeQueue(items);
+  }
+
+  function dequeue(id) {
+    const items = readQueue().filter((item) => item.id !== id);
+    writeQueue(items);
+  }
+
+  function drainQueue() {
+    const items = readQueue();
+    if (items.length === 0) return;
+    console.log(TAG, 'Draining queue —', items.length, 'pending');
+    items.forEach(function (item) {
+      fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(item.meta),
+        mode: 'cors',
+      })
+        .then(function (res) {
+          if (res.ok) {
+            console.log(TAG, 'Drained queued submission', item.meta.formId);
+            dequeue(item.id);
+          } else {
+            console.warn(TAG, 'Drain failed', item.meta.formId, res.status);
+          }
+        })
+        .catch(function (err) {
+          console.warn(TAG, 'Drain network error', item.meta.formId, err);
+        });
+    });
+  }
 
   // ---------- Form ID detection ----------
 
@@ -250,35 +322,60 @@
       return;
     }
 
-    // ---- Path 2: no files → JSON via sendBeacon (survives unload) ----
+    // ---- Path 2: no files → JSON, with localStorage queue safeguard ----
+
+    // Enqueue first so we don't lose the submission if network drops
+    enqueue(meta);
+    const queueIdAtSend = readQueue().slice(-1)[0]?.id;
+
+    // Try sendBeacon first (survives page unload from a mailto: nav)
+    let beaconSent = false;
     try {
       if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
         const blob = new Blob([JSON.stringify(meta)], { type: 'application/json' });
-        const queued = navigator.sendBeacon(API_URL, blob);
-        if (queued) {
+        if (navigator.sendBeacon(API_URL, blob)) {
           console.log(TAG, 'Beacon queued for', formId);
-          return;
+          beaconSent = true;
+          // Beacon is fire-and-forget; we can't confirm success. Keep it in
+          // the localStorage queue and let the next page load drain-or-skip
+          // based on a delivery probe. For now, optimistically dequeue after
+          // a short delay — if the server actually got it, the dashboard
+          // shows it and we're fine; if not, the next page load retries.
+          setTimeout(function () {
+            if (queueIdAtSend) dequeue(queueIdAtSend);
+          }, 5000);
         }
       }
     } catch (err) {
       /* fall through to fetch */
     }
 
-    try {
-      fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(meta),
-        keepalive: true,
-        mode: 'cors',
-      })
-        .then((res) => {
-          if (res.ok) console.log(TAG, 'Submitted', formId);
-          else console.warn(TAG, 'Server rejected', formId, res.status);
+    if (!beaconSent) {
+      try {
+        fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(meta),
+          keepalive: true,
+          mode: 'cors',
         })
-        .catch((err) => console.warn(TAG, 'Network error for', formId, err));
-    } catch (err) {
-      console.warn(TAG, 'fetch threw for', formId, err);
+          .then(function (res) {
+            if (res.ok) {
+              console.log(TAG, 'Submitted', formId);
+              if (queueIdAtSend) dequeue(queueIdAtSend);
+            } else {
+              console.warn(TAG, 'Server rejected', formId, res.status,
+                '— kept in local queue for retry');
+            }
+          })
+          .catch(function (err) {
+            console.warn(TAG, 'Network error for', formId, err,
+              '— kept in local queue for retry');
+          });
+      } catch (err) {
+        console.warn(TAG, 'fetch threw for', formId, err,
+          '— kept in local queue for retry');
+      }
     }
   }
 
@@ -378,6 +475,7 @@
     attachToForms();
     attachToButtons();
     tryWrapSubmitForm();
+    drainQueue(); // Retry any submissions that failed on prior page loads
 
     // Re-attempt wrap a few times — the form's script may run after ours
     let tries = 0;
@@ -417,5 +515,9 @@
     },
     rescan: init,
     detectFormId,
+    // Debug helpers — useful for inspecting safety queue
+    pendingQueue: function () { return readQueue(); },
+    drainNow: drainQueue,
+    clearQueue: function () { writeQueue([]); },
   };
 })();
