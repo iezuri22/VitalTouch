@@ -339,11 +339,49 @@
     console.log(TAG, 'Click listener attached for auto-detect mode');
   }
 
+  // ---------- Mode C: wrap window.submitForm ----------
+  //
+  // Many of the multi-step forms validate first, then call a global
+  // `submitForm()` function. The button click is on `.btn-next` (which we
+  // can't auto-fire on, since it's also used for next-page navigation).
+  // Wrapping window.submitForm catches the actual submit moment regardless
+  // of which button or path triggered it.
+
+  function tryWrapSubmitForm() {
+    if (window.__vtSubmitFormWrapped) return;
+    if (typeof window.submitForm !== 'function') return;
+
+    const original = window.submitForm;
+    window.submitForm = function () {
+      const result = original.apply(this, arguments);
+      const formId = detectFormId();
+      if (formId) {
+        // Delay a tick so signature pads / file inputs settle their state
+        setTimeout(function () {
+          postSubmission(formId, collectFromPage(), {
+            dedupeKey: 'submit-form-wrap',
+          });
+        }, 50);
+      }
+      return result;
+    };
+    window.__vtSubmitFormWrapped = true;
+    console.log(TAG, 'Wrapped window.submitForm');
+  }
+
   // ---------- Init ----------
 
   function init() {
     attachToForms();
     attachToButtons();
+    tryWrapSubmitForm();
+
+    // Re-attempt wrap a few times — the form's script may run after ours
+    let tries = 0;
+    const interval = setInterval(function () {
+      tryWrapSubmitForm();
+      if (window.__vtSubmitFormWrapped || ++tries > 20) clearInterval(interval);
+    }, 250);
   }
 
   if (document.readyState === 'loading') {
