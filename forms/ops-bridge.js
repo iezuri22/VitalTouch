@@ -197,12 +197,15 @@
     const payload = collected && collected.payload ? collected.payload : collected || {};
     const files = (collected && collected.files) || [];
 
-    const dedupeKey = formId + ':' + (opts && opts.dedupeKey || '');
-    if (_submitted.has(dedupeKey)) {
-      console.log(TAG, 'Skipping duplicate submit for', formId);
+    // One submission per formId per page lifetime — whichever mode fires
+    // first wins. Prevents Mode B (click) + Mode C (submitForm wrap) +
+    // manual .submit() from triple-firing for forms that hit multiple paths.
+    if (_submitted.has(formId)) {
+      console.log(TAG, 'Skipping duplicate submit for', formId,
+        '(already submitted via different path)');
       return;
     }
-    _submitted.add(dedupeKey);
+    _submitted.add(formId);
 
     const submitterName = (opts && opts.submitterName) || findSubmitterFromPayload(payload);
     const submitterEmail =

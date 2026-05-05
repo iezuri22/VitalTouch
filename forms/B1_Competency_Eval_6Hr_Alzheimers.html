@@ -1774,6 +1774,17 @@ function submitQuiz() {
     console.warn('Could not save to localStorage:', e);
   }
 
+  // Mirror full submission to ops platform — quiz answers live in JS state,
+  // not form inputs, so we send explicitly here.
+  try {
+    if (window.VitalTouchOpsBridge) {
+      window.VitalTouchOpsBridge.submit('B1', {
+        submitterName: empName,
+        payload: submission,
+      });
+    }
+  } catch (err) { console.warn('Ops bridge:', err); }
+
   // If passed, send mailto and show confirmation
   if (passed) {
     document.getElementById('confirmationPanel').classList.add('show');

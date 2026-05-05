@@ -1779,6 +1779,17 @@ function gradeQuiz() {
   stored.push(data);
   localStorage.setItem('vt_submissions', JSON.stringify(stored));
 
+  // Mirror full submission to ops platform — quiz answers live in JS state,
+  // not form inputs, so we send explicitly here.
+  try {
+    if (window.VitalTouchOpsBridge) {
+      window.VitalTouchOpsBridge.submit('B2', {
+        submitterName: data.employee.name,
+        payload: data,
+      });
+    }
+  } catch (err) { console.warn('Ops bridge:', err); }
+
   // Hide submit, show results
   document.getElementById('submitArea').style.display = 'none';
   document.getElementById('resultsSection').classList.add('visible');
