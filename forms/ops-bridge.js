@@ -80,26 +80,28 @@
   // ---------- Payload collection ----------
 
   function collectFromForm(form) {
-    const fd = new FormData(form);
     const payload = {};
+    const files = [];
+    const fd = new FormData(form);
     for (const [key, value] of fd.entries()) {
       if (value instanceof File) {
         if (!value.name) continue;
-        const tag = `[file: ${value.name} (${value.size} bytes)]`;
-        appendField(payload, key, tag);
+        files.push({ fieldName: key, file: value });
+        appendField(payload, key, `[file: ${value.name} (${value.size} bytes)]`);
         continue;
       }
       appendField(payload, key, typeof value === 'string' ? value : String(value));
     }
-    return payload;
+    return { payload, files };
   }
 
   /**
    * Snapshot all input/textarea/select elements on the page. Used when there's
-   * no <form> wrapper (E13 et al). Keys are field id || name.
+   * no <form> wrapper (E13 et al). Returns { payload, files }.
    */
   function collectFromPage() {
     const payload = {};
+    const files = [];
     const els = document.querySelectorAll('input, textarea, select');
     els.forEach((el) => {
       const key = el.id || el.name;
@@ -107,7 +109,11 @@
       if (el.type === 'button' || el.type === 'submit' || el.type === 'reset') return;
       if (el.type === 'file') {
         if (el.files && el.files.length) {
-          const tags = Array.from(el.files).map((f) => `[file: ${f.name} (${f.size} bytes)]`);
+          const tags = [];
+          Array.from(el.files).forEach((f) => {
+            files.push({ fieldName: key, file: f });
+            tags.push(`[file: ${f.name} (${f.size} bytes)]`);
+          });
           appendField(payload, key, tags.length === 1 ? tags[0] : tags);
         }
         return;
@@ -124,7 +130,7 @@
         appendField(payload, key, el.value);
       }
     });
-    return payload;
+    return { payload, files };
   }
 
   function appendField(payload, key, value) {
@@ -135,12 +141,17 @@
 
   // ---------- POST ----------
 
-  function postSubmission(formId, payload, opts) {
-    if (_submitted.has(formId + ':' + (opts && opts.dedupeKey || ''))) {
+  function postSubmission(formId, collected, opts) {
+    // Normalize input — accept either { payload, files } or just payload object
+    const payload = collected && collected.payload ? collected.payload : collected || {};
+    const files = (collected && collected.files) || [];
+
+    const dedupeKey = formId + ':' + (opts && opts.dedupeKey || '');
+    if (_submitted.has(dedupeKey)) {
       console.log(TAG, 'Skipping duplicate submit for', formId);
       return;
     }
-    _submitted.add(formId + ':' + (opts && opts.dedupeKey || ''));
+    _submitted.add(dedupeKey);
 
     const submitterName = (opts && opts.submitterName) || findSubmitterFromPayload(payload);
     const submitterEmail =
@@ -150,7 +161,7 @@
       (opts && opts.submitterPhone) ||
       payload.phone || payload.phoneNumber || payload.phone_number || payload.cell || null;
 
-    const body = {
+    const meta = {
       formId,
       submitterName,
       submitterEmail: submitterEmail ? String(submitterEmail) : null,
@@ -158,10 +169,37 @@
       payload,
     };
 
-    // Prefer sendBeacon — survives page unload from a mailto: navigation
+    // ---- Path 1: files present → multipart FormData via fetch ----
+    if (files.length > 0) {
+      const fd = new FormData();
+      fd.append('_meta', JSON.stringify(meta));
+      files.forEach(({ fieldName, file }, idx) => {
+        // Field key includes idx so duplicates with same name don't collide
+        fd.append(`file_${idx}__${fieldName}`, file, file.name);
+      });
+
+      try {
+        fetch(API_URL, {
+          method: 'POST',
+          body: fd,
+          mode: 'cors',
+          // No keepalive: keepalive caps at 64KB and we may have larger uploads
+        })
+          .then((res) => {
+            if (res.ok) console.log(TAG, 'Submitted', formId, 'with', files.length, 'file(s)');
+            else console.warn(TAG, 'Server rejected', formId, res.status);
+          })
+          .catch((err) => console.warn(TAG, 'Network error for', formId, err));
+      } catch (err) {
+        console.warn(TAG, 'multipart fetch threw for', formId, err);
+      }
+      return;
+    }
+
+    // ---- Path 2: no files → JSON via sendBeacon (survives unload) ----
     try {
       if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
-        const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
+        const blob = new Blob([JSON.stringify(meta)], { type: 'application/json' });
         const queued = navigator.sendBeacon(API_URL, blob);
         if (queued) {
           console.log(TAG, 'Beacon queued for', formId);
@@ -169,14 +207,14 @@
         }
       }
     } catch (err) {
-      /* fall through */
+      /* fall through to fetch */
     }
 
     try {
       fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify(meta),
         keepalive: true,
         mode: 'cors',
       })
@@ -274,8 +312,11 @@
 
   window.VitalTouchOpsBridge = {
     submit: function (formId, opts) {
-      const payload = (opts && opts.payload) || opts || {};
-      postSubmission(formId, payload, {
+      const collected = {
+        payload: (opts && opts.payload) || opts || {},
+        files: (opts && opts.files) || [],
+      };
+      postSubmission(formId, collected, {
         dedupeKey: 'manual',
         submitterName: opts && opts.submitterName,
         submitterEmail: opts && opts.submitterEmail,
