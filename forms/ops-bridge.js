@@ -29,8 +29,47 @@
   // Retry policy for the synchronous SharePoint-first submit
   const MAX_RETRIES = 4;
   const RETRY_DELAYS = [800, 2000, 4000, 8000]; // ms — total ~15s before queue fallback
+  const SW_PATH = '/forms/sw.js';
+  const SW_SCOPE = '/forms/';
 
   const _submitted = new Set();
+
+  // ============================================================
+  // SERVICE WORKER REGISTRATION
+  // ============================================================
+  // The SW intercepts API POSTs and queues them in IndexedDB on failure.
+  // It survives tab close, browser restart, even device reboot. When
+  // network returns, Background Sync auto-replays the queue.
+
+  function registerServiceWorker() {
+    if (!('serviceWorker' in navigator)) {
+      console.log(TAG, 'Service Worker not supported — relying on synchronous retry only');
+      return;
+    }
+    navigator.serviceWorker
+      .register(SW_PATH, { scope: SW_SCOPE })
+      .then(function (reg) {
+        console.log(TAG, 'Service Worker registered, scope:', reg.scope);
+        // Listen for "sync succeeded" notifications from SW
+        navigator.serviceWorker.addEventListener('message', function (event) {
+          if (!event.data) return;
+          if (event.data.type === 'submission-synced') {
+            console.log(TAG, 'Queued submission delivered:', event.data.id);
+          } else if (event.data.type === 'submission-rejected') {
+            console.warn(TAG, 'Queued submission permanently rejected:', event.data.id);
+          }
+        });
+      })
+      .catch(function (err) {
+        console.warn(TAG, 'Service Worker registration failed:', err);
+      });
+  }
+
+  function askSwToDrain() {
+    if (!('serviceWorker' in navigator)) return;
+    if (!navigator.serviceWorker.controller) return;
+    navigator.serviceWorker.controller.postMessage({ type: 'drain-queue' });
+  }
 
   // ============================================================
   // OVERLAY UI
@@ -342,6 +381,13 @@
         const data = await res.json().catch(function () { return null; });
         return { kind: 'ok', data: data };
       }
+      // Service Worker queued response (offline / persistent network failure).
+      // Treat as durable success from the user's POV — data is safely stored
+      // on their device and will sync automatically when the network returns.
+      if (res.status === 202) {
+        const data = await res.json().catch(function () { return null; });
+        if (data && data.queued) return { kind: 'queued', data: data };
+      }
       // Validation errors are NOT retryable — show to user
       if (res.status >= 400 && res.status < 500) {
         const err = await res.json().catch(function () { return { error: 'HTTP ' + res.status }; });
@@ -372,6 +418,16 @@
         setTimeout(hideOverlay, 2500);
         console.log(TAG, 'Submitted', meta.formId, '→', result.data && result.data.sharepointPath);
         return { ok: true, data: result.data };
+      }
+      if (result.kind === 'queued') {
+        // SW caught it; will retry automatically on reconnect
+        setOverlay('success', {
+          msg:
+            'Saved on this device. We will deliver it to secure storage automatically once the connection is restored — even if you close this page.',
+        });
+        setTimeout(hideOverlay, 4500);
+        console.log(TAG, 'Queued by Service Worker for', meta.formId);
+        return { ok: true, queued: true, data: result.data };
       }
       if (result.kind === 'rejected') {
         // 4xx — won't get better with retry
@@ -496,10 +552,12 @@
   // ============================================================
 
   function init() {
+    registerServiceWorker();
     attachToForms();
     attachToButtons();
     tryWrapSubmitForm();
     drainQueue();
+    askSwToDrain(); // nudge SW to retry anything left from previous sessions
     let tries = 0;
     const interval = setInterval(function () {
       tryWrapSubmitForm();
