@@ -1,6 +1,6 @@
-# VitalTouch Home Care Website
+# VitalTouch Health Network Website
 
-A professional, multi-page website for VitalTouch Home Care - providing compassionate, technology-enhanced in-home care for seniors in Chicago and Cook County.
+A professional, multi-page website for VitalTouch Health Network - providing compassionate, technology-enhanced in-home care for seniors in Chicago and Cook County.
 
 ## 🌐 Live Site
 
@@ -94,4 +94,4 @@ Make sure these are correct in all HTML files:
 
 ## 📝 License
 
-© 2025 VitalTouch Home Care. All rights reserved.
+© 2025 VitalTouch Health Network. All rights reserved.
