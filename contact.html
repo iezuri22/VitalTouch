@@ -199,6 +199,17 @@
                             <textarea id="message" name="message" required placeholder="Tell us about your loved one's care needs..."></textarea>
                         </div>
                         
+                        <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
+
+                        <div class="form-group" style="background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px;">
+                            <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-weight: 400; font-size: 0.85rem; line-height: 1.55; color: var(--text-muted); margin: 0;">
+                                <input type="checkbox" id="contactConsent" name="consent" style="margin-top: 3px; width: 18px; height: 18px; accent-color: var(--teal); flex-shrink: 0;">
+                                <span>I agree that VitalTouch Health Network may contact me about home care services by phone, text message, and email at the contact information I provided, including calls or texts placed with automated technology or an AI assistant. Consent is not a condition of receiving services. Message and data rates may apply. I can reply STOP to any text, or say so on any call, to stop being contacted.</span>
+                            </label>
+                        </div>
+
+                        <p id="contactFormStatus" style="display: none; margin-bottom: 16px; font-size: 0.95rem;"></p>
+
                         <button type="submit" class="btn btn-primary" style="width: 100%;">
                             Send Message
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -265,4 +276,18 @@
                         <li>Homewood, IL 60430</li>
                         <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
                     </ul>
-  
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
