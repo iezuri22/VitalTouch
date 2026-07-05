@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Plans | Monthly Support That Grows With Your Family | VitalTouch Health Network</title>
+    <meta name="description" content="Simple monthly care plans for seniors — from weekly check-in visits to daily support. Cancel anytime, pause anytime. VitalTouch Health Network, serving the Chicago area and south suburbs.">
+    <link rel="icon" type="image/png" href="images/logo-symbol.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20260706a">
+    <style>
+        .cp-wrap { max-width: 1040px; margin: 0 auto; padding: 44px 20px 80px; }
+        .cp-head h1 { font-size: clamp(2rem, 5vw, 2.9rem); margin-bottom: 14px; }
+        .cp-head p { font-size: 1.12rem; line-height: 1.7; max-width: 660px; color: var(--text); }
+        .cp-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin: 40px 0 14px; }
+        .cp-tier { border: 1px solid var(--border); border-radius: 4px; padding: 28px 26px; display: flex; flex-direction: column; background: var(--white); }
+        .cp-tier.featured { border: 2px solid var(--navy); }
+        .cp-tier .tag { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 10px; min-height: 1em; }
+        .cp-tier h2 { font-size: 1.35rem; color: var(--navy); margin-bottom: 6px; }
+        .cp-tier .price { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); margin-bottom: 4px; }
+        .cp-tier .price-note { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px; }
+        .cp-tier .who { font-size: 1rem; line-height: 1.6; color: var(--text); margin-bottom: 14px; }
+        .cp-tier ul { list-style: none; margin: 0 0 22px; padding: 0; flex: 1; }
+        .cp-tier li { padding: 7px 0 7px 28px; position: relative; font-size: 0.97rem; color: var(--text-dark); line-height: 1.5; }
+        .cp-tier li::before { content: '✓'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+        .cp-cta { display: block; text-align: center; font-weight: 700; font-size: 1.02rem; padding: 14px 20px; border-radius: 4px; text-decoration: none; }
+        .cp-cta-gold { background: var(--gold); color: var(--navy); }
+        .cp-cta-gold:hover { background: var(--gold-dark); color: var(--navy); }
+        .cp-cta-navy { background: var(--navy); color: #fff; }
+        .cp-cta-navy:hover { background: var(--navy-light); color: #fff; }
+        .cp-trust { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 8px 0 46px; color: var(--text-muted); font-size: 0.95rem; }
+        .cp-trust span::before { content: '✓ '; color: var(--teal); font-weight: 700; }
+        .cp-addons h2 { font-size: 1.5rem; margin-bottom: 8px; }
+        .cp-addons > p { font-size: 1.05rem; color: var(--text); max-width: 640px; margin-bottom: 22px; }
+        .cp-addons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .cp-addon { border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px; background: var(--cream); }
+        .cp-addon h3 { font-size: 1.02rem; margin-bottom: 6px; }
+        .cp-addon p { font-size: 0.92rem; color: var(--text); line-height: 1.55; margin: 0; }
+        .cp-addon .soon { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 6px; }
+        .cp-medicaid { background: var(--teal-light); border: 1px solid var(--teal); border-radius: 4px; padding: 22px 24px; margin: 46px 0 0; font-size: 1.02rem; line-height: 1.65; }
+        .cp-medicaid a { font-weight: 700; }
+        @media (max-width: 900px) { .cp-tiers { grid-template-columns: 1fr; } .cp-addons-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 560px) { .cp-addons-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="images/logo-main.png" alt="VitalTouch Health Network">
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+               <div class="nav-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="service-areas.html">Areas</a>
+    <a href="faq.html">FAQ</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a href="apply.html">Apply</a>
+</div>
+                <div class="nav-cta">
+                    <a href="tel:7088988831" class="nav-phone">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        (708) 898-8831
+                    </a>
+                    <a href="apply.html" class="btn btn-primary btn-sm">Apply Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="care-plans.html">Care Plans</a>
+        <a href="assessment.html">Free Care Assessment</a>
+        <a href="service-areas.html">Service Areas</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="blog.html">Blog</a>
+        <a href="apply.html">Apply Now</a>
+    </nav>
+
+    <main class="cp-wrap">
+        <div class="cp-head">
+            <h1>Care that grows with your family</h1>
+            <p>
+                Pick the level of support that fits today — and change it whenever life changes.
+                Every plan is month to month, with the same friendly faces each visit.
+            </p>
+        </div>
+
+        <div class="cp-tiers">
+            <!-- Check-In -->
+            <div class="cp-tier">
+                <div class="tag">A gentle start</div>
+                <h2>Check-In</h2>
+                <div class="price">From $149/month</div>
+                <div class="price-note">Exact price set on your free call</div>
+                <p class="who">For families keeping an eye on things — not ready for regular care, but tired of wondering.</p>
+                <ul>
+                    <li>One friendly visit every week</li>
+                    <li>Phone check-ins between visits</li>
+                    <li>A family update after every touch</li>
+                    <li>Priority access if needs change</li>
+                </ul>
+                <a href="consult.html?plan=check-in" class="cp-cta cp-cta-navy">Talk it through — free</a>
+            </div>
+
+            <!-- Steady Support -->
+            <div class="cp-tier featured">
+                <div class="tag">Most families choose this</div>
+                <h2>Steady Support</h2>
+                <div class="price">Priced to your schedule</div>
+                <div class="price-note">Most families start with 10&ndash;20 hours a week</div>
+                <p class="who">For families where the help is real and weekly — meals, housekeeping, errands, company.</p>
+                <ul>
+                    <li>A set weekly schedule you choose</li>
+                    <li>The same caregiver every visit</li>
+                    <li>A written care plan, rechecked quarterly</li>
+                    <li>Member rate on extra hours</li>
+                    <li>Everything in Check-In, included</li>
+                </ul>
+                <a href="consult.html?plan=steady-support" class="cp-cta cp-cta-gold">Get my price — free call</a>
+            </div>
+
+            <!-- Full Comfort -->
+            <div class="cp-tier">
+                <div class="tag">&nbsp;</div>
+                <h2>Full Comfort</h2>
+                <div class="price">Custom</div>
+                <div class="price-note">Built around daily support</div>
+                <p class="who">For families who need care most days — dependable, coordinated, and fully covered.</p>
+                <ul>
+                    <li>Daily support, up to 7 days a week</li>
+                    <li>Priority scheduling — always covered</li>
+                    <li>A dedicated care coordinator</li>
+                    <li>Regular family updates</li>
+                    <li>Everything in Steady Support, included</li>
+                </ul>
+                <a href="consult.html?plan=full-comfort" class="cp-cta cp-cta-navy">Talk it through — free</a>
+            </div>
+        </div>
+
+        <div class="cp-trust">
+            <span>Cancel anytime</span>
+            <span>Pause during hospital stays</span>
+            <span>Unused visits roll into next month</span>
+            <span>No long contracts</span>
+        </div>
+
+        <section class="cp-addons">
+            <h2>Add what your family needs</h2>
+            <p>Every plan can grow. Add these as packages — one clear price, no surprise fees.</p>
+            <div class="cp-addons-grid">
+                <div class="cp-addon">
+                    <h3>Rides &amp; errands</h3>
+                    <p>A set number of trips each month — doctor visits, groceries, the pharmacy, church.</p>
+                </div>
+                <div class="cp-addon">
+                    <h3>Meal prep package</h3>
+                    <p>A week of home-cooked meals, prepared in their kitchen, the way they like them.</p>
+                </div>
+                <div class="cp-addon">
+                    <h3>Overnight &amp; weekend coverage</h3>
+                    <p>Extra peace of mind for the hours when family can&rsquo;t be there.</p>
+                </div>
+                <div class="cp-addon">
+                    <h3>Companion outings</h3>
+                    <p>Lunch out, the senior center, a walk in the park — life, not just care.</p>
+                </div>
+                <div class="cp-addon">
+                    <h3>Respite hours bank</h3>
+                    <p>Pre-paid hours you can call on anytime the family caregiver needs a break.</p>
+                </div>
+                <div class="cp-addon">
+                    <span class="soon">Coming soon</span>
+                    <h3>Daily wellness call</h3>
+                    <p>A friendly call every morning, with a text to the family so everyone knows all is well.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="cp-medicaid">
+            <strong>Have Medicaid?</strong> Your care may be covered at no cost to you — these plans are for
+            families paying on their own. <a href="pricing.html">Check what Medicaid covers</a> or call
+            <a href="tel:7088988831">(708) 898-8831</a> and we&rsquo;ll help you sort out which path fits.
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Health Network">
+                    <p>Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Companionship</a></li>
+                        <li><a href="services.html">Homemaking</a></li>
+                        <li><a href="services.html">Transportation</a></li>
+                        <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="services.html">Dementia Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:7088988831">(708) 898-8831</a></li>
+                        <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
+                        <li>4749 Lincoln Mall Drive, Suite 204</li>
+                        <li>Matteson, IL 60443</li>
+                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=20260706b"></script>
+</body>
+</html>

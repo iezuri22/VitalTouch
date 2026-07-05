@@ -271,7 +271,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // High-intent page views, once per page per day.
         var path = location.pathname;
-        var pageKind = path.indexOf('pricing') !== -1 ? 'pricing_page_view'
+        var pageKind = path.indexOf('care-plans') !== -1 ? 'plan_page_view'
+            : path.indexOf('pricing') !== -1 ? 'pricing_page_view'
             : path.indexOf('services') !== -1 ? 'services_page_view' : null;
         if (pageKind && localStorage.getItem('vt_pv_' + pageKind) !== today) {
             localStorage.setItem('vt_pv_' + pageKind, today);

@@ -411,6 +411,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         h += '</div>';
 
+        // Plan suggestion (planning/browsing reports only — server decides)
+        if (r.plan) {
+            h += '<div class="cra-flags" style="border-color: var(--navy); background: #F4F7FA;">';
+            h += '<h2>A plan built for where you are</h2>';
+            h += '<p style="font-size:1.02rem; line-height:1.65; margin-bottom:10px;"><strong>' + esc(r.plan.name) + ':</strong> ' + esc(r.plan.blurb) + '</p>';
+            h += '<a href="' + esc(r.plan.href) + '" style="font-weight:700;">See how it works &rarr;</a>';
+            h += '</div>';
+        }
+
         h += '<div class="cra-report-cta">';
         h += '<a href="tel:7088988831" class="cra-btn-gold">Call (708) 898-8831</a>';
         h += '<a href="consult.html" class="cra-btn-outline">Request a free consultation</a>';
