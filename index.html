@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=20260705a">
     <style>
         @media (max-width: 768px) {
             .founder-grid { grid-template-columns: 1fr !important; text-align: center; }
@@ -89,209 +89,90 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg">
-            <div class="hero-shape hero-shape-1"></div>
-            <div class="hero-shape hero-shape-2"></div>
-        </div>
+    <!-- Hero: headline left, lead form right (VA-style landing layout) -->
+    <section class="va-hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-badge">
-                        <span class="hero-badge-dot"></span>
-                        <span>IDPH and Medicaid Licensed</span>
-                    </div>
-                    <h1>Good care feels like <span class="gold">family</span>.</h1>
-                    <p class="hero-desc">We help seniors in Matteson, Homewood, and the Chicago south suburbs stay safe and comfortable in the homes they love — with trained, background-checked caregivers who show up on time and treat your family like their own.</p>
-                    <div class="hero-buttons">
-                        <a href="contact.html" class="btn btn-primary">
-                            Schedule Free Consultation
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                        </a>
-                        <a href="tel:7088988831" class="btn btn-outline-white">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            Call Now
-                        </a>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="hero-stat">
-                            <div class="hero-stat-num">IDPH</div>
-                            <div class="hero-stat-label">Licensed</div>
-                        </div>
-                        <div class="hero-stat">
-                            <div class="hero-stat-num">24/7</div>
-                            <div class="hero-stat-label">Care Available</div>
-                        </div>
-                        <div class="hero-stat">
-                            <div class="hero-stat-num">Local</div>
-                            <div class="hero-stat-label">Family-Owned</div>
-                        </div>
-                    </div>
+            <div class="va-hero-grid">
+                <div class="va-hero-text">
+                    <h1>Compassionate<br>In&#8209;Home Care</h1>
+                    <p class="va-hero-sub">
+                        Thoughtful, dependable home care for your senior loved one — in Matteson,
+                        Homewood, and across the Chicago south suburbs. Family-owned and IDPH licensed.
+                    </p>
+                    <!-- Photo: Unsplash free license -->
+                    <img src="images/home-hero.jpg" alt="A senior man and his caregiver laughing together outside his home" class="va-hero-photo">
                 </div>
-                <div class="hero-image">
-                    <div class="hero-img-main">
-                       <!-- Photo: Unsplash (free license), Humphrey M. — laughing together at home -->
-                       <img src="images/home-hero.jpg"
-                           alt="A senior man and his caregiver laughing together outside his home">
-                    </div>
+                <div class="va-lead-card">
+                    <h2>Contact Us About Our Home Care</h2>
+                    <p class="va-lead-sub">Submit your info and we&rsquo;ll reach out — usually the same day.</p>
+                    <form id="heroLeadForm">
+                        <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
+                        <input type="text" name="name" placeholder="Name*" required>
+                        <input type="email" name="email" placeholder="Email">
+                        <input type="tel" name="phone" placeholder="Phone Number*" required>
+                        <input type="text" name="zip" placeholder="Zip Code where care is needed*" required inputmode="numeric" maxlength="5">
+                        <label class="va-consent">
+                            <input type="checkbox" name="consent" required>
+                            <span>I agree that VitalTouch Health Network may contact me about home care services by phone, text, and email, including with automated technology or an AI assistant. Consent is not a condition of service. Reply STOP to any text to opt out. Message and data rates may apply.</span>
+                        </label>
+                        <button type="submit" class="va-submit">Submit</button>
+                        <p class="va-form-status" id="heroFormStatus"></p>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Trust Badges -->
-    <section class="section-sm section-white">
+    <!-- Services: plain bullets, no icons -->
+    <section class="va-services">
         <div class="container">
-            <div class="grid-4">
-                <div class="feature-card">
-                    <div class="feature-card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
-                    </div>
-                    <div>
-                        <h4>IDPH Licensed</h4>
-                        <p>State certified agency</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-                    </div>
-                    <div>
-                        <h4>Medicaid Accepted</h4>
-                        <p>We work with your benefits</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </div>
-                    <div>
-                        <h4>Homemakers and CNAs</h4>
-                        <p>Certified caregivers</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    </div>
-                    <div>
-                        <h4>Flexible Scheduling</h4>
-                        <p>Care when you need it</p>
-                    </div>
-                </div>
+            <h2>Personalized Home<br>Care Services</h2>
+            <div class="va-bullets">
+                <ul>
+                    <li>Companionship</li>
+                    <li>Homemaking &amp; light housekeeping</li>
+                    <li>Laundry &amp; linens</li>
+                    <li>Meal planning &amp; preparation</li>
+                    <li>Grocery shopping &amp; errands</li>
+                </ul>
+                <ul>
+                    <li>Medication reminders</li>
+                    <li>Transportation assistance</li>
+                    <li>Alzheimer&rsquo;s &amp; dementia support</li>
+                    <li>Respite for family caregivers</li>
+                    <li>Flexible schedules — a few hours to daily</li>
+                </ul>
             </div>
+            <a href="services.html" class="va-text-link">See all services &rarr;</a>
         </div>
     </section>
 
-    <!-- What Makes Us Different -->
-    <section class="section section-cream">
+    <!-- Three photos, all-caps captions -->
+    <section class="va-trio">
         <div class="container">
-            <div class="section-header">
-                <span class="section-label">Why VitalTouch</span>
-                <h2>Care your whole family <span class="highlight">can count on</span></h2>
-                <p>We keep it simple: kind, dependable caregivers — and easy ways for you to know things are going well, even from far away.</p>
-            </div>
-            <div class="grid-3">
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                    </div>
-                    <h3>You'll always know how Mom is doing</h3>
-                    <p>After every visit you can see what we helped with and how your loved one is doing — even if you live out of state. No phone tag, no wondering.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                    </div>
-                    <h3>Caregivers who show up — every time</h3>
-                    <p>Every visit is checked in through the State of Illinois verification system, so you never have to wonder whether care actually happened.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </div>
-                    <h3>Get paid to care for your own family</h3>
-                    <p>Already caring for Mom or Dad? Through our Medicaid-approved program, we can train you and pay you for the care you’re already giving.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Preview -->
-    <section class="section section-white">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Our Services</span>
-                <h2>Help with the things that <span class="highlight">matter every day</span></h2>
-                <p>A friendly face for conversation, a clean kitchen, a hot meal, a safe ride to the doctor — whatever your family needs, we build the care around you.</p>
-            </div>
-            <div class="grid-3">
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    </div>
-                    <h3>Companionship</h3>
-                    <p>Meaningful conversation, emotional support, and engaging activities to combat loneliness and improve quality of life.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    </div>
-                    <h3>Homemaking</h3>
-                    <p>Light housekeeping, laundry, meal preparation, and maintaining a clean, safe living environment.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                    </div>
-                    <h3>Alzheimers and Dementia</h3>
-                    <p>Specialized care and daily guidance for clients with memory challenges, delivered with patience and understanding.</p>
-                </div>
-            </div>
-            <div class="text-center mt-4">
-                <a href="services.html" class="btn btn-primary">View All Services</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Premium Add-Ons -->
-    <section class="section section-cream">
-        <div class="container">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+            <div class="va-trio-grid">
                 <div>
-                    <span class="section-label">Optional Add-Ons</span>
-                    <h2>A little extra <span class="highlight">peace of mind</span></h2>
-                    <p style="font-size: 1.1rem; margin-bottom: 24px;">Between visits, some families like a safety net. These optional add-ons are there quietly in the background — so you can relax, and your loved one can just live their life.</p>
-                    <ul style="list-style: none; margin-bottom: 32px;">
-                        <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B9B8C" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span><strong>Fall detection</strong> — if something happens, help is on the way fast</span>
-                        </li>
-                        <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B9B8C" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span><strong>Gentle home sensors</strong> — a quiet heads-up if the day looks out of the ordinary</span>
-                        </li>
-                        <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B9B8C" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span><strong>24/7 emergency response</strong> — a real person answers, any hour</span>
-                        </li>
-                        <li style="display: flex; align-items: flex-start; gap: 12px;">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B9B8C" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span><strong>Daily check-in calls</strong> — a friendly voice, every day</span>
-                        </li>
-                    </ul>
-                    <a href="contact.html" class="btn btn-outline">Learn More About Add-Ons</a>
+                    <!-- Photo: Unsplash free license -->
+                    <img src="images/community-joy.jpg" alt="A caregiver dancing with a smiling senior woman">
+                    <h3>LOCALLY OWNED &amp; LICENSED</h3>
+                    <p>We&rsquo;re an IDPH-licensed Home Services Agency based in Matteson — not a national franchise. The owner answers the phone.</p>
                 </div>
                 <div>
-                    <!-- Photo: Unsplash (free license) -->
-                    <img src="images/family-connected.jpg" alt="A grandmother and her granddaughter smiling together at the kitchen table" style="border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); width: 100%; object-fit: cover;">
+                    <!-- Photo: Unsplash free license -->
+                    <img src="images/garden-smiles.jpg" alt="A senior woman laughing while gardening with a younger woman">
+                    <h3>FREE IN-HOME CONSULTATION</h3>
+                    <p>We&rsquo;ll visit, listen first, and build a care plan around your loved one&rsquo;s routine — no cost, no obligation.</p>
+                </div>
+                <div>
+                    <!-- Photo: Unsplash free license -->
+                    <img src="images/family-connected.jpg" alt="A grandmother and granddaughter smiling together at the kitchen table">
+                    <h3>CARE THAT FITS YOUR BUDGET</h3>
+                    <p>Flexible scheduling and plans that work with Medicaid benefits and private pay — we&rsquo;ll help you sort out both.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA -->
-    
     <!-- Meet the Owner -->
     <section class="section section-white">
         <div class="container">
@@ -386,6 +267,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=20260705a"></script>
 </body>
 </html>

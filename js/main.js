@@ -63,6 +63,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Contact Form
+
+    // Homepage hero lead form -> ops platform (same engine as contact form)
+    const heroForm = document.getElementById('heroLeadForm');
+    if (heroForm) {
+        const API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+            ? 'http://localhost:3000/api/public/leads'
+            : 'https://vitaltouch-ops.vercel.app/api/public/leads';
+        const status = document.getElementById('heroFormStatus');
+        const show = function(msg, ok) {
+            status.textContent = msg;
+            status.style.display = 'block';
+            status.className = 'va-form-status' + (ok ? ' ok' : '');
+        };
+        heroForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const fd = new FormData(heroForm);
+            const btn = heroForm.querySelector('.va-submit');
+            btn.disabled = true;
+            try {
+                const res = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        leadType: 'client_inquiry',
+                        name: fd.get('name') || 'Website visitor',
+                        phone: fd.get('phone') || undefined,
+                        email: fd.get('email') || undefined,
+                        zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5) || undefined,
+                        consent: true,
+                        consentTextVersion: 'home_hero_v1_2026-07',
+                        company_website: fd.get('company_website') || '',
+                        utm: { page: 'index-hero' }
+                    })
+                });
+                if (!res.ok) {
+                    const data = await res.json().catch(function() { return {}; });
+                    throw new Error(data.error || 'failed');
+                }
+                show('Thank you! We received your info and will reach out shortly. Need us now? (708) 898-8831.', true);
+                heroForm.reset();
+            } catch (err) {
+                show('Sorry, something went wrong. Please call us at (708) 898-8831.', false);
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    }
+
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         // Submits to the VitalTouch ops platform (Lead Engagement Engine).

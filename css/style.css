@@ -1057,3 +1057,138 @@ ul, ol { list-style: none; }
     
     .hero-stat-num { font-size: 1.75rem; }
 }
+
+/* ============================================
+   VA-STYLE LANDING BLOCKS (homepage)
+   Flat, quiet, photo-led. No gradients, no pills.
+   ============================================ */
+.va-hero { background: var(--white); padding: 56px 0 64px; }
+.va-hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: start;
+}
+.va-hero-text h1 {
+    font-size: clamp(2.6rem, 5.5vw, 3.8rem);
+    color: #3d4451;
+    margin-bottom: 18px;
+}
+.va-hero-sub {
+    font-size: 1.15rem;
+    color: var(--text);
+    max-width: 520px;
+    margin-bottom: 28px;
+}
+.va-hero-photo {
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.va-lead-card {
+    background: var(--navy);
+    padding: 32px 30px;
+    border-radius: 4px;
+}
+.va-lead-card h2 {
+    color: var(--white);
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 6px;
+}
+.va-lead-sub {
+    color: rgba(255,255,255,0.85);
+    text-align: center;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+.va-lead-card input[type="text"],
+.va-lead-card input[type="email"],
+.va-lead-card input[type="tel"] {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border: none;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: var(--white);
+    color: var(--text-dark);
+}
+.va-consent {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 4px 0 16px;
+    cursor: pointer;
+}
+.va-consent input { margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; }
+.va-consent span { color: rgba(255,255,255,0.75); font-size: 0.78rem; line-height: 1.5; }
+.va-submit {
+    width: 100%;
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 3px;
+    padding: 15px;
+    font-family: inherit;
+    font-size: 1.15rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+.va-submit:hover { background: var(--gold-dark); }
+.va-submit:disabled { opacity: 0.6; cursor: default; }
+.va-form-status { margin-top: 12px; font-size: 0.9rem; color: #ffd9d9; text-align: center; display: none; }
+.va-form-status.ok { color: #c9f3d5; }
+
+.va-services { background: var(--white); padding: 30px 0 60px; }
+.va-services h2 { font-size: clamp(2rem, 4vw, 2.8rem); color: #3d4451; margin-bottom: 28px; }
+.va-bullets { display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px; max-width: 760px; }
+.va-bullets ul { list-style: none; }
+.va-bullets li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+}
+.va-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-dark);
+}
+.va-text-link { font-weight: 700; color: var(--teal-dark); font-size: 1.05rem; }
+.va-text-link:hover { text-decoration: underline; }
+
+.va-trio { background: #f5f5f3; padding: 64px 0; }
+.va-trio-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+.va-trio img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 22px;
+}
+.va-trio h3 {
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    color: #3d4451;
+    text-align: center;
+    margin-bottom: 12px;
+}
+.va-trio p { color: var(--text); text-align: center; font-size: 1rem; }
+
+@media (max-width: 900px) {
+    .va-hero-grid { grid-template-columns: 1fr; }
+    .va-trio-grid { grid-template-columns: 1fr; }
+    .va-bullets { grid-template-columns: 1fr; }
+}
+.nav-phone { white-space: nowrap; }
