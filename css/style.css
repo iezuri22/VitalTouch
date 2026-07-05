@@ -1270,3 +1270,19 @@ ul, ol { list-style: none; }
     .va-family-photo { height: 280px; }
     .va-family-fields { grid-template-columns: 1fr; }
 }
+
+/* ===== Two-path funnel strip (homepage) ===== */
+.va-paths { background: var(--cream); padding: 44px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.va-paths-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 960px; margin: 0 auto; }
+.va-path { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 28px 28px 30px; }
+.va-path h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--navy); }
+.va-path p { font-size: 1.02rem; line-height: 1.65; color: var(--text); margin-bottom: 18px; }
+.va-path-btn { display: inline-block; font-weight: 700; font-size: 1.02rem; padding: 13px 26px; border-radius: 4px; text-decoration: none; }
+.va-path-btn-navy { background: var(--navy); color: #fff; }
+.va-path-btn-navy:hover { background: var(--navy-light); color: #fff; }
+.va-path-btn-gold { background: var(--gold); color: var(--navy); }
+.va-path-btn-gold:hover { background: var(--gold-dark); color: var(--navy); }
+@media (max-width: 768px) {
+    .va-paths-grid { grid-template-columns: 1fr; }
+    .va-path-btn { display: block; text-align: center; }
+}

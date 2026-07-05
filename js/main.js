@@ -226,3 +226,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+/* ============================================
+   FUNNEL BEACONS — anonymous readiness signals
+   to the ops platform. No PII: a random visitor
+   key + an event kind. The server whitelists
+   kinds and caps their effect.
+   ============================================ */
+(function() {
+    var TRACK_API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+        ? 'http://localhost:3000/api/public/funnel/track'
+        : 'https://vitaltouch-ops.vercel.app/api/public/funnel/track';
+
+    window.vtVisitorKey = function() {
+        try {
+            var k = localStorage.getItem('vt_visitor');
+            if (!k) {
+                k = 'v-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+                localStorage.setItem('vt_visitor', k);
+            }
+            return k;
+        } catch (e) { return null; }
+    };
+
+    window.vtTrack = function(kind, meta) {
+        var key = window.vtVisitorKey();
+        if (!key) return;
+        try {
+            fetch(TRACK_API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                keepalive: true,
+                body: JSON.stringify({ kind: kind, visitorKey: key, meta: meta || undefined })
+            }).catch(function() {});
+        } catch (e) {}
+    };
+
+    try {
+        var today = new Date().toISOString().slice(0, 10);
+        // Return visit: they were here on an earlier day and came back.
+        var lastSeen = localStorage.getItem('vt_last_seen');
+        if (lastSeen && lastSeen !== today) window.vtTrack('return_visit');
+        localStorage.setItem('vt_last_seen', today);
+
+        // High-intent page views, once per page per day.
+        var path = location.pathname;
+        var pageKind = path.indexOf('pricing') !== -1 ? 'pricing_page_view'
+            : path.indexOf('services') !== -1 ? 'services_page_view' : null;
+        if (pageKind && localStorage.getItem('vt_pv_' + pageKind) !== today) {
+            localStorage.setItem('vt_pv_' + pageKind, today);
+            window.vtTrack(pageKind, { page: path });
+        }
+    } catch (e) {}
+})();
