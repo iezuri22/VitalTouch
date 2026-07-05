@@ -109,8 +109,8 @@
             <div class="cp-tier">
                 <div class="tag">A gentle start</div>
                 <h2>Check-In</h2>
-                <div class="price">From $149/month</div>
-                <div class="price-note">Exact price set on your free call</div>
+                <div class="price" data-plan-price="check_in">From $149/month</div>
+                <div class="price-note" data-plan-note="check_in">Exact price set on your free call</div>
                 <p class="who">For families keeping an eye on things — not ready for regular care, but tired of wondering.</p>
                 <ul>
                     <li>One friendly visit every week</li>
@@ -125,8 +125,8 @@
             <div class="cp-tier featured">
                 <div class="tag">Most families choose this</div>
                 <h2>Steady Support</h2>
-                <div class="price">Priced to your schedule</div>
-                <div class="price-note">Most families start with 10&ndash;20 hours a week</div>
+                <div class="price" data-plan-price="steady_support">Priced to your schedule</div>
+                <div class="price-note" data-plan-note="steady_support">Most families start with 10&ndash;20 hours a week</div>
                 <p class="who">For families where the help is real and weekly — meals, housekeeping, errands, company.</p>
                 <ul>
                     <li>A set weekly schedule you choose</li>
@@ -142,8 +142,8 @@
             <div class="cp-tier">
                 <div class="tag">&nbsp;</div>
                 <h2>Full Comfort</h2>
-                <div class="price">Custom</div>
-                <div class="price-note">Built around daily support</div>
+                <div class="price" data-plan-price="full_comfort">Custom</div>
+                <div class="price-note" data-plan-note="full_comfort">Built around daily support</div>
                 <p class="who">For families who need care most days — dependable, coordinated, and fully covered.</p>
                 <ul>
                     <li>Daily support, up to 7 days a week</li>
@@ -252,5 +252,23 @@
     </footer>
 
     <script src="js/main.js?v=20260706b"></script>
+    <script>
+    // Live pricing from the ops platform — Ifeanyi edits it in /settings/plans.
+    // The values in the HTML above are the fallback if this fetch fails.
+    (function() {
+        var API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+            ? 'http://localhost:3000/api/public/funnel/plans'
+            : 'https://vitaltouch-ops.vercel.app/api/public/funnel/plans';
+        fetch(API).then(function(r) { return r.json(); }).then(function(d) {
+            if (!d || !d.pricing) return;
+            Object.keys(d.pricing).forEach(function(k) {
+                var priceEl = document.querySelector('[data-plan-price="' + k + '"]');
+                var noteEl = document.querySelector('[data-plan-note="' + k + '"]');
+                if (priceEl && d.pricing[k].price) priceEl.textContent = d.pricing[k].price;
+                if (noteEl && d.pricing[k].priceNote) noteEl.textContent = d.pricing[k].priceNote;
+            });
+        }).catch(function() {});
+    })();
+    </script>
 </body>
 </html>
