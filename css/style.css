@@ -1192,3 +1192,42 @@ ul, ol { list-style: none; }
     .va-bullets { grid-template-columns: 1fr; }
 }
 .nav-phone { white-space: nowrap; }
+
+/* VA-style hero v2: photo backdrop blends into the page; form floats on it */
+.va-hero { background: #f6f1e8; overflow: hidden; }
+.va-hero-grid { align-items: stretch; }
+.va-hero-text { padding: 40px 0 48px; }
+.va-hero-text h1 { color: #4a4a4a; }
+.va-hero-right {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 36px 0;
+    min-height: 560px;
+}
+.va-hero-right::before {
+    content: '';
+    position: absolute;
+    inset: -70px -60vw -64px -140px; /* bleed past the container edges */
+    background-image: url('../images/home-hero.jpg');
+    background-size: cover;
+    background-position: center 20%;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 130px);
+    mask-image: linear-gradient(to right, transparent 0, #000 130px);
+}
+.va-lead-card { position: relative; width: 100%; max-width: 400px; box-shadow: 0 8px 30px rgba(0,0,0,0.18); }
+
+.nav-menu-slim a { color: var(--text-muted); font-size: 0.95rem; }
+.nav-phone-big {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--navy) !important;
+    white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+    .va-hero-right { min-height: 0; padding: 16px 0 8px; }
+    .va-hero-right::before { inset: 0 -24px; opacity: 0.25; }
+    .va-hero-text { padding-bottom: 0; }
+}
