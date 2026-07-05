@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         h += '<div class="cra-report-cta">';
         h += '<a href="tel:7088988831" class="cra-btn-gold">Call (708) 898-8831</a>';
-        h += '<a href="contact.html" class="cra-btn-outline">Request a free consultation</a>';
+        h += '<a href="consult.html" class="cra-btn-outline">Request a free consultation</a>';
         h += '<button type="button" class="cra-btn-outline" id="downloadBtn">Download PDF</button>';
         h += '</div>';
 

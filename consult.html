@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Free Consultation | VitalTouch Health Network</title>
+    <meta name="description" content="Request a free, no-obligation home care consultation — by phone or in your loved one's home. VitalTouch Health Network, Matteson IL. (708) 898-8831.">
+    <link rel="icon" type="image/png" href="images/logo-symbol.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20260706a">
+    <style>
+        .con-wrap { max-width: 980px; margin: 0 auto; padding: 40px 20px 80px; }
+        .con-grid { display: grid; grid-template-columns: 1fr 420px; gap: 44px; align-items: start; }
+        .con-intro h1 { font-size: clamp(2rem, 4.5vw, 2.7rem); margin-bottom: 14px; }
+        .con-intro p { font-size: 1.08rem; line-height: 1.7; }
+        .con-points { list-style: none; margin: 18px 0 26px; padding: 0; }
+        .con-points li { padding: 8px 0 8px 32px; position: relative; font-size: 1.02rem; color: var(--text-dark); }
+        .con-points li::before { content: '✓'; position: absolute; left: 2px; color: var(--teal); font-weight: 700; }
+        .con-card { background: var(--navy); border-radius: 4px; padding: 32px 28px; color: #fff; }
+        .con-card h2 { color: #fff; font-size: 1.45rem; margin-bottom: 6px; }
+        .con-card .sub { color: rgba(255,255,255,0.78); font-size: 0.98rem; margin-bottom: 20px; }
+        .con-card input, .con-card select, .con-card textarea { width: 100%; padding: 13px 15px; margin-bottom: 12px; border: none; border-radius: 4px; font-family: inherit; font-size: 1rem; }
+        .con-card textarea { min-height: 90px; resize: vertical; }
+        .con-card select { color: var(--text-dark); }
+        .con-tools { margin-top: 44px; }
+        .con-tools h2 { font-size: 1.4rem; margin-bottom: 18px; }
+        .con-tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .con-tool { border: 2px dashed var(--border); border-radius: 4px; padding: 24px; }
+        .con-tool h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .con-tool p { font-size: 0.98rem; color: var(--text); line-height: 1.6; margin-bottom: 10px; }
+        .con-tool .soon { display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 10px; }
+        .con-error { display: none; background: #FDF6F4; border: 2px solid #B14A3C; border-radius: 4px; color: #7a2e23; padding: 12px 14px; margin-top: 12px; font-size: 0.95rem; }
+        .con-success { display: none; background: var(--teal-light); border: 2px solid var(--teal); border-radius: 4px; padding: 24px; font-size: 1.05rem; line-height: 1.65; color: var(--text-dark); }
+        @media (max-width: 860px) { .con-grid, .con-tools-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="images/logo-main.png" alt="VitalTouch Health Network">
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+               <div class="nav-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="service-areas.html">Areas</a>
+    <a href="faq.html">FAQ</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a href="apply.html">Apply</a>
+</div>
+                <div class="nav-cta">
+                    <a href="tel:7088988831" class="nav-phone">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        (708) 898-8831
+                    </a>
+                    <a href="apply.html" class="btn btn-primary btn-sm">Apply Now</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="assessment.html">Free Care Assessment</a>
+        <a href="service-areas.html">Service Areas</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="blog.html">Blog</a>
+        <a href="apply.html">Apply Now</a>
+    </nav>
+
+    <main class="con-wrap">
+        <div class="con-grid">
+            <div class="con-intro">
+                <h1>A free consultation, on your schedule</h1>
+                <p>
+                    Thirty minutes, by phone or in your loved one&rsquo;s home. We&rsquo;ll listen first,
+                    answer your questions honestly — including about cost and Medicaid — and leave you
+                    with a clear picture of your options.
+                </p>
+                <ul class="con-points">
+                    <li>No cost, no obligation, no pressure</li>
+                    <li>Talk to a decision-maker — often the owner himself</li>
+                    <li>Get real answers on pricing, coverage, and scheduling</li>
+                    <li>If we&rsquo;re not the right fit, we&rsquo;ll tell you who is</li>
+                </ul>
+                <p style="color: var(--text-muted); font-size: 0.98rem;">
+                    Prefer to just talk now? Call <a href="tel:7088988831" style="font-weight:700;">(708) 898-8831</a>.
+                </p>
+            </div>
+
+            <div>
+                <div class="con-card" id="consultCard">
+                    <h2>Request your consultation</h2>
+                    <p class="sub">Tell us how to reach you — we&rsquo;ll call to set a time that works.</p>
+                    <form id="consultForm">
+                        <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
+                        <input type="text" name="name" placeholder="Your name*" required autocomplete="name">
+                        <input type="tel" name="phone" placeholder="Phone number*" required autocomplete="tel">
+                        <input type="email" name="email" placeholder="Email" autocomplete="email">
+                        <input type="text" name="zip" placeholder="Zip code where care is needed" inputmode="numeric" maxlength="5">
+                        <select name="preferredTime" aria-label="Best time to reach you">
+                            <option value="">Best time to reach you (optional)</option>
+                            <option>Morning</option>
+                            <option>Afternoon</option>
+                            <option>Evening</option>
+                            <option>Any time</option>
+                        </select>
+                        <textarea name="message" placeholder="Anything you'd like us to know? (optional)"></textarea>
+                        <label class="va-consent">
+                            <input type="checkbox" name="consent" required>
+                            <span>I agree that VitalTouch Health Network may contact me about home care services by phone, text, and email, including with automated technology or an AI assistant. Consent is not a condition of service. Reply STOP to any text to opt out. Message and data rates may apply.</span>
+                        </label>
+                        <button type="submit" class="va-submit" id="consultSubmit">Request consultation</button>
+                        <div class="con-error" id="consultError"></div>
+                    </form>
+                </div>
+                <div class="con-success" id="consultSuccess">
+                    <strong>Request received.</strong> We&rsquo;ll call you to set up a time — usually the
+                    same business day. If it&rsquo;s easier, you can also reach us right now at
+                    <a href="tel:7088988831" style="font-weight:700;">(708) 898-8831</a>.
+                </div>
+            </div>
+        </div>
+
+        <!-- Placeholders: planning tools land here -->
+        <section class="con-tools">
+            <h2>Planning tools</h2>
+            <div class="con-tools-grid">
+                <div class="con-tool">
+                    <span class="soon">Coming soon</span>
+                    <h3>Cost &amp; coverage estimator</h3>
+                    <p>Answer a few questions and see what care would actually cost your family per week — and what Medicaid or the Community Care Program might cover.</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Until then, we&rsquo;ll walk you through the numbers on a quick call — it takes about ten minutes.</p>
+                </div>
+                <div class="con-tool">
+                    <span class="soon">Coming soon</span>
+                    <h3>Benefits screener</h3>
+                    <p>Check in minutes whether your loved one may qualify for Illinois programs that pay for home care — CCP, Medicaid waivers, and veteran benefits.</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Not sure where to start today? Ask us during your consultation — screening is part of it.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Health Network">
+                    <p>Providing compassionate, technology-enhanced in-home care for seniors in Chicago and Cook County. IDPH and Medicaid licensed.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Companionship</a></li>
+                        <li><a href="services.html">Homemaking</a></li>
+                        <li><a href="services.html">Transportation</a></li>
+                        <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="services.html">Dementia Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:7088988831">(708) 898-8831</a></li>
+                        <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
+                        <li>4749 Lincoln Mall Drive, Suite 204</li>
+                        <li>Matteson, IL 60443</li>
+                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=20260706a"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+            ? 'http://localhost:3000/api/public/funnel/consult'
+            : 'https://vitaltouch-ops.vercel.app/api/public/funnel/consult';
+        var form = document.getElementById('consultForm');
+        var errBox = document.getElementById('consultError');
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            errBox.style.display = 'none';
+            var fd = new FormData(form);
+            var btn = document.getElementById('consultSubmit');
+            btn.disabled = true;
+            try {
+                var res = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: fd.get('name'),
+                        phone: fd.get('phone') || undefined,
+                        email: fd.get('email') || undefined,
+                        zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5) || undefined,
+                        preferredTime: fd.get('preferredTime') || undefined,
+                        message: fd.get('message') || undefined,
+                        consent: true,
+                        consentTextVersion: 'consult_v1_2026-07',
+                        visitorKey: window.vtVisitorKey ? window.vtVisitorKey() : undefined,
+                        company_website: fd.get('company_website') || '',
+                        utm: { page: 'consult' },
+                        test: new URLSearchParams(location.search).has('test') || undefined
+                    })
+                });
+                if (!res.ok) {
+                    var data = await res.json().catch(function() { return {}; });
+                    throw new Error(data.error || 'failed');
+                }
+                document.getElementById('consultCard').style.display = 'none';
+                document.getElementById('consultSuccess').style.display = 'block';
+            } catch (err) {
+                errBox.textContent = 'Sorry — something went wrong. Please call us at (708) 898-8831 and we will set it up right away.';
+                errBox.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    });
+    </script>
+</body>
+</html>
