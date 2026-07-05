@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        @media (max-width: 768px) {
+            .founder-grid { grid-template-columns: 1fr !important; text-align: center; }
+        }
+    </style>
 </head>
 <body>
     <!-- Top Bar -->
@@ -96,8 +101,8 @@
                         <span class="hero-badge-dot"></span>
                         <span>IDPH and Medicaid Licensed</span>
                     </div>
-                    <h1>Compassionate Care, <span class="gold">Right at Home</span></h1>
-                    <p class="hero-desc">Technology-enhanced home care for seniors in Chicago and Cook County. Our certified Homemakers and CNAs provide personalized support that promotes independence, dignity, and comfort.</p>
+                    <h1>Good care feels like <span class="gold">family</span>.</h1>
+                    <p class="hero-desc">We help seniors in Matteson, Homewood, and the Chicago south suburbs stay safe and comfortable in the homes they love — with trained, background-checked caregivers who show up on time and treat your family like their own.</p>
                     <div class="hero-buttons">
                         <a href="contact.html" class="btn btn-primary">
                             Schedule Free Consultation
@@ -118,16 +123,16 @@
                             <div class="hero-stat-label">Care Available</div>
                         </div>
                         <div class="hero-stat">
-                            <div class="hero-stat-num">Cook</div>
-                            <div class="hero-stat-label">County Wide</div>
+                            <div class="hero-stat-num">Local</div>
+                            <div class="hero-stat-label">Family-Owned</div>
                         </div>
                     </div>
                 </div>
                 <div class="hero-image">
                     <div class="hero-img-main">
-                       <img src="https://seravahomecare.com/wp-content/uploads/2023/11/homecare-franchise-slider1.png"
-
-                           alt="Caring for seniors at home">
+                       <!-- Photo: Unsplash (free license), Humphrey M. — laughing together at home -->
+                       <img src="images/home-hero.jpg"
+                           alt="A senior man and his caregiver laughing together outside his home">
                     </div>
                 </div>
             </div>
@@ -183,30 +188,30 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Why VitalTouch</span>
-                <h2>Technology-Enhanced <span class="highlight">Compassionate Care</span></h2>
-                <p>We combine heartfelt caregiving with modern technology to keep families connected and loved ones safe.</p>
+                <h2>Care your whole family <span class="highlight">can count on</span></h2>
+                <p>We keep it simple: kind, dependable caregivers — and easy ways for you to know things are going well, even from far away.</p>
             </div>
             <div class="grid-3">
                 <div class="card">
                     <div class="card-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
                     </div>
-                    <h3>Real-Time Family Updates</h3>
-                    <p>Stay connected with your loved ones care through our digital portal. Get updates on visits, activities, and wellness anytime, anywhere.</p>
+                    <h3>You'll always know how Mom is doing</h3>
+                    <p>After every visit you can see what we helped with and how your loved one is doing — even if you live out of state. No phone tag, no wondering.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                     </div>
-                    <h3>GPS-Verified Visits</h3>
-                    <p>Know exactly when caregivers arrive and leave. Our EVV-compliant system ensures accountability and peace of mind for every visit.</p>
+                    <h3>Caregivers who show up — every time</h3>
+                    <p>Every visit is checked in through the State of Illinois verification system, so you never have to wonder whether care actually happened.</p>
                 </div>
                 <div class="card">
                     <div class="card-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
-                    <h3>Family Caregiver Program</h3>
-                    <p>Turn your family members into certified, paid caregivers through our Medicaid-approved training program. Keep care in the family.</p>
+                    <h3>Get paid to care for your own family</h3>
+                    <p>Already caring for Mom or Dad? Through our Medicaid-approved program, we can train you and pay you for the care you’re already giving.</p>
                 </div>
             </div>
         </div>
@@ -217,8 +222,8 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Our Services</span>
-                <h2>Personalized <span class="highlight">Home Care Solutions</span></h2>
-                <p>From daily companionship to specialized Alzheimers care, we tailor our services to meet your loved ones unique needs.</p>
+                <h2>Help with the things that <span class="highlight">matter every day</span></h2>
+                <p>A friendly face for conversation, a clean kitchen, a hot meal, a safe ride to the doctor — whatever your family needs, we build the care around you.</p>
             </div>
             <div class="grid-3">
                 <div class="card">
@@ -255,36 +260,69 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
                 <div>
                     <span class="section-label">Optional Add-Ons</span>
-                    <h2>Smart Monitoring <span class="highlight">Solutions</span></h2>
-                    <p style="font-size: 1.1rem; margin-bottom: 24px;">For families who want extra peace of mind, we offer optional technology add-ons to help keep your loved ones safe between visits.</p>
+                    <h2>A little extra <span class="highlight">peace of mind</span></h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 24px;">Between visits, some families like a safety net. These optional add-ons are there quietly in the background — so you can relax, and your loved one can just live their life.</p>
                     <ul style="list-style: none; margin-bottom: 32px;">
                         <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B9B8C" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span><strong>Wearable Fall Detection</strong> - Immediate alerts if a fall is detected</span>
+                            <span><strong>Fall detection</strong> — if something happens, help is on the way fast</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B9B8C" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span><strong>Smart Home Sensors</strong> - Motion tracking to detect unusual patterns</span>
+                            <span><strong>Gentle home sensors</strong> — a quiet heads-up if the day looks out of the ordinary</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B9B8C" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span><strong>Emergency Response</strong> - 24/7 monitoring and rapid response</span>
+                            <span><strong>24/7 emergency response</strong> — a real person answers, any hour</span>
                         </li>
                         <li style="display: flex; align-items: flex-start; gap: 12px;">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B9B8C" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span><strong>Automated Wellness Checks</strong> - Daily check-in calls</span>
+                            <span><strong>Daily check-in calls</strong> — a friendly voice, every day</span>
                         </li>
                     </ul>
                     <a href="contact.html" class="btn btn-outline">Learn More About Add-Ons</a>
                 </div>
                 <div>
-                    <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=550&h=400&fit=crop" alt="Smart home technology" style="border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.12);">
+                    <!-- Photo: Unsplash (free license) -->
+                    <img src="images/family-connected.jpg" alt="A grandmother and her granddaughter smiling together at the kitchen table" style="border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); width: 100%; object-fit: cover;">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
+    
+    <!-- Meet the Owner -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="founder-grid" style="display: grid; grid-template-columns: 300px 1fr; gap: 50px; align-items: center; max-width: 950px; margin: 0 auto;">
+                <div style="text-align: center;">
+                    <img src="images/ifeanyi-ezurike.jpg" alt="Ifeanyi Ezurike, founder of VitalTouch Health Network"
+                         style="width: 240px; height: 240px; object-fit: cover; border-radius: 50%; box-shadow: 0 12px 40px rgba(0,0,0,0.15); border: 5px solid var(--white);">
+                    <div style="margin-top: 16px; font-weight: 700; color: var(--navy); font-size: 1.05rem;">Ifeanyi Ezurike</div>
+                    <div style="color: var(--text-muted); font-size: 0.9rem;">Founder &amp; CEO</div>
+                </div>
+                <div>
+                    <span class="section-label">A Note From Our Founder</span>
+                    <h2 style="margin-bottom: 18px;">This isn&rsquo;t a franchise. <span class="highlight">It&rsquo;s personal.</span></h2>
+                    <p style="font-size: 1.08rem; line-height: 1.7; margin-bottom: 14px;">
+                        I started VitalTouch here in the south suburbs because I watched families struggle to find
+                        home care they could actually trust — big-name agencies where you never talk to the same
+                        person twice, and nobody knows your mother&rsquo;s name.
+                    </p>
+                    <p style="font-size: 1.08rem; line-height: 1.7; margin-bottom: 14px;">
+                        We do it differently. We&rsquo;re licensed by the Illinois Department of Public Health, our
+                        caregivers are trained and background-checked, and when you call, you get a person — often me.
+                        Your family&rsquo;s care is my name on the door.
+                    </p>
+                    <p style="font-size: 1.02rem; color: var(--text-muted);">
+                        Have a question? Call me directly at <a href="tel:7088988831" style="color: var(--teal-dark); font-weight: 600;">(708) 898-8831</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="cta">
         <div class="container">
             <h2>Ready to Get Started?</h2>
