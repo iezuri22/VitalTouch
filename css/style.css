@@ -295,6 +295,7 @@ ul, ol { list-style: none; }
     display: flex;
     align-items: center;
     gap: 0;
+    flex-shrink: 0;
 }
 
 .logo img {
