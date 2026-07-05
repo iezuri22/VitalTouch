@@ -198,9 +198,30 @@
                 or call us now at <a href="tel:7088988831">(708) 898-8831</a>.
             </div>
             <p class="cra-privacy">
-                Your answers stay on your device while you take the assessment. We only ask for
-                contact information at the end, so we can save your report — and we never sell your information.
+                Your answers stay on your device while you take the assessment —
+                and we never sell your information.
             </p>
+        </section>
+
+        <!-- 1b. Email gate — capture before the questions start -->
+        <section class="cra-screen" id="emailScreen">
+            <div class="cra-gate-card">
+                <h2>First — where should we send your report?</h2>
+                <p class="cra-gate-sub">
+                    We&rsquo;ll email you a copy of your results so nothing is lost if you get
+                    interrupted. Then the questions begin — about three minutes.
+                </p>
+                <form id="emailForm">
+                    <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
+                    <input type="email" name="email" placeholder="Your email address*" required autocomplete="email">
+                    <label class="va-consent">
+                        <input type="checkbox" name="consent" required>
+                        <span>I agree that VitalTouch Health Network may contact me about home care services by phone, text, and email, including with automated technology or an AI assistant. Consent is not a condition of service. Reply STOP to any text to opt out. Message and data rates may apply.</span>
+                    </label>
+                    <button type="submit" class="va-submit" id="emailSubmit">Start the assessment</button>
+                    <div class="cra-error" id="emailError"></div>
+                </form>
+            </div>
         </section>
 
         <!-- 2. Quiz -->
@@ -305,6 +326,6 @@
     </footer>
 
     <script src="js/main.js?v=20260706a"></script>
-    <script src="js/assessment.js?v=20260706a"></script>
+    <script src="js/assessment.js?v=20260706b"></script>
 </body>
 </html>

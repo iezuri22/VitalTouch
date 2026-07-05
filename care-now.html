@@ -181,6 +181,7 @@
                     </div>
                     <input type="text" name="name" placeholder="Your name*" required autocomplete="name">
                     <input type="tel" name="phone" placeholder="Your phone number*" required autocomplete="tel">
+                    <input type="email" name="email" placeholder="Your email*" required autocomplete="email">
                     <label class="va-consent">
                         <input type="checkbox" name="consent" required>
                         <span>I agree that VitalTouch Health Network may contact me about home care services by phone, text, and email, including with automated technology or an AI assistant. Consent is not a condition of service. Reply STOP to any text to opt out. Message and data rates may apply.</span>
@@ -359,6 +360,7 @@
                         zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5),
                         name: fd.get('name'),
                         phone: fd.get('phone'),
+                        email: fd.get('email') || undefined,
                         consent: true,
                         consentTextVersion: 'care_now_v1_2026-07',
                         visitorKey: window.vtVisitorKey ? window.vtVisitorKey() : undefined,

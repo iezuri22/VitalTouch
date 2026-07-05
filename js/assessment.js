@@ -11,8 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
         ? 'http://localhost:3000'
         : 'https://vitaltouch-ops.vercel.app';
     var CONSENT_VERSION = 'assessment_v1_2026-07';
+    var EMAIL_CONSENT_VERSION = 'assessment_email_v1_2026-07';
     var STORE_KEY = 'vt_cra';          // in-progress answers
     var REPORT_KEY = 'vt_cra_report';  // unlocked report snapshot
+    var EMAIL_KEY = 'vt_email';        // captured before the quiz starts
 
     // prompt: as shown to family members; selfPrompt: when they chose "Myself"
     var QUESTIONS = [
@@ -157,10 +159,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // ---- Screens ----------------------------------------------------------
     var screens = {
         intro: document.getElementById('introScreen'),
+        email: document.getElementById('emailScreen'),
         quiz: document.getElementById('quizScreen'),
         gate: document.getElementById('gateScreen'),
         report: document.getElementById('reportScreen')
     };
+    function storedEmail() {
+        try { return localStorage.getItem(EMAIL_KEY) || ''; } catch (e) { return ''; }
+    }
     function show(name) {
         for (var k in screens) screens[k].classList.toggle('active', k === name);
         window.scrollTo({ top: 0, behavior: 'auto' });
@@ -182,12 +188,46 @@ document.addEventListener('DOMContentLoaded', function() {
         resumeRow.style.display = 'block';
         resumeLink.addEventListener('click', function(e) {
             e.preventDefault();
+            if (!storedEmail()) { show('email'); return; }
             show('quiz');
             render();
         });
     }
+    // Email comes first — a stressed reader who abandons question 6 is still
+    // someone we can help by email.
     document.getElementById('startBtn').addEventListener('click', function() {
         if (!savedReport) { state = { answers: {}, idx: 0, started: false }; save(STORE_KEY, state); }
+        if (!storedEmail()) { show('email'); return; }
+        show('quiz');
+        render();
+    });
+
+    var emailForm = document.getElementById('emailForm');
+    emailForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var fd = new FormData(emailForm);
+        var email = (fd.get('email') || '').toString().trim();
+        var btn = document.getElementById('emailSubmit');
+        btn.disabled = true;
+        try { localStorage.setItem(EMAIL_KEY, email); } catch (err) {}
+        // Best-effort capture: if the network hiccups, the quiz still starts —
+        // the email rides along again at the unlock step.
+        try {
+            await fetch(API_BASE + '/api/public/funnel/email-capture', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    visitorKey: window.vtVisitorKey ? window.vtVisitorKey() : 'v-unknown',
+                    consent: true,
+                    consentTextVersion: EMAIL_CONSENT_VERSION,
+                    company_website: fd.get('company_website') || '',
+                    utm: { page: 'assessment-email-gate' },
+                    test: new URLSearchParams(location.search).has('test') || undefined
+                })
+            });
+        } catch (err) {}
+        btn.disabled = false;
         show('quiz');
         render();
     });
@@ -262,6 +302,8 @@ document.addEventListener('DOMContentLoaded', function() {
             render();
         } else {
             progressFill.style.width = '100%';
+            var gateEmail = document.querySelector('#gateForm input[name="email"]');
+            if (gateEmail && !gateEmail.value && storedEmail()) gateEmail.value = storedEmail();
             show('gate');
         }
     }
