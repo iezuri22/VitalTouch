@@ -1231,3 +1231,42 @@ ul, ol { list-style: none; }
     .va-hero-right::before { inset: 0 -24px; opacity: 0.25; }
     .va-hero-text { padding-bottom: 0; }
 }
+
+/* Family Caregiver Program signup */
+.va-family { background: var(--white); padding: 72px 0; }
+.va-family-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
+.va-family-photo { width: 100%; height: 460px; object-fit: cover; border-radius: 4px; }
+.va-family h2 { font-size: clamp(2rem, 4vw, 2.8rem); color: #3d4451; margin-bottom: 16px; }
+.va-family-sub { font-size: 1.1rem; margin-bottom: 20px; }
+.va-family-points { list-style: none; margin-bottom: 26px; }
+.va-family-points li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+.va-family-points li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.5em;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+}
+.va-family-fields { display: grid; grid-template-columns: 1.2fr 1fr 0.6fr; gap: 10px; margin-bottom: 12px; }
+.va-family-form input[type="text"],
+.va-family-form input[type="tel"] {
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+.va-consent-dark span { color: var(--text-muted); }
+.va-family-submit { max-width: 260px; }
+@media (max-width: 900px) {
+    .va-family-grid { grid-template-columns: 1fr; }
+    .va-family-photo { height: 280px; }
+    .va-family-fields { grid-template-columns: 1fr; }
+}

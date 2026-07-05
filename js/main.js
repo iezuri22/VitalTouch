@@ -111,6 +111,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+
+    // Family Caregiver Program signup -> ops platform (recruiting candidate)
+    const familyForm = document.getElementById('familyCareForm');
+    if (familyForm) {
+        const FAPI = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+            ? 'http://localhost:3000/api/public/leads'
+            : 'https://vitaltouch-ops.vercel.app/api/public/leads';
+        const fstatus = document.getElementById('familyFormStatus');
+        const fshow = function(msg, ok) {
+            fstatus.textContent = msg;
+            fstatus.style.display = 'block';
+            fstatus.className = 'va-form-status' + (ok ? ' ok' : '');
+            fstatus.style.color = ok ? '#1E857B' : '#b91c1c';
+            fstatus.style.textAlign = 'left';
+        };
+        familyForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const fd = new FormData(familyForm);
+            const btn = familyForm.querySelector('.va-submit');
+            btn.disabled = true;
+            try {
+                const res = await fetch(FAPI, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        leadType: 'recruiting_candidate',
+                        name: fd.get('name') || 'Website visitor',
+                        phone: fd.get('phone') || undefined,
+                        zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5) || undefined,
+                        message: 'Family Caregiver Program signup (homepage)',
+                        consent: true,
+                        consentTextVersion: 'family_care_v1_2026-07',
+                        company_website: fd.get('company_website') || '',
+                        utm: { page: 'index-family-care', program: 'family_caregiver' }
+                    })
+                });
+                if (!res.ok) {
+                    const data = await res.json().catch(function() { return {}; });
+                    throw new Error(data.error || 'failed');
+                }
+                fshow('Thank you! We received your info — someone from our team will call you about the Family Caregiver Program shortly.', true);
+                familyForm.reset();
+            } catch (err) {
+                fshow('Sorry, something went wrong. Please call us at (708) 898-8831.', false);
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    }
+
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         // Submits to the VitalTouch ops platform (Lead Engagement Engine).

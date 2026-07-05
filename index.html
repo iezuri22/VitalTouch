@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260705c">
+    <link rel="stylesheet" href="css/style.css?v=20260705d">
     <style>
         @media (max-width: 768px) {
             .founder-grid { grid-template-columns: 1fr !important; text-align: center; }
@@ -143,6 +143,46 @@
         </div>
     </section>
 
+
+    <!-- Family Caregiver Program signup -->
+    <section class="va-family">
+        <div class="container">
+            <div class="va-family-grid">
+                <div>
+                    <!-- Photo: Unsplash free license -->
+                    <img src="images/family-program.jpg" alt="A son laughing with his father outside the family home" class="va-family-photo">
+                </div>
+                <div>
+                    <h2>Get Paid to Care for<br>Your Own Family</h2>
+                    <p class="va-family-sub">
+                        Already caring for your mom, dad, or spouse? Through our Medicaid-approved
+                        Family Caregiver Program, we can train you, certify you, and pay you for
+                        the care you&rsquo;re already giving — right in their home.
+                    </p>
+                    <ul class="va-family-points">
+                        <li>Paid training — no experience or certification needed to start</li>
+                        <li>Earn a steady paycheck for caregiving hours</li>
+                        <li>Your loved one keeps the caregiver they trust most: you</li>
+                    </ul>
+                    <form id="familyCareForm" class="va-family-form">
+                        <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
+                        <div class="va-family-fields">
+                            <input type="text" name="name" placeholder="Your name*" required>
+                            <input type="tel" name="phone" placeholder="Phone*" required>
+                            <input type="text" name="zip" placeholder="Zip*" required inputmode="numeric" maxlength="5">
+                        </div>
+                        <label class="va-consent va-consent-dark">
+                            <input type="checkbox" name="consent" required>
+                            <span>I agree that VitalTouch Health Network may contact me about the Family Caregiver Program by phone, text, and email, including with automated technology or an AI assistant. VitalTouch uses AI tools to assist parts of its hiring process; humans make all final decisions. Reply STOP to any text to opt out. Message and data rates may apply.</span>
+                        </label>
+                        <button type="submit" class="va-submit va-family-submit">See If I Qualify</button>
+                        <p class="va-form-status" id="familyFormStatus"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Meet the Owner -->
     <section class="section section-white">
         <div class="container">
@@ -237,6 +277,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260705c"></script>
+    <script src="js/main.js?v=20260705d"></script>
 </body>
 </html>
