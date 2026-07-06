@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <title>VitalTouch Health Network</title>
+  <rect width="400" height="400" rx="80" fill="#1B9B8C"/>
+  <!-- white heart -->
+  <path fill="#FFFFFF" d="M200 322 C 128 268 78 224 78 168 C 78 128 108 100 146 100 C 172 100 192 116 200 138 C 208 116 228 100 254 100 C 292 100 322 128 322 168 C 322 224 272 268 200 322 Z"/>
+  <!-- teal medical cross (left) -->
+  <rect x="150" y="150" width="24" height="72" rx="4" fill="#1B9B8C"/>
+  <rect x="126" y="174" width="72" height="24" rx="4" fill="#1B9B8C"/>
+  <!-- teal person (right) -->
+  <circle cx="252" cy="168" r="20" fill="#1B9B8C"/>
+  <path fill="#1B9B8C" d="M216 232 C 216 205 232 194 252 194 C 272 194 288 205 288 232 Z"/>
+</svg>
