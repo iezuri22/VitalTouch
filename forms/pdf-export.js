@@ -32,7 +32,7 @@ const VTPdf = (function () {
     bg:         [248, 250, 252],   // #F8FAFC
     red:        [239, 68, 68],
     companyName: 'VitalTouch Health Network Inc.',
-    address:    '3325 W. 183rd St., Suite B, Homewood, IL 60430',
+    address:    '4749 Lincoln Mall Drive, Suite 204, Matteson, IL 60443',
     phone:      '(708) 898-8831',
     email:      'ifeanyi@vitaltouch.care',
     website:    'vitaltouchcares.com',
