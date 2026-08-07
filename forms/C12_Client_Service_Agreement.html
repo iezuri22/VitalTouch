@@ -896,7 +896,7 @@
         <div class="pills">
           <label class="pill"><input type="radio" name="payer" value="medicaid" required><span>Illinois Medicaid</span></label>
           <label class="pill"><input type="radio" name="payer" value="ccp"><span>Community Care Program</span></label>
-          <label class="pill"><input type="radio" name="payer" value="private"><span>Private Pay</span></label>
+          <label class="pill"><input type="radio" name="payer" value="private"><span>Paying for my own care</span></label>
           <label class="pill"><input type="radio" name="payer" value="other"><span>Other</span></label>
         </div>
         <div class="error-msg">Required</div>
@@ -997,7 +997,7 @@
         </ul>
 
         <h3>5. Billing & Payment</h3>
-        <p>Services will be billed to the payer source identified in this agreement. For private pay clients, the current hourly rate will be provided in writing and any changes will require 30 days advance notice. The Client is responsible for any services not covered by their payer source.</p>
+        <p>Services will be billed to the payer source identified in this agreement. If you are paying for your own care, the current hourly rate is given to you in writing and any changes will require 30 days advance notice. The Client is responsible for any services not covered by their payer source.</p>
 
         <h3>6. Cancellation & Discharge</h3>
         <p>Either party may terminate this agreement with 30 days written notice. The Agency may discharge a client immediately if the home environment poses a safety risk to the caregiver, or if the Client engages in abusive or threatening behavior. The Agency will assist with transition to another provider when possible.</p>
@@ -1016,23 +1016,23 @@
 
       <div class="check-item" onclick="toggleCheck(this)">
         <input type="checkbox" id="ackRights" required>
-        <label>I have been informed of the Client's Rights and Responsibilities</label>
+        <label>I have been given my Client Rights and Responsibilities</label>
       </div>
       <div class="check-item" onclick="toggleCheck(this)">
         <input type="checkbox" id="ackTerms" required>
-        <label>I agree to the terms and conditions of this Service Agreement</label>
+        <label>I agree to this Service Agreement</label>
       </div>
       <div class="check-item" onclick="toggleCheck(this)">
         <input type="checkbox" id="ackBilling" required>
-        <label>I understand the billing and payment terms described above</label>
+        <label>I understand how my care will be billed and paid for</label>
       </div>
       <div class="check-item" onclick="toggleCheck(this)">
         <input type="checkbox" id="ackDischarge" required>
-        <label>I understand the cancellation and discharge policy</label>
+        <label>I understand how to cancel a visit, and how my service can end</label>
       </div>
       <div class="check-item" onclick="toggleCheck(this)">
         <input type="checkbox" id="ackHIPAA" required>
-        <label>I acknowledge the Agency's HIPAA confidentiality practices</label>
+        <label>I understand how VitalTouch keeps my information private</label>
       </div>
     </div>
 

@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#16A34A">
+<title>Daily Visit &amp; ADL Note — VitalTouch Health Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --green-deeper: #166534;
+    --green-light: #DCFCE7;
+    --text: #1E293B;
+    --text-light: #64748B;
+    --text-lighter: #94A3B8;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --red: #DC2626;
+    --red-light: #FEE2E2;
+    --amber: #D97706;
+    --amber-light: #FEF3C7;
+    --blue: #2563EB;
+    --blue-light: #DBEAFE;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 17px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 96px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #F0FDF4 0%, #F8FAFC 100%);
+    border-bottom: 3px solid var(--green);
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+  .hero img { height: 38px; width: auto; flex-shrink: 0; }
+  .hero-text h1 { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+  .hero-text p { font-size: 13px; color: var(--text-light); margin-top: 1px; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 18px 16px 0; }
+
+  /* ===== PROGRESS ===== */
+  .steps { display: flex; gap: 6px; margin-bottom: 18px; }
+  .steps div { flex: 1; height: 5px; background: var(--border); border-radius: 3px; transition: background .25s; }
+  .steps div.done { background: var(--green); }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    margin-bottom: 16px;
+  }
+  .card > h2 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--green-deeper);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card > h2 .n {
+    background: var(--green);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .card > .hint { font-size: 14px; color: var(--text-light); margin-bottom: 14px; }
+
+  label.fl { display: block; font-size: 15px; font-weight: 600; margin: 14px 0 5px; }
+  label.fl:first-of-type { margin-top: 0; }
+  .req { color: var(--red); }
+
+  input[type=text], input[type=date], input[type=time], input[type=number], textarea, select {
+    width: 100%;
+    font: inherit;
+    font-size: 17px;
+    padding: 13px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    color: var(--text);
+    -webkit-appearance: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(22,163,74,.14);
+  }
+  textarea { min-height: 76px; resize: vertical; line-height: 1.5; }
+  .row { display: flex; gap: 10px; }
+  .row > * { flex: 1; min-width: 0; }
+
+  .withbtn { display: flex; gap: 8px; }
+  .withbtn input { flex: 1; }
+  .nowbtn {
+    font: inherit; font-size: 15px; font-weight: 700;
+    background: var(--green-light); color: var(--green-deeper);
+    border: 1.5px solid var(--green); border-radius: var(--radius-sm);
+    padding: 0 16px; cursor: pointer; white-space: nowrap;
+  }
+  .nowbtn:active { background: var(--green); color: #fff; }
+
+  /* ===== ADL TASK ROWS ===== */
+  .grp { margin-bottom: 20px; }
+  .grp > h3 {
+    font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
+    color: var(--green-dark); padding-bottom: 6px; border-bottom: 2px solid var(--green-light);
+    margin-bottom: 10px;
+  }
+  .task { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 10px; }
+  .task.on { border-color: var(--green); background: #FAFFFB; }
+  .task.dec { border-color: var(--amber); background: #FFFDF6; }
+  .task > .nm { font-size: 16px; font-weight: 700; margin-bottom: 9px; }
+  .lvls { display: flex; flex-wrap: wrap; gap: 6px; }
+  .lvls button {
+    font: inherit; font-size: 14px; font-weight: 600;
+    padding: 9px 12px; min-height: 42px;
+    border: 1.5px solid var(--border); border-radius: 999px;
+    background: var(--white); color: var(--text-light);
+    cursor: pointer; flex: 1 1 auto;
+  }
+  .lvls button[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; }
+  .lvls button.warn[aria-pressed="true"] { background: var(--amber); border-color: var(--amber); }
+  .lvls button.mute[aria-pressed="true"] { background: var(--text-light); border-color: var(--text-light); }
+  .task textarea { margin-top: 9px; min-height: 54px; font-size: 16px; }
+  .task .tnote { display: none; }
+  .task.show .tnote { display: block; }
+
+  /* ===== YES/NO PILLS ===== */
+  .yn { display: flex; gap: 8px; }
+  .yn button {
+    font: inherit; font-size: 16px; font-weight: 700;
+    flex: 1; padding: 13px; min-height: 50px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--white); color: var(--text-light); cursor: pointer;
+  }
+  .yn button[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; }
+  .yn button.no[aria-pressed="true"] { background: var(--red); border-color: var(--red); }
+
+  .alert {
+    background: var(--red-light); border-left: 4px solid var(--red);
+    padding: 12px 14px; border-radius: var(--radius-sm);
+    font-size: 15px; margin: 12px 0;
+  }
+  .alert b { color: var(--red); }
+  .info {
+    background: var(--green-light); border-left: 4px solid var(--green);
+    padding: 12px 14px; border-radius: var(--radius-sm);
+    font-size: 15px; margin: 12px 0;
+  }
+  .warnbox {
+    background: var(--amber-light); border-left: 4px solid var(--amber);
+    padding: 12px 14px; border-radius: var(--radius-sm);
+    font-size: 15px; margin: 12px 0;
+  }
+  .hide { display: none !important; }
+
+  /* ===== SIGNATURE ===== */
+  .sigwrap { border: 1.5px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: #fff; }
+  canvas { display: block; width: 100%; height: 150px; touch-action: none; cursor: crosshair; }
+  .sigbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px; background: var(--bg); border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-light);
+  }
+  .sigbar button {
+    font: inherit; font-size: 14px; font-weight: 600;
+    background: none; border: 0; color: var(--green-dark); cursor: pointer; text-decoration: underline;
+  }
+
+  /* ===== SUBMIT BAR ===== */
+  .bar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 45;
+    background: var(--white); border-top: 1px solid var(--border);
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    display: flex; gap: 10px; align-items: center;
+    box-shadow: 0 -4px 16px rgba(0,0,0,.06);
+  }
+  .bar .status { flex: 1; font-size: 13px; color: var(--text-light); line-height: 1.3; }
+  .bar button {
+    font: inherit; font-size: 17px; font-weight: 800;
+    background: var(--green); color: #fff; border: 0;
+    border-radius: var(--radius-sm); padding: 15px 26px; cursor: pointer;
+    min-height: 52px;
+  }
+  .bar button:disabled { background: var(--text-lighter); cursor: not-allowed; }
+  .bar button.ghost { background: var(--white); color: var(--green-dark); border: 1.5px solid var(--green); padding: 15px 18px; }
+
+  /* ===== CONFIRMATION ===== */
+  .conf { text-align: center; padding: 44px 20px; }
+  .conf .tick {
+    width: 72px; height: 72px; border-radius: 50%; background: var(--green-light);
+    color: var(--green-deeper); font-size: 38px; margin: 0 auto 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .conf h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+  .conf p { color: var(--text-light); margin-bottom: 6px; }
+  .conf .sid { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; background: var(--bg); display: inline-block; padding: 8px 14px; border-radius: var(--radius-sm); margin-top: 12px; }
+
+  .err { border-color: var(--red) !important; }
+  .errmsg { color: var(--red); font-size: 14px; font-weight: 600; margin-top: 5px; }
+
+  /* ===== PHONE =====
+     Paired fields sit side by side on a tablet or laptop, but at phone width a
+     time input plus its "Now" button cannot share a half-width column without
+     pushing off screen. Stack them instead — this form is used standing up in
+     someone's living room, so tap targets win over density. */
+  @media (max-width: 560px) {
+    .row { flex-direction: column; gap: 0; }
+    .bar { flex-wrap: wrap; }
+    .bar .status { flex: 1 0 100%; order: -1; margin-bottom: 8px; }
+    .bar button { flex: 1; }
+    .lvls button { flex: 1 1 28%; }
+  }
+
+  /* ===== PRINT — produce a clean PDF, not a screenshot of an app ===== */
+  @page { size: Letter; margin: 0.6in 0.55in; }
+
+  @media print {
+    body { background: #fff; font-size: 10pt; padding-bottom: 0; line-height: 1.45; }
+    .hero { position: static; padding: 0 0 8px; background: none; border-bottom: 2.5px solid var(--green); margin-bottom: 12px; }
+    .hero img { height: 34px; }
+    .hero-text h1 { font-size: 15pt; }
+    .wrap { max-width: none; padding: 0; }
+    .steps, .bar, .nowbtn, .sigbar button { display: none !important; }
+    .card {
+      border: 0; border-radius: 0; padding: 0; margin: 0 0 12px;
+      border-top: 1px solid var(--border); padding-top: 10px;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .card:first-of-type { border-top: 0; padding-top: 0; }
+    .card > h2 { font-size: 11pt; break-after: avoid; page-break-after: avoid; }
+    .card > h2 .n { width: 18px; height: 18px; font-size: 9px; }
+    label.fl { font-size: 9.5pt; margin: 8px 0 2px; }
+    input, textarea, select {
+      border: 0; border-bottom: 1px solid var(--text-light); border-radius: 0;
+      padding: 2px 0; font-size: 10pt; background: none;
+    }
+    textarea { min-height: 0; height: auto; resize: none; }
+    input::-webkit-calendar-picker-indicator { display: none !important; }
+    input::placeholder, textarea::placeholder { color: transparent !important; }
+    .task { border: 0; border-bottom: 1px solid var(--border); border-radius: 0; padding: 5px 0; margin: 0; background: none !important; break-inside: avoid; }
+    .task > .nm { font-size: 10pt; margin-bottom: 2px; }
+    .lvls button { display: none; }
+    .lvls button[aria-pressed="true"] {
+      display: inline-block; background: none !important; color: var(--green-deeper) !important;
+      border: 1px solid var(--green-deeper) !important; font-size: 8.5pt; padding: 1px 8px; min-height: 0; flex: 0 0 auto;
+    }
+    .lvls button.warn[aria-pressed="true"] { color: var(--amber) !important; border-color: var(--amber) !important; }
+    .lvls button.mute[aria-pressed="true"] { color: var(--text-light) !important; border-color: var(--text-light) !important; }
+    .yn button { display: none; }
+    .yn button[aria-pressed="true"] { display: inline-block; background: none !important; color: var(--green-deeper) !important; border: 1px solid currentColor !important; flex: 0 0 auto; padding: 2px 12px; min-height: 0; font-size: 9.5pt; }
+    .yn button.no[aria-pressed="true"] { color: var(--red) !important; }
+    .grp > h3 { font-size: 9pt; break-after: avoid; page-break-after: avoid; }
+    canvas { height: 70px; border: 0; border-bottom: 1px solid var(--text-light); }
+    .sigwrap { border: 0; }
+    .sigbar { background: none; border: 0; padding: 2px 0; font-size: 8pt; }
+    .alert, .info, .warnbox { break-inside: avoid; font-size: 9pt; padding: 8px 10px; }
+    .noprint { display: none !important; }
+    .printfoot {
+      display: block; position: fixed; bottom: 0; left: 0; right: 0;
+      border-top: 1px solid var(--border); padding: 6px 0 2px;
+      font-size: 7.5pt; color: var(--text-light);
+    }
+  }
+  .printfoot { display: none; }
+</style>
+</head>
+<body>
+
+<div id="form">
+
+<header class="hero">
+  <img src="images/logo-symbol.png" alt="VitalTouch">
+  <div class="hero-text">
+    <h1>Daily Visit &amp; ADL Note</h1>
+    <p>Complete before you leave the home &middot; Form C45</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="steps" id="steps">
+    <div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <!-- 1. VISIT -->
+  <section class="card" data-step="0">
+    <h2><span class="n">1</span> The visit</h2>
+    <p class="hint">Clock in through Sandata as well — this note does not replace electronic visit verification.</p>
+
+    <div class="row">
+      <div>
+        <label class="fl" for="client">Customer name <span class="req">*</span></label>
+        <input type="text" id="client" autocomplete="off">
+      </div>
+      <div>
+        <label class="fl" for="clientId">Customer ID</label>
+        <input type="text" id="clientId" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label class="fl" for="caregiver">Your name <span class="req">*</span></label>
+        <input type="text" id="caregiver" autocomplete="off">
+      </div>
+      <div>
+        <label class="fl" for="visitDate">Date of service <span class="req">*</span></label>
+        <input type="date" id="visitDate">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label class="fl" for="timeIn">Time in <span class="req">*</span></label>
+        <div class="withbtn">
+          <input type="time" id="timeIn">
+          <button type="button" class="nowbtn" data-now="timeIn">Now</button>
+        </div>
+      </div>
+      <div>
+        <label class="fl" for="timeOut">Time out <span class="req">*</span></label>
+        <div class="withbtn">
+          <input type="time" id="timeOut">
+          <button type="button" class="nowbtn" data-now="timeOut">Now</button>
+        </div>
+      </div>
+    </div>
+    <p class="hint" id="dur" style="margin-top:8px"></p>
+  </section>
+
+  <!-- 2. TASKS -->
+  <section class="card" data-step="1">
+    <h2><span class="n">2</span> Tasks performed</h2>
+    <p class="hint">Mark every task on the customer's task assignment. Use the level of help you actually
+      gave. <b>Declined</b> is a normal answer — the customer may refuse any task on any day.</p>
+
+    <div class="info">
+      <b>Level of help</b> — <b>Ind</b> customer did it themselves &middot;
+      <b>Set-up</b> you set it up, they did it &middot;
+      <b>Cue</b> you prompted or guided &middot;
+      <b>Partial</b> you did some of it &middot;
+      <b>Total</b> you did all of it.
+    </div>
+
+    <div id="groups"></div>
+  </section>
+
+  <!-- 3. CONDITION -->
+  <section class="card" data-step="2">
+    <h2><span class="n">3</span> How the customer was today</h2>
+    <p class="hint">This is the observation and reporting part of the service. What you write here is what
+      the Supervisor sends to the HSP counselor.</p>
+
+    <label class="fl">Compared with your last visit</label>
+    <div class="lvls" data-single="changeLevel">
+      <button type="button" data-v="Same as usual">Same as usual</button>
+      <button type="button" class="warn" data-v="Some change">Some change</button>
+      <button type="button" class="warn" data-v="Noticeable change">Noticeable change</button>
+    </div>
+
+    <div class="row" style="margin-top:14px">
+      <div>
+        <label class="fl" for="mood">Mood and alertness</label>
+        <select id="mood">
+          <option value="">Select…</option>
+          <option>Usual for this customer</option>
+          <option>Bright, engaged</option>
+          <option>Quiet, withdrawn</option>
+          <option>Anxious or agitated</option>
+          <option>Confused or disoriented</option>
+          <option>Drowsy, hard to rouse</option>
+          <option>Low mood, tearful</option>
+        </select>
+      </div>
+      <div>
+        <label class="fl" for="appetite">Appetite and fluids</label>
+        <select id="appetite">
+          <option value="">Select…</option>
+          <option>Ate and drank normally</option>
+          <option>Ate less than usual</option>
+          <option>Ate very little</option>
+          <option>Refused food</option>
+          <option>Drinking less than usual</option>
+          <option>No meal during this visit</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label class="fl" for="pain">Pain or discomfort reported</label>
+        <select id="pain">
+          <option value="">Select…</option>
+          <option>None reported</option>
+          <option>Mild</option>
+          <option>Moderate</option>
+          <option>Severe — Supervisor notified</option>
+        </select>
+      </div>
+      <div>
+        <label class="fl" for="skin">Skin</label>
+        <select id="skin">
+          <option value="">Select…</option>
+          <option>No concerns seen</option>
+          <option>Redness — not broken</option>
+          <option>New bruise</option>
+          <option>Broken skin or open area</option>
+          <option>Did not see skin this visit</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="fl" for="obs">What you saw, in your own words</label>
+    <textarea id="obs" placeholder="How the customer seemed, what they told you, anything different from last time. Write what you observed, not what you concluded."></textarea>
+
+    <label class="fl">Equipment and assistive technology working properly?</label>
+    <div class="yn" data-single="equip">
+      <button type="button" data-v="Yes">Yes</button>
+      <button type="button" class="no" data-v="No">No — problem</button>
+      <button type="button" data-v="N/A">None used</button>
+    </div>
+    <div class="hide" id="equipWrap">
+      <label class="fl" for="equipNote">What is wrong with it?</label>
+      <textarea id="equipNote" placeholder="Wheelchair, lift, walker, hearing aid, communication device, bed, ramp…"></textarea>
+      <div class="warnbox">A customer without working equipment may not be able to move, hear, or
+        communicate. Call the Supervisor now — do not wait for this note to be read.</div>
+    </div>
+
+    <label class="fl">Home safe and as expected?</label>
+    <div class="yn" data-single="homeSafe">
+      <button type="button" data-v="Yes">Yes</button>
+      <button type="button" class="no" data-v="No">No — concern</button>
+    </div>
+    <div class="hide" id="homeWrap">
+      <label class="fl" for="homeNote">What did you see?</label>
+      <textarea id="homeNote" placeholder="Blocked exit, no heat or cooling, no food, unsafe rail or ramp, pests, someone in the home who worries you…"></textarea>
+    </div>
+  </section>
+
+  <!-- 4. CUSTOMER DIRECTION -->
+  <section class="card" data-step="3">
+    <h2><span class="n">4</span> The customer's direction</h2>
+    <p class="hint">The customer decides how the work is done in their own home. These three questions
+      are how the agency checks that we are actually working that way.</p>
+
+    <label class="fl">Were tasks done the way the customer wanted them done?</label>
+    <div class="yn" data-single="direction">
+      <button type="button" data-v="Yes">Yes</button>
+      <button type="button" class="no" data-v="No">No</button>
+    </div>
+    <div class="hide" id="dirWrap">
+      <label class="fl" for="dirNote">What happened?</label>
+      <textarea id="dirNote" placeholder="What the customer asked for, what you did instead, and why."></textarea>
+    </div>
+
+    <label class="fl">Did the customer ask for anything outside their task assignment?</label>
+    <div class="yn" data-single="outside">
+      <button type="button" class="no" data-v="Yes">Yes</button>
+      <button type="button" data-v="No">No</button>
+    </div>
+    <div class="hide" id="outWrap">
+      <label class="fl" for="outNote">What did they ask for?</label>
+      <textarea id="outNote" placeholder="Write down what was asked. Do not do it — tell the Supervisor so it can go to the HSP counselor."></textarea>
+      <div class="info">Nothing outside the Service Plan gets done on the spot. Reporting it is how
+        the customer gets it added properly.</div>
+    </div>
+
+    <label class="fl">Did you handle any of the customer's money, LINK card, or valuables?</label>
+    <div class="yn" data-single="money">
+      <button type="button" class="no" data-v="Yes">Yes</button>
+      <button type="button" data-v="No">No</button>
+    </div>
+    <div class="hide" id="moneyWrap">
+      <label class="fl" for="receiptNo">Two-Way Receipt number <span class="req">*</span></label>
+      <input type="text" id="receiptNo" placeholder="Receipt number from the form you completed">
+      <div class="warnbox"><b>Both legs of the receipt must be signed before you leave.</b> Original
+        store receipts stay with the customer. If anything does not balance, call the Supervisor now —
+        never make up a shortfall from your own money.</div>
+    </div>
+  </section>
+
+  <!-- 5. INCIDENTS -->
+  <section class="card" data-step="4">
+    <h2><span class="n">5</span> Anything that needs reporting</h2>
+
+    <label class="fl">Did anything happen that the Supervisor needs to know about today?</label>
+    <div class="yn" data-single="incident">
+      <button type="button" class="no" data-v="Yes">Yes</button>
+      <button type="button" data-v="No">No</button>
+    </div>
+
+    <div class="hide" id="incWrap">
+      <label class="fl" for="incType">What kind?</label>
+      <select id="incType">
+        <option value="">Select…</option>
+        <option>Fall, or found on the floor</option>
+        <option>Injury</option>
+        <option>Sudden change in condition</option>
+        <option>Behaviour that worried me</option>
+        <option>Medication problem</option>
+        <option>Customer refused a task they usually accept</option>
+        <option>Could not get into the home / no answer</option>
+        <option>Property damaged or missing</option>
+        <option>Suspected abuse, neglect, or exploitation</option>
+        <option>Emergency services called</option>
+        <option>Other</option>
+      </select>
+
+      <label class="fl" for="incNote">What happened, and what you did <span class="req">*</span></label>
+      <textarea id="incNote" style="min-height:110px" placeholder="Facts only, in order: what you saw, what time, what you did, who you called, what happened next."></textarea>
+
+      <div class="alert">
+        <b>Call now, do not wait for this note.</b><br>
+        Emergency — <b>911</b>.<br>
+        Supervisor / VitalTouch — <b>(708) 898-8831</b>.<br>
+        Suspected abuse, neglect, or financial exploitation — <b>Illinois Adult Protective Services
+        1-866-800-1409</b> (TTY 1-888-206-1327), 24 hours. You are a mandated reporter. Reporting is
+        never delayed for anyone's review, and no one at VitalTouch may retaliate against you for it.
+      </div>
+
+      <label class="fl">Did you contact the Supervisor?</label>
+      <div class="yn" data-single="supCalled">
+        <button type="button" data-v="Yes">Yes</button>
+        <button type="button" class="no" data-v="Not yet">Not yet</button>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <div>
+          <label class="fl" for="supTime">Time contacted</label>
+          <div class="withbtn">
+            <input type="time" id="supTime">
+            <button type="button" class="nowbtn" data-now="supTime">Now</button>
+          </div>
+        </div>
+        <div>
+          <label class="fl" for="supName">Who you spoke to</label>
+          <input type="text" id="supName" autocomplete="off">
+        </div>
+      </div>
+    </div>
+
+    <label class="fl" for="nextVisit">Anything the next caregiver should know</label>
+    <textarea id="nextVisit" placeholder="Left dinner in the fridge, ramp is loose, daughter visiting Thursday, prefers the blue chair…"></textarea>
+  </section>
+
+  <!-- 6. SIGNATURES -->
+  <section class="card" data-step="5">
+    <h2><span class="n">6</span> Signatures</h2>
+    <p class="hint">Show the customer this note, or read it to them, before they sign.</p>
+
+    <label class="fl">Caregiver signature <span class="req">*</span></label>
+    <div class="sigwrap">
+      <canvas id="sigCg"></canvas>
+      <div class="sigbar"><span>Sign above</span><button type="button" data-clear="sigCg">Clear</button></div>
+    </div>
+    <p class="hint" style="margin-top:8px">By signing, I confirm this note is a true record of the
+      visit and of the services I delivered.</p>
+
+    <label class="fl">Customer signature</label>
+    <div class="sigwrap">
+      <canvas id="sigCl"></canvas>
+      <div class="sigbar"><span>Customer or representative signs above</span><button type="button" data-clear="sigCl">Clear</button></div>
+    </div>
+
+    <label class="fl">If the customer did not sign</label>
+    <select id="noSign">
+      <option value="">Customer signed</option>
+      <option>Customer is unable to sign — mark or adaptive signature used</option>
+      <option>Customer is unable to sign — note read aloud and verbally confirmed</option>
+      <option>Representative signed on the customer's behalf</option>
+      <option>Customer declined to sign</option>
+      <option>Customer was asleep or not present at end of visit</option>
+    </select>
+    <div class="hide" id="repWrap">
+      <label class="fl" for="repName">Who signed, and their relationship</label>
+      <input type="text" id="repName" autocomplete="off">
+    </div>
+    <p class="hint" style="margin-top:10px">A customer who cannot sign is never left without a record.
+      Read the note aloud, or provide it in large print, and record how they confirmed it.</p>
+  </section>
+
+</div>
+
+<div class="bar">
+  <div class="status" id="status">Fill in the visit details to begin.</div>
+  <button type="button" class="ghost" id="saveBtn">Save</button>
+  <button type="button" id="submitBtn" disabled>Submit</button>
+</div>
+
+</div><!-- /form -->
+
+<div id="done" class="hide">
+  <header class="hero">
+    <img src="images/logo-symbol.png" alt="VitalTouch">
+    <div class="hero-text"><h1>Visit note submitted</h1><p>VitalTouch Health Network</p></div>
+  </header>
+  <div class="conf">
+    <div class="tick">&#10003;</div>
+    <h2>Thank you</h2>
+    <p>Your note has been saved and sent to the office.</p>
+    <p id="urgentMsg" class="hide" style="color:var(--red);font-weight:700"></p>
+    <div class="sid" id="sid"></div>
+    <p style="margin-top:22px">
+      <button type="button" class="nowbtn" onclick="window.print()" style="min-height:48px">Save as PDF</button>
+      <button type="button" class="nowbtn" onclick="location.reload()" style="min-height:48px">New note</button>
+    </p>
+  </div>
+</div>
+
+<div class="printfoot">VitalTouch Health Network, Inc. &middot; Daily Visit &amp; ADL Note (C45) &middot; Confidential customer service record</div>
+
+<script>
+/* ============================================================================
+   Task catalogue — the five DRS service areas at 89 Ill. Adm. Code 686.210,
+   grouped the way a caregiver moves through a visit rather than the way the
+   rule is numbered.
+   ========================================================================== */
+const GROUPS = [
+  { name: 'Personal care and hygiene', tasks: [
+    'Bathing / shower / bed bath', 'Hair and skin care', 'Oral care / denture care',
+    'Dressing and grooming', 'Shaving', 'Nail care (routine)',
+    'Toileting / commode / bedpan', 'Incontinence care and peri-care'
+  ]},
+  { name: 'Mobility, transfers, positioning', tasks: [
+    'Transfer (bed / chair / commode)', 'Repositioning to prevent pressure injury',
+    'Walking / ambulation support', 'Range-of-motion movement (as taught)',
+    'Assistance with equipment or devices'
+  ]},
+  { name: 'Nutrition and meals', tasks: [
+    'Meal planning with customer', 'Meal preparation', 'Prescribed diet or texture followed',
+    'Assistance with eating', 'Snacks and fluids left within reach', 'Kitchen clean-up'
+  ]},
+  { name: 'Household, financial, time management', tasks: [
+    'Light housekeeping', 'Laundry and linens', 'Bed made / linens changed',
+    'Trash removed', 'Pathways and transfer routes clear', 'Grocery shopping or errand',
+    'Mail, bills, paperwork assistance', 'Appointment reminders / routine support'
+  ]},
+  { name: 'Health support and observation', tasks: [
+    'Medication reminder (pre-selected only)', 'Vital signs (if trained and in plan)',
+    'Observed and reported changes'
+  ]},
+  { name: 'Companionship and community', tasks: [
+    'Conversation and social interaction', 'Activity or hobby support',
+    'Escort to appointment or activity', 'Safety supervision / supportive presence'
+  ]}
+];
+
+const LEVELS = [
+  { v: 'Ind',     cls: '' },
+  { v: 'Set-up',  cls: '' },
+  { v: 'Cue',     cls: '' },
+  { v: 'Partial', cls: '' },
+  { v: 'Total',   cls: '' },
+  { v: 'Declined',cls: 'warn' },
+  { v: 'N/A',     cls: 'mute' }
+];
+
+const single = {};   // name -> chosen value
+const tasks  = {};   // task name -> { level, note }
+
+/* ---- build the task UI ---- */
+(function buildGroups() {
+  const host = document.getElementById('groups');
+  GROUPS.forEach((g, gi) => {
+    const sec = document.createElement('div');
+    sec.className = 'grp';
+    const h = document.createElement('h3');
+    h.textContent = g.name;
+    sec.appendChild(h);
+
+    g.tasks.forEach((t, ti) => {
+      const id = 'g' + gi + 't' + ti;
+      const box = document.createElement('div');
+      box.className = 'task';
+      box.id = id;
+
+      const nm = document.createElement('div');
+      nm.className = 'nm';
+      nm.textContent = t;
+      box.appendChild(nm);
+
+      const lv = document.createElement('div');
+      lv.className = 'lvls';
+      LEVELS.forEach(L => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = L.cls;
+        b.textContent = L.v;
+        b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', () => {
+          const already = b.getAttribute('aria-pressed') === 'true';
+          lv.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', 'false'));
+          box.classList.remove('on', 'dec', 'show');
+          if (already) { delete tasks[t]; }
+          else {
+            b.setAttribute('aria-pressed', 'true');
+            tasks[t] = Object.assign(tasks[t] || {}, { level: L.v });
+            if (L.v === 'Declined') { box.classList.add('dec', 'show'); }
+            else if (L.v !== 'N/A') { box.classList.add('on'); }
+            if (L.v === 'Declined' || L.v === 'Partial' || L.v === 'Total') box.classList.add('show');
+          }
+          refresh();
+        });
+        lv.appendChild(b);
+      });
+      box.appendChild(lv);
+
+      const ta = document.createElement('textarea');
+      ta.className = 'tnote';
+      ta.placeholder = 'Notes — if declined, what the customer said';
+      ta.addEventListener('input', () => {
+        tasks[t] = Object.assign(tasks[t] || {}, { note: ta.value });
+      });
+      box.appendChild(ta);
+
+      sec.appendChild(box);
+    });
+    host.appendChild(sec);
+  });
+})();
+
+/* ---- single-choice pill groups ---- */
+document.querySelectorAll('[data-single]').forEach(grp => {
+  const key = grp.getAttribute('data-single');
+  grp.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => {
+      const already = b.getAttribute('aria-pressed') === 'true';
+      grp.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', 'false'));
+      if (already) { delete single[key]; }
+      else { b.setAttribute('aria-pressed', 'true'); single[key] = b.dataset.v; }
+      conditionals();
+      refresh();
+    });
+  });
+});
+
+function show(el, on) { document.getElementById(el).classList.toggle('hide', !on); }
+
+function conditionals() {
+  show('equipWrap',  single.equip     === 'No');
+  show('homeWrap',   single.homeSafe  === 'No');
+  show('dirWrap',    single.direction === 'No');
+  show('outWrap',    single.outside   === 'Yes');
+  show('moneyWrap',  single.money     === 'Yes');
+  show('incWrap',    single.incident  === 'Yes');
+}
+
+document.getElementById('noSign').addEventListener('change', e => {
+  document.getElementById('repWrap').classList.toggle('hide',
+    !/Representative|declined|adaptive/i.test(e.target.value));
+  refresh();
+});
+
+/* ---- "Now" buttons ---- */
+document.querySelectorAll('[data-now]').forEach(b => {
+  b.addEventListener('click', () => {
+    const d = new Date();
+    document.getElementById(b.dataset.now).value =
+      String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    refresh();
+  });
+});
+
+/* ---- signature pads ---- */
+function pad(id) {
+  const c = document.getElementById(id);
+  const ctx = c.getContext('2d');
+  let drawing = false, dirty = false;
+
+  function size() {
+    const r = c.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const img = dirty ? c.toDataURL() : null;
+    c.width = r.width * dpr; c.height = r.height * dpr;
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.2; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#1E293B';
+    if (img) { const i = new Image(); i.onload = () => ctx.drawImage(i, 0, 0, r.width, r.height); i.src = img; }
+  }
+  size();
+  window.addEventListener('resize', size);
+
+  function pt(e) {
+    const r = c.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return { x: t.clientX - r.left, y: t.clientY - r.top };
+  }
+  function start(e) { e.preventDefault(); drawing = true; const p = pt(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); }
+  function move(e)  { if (!drawing) return; e.preventDefault(); const p = pt(e); ctx.lineTo(p.x, p.y); ctx.stroke(); dirty = true; refresh(); }
+  function end()    { drawing = false; }
+
+  c.addEventListener('mousedown', start); c.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+  c.addEventListener('touchstart', start, {passive:false});
+  c.addEventListener('touchmove', move, {passive:false});
+  c.addEventListener('touchend', end);
+
+  return {
+    get dirty() { return dirty; },
+    clear() { ctx.clearRect(0, 0, c.width, c.height); dirty = false; refresh(); },
+    data() { return dirty ? c.toDataURL('image/png') : ''; }
+  };
+}
+const sigCg = pad('sigCg'), sigCl = pad('sigCl');
+document.querySelectorAll('[data-clear]').forEach(b => {
+  b.addEventListener('click', () => (b.dataset.clear === 'sigCg' ? sigCg : sigCl).clear());
+});
+
+/* ---- duration + progress + gating ---- */
+function val(id) { return (document.getElementById(id).value || '').trim(); }
+
+function duration() {
+  const a = val('timeIn'), b = val('timeOut');
+  if (!a || !b) return null;
+  const [ah, am] = a.split(':').map(Number), [bh, bm] = b.split(':').map(Number);
+  let m = (bh * 60 + bm) - (ah * 60 + am);
+  if (m < 0) m += 1440;               // visit crossed midnight
+  return m;
+}
+
+function refresh() {
+  const m = duration();
+  document.getElementById('dur').textContent =
+    m === null ? '' : 'Visit length: ' + Math.floor(m / 60) + ' hr ' + (m % 60) + ' min'
+      + (m > 720 ? ' — check the times, that is over 12 hours' : '');
+
+  const steps = [
+    val('client') && val('caregiver') && val('visitDate') && val('timeIn') && val('timeOut'),
+    Object.keys(tasks).length > 0,
+    !!single.changeLevel,
+    !!single.direction && !!single.money,
+    !!single.incident,
+    sigCg.dirty
+  ];
+  const els = document.getElementById('steps').children;
+  steps.forEach((ok, i) => els[i].classList.toggle('done', !!ok));
+
+  const missing = [];
+  if (!steps[0]) missing.push('visit details');
+  if (!steps[1]) missing.push('at least one task');
+  if (!steps[2]) missing.push('how the customer was');
+  if (!steps[3]) missing.push('customer direction');
+  if (!steps[4]) missing.push('reporting question');
+  if (!steps[5]) missing.push('your signature');
+  if (single.incident === 'Yes' && !val('incNote')) missing.push('what happened');
+  if (single.money === 'Yes' && !val('receiptNo')) missing.push('receipt number');
+
+  const ok = missing.length === 0;
+  document.getElementById('submitBtn').disabled = !ok;
+  document.getElementById('status').textContent = ok
+    ? 'Ready to submit.'
+    : 'Still needed: ' + missing.join(', ') + '.';
+}
+document.addEventListener('input', refresh);
+document.addEventListener('change', refresh);
+
+/* ---- default the date to today ---- */
+(function () {
+  const d = new Date();
+  document.getElementById('visitDate').value =
+    d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+})();
+
+/* ---- draft save / restore ---- */
+const DRAFT = 'vt_c45_draft';
+function collect() {
+  const m = duration();
+  const done = Object.keys(tasks).filter(t => tasks[t].level && tasks[t].level !== 'N/A');
+  return {
+    formId: 'C45',
+    client: val('client'), clientId: val('clientId'),
+    caregiver: val('caregiver'),
+    visitDate: val('visitDate'), timeIn: val('timeIn'), timeOut: val('timeOut'),
+    minutes: m,
+    tasks: tasks,
+    tasksPerformed: done.length,
+    declined: Object.keys(tasks).filter(t => tasks[t].level === 'Declined'),
+    changeLevel: single.changeLevel || '',
+    mood: val('mood'), appetite: val('appetite'), pain: val('pain'), skin: val('skin'),
+    observations: val('obs'),
+    equipment: single.equip || '', equipmentNote: val('equipNote'),
+    homeSafe: single.homeSafe || '', homeNote: val('homeNote'),
+    directionFollowed: single.direction || '', directionNote: val('dirNote'),
+    outsidePlan: single.outside || '', outsideNote: val('outNote'),
+    moneyHandled: single.money || '', receiptNo: val('receiptNo'),
+    incident: single.incident || '', incidentType: val('incType'), incidentNote: val('incNote'),
+    supervisorCalled: single.supCalled || '', supervisorTime: val('supTime'), supervisorName: val('supName'),
+    nextVisitNote: val('nextVisit'),
+    noSignReason: val('noSign'), representative: val('repName'),
+    submittedAt: new Date().toISOString()
+  };
+}
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  try {
+    localStorage.setItem(DRAFT, JSON.stringify(collect()));
+    document.getElementById('status').textContent = 'Draft saved on this device.';
+  } catch (e) {
+    document.getElementById('status').textContent = 'Could not save a draft on this device.';
+  }
+});
+
+/* ---- urgency ---- */
+function urgencyFlags(d) {
+  const f = [];
+  if (d.incident === 'Yes') f.push('INCIDENT: ' + (d.incidentType || 'reported'));
+  if (/abuse|neglect|exploitation/i.test(d.incidentType || '')) f.push('SUSPECTED ABUSE / NEGLECT / EXPLOITATION');
+  if (d.equipment === 'No') f.push('EQUIPMENT FAILURE');
+  if (d.homeSafe === 'No') f.push('HOME SAFETY CONCERN');
+  if (d.changeLevel === 'Noticeable change') f.push('NOTICEABLE CHANGE IN CONDITION');
+  if (/Severe/i.test(d.pain || '')) f.push('SEVERE PAIN');
+  if (/Broken skin/i.test(d.skin || '')) f.push('BROKEN SKIN');
+  if (d.directionFollowed === 'No') f.push('CUSTOMER DIRECTION NOT FOLLOWED');
+  if (d.supervisorCalled === 'Not yet') f.push('SUPERVISOR NOT YET CONTACTED');
+  return f;
+}
+
+/* ---- submit ---- */
+document.getElementById('submitBtn').addEventListener('click', () => {
+  const id = 'C45-' + Date.now().toString(36).toUpperCase();
+  const d = collect();
+  d.id = id;
+  d.caregiverSignature = sigCg.data();
+  d.clientSignature = sigCl.data();
+  const flags = urgencyFlags(d);
+  d.urgent = flags;
+
+  let all = [];
+  try { all = JSON.parse(localStorage.getItem('vt_visit_notes') || '[]'); } catch (e) {}
+  all.push(d);
+  try { localStorage.setItem('vt_visit_notes', JSON.stringify(all)); localStorage.removeItem(DRAFT); } catch (e) {}
+
+  const L = [];
+  L.push('DAILY VISIT & ADL NOTE — ' + id);
+  L.push('');
+  if (flags.length) { L.push('*** NEEDS SUPERVISOR ATTENTION ***'); flags.forEach(f => L.push('  - ' + f)); L.push(''); }
+  L.push('Customer: ' + d.client + (d.clientId ? ' (' + d.clientId + ')' : ''));
+  L.push('Caregiver: ' + d.caregiver);
+  L.push('Date: ' + d.visitDate + '   In: ' + d.timeIn + '   Out: ' + d.timeOut +
+         (d.minutes !== null ? '   (' + Math.floor(d.minutes / 60) + 'h ' + (d.minutes % 60) + 'm)' : ''));
+  L.push('');
+  L.push('TASKS');
+  Object.keys(d.tasks).forEach(t => {
+    const x = d.tasks[t];
+    L.push('  ' + t + ' — ' + x.level + (x.note ? ' | ' + x.note : ''));
+  });
+  L.push('');
+  L.push('CONDITION');
+  L.push('  Compared with last visit: ' + d.changeLevel);
+  L.push('  Mood: ' + d.mood + '   Appetite: ' + d.appetite);
+  L.push('  Pain: ' + d.pain + '   Skin: ' + d.skin);
+  if (d.observations) L.push('  Observations: ' + d.observations);
+  L.push('  Equipment OK: ' + d.equipment + (d.equipmentNote ? ' — ' + d.equipmentNote : ''));
+  L.push('  Home safe: ' + d.homeSafe + (d.homeNote ? ' — ' + d.homeNote : ''));
+  L.push('');
+  L.push('CUSTOMER DIRECTION');
+  L.push('  Done the customer’s way: ' + d.directionFollowed + (d.directionNote ? ' — ' + d.directionNote : ''));
+  L.push('  Asked for something outside the plan: ' + d.outsidePlan + (d.outsideNote ? ' — ' + d.outsideNote : ''));
+  L.push('  Handled money/LINK/valuables: ' + d.moneyHandled + (d.receiptNo ? ' — receipt ' + d.receiptNo : ''));
+  L.push('');
+  L.push('REPORTING');
+  L.push('  Something to report: ' + d.incident);
+  if (d.incident === 'Yes') {
+    L.push('  Type: ' + d.incidentType);
+    L.push('  Detail: ' + d.incidentNote);
+    L.push('  Supervisor contacted: ' + d.supervisorCalled + ' ' + d.supervisorTime + ' ' + d.supervisorName);
+  }
+  if (d.nextVisitNote) L.push('  For the next caregiver: ' + d.nextVisitNote);
+  L.push('');
+  L.push('SIGNATURES');
+  L.push('  Caregiver signed: ' + (d.caregiverSignature ? 'yes' : 'no'));
+  L.push('  Customer signed: ' + (d.clientSignature ? 'yes' : 'no') +
+         (d.noSignReason ? ' — ' + d.noSignReason : '') + (d.representative ? ' (' + d.representative + ')' : ''));
+  L.push('');
+  L.push('Submission ID: ' + id);
+  L.push('Submitted: ' + new Date().toLocaleString());
+  L.push('');
+  L.push('CONFIDENTIAL — customer service record. Do not forward outside VitalTouch.');
+
+  const subject = encodeURIComponent(
+    '[VitalTouch]' + (flags.length ? ' ** ATTENTION **' : '') +
+    ' Visit Note — ' + d.client + ' ' + d.visitDate + ' (' + id + ')');
+  window.location.href = 'mailto:iezuri22@gmail.com?subject=' + subject +
+    '&body=' + encodeURIComponent(L.join('\n'));
+
+  document.getElementById('form').classList.add('hide');
+  document.getElementById('done').classList.remove('hide');
+  document.getElementById('sid').textContent = 'Submission ID: ' + id;
+  if (flags.length) {
+    const u = document.getElementById('urgentMsg');
+    u.classList.remove('hide');
+    u.textContent = 'This note is flagged for the Supervisor. If you have not already called (708) 898-8831, call now.';
+  }
+  window.scrollTo(0, 0);
+});
+
+conditionals();
+refresh();
+</script>
+
+</body>
+</html>
