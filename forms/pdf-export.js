@@ -33,7 +33,7 @@ const VTPdf = (function () {
     red:        [239, 68, 68],
     companyName: 'VitalTouch Health Network Inc.',
     address:    '4749 Lincoln Mall Drive, Suite 204, Matteson, IL 60443',
-    phone:      '(708) 898-8831',
+    phone:      '(708) 726-4536',
     email:      'ifeanyi@vitaltouch.care',
     website:    'vitaltouchcares.com',
     ceo:        'Ifeanyi Ezurike'

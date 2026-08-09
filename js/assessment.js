@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
             renderReport(data.report);
             show('report');
         } catch (err) {
-            gateError.textContent = 'Sorry — something went wrong saving your report. Your answers are safe on this device. Please try again in a moment, or call us at (708) 898-8831.';
+            gateError.textContent = 'Sorry — something went wrong saving your report. Your answers are safe on this device. Please try again in a moment, or call us at (708) 726-4536.';
             gateError.style.display = 'block';
         } finally {
             btn.disabled = false;
@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (r.band === 'urgent') {
             h += '<div class="cra-callout"><strong>Our honest read:</strong> don’t sit on this one. ';
-            h += 'Call us at <a href="tel:7088988831">(708) 898-8831</a> — a short conversation today ';
+            h += 'Call us at <a href="tel:7087264536">(708) 726-4536</a> — a short conversation today ';
             h += 'costs nothing and usually brings real relief within days.</div>';
         }
 
@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         h += '<div class="cra-report-cta">';
-        h += '<a href="tel:7088988831" class="cra-btn-gold">Call (708) 898-8831</a>';
+        h += '<a href="tel:7087264536" class="cra-btn-gold">Call (708) 726-4536</a>';
         h += '<a href="consult.html" class="cra-btn-outline">Request a free consultation</a>';
         h += '<button type="button" class="cra-btn-outline" id="downloadBtn">Download PDF</button>';
         h += '</div>';

@@ -108,10 +108,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     const data = await res.json().catch(function() { return {}; });
                     throw new Error(data.error || 'failed');
                 }
-                show('Thank you! We received your info and will reach out shortly. Need us now? (708) 898-8831.', true);
+                show('Thank you! We received your info and will reach out shortly. Need us now? (708) 726-4536.', true);
                 heroForm.reset();
             } catch (err) {
-                show('Sorry, something went wrong. Please call us at (708) 898-8831.', false);
+                show('Sorry, something went wrong. Please call us at (708) 726-4536.', false);
             } finally {
                 btn.disabled = false;
             }
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 showStatus('Thank you' + (name ? ', ' + name : '') + '! We received your message and will contact you within 24 hours.', true);
                 contactForm.reset();
             } catch (err) {
-                showStatus('Sorry — something went wrong sending your message. Please call us at (708) 898-8831 and we will help right away.', false);
+                showStatus('Sorry — something went wrong sending your message. Please call us at (708) 726-4536 and we will help right away.', false);
             } finally {
                 if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
             }
