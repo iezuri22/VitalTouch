@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Care Readiness Assessment | See Where Your Parent Stands | VitalTouch Health Network</title>
-    <meta name="description" content="Answer 14 quick questions about your parent's daily life, safety, and support — and get a free personalized report with clear next steps. From VitalTouch Health Network, serving the Chicago area and south suburbs.">
+    <title>Free Care Readiness Assessment | See Where Things Stand | VitalTouch Health Network</title>
+    <meta name="description" content="Answer 17 quick questions about daily life, safety, and support — for an aging parent, a spouse, yourself, or an adult living with a disability. Get a free personalized report with clear next steps and the ways care could be paid for.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260706c">
+    <link rel="stylesheet" href="css/style.css?v=20260806a">
     <style>
         /* ===== Care Readiness Assessment (cra-) — flat VA-style, no gradients ===== */
         .cra-wrap { max-width: 720px; margin: 0 auto; padding: 40px 20px 80px; }
@@ -22,6 +22,7 @@
         .cra-points { list-style: none; margin: 0 0 30px; padding: 0; }
         .cra-points li { padding: 9px 0 9px 34px; position: relative; font-size: 1.05rem; color: var(--text-dark); }
         .cra-points li::before { content: '✓'; position: absolute; left: 4px; color: var(--teal); font-weight: 700; }
+        .cra-intro-note { font-size: 1rem; line-height: 1.65; color: var(--text); background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 0 4px 4px 0; margin: 0 0 28px; }
         .cra-start { display: inline-block; background: var(--gold); color: var(--navy); font-weight: 700; font-size: 1.15rem; padding: 16px 38px; border: none; border-radius: 4px; cursor: pointer; }
         .cra-start:hover { background: var(--gold-dark); }
         .cra-resume { margin-top: 14px; font-size: 1rem; }
@@ -87,6 +88,14 @@
         .cra-flags { margin: 30px 0; border: 2px solid var(--gold); border-radius: 4px; padding: 20px 22px; background: #FDFAF3; }
         .cra-flags h2 { font-size: 1.25rem; margin-bottom: 12px; }
         .cra-flags li { margin: 0 0 10px 18px; font-size: 1.02rem; line-height: 1.6; }
+        /* Coverage routing — the "who might pay for this" block */
+        .cra-coverage { margin: 34px 0 8px; border: 2px solid var(--teal); border-radius: 4px; padding: 24px 24px 20px; background: var(--teal-light); }
+        .cra-coverage h2 { font-size: 1.45rem; margin-bottom: 6px; }
+        .cra-coverage-intro { font-size: 1.02rem; line-height: 1.65; color: var(--text); margin-bottom: 18px; }
+        .cra-route { padding: 14px 0; border-top: 1px solid rgba(27,155,140,0.35); }
+        .cra-route h3 { font-size: 1.1rem; margin-bottom: 6px; color: var(--navy); }
+        .cra-route p { font-size: 1.02rem; line-height: 1.65; margin: 0; }
+        .cra-coverage-note { font-size: 0.98rem; line-height: 1.6; color: var(--text); margin: 18px 0 10px; font-style: italic; }
         .cra-steps { margin: 34px 0 8px; }
         .cra-steps h2 { font-size: 1.45rem; margin-bottom: 18px; }
         .cra-step { display: flex; gap: 16px; margin-bottom: 18px; }
@@ -116,6 +125,8 @@
             .cra-print-head div { font-size: 12px; color: #4A5568; text-align: right; line-height: 1.5; }
             .cra-domain { break-inside: avoid; }
             .cra-step { break-inside: avoid; }
+            .cra-route { break-inside: avoid; }
+            .cra-coverage { border-color: #1B9B8C; background: #fff; }
         }
         .cra-print-head { display: none; }
     </style>
@@ -130,7 +141,7 @@
       "url": "https://vitaltouchcares.com",
       "logo": "https://vitaltouchcares.com/images/logo-main.png",
       "image": "https://vitaltouchcares.com/images/logo-main.png",
-      "description": "Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.",
+      "description": "Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.",
       "telephone": "+1-708-898-8831",
       "email": "ifeanyi@vitaltouch.care",
       "priceRange": "$$",
@@ -160,6 +171,8 @@
 </head>
 <body>
 
+    <a href="#main" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -167,12 +180,13 @@
                 <a href="index.html" class="logo">
                     <img src="images/logo-main.png" alt="VitalTouch Health Network">
                 </a>
-                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
             <div class="nav-menu nav-menu-slim">
     <a href="services.html">Services</a>
-    <a href="pricing.html">Pricing</a>
+    <a href="disability-support.html">Disability Support</a>
+    <a href="paying-for-care.html">Ways to Pay</a>
     <a href="assessment.html">Free Assessment</a>
     <a href="contact.html">Contact</a>
     <a href="apply.html">Careers</a>
@@ -188,14 +202,15 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <nav class="mobile-nav" id="mobileNav">
         <a href="services.html">Services</a>
-        <a href="pricing.html">Pricing</a>
+        <a href="disability-support.html">Disability Support</a>
+        <a href="paying-for-care.html">Ways to Pay</a>
         <a href="assessment.html">Free Assessment</a>
         <a href="contact.html">Contact</a>
         <a href="apply.html">Careers</a>
         <a href="tel:7088988831" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 898-8831</a>
     </nav>
 
-    <main class="cra-wrap">
+    <main id="main" tabindex="-1" class="cra-wrap">
 
         <!-- Print-only letterhead -->
         <div class="cra-print-head">
@@ -205,16 +220,21 @@
 
         <!-- 1. Intro -->
         <section class="cra-screen cra-intro active" id="introScreen">
-            <h1>See where your parent stands</h1>
+            <h1>See where things really stand</h1>
             <p class="cra-intro-sub">
-                Fourteen quick questions about daily life, safety, memory, and support —
-                answered in about three minutes. No right or wrong answers, and nothing to prepare.
+                Seventeen quick questions about daily life, safety, memory, and support —
+                answered in about four minutes. No right or wrong answers, and nothing to prepare.
             </p>
             <ul class="cra-points">
                 <li>A clear picture of where things stand today, area by area</li>
+                <li>The ways this could be paid for — including benefits most families never hear about</li>
                 <li>A personalized report in plain language — yours to download and share with family</li>
                 <li>Practical next steps, whether or not you ever call us</li>
             </ul>
+            <p class="cra-intro-note">
+                For an aging parent, a spouse, yourself, or an adult of any age living
+                with a disability — the questions adjust to whoever you&rsquo;re answering about.
+            </p>
             <button class="cra-start" id="startBtn">Start the assessment</button>
             <p class="cra-resume" id="resumeRow" style="display:none;">
                 <a href="#" id="resumeLink"></a>
@@ -242,8 +262,8 @@
                     <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
                     <input type="email" name="email" placeholder="Your email address*" required autocomplete="email">
                     <label class="va-consent">
-                        <input type="checkbox" name="consent" required>
-                        <span>I agree that VitalTouch Health Network may contact me about home care services by phone, text, and email, including with automated technology or an AI assistant. Consent is not a condition of service. Reply STOP to any text to opt out. Message and data rates may apply.</span>
+                        <input type="checkbox" name="consent">
+                        <span class="consent-text">I agree that VitalTouch Health Network, Inc. may contact me about home care services by phone, text message, and email using the contact information I provide, including through automated technology or an AI assistant. Message frequency may vary. Message and data rates may apply. Consent is not a condition of purchase or of receiving services. Reply STOP to opt out of texts at any time, or say so on a call to stop being contacted. See our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a> for details.</span>
                     </label>
                     <button type="submit" class="va-submit" id="emailSubmit">Start the assessment</button>
                     <div class="cra-error" id="emailError"></div>
@@ -283,12 +303,12 @@
                 <form id="gateForm">
                     <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
                     <input type="text" name="name" placeholder="Your name*" required autocomplete="name">
-                    <input type="tel" name="phone" placeholder="Phone number*" required autocomplete="tel">
+                    <input type="tel" name="phone" placeholder="Phone number (optional)" autocomplete="tel">
                     <input type="email" name="email" placeholder="Email (for your report copy)" autocomplete="email">
                     <input type="text" name="zip" placeholder="Zip code where care may be needed" inputmode="numeric" maxlength="5">
                     <label class="va-consent">
-                        <input type="checkbox" name="consent" required>
-                        <span>I agree that VitalTouch Health Network may contact me about home care services by phone, text, and email, including with automated technology or an AI assistant. Consent is not a condition of service. Reply STOP to any text to opt out. Message and data rates may apply.</span>
+                        <input type="checkbox" name="consent">
+                        <span class="consent-text">I agree that VitalTouch Health Network, Inc. may contact me about home care services by phone, text message, and email using the contact information I provide, including through automated technology or an AI assistant. Message frequency may vary. Message and data rates may apply. Consent is not a condition of purchase or of receiving services. Reply STOP to opt out of texts at any time, or say so on a call to stop being contacted. See our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a> for details.</span>
                     </label>
                     <button type="submit" class="va-submit" id="gateSubmit">Show my report</button>
                     <div class="cra-error" id="gateError"></div>
@@ -309,13 +329,14 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <img src="images/logo-white.png" alt="VitalTouch Health Network">
-                    <p>Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.</p>
+                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="services.html">Our Services</a></li>
+                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="service-areas.html">Service Areas</a></li>
                         <li><a href="faq.html">FAQ</a></li>
@@ -328,6 +349,7 @@
                         <li><a href="services.html">Homemaking</a></li>
                         <li><a href="services.html">Transportation</a></li>
                         <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="disability-support.html">Disability Support</a></li>
                         <li><a href="services.html">Dementia Care</a></li>
                     </ul>
                 </div>
@@ -352,7 +374,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260706b"></script>
-    <script src="js/assessment.js?v=20260706c"></script>
+    <script src="js/main.js?v=20260806a"></script>
+    <script src="js/assessment.js?v=20260806a"></script>
 </body>
 </html>

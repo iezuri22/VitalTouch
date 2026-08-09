@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog & Resources | VitalTouch Health Network | Senior Care Tips</title>
+    <title>Blog & Resources | VitalTouch Health Network | Home Care Tips</title>
     <meta name="description" content="Helpful articles and resources about home care, senior wellness, Alzheimer's support, and caregiver tips from VitalTouch Health Network.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260706c">
+    <link rel="stylesheet" href="css/style.css?v=20260804b">
     <!-- Business structured data (helps Google's knowledge panel + sitelinks) -->
     <script type="application/ld+json">
     {
@@ -21,7 +21,7 @@
       "url": "https://vitaltouchcares.com",
       "logo": "https://vitaltouchcares.com/images/logo-main.png",
       "image": "https://vitaltouchcares.com/images/logo-main.png",
-      "description": "Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.",
+      "description": "Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.",
       "telephone": "+1-708-898-8831",
       "email": "ifeanyi@vitaltouch.care",
       "priceRange": "$$",
@@ -51,6 +51,8 @@
 </head>
 <body>
 
+    <a href="#main" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -58,12 +60,13 @@
                 <a href="index.html" class="logo">
                     <img src="images/logo-main.png" alt="VitalTouch Health Network">
                 </a>
-                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
             <div class="nav-menu nav-menu-slim">
     <a href="services.html">Services</a>
-    <a href="pricing.html">Pricing</a>
+    <a href="disability-support.html">Disability Support</a>
+    <a href="paying-for-care.html">Ways to Pay</a>
     <a href="assessment.html">Free Assessment</a>
     <a href="contact.html">Contact</a>
     <a href="apply.html">Careers</a>
@@ -79,7 +82,8 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <nav class="mobile-nav" id="mobileNav">
         <a href="services.html">Services</a>
-        <a href="pricing.html">Pricing</a>
+        <a href="disability-support.html">Disability Support</a>
+        <a href="paying-for-care.html">Ways to Pay</a>
         <a href="assessment.html">Free Assessment</a>
         <a href="contact.html">Contact</a>
         <a href="apply.html">Careers</a>
@@ -87,7 +91,7 @@
     </nav>
 
     <!-- Page Hero -->
-    <section class="page-hero">
+    <section id="main" tabindex="-1" class="page-hero">
         <div class="container">
             <div class="breadcrumb">
                 <a href="index.html">Home</a>
@@ -95,7 +99,7 @@
                 <span>Blog</span>
             </div>
             <h1>Blog & Resources</h1>
-            <p>Helpful articles about senior care, wellness, and supporting your loved ones.</p>
+            <p>Helpful articles about care at home, wellness, and supporting the people you love.</p>
         </div>
     </section>
 
@@ -141,7 +145,7 @@
             <!-- Newsletter Signup -->
             <div style="background: var(--teal); border-radius: 20px; padding: 50px; text-align: center; color: white;">
                 <h3 style="color: white; font-size: 1.75rem; margin-bottom: 16px;">Get Notified When We Post</h3>
-                <p style="opacity: 0.9; max-width: 500px; margin: 0 auto 24px;">Be the first to know when we publish new articles and resources about senior care.</p>
+                <p style="opacity: 0.9; max-width: 500px; margin: 0 auto 24px;">Be the first to know when we publish new articles and resources about care at home.</p>
                 <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
                     <a href="contact.html" class="btn btn-white">Contact Us to Subscribe</a>
                 </div>
@@ -213,13 +217,14 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <img src="images/logo-white.png" alt="VitalTouch Health Network">
-                    <p>Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.</p>
+                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="services.html">Our Services</a></li>
+                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="service-areas.html">Service Areas</a></li>
                         <li><a href="faq.html">FAQ</a></li>
@@ -232,6 +237,7 @@
                         <li><a href="services.html">Homemaking</a></li>
                         <li><a href="services.html">Transportation</a></li>
                         <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="disability-support.html">Disability Support</a></li>
                         <li><a href="services.html">Dementia Care</a></li>
                     </ul>
                 </div>

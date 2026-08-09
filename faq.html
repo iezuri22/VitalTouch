@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ | VitalTouch Health Network | Common Questions About Home Care</title>
-    <meta name="description" content="Find answers to frequently asked questions about VitalTouch Health Network services, Medicaid coverage, caregiver qualifications, and more.">
+    <meta name="description" content="Answers to common questions about VitalTouch Health Network — services, who we support, caregiver qualifications, and how care gets paid for: Medicaid, the Illinois Home Services Program, Medicare Advantage extra benefits, VA benefits, and long-term care insurance.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260706c">
+    <link rel="stylesheet" href="css/style.css?v=20260804b">
     <!-- Business structured data (helps Google's knowledge panel + sitelinks) -->
     <script type="application/ld+json">
     {
@@ -21,7 +21,7 @@
       "url": "https://vitaltouchcares.com",
       "logo": "https://vitaltouchcares.com/images/logo-main.png",
       "image": "https://vitaltouchcares.com/images/logo-main.png",
-      "description": "Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.",
+      "description": "Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.",
       "telephone": "+1-708-898-8831",
       "email": "ifeanyi@vitaltouch.care",
       "priceRange": "$$",
@@ -51,6 +51,8 @@
 </head>
 <body>
 
+    <a href="#main" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -58,12 +60,13 @@
                 <a href="index.html" class="logo">
                     <img src="images/logo-main.png" alt="VitalTouch Health Network">
                 </a>
-                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
             <div class="nav-menu nav-menu-slim">
     <a href="services.html">Services</a>
-    <a href="pricing.html">Pricing</a>
+    <a href="disability-support.html">Disability Support</a>
+    <a href="paying-for-care.html">Ways to Pay</a>
     <a href="assessment.html">Free Assessment</a>
     <a href="contact.html">Contact</a>
     <a href="apply.html">Careers</a>
@@ -79,7 +82,8 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <nav class="mobile-nav" id="mobileNav">
         <a href="services.html">Services</a>
-        <a href="pricing.html">Pricing</a>
+        <a href="disability-support.html">Disability Support</a>
+        <a href="paying-for-care.html">Ways to Pay</a>
         <a href="assessment.html">Free Assessment</a>
         <a href="contact.html">Contact</a>
         <a href="apply.html">Careers</a>
@@ -87,7 +91,7 @@
     </nav>
 
     <!-- Page Hero -->
-    <section class="page-hero">
+    <section id="main" tabindex="-1" class="page-hero">
         <div class="container">
             <div class="breadcrumb">
                 <a href="index.html">Home</a>
@@ -115,7 +119,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>We provide non-medical home care services including homemaking (cleaning, laundry, meal prep), companionship, transportation, personal care assistance, and specialized Alzheimer's and dementia care. We have both Homemakers and Certified Nursing Assistants (CNAs) available depending on your loved one's needs.</p>
+                                <p>We provide non-medical home care services including homemaking (cleaning, laundry, meal prep), companionship, transportation, personal care assistance, and specialized Alzheimer's and dementia care. We have both Homemakers and Certified Nursing Assistants (CNAs) available depending on what kind of help is needed.</p>
                             </div>
                         </div>
                     </div>
@@ -151,7 +155,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>Yes — VitalTouch Health Network is licensed by the State of Illinois and is a certified Medicaid provider. We meet all state requirements to provide home care.</p>
+                                <p>Yes — VitalTouch Health Network is licensed by the State of Illinois to provide home care, and we meet all state requirements to do so. Our caregivers are background-checked, insured, and bonded.</p>
                             </div>
                         </div>
                     </div>
@@ -192,7 +196,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>We strive for continuity of care by assigning a primary caregiver whenever possible. This allows clients to build rapport and feel comfortable with a familiar face. If a backup caregiver is ever needed, we ensure they're fully briefed on your loved one's care plan.</p>
+                                <p>We strive for continuity of care by assigning a primary caregiver whenever possible. This allows clients to build rapport and feel comfortable with a familiar face. If a backup caregiver is ever needed, we ensure they're fully briefed on the care plan.</p>
                             </div>
                         </div>
                     </div>
@@ -204,7 +208,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>We carefully match clients with caregivers based on care needs, personality compatibility, skills, and experience. We take time to understand your loved one's preferences and requirements to find the best fit.</p>
+                                <p>We carefully match clients with caregivers based on care needs, personality compatibility, skills, and experience. We take time to understand each client's own preferences and requirements to find the best fit.</p>
                             </div>
                         </div>
                     </div>
@@ -221,7 +225,8 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>Yes! VitalTouch is a certified Medicaid provider. If you qualify for Medicaid home care benefits, there may be no out-of-pocket cost to you. We handle all the billing and paperwork. Contact us to check your eligibility.</p>
+                                <p>Not yet — we're not currently able to bill Medicaid, and we'd rather say so here than after you've made plans around it.</p>
+                                <p>That doesn't mean we can't help. If Medicaid looks like the right route for your family, we'll tell you honestly whether you'd likely qualify and what applying involves — and if you need care before we're able to bill it, we'll point you to an agency that can. There are also five other ways families pay for care, several of which we can work with today. <a href="paying-for-care.html">Here they are</a>.</p>
                             </div>
                         </div>
                     </div>
@@ -233,11 +238,50 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>You can also pay on your own, with flexible scheduling and fair hourly rates. There are no minimums required, and you choose the hours that work for your family. Contact us for a personalized quote.</p>
+                                <p>Then there are five other routes worth checking before you pay anything out of pocket: the Illinois Home Services Program, extra benefits inside a Medicare Advantage plan, VA benefits, a long-term care insurance policy, or paying on your own with no minimums and no long contract. <a href="paying-for-care.html">See all six ways families pay for care</a>, or call us and we'll check what applies to you.</p>
                             </div>
                         </div>
                     </div>
-                    
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Does Medicare pay for home care?</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Original Medicare — the red, white and blue card on its own — covers short stretches of skilled care after a hospital stay, not the ongoing everyday help most families are looking for. We'd rather tell you that plainly than let you find out three phone calls later.</p>
+                                <p>A Medicare Advantage plan is a different story. Many plans here now include a set number of in-home support hours each year as an extra benefit. It isn't printed on the card and it's rarely mentioned at enrollment. Tell us the plan name and we'll find out what it includes. <a href="paying-for-care.html#medicare-advantage">More on how that works</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>My father is a veteran — does the VA help pay for this?</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Often, yes. The VA has a Homemaker and Home Health Aide program that pays an agency for exactly this kind of everyday help at home, plus Veteran-Directed Care, where the veteran holds a budget and chooses who provides it. The way in is usually a VA social worker — ask for a referral to the Homemaker and Home Health Aide program.</p>
+                                <p>There's also Aid and Attendance, an added monthly amount on a VA pension for veterans and surviving spouses who need help with daily living. A lot of families who qualify have simply never been told about it, and nobody should ever charge you a fee to file the claim. <a href="paying-for-care.html#va">More on VA benefits</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>My mother has a long-term care policy. Can you help us use it?</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Yes, and it's one of the most common conversations we have. Most long-term care policies cover care at home, not just nursing homes — and most families never file, because the paperwork is off-putting and nobody explained how to start.</p>
+                                <p>Bring the policy to a free consultation. We'll read it with you, tell you plainly what it covers, and handle the visit documentation the insurer asks for. <a href="paying-for-care.html#ltc-insurance">What to look for in the policy</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="faq-item">
                         <button class="faq-question">
                             <span>How much does home care cost?</span>
@@ -245,36 +289,62 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>For Medicaid clients, care is typically covered at no cost. If you're paying on your own, rates depend on the level of care needed and hours required. Contact us for a free consultation and personalized quote—there's no obligation.</p>
+                                <p>If a policy or a plan benefit is paying, what it costs you depends on what that covers — and checking is free. If you're paying on your own, rates depend on the level of care and the hours needed. Contact us for a free consultation and a personalized quote; there's no obligation.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Family Caregiver Program -->
-                <h3 style="color: var(--teal); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid var(--teal-light);">Family Caregiver Program</h3>
-                
+                <!-- Disability support -->
+                <h3 style="color: var(--teal); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid var(--teal-light);">Support for Adults Living With a Disability</h3>
+
                 <div class="faq-list" style="margin-bottom: 50px;">
                     <div class="faq-item">
                         <button class="faq-question">
-                            <span>What is the Family Caregiver Program?</span>
+                            <span>Do you only work with seniors?</span>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>Our Family Caregiver Program helps qualified family members become certified, paid caregivers through Medicaid. If your loved one has Medicaid and you're already providing care, you may be able to get compensated for it while keeping care in the family.</p>
+                                <p>No. We support adults of any age living with a disability — people in their thirties, forties, and fifties as well as their eighties. The help is the same kind of help; what changes is that you're likely working, running a household, or raising children alongside it, and you want support with specific parts of the day rather than with life in general. <a href="disability-support.html">Here's how that works</a>.</p>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="faq-item">
                         <button class="faq-question">
-                            <span>How do I enroll a family member as a caregiver?</span>
+                            <span>I'm under 60 and I've been told I'm too young for the programs. Is there anything?</span>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>Contact us to discuss your situation. We'll guide you through the certification process, provide required training, and handle the paperwork to get your family member set up as an approved caregiver through Medicaid.</p>
+                                <p>Yes — and that's the most frustrating gap in the whole system, because the answer exists and almost nobody mentions it. Illinois runs the Home Services Program, which funds help at home for adults under 60 living with a disability, specifically so people can stay in their own place instead of moving into a facility. It sits outside the senior system entirely, which is exactly why you keep being told you don't qualify for the programs people name first.</p>
+                                <p>Call us and say you're asking about the Home Services Program. We'll walk you through how it works and point you to the right office. <a href="paying-for-care.html#home-services">More detail here</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Can caregivers help with transfers and mobility equipment?</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Yes. Hands-on help getting in and out of bed, a chair, or the shower is core to what our personal care staff do, and they're trained to do it safely — for their sake as much as yours. Transfers done by an untrained helper are the single most common way both people end up hurt.</p>
+                                <p>What we don't do is skilled nursing: wound care, injections, catheter changes, ventilator management. If part of what you need is nursing, we'll say so on the first call rather than the third week, and point you toward who does it. Quite often the answer is both, working alongside each other.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Who decides what the caregiver does?</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>You do. You say what gets done, how you like it done, and when. A care plan written about someone without them isn't a care plan, it's a schedule somebody else made. And if a caregiver isn't the right match, tell us — you won't have to justify it, and we'll change it.</p>
                             </div>
                         </div>
                     </div>
@@ -291,7 +361,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>It's easy! Call us at (708) 898-8831 or fill out our contact form for a free consultation. We'll discuss your loved one's needs, answer your questions, create a personalized care plan, and match you with the right caregiver.</p>
+                                <p>It's easy! Call us at (708) 898-8831 or fill out our contact form for a free consultation. We'll discuss what help is needed, answer your questions, create a personalized care plan, and match you with the right caregiver.</p>
                             </div>
                         </div>
                     </div>
@@ -303,7 +373,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                <p>If you're paying on your own, we can often begin care within 24-48 hours. For Medicaid clients, timing depends on the approval process, but we work to expedite things as quickly as possible. Contact us to discuss your timeline.</p>
+                                <p>If you're paying on your own, we can often begin care within 24-48 hours. If a policy or a plan benefit is paying, timing depends on that payer's approval process — we'll give you a realistic estimate once we know which one it is, rather than a hopeful one. Contact us to discuss your timeline.</p>
                             </div>
                         </div>
                     </div>
@@ -344,13 +414,14 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <img src="images/logo-white.png" alt="VitalTouch Health Network">
-                    <p>Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.</p>
+                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="services.html">Our Services</a></li>
+                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="service-areas.html">Service Areas</a></li>
                         <li><a href="faq.html">FAQ</a></li>
@@ -363,6 +434,7 @@
                         <li><a href="services.html">Homemaking</a></li>
                         <li><a href="services.html">Transportation</a></li>
                         <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="disability-support.html">Disability Support</a></li>
                         <li><a href="services.html">Dementia Care</a></li>
                     </ul>
                 </div>

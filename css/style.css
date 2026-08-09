@@ -1287,3 +1287,97 @@ ul, ol { list-style: none; }
     .va-paths-grid { grid-template-columns: 1fr; }
     .va-path-btn { display: block; text-align: center; }
 }
+
+/* ============================================
+   ACCESSIBILITY
+   Many of our clients navigate by keyboard, by
+   screen reader, or with a magnifier. These are
+   the baseline affordances that make that work.
+   ============================================ */
+
+/* Skip link — first tab stop on every page, hidden until focused */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 2000;
+    background: var(--navy);
+    color: #fff;
+    font-weight: 700;
+    padding: 14px 22px;
+    border-radius: 0 0 var(--radius-sm) 0;
+    text-decoration: none;
+}
+.skip-link:focus {
+    left: 0;
+    color: #fff;
+}
+
+/* A visible focus ring everywhere, in the brand's own colour. Browsers only
+   show :focus-visible for keyboard/AT users, so this costs mouse users nothing. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid var(--teal);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Form fields dropped their outline for a border colour change alone, which is
+   invisible to anyone who can't distinguish the two greys. Give them a ring. */
+.form-group input:focus-visible,
+.form-group textarea:focus-visible,
+.form-group select:focus-visible {
+    outline: 3px solid var(--teal);
+    outline-offset: 1px;
+}
+
+/* Skip-link targets take focus programmatically; never draw a ring around a
+   whole page section as a result. */
+main:focus,
+section[tabindex="-1"]:focus {
+    outline: none;
+}
+
+/* Respect a stated preference for less motion. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================
+   NAV SIZING — the slim nav carries six items
+   since Disability Support was added. Tighten
+   the spacing, and hand over to the hamburger
+   before the links would wrap to a second line.
+   ============================================ */
+.nav-menu-slim { gap: 2px; }
+.nav-menu-slim a { padding: 10px 11px; white-space: nowrap; }
+
+/* The closed mobile drawer parks at right:-100%, which widens the scrollable
+   area. body clips it but html never did, so some mobile browsers still let
+   the page slide sideways. Clip at the root too. */
+html { overflow-x: hidden; }
+
+@media (max-width: 1120px) {
+    /* Links move into the hamburger, but the phone number stays visible —
+       it's the primary action for a lot of the people who call us. */
+    .nav-menu { display: none; }
+    .mobile-toggle { display: flex; order: 3; }
+    .mobile-nav { display: block; }
+}
+
+/* A2P: the opt-in checkbox links must read as links on the light forms and
+   on the dark navy hero card alike. */
+.consent-text a,
+.va-consent a { color: inherit; text-decoration: underline; }

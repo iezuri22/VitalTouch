@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services | VitalTouch Health Network | Homemaking, CNA, Dementia Care</title>
-    <meta name="description" content="VitalTouch offers homemaking services, CNA care, companionship, transportation, Alzheimer's & dementia care in Chicago and Cook County. Medicaid accepted.">
+    <meta name="description" content="VitalTouch offers homemaking services, CNA care, companionship, transportation, Alzheimer's & dementia care for seniors and adults living with a disability, across Chicago and Cook County.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260706c">
+    <link rel="stylesheet" href="css/style.css?v=20260804b">
     <style>
         .service-detail {
             background: var(--white);
@@ -125,7 +125,7 @@
       "url": "https://vitaltouchcares.com",
       "logo": "https://vitaltouchcares.com/images/logo-main.png",
       "image": "https://vitaltouchcares.com/images/logo-main.png",
-      "description": "Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.",
+      "description": "Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.",
       "telephone": "+1-708-898-8831",
       "email": "ifeanyi@vitaltouch.care",
       "priceRange": "$$",
@@ -155,6 +155,8 @@
 </head>
 <body>
 
+    <a href="#main" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -162,12 +164,13 @@
                 <a href="index.html" class="logo">
                     <img src="images/logo-main.png" alt="VitalTouch Health Network">
                 </a>
-                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
             <div class="nav-menu nav-menu-slim">
     <a href="services.html">Services</a>
-    <a href="pricing.html">Pricing</a>
+    <a href="disability-support.html">Disability Support</a>
+    <a href="paying-for-care.html">Ways to Pay</a>
     <a href="assessment.html">Free Assessment</a>
     <a href="contact.html">Contact</a>
     <a href="apply.html">Careers</a>
@@ -183,7 +186,8 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <nav class="mobile-nav" id="mobileNav">
         <a href="services.html">Services</a>
-        <a href="pricing.html">Pricing</a>
+        <a href="disability-support.html">Disability Support</a>
+        <a href="paying-for-care.html">Ways to Pay</a>
         <a href="assessment.html">Free Assessment</a>
         <a href="contact.html">Contact</a>
         <a href="apply.html">Careers</a>
@@ -191,7 +195,7 @@
     </nav>
 
     <!-- Page Hero -->
-    <section class="page-hero">
+    <section id="main" tabindex="-1" class="page-hero">
         <div class="container">
             <div class="breadcrumb">
                 <a href="index.html">Home</a>
@@ -199,7 +203,35 @@
                 <span>Services</span>
             </div>
             <h1>Our Services</h1>
-            <p>Comprehensive non-medical home care tailored to your loved one's unique needs.</p>
+            <p>Comprehensive non-medical home care, built around what each person actually needs — for an aging parent, a spouse, or an adult of any age living with a disability.</p>
+        </div>
+    </section>
+
+    <!-- Support for adults living with a disability -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Not Only For Seniors</span>
+                <h2>Support for Adults <span class="highlight">Living With a Disability</span></h2>
+                <p>Home care gets written as though everyone who needs it is 85. Plenty of the people we support are 35, or 52 — living with a disability, running a household, holding down a job, and needing a hand with some specific parts of the day rather than with life in general.</p>
+            </div>
+            <div class="grid-3" style="max-width: 1000px; margin: 0 auto 32px;">
+                <div class="card">
+                    <h4 style="margin-bottom: 8px;">You direct the care</h4>
+                    <p style="font-size: 0.98rem;">You say what gets done, how you like it done, and when. A care plan written about you without you isn't a care plan — it's someone else's schedule.</p>
+                </div>
+                <div class="card">
+                    <h4 style="margin-bottom: 8px;">Help with the specific parts</h4>
+                    <p style="font-size: 0.98rem;">Personal care and safe transfers, meals and housekeeping, rides to work or dialysis or appointments — whichever pieces you want, and none of the ones you don't.</p>
+                </div>
+                <div class="card">
+                    <h4 style="margin-bottom: 8px;">A program most people miss</h4>
+                    <p style="font-size: 0.98rem;">Illinois funds help at home for adults under 60 living with a disability. If you've been told you're "too young" for the usual programs, this is the one you weren't told about.</p>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="disability-support.html" class="btn btn-primary">See how disability support works</a>
+            </div>
         </div>
     </section>
 
@@ -209,7 +241,7 @@
             <div class="section-header">
                 <span class="section-label">What We Offer</span>
                 <h2>Homemakers & CNAs <span class="highlight">Ready to Help</span></h2>
-                <p>We provide both Homemaker services and Certified Nursing Assistant (CNA) care. Whether your loved one needs help around the house or more hands-on personal assistance, we have the right caregiver for them.</p>
+                <p>We provide both Homemaker services and Certified Nursing Assistant (CNA) care. Whether the need is help around the house or more hands-on personal assistance, we have the right caregiver for it.</p>
             </div>
 
             <!-- Primary Service: Homemaking -->
@@ -221,7 +253,7 @@
                     <div>
                         <span class="service-detail-badge">Primary Service</span>
                         <h3>Homemaking Services</h3>
-                        <p>Our homemakers help maintain a clean, safe, and comfortable living environment so your loved one can thrive at home.</p>
+                        <p>Our homemakers help maintain a clean, safe, and comfortable living environment so home stays somewhere you actually want to be.</p>
                     </div>
                 </div>
                 <ul>
@@ -301,7 +333,7 @@
                     <div>
                         <span class="service-detail-badge">Core Service</span>
                         <h3>Transportation</h3>
-                        <p>Safe, reliable transportation so your loved one never misses an appointment or opportunity to get out.</p>
+                        <p>Safe, reliable transportation so nobody misses an appointment, a shift, or a chance to get out.</p>
                     </div>
                 </div>
                 <ul>
@@ -412,33 +444,10 @@
                 </ul>
             </div>
 
-            <!-- Family Caregiver Program Highlight -->
-            <div class="highlight-box">
-                <h3>👨‍👩‍👧 Family Caregiver Program</h3>
-                <p>Did you know your family members could become certified, paid caregivers through Medicaid? We help qualified families keep care close to home while receiving compensation for their dedication.</p>
-                <ul>
-                    <li>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                        <span>We guide you through the certification process</span>
-                    </li>
-                    <li>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                        <span>Training provided to meet state requirements</span>
-                    </li>
-                    <li>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                        <span>Get paid through Medicaid for caring for your loved one</span>
-                    </li>
-                    <li>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                        <span>Keep care in the family with professional support</span>
-                    </li>
-                </ul>
-                <a href="contact.html" class="btn btn-white">Learn More About This Program</a>
-            </div>
 
         </div>
     </section>
+
 
     <!-- Tech Features -->
     <section class="section section-cream">
@@ -510,13 +519,14 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <img src="images/logo-white.png" alt="VitalTouch Health Network">
-                    <p>Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.</p>
+                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="services.html">Our Services</a></li>
+                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="service-areas.html">Service Areas</a></li>
                         <li><a href="faq.html">FAQ</a></li>
@@ -553,6 +563,6 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260706b"></script>
+    <script src="js/main.js?v=20260804a"></script>
 </body>
 </html>

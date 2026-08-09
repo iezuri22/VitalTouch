@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ways to Pay for Home Care | Medicaid, VA, Medicare Advantage &amp; More | VitalTouch Health Network</title>
+    <meta name="description" content="Six ways families pay for in-home care in the Chicago area and south suburbs — Medicaid, the Illinois Home Services Program, Medicare Advantage extra benefits, VA benefits, long-term care insurance, and paying on your own. We check what you're covered for, free.">
+    <link rel="icon" type="image/png" href="images/logo-symbol.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20260804b">
+    <style>
+        .pay-wrap { max-width: 900px; margin: 0 auto; padding: 44px 20px 80px; }
+        .pay-head h1 { font-size: clamp(2rem, 5vw, 2.9rem); margin-bottom: 16px; }
+        .pay-head p { font-size: 1.12rem; line-height: 1.75; color: var(--text); }
+        .pay-head p + p { margin-top: 14px; }
+
+        .pay-jump { margin: 34px 0 10px; padding: 22px 24px; background: var(--cream); border: 1px solid var(--border); border-radius: 4px; }
+        .pay-jump h2 { font-size: 1.1rem; margin-bottom: 12px; }
+        /* The global reset strips list markers; the numbering is the point here. */
+        .pay-jump ol { margin: 0; padding-left: 24px; list-style: decimal; }
+        .pay-jump li { font-size: 1.02rem; line-height: 1.9; padding-left: 4px; }
+        .pay-jump li::marker { color: var(--text-muted); font-weight: 700; }
+
+        .pay-route { padding: 34px 0 30px; border-bottom: 1px solid var(--border); scroll-margin-top: 90px; }
+        .pay-route .who { display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal-dark); background: var(--teal-light); padding: 5px 12px; border-radius: 3px; margin-bottom: 12px; }
+        .pay-route h2 { font-size: clamp(1.4rem, 3.2vw, 1.85rem); margin-bottom: 12px; }
+        .pay-route p { font-size: 1.06rem; line-height: 1.75; color: var(--text); margin-bottom: 14px; }
+        .pay-route ul { margin: 0 0 16px; padding: 0; list-style: none; }
+        .pay-route ul li { position: relative; padding: 8px 0 8px 30px; font-size: 1.04rem; line-height: 1.6; color: var(--text-dark); }
+        .pay-route ul li::before { content: '✓'; position: absolute; left: 2px; color: var(--teal); font-weight: 800; }
+        .pay-next { background: var(--white); border-left: 4px solid var(--gold); padding: 16px 20px; border-radius: 0 4px 4px 0; box-shadow: var(--shadow-sm); }
+        .pay-next strong { color: var(--navy); display: block; margin-bottom: 4px; }
+        .pay-next p { margin: 0; font-size: 1.02rem; }
+
+        .pay-straight { background: var(--navy); color: #fff; border-radius: 4px; padding: 28px 30px; margin: 40px 0 0; }
+        .pay-straight h2 { color: #fff; font-size: 1.4rem; margin-bottom: 10px; }
+        .pay-straight p { color: rgba(255,255,255,0.86); font-size: 1.05rem; line-height: 1.75; margin-bottom: 12px; }
+        .pay-straight p:last-child { margin-bottom: 0; }
+        .pay-straight a { color: var(--gold); font-weight: 700; }
+
+        .pay-cta { margin: 44px 0 0; padding: 32px 30px; border: 2px solid var(--teal); border-radius: 4px; background: var(--teal-light); }
+        .pay-cta h2 { font-size: 1.5rem; margin-bottom: 10px; }
+        .pay-cta p { font-size: 1.06rem; line-height: 1.7; color: var(--text); margin-bottom: 20px; }
+        .pay-cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+        .pay-btn-gold { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 1.06rem; padding: 15px 30px; border-radius: 4px; text-decoration: none; display: inline-block; }
+        .pay-btn-gold:hover { background: var(--gold-dark); color: var(--navy); }
+        .pay-btn-outline { background: none; border: 2px solid var(--navy); color: var(--navy); font-weight: 700; font-size: 1.06rem; padding: 13px 28px; border-radius: 4px; text-decoration: none; display: inline-block; }
+        .pay-btn-outline:hover { background: var(--navy); color: #fff; }
+        .pay-fineprint { color: var(--text-muted); font-size: 0.92rem; line-height: 1.65; margin-top: 30px; }
+
+        @media (max-width: 560px) {
+            .pay-wrap { padding: 28px 16px 60px; }
+            .pay-cta-row a { width: 100%; text-align: center; }
+        }
+    </style>
+    <!-- Business structured data (helps Google's knowledge panel + sitelinks) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://vitaltouchcares.com/#business",
+      "name": "VitalTouch Health Network",
+      "legalName": "VitalTouch Health Network, Inc.",
+      "url": "https://vitaltouchcares.com",
+      "logo": "https://vitaltouchcares.com/images/logo-main.png",
+      "image": "https://vitaltouchcares.com/images/logo-main.png",
+      "description": "Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.",
+      "telephone": "+1-708-898-8831",
+      "email": "ifeanyi@vitaltouch.care",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "4749 Lincoln Mall Drive, Suite 204",
+        "addressLocality": "Matteson",
+        "addressRegion": "IL",
+        "postalCode": "60443",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 41.5045, "longitude": -87.7139 },
+      "areaServed": [
+        { "@type": "City", "name": "Matteson" },
+        { "@type": "City", "name": "Homewood" },
+        { "@type": "City", "name": "Chicago" },
+        { "@type": "AdministrativeArea", "name": "Cook County, Illinois" }
+      ],
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "09:00", "closes": "17:00"
+      }],
+      "sameAs": []
+    }
+    </script>
+</head>
+<body>
+
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="images/logo-main.png" alt="VitalTouch Health Network">
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
+                    <span></span><span></span><span></span>
+                </button>
+            <div class="nav-menu nav-menu-slim">
+    <a href="services.html">Services</a>
+    <a href="disability-support.html">Disability Support</a>
+    <a href="paying-for-care.html" aria-current="page">Ways to Pay</a>
+    <a href="assessment.html">Free Assessment</a>
+    <a href="contact.html">Contact</a>
+    <a href="apply.html">Careers</a>
+</div>
+                <div class="nav-cta">
+                    <a href="tel:7088988831" class="nav-phone nav-phone-big">(708) 898-8831</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="services.html">Services</a>
+        <a href="disability-support.html">Disability Support</a>
+        <a href="paying-for-care.html">Ways to Pay</a>
+        <a href="assessment.html">Free Assessment</a>
+        <a href="contact.html">Contact</a>
+        <a href="apply.html">Careers</a>
+        <a href="tel:7088988831" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 898-8831</a>
+    </nav>
+
+    <main class="pay-wrap" id="main">
+        <div class="pay-head">
+            <h1>There are more ways to pay for care than most families are told</h1>
+            <p>
+                Almost everyone who calls us assumes there are two options: qualify for Medicaid,
+                or pay for everything out of pocket. There are at least six, and the ones in the
+                middle are the ones nobody explains — a benefit sitting unused inside a health
+                plan, a program for adults under 60, a policy bought twenty years ago and never
+                claimed on.
+            </p>
+            <p>
+                Below is every route we know of, written plainly, including the ones that lead
+                somewhere other than us. If you'd rather not read all six: call
+                <a href="tel:7088988831"><strong>(708) 898-8831</strong></a> and tell us what you
+                have. Checking costs nothing, and what we find out is yours either way.
+            </p>
+        </div>
+
+        <div class="pay-jump">
+            <h2>The six routes</h2>
+            <ol>
+                <li><a href="#medicaid">Medicaid</a></li>
+                <li><a href="#home-services">The Illinois Home Services Program — for adults under 60 living with a disability</a></li>
+                <li><a href="#medicare-advantage">Extra benefits inside a Medicare Advantage plan</a></li>
+                <li><a href="#va">VA benefits, for anyone who served</a></li>
+                <li><a href="#ltc-insurance">A long-term care insurance policy</a></li>
+                <li><a href="#own">Paying on your own</a></li>
+            </ol>
+        </div>
+
+        <!-- 1 -->
+        <section class="pay-route" id="medicaid">
+            <span class="who">For those who qualify on income</span>
+            <h2>Medicaid</h2>
+            <p>
+                Illinois Medicaid covers help at home for people who qualify on income and on
+                need — personal care, homemaking, companionship — usually with nothing out of
+                pocket. Hours are set by a care assessment rather than by what you can afford
+                in a given month, which is why it's worth checking even if you assume you
+                wouldn't qualify.
+            </p>
+            <p>
+                Where we stand, plainly: <strong>we aren't able to bill Medicaid for you yet.</strong>
+                What we can do today is tell you honestly whether the person you're asking about
+                is likely to qualify and what applying involves — and if Medicaid turns out to be
+                the right route and you need care before we can bill it, we'll say so and point
+                you to an agency that can.
+            </p>
+            <ul>
+                <li>We'll talk through likely eligibility before you fill in a single form</li>
+                <li>Hours are based on assessed need, not on your monthly budget</li>
+                <li>Knowing where you stand costs nothing and you keep it either way</li>
+            </ul>
+            <div class="pay-next">
+                <strong>What to do next</strong>
+                <p>Call us with the situation and we'll tell you where you'd likely stand — and where we stand — on the same call.</p>
+            </div>
+        </section>
+
+        <!-- 2 -->
+        <section class="pay-route" id="home-services">
+            <span class="who">For adults under 60 living with a disability</span>
+            <h2>The Illinois Home Services Program</h2>
+            <p>
+                This is the one almost nobody hears about. Illinois funds help at home for adults
+                under 60 who live with a disability — personal care, homemaking, the ordinary
+                everyday things — specifically so people can stay in their own home instead of
+                moving into a facility. It is a separate program from anything on the senior side,
+                with its own rules and its own front door.
+            </p>
+            <p>
+                If you are 34 with MS, 51 after a spinal cord injury, or the parent of an adult
+                child with a developmental disability, this is very likely the route that applies
+                to you — and the reason you've been told "you're too young for that program" every
+                other time you've asked.
+            </p>
+            <ul>
+                <li>Built around independence: the point is to keep you in your own place, on your own terms</li>
+                <li>Age is a qualifier here, not a barrier — being under 60 is the point</li>
+                <li>Often works alongside Social Security disability benefits</li>
+                <li>Applying takes some paperwork; we'll tell you honestly what's involved before you start</li>
+            </ul>
+            <p>
+                Same straight answer as above: <strong>we aren't approved to be paid through this
+                program yet</strong> — we're working through it. That doesn't change whether it's
+                the right route for you, and it's worth applying regardless, because approval takes
+                time and you'll want it in place before you need it.
+            </p>
+            <div class="pay-next">
+                <strong>What to do next</strong>
+                <p>Call us and say you're asking about the Home Services Program. We'll walk you through how it works and point you to the right office to apply — whether or not we end up being the agency you use.</p>
+            </div>
+        </section>
+
+        <!-- 3 -->
+        <section class="pay-route" id="medicare-advantage">
+            <span class="who">For anyone on a Medicare Advantage plan</span>
+            <h2>Extra benefits inside a Medicare Advantage plan</h2>
+            <p>
+                This is the benefit families miss most often. A great many Medicare Advantage plans
+                around here now include a set number of in-home support hours each year — help with
+                meals, housekeeping, personal care, a ride to an appointment — as an extra benefit
+                layered on top of the medical coverage.
+            </p>
+            <p>
+                It isn't printed on the card. It's rarely mentioned at enrollment. And the medical
+                side of the plan usually can't tell you about it, because it isn't a medical
+                benefit. It sits in the back of the benefits booklet under a heading most people
+                never read.
+            </p>
+            <ul>
+                <li>Look in the plan's benefits booklet for <em>in-home support</em>, <em>personal care</em>, <em>homemaker</em>, or <em>caregiver support</em></li>
+                <li>Some plans call it a flex allowance or a supplemental benefit card</li>
+                <li>Hours usually reset each plan year — unused ones are simply lost</li>
+                <li>Benefits vary a lot from plan to plan, even between two plans from the same insurer</li>
+            </ul>
+            <div class="pay-next">
+                <strong>What to do next</strong>
+                <p>Tell us the plan name and we'll find out what it includes. If it turns out the plan covers hours, we'll work with you on what it takes to use them.</p>
+            </div>
+        </section>
+
+        <!-- 4 -->
+        <section class="pay-route" id="va">
+            <span class="who">For veterans and surviving spouses</span>
+            <h2>VA benefits, for anyone who served</h2>
+            <p>
+                If there's military service in the family, the VA has a benefit built for exactly
+                this: the Homemaker and Home Health Aide program, which pays an agency to provide
+                everyday help at home. There's also Veteran-Directed Care, where the veteran holds
+                a budget and chooses who provides the care. The VA medical centers serving this
+                area run both.
+            </p>
+            <p>
+                And separately from all of that, there's Aid and Attendance — an added monthly
+                amount on a VA pension for veterans and surviving spouses who need help with daily
+                living. A remarkable number of families who qualify have simply never been told
+                it exists.
+            </p>
+            <ul>
+                <li>The way in is a VA social worker — ask for a referral to the Homemaker and Home Health Aide program</li>
+                <li>Surviving spouses may qualify for Aid and Attendance too, not only veterans</li>
+                <li>This runs on its own track, independent of Medicare or Medicaid status</li>
+                <li>Nobody should ever charge you a fee to file a VA benefits claim</li>
+            </ul>
+            <div class="pay-next">
+                <strong>What to do next</strong>
+                <p>Ask the veteran's VA social worker about the Homemaker and Home Health Aide program. If you don't know who that is, call us — we'll help you find the right person to ask.</p>
+            </div>
+        </section>
+
+        <!-- 5 -->
+        <section class="pay-route" id="ltc-insurance">
+            <span class="who">For families holding a policy</span>
+            <h2>A long-term care insurance policy</h2>
+            <p>
+                A policy paid into for twenty years and never used is real money sitting there.
+                Most long-term care policies cover care at home — not just nursing homes — and
+                most families never file, because the paperwork is off-putting and nobody ever
+                explained how to start.
+            </p>
+            <p>
+                This is often the situation an adult child inherits: a parent's policy, a folder
+                of documents, and no idea what any of it means. It's one of the most common
+                conversations we have, and it's usually shorter than people fear.
+            </p>
+            <ul>
+                <li>Find the daily or monthly benefit amount — that's the ceiling on what it pays</li>
+                <li>Find the elimination period — the waiting days before benefits start</li>
+                <li>Check whether it requires a licensed agency; we are one</li>
+                <li>Check whether it needs an assessment first, and who's allowed to do it</li>
+            </ul>
+            <div class="pay-next">
+                <strong>What to do next</strong>
+                <p>Bring the policy to a free consultation. We'll read it with you, tell you plainly what it covers, and handle the visit documentation the insurer asks for.</p>
+            </div>
+        </section>
+
+        <!-- 6 -->
+        <section class="pay-route" id="own">
+            <span class="who">For everyone else, and as a bridge</span>
+            <h2>Paying on your own</h2>
+            <p>
+                Plenty of families start here, and it's the most flexible option there is — you
+                choose the hours, change them whenever you like, and nothing has to be approved by
+                anyone. It's also the right way to bridge the gap while a program application is
+                working its way through.
+            </p>
+            <p>
+                The trick is to start with the hours that cover the hardest part of the week
+                rather than trying to cover everything at once. Most families are surprised at how
+                much difference a few well-placed hours make.
+            </p>
+            <ul>
+                <li>No minimums, no long contracts — month to month</li>
+                <li>Start small and add hours as you need them</li>
+                <li>Monthly care plans are available if you'd rather have a set schedule and a set price</li>
+            </ul>
+            <div class="pay-next">
+                <strong>What to do next</strong>
+                <p>See <a href="care-plans.html">the monthly care plans</a> or <a href="pricing.html">how our rates work</a>, then call for a quote built around your actual week.</p>
+            </div>
+        </section>
+
+        <div class="pay-straight">
+            <h2>One straight answer about Medicare</h2>
+            <p>
+                Original Medicare — the red, white and blue card on its own — does not pay for
+                ongoing everyday help at home. It covers short stretches of skilled care after a
+                hospital stay, and that's a different thing from what most families are looking for.
+            </p>
+            <p>
+                We'd rather tell you that here than let you find out three phone calls later. If
+                Original Medicare is all that's in place, the answer is almost always one of the
+                other five routes above — and it's worth ten minutes on the phone to work out
+                which one. Call <a href="tel:7088988831">(708) 898-8831</a>.
+            </p>
+        </div>
+
+        <div class="pay-cta">
+            <h2>Not sure which one applies? That's the normal answer.</h2>
+            <p>
+                Tell us what you have — a plan card, a policy, a benefits letter, or nothing at
+                all — and we'll do the checking. It's free, there's no obligation, and you keep
+                whatever we find out whether or not you ever become a client.
+            </p>
+            <div class="pay-cta-row">
+                <a href="consult.html" class="pay-btn-gold">Request a free coverage check</a>
+                <a href="assessment.html" class="pay-btn-outline">Take the free assessment</a>
+                <a href="tel:7088988831" class="pay-btn-outline">Call (708) 898-8831</a>
+            </div>
+        </div>
+
+        <p class="pay-fineprint">
+            Coverage rules change, and every plan, policy, and program decides for itself. Nothing
+            on this page is a promise of benefits or a guarantee that any particular plan will pay
+            — it's a map of where to look. We'll tell you honestly when a route leads somewhere
+            other than us.
+        </p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Health Network">
+                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Companionship</a></li>
+                        <li><a href="services.html">Homemaking</a></li>
+                        <li><a href="services.html">Transportation</a></li>
+                        <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="disability-support.html">Disability Support</a></li>
+                        <li><a href="services.html">Dementia Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:7088988831">(708) 898-8831</a></li>
+                        <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
+                        <li>4749 Lincoln Mall Drive, Suite 204</li>
+                        <li>Matteson, IL 60443</li>
+                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=20260804a"></script>
+</body>
+</html>

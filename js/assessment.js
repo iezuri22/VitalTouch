@@ -1,17 +1,20 @@
 /* ============================================
    CARE READINESS ASSESSMENT — quiz + report
    Question ids/values MUST mirror the server's
-   assessment_v1 bank (vitaltouch-ops
+   assessment_v2 bank (vitaltouch-ops
    src/lib/funnel/questions.ts). Scoring happens
    server-side only — this file never sees points.
+   The server drops any answer id it doesn't know,
+   so a question added here and not there is
+   silently discarded: change both, together.
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
     var API_BASE = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
         ? 'http://localhost:3000'
         : 'https://vitaltouch-ops.vercel.app';
-    var CONSENT_VERSION = 'assessment_v1_2026-07';
-    var EMAIL_CONSENT_VERSION = 'assessment_email_v1_2026-07';
+    var CONSENT_VERSION = 'assessment_v2_2026-08';
+    var EMAIL_CONSENT_VERSION = 'assessment_email_v2_2026-08';
     var STORE_KEY = 'vt_cra';          // in-progress answers
     var REPORT_KEY = 'vt_cra_report';  // unlocked report snapshot
     var EMAIL_KEY = 'vt_email';        // captured before the quiz starts
@@ -24,6 +27,16 @@ document.addEventListener('DOMContentLoaded', function() {
             { value: 'spouse', label: 'My spouse or partner' },
             { value: 'self', label: 'Myself' },
             { value: 'other', label: 'Another relative or friend' }
+          ] },
+        { id: 'care_context', kind: 'single',
+          prompt: 'Which best describes the person who needs care?',
+          selfPrompt: 'Which best describes you?',
+          help: 'Pick the closest fit — it helps us point you to the programs that actually apply.',
+          options: [
+            { value: 'older_adult', label: 'An older adult (60 or older)', selfLabel: 'I’m 60 or older' },
+            { value: 'adult_disability', label: 'An adult under 60 living with a disability', selfLabel: 'I’m under 60 and living with a disability' },
+            { value: 'older_adult_disability', label: 'An older adult living with a disability', selfLabel: 'I’m 60 or older and living with a disability' },
+            { value: 'recovering', label: 'Someone recovering from a hospital stay, surgery, or injury', selfLabel: 'I’m recovering from a hospital stay, surgery, or injury' }
           ] },
         { id: 'timeline', kind: 'single', prompt: 'When do you feel help is needed?',
           help: 'There’s no wrong answer — this just helps us point you to the right next step.',
@@ -49,6 +62,17 @@ document.addEventListener('DOMContentLoaded', function() {
             { value: 'slipping', label: 'Keeping up, but the house shows it' },
             { value: 'some_help', label: 'Someone already helps with parts of it' },
             { value: 'cannot', label: 'Can’t manage it without help' }
+          ] },
+        { id: 'disability_supports', kind: 'multi',
+          prompt: 'Does day-to-day life involve any of these?',
+          help: 'Check anything that applies, then continue. There’s no wrong answer here.',
+          options: [
+            { value: 'transfers', label: 'Help getting in and out of bed, a chair, or the shower' },
+            { value: 'mobility_equipment', label: 'A wheelchair, walker, or other mobility equipment' },
+            { value: 'communication', label: 'Support with communication — speech, hearing, or vision' },
+            { value: 'medical_equipment', label: 'Medical equipment at home (oxygen, feeding tube, catheter, a lift)' },
+            { value: 'rides', label: 'Rides to work, school, dialysis, or regular appointments' },
+            { value: 'none', label: 'None of these' }
           ] },
         { id: 'falls', kind: 'single',
           prompt: 'Have they fallen in the past six months?',
@@ -138,6 +162,19 @@ document.addEventListener('DOMContentLoaded', function() {
             { value: 'lost_caregiver', label: 'Lost a spouse or the person who was helping' },
             { value: 'weight_loss', label: 'Noticeable weight loss or not eating well' },
             { value: 'none', label: 'None of these' }
+          ] },
+        { id: 'coverage', kind: 'multi',
+          prompt: 'Last one — what coverage is already in place?',
+          help: 'Best guess is fine. Most families are covered by more than they realize, and we do the checking for you.',
+          options: [
+            { value: 'medicaid', label: 'Medicaid, or a Medicaid managed care plan' },
+            { value: 'medicare_advantage', label: 'A Medicare Advantage plan (Aetna, Humana, Blue Cross, UnitedHealthcare, Molina, and the like)' },
+            { value: 'medicare_original', label: 'Original Medicare only — no extra plan' },
+            { value: 'va', label: 'Served in the military, or already uses VA health care' },
+            { value: 'ltc_policy', label: 'A long-term care insurance policy' },
+            { value: 'disability_benefits', label: 'Receives Social Security disability (SSI or SSDI)' },
+            { value: 'none', label: 'None of these — we’d be paying on our own', selfLabel: 'None of these — I’d be paying on my own' },
+            { value: 'not_sure', label: 'Not sure' }
           ] }
     ];
 
@@ -219,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({
                     email: email,
                     visitorKey: window.vtVisitorKey ? window.vtVisitorKey() : 'v-unknown',
-                    consent: true,
+                    consent: fd.get('consent') !== null,
                     consentTextVersion: EMAIL_CONSENT_VERSION,
                     company_website: fd.get('company_website') || '',
                     utm: { page: 'assessment-email-gate' },
@@ -343,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         email: fd.get('email') || undefined,
                         zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5) || undefined
                     },
-                    consent: true,
+                    consent: fd.get('consent') !== null,
                     consentTextVersion: CONSENT_VERSION,
                     company_website: fd.get('company_website') || '',
                     utm: { page: 'assessment' },
@@ -410,6 +447,23 @@ document.addEventListener('DOMContentLoaded', function() {
             h += '<div><h3>' + esc(s.title) + '</h3><p>' + esc(s.body) + '</p></div></div>';
         });
         h += '</div>';
+
+        // Coverage routing — for most readers this is the part of the report
+        // they didn't know they needed. Server decides which routes appear.
+        if (r.coverage && r.coverage.routes && r.coverage.routes.length) {
+            h += '<div class="cra-coverage">';
+            h += '<h2>' + esc(r.coverage.title) + '</h2>';
+            h += '<p class="cra-coverage-intro">' + esc(r.coverage.intro) + '</p>';
+            r.coverage.routes.forEach(function(route) {
+                h += '<div class="cra-route"><h3>' + esc(route.name) + '</h3>';
+                h += '<p>' + esc(route.body) + '</p></div>';
+            });
+            h += '<p class="cra-coverage-note">' + esc(r.coverage.note) + '</p>';
+            if (r.coverage.href) {
+                h += '<a href="' + esc(r.coverage.href) + '" style="font-weight:700;">See all the ways families pay for care &rarr;</a>';
+            }
+            h += '</div>';
+        }
 
         // Plan suggestion (planning/browsing reports only — server decides)
         if (r.plan) {

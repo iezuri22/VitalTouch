@@ -10,26 +10,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileOverlay = document.getElementById('mobileOverlay');
     
     if (mobileToggle && mobileNav) {
-        mobileToggle.addEventListener('click', function() {
-            mobileNav.classList.toggle('active');
-            if (mobileOverlay) mobileOverlay.classList.toggle('active');
-            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
-        });
-        
-        if (mobileOverlay) {
-            mobileOverlay.addEventListener('click', function() {
-                mobileNav.classList.remove('active');
-                mobileOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            });
+        // Keep the button's announced state in step with the panel, so screen
+        // reader users are told whether the menu is open.
+        function setMobileNav(open) {
+            mobileNav.classList.toggle('active', open);
+            if (mobileOverlay) mobileOverlay.classList.toggle('active', open);
+            mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            document.body.style.overflow = open ? 'hidden' : '';
         }
-        
+
+        mobileToggle.addEventListener('click', function() {
+            setMobileNav(!mobileNav.classList.contains('active'));
+        });
+
+        if (mobileOverlay) {
+            mobileOverlay.addEventListener('click', function() { setMobileNav(false); });
+        }
+
         mobileNav.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                mobileNav.classList.remove('active');
-                if (mobileOverlay) mobileOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            });
+            link.addEventListener('click', function() { setMobileNav(false); });
+        });
+
+        // Escape closes the menu and hands focus back to the button that opened it.
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+                setMobileNav(false);
+                mobileToggle.focus();
+            }
         });
     }
     
@@ -91,8 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         phone: fd.get('phone') || undefined,
                         email: fd.get('email') || undefined,
                         zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5) || undefined,
-                        consent: true,
-                        consentTextVersion: 'home_hero_v1_2026-07',
+                        consent: fd.get('consent') !== null,
+                        consentTextVersion: 'home_hero_v2_2026-08',
                         company_website: fd.get('company_website') || '',
                         utm: { page: 'index-hero' }
                     })
@@ -112,55 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // Family Caregiver Program signup -> ops platform (recruiting candidate)
-    const familyForm = document.getElementById('familyCareForm');
-    if (familyForm) {
-        const FAPI = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
-            ? 'http://localhost:3000/api/public/leads'
-            : 'https://vitaltouch-ops.vercel.app/api/public/leads';
-        const fstatus = document.getElementById('familyFormStatus');
-        const fshow = function(msg, ok) {
-            fstatus.textContent = msg;
-            fstatus.style.display = 'block';
-            fstatus.className = 'va-form-status' + (ok ? ' ok' : '');
-            fstatus.style.color = ok ? '#1E857B' : '#b91c1c';
-            fstatus.style.textAlign = 'left';
-        };
-        familyForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const fd = new FormData(familyForm);
-            const btn = familyForm.querySelector('.va-submit');
-            btn.disabled = true;
-            try {
-                const res = await fetch(FAPI, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        leadType: 'recruiting_candidate',
-                        name: fd.get('name') || 'Website visitor',
-                        phone: fd.get('phone') || undefined,
-                        zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5) || undefined,
-                        message: 'Family Caregiver Program signup (homepage)',
-                        consent: true,
-                        consentTextVersion: 'family_care_v1_2026-07',
-                        company_website: fd.get('company_website') || '',
-                        utm: { page: 'index-family-care', program: 'family_caregiver' }
-                    })
-                });
-                if (!res.ok) {
-                    const data = await res.json().catch(function() { return {}; });
-                    throw new Error(data.error || 'failed');
-                }
-                fshow('Thank you! We received your info — someone from our team will call you about the Family Caregiver Program shortly.', true);
-                familyForm.reset();
-            } catch (err) {
-                fshow('Sorry, something went wrong. Please call us at (708) 898-8831.', false);
-            } finally {
-                btn.disabled = false;
-            }
-        });
-    }
-
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         // Submits to the VitalTouch ops platform (Lead Engagement Engine).
@@ -169,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const LEADS_API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
             ? 'http://localhost:3000/api/public/leads'
             : 'https://vitaltouch-ops.vercel.app/api/public/leads';
-        const CONSENT_VERSION = 'contact_v1_2026-07';
+        const CONSENT_VERSION = 'contact_v2_2026-08';
 
         const statusEl = document.getElementById('contactFormStatus');
         const showStatus = function(msg, ok) {
@@ -183,13 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const formData = new FormData(contactForm);
             const name = ((formData.get('firstName') || '') + ' ' + (formData.get('lastName') || '')).trim();
-            const consent = document.getElementById('contactConsent');
-
-            if (consent && !consent.checked) {
-                showStatus('Please check the consent box so we can reach out to you.', false);
-                return;
-            }
-
             const btn = contactForm.querySelector('button[type="submit"]');
             if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
 
@@ -206,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             formData.get('careType') ? 'Care type: ' + formData.get('careType') : '',
                             formData.get('message') || ''
                         ].filter(Boolean).join('\n'),
-                        consent: true,
+                        consent: formData.get('consent') !== null,
                         consentTextVersion: CONSENT_VERSION,
                         company_website: formData.get('company_website') || '',
                         utm: { page: 'contact.html' }

@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Care Plans | Monthly Support That Grows With Your Family | VitalTouch Health Network</title>
-    <meta name="description" content="Simple monthly care plans for seniors — from weekly check-in visits to daily support. Cancel anytime, pause anytime. VitalTouch Health Network, serving the Chicago area and south suburbs.">
+    <meta name="description" content="Simple monthly care plans for seniors and adults living with a disability — from weekly check-in visits to daily support. Cancel anytime, pause anytime. VitalTouch Health Network, serving the Chicago area and south suburbs.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260706c">
+    <link rel="stylesheet" href="css/style.css?v=20260804b">
     <style>
         .cp-wrap { max-width: 1040px; margin: 0 auto; padding: 44px 20px 80px; }
         .cp-head h1 { font-size: clamp(2rem, 5vw, 2.9rem); margin-bottom: 14px; }
@@ -55,7 +55,7 @@
       "url": "https://vitaltouchcares.com",
       "logo": "https://vitaltouchcares.com/images/logo-main.png",
       "image": "https://vitaltouchcares.com/images/logo-main.png",
-      "description": "Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.",
+      "description": "Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.",
       "telephone": "+1-708-898-8831",
       "email": "ifeanyi@vitaltouch.care",
       "priceRange": "$$",
@@ -85,6 +85,8 @@
 </head>
 <body>
 
+    <a href="#main" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -92,12 +94,13 @@
                 <a href="index.html" class="logo">
                     <img src="images/logo-main.png" alt="VitalTouch Health Network">
                 </a>
-                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
             <div class="nav-menu nav-menu-slim">
     <a href="services.html">Services</a>
-    <a href="pricing.html">Pricing</a>
+    <a href="disability-support.html">Disability Support</a>
+    <a href="paying-for-care.html">Ways to Pay</a>
     <a href="assessment.html">Free Assessment</a>
     <a href="contact.html">Contact</a>
     <a href="apply.html">Careers</a>
@@ -113,14 +116,15 @@
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <nav class="mobile-nav" id="mobileNav">
         <a href="services.html">Services</a>
-        <a href="pricing.html">Pricing</a>
+        <a href="disability-support.html">Disability Support</a>
+        <a href="paying-for-care.html">Ways to Pay</a>
         <a href="assessment.html">Free Assessment</a>
         <a href="contact.html">Contact</a>
         <a href="apply.html">Careers</a>
         <a href="tel:7088988831" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 898-8831</a>
     </nav>
 
-    <main class="cp-wrap">
+    <main id="main" tabindex="-1" class="cp-wrap">
         <div class="cp-head">
             <h1>Care that grows with your family</h1>
             <p>
@@ -221,8 +225,10 @@
         </section>
 
         <div class="cp-medicaid">
-            <strong>Have Medicaid?</strong> Your care may be covered at no cost to you — these plans are for
-            families paying on their own. <a href="pricing.html">Check what Medicaid covers</a> or call
+            <strong>Covered by a program, a plan, or a policy?</strong> These plans are for families paying
+            on their own. Medicaid, the Illinois Home Services Program, a Medicare Advantage plan, VA
+            benefits, or a long-term care policy may cover your care instead — often at no cost to you.
+            <a href="paying-for-care.html">See all six ways families pay</a> or call
             <a href="tel:7088988831">(708) 898-8831</a> and we&rsquo;ll help you sort out which path fits.
         </div>
     </main>
@@ -233,13 +239,14 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <img src="images/logo-white.png" alt="VitalTouch Health Network">
-                    <p>Compassionate in-home care for seniors across the Chicago area and south suburbs. Licensed by the State of Illinois. Medicaid accepted.</p>
+                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="services.html">Our Services</a></li>
+                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="service-areas.html">Service Areas</a></li>
                         <li><a href="faq.html">FAQ</a></li>
@@ -252,6 +259,7 @@
                         <li><a href="services.html">Homemaking</a></li>
                         <li><a href="services.html">Transportation</a></li>
                         <li><a href="services.html">Personal Care</a></li>
+                        <li><a href="disability-support.html">Disability Support</a></li>
                         <li><a href="services.html">Dementia Care</a></li>
                     </ul>
                 </div>
@@ -276,7 +284,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260706b"></script>
+    <script src="js/main.js?v=20260804a"></script>
     <script>
     // Live pricing from the ops platform — Ifeanyi edits it in /settings/plans.
     // The values in the HTML above are the fallback if this fetch fails.
