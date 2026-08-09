@@ -1381,3 +1381,19 @@ html { overflow-x: hidden; }
    on the dark navy hero card alike. */
 .consent-text a,
 .va-consent a { color: inherit; text-decoration: underline; }
+
+/* Consent row layout. Pages define card rules like `.cn-card input { width:100% }`
+   in their own <style> block, which matches the checkbox too and lands after this
+   stylesheet — so the box stretched full width and squeezed the label into a
+   one-character column. The [type="checkbox"] selector outranks those on
+   specificity, which fixes it everywhere rather than page by page. */
+.va-consent input[type="checkbox"] {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    margin: 3px 0 0;
+    padding: 0;
+    border-radius: 0;
+}
+.va-consent span { flex: 1 1 auto; min-width: 0; }
