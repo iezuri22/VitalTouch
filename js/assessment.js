@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var EMAIL_CONSENT_VERSION = 'assessment_email_v2_2026-08';
     var STORE_KEY = 'vt_cra';          // in-progress answers
     var REPORT_KEY = 'vt_cra_report';  // unlocked report snapshot
+    // Handoff to consult.html. Deliberately localStorage rather than query
+    // string: the same-origin page can read it, and a name, phone number and
+    // email address never belong in a URL — they end up in history, in
+    // referrer headers, and in any analytics that logs the path.
+    var HANDOFF_KEY = 'vt_handoff';
+    var HANDOFF_TTL_DAYS = 7; // a shared device shouldn't prefill last month's visitor
     var EMAIL_KEY = 'vt_email';        // captured before the quiz starts
 
     // prompt: as shown to family members; selfPrompt: when they chose "Myself"
@@ -334,14 +340,23 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             var data = await res.json().catch(function() { return {}; });
             if (!res.ok) throw new Error(data.error || 'failed');
-            // Carry the two answers the consultation form also asks for, so a
-            // reader arriving there from the report isn't asked twice. Saved
-            // alongside the report so it survives a return visit.
             save(REPORT_KEY, {
                 assessmentId: data.assessmentId,
                 report: data.report,
-                carry: { relationship: state.answers.relationship, timeline: state.answers.timeline },
                 savedAt: new Date().toISOString()
+            });
+            // Everything the consultation form would otherwise ask for a
+            // second time. They have just typed their name and number to
+            // unlock this report; making them do it again to book a call is
+            // the fastest way to lose them at the one moment they're ready.
+            save(HANDOFF_KEY, {
+                name: fd.get('name') || '',
+                phone: fd.get('phone') || '',
+                email: fd.get('email') || storedEmail() || '',
+                zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5),
+                who: state.answers.relationship || '',
+                when: state.answers.timeline || '',
+                savedAt: Date.now()
             });
             try { localStorage.removeItem(STORE_KEY); } catch (err) {}
             renderReport(data.report);
@@ -361,6 +376,33 @@ document.addEventListener('DOMContentLoaded', function() {
             return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
         });
     }
+    /**
+     * The call to action, rendered twice — once directly under the headline
+     * and once at the end. The report is long (six sections on a full one),
+     * and burying the only way to act at the bottom of it asks a reader who
+     * is already convinced to scroll past everything to find the button.
+     * `slot` keeps the two Download buttons' ids unique.
+     */
+    function ctaBlock(r, slot) {
+        var href = 'consult.html?from=assessment&band=' + encodeURIComponent(r.band || '');
+        var h = '<div class="cra-report-cta cra-cta-' + slot + '">';
+        // Urgent readers get the phone first — for them a call today is the
+        // whole point. Everyone else books, because a stressed reader at 11pm
+        // will not ring an office but will fill in a form.
+        if (r.band === 'urgent') {
+            h += '<a href="tel:7087264536" class="cra-btn-gold">Call (708) 726-4536</a>';
+            h += '<a href="' + esc(href) + '" class="cra-btn-outline">Book a free consultation</a>';
+        } else {
+            h += '<a href="' + esc(href) + '" class="cra-btn-gold">Book a free consultation</a>';
+            h += '<a href="tel:7087264536" class="cra-btn-outline">Call (708) 726-4536</a>';
+        }
+        h += '<button type="button" class="cra-btn-outline" id="downloadBtn-' + slot + '">Download PDF</button>';
+        h += '</div>';
+        h += '<p class="cra-cta-note">Free, about thirty minutes, by phone or in the home — '
+           + 'and we&rsquo;ll carry over what you&rsquo;ve just told us, so there&rsquo;s nothing to type again.</p>';
+        return h;
+    }
+
     function renderReport(r) {
         var h = '';
         h += '<div class="cra-report-head">';
@@ -374,6 +416,8 @@ document.addEventListener('DOMContentLoaded', function() {
             h += 'Call us at <a href="tel:7087264536">(708) 726-4536</a> — a short conversation today ';
             h += 'costs nothing and usually brings real relief within days.</div>';
         }
+
+        h += ctaBlock(r, 'top');
 
         h += '<h2 style="font-size:1.45rem;margin-bottom:4px;">Area by area</h2>';
         (r.domains || []).forEach(function(d) {
@@ -425,41 +469,19 @@ document.addEventListener('DOMContentLoaded', function() {
             h += '</div>';
         }
 
-        // The report ends with the consultation, not the phone number: a
-        // stressed reader on a phone at 11pm won't call, but they will book.
-        // Urgent readers get the phone first — for them a call today is the
-        // whole point. The band rides along so the consult form can open with
-        // the right questions already leaning the right way.
-        var consultHref = 'consult.html?from=assessment&band=' + encodeURIComponent(r.band || '');
-        var carry = (load(REPORT_KEY) || {}).carry || {
-            relationship: state.answers.relationship,
-            timeline: state.answers.timeline
-        };
-        // The consult form's "who" and "when" pills use the same values as
-        // the assessment's relationship/timeline questions, so they pre-select.
-        if (carry.relationship) consultHref += '&relationship=' + encodeURIComponent(carry.relationship);
-        if (carry.timeline) consultHref += '&timeline=' + encodeURIComponent(carry.timeline);
-        h += '<div class="cra-report-cta">';
-        if (r.band === 'urgent') {
-            h += '<a href="tel:7087264536" class="cra-btn-gold">Call (708) 726-4536</a>';
-            h += '<a href="' + esc(consultHref) + '" class="cra-btn-outline">Book a free consultation</a>';
-        } else {
-            h += '<a href="' + esc(consultHref) + '" class="cra-btn-gold">Book a free consultation</a>';
-            h += '<a href="tel:7087264536" class="cra-btn-outline">Call (708) 726-4536</a>';
-        }
-        h += '<button type="button" class="cra-btn-outline" id="downloadBtn">Download PDF</button>';
-        h += '</div>';
-        h += '<p style="font-size:0.98rem;line-height:1.6;color:var(--text-muted);margin:0 0 10px;">'
-          + 'The consultation is free and takes about thirty minutes — by phone or in the home. '
-          + 'Four short questions to book it, and no obligation either way.</p>';
+        h += ctaBlock(r, 'bottom');
 
         h += '<p class="cra-disclaimer">' + esc(r.disclaimer) + '</p>';
 
         document.getElementById('reportBody').innerHTML = h;
         document.getElementById('printDate').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            track('report_downloaded');
-            window.print();
+        ['top', 'bottom'].forEach(function(slot) {
+            var btn = document.getElementById('downloadBtn-' + slot);
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                track('report_downloaded');
+                window.print();
+            });
         });
     }
 });

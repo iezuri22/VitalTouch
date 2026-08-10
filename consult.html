@@ -58,6 +58,7 @@
            visually quiet and the answered ones read at a glance. */
         .con-pill[aria-pressed="true"]::before { content: '✓'; font-weight: 800; flex: 0 0 auto; }
 
+        .con-carried { background: var(--teal-light); border-left: 4px solid var(--teal); border-radius: 0 4px 4px 0; padding: 10px 14px; font-size: 0.95rem; line-height: 1.5; color: var(--text-dark); margin: 0 0 18px; }
         .con-divider { border: 0; border-top: 1px solid var(--border); margin: 6px 0 20px; }
         .con-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .con-fields .full { grid-column: 1 / -1; }
@@ -201,6 +202,10 @@
             <h2>Request your consultation</h2>
             <p class="sub">Four quick taps, then how to reach you.</p>
             <p class="sub" id="planInterest" style="display:none; color: var(--gold-dark); font-weight: 700;"></p>
+            <!-- Shown only when we've prefilled from the assessment handoff. -->
+            <p class="con-carried" id="carriedNote" style="display:none;">
+                We&rsquo;ve carried over what you told us in your assessment — change anything that isn&rsquo;t right.
+            </p>
             <form id="consultForm">
                 <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
 
@@ -446,18 +451,50 @@
             });
         });
 
-        // Arriving from the assessment report: they already told us who the
-        // care is for and how soon, so pre-select those and don't make them
-        // answer the same thing twice.
-        var CARRY = { who: 'relationship', when: 'timeline' };
-        Object.keys(CARRY).forEach(function(key) {
-            var v = params.get(CARRY[key]);
-            if (!v) return;
-            var pill = document.querySelector('.con-q[data-q="' + key + '"] .con-pill[data-value="' + v.replace(/"/g, '') + '"]');
-            if (!pill) return;
-            pill.setAttribute('aria-pressed', 'true');
-            answers[key] = v;
-        });
+        // ---- Handoff from the assessment ---------------------------------
+        // They typed their name and number to unlock the report a moment ago;
+        // asking again to book a call is how you lose someone at the exact
+        // point they're ready. assessment.js leaves it in localStorage rather
+        // than the URL — a name, phone and email have no business in a query
+        // string, where they'd land in history and referrer headers.
+        var HANDOFF_KEY = 'vt_handoff';
+        var HANDOFF_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+        function readHandoff() {
+            try {
+                var raw = JSON.parse(localStorage.getItem(HANDOFF_KEY));
+                if (!raw || !raw.savedAt) return null;
+                // A shared device shouldn't prefill last month's visitor.
+                if (Date.now() - raw.savedAt > HANDOFF_TTL_MS) {
+                    localStorage.removeItem(HANDOFF_KEY);
+                    return null;
+                }
+                return raw;
+            } catch (e) { return null; }
+        }
+
+        var handoff = readHandoff();
+        if (handoff) {
+            var filled = false;
+            ['name', 'phone', 'email', 'zip'].forEach(function(field) {
+                var el = form.querySelector('[name="' + field + '"]');
+                // Never overwrite something the visitor has already typed.
+                if (el && !el.value && handoff[field]) { el.value = handoff[field]; filled = true; }
+            });
+            [['who', handoff.who], ['when', handoff.when]].forEach(function(pair) {
+                if (!pair[1]) return;
+                var pill = document.querySelector('.con-q[data-q="' + pair[0] + '"] .con-pill[data-value="' + String(pair[1]).replace(/[^a-z_]/gi, '') + '"]');
+                if (!pill) return;
+                pill.setAttribute('aria-pressed', 'true');
+                answers[pair[0]] = pair[1];
+                filled = true;
+            });
+            if (filled) {
+                // Say so. Fields filling themselves is unsettling if nothing
+                // explains it, and they need to know they can change any of it.
+                var note = document.getElementById('carriedNote');
+                note.style.display = 'block';
+            }
+        }
 
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
