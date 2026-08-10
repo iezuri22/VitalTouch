@@ -3,427 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Care Started Now | VitalTouch Health Network</title>
-    <meta name="description" content="Need home care right away? Four quick questions — who needs care, what kind of help, and how to reach you — and we'll call you back fast. VitalTouch Health Network, serving the Chicago area and south suburbs.">
+    <title>Get care started | VitalTouch Health Network</title>
+    <!-- This page asked the same four questions as consult.html at a second
+         URL, which split the funnel and — worse — meant a family in crisis
+         could land on the calm form and get the calm treatment. One form now:
+         consult.html turns itself into the urgent version when someone
+         answers "Right away" or "Leaving hospital or rehab", and the server
+         reads urgency off that same answer rather than off which page it came
+         from.
+
+         Kept as a redirect rather than deleted: this URL is printed on
+         collateral, sits in browser histories, and may be indexed. ?when=now
+         preselects the urgency so nobody has to say "right away" twice.
+
+         GitHub Pages can't issue a 301, so this is a meta refresh plus a JS
+         replace() — replace() rather than href so the back button doesn't
+         bounce the visitor straight back here. The link is there for anyone
+         with JavaScript off. -->
+    <link rel="canonical" href="https://vitaltouchcares.com/consult.html">
+    <meta name="robots" content="noindex, follow">
+    <meta http-equiv="refresh" content="0; url=consult.html?when=now&amp;from=care-now">
+    <script>
+        location.replace('consult.html?when=now&from=care-now' + location.hash);
+    </script>
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=20260808a">
-    <style>
-        /* Reuses the assessment's flat quiz language (cn- prefix) */
-        .cn-wrap { max-width: 680px; margin: 0 auto; padding: 36px 20px 80px; }
-        .cn-screen { display: none; }
-        .cn-screen.active { display: block; }
-        .cn-head h1 { font-size: clamp(1.8rem, 4.5vw, 2.5rem); margin-bottom: 10px; }
-        .cn-head p { font-size: 1.1rem; line-height: 1.65; color: var(--text); margin-bottom: 8px; }
-        .cn-callrow { margin: 14px 0 26px; color: var(--text-muted); font-size: 0.98rem; }
-        .cn-callrow a { font-weight: 700; }
-        .cn-progress { margin: 4px 0 22px; }
-        .cn-progress-label { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
-        .cn-progress-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
-        .cn-progress-fill { height: 100%; background: var(--teal); border-radius: 4px; transition: width 0.3s ease; }
-        .cn-q h2 { font-size: clamp(1.3rem, 3vw, 1.65rem); margin-bottom: 6px; line-height: 1.3; outline: none; }
-        .cn-help { color: var(--text-muted); font-size: 1rem; margin-bottom: 18px; }
-        .cn-opts { display: grid; gap: 12px; margin-top: 18px; }
-        .cn-opt { display: block; width: 100%; text-align: left; background: var(--white); border: 2px solid var(--border); border-radius: 4px; padding: 16px 18px; font-family: inherit; font-size: 1.08rem; color: var(--text-dark); line-height: 1.5; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease; min-height: 56px; }
-        .cn-opt:hover { border-color: var(--teal); }
-        .cn-opt:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
-        .cn-opt.selected { border-color: var(--navy); background: var(--teal-light); font-weight: 600; }
-        .cn-opt .ck { display: inline-block; width: 22px; margin-right: 6px; color: var(--teal-dark); font-weight: 800; visibility: hidden; }
-        .cn-opt.selected .ck { visibility: visible; }
-        .cn-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; }
-        .cn-back { background: none; border: none; color: var(--text-muted); font-family: inherit; font-size: 1rem; cursor: pointer; padding: 10px 14px 10px 0; }
-        .cn-back:hover { color: var(--navy); }
-        .cn-continue { background: var(--navy); color: #fff; border: none; border-radius: 4px; font-family: inherit; font-weight: 700; font-size: 1.05rem; padding: 14px 34px; cursor: pointer; }
-        .cn-continue:hover { background: var(--navy-light); }
-        .cn-continue:disabled { opacity: 0.45; cursor: default; }
-        .cn-card { background: var(--navy); border-radius: 4px; padding: 30px 26px; color: #fff; }
-        .cn-card h2 { color: #fff; font-size: 1.45rem; margin-bottom: 6px; }
-        .cn-card .sub { color: rgba(255,255,255,0.78); font-size: 0.98rem; margin-bottom: 18px; line-height: 1.55; }
-        .cn-card input { width: 100%; padding: 14px 16px; margin-bottom: 12px; border: none; border-radius: 4px; font-family: inherit; font-size: 1.02rem; }
-        .cn-row { display: grid; grid-template-columns: 1fr 110px; gap: 10px; }
-        .cn-error { display: none; background: #FDF6F4; border: 2px solid #B14A3C; border-radius: 4px; color: #7a2e23; padding: 12px 14px; margin-top: 12px; font-size: 0.95rem; line-height: 1.5; }
-        .cn-success { text-align: left; }
-        .cn-success h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); margin-bottom: 12px; }
-        .cn-success p { font-size: 1.1rem; line-height: 1.7; }
-        .cn-success .phonebox { background: var(--navy); color: #fff; border-radius: 4px; padding: 18px 20px; margin-top: 22px; font-size: 1.05rem; line-height: 1.6; }
-        .cn-success .phonebox a { color: var(--gold); font-weight: 700; white-space: nowrap; }
-        @media (max-width: 560px) { .cn-wrap { padding: 22px 16px 60px; } .cn-card { padding: 24px 18px; } }
-    </style>
-    <!-- Business structured data (helps Google's knowledge panel + sitelinks) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": "https://vitaltouchcares.com/#business",
-      "name": "VitalTouch Health Network",
-      "legalName": "VitalTouch Health Network, Inc.",
-      "url": "https://vitaltouchcares.com",
-      "logo": "https://vitaltouchcares.com/images/logo-main.png",
-      "image": "https://vitaltouchcares.com/images/logo-main.png",
-      "description": "Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.",
-      "telephone": "+1-708-726-4536",
-      "email": "ifeanyi@vitaltouch.care",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "4749 Lincoln Mall Drive, Suite 204",
-        "addressLocality": "Matteson",
-        "addressRegion": "IL",
-        "postalCode": "60443",
-        "addressCountry": "US"
-      },
-      "geo": { "@type": "GeoCoordinates", "latitude": 41.5045, "longitude": -87.7139 },
-      "areaServed": [
-        { "@type": "City", "name": "Matteson" },
-        { "@type": "City", "name": "Homewood" },
-        { "@type": "City", "name": "Chicago" },
-        { "@type": "AdministrativeArea", "name": "Cook County, Illinois" }
-      ],
-      "openingHoursSpecification": [{
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-        "opens": "09:00", "closes": "17:00"
-      }],
-      "sameAs": []
-    }
-    </script>
 </head>
 <body>
-
-    <a href="#main" class="skip-link">Skip to main content</a>
-
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="index.html" class="logo">
-                    <img src="images/logo-main.png" alt="VitalTouch Health Network">
-                </a>
-                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
-                    <span></span><span></span><span></span>
-                </button>
-            <div class="nav-menu nav-menu-slim">
-    <a href="services.html">Services</a>
-    <a href="disability-support.html">Disability Support</a>
-    <a href="paying-for-care.html">Ways to Pay</a>
-    <a href="assessment.html">Free Assessment</a>
-    <a href="contact.html">Contact</a>
-    <a href="apply.html">Careers</a>
-</div>
-                <div class="nav-cta">
-                    <a href="tel:7087264536" class="nav-phone nav-phone-big">(708) 726-4536</a>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Mobile Navigation -->
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="mobile-nav" id="mobileNav">
-        <a href="services.html">Services</a>
-        <a href="disability-support.html">Disability Support</a>
-        <a href="paying-for-care.html">Ways to Pay</a>
-        <a href="assessment.html">Free Assessment</a>
-        <a href="contact.html">Contact</a>
-        <a href="apply.html">Careers</a>
-        <a href="tel:7087264536" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 726-4536</a>
-    </nav>
-
-    <main id="main" tabindex="-1" class="cn-wrap">
-
-        <div class="cn-head" id="cnHead">
-            <h1>Let&rsquo;s get care started</h1>
-            <p>Four quick questions so the right person calls you back with a real plan — not a runaround.</p>
-            <p class="cn-callrow">Rather just talk? Call <a href="tel:7087264536">(708) 726-4536</a> now.</p>
-        </div>
-
-        <div class="cn-progress" id="cnProgress">
-            <div class="cn-progress-label" id="cnProgressLabel">Step 1 of 4</div>
-            <div class="cn-progress-track"><div class="cn-progress-fill" id="cnProgressFill" style="width:0%"></div></div>
-        </div>
-
-        <!-- Step 1: who -->
-        <section class="cn-screen active" id="step1">
-            <div class="cn-q">
-                <h2 tabindex="-1">Who needs care?</h2>
-                <div class="cn-opts" id="whoOpts">
-                    <button type="button" class="cn-opt" data-value="parent"><span class="ck">✓</span>My parent</button>
-                    <button type="button" class="cn-opt" data-value="spouse"><span class="ck">✓</span>My spouse or partner</button>
-                    <button type="button" class="cn-opt" data-value="self"><span class="ck">✓</span>Me</button>
-                    <button type="button" class="cn-opt" data-value="other"><span class="ck">✓</span>Someone else</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Step 2: what care -->
-        <section class="cn-screen" id="step2">
-            <div class="cn-q">
-                <h2 tabindex="-1">What kind of help is needed?</h2>
-                <p class="cn-help">Check everything that applies — best guess is fine.</p>
-                <div class="cn-opts" id="careOpts">
-                    <button type="button" class="cn-opt" data-value="personal_care"><span class="ck">✓</span>Bathing, dressing &amp; personal care</button>
-                    <button type="button" class="cn-opt" data-value="meals_housekeeping"><span class="ck">✓</span>Meals &amp; housekeeping</button>
-                    <button type="button" class="cn-opt" data-value="companionship"><span class="ck">✓</span>Companionship &amp; supervision</button>
-                    <button type="button" class="cn-opt" data-value="memory_care"><span class="ck">✓</span>Memory care (dementia or Alzheimer&rsquo;s)</button>
-                    <button type="button" class="cn-opt" data-value="respite"><span class="ck">✓</span>A break for the family caregiver</button>
-                    <button type="button" class="cn-opt" data-value="transportation"><span class="ck">✓</span>Rides &amp; errands</button>
-                    <button type="button" class="cn-opt" data-value="not_sure"><span class="ck">✓</span>Not sure — we need guidance</button>
-                </div>
-            </div>
-            <div class="cn-nav">
-                <button class="cn-back" data-back="1">&larr; Back</button>
-                <button class="cn-continue" id="careContinue" disabled>Continue</button>
-            </div>
-        </section>
-
-        <!-- Step 3: payment -->
-        <section class="cn-screen" id="step3">
-            <div class="cn-q">
-                <h2 tabindex="-1">How will care likely be paid for?</h2>
-                <p class="cn-help">&ldquo;Not sure yet&rdquo; is a fine answer — we help families sort out coverage every week.</p>
-                <!-- Values are the shared funding vocabulary (CoverageKey in
-                     vitaltouch-ops src/lib/funnel/questions.ts) — the same keys
-                     the assessment and /consult post. They diverged until
-                     2026-08 (`private_pay`, `ltc_insurance`), which made the
-                     funding card on the lead read "not answered" for exactly
-                     the people who needed calling first. -->
-                <div class="cn-opts" id="payOpts">
-                    <button type="button" class="cn-opt" data-value="medicaid"><span class="ck">✓</span>Medicaid</button>
-                    <button type="button" class="cn-opt" data-value="medicare_advantage"><span class="ck">✓</span>A Medicare Advantage plan</button>
-                    <button type="button" class="cn-opt" data-value="home_services"><span class="ck">✓</span>Illinois Home Services Program (adults under 60 with a disability)</button>
-                    <button type="button" class="cn-opt" data-value="va"><span class="ck">✓</span>VA benefits</button>
-                    <button type="button" class="cn-opt" data-value="ltc_policy"><span class="ck">✓</span>Long-term care insurance</button>
-                    <button type="button" class="cn-opt" data-value="none"><span class="ck">✓</span>Out of pocket &mdash; we&rsquo;ll pay ourselves</button>
-                    <button type="button" class="cn-opt" data-value="not_sure"><span class="ck">✓</span>Not sure yet &mdash; help us find out</button>
-                </div>
-            </div>
-            <div class="cn-nav">
-                <button class="cn-back" data-back="2">&larr; Back</button>
-                <span></span>
-            </div>
-        </section>
-
-        <!-- Step 4: address + contact -->
-        <section class="cn-screen" id="step4">
-            <div class="cn-card">
-                <h2>Where should care happen — and who do we call?</h2>
-                <p class="sub">We&rsquo;ll call you back fast during business hours (Mon&ndash;Fri 9&ndash;5) to set everything up.</p>
-                <form id="careNowForm">
-                    <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
-                    <input type="text" name="address" placeholder="Street address where care is needed*" required autocomplete="street-address">
-                    <div class="cn-row">
-                        <input type="text" name="city" placeholder="City*" required autocomplete="address-level2">
-                        <input type="text" name="zip" placeholder="Zip*" required inputmode="numeric" maxlength="5" autocomplete="postal-code">
-                    </div>
-                    <input type="text" name="name" placeholder="Your name*" required autocomplete="name">
-                    <input type="tel" name="phone" placeholder="Your phone number (optional)" autocomplete="tel">
-                    <input type="email" name="email" placeholder="Your email*" required autocomplete="email">
-                    <label class="va-consent">
-                        <input type="checkbox" name="consent">
-                        <span class="consent-text">I agree that VitalTouch Health Network, Inc. may contact me about home care services by phone, text message, and email using the contact information I provide, including through automated technology or an AI assistant. Message frequency may vary. Message and data rates may apply. Consent is not a condition of purchase or of receiving services. Reply STOP to opt out of texts at any time, or say so on a call to stop being contacted. See our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a> for details.</span>
-                    </label>
-                    <button type="submit" class="va-submit" id="careNowSubmit">Request my call</button>
-                    <div class="cn-error" id="careNowError"></div>
-                </form>
-            </div>
-            <div class="cn-nav">
-                <button class="cn-back" data-back="3">&larr; Back</button>
-                <span></span>
-            </div>
-        </section>
-
-        <!-- Success -->
-        <section class="cn-screen cn-success" id="stepDone">
-            <h1>Got it — we&rsquo;re on it.</h1>
-            <p>
-                Your request just landed directly with our team, flagged as needing care now.
-                We&rsquo;ll call you back fast during business hours to talk through the situation
-                and get care in place — often within days.
-            </p>
-            <div class="phonebox">
-                <strong>Can&rsquo;t wait for the call?</strong> Reach us right now at
-                <a href="tel:7087264536">(708) 726-4536</a> — you&rsquo;ll get a person, often the owner.
-            </div>
-        </section>
-
+    <main style="max-width: 620px; margin: 0 auto; padding: 80px 20px; text-align: center;">
+        <h1 style="font-size: 1.8rem; margin-bottom: 12px;">Taking you to the right page&hellip;</h1>
+        <p style="font-size: 1.08rem; line-height: 1.7; color: #4A5568;">
+            If nothing happens,
+            <a href="consult.html?when=now&amp;from=care-now" style="font-weight: 700;">tap here to tell us what you need</a>.
+        </p>
+        <p style="font-size: 1.08rem; line-height: 1.7; margin-top: 18px;">
+            Need someone right now? Call
+            <a href="tel:7087264536" style="font-weight: 700;">(708) 726-4536</a>.
+        </p>
     </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <img src="images/logo-white.png" alt="VitalTouch Health Network">
-                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="services.html">Our Services</a></li>
-                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="service-areas.html">Service Areas</a></li>
-                        <li><a href="consult.html">Free Consultation</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="services.html">Companionship</a></li>
-                        <li><a href="services.html">Homemaking</a></li>
-                        <li><a href="services.html">Transportation</a></li>
-                        <li><a href="services.html">Personal Care</a></li>
-                        <li><a href="disability-support.html">Disability Support</a></li>
-                        <li><a href="services.html">Dementia Care</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="tel:7087264536">(708) 726-4536</a></li>
-                        <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
-                        <li>4749 Lincoln Mall Drive, Suite 204</li>
-                        <li>Matteson, IL 60443</li>
-                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="privacy-policy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/main.js?v=20260808a"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
-            ? 'http://localhost:3000/api/public/funnel/care-now'
-            : 'https://vitaltouch-ops.vercel.app/api/public/funnel/care-now';
-
-        var state = { whoFor: null, careTypes: [], payment: null };
-        var steps = ['step1', 'step2', 'step3', 'step4'];
-
-        function show(idx) {
-            steps.concat(['stepDone']).forEach(function(id) {
-                document.getElementById(id).classList.toggle('active', id === (idx === 'done' ? 'stepDone' : steps[idx]));
-            });
-            var onDone = idx === 'done';
-            document.getElementById('cnProgress').style.display = onDone ? 'none' : 'block';
-            document.getElementById('cnHead').style.display = onDone ? 'none' : 'block';
-            if (!onDone) {
-                document.getElementById('cnProgressLabel').textContent = 'Step ' + (idx + 1) + ' of 4';
-                document.getElementById('cnProgressFill').style.width = (idx / 4 * 100) + '%';
-                var h = document.querySelector('#' + steps[idx] + ' h2');
-                if (h) h.focus();
-            }
-            window.scrollTo({ top: 0, behavior: 'auto' });
-        }
-
-        // Step 1 — single select, auto-advance
-        document.querySelectorAll('#whoOpts .cn-opt').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                state.whoFor = btn.getAttribute('data-value');
-                document.querySelectorAll('#whoOpts .cn-opt').forEach(function(b) { b.classList.remove('selected'); });
-                btn.classList.add('selected');
-                setTimeout(function() { show(1); }, 220);
-            });
-        });
-
-        // Step 2 — multi select
-        var careContinue = document.getElementById('careContinue');
-        document.querySelectorAll('#careOpts .cn-opt').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var v = btn.getAttribute('data-value');
-                var i = state.careTypes.indexOf(v);
-                if (i !== -1) { state.careTypes.splice(i, 1); btn.classList.remove('selected'); }
-                else {
-                    if (v === 'not_sure') {
-                        state.careTypes = [];
-                        document.querySelectorAll('#careOpts .cn-opt').forEach(function(b) { b.classList.remove('selected'); });
-                    } else {
-                        var ns = state.careTypes.indexOf('not_sure');
-                        if (ns !== -1) {
-                            state.careTypes.splice(ns, 1);
-                            document.querySelector('#careOpts .cn-opt[data-value="not_sure"]').classList.remove('selected');
-                        }
-                    }
-                    state.careTypes.push(v); btn.classList.add('selected');
-                }
-                careContinue.disabled = state.careTypes.length === 0;
-            });
-        });
-        careContinue.addEventListener('click', function() { show(2); });
-
-        // Step 3 — single select, auto-advance
-        document.querySelectorAll('#payOpts .cn-opt').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                state.payment = btn.getAttribute('data-value');
-                document.querySelectorAll('#payOpts .cn-opt').forEach(function(b) { b.classList.remove('selected'); });
-                btn.classList.add('selected');
-                setTimeout(function() { show(3); }, 220);
-            });
-        });
-
-        // Back buttons
-        document.querySelectorAll('.cn-back').forEach(function(btn) {
-            btn.addEventListener('click', function() { show(parseInt(btn.getAttribute('data-back'), 10) - 1); });
-        });
-
-        // Step 4 — submit
-        var form = document.getElementById('careNowForm');
-        var errBox = document.getElementById('careNowError');
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            errBox.style.display = 'none';
-            var fd = new FormData(form);
-            var btn = document.getElementById('careNowSubmit');
-            btn.disabled = true;
-            btn.textContent = 'Sending…';
-            try {
-                var res = await fetch(API, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        whoFor: state.whoFor || 'other',
-                        careTypes: state.careTypes.length ? state.careTypes : ['not_sure'],
-                        payment: state.payment || 'not_sure',
-                        address: fd.get('address'),
-                        city: fd.get('city') || undefined,
-                        zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5),
-                        name: fd.get('name'),
-                        phone: fd.get('phone'),
-                        email: fd.get('email') || undefined,
-                        consent: fd.get('consent') !== null,
-                        consentTextVersion: 'care_now_v2_2026-08',
-                        visitorKey: window.vtVisitorKey ? window.vtVisitorKey() : undefined,
-                        company_website: fd.get('company_website') || '',
-                        utm: { page: 'care-now' },
-                        test: new URLSearchParams(location.search).has('test') || undefined
-                    })
-                });
-                if (!res.ok) {
-                    var data = await res.json().catch(function() { return {}; });
-                    throw new Error(data.error || 'failed');
-                }
-                show('done');
-            } catch (err) {
-                errBox.textContent = 'Sorry — something went wrong. Please call us at (708) 726-4536 and we will get care started right away.';
-                errBox.style.display = 'block';
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Request my call';
-            }
-        });
-    });
-    </script>
 </body>
 </html>

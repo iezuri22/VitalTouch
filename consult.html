@@ -59,6 +59,18 @@
         .con-pill[aria-pressed="true"]::before { content: '✓'; font-weight: 800; flex: 0 0 auto; }
 
         .con-carried { background: var(--teal-light); border-left: 4px solid var(--teal); border-radius: 0 4px 4px 0; padding: 10px 14px; font-size: 0.95rem; line-height: 1.5; color: var(--text-dark); margin: 0 0 18px; }
+        /* Shown the moment someone says they need help right away. This page
+           replaced the separate /care-now form, so it has to be able to feel
+           urgent when the answer is urgent — the phone number first, and a
+           street address, because that's the case where somebody may be going
+           out to the home rather than starting with a call. */
+        .con-urgent { display: none; background: #FDF6F4; border: 2px solid #B14A3C; border-radius: 4px; padding: 14px 16px; margin: 0 0 16px; }
+        .con-urgent strong { color: #B14A3C; }
+        .con-urgent p { font-size: 0.98rem; line-height: 1.6; color: var(--text-dark); margin: 0; }
+        .con-urgent a { color: #B14A3C; font-weight: 700; white-space: nowrap; }
+        .con-urgent-fields { display: none; grid-column: 1 / -1; gap: 12px; }
+        .con-urgent-fields.on { display: grid; grid-template-columns: 1fr 1fr; }
+        .con-urgent-fields .full { grid-column: 1 / -1; }
         .con-divider { border: 0; border-top: 1px solid var(--border); margin: 6px 0 20px; }
         .con-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .con-fields .full { grid-column: 1 / -1; }
@@ -272,11 +284,23 @@
 
                 <hr class="con-divider">
 
+                <!-- Appears when "Right away" or "Leaving hospital or rehab"
+                     is chosen. This page absorbed the old /care-now form. -->
+                <div class="con-urgent" id="urgentBanner">
+                    <p><strong>We&rsquo;ll treat this as urgent.</strong> Send this and we&rsquo;ll call you
+                    today — usually within the hour during office hours. If you&rsquo;d rather not wait,
+                    call <a href="tel:7087264536">(708) 726-4536</a> now.</p>
+                </div>
+
                 <div class="con-fields">
                     <input type="text" name="name" placeholder="Your name*" required autocomplete="name">
                     <input type="tel" name="phone" placeholder="Phone number" autocomplete="tel">
                     <input type="email" name="email" placeholder="Email" autocomplete="email">
                     <input type="text" name="zip" placeholder="Zip code where care is needed" inputmode="numeric" maxlength="5">
+                    <div class="con-urgent-fields" id="urgentFields">
+                        <input type="text" name="address" class="full" placeholder="Street address where care is needed" autocomplete="street-address">
+                        <input type="text" name="city" placeholder="City" autocomplete="address-level2">
+                    </div>
                     <!-- Preferred time and the free-text box are collapsed
                          together: both are genuinely optional, and two empty
                          controls sitting open read as two more things to do
@@ -312,9 +336,11 @@
             </form>
         </div>
         <div class="con-success" id="consultSuccess">
-            <strong>Request received.</strong> We&rsquo;ll call you to set up a time — usually the
-            same business day. If it&rsquo;s easier, you can also reach us right now at
-            <a href="tel:7087264536" style="font-weight:700;">(708) 726-4536</a>.
+            <span id="successBody">
+                <strong>Request received.</strong> We&rsquo;ll call you to set up a time — usually the
+                same business day. If it&rsquo;s easier, you can also reach us right now at
+                <a href="tel:7087264536" style="font-weight:700;">(708) 726-4536</a>.
+            </span>
         </div>
 
         <!-- Placeholders: planning tools land here -->
@@ -413,12 +439,29 @@
         // Answers live here, not in form fields: single-select stores a
         // string, multi stores an array, which is the shape the API expects.
         var answers = {};
+
+        // This page replaced the separate /care-now form, so it has to be able
+        // to become the urgent form when the answer is urgent. The server
+        // decides the same way — off answers.when — so a stale cached copy of
+        // this page can't downgrade a crisis by failing to show the banner.
+        var URGENT_WHEN = ['now', 'hospital'];
+        function syncUrgency() {
+            var on = URGENT_WHEN.indexOf(answers.when) !== -1;
+            document.getElementById('urgentBanner').style.display = on ? 'block' : 'none';
+            document.getElementById('urgentFields').classList.toggle('on', on);
+            document.getElementById('consultSubmit').textContent = on
+                ? 'Send this — call me today'
+                : 'Request my free consultation';
+        }
         Array.prototype.forEach.call(document.querySelectorAll('.con-q'), function(block) {
             var key = block.getAttribute('data-q');
             var multi = block.getAttribute('data-multi') === 'true';
             var pills = block.querySelectorAll('.con-pill');
             Array.prototype.forEach.call(pills, function(pill) {
-                pill.addEventListener('click', function() {
+                // The pick logic has early returns, so the urgency sync hangs
+                // off the listener rather than the end of the picker.
+                pill.addEventListener('click', function() { applyPick(); syncUrgency(); });
+                function applyPick() {
                     var value = pill.getAttribute('data-value');
                     if (!multi) {
                         var wasOn = pill.getAttribute('aria-pressed') === 'true';
@@ -447,7 +490,7 @@
                         p.setAttribute('aria-pressed', list.indexOf(p.getAttribute('data-value')) !== -1 ? 'true' : 'false');
                     });
                     if (list.length) answers[key] = list; else delete answers[key];
-                });
+                }
             });
         });
 
@@ -495,6 +538,25 @@
                 note.style.display = 'block';
             }
         }
+        // ?when=… preselects the timeline. Used by the retired /care-now URL,
+        // which sends ?when=now — someone who tapped "Get care started" has
+        // already said it's urgent and shouldn't have to say it twice. Applied
+        // after the handoff so a fresh declaration beats a stored one.
+        var whenParam = params.get('when');
+        if (whenParam) {
+            var wp = document.querySelector('.con-q[data-q="when"] .con-pill[data-value="' + whenParam.replace(/[^a-z_]/gi, '') + '"]');
+            if (wp) {
+                document.querySelectorAll('.con-q[data-q="when"] .con-pill').forEach(function(p) {
+                    p.setAttribute('aria-pressed', 'false');
+                });
+                wp.setAttribute('aria-pressed', 'true');
+                answers.when = wp.getAttribute('data-value');
+            }
+        }
+
+        // Someone arriving from an urgent assessment already answered "how
+        // soon" — the form should be in its urgent state before they touch it.
+        syncUrgency();
 
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -511,6 +573,9 @@
                         phone: fd.get('phone') || undefined,
                         email: fd.get('email') || undefined,
                         zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5) || undefined,
+                        // Only asked on the urgent path; harmless when blank.
+                        address: fd.get('address') || undefined,
+                        city: fd.get('city') || undefined,
                         preferredTime: fd.get('preferredTime') || undefined,
                         answers: Object.keys(answers).length ? answers : undefined,
                         message: [planName ? 'Interested in the ' + planName + ' plan' : '', fd.get('message') || '']
@@ -528,6 +593,15 @@
                     throw new Error(data.error || 'failed');
                 }
                 document.getElementById('consultCard').style.display = 'none';
+                // An urgent request deserves an urgent answer on screen —
+                // "same business day" reads as a brush-off to someone whose
+                // parent is being discharged this afternoon.
+                if (URGENT_WHEN.indexOf(answers.when) !== -1) {
+                    document.getElementById('successBody').innerHTML =
+                        '<strong>Got it — we&rsquo;re on this.</strong> You&rsquo;re at the top of the list and ' +
+                        'we&rsquo;ll call you today, usually within the hour during office hours. ' +
+                        'If you need someone now, call <a href="tel:7087264536" style="font-weight:700;">(708) 726-4536</a>.';
+                }
                 document.getElementById('consultSuccess').style.display = 'block';
             } catch (err) {
                 errBox.textContent = 'Sorry — something went wrong. Please call us at (708) 726-4536 and we will set it up right away.';

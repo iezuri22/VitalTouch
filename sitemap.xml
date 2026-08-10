@@ -7,8 +7,10 @@
   <url><loc>https://vitaltouchcares.com/disability-support.html</loc><lastmod>2026-08-04</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://vitaltouchcares.com/pricing.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://vitaltouchcares.com/assessment.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://vitaltouchcares.com/consult.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://vitaltouchcares.com/care-now.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://vitaltouchcares.com/consult.html</loc><lastmod>2026-08-10</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <!-- care-now.html retired 2026-08-10: it asked the same questions as
+       consult.html at a second URL. It now redirects there and is marked
+       noindex, so it is deliberately no longer listed here. -->
   <url><loc>https://vitaltouchcares.com/about.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://vitaltouchcares.com/service-areas.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://vitaltouchcares.com/faq.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
