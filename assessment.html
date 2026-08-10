@@ -38,11 +38,18 @@
         .cra-q h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); margin-bottom: 8px; line-height: 1.3; outline: none; }
         .cra-help { color: var(--text-muted); font-size: 1rem; margin-bottom: 20px; }
         .cra-opts { display: grid; gap: 12px; margin-top: 22px; }
-        .cra-opt { display: block; width: 100%; text-align: left; background: var(--white); border: 2px solid var(--border); border-radius: 4px; padding: 16px 18px; font-family: inherit; font-size: 1.08rem; color: var(--text-dark); line-height: 1.5; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease; min-height: 56px; }
+        /* flex, not block: the tick is a fixed-width first column so a label
+           that wraps keeps its second line aligned under its first. As a
+           block, the inline-block tick only indented line one and every
+           wrapped line snapped back to the padding edge — ragged on desktop
+           for the long options, and on a phone that's every single one. */
+        .cra-opt { display: flex; align-items: flex-start; gap: 6px; width: 100%; text-align: left; background: var(--white); border: 2px solid var(--border); border-radius: 4px; padding: 16px 18px; font-family: inherit; font-size: 1.08rem; color: var(--text-dark); line-height: 1.5; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease; min-height: 56px; }
         .cra-opt:hover { border-color: var(--teal); }
         .cra-opt:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
         .cra-opt.selected { border-color: var(--navy); background: var(--teal-light); font-weight: 600; }
-        .cra-opt .cra-check { display: inline-block; width: 22px; margin-right: 6px; color: var(--teal-dark); font-weight: 800; visibility: hidden; }
+        /* Reserved as a flex column so selecting an option doesn't shunt the
+           label sideways — it just becomes visible in space already held. */
+        .cra-opt .cra-check { flex: 0 0 22px; color: var(--teal-dark); font-weight: 800; visibility: hidden; }
         .cra-opt.selected .cra-check { visibility: visible; }
         .cra-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
         .cra-back { background: none; border: none; color: var(--text-muted); font-family: inherit; font-size: 1rem; cursor: pointer; padding: 10px 14px 10px 0; }
