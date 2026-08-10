@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Care Readiness Assessment | See Where Things Stand | VitalTouch Health Network</title>
-    <meta name="description" content="Answer 17 quick questions about daily life, safety, and support — for an aging parent, a spouse, yourself, or an adult living with a disability. Get a free personalized report with clear next steps and the ways care could be paid for.">
+    <meta name="description" content="A few quick questions about daily life, safety, and support — for an aging parent, a spouse, yourself, or an adult living with a disability. Takes about ninety seconds. Get a free personalized report with clear next steps and the ways care could be paid for.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -222,8 +222,8 @@
         <section class="cra-screen cra-intro active" id="introScreen">
             <h1>See where things really stand</h1>
             <p class="cra-intro-sub">
-                Seventeen quick questions about daily life, safety, memory, and support —
-                answered in about four minutes. No right or wrong answers, and nothing to prepare.
+                A handful of quick questions about daily life, safety, memory, and support —
+                about ninety seconds. No right or wrong answers, and nothing to prepare.
             </p>
             <ul class="cra-points">
                 <li>A clear picture of where things stand today, area by area</li>
@@ -238,6 +238,10 @@
             <button class="cra-start" id="startBtn">Start the assessment</button>
             <p class="cra-resume" id="resumeRow" style="display:none;">
                 <a href="#" id="resumeLink"></a>
+            </p>
+            <p class="cra-resume" style="margin-top:18px;">
+                Would rather just talk it through?
+                <a href="consult.html?from=assessment"><strong>Book a free consultation &rarr;</strong></a>
             </p>
             <div class="cra-urgentbar">
                 <strong>Need help right away?</strong> Skip this —
@@ -256,7 +260,7 @@
                 <h2>First — where should we send your report?</h2>
                 <p class="cra-gate-sub">
                     We&rsquo;ll email you a copy of your results so nothing is lost if you get
-                    interrupted. Then the questions begin — about three minutes.
+                    interrupted. Then the questions begin — about ninety seconds.
                 </p>
                 <form id="emailForm">
                     <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
@@ -273,8 +277,9 @@
 
         <!-- 2. Quiz -->
         <section class="cra-screen" id="quizScreen" aria-live="polite">
+            <!-- Bar only. No "question 3 of 8" label — a running tally is what
+                 makes a short form feel long, and this one is eight questions. -->
             <div class="cra-progress">
-                <div class="cra-progress-label" id="progressLabel">Question 1</div>
                 <div class="cra-progress-track"><div class="cra-progress-fill" id="progressFill" style="width:0%"></div></div>
             </div>
             <div class="cra-q">
@@ -339,6 +344,7 @@
                         <li><a href="paying-for-care.html">Ways to Pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="consult.html">Free Consultation</a></li>
                         <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
@@ -375,6 +381,9 @@
     </footer>
 
     <script src="js/main.js?v=20260808a"></script>
-    <script src="js/assessment.js?v=20260808a"></script>
+    <!-- v3 (8 questions). Bumped because this file and assessment.html must
+         ship together: the old JS writes to a #progressLabel this page no
+         longer has, so a cached copy would throw on the first question. -->
+    <script src="js/assessment.js?v=20260810a"></script>
 </body>
 </html>

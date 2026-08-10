@@ -31,6 +31,18 @@
         .con-tool h3 { font-size: 1.1rem; margin-bottom: 8px; }
         .con-tool p { font-size: 0.98rem; color: var(--text); line-height: 1.6; margin-bottom: 10px; }
         .con-tool .soon { display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 10px; }
+        /* Four short questions, asked as tap-to-select pills rather than
+           dropdowns — this form is mostly filled on a phone, and a <select>
+           on a phone is a modal wheel that costs two extra taps per answer. */
+        .con-q { margin: 0 0 16px; }
+        .con-q > span.q { display: block; font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
+        .con-q > span.hint { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+        .con-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+        .con-pill { background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.28); color: #fff; font-family: inherit; font-size: 0.94rem; line-height: 1.35; padding: 9px 13px; border-radius: 4px; cursor: pointer; text-align: left; }
+        .con-pill:hover { border-color: var(--gold); }
+        .con-pill:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+        .con-pill[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 700; }
+        .con-divider { border: 0; border-top: 1px solid rgba(255,255,255,0.18); margin: 20px 0 18px; }
         .con-error { display: none; background: #FDF6F4; border: 2px solid #B14A3C; border-radius: 4px; color: #7a2e23; padding: 12px 14px; margin-top: 12px; font-size: 0.95rem; }
         .con-success { display: none; background: var(--teal-light); border: 2px solid var(--teal); border-radius: 4px; padding: 24px; font-size: 1.05rem; line-height: 1.65; color: var(--text-dark); }
         @media (max-width: 860px) { .con-grid, .con-tools-grid { grid-template-columns: 1fr; } }
@@ -138,10 +150,70 @@
             <div>
                 <div class="con-card" id="consultCard">
                     <h2>Request your consultation</h2>
-                    <p class="sub">Tell us how to reach you — we&rsquo;ll call to set a time that works.</p>
+                    <p class="sub">Four quick questions, then how to reach you — we&rsquo;ll call to set a time that works.</p>
                     <p class="sub" id="planInterest" style="display:none; color: #E8B86D; font-weight: 700;"></p>
                     <form id="consultForm">
                         <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
+
+                        <!-- The four questions. Every one of them changes what
+                             Ifeanyi does before the call: who he's talking to,
+                             what kind of help to price, how fast to move, and
+                             which payer to phone first. Nothing is required —
+                             a blank answer must never cost us the lead. -->
+                        <div class="con-q" data-q="who" data-multi="false">
+                            <span class="q">Who is the care for?</span>
+                            <div class="con-pills">
+                                <button type="button" class="con-pill" data-value="parent" aria-pressed="false">My parent</button>
+                                <button type="button" class="con-pill" data-value="spouse" aria-pressed="false">My spouse or partner</button>
+                                <button type="button" class="con-pill" data-value="self" aria-pressed="false">Myself</button>
+                                <button type="button" class="con-pill" data-value="other" aria-pressed="false">Another relative or friend</button>
+                            </div>
+                        </div>
+
+                        <div class="con-q" data-q="help" data-multi="true">
+                            <span class="q">What kind of help are you looking for?</span>
+                            <span class="hint">Pick as many as apply — best guess is fine.</span>
+                            <div class="con-pills">
+                                <button type="button" class="con-pill" data-value="companionship" aria-pressed="false">Company and check-ins</button>
+                                <button type="button" class="con-pill" data-value="homemaking" aria-pressed="false">Meals, housekeeping, errands</button>
+                                <button type="button" class="con-pill" data-value="personal_care" aria-pressed="false">Bathing, dressing, personal care</button>
+                                <button type="button" class="con-pill" data-value="transfers" aria-pressed="false">Hands-on help moving around</button>
+                                <button type="button" class="con-pill" data-value="memory" aria-pressed="false">Memory or dementia support</button>
+                                <button type="button" class="con-pill" data-value="rides" aria-pressed="false">Rides to appointments</button>
+                                <button type="button" class="con-pill" data-value="not_sure" aria-pressed="false">Not sure yet</button>
+                            </div>
+                        </div>
+
+                        <div class="con-q" data-q="when" data-multi="false">
+                            <span class="q">How soon do you need it?</span>
+                            <div class="con-pills">
+                                <button type="button" class="con-pill" data-value="now" aria-pressed="false">Right away</button>
+                                <button type="button" class="con-pill" data-value="hospital" aria-pressed="false">Coming home from a hospital or rehab stay</button>
+                                <button type="button" class="con-pill" data-value="weeks" aria-pressed="false">In the next few weeks</button>
+                                <button type="button" class="con-pill" data-value="months" aria-pressed="false">In the next few months</button>
+                                <!-- value matches the assessment's timeline
+                                     question so ?timeline= pre-selects it -->
+                                <button type="button" class="con-pill" data-value="researching" aria-pressed="false">Just planning ahead</button>
+                            </div>
+                        </div>
+
+                        <div class="con-q" data-q="coverage" data-multi="true">
+                            <span class="q">How are you planning to pay for care?</span>
+                            <span class="hint">Best guess is fine. Whatever you pick, we&rsquo;ll check what you actually qualify for — that part is free either way.</span>
+                            <div class="con-pills">
+                                <button type="button" class="con-pill" data-value="medicaid" aria-pressed="false">Medicaid</button>
+                                <button type="button" class="con-pill" data-value="medicare_advantage" aria-pressed="false">A Medicare Advantage plan</button>
+                                <button type="button" class="con-pill" data-value="va" aria-pressed="false">VA benefits / military service</button>
+                                <button type="button" class="con-pill" data-value="ltc_policy" aria-pressed="false">A long-term care policy</button>
+                                <button type="button" class="con-pill" data-value="disability_benefits" aria-pressed="false">Social Security disability</button>
+                                <button type="button" class="con-pill" data-value="medicare_original" aria-pressed="false">Original Medicare only</button>
+                                <button type="button" class="con-pill" data-value="none" aria-pressed="false">Out of pocket — paying ourselves</button>
+                                <button type="button" class="con-pill" data-value="not_sure" aria-pressed="false">We don&rsquo;t know yet — help us find out</button>
+                            </div>
+                        </div>
+
+                        <hr class="con-divider">
+
                         <input type="text" name="name" placeholder="Your name*" required autocomplete="name">
                         <input type="tel" name="phone" placeholder="Phone number (optional)" autocomplete="tel">
                         <input type="email" name="email" placeholder="Email" autocomplete="email">
@@ -205,6 +277,7 @@
                         <li><a href="paying-for-care.html">Ways to Pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="consult.html">Free Consultation</a></li>
                         <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
@@ -249,15 +322,72 @@
         var form = document.getElementById('consultForm');
         var errBox = document.getElementById('consultError');
 
+        var params = new URLSearchParams(location.search);
+
         // Arriving from the care-plans page: show + carry the plan interest.
         var PLAN_NAMES = { 'check-in': 'Check-In', 'steady-support': 'Steady Support', 'full-comfort': 'Full Comfort' };
-        var planParam = new URLSearchParams(location.search).get('plan');
+        var planParam = params.get('plan');
         var planName = planParam && PLAN_NAMES[planParam] ? PLAN_NAMES[planParam] : null;
         if (planName) {
             var pi = document.getElementById('planInterest');
             pi.textContent = 'Asking about: the ' + planName + ' plan';
             pi.style.display = 'block';
         }
+
+        // ---- The four questions ------------------------------------------
+        // Answers live here, not in form fields: single-select stores a
+        // string, multi stores an array, which is the shape the API expects.
+        var answers = {};
+        Array.prototype.forEach.call(document.querySelectorAll('.con-q'), function(block) {
+            var key = block.getAttribute('data-q');
+            var multi = block.getAttribute('data-multi') === 'true';
+            var pills = block.querySelectorAll('.con-pill');
+            Array.prototype.forEach.call(pills, function(pill) {
+                pill.addEventListener('click', function() {
+                    var value = pill.getAttribute('data-value');
+                    if (!multi) {
+                        var wasOn = pill.getAttribute('aria-pressed') === 'true';
+                        Array.prototype.forEach.call(pills, function(p) { p.setAttribute('aria-pressed', 'false'); });
+                        // Tapping the selected pill again clears it — there is
+                        // no "prefer not to say" pill and people change their mind.
+                        if (wasOn) { delete answers[key]; return; }
+                        pill.setAttribute('aria-pressed', 'true');
+                        answers[key] = value;
+                        return;
+                    }
+                    var list = Array.isArray(answers[key]) ? answers[key].slice() : [];
+                    var i = list.indexOf(value);
+                    if (i !== -1) { list.splice(i, 1); pill.setAttribute('aria-pressed', 'false'); }
+                    else { list.push(value); pill.setAttribute('aria-pressed', 'true'); }
+                    // "Out of pocket" and "we don't know yet" are each answers
+                    // on their own — picking either clears the specific routes,
+                    // and picking a specific route clears them. Nobody is on
+                    // Medicaid and also unsure how they're paying.
+                    var EXCLUSIVE = ['none', 'not_sure'];
+                    if (EXCLUSIVE.indexOf(value) !== -1 && list.indexOf(value) !== -1) list = [value];
+                    else if (EXCLUSIVE.indexOf(value) === -1) {
+                        list = list.filter(function(v) { return EXCLUSIVE.indexOf(v) === -1; });
+                    }
+                    Array.prototype.forEach.call(pills, function(p) {
+                        p.setAttribute('aria-pressed', list.indexOf(p.getAttribute('data-value')) !== -1 ? 'true' : 'false');
+                    });
+                    if (list.length) answers[key] = list; else delete answers[key];
+                });
+            });
+        });
+
+        // Arriving from the assessment report: they already told us who the
+        // care is for and how soon, so pre-select those and don't make them
+        // answer the same thing twice.
+        var CARRY = { who: 'relationship', when: 'timeline' };
+        Object.keys(CARRY).forEach(function(key) {
+            var v = params.get(CARRY[key]);
+            if (!v) return;
+            var pill = document.querySelector('.con-q[data-q="' + key + '"] .con-pill[data-value="' + v.replace(/"/g, '') + '"]');
+            if (!pill) return;
+            pill.setAttribute('aria-pressed', 'true');
+            answers[key] = v;
+        });
 
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -275,14 +405,15 @@
                         email: fd.get('email') || undefined,
                         zip: (fd.get('zip') || '').replace(/\D/g, '').slice(0, 5) || undefined,
                         preferredTime: fd.get('preferredTime') || undefined,
+                        answers: Object.keys(answers).length ? answers : undefined,
                         message: [planName ? 'Interested in the ' + planName + ' plan' : '', fd.get('message') || '']
                             .filter(Boolean).join('\n') || undefined,
                         consent: fd.get('consent') !== null,
-                        consentTextVersion: 'consult_v2_2026-08',
+                        consentTextVersion: 'consult_v3_2026-08',
                         visitorKey: window.vtVisitorKey ? window.vtVisitorKey() : undefined,
                         company_website: fd.get('company_website') || '',
-                        utm: { page: 'consult' },
-                        test: new URLSearchParams(location.search).has('test') || undefined
+                        utm: { page: 'consult', from: params.get('from') || 'direct' },
+                        test: params.has('test') || undefined
                     })
                 });
                 if (!res.ok) {

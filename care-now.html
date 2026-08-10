@@ -183,14 +183,20 @@
             <div class="cn-q">
                 <h2 tabindex="-1">How will care likely be paid for?</h2>
                 <p class="cn-help">&ldquo;Not sure yet&rdquo; is a fine answer — we help families sort out coverage every week.</p>
+                <!-- Values are the shared funding vocabulary (CoverageKey in
+                     vitaltouch-ops src/lib/funnel/questions.ts) — the same keys
+                     the assessment and /consult post. They diverged until
+                     2026-08 (`private_pay`, `ltc_insurance`), which made the
+                     funding card on the lead read "not answered" for exactly
+                     the people who needed calling first. -->
                 <div class="cn-opts" id="payOpts">
                     <button type="button" class="cn-opt" data-value="medicaid"><span class="ck">✓</span>Medicaid</button>
                     <button type="button" class="cn-opt" data-value="medicare_advantage"><span class="ck">✓</span>A Medicare Advantage plan</button>
                     <button type="button" class="cn-opt" data-value="home_services"><span class="ck">✓</span>Illinois Home Services Program (adults under 60 with a disability)</button>
                     <button type="button" class="cn-opt" data-value="va"><span class="ck">✓</span>VA benefits</button>
-                    <button type="button" class="cn-opt" data-value="ltc_insurance"><span class="ck">✓</span>Long-term care insurance</button>
-                    <button type="button" class="cn-opt" data-value="private_pay"><span class="ck">✓</span>We&rsquo;ll pay on our own</button>
-                    <button type="button" class="cn-opt" data-value="not_sure"><span class="ck">✓</span>Not sure yet</button>
+                    <button type="button" class="cn-opt" data-value="ltc_policy"><span class="ck">✓</span>Long-term care insurance</button>
+                    <button type="button" class="cn-opt" data-value="none"><span class="ck">✓</span>Out of pocket &mdash; we&rsquo;ll pay ourselves</button>
+                    <button type="button" class="cn-opt" data-value="not_sure"><span class="ck">✓</span>Not sure yet &mdash; help us find out</button>
                 </div>
             </div>
             <div class="cn-nav">
@@ -260,6 +266,7 @@
                         <li><a href="paying-for-care.html">Ways to Pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li><a href="service-areas.html">Service Areas</a></li>
+                        <li><a href="consult.html">Free Consultation</a></li>
                         <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>

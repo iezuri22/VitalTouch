@@ -1,12 +1,20 @@
 /* ============================================
    CARE READINESS ASSESSMENT — quiz + report
    Question ids/values MUST mirror the server's
-   assessment_v2 bank (vitaltouch-ops
+   assessment_v3 bank (vitaltouch-ops
    src/lib/funnel/questions.ts). Scoring happens
    server-side only — this file never sees points.
    The server drops any answer id it doesn't know,
    so a question added here and not there is
    silently discarded: change both, together.
+
+   v3 (2026-08): eight questions, down from
+   seventeen. The count is deliberately never
+   shown — no "question 3 of 8" — because a
+   running tally is what makes a short form feel
+   like a long one. The bar alone carries the
+   sense of progress. Follow-up detail is asked
+   on consult.html, after they've decided to talk.
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -42,139 +50,58 @@ document.addEventListener('DOMContentLoaded', function() {
           help: 'There’s no wrong answer — this just helps us point you to the right next step.',
           options: [
             { value: 'now', label: 'Right away — something has to change' },
+            { value: 'hospital', label: 'Right away — they’re coming home from a hospital, rehab, or nursing stay', selfLabel: 'Right away — I’m coming home from a hospital, rehab, or nursing stay' },
             { value: 'weeks', label: 'In the next few weeks' },
             { value: 'months', label: 'In the next few months' },
             { value: 'researching', label: 'Just starting to research' }
           ] },
-        { id: 'adl_personal', kind: 'single',
-          prompt: 'How are they managing personal care — bathing, dressing, grooming?',
-          selfPrompt: 'How are you managing personal care — bathing, dressing, grooming?',
+        { id: 'daily_tasks', kind: 'single',
+          prompt: 'How is day-to-day life going — bathing, dressing, meals, and keeping the house running?',
           options: [
-            { value: 'independent', label: 'Fully on their own', selfLabel: 'Fully on my own' },
-            { value: 'reminders', label: 'Mostly fine, but slipping a little' },
+            { value: 'independent', label: 'All of it gets done without help' },
+            { value: 'slipping', label: 'Mostly fine, but some of it is slipping' },
             { value: 'some_help', label: 'Needs hands-on help with some of it', selfLabel: 'I need hands-on help with some of it' },
-            { value: 'depends', label: 'Depends on someone for most of it', selfLabel: 'I depend on someone for most of it' }
+            { value: 'depends', label: 'Depends on someone for most of it', selfLabel: 'I depend on someone for most of it' },
+            { value: 'transfers', label: 'Needs hands-on help getting in and out of bed, a chair, or the shower', selfLabel: 'I need hands-on help getting in and out of bed, a chair, or the shower' }
           ] },
-        { id: 'adl_household', kind: 'single',
-          prompt: 'What about the household — meals, laundry, cleaning, errands?',
+        { id: 'safety_mobility', kind: 'single',
+          prompt: 'How are things going with getting around — steadiness and falls?',
           options: [
-            { value: 'independent', label: 'Handles it all', selfLabel: 'I handle it all' },
-            { value: 'slipping', label: 'Keeping up, but the house shows it' },
-            { value: 'some_help', label: 'Someone already helps with parts of it' },
-            { value: 'cannot', label: 'Can’t manage it without help' }
-          ] },
-        { id: 'disability_supports', kind: 'multi',
-          prompt: 'Does day-to-day life involve any of these?',
-          help: 'Check anything that applies, then continue. There’s no wrong answer here.',
-          options: [
-            { value: 'transfers', label: 'Help getting in and out of bed, a chair, or the shower' },
-            { value: 'mobility_equipment', label: 'A wheelchair, walker, or other mobility equipment' },
-            { value: 'communication', label: 'Support with communication — speech, hearing, or vision' },
-            { value: 'medical_equipment', label: 'Medical equipment at home (oxygen, feeding tube, catheter, a lift)' },
-            { value: 'rides', label: 'Rides to work, school, dialysis, or regular appointments' },
-            { value: 'none', label: 'None of these' }
-          ] },
-        { id: 'falls', kind: 'single',
-          prompt: 'Have they fallen in the past six months?',
-          selfPrompt: 'Have you fallen in the past six months?',
-          options: [
-            { value: 'none', label: 'No falls' },
-            { value: 'one_ok', label: 'One fall, no real injury' },
-            { value: 'multiple', label: 'More than one fall' },
-            { value: 'injury', label: 'A fall that caused injury or an ER visit' }
-          ] },
-        { id: 'mobility', kind: 'single',
-          prompt: 'How steady are they on their feet?',
-          selfPrompt: 'How steady are you on your feet?',
-          options: [
-            { value: 'steady', label: 'Steady — gets around fine', selfLabel: 'Steady — I get around fine' },
+            { value: 'steady', label: 'Steady, and no falls' },
             { value: 'furniture', label: 'Holds onto furniture or walls sometimes', selfLabel: 'I hold onto furniture or walls sometimes' },
-            { value: 'walker', label: 'Uses a cane or walker, needs a watchful eye', selfLabel: 'I use a cane or walker' },
+            { value: 'walker', label: 'Uses a cane or walker, and needs a watchful eye', selfLabel: 'I use a cane or walker' },
+            { value: 'falls', label: 'Has fallen more than once, or had a fall that caused injury', selfLabel: 'I’ve fallen more than once, or had a fall that caused injury' },
             { value: 'unsafe', label: 'Can’t move around safely alone', selfLabel: 'I can’t move around safely alone' }
           ] },
-        { id: 'medications', kind: 'single',
-          prompt: 'How are medications going?',
-          options: [
-            { value: 'independent', label: 'Takes them correctly on their own', selfLabel: 'I take them correctly on my own' },
-            { value: 'reminders', label: 'Needs reminders or a pill organizer', selfLabel: 'I need reminders or a pill organizer' },
-            { value: 'misses', label: 'Sometimes misses doses or doubles up', selfLabel: 'I sometimes miss doses or double up' },
-            { value: 'managed', label: 'Someone else has to handle them entirely' },
-            { value: 'none', label: 'Doesn’t take regular medications', selfLabel: 'I don’t take regular medications' }
-          ] },
-        { id: 'memory_daily', kind: 'single',
-          prompt: 'Have you noticed changes in memory?',
+        { id: 'memory_judgment', kind: 'single',
+          prompt: 'Have you noticed changes in memory or judgment?',
           options: [
             { value: 'normal', label: 'Nothing beyond normal aging' },
             { value: 'repeats', label: 'Repeats questions, misses appointments', selfLabel: 'I repeat questions or miss appointments' },
-            { value: 'forgets_tasks', label: 'Forgets meals, bills, or the stove', selfLabel: 'I forget meals, bills, or the stove' },
-            { value: 'confusion', label: 'Gets confused about where they are or who people are', selfLabel: 'I get confused about where I am or who people are' }
+            { value: 'incidents', label: 'Forgets meals or bills, has left the stove on, or fallen for a scam', selfLabel: 'I forget meals or bills, have left the stove on, or fallen for a scam' },
+            { value: 'confusion', label: 'Gets confused about where they are or who people are, or has wandered off', selfLabel: 'I get confused about where I am or who people are, or have gotten lost' }
           ] },
-        { id: 'memory_safety', kind: 'single',
-          prompt: 'Any moments that worried you about judgment or safety?',
+        { id: 'support_now', kind: 'single',
+          prompt: 'Who helps out today, and how are they holding up?',
           options: [
-            { value: 'none', label: 'No, nothing like that' },
-            { value: 'occasional', label: 'A few questionable decisions lately' },
-            { value: 'incidents', label: 'Left the stove on, fallen for a scam, or similar' },
-            { value: 'wandered', label: 'Has wandered or gotten lost', selfLabel: 'I have gotten lost' }
-          ] },
-        { id: 'alone_time', kind: 'single',
-          prompt: 'How much of the day are they alone?',
-          selfPrompt: 'How much of the day are you alone?',
-          options: [
-            { value: 'rarely', label: 'Rarely — someone is usually around' },
-            { value: 'few_hours', label: 'A few hours a day' },
-            { value: 'most_day', label: 'Most of the day' },
-            { value: 'day_night', label: 'Most of the day and overnight' }
-          ] },
-        { id: 'getting_out', kind: 'single',
-          prompt: 'How often do they get out or see people?',
-          selfPrompt: 'How often do you get out or see people?',
-          options: [
-            { value: 'active', label: 'Still drives or gets out regularly', selfLabel: 'I still drive or get out regularly' },
-            { value: 'with_help', label: 'Gets out when someone takes them', selfLabel: 'I get out when someone takes me' },
-            { value: 'rarely', label: 'Rarely leaves the house anymore', selfLabel: 'I rarely leave the house anymore' },
-            { value: 'homebound', label: 'Homebound, and visitors are rare' }
-          ] },
-        { id: 'current_help', kind: 'single',
-          prompt: 'Who helps out today?',
-          options: [
-            { value: 'family_daily', label: 'Family nearby, involved almost daily' },
+            { value: 'family_daily', label: 'Family is nearby and involved almost daily' },
             { value: 'family_stretched', label: 'Family helps, but everyone is stretched thin' },
-            { value: 'distant', label: 'Family lives far away — help is occasional' },
+            { value: 'distant', label: 'Family is far away — help is occasional, and they’re alone most of the day', selfLabel: 'Family is far away — help is occasional, and I’m alone most of the day' },
+            { value: 'burning_out', label: 'The main caregiver is running on empty — this can’t continue' },
             { value: 'none', label: 'No reliable help right now' }
           ] },
-        { id: 'caregiver_strain', kind: 'single',
-          prompt: 'If a family member is the main caregiver — how are they holding up?',
-          options: [
-            { value: 'na', label: 'No family caregiver in the picture' },
-            { value: 'fine', label: 'Doing okay' },
-            { value: 'tired', label: 'Tired, but managing' },
-            { value: 'burning_out', label: 'Running on empty' },
-            { value: 'crisis', label: 'At a breaking point — this can’t continue' }
-          ] },
-        { id: 'recent_events', kind: 'multi',
-          prompt: 'Has any of this happened in the past few months?',
-          help: 'Check anything that applies, then continue.',
-          options: [
-            { value: 'hospitalization', label: 'A hospital stay' },
-            { value: 'er_visit', label: 'An ER visit' },
-            { value: 'new_diagnosis', label: 'A new diagnosis (dementia, Parkinson’s, stroke, etc.)' },
-            { value: 'lost_caregiver', label: 'Lost a spouse or the person who was helping' },
-            { value: 'weight_loss', label: 'Noticeable weight loss or not eating well' },
-            { value: 'none', label: 'None of these' }
-          ] },
         { id: 'coverage', kind: 'multi',
-          prompt: 'Last one — what coverage is already in place?',
-          help: 'Best guess is fine. Most families are covered by more than they realize, and we do the checking for you.',
+          prompt: 'Last one — how are you planning to pay for care?',
+          help: 'Pick anything that might apply — a best guess is fine. Whatever you choose, we’ll check what you actually qualify for, and that costs you nothing.',
           options: [
             { value: 'medicaid', label: 'Medicaid, or a Medicaid managed care plan' },
-            { value: 'medicare_advantage', label: 'A Medicare Advantage plan (Aetna, Humana, Blue Cross, UnitedHealthcare, Molina, and the like)' },
+            { value: 'medicare_advantage', label: 'Through a Medicare Advantage plan (Aetna, Humana, Blue Cross, UnitedHealthcare, Molina, and the like)' },
+            { value: 'va', label: 'Through VA benefits — there’s military service in the family', selfLabel: 'Through VA benefits — I served, or my spouse did' },
+            { value: 'ltc_policy', label: 'With a long-term care insurance policy' },
+            { value: 'disability_benefits', label: 'Alongside Social Security disability (SSI or SSDI)' },
             { value: 'medicare_original', label: 'Original Medicare only — no extra plan' },
-            { value: 'va', label: 'Served in the military, or already uses VA health care' },
-            { value: 'ltc_policy', label: 'A long-term care insurance policy' },
-            { value: 'disability_benefits', label: 'Receives Social Security disability (SSI or SSDI)' },
-            { value: 'none', label: 'None of these — we’d be paying on our own', selfLabel: 'None of these — I’d be paying on my own' },
-            { value: 'not_sure', label: 'Not sure' }
+            { value: 'none', label: 'Out of pocket — we’d be paying ourselves', selfLabel: 'Out of pocket — I’d be paying myself' },
+            { value: 'not_sure', label: 'We don’t know yet — show us what could pay for this', selfLabel: 'I don’t know yet — show me what could pay for this' }
           ] }
     ];
 
@@ -221,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             show('report');
         });
     } else if (state.started && Object.keys(state.answers).length > 0) {
-        resumeLink.textContent = 'Pick up where you left off (question ' + (state.idx + 1) + ' of ' + QUESTIONS.length + ') →';
+        resumeLink.textContent = 'Pick up where you left off →';
         resumeRow.style.display = 'block';
         resumeLink.addEventListener('click', function(e) {
             e.preventDefault();
@@ -273,7 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var qPrompt = document.getElementById('qPrompt');
     var qHelp = document.getElementById('qHelp');
     var qOpts = document.getElementById('qOpts');
-    var progressLabel = document.getElementById('progressLabel');
     var progressFill = document.getElementById('progressFill');
     var backBtn = document.getElementById('backBtn');
     var continueBtn = document.getElementById('continueBtn');
@@ -281,8 +207,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function render() {
         var q = QUESTIONS[state.idx];
         var self = isSelf();
-        progressLabel.textContent = 'Question ' + (state.idx + 1) + ' of ' + QUESTIONS.length;
-        progressFill.style.width = Math.round((state.idx / QUESTIONS.length) * 100) + '%';
+        // Bar only — deliberately no "question N of M" (see file header). The
+        // fill starts one step in so the first screen never reads as "zero
+        // progress" to someone deciding whether to bother.
+        progressFill.style.width = Math.round(((state.idx + 1) / QUESTIONS.length) * 100) + '%';
         qPrompt.textContent = (self && q.selfPrompt) ? q.selfPrompt : q.prompt;
         qHelp.textContent = q.help || '';
         qHelp.style.display = q.help ? 'block' : 'none';
@@ -313,11 +241,16 @@ document.addEventListener('DOMContentLoaded', function() {
             track('assessment_started');
         }
         if (q.kind === 'multi') {
+            // "Out of pocket" and "we don't know yet" are each answers on their
+            // own — picking either clears the specific routes, and picking a
+            // specific route clears them. You can't be on Medicaid AND not know
+            // how you're paying.
+            var EXCLUSIVE = ['none', 'not_sure'];
             var cur = Array.isArray(state.answers[q.id]) ? state.answers[q.id].slice() : [];
             var i = cur.indexOf(value);
             if (i !== -1) { cur.splice(i, 1); }
-            else if (value === 'none') { cur = ['none']; }
-            else { cur = cur.filter(function(v) { return v !== 'none'; }); cur.push(value); }
+            else if (EXCLUSIVE.indexOf(value) !== -1) { cur = [value]; }
+            else { cur = cur.filter(function(v) { return EXCLUSIVE.indexOf(v) === -1; }); cur.push(value); }
             state.answers[q.id] = cur;
             save(STORE_KEY, state);
             render();
@@ -350,8 +283,18 @@ document.addEventListener('DOMContentLoaded', function() {
     continueBtn.addEventListener('click', function() {
         var q = QUESTIONS[state.idx];
         if (q.kind === 'multi' && (!state.answers[q.id] || state.answers[q.id].length === 0)) {
-            state.answers[q.id] = ['none'];
-            save(STORE_KEY, state);
+            // Skipping a multi-select is "I don't know", never "none of these".
+            // This used to record ['none'] for every question, which on the
+            // payment question meant clicking past it silently filed the family
+            // as paying out of pocket — a specific claim the report then acted
+            // on, showing them the self-pay paragraph and nothing else. Prefer
+            // the question's own not-sure option when it has one.
+            var unsure = q.options.filter(function(o) { return o.value === 'not_sure'; })[0]
+                      || q.options.filter(function(o) { return o.value === 'none'; })[0];
+            if (unsure) {
+                state.answers[q.id] = [unsure.value];
+                save(STORE_KEY, state);
+            }
         }
         next();
     });
@@ -391,7 +334,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             var data = await res.json().catch(function() { return {}; });
             if (!res.ok) throw new Error(data.error || 'failed');
-            save(REPORT_KEY, { assessmentId: data.assessmentId, report: data.report, savedAt: new Date().toISOString() });
+            // Carry the two answers the consultation form also asks for, so a
+            // reader arriving there from the report isn't asked twice. Saved
+            // alongside the report so it survives a return visit.
+            save(REPORT_KEY, {
+                assessmentId: data.assessmentId,
+                report: data.report,
+                carry: { relationship: state.answers.relationship, timeline: state.answers.timeline },
+                savedAt: new Date().toISOString()
+            });
             try { localStorage.removeItem(STORE_KEY); } catch (err) {}
             renderReport(data.report);
             show('report');
@@ -474,11 +425,33 @@ document.addEventListener('DOMContentLoaded', function() {
             h += '</div>';
         }
 
+        // The report ends with the consultation, not the phone number: a
+        // stressed reader on a phone at 11pm won't call, but they will book.
+        // Urgent readers get the phone first — for them a call today is the
+        // whole point. The band rides along so the consult form can open with
+        // the right questions already leaning the right way.
+        var consultHref = 'consult.html?from=assessment&band=' + encodeURIComponent(r.band || '');
+        var carry = (load(REPORT_KEY) || {}).carry || {
+            relationship: state.answers.relationship,
+            timeline: state.answers.timeline
+        };
+        // The consult form's "who" and "when" pills use the same values as
+        // the assessment's relationship/timeline questions, so they pre-select.
+        if (carry.relationship) consultHref += '&relationship=' + encodeURIComponent(carry.relationship);
+        if (carry.timeline) consultHref += '&timeline=' + encodeURIComponent(carry.timeline);
         h += '<div class="cra-report-cta">';
-        h += '<a href="tel:7087264536" class="cra-btn-gold">Call (708) 726-4536</a>';
-        h += '<a href="consult.html" class="cra-btn-outline">Request a free consultation</a>';
+        if (r.band === 'urgent') {
+            h += '<a href="tel:7087264536" class="cra-btn-gold">Call (708) 726-4536</a>';
+            h += '<a href="' + esc(consultHref) + '" class="cra-btn-outline">Book a free consultation</a>';
+        } else {
+            h += '<a href="' + esc(consultHref) + '" class="cra-btn-gold">Book a free consultation</a>';
+            h += '<a href="tel:7087264536" class="cra-btn-outline">Call (708) 726-4536</a>';
+        }
         h += '<button type="button" class="cra-btn-outline" id="downloadBtn">Download PDF</button>';
         h += '</div>';
+        h += '<p style="font-size:0.98rem;line-height:1.6;color:var(--text-muted);margin:0 0 10px;">'
+          + 'The consultation is free and takes about thirty minutes — by phone or in the home. '
+          + 'Four short questions to book it, and no obligation either way.</p>';
 
         h += '<p class="cra-disclaimer">' + esc(r.disclaimer) + '</p>';
 
