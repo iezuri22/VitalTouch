@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260808a">
+    <link rel="stylesheet" href="css/style.css?v=20260810c">
     <style>
         /* ===== Consultation request =====================================
            Rebuilt 2026-08-10. The form used to sit in a 420px sidebar next
@@ -85,7 +85,9 @@
            they couldn't see. Sized up from the shared 0.78rem too; a consent
            disclosure has to be legible to count as one. */
         .con-card .va-consent { align-items: flex-start; gap: 10px; margin: 4px 0 4px; }
-        .con-card .va-consent span { color: var(--text); font-size: 0.86rem; line-height: 1.55; }
+        /* Colour only — the size and line-height now come from the shared rule,
+           which was bumped to 0.86rem site-wide. One source of truth. */
+        .con-card .va-consent span { color: var(--text); }
         .con-card .va-consent a { color: var(--teal-dark); }
         /* flex-basis, not just width: the shared rule pins `flex: 0 0 16px`,
            which wins on the main axis however specific the width is. */

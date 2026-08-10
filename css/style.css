@@ -1126,7 +1126,13 @@ ul, ol { list-style: none; }
     cursor: pointer;
 }
 .va-consent input { margin-top: 3px; flex-shrink: 0; width: 16px; height: 16px; }
-.va-consent span { color: rgba(255,255,255,0.75); font-size: 0.78rem; line-height: 1.5; }
+/* 0.86rem, not the 0.78rem this used to be. Two reasons: the readers are
+   mostly older adults, and this is the TCPA/A2P disclosure — it has to be
+   legible to function as consent. The colour is for the navy lead cards
+   (homepage hero, assessment gates); a light-background form must override it
+   or the text renders white-on-white, which is exactly what happened to the
+   consultation form on 2026-08-10. */
+.va-consent span { color: rgba(255,255,255,0.75); font-size: 0.86rem; line-height: 1.55; }
 .va-submit {
     width: 100%;
     background: var(--gold);
