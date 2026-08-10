@@ -37,7 +37,7 @@
         .car-family h2 { color: #fff; font-size: 1.5rem; margin-bottom: 10px; }
         .car-family p { color: rgba(255,255,255,0.85); font-size: 1.05rem; line-height: 1.7; margin-bottom: 16px; }
         .car-family a.car-cta { font-size: 1.02rem; padding: 13px 28px; }
-        @media (max-width: 768px) { .car-roles { grid-template-columns: 1fr; } .car-cta { display: block; text-align: center; } }
+        @media (max-width: 768px) { .car-roles { grid-template-columns: 1fr; } .car-cta { display: block; text-align: center; } .car-hero h1 br { display: none; } }
     </style>
     <!-- Business structured data (helps Google's knowledge panel + sitelinks) -->
     <script type="application/ld+json">
@@ -121,7 +121,12 @@
 
     <main id="main" tabindex="-1" class="car-wrap">
         <section class="car-hero">
-            <h1>Do work that matters —<br>close to home</h1>
+            <!-- The break is a desktop nicety. On a phone the line is too
+                 narrow to hold "Do work that matters —", so it wrapped and
+                 left the em dash stranded alone on its own line. The nbsp
+                 keeps the dash tied to "matters"; the break is hidden below
+                 768px and the whole thing just wraps naturally. -->
+            <h1>Do work that matters&nbsp;—<br>close to home</h1>
             <p>
                 We&rsquo;re hiring <strong>Homemakers</strong> and <strong>CNAs</strong> across the Chicago
                 south suburbs. Local, family-owned, and licensed by the State of Illinois — and when you call, the owner answers.
