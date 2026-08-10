@@ -77,6 +77,22 @@
         .con-card input, .con-card select, .con-card textarea { width: 100%; padding: 12px 14px; margin: 0; border: 1.5px solid var(--border); border-radius: 4px; font-family: inherit; font-size: 1rem; color: var(--text-dark); background: var(--white); }
         .con-card input:focus, .con-card select:focus, .con-card textarea:focus { outline: none; border-color: var(--teal); }
         .con-card textarea { min-height: 70px; resize: vertical; }
+        /* The shared .va-consent span is white — it was written for the navy
+           lead cards on the homepage and the assessment gate. This card is
+           white, so without this the TCPA disclosure rendered white-on-white:
+           invisible text still occupying its full height, which is what put a
+           dead 600px gap above the button and stopped people ticking the box
+           they couldn't see. Sized up from the shared 0.78rem too; a consent
+           disclosure has to be legible to count as one. */
+        .con-card .va-consent { align-items: flex-start; gap: 10px; margin: 4px 0 4px; }
+        .con-card .va-consent span { color: var(--text); font-size: 0.86rem; line-height: 1.55; }
+        .con-card .va-consent a { color: var(--teal-dark); }
+        /* flex-basis, not just width: the shared rule pins `flex: 0 0 16px`,
+           which wins on the main axis however specific the width is. */
+        .con-card .va-consent input[type="checkbox"] { flex: 0 0 20px; width: 20px; min-width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--teal); }
+        /* Turns red when they try to submit without ticking it. */
+        .con-card .va-consent.needs-consent { background: #FDF6F4; border-left: 4px solid #B14A3C; border-radius: 0 4px 4px 0; padding: 10px 12px; }
+        .con-card .va-consent.needs-consent span { color: #7a2e23; }
         .con-more > summary { cursor: pointer; font-size: 0.95rem; color: var(--teal-dark); padding: 4px 0; font-weight: 600; list-style: none; }
         .con-more > summary::-webkit-details-marker { display: none; }
         .con-more > summary::before { content: '+ '; font-weight: 800; }
@@ -319,13 +335,13 @@
                         </div>
                     </details>
                     <label class="va-consent full">
-                        <input type="checkbox" name="consent" style="width:auto;">
+                        <input type="checkbox" name="consent">
                         <span class="consent-text">I agree that VitalTouch Health Network, Inc. may contact me about home care services by phone, text message, and email using the contact information I provide, including through automated technology or an AI assistant. Message frequency may vary. Message and data rates may apply. Consent is not a condition of purchase or of receiving services. Reply STOP to opt out of texts at any time, or say so on a call to stop being contacted. See our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a> for details.</span>
                     </label>
                 </div>
 
                 <div class="con-submit-row">
-                    <button type="submit" class="va-submit" id="consultSubmit">Request my free consultation</button>
+                    <button type="submit" class="va-submit" id="consultSubmit">Submit</button>
                 </div>
                 <div class="con-trust">
                     <span>No cost, no obligation</span>
@@ -449,9 +465,6 @@
             var on = URGENT_WHEN.indexOf(answers.when) !== -1;
             document.getElementById('urgentBanner').style.display = on ? 'block' : 'none';
             document.getElementById('urgentFields').classList.toggle('on', on);
-            document.getElementById('consultSubmit').textContent = on
-                ? 'Send this — call me today'
-                : 'Request my free consultation';
         }
         Array.prototype.forEach.call(document.querySelectorAll('.con-q'), function(block) {
             var key = block.getAttribute('data-q');
@@ -558,12 +571,46 @@
         // soon" — the form should be in its urgent state before they touch it.
         syncUrgency();
 
+        var consentBox = form.querySelector('[name="consent"]');
+        var consentLabel = form.querySelector('.va-consent');
+        consentBox.addEventListener('change', function() {
+            if (consentBox.checked) consentLabel.classList.remove('needs-consent');
+        });
+
+        function fail(message, focusEl) {
+            errBox.textContent = message;
+            errBox.style.display = 'block';
+            if (focusEl) {
+                focusEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                try { focusEl.focus({ preventScroll: true }); } catch (e) {}
+            }
+        }
+
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             errBox.style.display = 'none';
             var fd = new FormData(form);
             var btn = document.getElementById('consultSubmit');
+
+            // Check the two things the server rejects, BEFORE posting, and say
+            // which one it was. These used to sail off to the API and come
+            // back as a flat "something went wrong", which tells someone whose
+            // parent is being discharged today precisely nothing.
+            if (fd.get('consent') === null) {
+                consentLabel.classList.add('needs-consent');
+                // No "above"/"below": this message sits under the button while
+                // the box is over it, and we scroll the box into view anyway.
+                fail('Please tick the highlighted box to say we can contact you — we can’t send this without it.', consentBox);
+                return;
+            }
+            if (!fd.get('phone') && !fd.get('email')) {
+                fail('Please add a phone number or an email so we know how to reach you.',
+                     form.querySelector('[name="phone"]'));
+                return;
+            }
+
             btn.disabled = true;
+            btn.textContent = 'Sending…';
             try {
                 var res = await fetch(API, {
                     method: 'POST',
@@ -604,10 +651,16 @@
                 }
                 document.getElementById('consultSuccess').style.display = 'block';
             } catch (err) {
-                errBox.textContent = 'Sorry — something went wrong. Please call us at (708) 726-4536 and we will set it up right away.';
-                errBox.style.display = 'block';
+                // Surface what the server actually said when it's something the
+                // visitor can act on. Anything else (network, 500) gets the
+                // phone number, because that always works.
+                var msg = (err && err.message) || '';
+                fail(msg && msg !== 'failed'
+                    ? msg + ' Please fix that and send again, or call us at (708) 726-4536.'
+                    : 'Sorry — we couldn’t send that just now. Please try again, or call us at (708) 726-4536 and we’ll set it up right away.');
             } finally {
                 btn.disabled = false;
+                btn.textContent = 'Submit';
             }
         });
     });
