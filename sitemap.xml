@@ -17,4 +17,6 @@
   <url><loc>https://vitaltouchcares.com/blog.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://vitaltouchcares.com/privacy-policy.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.3</priority></url>
   <url><loc>https://vitaltouchcares.com/terms.html</loc><lastmod>2026-07-05</lastmod><changefreq>weekly</changefreq><priority>0.3</priority></url>
+
+  <url><loc>https://vitaltouchcares.com/sms-consent.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
