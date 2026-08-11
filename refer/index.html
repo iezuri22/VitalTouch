@@ -105,6 +105,7 @@
                         <p style="font-size: 0.95rem; margin-bottom: 24px;">We'll follow up with you, not the family, unless you tell us otherwise.</p>
 
                         <form id="referralForm">
+                            <p class="refer-legend">About you</p>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="refName">Your Name *</label>
@@ -148,9 +149,59 @@
                             </div>
                             <p class="refer-hint">Give us a phone number or an email so we can reach you.</p>
 
+                            <p class="refer-legend refer-legend-spaced">About the client</p>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cliName">Client Name or Initials</label>
+                                    <input type="text" id="cliName" name="cliName" placeholder="First name is enough">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cliArea">Town or ZIP *</label>
+                                    <input type="text" id="cliArea" name="cliArea" required placeholder="e.g. Matteson">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cliService">Help Needed</label>
+                                    <select id="cliService" name="cliService">
+                                        <option value="">Select an option</option>
+                                        <option>Homemaking</option>
+                                        <option>Companionship</option>
+                                        <option>Personal care</option>
+                                        <option>Alzheimer's / dementia support</option>
+                                        <option>Disability support</option>
+                                        <option>Not sure yet</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cliStart">Start Needed</label>
+                                    <select id="cliStart" name="cliStart">
+                                        <option value="">Select an option</option>
+                                        <option>Urgent &mdash; within 48 hours</option>
+                                        <option>This week</option>
+                                        <option>Within two weeks</option>
+                                        <option>Planning ahead</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="form-group">
-                                <label for="refDetails">About the referral *</label>
-                                <textarea id="refDetails" name="refDetails" required placeholder="Type of help needed, area of town, when service needs to start, and anything that affects staffing — transfers, equipment, a prescribed diet, language."></textarea>
+                                <label for="refDetails">Anything that affects staffing *</label>
+                                <textarea id="refDetails" name="refDetails" required placeholder="Hours needed, transfers, equipment, a prescribed diet, language, anything else we should know before we call you."></textarea>
+                            </div>
+
+                            <div class="refer-consent">
+                                <label>
+                                    <input type="checkbox" id="cliOk" name="cliOk">
+                                    <span>The client or their family knows about this referral and has agreed that we may contact them directly.</span>
+                                </label>
+                                <div id="cliContactWrap" class="form-group" hidden style="margin: 14px 0 0;">
+                                    <label for="cliContact">Client or Family Contact</label>
+                                    <input type="text" id="cliContact" name="cliContact" placeholder="Name and phone number">
+                                </div>
+                                <p class="refer-hint" style="margin: 10px 0 0;">Leave this unticked and we&rsquo;ll come to you first &mdash; we won&rsquo;t call the family until you tell us they&rsquo;re expecting it.</p>
                             </div>
 
                             <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
@@ -240,6 +291,23 @@
         padding: 32px; box-shadow: 0 8px 30px rgba(0,0,0,0.05);
     }
     .refer-hint { font-size: 0.85rem; color: var(--text-muted); margin: -6px 0 18px; }
+    .refer-legend {
+        font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+        color: var(--teal-dark); margin: 0 0 14px; padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+    }
+    .refer-legend-spaced { margin-top: 26px; }
+    .refer-consent {
+        background: var(--cream); border: 1px solid var(--border);
+        border-radius: 12px; padding: 16px 18px; margin-bottom: 20px;
+    }
+    .refer-consent > label {
+        display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+        font-weight: 400; font-size: 0.9rem; line-height: 1.55; color: var(--text); margin: 0;
+    }
+    .refer-consent input[type="checkbox"] {
+        margin-top: 3px; width: 18px; height: 18px; accent-color: var(--teal); flex-shrink: 0;
+    }
     @media (max-width: 900px) {
         .refer-grid { grid-template-columns: 1fr; gap: 40px; }
         .refer-card { padding: 24px; }
@@ -261,6 +329,17 @@
         var LEADS_API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
             ? 'http://localhost:3000/api/public/leads'
             : 'https://vitaltouch-ops.vercel.app/api/public/leads';
+
+        /* Client contact box only appears once the referrer confirms the family
+           is expecting our call. Unticked, we never ask for it. */
+        var okBox = document.getElementById('cliOk');
+        var contactWrap = document.getElementById('cliContactWrap');
+        if (okBox && contactWrap) {
+            okBox.addEventListener('change', function () {
+                contactWrap.hidden = !okBox.checked;
+                if (!okBox.checked) document.getElementById('cliContact').value = '';
+            });
+        }
 
         var statusEl = document.getElementById('referFormStatus');
         function showStatus(msg, ok) {
@@ -285,6 +364,23 @@
             var role = [(d.get('refRole') || '').trim(), (d.get('refOrgType') || '').trim() && '(' + d.get('refOrgType') + ')']
                 .filter(Boolean).join(' ');
 
+            /* The client block is written into the referral note, NOT into lead
+               contact fields — the lead is the referring professional. Client
+               contact details are only included when the referrer has confirmed
+               the family is expecting our call. */
+            var clientOk = okBox && okBox.checked;
+            var clientLines = [
+                (d.get('cliName') || '').trim() && 'Client: ' + d.get('cliName'),
+                (d.get('cliArea') || '').trim() && 'Area: ' + d.get('cliArea'),
+                (d.get('cliService') || '').trim() && 'Help needed: ' + d.get('cliService'),
+                (d.get('cliStart') || '').trim() && 'Start needed: ' + d.get('cliStart'),
+                clientOk
+                    ? 'Family is expecting our call. Client contact: ' + ((d.get('cliContact') || '').trim() || 'not given')
+                    : 'Family has NOT been told — contact the referrer first, do not call the client.'
+            ].filter(Boolean);
+
+            var message = clientLines.join('\n') + '\n\nNotes: ' + (d.get('refDetails') || '').trim();
+
             try {
                 var res = await fetch(LEADS_API, {
                     method: 'POST',
@@ -296,7 +392,7 @@
                         email: email || undefined,
                         organization: (d.get('refOrg') || '').trim() || undefined,
                         roleTitle: role || undefined,
-                        message: (d.get('refDetails') || '').trim(),
+                        message: message,
                         company_website: d.get('company_website') || '',
                         utm: { page: 'refer' }
                     })
