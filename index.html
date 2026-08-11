@@ -159,6 +159,18 @@
     <!-- Two paths: urgent → phone; researching → assessment -->
     <section class="va-paths">
         <div class="container">
+            <!-- Professionals first: a discharge planner with a Friday discharge
+                 shouldn't have to read past the consumer paths to find us. Kept
+                 as a quiet band rather than a third card — different audience. -->
+            <div class="va-refer">
+                <p>
+                    <strong>Referring a client?</strong>
+                    Discharge planners, social workers, case managers and elder law professionals &mdash;
+                    send us the details and we respond the same business day.
+                </p>
+                <a href="refer/" class="va-refer-btn">Refer a client</a>
+            </div>
+
             <div class="va-paths-grid">
                 <div class="va-path">
                     <h3>I need care now</h3>
@@ -172,24 +184,12 @@
                     <a href="assessment.html" class="va-path-btn va-path-btn-gold">See where things stand</a>
                 </div>
             </div>
-
-            <!-- Professionals. Deliberately a quieter band rather than a third
-                 card: a different audience, and it shouldn't compete with the
-                 two consumer paths above. -->
-            <div class="va-refer">
-                <p>
-                    <strong>Referring a client?</strong>
-                    Discharge planners, social workers, case managers and elder law professionals &mdash;
-                    send us the details and we respond the same business day.
-                </p>
-                <a href="refer/" class="va-refer-btn">Refer a client</a>
-            </div>
         </div>
     </section>
 
     <style>
     .va-refer {
-        max-width: 960px; margin: 26px auto 0; padding: 18px 24px;
+        max-width: 960px; margin: 0 auto 26px; padding: 18px 24px;
         background: var(--white); border: 1px solid var(--border); border-radius: 4px;
         display: flex; align-items: center; justify-content: space-between; gap: 24px;
     }
