@@ -4,7 +4,7 @@ A professional, multi-page website for VitalTouch Health Network - providing com
 
 ## 🌐 Live Site
 
-Once deployed, your site will be available at: `https://[your-username].github.io/[repo-name]/`
+https://vitaltouchhealthnetwork.com
 
 ## 📁 Site Structure
 
