@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a Concern | VitalTouch Health Network</title>
+    <meta name="description" content="Report a concern, a complaint, or damage to property involving VitalTouch Health Network. Anyone can report — you do not need an account, and you can report anonymously.">
+    <link rel="canonical" href="https://vitaltouchcares.com/incident/">
+    <!-- Not a page we want ranking above the service pages, but it must stay reachable. -->
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/png" href="../images/logo-symbol.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css?v=20260810c">
+</head>
+<body>
+
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="../index.html" class="logo">
+                    <img src="../images/logo-main.png" alt="VitalTouch Health Network">
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
+                    <span></span><span></span><span></span>
+                </button>
+                <div class="nav-menu nav-menu-slim">
+                    <a href="../services.html">Services</a>
+                    <a href="../disability-support.html">Disability Support</a>
+                    <a href="../paying-for-care.html">Ways to Pay</a>
+                    <a href="../assessment.html">Free Assessment</a>
+                    <a href="../contact.html">Contact</a>
+                    <a href="../apply.html">Careers</a>
+                </div>
+                <div class="nav-cta">
+                    <a href="tel:7087264536" class="nav-phone nav-phone-big">(708) 726-4536</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="../services.html">Services</a>
+        <a href="../disability-support.html">Disability Support</a>
+        <a href="../paying-for-care.html">Ways to Pay</a>
+        <a href="../assessment.html">Free Assessment</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../apply.html">Careers</a>
+        <a href="tel:7087264536" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 726-4536</a>
+    </nav>
+
+    <section id="main" tabindex="-1" class="page-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <span>Report a Concern</span>
+            </div>
+            <h1>Report a Concern</h1>
+            <p>Tell us something has gone wrong. Anyone can use this form, and you do not have to give your name.</p>
+        </div>
+    </section>
+
+    <section class="section section-white">
+        <div class="container">
+
+            <!-- An emergency must not queue behind a web form. -->
+            <div class="ic-urgent">
+                <strong>If someone is in danger right now, do not use this form.</strong>
+                Call <a href="tel:911">911</a>. To report suspected abuse, neglect, or financial
+                exploitation of an adult you can also call Illinois Adult Protective Services on
+                <a href="tel:18668001409">1-866-800-1409</a>, any hour of the day. You do not have to
+                tell us first, and you do not need our permission.
+            </div>
+
+            <div class="ic-grid">
+                <div>
+                    <span class="section-label">How this works</span>
+                    <h2>We would rather <span class="highlight">hear it</span></h2>
+                    <p style="font-size: 1.05rem;">A complaint tells us something we would not otherwise know. It is logged the day it arrives, before anyone decides whether it has merit.</p>
+
+                    <ul class="ic-facts">
+                        <li><strong>No one loses service over a complaint.</strong> Nobody's care will be reduced, delayed, or stopped because a report was made, and no employee will be disciplined for making one.</li>
+                        <li><strong>You will hear back.</strong> We acknowledge in writing within two business days and give you an outcome within 30 days.</li>
+                        <li><strong>You can stay anonymous.</strong> We will still investigate it — we just will not be able to send you the outcome.</li>
+                    </ul>
+
+                    <div class="ic-callout">
+                        <strong>You can also go elsewhere first.</strong>
+                        Raise it with the caseworker who arranged the service, or with the Illinois
+                        Department of Public Health on <a href="tel:18002524343">1-800-252-4343</a>.
+                        You do not have to come to us at all.
+                    </div>
+                </div>
+
+                <div>
+                    <div class="ic-card">
+                        <h3 style="margin-bottom: 6px;">Tell us what happened</h3>
+                        <p style="font-size: 0.95rem; margin-bottom: 22px;">Write it however it comes. We will follow up for anything we need.</p>
+
+                        <form id="incidentForm">
+                            <div class="form-group">
+                                <label for="icKind">What kind of thing is this? *</label>
+                                <select id="icKind" name="icKind">
+                                    <option value="complaint">A complaint — the service, or how someone behaved</option>
+                                    <option value="incident">Something happened — a fall, an injury, a missed visit</option>
+                                    <option value="loss_damage">Property lost or damaged</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="icCategory">What is it about? *</label>
+                                <select id="icCategory" name="icCategory" required></select>
+                                <p class="ic-mandated" id="icMandated" hidden>
+                                    You do not have to be sure. Suspicion is enough, and we are required to
+                                    report it onward.
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="icDescription">What happened? *</label>
+                                <textarea id="icDescription" name="icDescription" required
+                                    placeholder="When, where, who was there, and what you saw or were told."></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="icAboutWho">Who is this about?</label>
+                                    <input type="text" id="icAboutWho" name="icAboutWho" placeholder="A name, or a street">
+                                </div>
+                                <div class="form-group">
+                                    <label for="icWhen">When did it happen?</label>
+                                    <input type="date" id="icWhen" name="icWhen">
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="icItemWrap" hidden>
+                                <label for="icItem">What was lost or damaged?</label>
+                                <input type="text" id="icItem" name="icItem" placeholder="e.g. a wheelchair cushion, $40 in change">
+                            </div>
+
+                            <div class="ic-anon">
+                                <label class="ic-check">
+                                    <input type="checkbox" id="icAnon" name="icAnon">
+                                    <span><strong>Report this anonymously.</strong> We will still investigate. We just will not be able to tell you what we found.</span>
+                                </label>
+
+                                <div id="icContact">
+                                    <div class="form-group" style="margin-top:16px">
+                                        <label for="icWho">Which of these are you?</label>
+                                        <select id="icWho" name="icWho">
+                                            <option value="">Prefer not to say</option>
+                                            <option value="customer">I receive the care</option>
+                                            <option value="family">Family, or someone supporting them</option>
+                                            <option value="staff">I work for VitalTouch</option>
+                                            <option value="case_manager">Caseworker or case manager</option>
+                                            <option value="other">Someone else</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="icName">Your name</label>
+                                        <input type="text" id="icName" name="icName" autocomplete="name">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="icEmail">Email</label>
+                                            <input type="email" id="icEmail" name="icEmail" autocomplete="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="icPhone">Phone</label>
+                                            <input type="tel" id="icPhone" name="icPhone" autocomplete="tel">
+                                        </div>
+                                    </div>
+                                    <p class="ic-hint">One of the two is enough — it is how we send you the outcome.</p>
+                                </div>
+                            </div>
+
+                            <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
+
+                            <p id="icStatus" role="status" aria-live="polite" style="display:none;margin-bottom:14px;font-size:0.95rem;"></p>
+
+                            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Send report</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="../images/logo-white.png" alt="VitalTouch Health Network">
+                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../services.html">Our Services</a></li>
+                        <li><a href="../paying-for-care.html">Ways to Pay</a></li>
+                        <li><a href="../pricing.html">Pricing</a></li>
+                        <li><a href="../service-areas.html">Service Areas</a></li>
+                        <li><a href="../consult.html">Free Consultation</a></li>
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="../incident/">Report a Concern</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="../services.html">Companionship</a></li>
+                        <li><a href="../services.html">Homemaking</a></li>
+                        <li><a href="../services.html">Transportation</a></li>
+                        <li><a href="../services.html">Personal Care</a></li>
+                        <li><a href="../disability-support.html">Disability Support</a></li>
+                        <li><a href="../services.html">Dementia Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:7087264536">(708) 726-4536</a></li>
+                        <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
+                        <li>4749 Lincoln Mall Drive, Suite 204</li>
+                        <li>Matteson, IL 60443</li>
+                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="../privacy-policy.html">Privacy Policy</a>
+                    <a href="../terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+    .ic-urgent {
+        background: #FFF7ED; border: 1px solid #FDBA74; border-left: 4px solid #EA580C;
+        border-radius: 12px; padding: 16px 18px; margin-bottom: 32px;
+        font-size: 0.98rem; line-height: 1.65; color: var(--text);
+    }
+    .ic-urgent strong { display: block; margin-bottom: 4px; color: var(--navy); }
+    .ic-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 60px; align-items: start; }
+    .ic-facts { list-style: none; padding: 0; margin: 22px 0 24px; }
+    .ic-facts li { padding-left: 30px; position: relative; margin-bottom: 18px; line-height: 1.6; }
+    .ic-facts li::before {
+        content: ""; position: absolute; left: 0; top: 8px; width: 14px; height: 14px;
+        border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(27,155,140,0.15);
+    }
+    .ic-facts strong { display: block; margin-bottom: 2px; }
+    .ic-callout {
+        background: var(--cream); border: 1px solid var(--border); border-radius: 12px;
+        padding: 16px 18px; font-size: 0.92rem; line-height: 1.6;
+    }
+    .ic-callout strong { display: block; margin-bottom: 4px; }
+    .ic-card {
+        background: #fff; border: 1px solid var(--border); border-radius: 16px;
+        padding: 32px; box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+    .ic-anon {
+        background: var(--cream); border: 1px solid var(--border);
+        border-radius: 12px; padding: 16px 18px; margin-bottom: 20px;
+    }
+    .ic-check { display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+        font-weight: 400; font-size: 0.9rem; line-height: 1.55; margin: 0; }
+    .ic-check input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--teal); flex-shrink: 0; }
+    .ic-hint { font-size: 0.85rem; color: var(--text-muted); margin: -6px 0 0; }
+    .ic-mandated {
+        font-size: 0.86rem; line-height: 1.55; color: #92400E;
+        background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 8px;
+        padding: 9px 12px; margin: 8px 0 0;
+    }
+    @media (max-width: 900px) {
+        .ic-grid { grid-template-columns: 1fr; gap: 40px; }
+        .ic-card { padding: 24px; }
+    }
+    </style>
+
+    <script src="../js/main.js?v=20260808a"></script>
+    <script>
+    /* Public incident / complaint / loss intake -> ops platform.
+       Creates an incident_reports row with source='public'. The customer is
+       never resolved from what is typed here: naming someone would attach a
+       report to a person record on a stranger's say-so, and confirming that
+       somebody is a customer is itself a disclosure. A supervisor matches it. */
+    (function () {
+        var form = document.getElementById('incidentForm');
+        if (!form) return;
+
+        var API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+            ? 'http://localhost:3000/api/public/incident'
+            : 'https://vitaltouch-ops.vercel.app/api/public/incident';
+
+        var CATEGORIES = {
+            complaint: [
+                ['missed_late', 'Visit missed or late'],
+                ['work_not_done', 'Work not done, or not done properly'],
+                ['caregiver_conduct', 'How a caregiver behaved'],
+                ['office_conduct', 'How the office handled something'],
+                ['schedule', 'Scheduling or continuity'],
+                ['billing', 'Billing or money'],
+                ['privacy', 'Privacy or confidentiality'],
+                ['dignity', 'Respect, dignity, or discrimination'],
+                ['other', 'Something else']
+            ],
+            incident: [
+                ['fall', 'A fall'],
+                ['injury', 'Injury to the person receiving care'],
+                ['medical_emergency', 'Medical emergency'],
+                ['allegation_abuse', 'Suspected abuse'],
+                ['allegation_neglect', 'Suspected neglect or self-neglect'],
+                ['financial_exploitation', 'Suspected financial exploitation'],
+                ['behavior', 'Behavior or safety concern'],
+                ['hazard', 'A hazard in the home'],
+                ['missed_visit', 'Missed or refused visit'],
+                ['other', 'Something else']
+            ],
+            loss_damage: [
+                ['property_damage', 'Damage to property'],
+                ['assistive_tech', 'Damage to a wheelchair, lift, hearing aid, or similar'],
+                ['property_loss', 'Something lost or missing'],
+                ['funds', 'Money or benefits unaccounted for'],
+                ['personal_injury', 'Personal injury']
+            ]
+        };
+        var MANDATED = ['allegation_abuse', 'allegation_neglect', 'financial_exploitation'];
+
+        var kindEl = document.getElementById('icKind');
+        var catEl = document.getElementById('icCategory');
+        var itemWrap = document.getElementById('icItemWrap');
+        var anonEl = document.getElementById('icAnon');
+        var contactEl = document.getElementById('icContact');
+        var mandatedEl = document.getElementById('icMandated');
+        var statusEl = document.getElementById('icStatus');
+
+        function fillCategories() {
+            var list = CATEGORIES[kindEl.value] || [];
+            catEl.innerHTML = '<option value="">Choose one</option>';
+            list.forEach(function (c) {
+                var o = document.createElement('option');
+                o.value = c[0]; o.textContent = c[1];
+                catEl.appendChild(o);
+            });
+            itemWrap.hidden = kindEl.value !== 'loss_damage';
+            mandatedEl.hidden = true;
+        }
+        kindEl.addEventListener('change', fillCategories);
+        catEl.addEventListener('change', function () {
+            mandatedEl.hidden = MANDATED.indexOf(catEl.value) === -1;
+        });
+        anonEl.addEventListener('change', function () {
+            contactEl.hidden = anonEl.checked;
+            if (anonEl.checked) {
+                ['icName', 'icEmail', 'icPhone', 'icWho'].forEach(function (id) {
+                    document.getElementById(id).value = '';
+                });
+            }
+        });
+        fillCategories();
+
+        function show(msg, ok) {
+            statusEl.textContent = msg;
+            statusEl.style.display = 'block';
+            statusEl.style.color = ok ? 'var(--teal-dark)' : '#b91c1c';
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var d = new FormData(form);
+            var anon = anonEl.checked;
+            var email = (d.get('icEmail') || '').trim();
+            var phone = (d.get('icPhone') || '').trim();
+
+            if (!d.get('icCategory')) { show('Please choose what this is about.', false); return; }
+            if ((d.get('icDescription') || '').trim().length < 10) {
+                show('Please tell us a little more about what happened.', false); return;
+            }
+            if (!anon && !email && !phone) {
+                show('Add an email or phone so we can tell you what we found — or tick "report anonymously".', false);
+                return;
+            }
+
+            var btn = form.querySelector('button[type="submit"]');
+            if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; btn.textContent = 'Sending…'; }
+
+            try {
+                var res = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        kind: kindEl.value,
+                        category: d.get('icCategory'),
+                        description: (d.get('icDescription') || '').trim(),
+                        anonymous: anon,
+                        reporterName: anon ? undefined : (d.get('icName') || '').trim() || undefined,
+                        reporterEmail: anon ? undefined : email || undefined,
+                        reporterPhone: anon ? undefined : phone || undefined,
+                        complainantType: anon ? undefined : (d.get('icWho') || '') || undefined,
+                        aboutWho: (d.get('icAboutWho') || '').trim() || undefined,
+                        occurredOn: d.get('icWhen') || undefined,
+                        itemDescription: kindEl.value === 'loss_damage'
+                            ? (d.get('icItem') || '').trim() || undefined : undefined,
+                        company_website: d.get('company_website') || ''
+                    })
+                });
+                var data = await res.json().catch(function () { return {}; });
+                if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+
+                form.innerHTML =
+                    '<div style="text-align:center;padding:22px 8px;">'
+                    + '<h3 style="margin-bottom:10px;">We have it.</h3>'
+                    + '<p style="font-size:1rem;line-height:1.65;">'
+                    + (data.reference
+                        ? 'Your reference is <strong>' + data.reference + '</strong>. We acknowledge in '
+                          + 'writing within two business days and give you an outcome within 30 days.'
+                        : 'You reported anonymously, so there is no reference and we cannot send you the '
+                          + 'outcome — but it is logged and it will be investigated the same way.')
+                    + '</p><p style="margin-top:14px;font-size:0.92rem;">If this becomes urgent, call '
+                    + '<a href="tel:7087264536"><strong>(708) 726-4536</strong></a>.</p></div>';
+            } catch (err) {
+                if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.textContent = 'Send report'; }
+                show((err && err.message ? err.message : 'Something went wrong')
+                    + ' — please call us at (708) 726-4536.', false);
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
