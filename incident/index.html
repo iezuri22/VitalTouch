@@ -429,8 +429,18 @@
                     + '<a href="tel:7087264536"><strong>(708) 726-4536</strong></a>.</p></div>';
             } catch (err) {
                 if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.textContent = 'Send report'; }
-                show((err && err.message ? err.message : 'Something went wrong')
-                    + ' — please call us at (708) 726-4536.', false);
+                // A complaints page that swallows a complaint is worse than no
+                // page. If the send fails for any reason, give them a route that
+                // does not depend on us — and do not lose what they typed.
+                statusEl.innerHTML =
+                    'We could not send that just now. Please call <strong>'
+                    + '<a href="tel:7087264536">(708) 726-4536</a></strong> or email '
+                    + '<strong><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></strong>'
+                    + ' — and if this concerns someone\u2019s safety, call <strong>911</strong> or Adult '
+                    + 'Protective Services on <strong><a href="tel:18668001409">1-866-800-1409</a></strong>. '
+                    + 'What you typed is still on this page.';
+                statusEl.style.display = 'block';
+                statusEl.style.color = '#b91c1c';
             }
         });
     })();
