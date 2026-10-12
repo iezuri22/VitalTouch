@@ -264,6 +264,18 @@ ALL = TOWNS + CHICAGO + [HUB]
 
 UI_PLAN = open(f'{SITE}/_tools/partials/ui-plan.html').read()
 
+FAMILY_PHOTOS = [
+  ('media/still-family-8.jpg', 'An older woman and her daughter reading together on the couch'),
+  ('images/home-hero.jpg', 'A caregiver smiling with an older woman at home'),
+  ('images/family-connected.jpg', 'A grandmother and granddaughter smiling together at the kitchen table'),
+  ('images/family-program.jpg', 'An older man and a woman laughing together outside a house'),
+  ('images/garden-smiles.jpg', 'An older woman laughing while gardening with a younger woman'),
+  ('media/still-family-2.jpg', 'A mother and daughter sharing a quiet moment at home'),
+  ('media/still-care-4.jpg', 'A caregiver helping an older man in a sunlit room'),
+]
+def family_photo_for(slug):
+    return FAMILY_PHOTOS[sum(map(ord, slug)) % len(FAMILY_PHOTOS)]
+
 PHOTOS = [
   ('home-hero.jpg', 'A caregiver smiling with an older woman at home'),
   ('garden-smiles.jpg', 'An older woman laughing while gardening with a younger woman'),
@@ -310,6 +322,7 @@ def esc(s): return H.escape(s, quote=True)
 def page(t):
     kind = t.get('kind', 'town')
     photo = photo_for(t['slug'])
+    fam = family_photo_for(t['slug'])
     where = (f"Chicago, {t.get('side', 'South Side')}" if kind == 'chicago' else (t.get('county') or 'Cook County')) if kind != 'hub' else 'Cook County'
     fact_items = []
     if t['zips']:
@@ -407,8 +420,8 @@ def page(t):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012f">
-    <link rel="stylesheet" href="css/vt.css?v=20261012f">
+    <link rel="stylesheet" href="css/style.css?v=20261012g">
+    <link rel="stylesheet" href="css/vt.css?v=20261012g">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap {{ max-width: 900px; margin: 0 auto; }}
@@ -417,6 +430,7 @@ def page(t):
         .town-services {{ list-style: none; padding: 0; margin: 0 0 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }}
         .town-services li {{ display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--mist); border-radius: 14px; font-weight: 550; color: var(--ink); }}
         .town-services i {{ font-size: 1.35rem; color: var(--accent-deep); flex-shrink: 0; }}
+        .town-plan {{ margin: 22px 0 0; max-width: 520px; }}
         .town-notes {{ list-style: none; padding: 0; margin: 36px 0 8px; display: grid; gap: 14px; }}
         .town-notes li {{ display: flex; gap: 14px; align-items: flex-start; font-size: 1.05rem; color: var(--body-ink); }}
         .town-notes i {{ width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-deep); font-size: 1.2rem; flex-shrink: 0; }}
@@ -452,7 +466,20 @@ def page(t):
                     <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
-            <div class="vt-local-hero__card">{UI_PLAN}</div>
+            <figure class="vt-local-hero__fam">
+                <img src="{fam[0]}" alt="{esc(fam[1])}" width="1400" height="1050">
+                <figcaption><i class="ph ph-heart" aria-hidden="true"></i><span><strong>Care that feels like family</strong>Local and family-owned</span></figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="town-family">
+        <div class="container">
+            <ul class="town-family__row">
+                <li><i class="ph ph-users-three" aria-hidden="true"></i><div><strong>The same faces</strong><span>One matched caregiver, kept with you whenever we can.</span></div></li>
+                <li><i class="ph ph-house-line" aria-hidden="true"></i><div><strong>Your routine, not ours</strong><span>We learn how the home runs and fit around it.</span></div></li>
+                <li><i class="ph ph-heart" aria-hidden="true"></i><div><strong>Family-owned</strong><span>A local agency. The owner answers the phone.</span></div></li>
+            </ul>
         </div>
     </section>
 
@@ -469,6 +496,7 @@ def page(t):
                 <li><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</li>
                 <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family</li>
             </ul>
+            <div class="town-plan">{UI_PLAN}</div>
 
             <div class="eg-card">
                 <div><strong>Check availability in {esc(n)}</strong><p>Leave a number and zip. We call once, usually the same day.</p></div>

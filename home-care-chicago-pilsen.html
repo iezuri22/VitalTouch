@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012f">
-    <link rel="stylesheet" href="css/vt.css?v=20261012f">
+    <link rel="stylesheet" href="css/style.css?v=20261012g">
+    <link rel="stylesheet" href="css/vt.css?v=20261012g">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap { max-width: 900px; margin: 0 auto; }
@@ -20,6 +20,7 @@
         .town-services { list-style: none; padding: 0; margin: 0 0 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .town-services li { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--mist); border-radius: 14px; font-weight: 550; color: var(--ink); }
         .town-services i { font-size: 1.35rem; color: var(--accent-deep); flex-shrink: 0; }
+        .town-plan { margin: 22px 0 0; max-width: 520px; }
         .town-notes { list-style: none; padding: 0; margin: 36px 0 8px; display: grid; gap: 14px; }
         .town-notes li { display: flex; gap: 14px; align-items: flex-start; font-size: 1.05rem; color: var(--body-ink); }
         .town-notes i { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-deep); font-size: 1.2rem; flex-shrink: 0; }
@@ -217,22 +218,20 @@
                     <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
-            <div class="vt-local-hero__card"><div class="ui-card ui-plan" aria-label="Sample care plan">
-    <div class="ui-card__top"><div><strong>Care plan</strong><span>Sample weekly schedule</span></div><span class="ui-pill">Agreed in writing</span></div>
-    <div class="ui-plan__week" role="img" aria-label="Visits Monday, Wednesday and Friday 9 to 1, Saturday 10 to 12">
-        <div class="ui-plan__day"><span>Mon</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
-        <div class="ui-plan__day"><span>Tue</span></div>
-        <div class="ui-plan__day"><span>Wed</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
-        <div class="ui-plan__day"><span>Thu</span></div>
-        <div class="ui-plan__day"><span>Fri</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
-        <div class="ui-plan__day"><span>Sat</span><i class="ui-plan__blk ui-plan__blk--alt" style="--s:1;--e:3"></i></div>
-        <div class="ui-plan__day"><span>Sun</span></div>
-    </div>
-    <div class="ui-plan__axis" aria-hidden="true"><span>9a</span><span>11a</span><span>1p</span></div>
-    <div class="ui-plan__tags"><span>Bathing</span><span>Meals</span><span>Medication reminders</span><span>Rides</span></div>
-    <div class="ui-card__foot"><span><i class="ph ph-clock" aria-hidden="true"></i>14 hrs / week</span><span>Updated when needs change</span></div>
-</div>
-</div>
+            <figure class="vt-local-hero__fam">
+                <img src="media/still-family-8.jpg" alt="An older woman and her daughter reading together on the couch" width="1400" height="1050">
+                <figcaption><i class="ph ph-heart" aria-hidden="true"></i><span><strong>Care that feels like family</strong>Local and family-owned</span></figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="town-family">
+        <div class="container">
+            <ul class="town-family__row">
+                <li><i class="ph ph-users-three" aria-hidden="true"></i><div><strong>The same faces</strong><span>One matched caregiver, kept with you whenever we can.</span></div></li>
+                <li><i class="ph ph-house-line" aria-hidden="true"></i><div><strong>Your routine, not ours</strong><span>We learn how the home runs and fit around it.</span></div></li>
+                <li><i class="ph ph-heart" aria-hidden="true"></i><div><strong>Family-owned</strong><span>A local agency. The owner answers the phone.</span></div></li>
+            </ul>
         </div>
     </section>
 
@@ -249,6 +248,22 @@
                 <li><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</li>
                 <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family</li>
             </ul>
+            <div class="town-plan"><div class="ui-card ui-plan" aria-label="Sample care plan">
+    <div class="ui-card__top"><div><strong>Care plan</strong><span>Sample weekly schedule</span></div><span class="ui-pill">Agreed in writing</span></div>
+    <div class="ui-plan__week" role="img" aria-label="Visits Monday, Wednesday and Friday 9 to 1, Saturday 10 to 12">
+        <div class="ui-plan__day"><span>Mon</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
+        <div class="ui-plan__day"><span>Tue</span></div>
+        <div class="ui-plan__day"><span>Wed</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
+        <div class="ui-plan__day"><span>Thu</span></div>
+        <div class="ui-plan__day"><span>Fri</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
+        <div class="ui-plan__day"><span>Sat</span><i class="ui-plan__blk ui-plan__blk--alt" style="--s:1;--e:3"></i></div>
+        <div class="ui-plan__day"><span>Sun</span></div>
+    </div>
+    <div class="ui-plan__axis" aria-hidden="true"><span>9a</span><span>11a</span><span>1p</span></div>
+    <div class="ui-plan__tags"><span>Bathing</span><span>Meals</span><span>Medication reminders</span><span>Rides</span></div>
+    <div class="ui-card__foot"><span><i class="ph ph-clock" aria-hidden="true"></i>14 hrs / week</span><span>Updated when needs change</span></div>
+</div>
+</div>
 
             <div class="eg-card">
                 <div><strong>Check availability in Pilsen</strong><p>Leave a number and zip. We call once, usually the same day.</p></div>
@@ -372,9 +387,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012f"></script>
-    <script src="js/nav.js?v=20261012f" defer></script>
-    <script src="js/motion.js?v=20261012f" defer></script>
-    <script src="js/engage.js?v=20261012f" defer></script>
+    <script src="js/main.js?v=20261012g"></script>
+    <script src="js/nav.js?v=20261012g" defer></script>
+    <script src="js/motion.js?v=20261012g" defer></script>
+    <script src="js/engage.js?v=20261012g" defer></script>
 </body>
 </html>
