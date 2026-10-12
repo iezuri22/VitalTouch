@@ -62,6 +62,7 @@ def footer(pre):
                         <li><a href="{pre}services.html">Services</a></li>
                         <li><a href="{pre}disability-support.html">Disability support</a></li>
                         <li><a href="{pre}paying-for-care.html">Ways to pay</a></li>
+                        <li><a href="{pre}help-finder.html">Find local help</a></li>
                         <li><a href="{pre}changes.html">Medicare and Medicaid changes</a></li>
                         <li><a href="{pre}pricing.html">Pricing</a></li>
                         <li><a href="{pre}assessment.html">Free assessment</a></li>

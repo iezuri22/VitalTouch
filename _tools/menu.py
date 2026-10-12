@@ -42,10 +42,11 @@ MENU = [
         ('assessment.html', 'ph-clipboard-text', 'Free care assessment', 'Personal report in 90 seconds'),
         ('changes.html', 'ph-newspaper', 'Medicare and Medicaid changes', 'What changes in 2026 and 2027'),
         ('faq.html', 'ph-question', 'FAQ', 'Quick answers'),
+        ('help-finder.html', 'ph-magnifying-glass', 'Find local help', 'Free help by zip code'),
         ('guides.html', 'ph-article', 'Guides', 'Paying for care, explained'),
         ('refer/', 'ph-handshake', 'Refer a client', 'For professionals'),
         ('incident/', 'ph-warning-circle', 'Report a concern', 'We respond fast'),
-    ], ('Open enrollment', 'Oct 15 to Dec 7', 'Compare in-home support before you pick a plan.', 'changes.html#open-enrollment', 'Read more')),
+    ], ('Free local help', 'Rides, meals, senior centers', 'Enter a zip code. See the free help in your town.', 'help-finder.html', 'Find help')),
     ('About', [
         ('about.html', 'ph-users-three', 'About us', 'Who we are'),
         ('apply.html', 'ph-briefcase', 'Careers', 'Now hiring caregivers'),

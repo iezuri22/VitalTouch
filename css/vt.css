@@ -2347,3 +2347,114 @@ body:has(.mobile-nav.active) .vita { display: none; }
 .pf-q__guide { margin: 4px 0 0; }
 .pf-q__guide a { font-weight: 700; color: var(--accent-deep); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
 .pf-q__guide a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ===== Senior help finder (2026-10-12): help-finder.html. Search in the
+   navy hero, results as grouped lists beside a sticky map and one quiet
+   care panel. Prints as a clean one-page list for the fridge. ===== */
+.hf-form { margin-top: 26px; max-width: 560px; }
+.hf-label { display: block; font-weight: 700; color: #fff; margin-bottom: 8px; font-size: 1rem; }
+.hf-row { display: flex; gap: 10px; }
+.hf-row input { flex: 1 1 auto; min-width: 0; font: 500 1.15rem/1.2 var(--font-body); padding: 14px 18px; border-radius: 999px; border: 0; color: var(--ink); background: #fff; }
+.hf-row input:focus-visible { outline: 3px solid var(--accent-bright, #4fd1bf); outline-offset: 2px; }
+.hf-row .vt-btn { flex: 0 0 auto; }
+.hf-try { margin: 12px 0 0; color: rgba(255,255,255,.75); font-size: .95rem; }
+.hf-try button { background: none; border: 0; padding: 0 6px; font: inherit; color: var(--accent-bright, #4fd1bf); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.hf-note { margin: 14px 0 0; padding: 12px 16px; border-radius: 12px; background: rgba(255,255,255,.1); color: #fff; font-size: .98rem; }
+.hf-choices { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.hf-choices .vt-chip { cursor: pointer; border: 0; font: 600 .95rem var(--font-body); }
+.hf-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 32px; padding-bottom: 22px; margin-bottom: 30px; border-bottom: 1px solid var(--line); }
+.hf-kicker { margin: 0 0 4px; font-weight: 700; color: var(--accent-deep); }
+.hf-head h2 { margin: 0 0 8px; }
+.hf-fact { margin: 0; max-width: 60ch; color: var(--body-ink); font-size: 1.05rem; }
+.hf-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.hf-actions .vt-btn { gap: 8px; }
+.hf-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.hf-group + .hf-group { margin-top: 34px; }
+.hf-group h3 { font-size: 1.2rem; margin: 0 0 14px; }
+.hf-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 18px; }
+.hf-list li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; align-items: start; }
+.hf-list i { font-size: 1.35rem; color: var(--accent-deep); margin-top: 1px; }
+.hf-list strong { display: block; color: var(--ink); line-height: 1.3; margin-bottom: 2px; }
+.hf-list strong a { color: inherit; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.hf-list span { display: block; color: var(--body-ink); font-size: .98rem; line-height: 1.45; }
+.hf-phone { display: inline-block; margin-top: 4px; font-weight: 700; color: var(--accent-deep); text-decoration: none; font-variant-numeric: tabular-nums; }
+.hf-list--cols { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px 40px; }
+.hf-guides { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; }
+.hf-guides li { border-bottom: 1px solid var(--line); }
+.hf-guides a { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 2px; font-weight: 650; color: var(--ink); text-decoration: none; }
+.hf-guides a:hover { color: var(--accent-deep); }
+.hf-side { position: sticky; top: 104px; display: grid; gap: 18px; }
+.hf-map { margin: 0; border-radius: var(--r-card); overflow: hidden; border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow-2); }
+.hf-map iframe { display: block; width: 100%; aspect-ratio: 4 / 3; border: 0; background: var(--mist-2); }
+.hf-map figcaption { display: flex; justify-content: space-between; gap: 10px; padding: 12px 16px; font-size: .93rem; color: var(--muted-ink); border-top: 1px solid var(--line); }
+.hf-map figcaption strong { color: var(--ink); display: inline-flex; gap: 6px; align-items: center; }
+.hf-care { padding: 22px; border-radius: var(--r-card); background: var(--ink); color: #c7d3df; display: grid; gap: 10px; justify-items: start; }
+.hf-care h3 { color: #fff; margin: 0; font-size: 1.2rem; }
+.hf-care p { margin: 0 0 6px; }
+.hf-care .vt-btn--solid { background: #fff !important; color: var(--ink) !important; border-color: #fff !important; }
+.hf-more { color: var(--accent-bright, #4fd1bf); font-weight: 650; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
+.hf-src { margin: 36px 0 0; font-size: .9rem; color: var(--muted-ink); max-width: 72ch; }
+.hf-has-result .hf-default { display: none; }
+@media (max-width: 900px) { .hf-grid { grid-template-columns: 1fr; } .hf-side { position: static; } .hf-guides { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .hf-row { flex-direction: column; } .hf-row .vt-btn { width: 100%; justify-content: center; } .hf-hero .ip-hero__card { display: none; } .hf-map iframe { aspect-ratio: 16 / 10; } }
+@media print {
+  .header, .mobile-nav, .footer, .hf-hero, .hf-actions, .hf-map, .hf-care .vt-btn, .hf-pay, #vitaWidget, .vita, [class*="vita-"] { display: none !important; }
+  body { background: #fff; }
+  .ip-section { padding: 0 !important; }
+  .hf-grid { grid-template-columns: 1fr; }
+  .hf-side { position: static; }
+  .hf-care { background: #fff; color: #000; border: 1px solid #999; }
+  .hf-care h3 { color: #000; }
+  .hf-more { color: #000; }
+  .hf-list li { break-inside: avoid; }
+  .hf-list strong a { text-decoration: none; }
+  .hf-care::after { content: "VitalTouch Health Network  (708) 726-4536  vitaltouchcares.com"; font-weight: 700; }
+}
+.loc__fine a { color: var(--accent-deep); font-weight: 650; text-decoration: none; white-space: nowrap; }
+.loc__fine a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.hf-lead { margin: -6px 0 14px; color: var(--body-ink); font-size: .98rem; max-width: 60ch; }
+.hf-list span:empty { display: none; }
+
+/* ===== Homepage, family first (2026-10-12): "Sound familiar?" names the
+   caregiver's struggle in their own words; "For you" is help for the family
+   member, most of it free. Owner: less about us, more about them. ===== */
+.h-sf { background: var(--paper); padding-block: clamp(72px, 9vw, 128px); }
+.h-sf__grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.h-sf__head { position: sticky; top: 110px; }
+.h-sf__head h2 { margin: 0 0 14px; font-size: clamp(2.2rem, 4vw, 3.2rem); }
+.h-sf__head > p { margin: 0 0 28px; font-size: 1.15rem; color: var(--body-ink); max-width: 40ch; line-height: 1.5; }
+.h-sf__img { margin: 0; border-radius: 22px; overflow: hidden; aspect-ratio: 5 / 4; box-shadow: 0 30px 60px -40px rgba(11,28,48,.45); max-width: 460px; }
+.h-sf__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.h-sf__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.h-sf__list li { padding: clamp(22px, 2.6vw, 32px) 0; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+.h-sf__q { margin: 0; font: 800 clamp(1.35rem, 2.2vw, 1.75rem)/1.22 var(--font-display); letter-spacing: -0.02em; color: var(--ink); text-wrap: balance; }
+.h-sf__a { margin: 0; display: flex; gap: 10px; align-items: baseline; font-size: 1.08rem; line-height: 1.45; color: var(--accent-deep); font-weight: 600; }
+.h-sf__a i { flex-shrink: 0; transform: translateY(2px); }
+.h-you { background: var(--mist); padding-block: clamp(72px, 9vw, 128px); }
+.h-you__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+.h-you__img { margin: 0; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 30px 60px -40px rgba(11,28,48,.45); }
+.h-you__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.h-you h2 { margin: 0 0 12px; font-size: clamp(2rem, 3.4vw, 2.8rem); text-wrap: balance; }
+.h-you__lead { margin: 0 0 26px; font-size: 1.15rem; color: var(--body-ink); max-width: 44ch; }
+.h-you__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.h-you__list li { border-bottom: 1px solid var(--line); }
+.h-you__list a { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 18px 4px; text-decoration: none; color: var(--ink); }
+.h-you__list a > i:first-child { font-size: 1.45rem; color: var(--accent-deep); }
+.h-you__list strong { display: block; font-size: 1.1rem; line-height: 1.3; }
+.h-you__list small { display: block; font-size: .98rem; color: var(--body-ink); line-height: 1.4; margin-top: 2px; }
+.h-you__go { color: var(--accent-deep); transition: transform .2s var(--ease); }
+.h-you__list a:hover strong { color: var(--accent-deep); }
+.h-you__list a:hover .h-you__go { transform: translateX(4px); }
+@media (max-width: 900px) {
+  .h-sf__grid, .h-you__grid { grid-template-columns: 1fr; }
+  .h-sf__head { position: static; }
+}
+@media (max-width: 760px) {
+  .h-sf, .h-you { padding-block: 40px !important; }
+  .h-sf__img, .h-you__img { display: none; }
+  .h-sf__head > p { margin-bottom: 8px; font-size: 1rem; }
+  .h-sf__list li:nth-child(n+4) { display: none; }
+  .h-sf__q { font-size: 1.2rem; }
+  .h-sf__a { font-size: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { .h-you__go { transition: none; } }
