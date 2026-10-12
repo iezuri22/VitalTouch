@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report a Concern | VitalTouch Health Network</title>
-    <meta name="description" content="Report a concern, a complaint, or damage to property involving VitalTouch Health Network. Anyone can report. You do not need an account, and you can report anonymously.">
+    <meta name="description" content="Report a concern, complaint, or property damage involving VitalTouch Health Network. Anyone can report, anonymously if you prefer.">
     <link rel="canonical" href="https://vitaltouchcares.com/incident/">
     <!-- Not a page we want ranking above the service pages, but it must stay reachable. -->
     <meta name="robots" content="noindex, follow">
@@ -12,8 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css?v=20261012c">
-    <link rel="stylesheet" href="../css/vt.css?v=20261012c">
+    <link rel="stylesheet" href="../css/style.css?v=20261012d">
+    <link rel="stylesheet" href="../css/vt.css?v=20261012d">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 </head>
 <body>
@@ -65,7 +65,7 @@
                 <span>Report a Concern</span>
             </div>
             <h1>Report a Concern</h1>
-            <p>Tell us something has gone wrong. Anyone can use this form, and you do not have to give your name.</p>
+            <p>Anyone can use this form. Your name is optional.</p>
         </div>
     </section>
 
@@ -74,37 +74,35 @@
 
             <!-- An emergency must not queue behind a web form. -->
             <div class="ic-urgent">
-                <strong>If someone is in danger right now, do not use this form.</strong>
-                Call <a href="tel:911">911</a>. To report suspected abuse, neglect, or financial
-                exploitation of an adult you can also call Illinois Adult Protective Services on
-                <a href="tel:18668001409">1-866-800-1409</a>, any hour of the day. You do not have to
-                tell us first, and you do not need our permission.
+                <strong>If someone is in danger right now, call <a href="tel:911">911</a>.</strong>
+                For suspected abuse, neglect, or financial exploitation of an adult, you can also call
+                Illinois Adult Protective Services at <a href="tel:18668001409">1-866-800-1409</a>, 24 hours a day.
+                You do not need to tell us first.
             </div>
 
             <div class="ic-grid">
                 <div>
                     <span class="section-label">How this works</span>
-                    <h2>We would rather <span class="highlight">hear it</span></h2>
-                    <p style="font-size: 1.05rem;">A complaint tells us something we would not otherwise know. It is logged the day it arrives, before anyone decides whether it has merit.</p>
+                    <h2>What <span class="highlight">happens next</span></h2>
+                    <p style="font-size: 1.05rem;">Every report is logged the day it arrives.</p>
 
                     <ul class="ic-facts">
-                        <li><strong>No one loses service over a complaint.</strong> Nobody's care will be reduced, delayed, or stopped because a report was made, and no employee will be disciplined for making one.</li>
-                        <li><strong>You will hear back.</strong> We acknowledge in writing within two business days and give you an outcome within 30 days.</li>
-                        <li><strong>You can stay anonymous.</strong> We will still investigate it. We just will not be able to send you the outcome.</li>
+                        <li><strong>No retaliation.</strong> No one's care will be reduced, delayed, or stopped because of a report, and no employee will be disciplined for making one.</li>
+                        <li><strong>You will hear back.</strong> Written acknowledgment within two business days, and an outcome within 30 days.</li>
+                        <li><strong>You can stay anonymous.</strong> We still investigate, but cannot send you the outcome.</li>
                     </ul>
 
                     <div class="ic-callout">
-                        <strong>You can also go elsewhere first.</strong>
-                        Raise it with the caseworker who arranged the service, or with the Illinois
-                        Department of Public Health on <a href="tel:18002524343">1-800-252-4343</a>.
-                        You do not have to come to us at all.
+                        <strong>You can also report elsewhere.</strong>
+                        Contact the caseworker who arranged the service, or the Illinois
+                        Department of Public Health at <a href="tel:18002524343">1-800-252-4343</a>.
                     </div>
                 </div>
 
                 <div>
                     <div class="ic-card">
                         <h3 style="margin-bottom: 6px;">Tell us what happened</h3>
-                        <p style="font-size: 0.95rem; margin-bottom: 22px;">Write it however it comes. We will follow up for anything we need.</p>
+                        <p style="font-size: 0.95rem; margin-bottom: 22px;">Use your own words. We will follow up if we need more.</p>
 
                         <form id="incidentForm">
                             <div class="form-group">
@@ -296,8 +294,9 @@
     }
     </style>
 
-    <script src="../js/main.js?v=20261012c"></script>
-    <script src="../js/motion.js?v=20261012c" defer></script>
+    <script src="../js/main.js?v=20261012d"></script>
+    <script src="../js/motion.js?v=20261012d" defer></script>
+    <script src="../js/engage.js?v=20261012d" defer></script>
     <script>
     /* Public incident / complaint / loss intake -> ops platform.
        Creates an incident_reports row with source='public'. The customer is

@@ -43,6 +43,12 @@
         text = 'At ' + hrs + ' hours a week, care at home is close to nursing home cost. Most families need far fewer hours.';
       }
       verdict.textContent = text;
+      var q = document.getElementById('calcQuote');
+      if (q) {
+        q.textContent = 'Get my quote for ' + hrs + ' hrs/week';
+        q.setAttribute('data-title', 'Get your quote for ' + hrs + ' hours a week');
+        q.setAttribute('data-msg', 'calculator, ' + hrs + ' hrs/week');
+      }
     };
     input.addEventListener('input', render);
     render();
@@ -132,6 +138,19 @@
         a.href = 'home-care-' + hits[0][1] + '.html';
         a.textContent = 'See care in ' + hits[0][0].replace(', Chicago', '');
         out.appendChild(a);
+        try { localStorage.setItem('vt_zip', z); } catch (e2) {}
+        if (window.vtEngage && !window.vtEngage.done()) {
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'eg-inline';
+          b.setAttribute('data-engage', 'hero-zip');
+          b.setAttribute('data-zip', z);
+          b.setAttribute('data-kicker', 'Local care');
+          b.setAttribute('data-title', 'Talk to someone who covers ' + hits[0][0].replace(', Chicago', ''));
+          b.setAttribute('data-msg', 'zip check ' + z);
+          b.innerHTML = '<i class="ph ph-phone-call" aria-hidden="true"></i>Get a call from someone local';
+          out.appendChild(document.createElement('br'));
+          out.appendChild(b);
+        }
       } else {
         out.innerHTML = '';
         out.appendChild(document.createTextNode(z + ' isn’t on our list yet, but we may still be able to help. '));

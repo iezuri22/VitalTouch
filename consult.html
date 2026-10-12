@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request a Free Consultation | VitalTouch Health Network</title>
-    <meta name="description" content="Request a free, no-obligation home care consultation, by phone or in the home where care is needed. VitalTouch Health Network, serving the Chicago area and south suburbs. (708) 726-4536.">
+    <meta name="description" content="Free home care consultation by phone or in the home. VitalTouch Health Network, Chicago area and south suburbs. (708) 726-4536.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012c">
-    <link rel="stylesheet" href="css/vt.css?v=20261012c">
+    <link rel="stylesheet" href="css/style.css?v=20261012d">
+    <link rel="stylesheet" href="css/vt.css?v=20261012d">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         /* ===== Consultation request =====================================
@@ -224,21 +224,21 @@
 
     <main id="main" tabindex="-1" class="con-wrap">
         <div class="con-intro">
-            <h1>A free consultation, on your schedule</h1>
+            <h1>Free consultation</h1>
             <p>
-                Thirty minutes, by phone or in the home. We&rsquo;ll listen first and answer
-                honestly, including about cost and what you may already be covered for.
+                Thirty minutes, by phone or in the home. We&rsquo;ll cover cost and what you may
+                already be covered for.
             </p>
-            <p class="call">Prefer to just talk now? Call <a href="tel:7087264536" style="font-weight:700;">(708) 726-4536</a>.</p>
+            <p class="call">Or call now: <a href="tel:7087264536" style="font-weight:700;">(708) 726-4536</a>.</p>
         </div>
 
         <div class="con-card" id="consultCard">
             <h2>Request your consultation</h2>
-            <p class="sub">Four quick taps, then how to reach you.</p>
+            <p class="sub">Four taps, then your contact details.</p>
             <p class="sub" id="planInterest" style="display:none; color: var(--gold-dark); font-weight: 700;"></p>
             <!-- Shown only when we've prefilled from the assessment handoff. -->
             <p class="con-carried" id="carriedNote" style="display:none;">
-                We&rsquo;ve carried over what you told us in your assessment. Change anything that isn&rsquo;t right.
+                We&rsquo;ve filled in your assessment answers. Change anything that&rsquo;s wrong.
             </p>
             <form id="consultForm">
                 <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
@@ -309,9 +309,8 @@
                 <!-- Appears when "Right away" or "Leaving hospital or rehab"
                      is chosen. This page absorbed the old /care-now form. -->
                 <div class="con-urgent" id="urgentBanner">
-                    <p><strong>We&rsquo;ll treat this as urgent.</strong> Send this and we&rsquo;ll call you
-                    today, usually within the hour during office hours. If you&rsquo;d rather not wait,
-                    call <a href="tel:7087264536">(708) 726-4536</a> now.</p>
+                    <p><strong>We&rsquo;ll treat this as urgent.</strong> We&rsquo;ll call you today, usually
+                    within the hour during office hours. Or call <a href="tel:7087264536">(708) 726-4536</a> now.</p>
                 </div>
 
                 <div class="con-fields">
@@ -352,16 +351,15 @@
                 <div class="con-trust">
                     <span>No cost, no obligation</span>
                     <span>Often the owner himself</span>
-                    <span>If we&rsquo;re not the right fit, we&rsquo;ll say so</span>
+                    <span>We&rsquo;ll tell you if we&rsquo;re not the right fit</span>
                 </div>
                 <div class="con-error" id="consultError"></div>
             </form>
         </div>
         <div class="con-success" id="consultSuccess">
             <span id="successBody">
-                <strong>Request received.</strong> We&rsquo;ll call you to set up a time, usually the
-                same business day. If it&rsquo;s easier, you can also reach us right now at
-                <a href="tel:7087264536" style="font-weight:700;">(708) 726-4536</a>.
+                <strong>Request received.</strong> We&rsquo;ll call you, usually the same business day.
+                Or call us now at <a href="tel:7087264536" style="font-weight:700;">(708) 726-4536</a>.
             </span>
         </div>
 
@@ -372,12 +370,12 @@
                 <div class="con-tool">
                     <span class="soon">Coming soon</span>
                     <h3>Cost &amp; coverage estimator</h3>
-                    <p>Answer a few questions and see what care would actually cost per week, and how much of it a program, a plan, or a policy might be covering already.</p>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Until then, we&rsquo;ll walk you through the numbers on a quick call. It takes about ten minutes.</p>
+                    <p>See your weekly cost and how much a program, plan, or policy might cover.</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Until then, we&rsquo;ll run the numbers with you in a ten-minute call.</p>
                 </div>
                 <div class="con-tool">
                     <h3>Ways to pay for care</h3>
-                    <p>The six routes families use around here: Medicaid, the Illinois Home Services Program for adults under 60, extra benefits inside a Medicare Advantage plan, VA benefits, long-term care insurance, and paying on your own.</p>
+                    <p>Medicaid, the Illinois Home Services Program, Medicare Advantage, VA benefits, long-term care insurance, and paying on your own.</p>
                     <p><a href="paying-for-care.html" style="font-weight: 700;">Read all six &rarr;</a></p>
                 </div>
             </div>
@@ -443,8 +441,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012c"></script>
-    <script src="js/motion.js?v=20261012c" defer></script>
+    <script src="js/main.js?v=20261012d"></script>
+    <script src="js/motion.js?v=20261012d" defer></script>
+    <script src="js/engage.js?v=20261012d" defer></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         var API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
@@ -664,6 +663,8 @@
                         'If you need someone now, call <a href="tel:7087264536" style="font-weight:700;">(708) 726-4536</a>.';
                 }
                 document.getElementById('consultSuccess').style.display = 'block';
+                // Done once = no more prompts anywhere on the site (js/engage.js).
+                try { localStorage.setItem('vt_lead_done', String(Date.now())); } catch (e) {}
             } catch (err) {
                 // Surface what the server actually said when it's something the
                 // visitor can act on. Anything else (network, 500) gets the

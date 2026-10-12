@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012c">
-    <link rel="stylesheet" href="css/vt.css?v=20261012c">
+    <link rel="stylesheet" href="css/style.css?v=20261012d">
+    <link rel="stylesheet" href="css/vt.css?v=20261012d">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap { max-width: 900px; margin: 0 auto; }
@@ -20,9 +20,14 @@
         .town-services { list-style: none; padding: 0; margin: 0 0 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .town-services li { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--mist); border-radius: 14px; font-weight: 550; color: var(--ink); }
         .town-services i { font-size: 1.35rem; color: var(--accent-deep); flex-shrink: 0; }
+        .town-notes { list-style: none; padding: 0; margin: 36px 0 8px; display: grid; gap: 14px; }
+        .town-notes li { display: flex; gap: 14px; align-items: flex-start; font-size: 1.05rem; color: var(--body-ink); }
+        .town-notes i { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-deep); font-size: 1.2rem; flex-shrink: 0; }
+        .town-notes span { padding-top: 7px; }
+        .town-near { font-size: 1.05rem; }
         .town-list { columns: 2; gap: 28px; padding-left: 20px; margin-bottom: 10px; }
         .town-list li { margin-bottom: 8px; font-size: 1.02rem; }
-        @media (max-width: 640px) { .town-services { grid-template-columns: 1fr; } .town-list { columns: 1; } }
+        @media (max-width: 640px) { .town-services { grid-template-columns: 1fr 1fr; gap: 8px; } .town-services li { padding: 12px; font-size: .92rem; gap: 8px; } .town-list { columns: 1; } }
     </style>
     <script type="application/ld+json">
 {
@@ -73,26 +78,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Do you provide home care in Hyde Park, Chicago?",
+          "name": "Do you serve Hyde Park, Chicago?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. We provide non-medical home care throughout Hyde Park, Chicago (60615, 60637) and the neighborhoods around it, including Bronzeville, South Shore, Chatham."
+            "text": "Yes, including 60615, 60637, plus Bronzeville, South Shore, Chatham."
           }
         },
         {
           "@type": "Question",
-          "name": "How fast can care start in Hyde Park?",
+          "name": "How fast can care start?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Often within a few days of your first call, and sooner when someone is coming home from the hospital. We start with a free visit to the home, then put the plan and schedule in writing."
+            "text": "Often within days. It starts with a free home visit."
           }
         },
         {
           "@type": "Question",
-          "name": "How much does home care cost, and who pays for it?",
+          "name": "What does it cost?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Cost depends on how many hours a week are needed. There are six ways families pay for care, not two: long-term care insurance, VA benefits, Medicare Advantage extras, an Illinois program for adults under 60 living with a disability, and paying on your own. We check what you may already be covered for at no cost."
+            "text": "It depends on the hours. We quote after the free visit and check what coverage you have."
           }
         },
         {
@@ -100,7 +105,7 @@
           "name": "Is this medical care?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. We help with daily living: bathing, dressing, meals, housekeeping, errands, rides, medication reminders and company. If a doctor has ordered nursing or therapy, that comes from a home health agency, and we can work alongside them."
+            "text": "No. We help with daily life: bathing, meals, housekeeping, rides and company."
           }
         }
       ]
@@ -166,9 +171,9 @@
                 <span>/</span>
                 <span>Hyde Park</span>
                 </div>
-                <h1>Home Care in Hyde Park, Chicago</h1>
-                <p class="lead">Trained, background-checked caregivers for older adults and adults living with a disability in Hyde Park, Chicago. Local, family-owned, and licensed by the State of Illinois.</p>
-                <ul class="vt-facts"><li><i class="ph ph-map-pin" aria-hidden="true"></i>60615, 60637</li><li><i class="ph ph-buildings" aria-hidden="true"></i>Chicago, South Side</li><li><i class="ph ph-first-aid" aria-hidden="true"></i>Near UChicago Medicine</li></ul>
+                <h1>Home care in Hyde Park</h1>
+                <p class="lead">Background-checked, trained caregivers. Free home visit.</p>
+                <ul class="vt-facts"><li><i class="ph ph-map-pin" aria-hidden="true"></i>60615, 60637</li><li><i class="ph ph-first-aid" aria-hidden="true"></i>Near UChicago Medicine</li></ul>
                 <div class="vt-local-hero__ctas">
                     <a href="consult.html?when=now&amp;from=area-chicago-hyde-park" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                     <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
@@ -195,66 +200,63 @@
 
     <section class="vt-section">
         <div class="container town-wrap">
-            <p>If you or someone you love needs a hand at home in Hyde Park, Chicago, we can help with the everyday things that have gotten harder: bathing and dressing, meals, housekeeping and laundry, errands, rides to appointments, medication reminders, and simply having someone there. Hyde Park is an easy drive up from our south suburban office, with visits from a few hours a week up to daily.</p>
-            <p>Many families call us when someone is coming home from UChicago Medicine in Hyde Park. We can meet you before discharge, set up the first week of visits, and adjust as things settle.</p>
-
-            <h2>What we help with in Hyde Park, Chicago</h2>
+            <h2>What we help with</h2>
             <ul class="town-services">
-                <li><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship and conversation</li>
-                <li><i class="ph ph-shower" aria-hidden="true"></i>Bathing, dressing and grooming</li>
-                <li><i class="ph ph-cooking-pot" aria-hidden="true"></i>Meals, groceries and errands</li>
-                <li><i class="ph ph-broom" aria-hidden="true"></i>Light housekeeping and laundry</li>
-                <li><i class="ph ph-car-simple" aria-hidden="true"></i>Rides to appointments, work or school</li>
+                <li><i class="ph ph-shower" aria-hidden="true"></i>Bathing and dressing</li>
+                <li><i class="ph ph-cooking-pot" aria-hidden="true"></i>Meals and groceries</li>
+                <li><i class="ph ph-broom" aria-hidden="true"></i>Housekeeping and laundry</li>
                 <li><i class="ph ph-pill" aria-hidden="true"></i>Medication reminders</li>
-                <li><i class="ph ph-arrows-down-up" aria-hidden="true"></i>Safe transfers: bed, chair, shower</li>
-                <li><i class="ph ph-brain" aria-hidden="true"></i>Memory care and dementia support</li>
-                <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family caregivers</li>
-                <li><i class="ph ph-calendar-check" aria-hidden="true"></i>A few hours a week, up to daily</li>
+                <li><i class="ph ph-car-simple" aria-hidden="true"></i>Rides and errands</li>
+                <li><i class="ph ph-brain" aria-hidden="true"></i>Memory care</li>
+                <li><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</li>
+                <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family</li>
             </ul>
-            <p><a href="services.html">See all services &rarr;</a></p>
 
-            <div class="vt-refer" style="margin:40px 0;">
-                <p><strong>Still figuring it out?</strong> A free 90-second check-in gives you a personal report and the ways care could be paid for.</p>
-                <a href="assessment.html" class="vt-btn vt-btn--solid">Take the free assessment</a>
+            <div class="eg-card">
+                <div><strong>Check availability in Hyde Park</strong><p>Leave a number and zip. We call once, usually the same day.</p></div>
+                <button type="button" class="vt-btn" data-engage="area-chicago-hyde-park" data-zip="60615" data-kicker="Hyde Park" data-title="Check availability in Hyde Park" data-button="Check availability" data-msg="availability in Hyde Park, Chicago">Check availability</button>
             </div>
 
-            <h2>Paying for care</h2>
-            <p>Most families assume it&rsquo;s Medicaid or nothing. There are six ways people pay for care here, including long-term care insurance, VA benefits, extra benefits in some Medicare Advantage plans, and an Illinois program for adults under 60 living with a disability. Tell us what you have and we&rsquo;ll check it for free. <a href="paying-for-care.html">See all six ways &rarr;</a></p>
+            <ul class="town-notes">
+                <li><i class="ph ph-map-pin" aria-hidden="true"></i><span>Hyde Park is home to UChicago Medicine.</span></li>
+                <li><i class="ph ph-first-aid" aria-hidden="true"></i><span>Coming home from UChicago Medicine in Hyde Park? We can set up care before discharge.</span></li>
+                <li><i class="ph ph-wallet" aria-hidden="true"></i><span>Pay with long-term care insurance, VA benefits, some Medicare Advantage plans, or on your own. We check your coverage free. <a href="paying-for-care.html">Ways to pay</a></span></li>
+            </ul>
 
-            <h2>Questions families in Hyde Park, Chicago ask</h2>
+            <h2>Common questions</h2>
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-question" type="button">
-                        <span>Do you provide home care in Hyde Park, Chicago?</span>
+                        <span>Do you serve Hyde Park, Chicago?</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-content"><p>Yes. We provide non-medical home care throughout Hyde Park, Chicago (60615, 60637) and the neighborhoods around it, including Bronzeville, South Shore, Chatham.</p></div></div>
+                    <div class="faq-answer"><div class="faq-answer-content"><p>Yes, including 60615, 60637, plus Bronzeville, South Shore, Chatham.</p></div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question" type="button">
-                        <span>How fast can care start in Hyde Park?</span>
+                        <span>How fast can care start?</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-content"><p>Often within a few days of your first call, and sooner when someone is coming home from the hospital. We start with a free visit to the home, then put the plan and schedule in writing.</p></div></div>
+                    <div class="faq-answer"><div class="faq-answer-content"><p>Often within days. It starts with a free home visit.</p></div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question" type="button">
-                        <span>How much does home care cost, and who pays for it?</span>
+                        <span>What does it cost?</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-content"><p>Cost depends on how many hours a week are needed. There are six ways families pay for care, not two: long-term care insurance, VA benefits, Medicare Advantage extras, an Illinois program for adults under 60 living with a disability, and paying on your own. We check what you may already be covered for at no cost.</p></div></div>
+                    <div class="faq-answer"><div class="faq-answer-content"><p>It depends on the hours. We quote after the free visit and check what coverage you have.</p></div></div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question" type="button">
                         <span>Is this medical care?</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                     </button>
-                    <div class="faq-answer"><div class="faq-answer-content"><p>No. We help with daily living: bathing, dressing, meals, housekeeping, errands, rides, medication reminders and company. If a doctor has ordered nursing or therapy, that comes from a home health agency, and we can work alongside them.</p></div></div>
+                    <div class="faq-answer"><div class="faq-answer-content"><p>No. We help with daily life: bathing, meals, housekeeping, rides and company.</p></div></div>
                 </div>
             </div>
 
-            <h2>Nearby neighborhoods we serve</h2>
-            <p><a href="home-care-chicago-bronzeville.html">Bronzeville</a>, <a href="home-care-chicago-south-shore.html">South Shore</a>, <a href="home-care-chicago-chatham.html">Chatham</a>, and the rest of the South Side. <a href="home-care-chicago.html">Home care across Chicago &rarr;</a> <a href="service-areas.html">See every area we serve &rarr;</a></p>
+            <h2>Nearby</h2>
+            <p class="town-near"><a href="home-care-chicago-bronzeville.html">Bronzeville</a>, <a href="home-care-chicago-south-shore.html">South Shore</a>, <a href="home-care-chicago-chatham.html">Chatham</a>. <a href="home-care-chicago.html">Home care across Chicago &rarr;</a> <a href="service-areas.html">All areas &rarr;</a></p>
         </div>
     </section>
 
@@ -262,8 +264,8 @@
         <div class="container">
             <div class="vt-final__panel">
                 <div>
-                    <h2>Talk to someone local about care in Hyde Park, Chicago</h2>
-                    <p>A free in-home consultation. No cost and no obligation.</p>
+                    <h2>Talk to someone local.</h2>
+                    <p>Free home visit. No obligation.</p>
                 </div>
                 <div class="vt-final__ctas">
                     <a href="consult.html?when=now&amp;from=area-chicago-hyde-park-final" class="vt-btn vt-btn--light">Get care started</a>
@@ -332,7 +334,8 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012c"></script>
-    <script src="js/motion.js?v=20261012c" defer></script>
+    <script src="js/main.js?v=20261012d"></script>
+    <script src="js/motion.js?v=20261012d" defer></script>
+    <script src="js/engage.js?v=20261012d" defer></script>
 </body>
 </html>

@@ -10,7 +10,7 @@ service-areas.html when build-town-pages.py runs, so run this first.
 import re, glob, os
 
 FONTS = '<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">'
-CSS_VER = '20261012c'
+CSS_VER = '20261012d'
 NAV = [('services.html', 'Services'), ('disability-support.html', 'Disability Support'),
        ('paying-for-care.html', 'Ways to Pay'), ('assessment.html', 'Free Assessment'),
        ('contact.html', 'Contact'), ('apply.html', 'Careers')]
@@ -126,6 +126,12 @@ def body_fix(h, pre, current):
     else:
         h = re.sub(r'js/motion\.js\?v=[0-9a-z]+', f'js/motion.js?v={CSS_VER}', h)
     h = re.sub(r'js/main\.js\?v=[0-9a-z]+', f'js/main.js?v={CSS_VER}', h)
+    # Engagement layer (quote button, quick sheet, one nudge per visit).
+    if 'js/engage.js' not in h:
+        h = re.sub(r'(<script src="[^"]*js/motion\.js\?v=[0-9a-z]+" defer></script>)',
+                   rf'\1\n    <script src="{pre}js/engage.js?v={CSS_VER}" defer></script>', h, count=1)
+    else:
+        h = re.sub(r'js/engage\.js\?v=[0-9a-z]+', f'js/engage.js?v={CSS_VER}', h)
     return h, (n1, n2, n3)
 
 pages = [p for p in glob.glob('*.html') if not p.startswith('home-care-')] + ['refer/index.html', 'incident/index.html']

@@ -1126,3 +1126,200 @@ a:hover .h-link i { transform: translateX(5px); }
 .vt-facts li { display: inline-flex; align-items: center; gap: 6px; font-size: .86rem; color: #dbe4ee; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); padding: .45em .9em; border-radius: 999px; }
 .vt-facts i { color: var(--accent-bright); }
 @media (max-width: 860px) { .vt-local-hero__card .ui-card { margin-left: 0; } }
+@media (max-width: 860px) { .h-who__card--navy { min-height: 0; gap: 48px; } }
+
+/* ==========================================================================
+   Phone pass (2026-10-12: "logo way too big on mobile. design sucks").
+   App-like density: compact header, smaller type scale, tighter sections,
+   short cards. Everything here is <= 760px only.
+   ========================================================================== */
+@media (max-width: 760px) {
+  .container { padding-inline: 18px; }
+  .nav { height: 60px; gap: 12px; }
+  .logo img { height: 30px !important; width: auto !important; }
+  .mobile-toggle { width: 40px; height: 40px; }
+  .vt-footer-brand img { height: 32px; }
+
+  h1 { font-size: 2.35rem; }
+  h2 { font-size: 1.75rem; line-height: 1.1; }
+  h3 { font-size: 1.12rem; }
+  body { font-size: 17px; }
+
+  /* Hero */
+  .h-hero { min-height: auto; }
+  .h-hero__inner { padding-block: 96px 40px; }
+  .h-kicker { font-size: .7rem; margin-bottom: 14px; }
+  .h-kicker::before { width: 18px; }
+  .h-hero h1 { font-size: 2.6rem; line-height: 1; margin-bottom: 14px; }
+  .h-hero__sub { font-size: 1.02rem; margin-bottom: 22px; }
+  .h-hero__ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .h-hero__ctas .vt-btn { justify-content: center; padding: .85em .6em; font-size: .95rem; }
+  .h-zip { margin-top: 18px; padding: 12px; border-radius: 16px; }
+  .h-zip label { font-size: .88rem; margin-bottom: 8px; }
+  .h-zip__row input { font-size: 1rem; padding: 0 12px; }
+  .h-zip__row button { padding: .75em 1.1em; }
+  .h-hero__pause { width: 36px; height: 36px; right: 12px; bottom: 12px; }
+
+  /* Ribbon: 2 x 2 compact */
+  .h-ribbon__row { grid-template-columns: 1fr 1fr !important; gap: 0; }
+  .h-ribbon__row > div { padding: 14px 8px 14px 0 !important; gap: 10px; align-items: flex-start; }
+  .h-ribbon i { font-size: 1.25rem; }
+  .h-ribbon strong { font-size: .9rem; }
+  .h-ribbon span { font-size: .78rem; }
+
+  /* Section rhythm */
+  .h-platform, .h-services, .h-steps, .h-founder, .h-areas, .vt-section, .home .vt-talk { padding-block: 56px !important; }
+  .h-statement { padding-block: 48px; }
+  .h-statement__text { font-size: 1.85rem; }
+  .h-head, .vt-head, .h-platform__head { margin-bottom: 24px; }
+  .h-head p, .vt-head p, .h-platform__head p:last-child { font-size: 1rem; }
+  .h-platform__head h2 { font-size: 2.3rem; }
+
+  /* Platform cards: compact */
+  .ui-card, .vt-record { padding: 16px; border-radius: 16px; }
+  .h-platform__grid { gap: 12px; }
+  .ui-plan__day { height: 74px; }
+  .vt-record__tasks li { padding: 6px 0; font-size: .92rem; }
+  .vt-record__times strong { font-size: .98rem; }
+
+  /* Who: short horizontal cards instead of tall posters */
+  .h-who { padding-bottom: 56px; }
+  .h-who__grid { gap: 12px; }
+  .h-who__card { min-height: 220px !important; border-radius: 18px; padding: 20px; }
+  .h-who__card h2 { font-size: 1.45rem; margin-bottom: 8px; }
+  .h-who__card--navy { min-height: 0 !important; gap: 14px; }
+  .h-who__icon { font-size: 2rem; }
+  .h-who__card p { font-size: .95rem; margin-bottom: 10px; }
+  .h-refer { padding: 16px 18px; border-radius: 16px; }
+  .h-refer p { font-size: .95rem; }
+
+  /* Services tabs */
+  .h-tab { padding: 10px 14px; font-size: .92rem; }
+  .h-tab i { font-size: 1.15rem; }
+  .h-panel { min-height: 0; border-radius: 18px; }
+  .h-panel__img { aspect-ratio: 16 / 9; }
+  .h-panel__body { padding: 20px; }
+  .h-panel__body h3 { font-size: 1.4rem; }
+  .h-panel__body ul { margin-bottom: 18px; gap: 8px; }
+  .h-panel__body li { font-size: .95rem; }
+
+  /* Calculator */
+  .vt-calc__control { padding: 16px; margin-top: 18px; }
+  .vt-calc__hours output { font-size: 2.1rem; }
+  .vt-calc__stats strong { font-size: 1.25rem; }
+  .vt-panel { padding: 18px; border-radius: 16px; }
+  .vt-plot__rows { gap: 12px; }
+
+  /* Steps: 2 x 2 */
+  .h-steps__row { grid-template-columns: 1fr 1fr !important; gap: 22px 14px; }
+  .h-steps__n { width: 40px; height: 40px; font-size: 1rem; margin-bottom: 12px; box-shadow: none; }
+  .h-steps__row h3 { font-size: 1.05rem; }
+  .h-steps__row p { font-size: .9rem; }
+
+  /* News cards */
+  .vt-news { gap: 12px; }
+  .vt-news__item { padding: 18px; }
+  .vt-news__item h3 { font-size: 1.12rem; }
+  .vt-news__item p { font-size: .95rem; }
+  .vt-flex { padding: 18px; }
+
+  /* Founder: photo + quote side by side, small */
+  .h-founder__grid { grid-template-columns: 96px 1fr !important; gap: 16px; align-items: start; }
+  .h-founder__photo { aspect-ratio: 1; border-radius: 16px; }
+  .h-founder__quote { font-size: 1.3rem; margin-bottom: 10px; }
+
+  /* Final */
+  .h-final__inner { padding-block: 64px; }
+  .h-final h2 { font-size: 2rem; }
+
+  /* Footer: denser */
+  .footer { padding-block: 48px 24px !important; }
+  .vt-footer-grid { grid-template-columns: 1fr 1fr !important; gap: 28px 18px; }
+  .vt-footer-brand { grid-column: 1 / -1; }
+  .vt-footer-col h4 { margin-bottom: 12px; }
+  .vt-footer-col ul { gap: 8px; }
+  .vt-footer-col a, .vt-footer-col li { font-size: .9rem; }
+  .vt-footer-bottom { margin-top: 32px; }
+
+  /* Inner + town page headers */
+  .page-hero { padding-block: 48px 40px !important; }
+  .page-hero h1, .vt-local-hero h1 { font-size: 2.3rem !important; }
+  .page-hero p { font-size: 1rem; }
+  .vt-local-hero__grid { padding-block: 40px 32px !important; gap: 20px; }
+  .vt-facts { margin-bottom: 18px; }
+  .vt-facts li { font-size: .78rem; }
+  .vt-local-hero__ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .vt-local-hero__ctas .vt-btn { justify-content: center; padding: .85em .6em; font-size: .95rem; }
+  .town-wrap h2 { margin: 32px 0 14px; font-size: 1.5rem; }
+}
+.h-zip__out:empty { display: none; }
+
+/* Hero headline: smaller ("this is too big") */
+.h-hero h1 { font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 1.02; max-width: 12ch; }
+.vt-local-hero h1 { font-size: clamp(2.2rem, 4.2vw, 3.6rem); }
+@media (max-width: 760px) {
+  .h-hero h1 { font-size: 2.05rem !important; line-height: 1.05; }
+  .vt-local-hero h1, .page-hero h1 { font-size: 1.95rem !important; }
+  .h-platform__head h2 { font-size: 1.95rem; }
+  .h-statement__text { font-size: 1.6rem; }
+}
+
+/* ==========================================================================
+   Engagement layer (js/engage.js): floating quote button, quick sheet,
+   inline action cards. Everything with .vt-engaged on <html> hides once the
+   visitor has submitted anything.
+   ========================================================================== */
+.vt-engaged [data-engage], .vt-engaged .eg-card { display: none !important; }
+.eg-fab {
+  position: fixed; z-index: 90; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 8px; border: 0; cursor: pointer;
+  padding: 13px 18px; border-radius: 999px; background: var(--ink); color: #fff;
+  font: 700 .95rem/1 var(--font-body); box-shadow: 0 16px 36px -12px rgba(11,28,48,.6);
+}
+.eg-fab i { color: var(--accent-bright); font-size: 1.15rem; }
+.eg-fab:hover { background: var(--ink-2); }
+@media (prefers-reduced-motion: no-preference) { .eg-fab:not([hidden]) { animation: vt-rise .5s var(--ease) both; } }
+.eg-open { overflow: hidden; }
+.eg-wrap { position: fixed; inset: 0; z-index: 200; display: flex; align-items: flex-end; justify-content: center; }
+.eg-scrim { position: absolute; inset: 0; background: rgba(8, 20, 36, .55); backdrop-filter: blur(3px); }
+.eg-sheet {
+  position: relative; width: min(480px, 100%); max-height: 92dvh; overflow: auto;
+  background: #fff; color: var(--ink); border-radius: 22px 22px 0 0; padding: 26px 22px calc(22px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -20px 60px -20px rgba(0,0,0,.4);
+}
+@media (min-width: 640px) { .eg-wrap { align-items: center; } .eg-sheet { border-radius: 22px; padding: 30px; } }
+@media (prefers-reduced-motion: no-preference) { .eg-wrap:not([hidden]) .eg-sheet { animation: eg-up .45s var(--ease) both; } }
+@keyframes eg-up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.eg-x { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--mist); color: var(--ink); cursor: pointer; display: grid; place-items: center; font-size: 1rem; }
+.eg-kicker { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 8px; font: 700 .74rem/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--accent-deep); }
+.eg-sheet h2 { font-size: 1.6rem; margin: 0 0 6px; padding-right: 36px; }
+.eg-sub { margin: 0 0 18px; color: var(--muted-ink); font-size: .98rem; }
+.eg-form { display: grid; gap: 12px; }
+.eg-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; }
+.eg-form label { display: grid; gap: 6px; font: 600 .85rem/1.2 var(--font-body); color: var(--ink); }
+.eg-opt { font-weight: 500; color: var(--muted-ink); }
+.eg-form input[type="tel"], .eg-form input[type="text"] { width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 13px; font: 500 1rem/1.2 var(--font-body); color: var(--ink); background: #fff; }
+.eg-form input:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(27,155,140,.18); }
+.eg-consent { grid-template-columns: 20px 1fr !important; align-items: start; gap: 10px !important; font-weight: 400 !important; }
+.eg-consent input { width: 18px; height: 18px; margin-top: 2px; }
+.eg-consent span { font-size: .74rem; line-height: 1.45; color: var(--muted-ink); }
+.eg-submit { border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: 700 1.02rem/1 var(--font-body); padding: 15px; cursor: pointer; margin-top: 4px; }
+.eg-submit:hover { background: var(--accent-deep); }
+.eg-submit[disabled] { opacity: .6; cursor: wait; }
+.eg-err { margin: 0; min-height: 1em; color: #b42318; font-size: .9rem; font-weight: 600; }
+.eg-err:empty { display: none; }
+.eg-hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+.eg-done { text-align: center; padding: 10px 0 4px; }
+.eg-done i { font-size: 3rem; color: var(--accent); }
+.eg-done h2 { margin: 8px 0; padding: 0; }
+.eg-done p { color: var(--body-ink); margin: 0; }
+
+/* Inline action card (town pages, sections) */
+.eg-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; padding: 20px 22px; margin: 28px 0; border-radius: 18px; background: var(--ink); color: #c7d3df; }
+.eg-card strong { display: block; color: #fff; font: 800 1.2rem/1.2 var(--font-display); letter-spacing: -0.015em; margin-bottom: 4px; }
+.eg-card p { margin: 0; font-size: .95rem; color: #c7d3df; }
+.eg-card .vt-btn { background: #fff; color: var(--ink); }
+.eg-card .vt-btn:hover { background: var(--accent-bright); }
+.eg-inline { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; border: 0; cursor: pointer; padding: 10px 16px; border-radius: 999px; background: var(--accent-bright); color: var(--ink); font: 700 .92rem/1 var(--font-body); }
+.eg-inline:hover { background: #fff; }
+.eg-calc-cta { margin-top: 14px; display: inline-flex; }
