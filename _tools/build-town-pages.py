@@ -262,9 +262,10 @@ TOWNS = TOWNS + MORE_SUBURBS
 
 ALL = TOWNS + CHICAGO + [HUB]
 
+UI_PLAN = open(f'{SITE}/_tools/partials/ui-plan.html').read()
+
 PHOTOS = [
   ('home-hero.jpg', 'A caregiver smiling with an older woman at home'),
-  ('community-joy.jpg', 'A caregiver dancing with a smiling older woman'),
   ('garden-smiles.jpg', 'An older woman laughing while gardening with a younger woman'),
   ('family-connected.jpg', 'A grandmother and granddaughter smiling together at the kitchen table'),
   ('family-program.jpg', 'An older man and a woman laughing together outside a house'),
@@ -277,6 +278,15 @@ def esc(s): return H.escape(s, quote=True)
 def page(t):
     kind = t.get('kind', 'town')
     photo = photo_for(t['slug'])
+    where = (f"Chicago, {t.get('side', 'South Side')}" if kind == 'chicago' else (t.get('county') or 'Cook County')) if kind != 'hub' else 'Cook County'
+    fact_items = []
+    if t['zips']:
+        fact_items.append(f'<li><i class="ph ph-map-pin" aria-hidden="true"></i>{", ".join(t["zips"])}</li>')
+    fact_items.append(f'<li><i class="ph ph-buildings" aria-hidden="true"></i>{esc(where)}</li>')
+    if t['hospitals']:
+        hn = t['hospitals'][0].split(' in ')[0]
+        fact_items.append(f'<li><i class="ph ph-first-aid" aria-hidden="true"></i>Near {esc(hn)}</li>')
+    facts = ''.join(fact_items)
     n = t['name']; zips = ', '.join(t['zips'])
     place = f'{n}, Chicago' if kind == 'chicago' else n          # "Beverly, Chicago"
     hs = t['hospitals']
@@ -392,6 +402,8 @@ def page(t):
 {nav}
 
     <section id="main" tabindex="-1" class="vt-local-hero">
+        <video class="vt-local-hero__video" autoplay muted loop playsinline preload="metadata" poster="media/hero-care-poster.jpg" aria-hidden="true" tabindex="-1"><source src="media/hero-care.mp4" type="video/mp4"></video>
+        <div class="vt-local-hero__shade" aria-hidden="true"></div>
         <div class="container vt-local-hero__grid">
             <div>
                 <div class="breadcrumb">
@@ -402,13 +414,14 @@ def page(t):
                     {crumb_mid}<span>{esc(n)}</span>
                 </div>
                 <h1>{esc(h1)}</h1>
-                <p class="lead">Dependable help at home for older adults and adults living with a disability in {esc(place)}. Local, family-owned, and licensed by the State of Illinois.</p>
+                <p class="lead">Trained, background-checked caregivers for older adults and adults living with a disability in {esc(place)}. Local, family-owned, and licensed by the State of Illinois.</p>
+                <ul class="vt-facts">{facts}</ul>
                 <div class="vt-local-hero__ctas">
                     <a href="consult.html?when=now&amp;from=area-{t['slug']}" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                     <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
-            <div class="vt-local-hero__photo"><img src="images/{photo[0]}" alt="{esc(photo[1])}" width="1400" height="1120"></div>
+            <div class="vt-local-hero__card">{UI_PLAN}</div>
         </div>
     </section>
 

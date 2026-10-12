@@ -54,7 +54,7 @@
      page already has, so inner pages move too without markup changes. */
   var auto = '.section-header, .card, .feature-card, .faq-item, .area-section, .pay-route, .va-path, ' +
              '.car-role, .car-steps, .town-action, .vt-tile, .vt-aud, .vt-pay, .vt-step, .vt-founder > *, ' +
-             '.vt-head, .vt-chart, .vt-proof__item, .vt-final__panel, .h-who__card, .h-steps__row li, .h-head, .h-founder__grid > *, .vt-news__item, .h-ribbon__row > div, [data-reveal]';
+             '.vt-head, .vt-chart, .vt-proof__item, .vt-final__panel, .h-platform .ui-card, .h-platform__rec, .h-platform__points li, .h-who__card, .h-steps__row li, .h-head, .h-founder__grid > *, .vt-news__item, .h-ribbon__row > div, [data-reveal]';
   var vh = window.innerHeight || 800;
   var targets = Array.prototype.filter.call(document.querySelectorAll(auto), function (el) {
     return el.getBoundingClientRect().top > vh * 0.92 && !el.closest('.mobile-nav');
