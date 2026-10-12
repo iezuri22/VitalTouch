@@ -10,7 +10,7 @@ service-areas.html when build-town-pages.py runs, so run this first.
 import re, glob, os
 
 FONTS = '<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">'
-CSS_VER = '20261012k'
+CSS_VER = '20261012m'
 NAV = [('services.html', 'Services'), ('disability-support.html', 'Disability Support'),
        ('paying-for-care.html', 'Ways to Pay'), ('assessment.html', 'Free Assessment'),
        ('contact.html', 'Contact'), ('apply.html', 'Careers')]
@@ -53,7 +53,7 @@ def footer(pre):
             <div class="vt-footer-grid">
                 <div class="vt-footer-brand">
                     <img src="{pre}images/logo-white.png" alt="VitalTouch Health Network" width="180" height="46">
-                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
+                    <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicagoland area. Licensed by the State of Illinois.</p>
                     <a class="vt-footer-phone" href="tel:7087264536"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
                 <div class="vt-footer-col">

@@ -26,7 +26,7 @@ MENU = [
         ('paying-for-care.html#own', 'ph-credit-card', 'Paying on your own', 'Flexible hours'),
         ('pricing.html', 'ph-tag', 'Pricing', 'How our pricing works'),
         ('care-plans.html', 'ph-calendar-check', 'Care plans', 'Monthly plans'),
-    ], ('Cost calculator', 'See what care costs', 'Compare hours of home care with other options.', 'index.html#cost', 'Open calculator')),
+    ], ('Cost calculator', 'See what care costs', 'Compare hours of home care with other options.', 'pricing.html#cost', 'Open calculator')),
     ('Areas', [
         ('home-care-chicago.html', 'ph-buildings', 'Chicago', '28 neighborhoods'),
         ('home-care-matteson.html', 'ph-map-pin', 'Matteson', 'Our home base'),
@@ -45,10 +45,10 @@ MENU = [
         ('incident/', 'ph-warning-circle', 'Report a concern', 'We respond fast'),
     ], ('Open enrollment', 'Oct 15 to Dec 7', 'Compare in-home support before you pick a plan.', 'changes.html#open-enrollment', 'Read more')),
     ('About', [
-        ('about.html', 'ph-users-three', 'About us', 'Local and family-owned'),
+        ('about.html', 'ph-users-three', 'About us', 'Who we are'),
         ('apply.html', 'ph-briefcase', 'Careers', 'Now hiring caregivers'),
         ('contact.html', 'ph-envelope-simple', 'Contact', 'Office, hours, email'),
-    ], ('Talk to the owner', '(708) 726-4536', 'When you call, you get a person.', 'tel:7087264536', 'Call now')),
+    ], ('Speak with us', '(708) 726-4536', 'A real person answers, 24/7.', 'tel:7087264536', 'Call now')),
 ]
 
 

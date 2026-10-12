@@ -11,8 +11,8 @@
  *   every prompt, button and nudge hides. Stored in localStorage vt_lead_done.
  * - Job seekers (careers inquiry sent, vt_jobseeker) never see care prompts.
  * - Closing a prompt snoozes the automatic nudge for 7 days.
- * - The automatic nudge fires at most once per visit, only after 25 seconds
- *   AND 60% of the page, and never on form pages.
+ * - No floating button and no automatic pop-up (removed 2026-10-12: overlays
+ *   read as unprofessional). Every prompt is in the page.
  * - Text-message consent is an unticked, optional box (not a condition of
  *   care), versioned engage_v1_2026-10.
  */
@@ -169,38 +169,41 @@
     });
   });
 
-  /* ---------- floating action button ---------- */
+  /* ---------- inline forms (e.g. "tell us your plan" on Ways to Pay) ----------
+     No floating button and no pop-up nudge: the owner asked for no overlays
+     (2026-10-12). Prompts live in the page, where the reader put them. */
   var fab = null;
-  if (!isDone() && !/apply|consult|care-now|refer|incident/.test(location.pathname)) {
-    fab = document.createElement('button');
-    fab.type = 'button';
-    fab.className = 'eg-fab';
-    fab.setAttribute('data-engage', 'fab');
-    fab.innerHTML = '<i class="ph ph-phone-call" aria-hidden="true"></i><span>Free care quote</span>';
-    fab.hidden = true;
-    document.body.appendChild(fab);
-    // show once the first screen is passed
-    var first = document.querySelector('#main') || document.body.firstElementChild;
-    if ('IntersectionObserver' in window && first) {
-      new IntersectionObserver(function (en) { if (!isDone()) fab.hidden = en[0].isIntersecting; }, { threshold: 0.05 }).observe(first);
-    } else { fab.hidden = false; }
-  }
-
-  /* ---------- one gentle nudge per visit ---------- */
-  if (!isDone() && !isSnoozed() && !noNudgePage && !store.sget('vt_nudged') && 'IntersectionObserver' in window) {
-    var timeOk = false, depthOk = false;
-    var tryNudge = function () {
-      if (!timeOk || !depthOk || isDone() || store.sget('vt_nudged') || (sheet && !sheet.hidden)) return;
-      store.sset('vt_nudged', '1');
-      open({ source: 'nudge', kicker: 'Quick question', title: 'Want a free quote for your hours?', sub: 'Leave a number and zip. We call once, usually the same day.' });
-    };
-    setTimeout(function () { timeOk = true; tryNudge(); }, 25000);
-    var probe = document.createElement('div');
-    probe.setAttribute('aria-hidden', 'true');
-    probe.style.cssText = 'position:absolute;left:0;width:1px;height:1px;pointer-events:none;top:' + Math.round(document.documentElement.scrollHeight * 0.6) + 'px';
-    document.body.appendChild(probe);
-    new IntersectionObserver(function (en) { if (en[0].isIntersecting) { depthOk = true; tryNudge(); } }).observe(probe);
-  }
+  document.addEventListener('submit', function (e) {
+    var f = e.target.closest && e.target.closest('form[data-engage-form]');
+    if (!f) return;
+    e.preventDefault();
+    var err = f.querySelector('.pf-form__err');
+    var say = function (m) { if (err) err.innerHTML = m; };
+    var plan = f.plan ? (f.plan.value || '').trim() : '';
+    var phone = (f.phone.value || '').trim();
+    var zip = (f.zip.value || '').replace(/\D/g, '').slice(0, 5);
+    if (f.plan && f.plan.required && !plan) { say('Enter the name on the card or policy.'); f.plan.focus(); return; }
+    if (phone.replace(/\D/g, '').length < 10) { say('Enter a 10-digit phone number.'); f.phone.focus(); return; }
+    if (zip.length !== 5) { say('Enter a 5-digit zip code.'); f.zip.focus(); return; }
+    say('');
+    var btn = f.querySelector('button[type=submit]'); var label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending…';
+    var what = f.getAttribute('data-engage-form');
+    fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+      leadType: 'client_inquiry', name: 'Website visitor', phone: phone, zip: zip,
+      message: 'Coverage check (' + what.replace(/^coverage-/, '').replace(/-/g, ' ') + ')' + (plan ? ': ' + plan : '') + '.',
+      consent: false, company_website: f.company_website ? f.company_website.value : '',
+      utm: { page: location.pathname.replace(/^\//, '') || 'index', from: what }
+    }) })
+      .then(function (r) { if (!r.ok) throw new Error('bad'); })
+      .then(function () {
+        store.set('vt_zip', zip); markDone();
+        var ok = document.createElement('p'); ok.className = 'pf-form__ok'; ok.tabIndex = -1;
+        ok.innerHTML = '<i class="ph ph-check-circle" aria-hidden="true"></i>Thanks. We&rsquo;ll check' + (plan ? ' ' + plan.replace(/[<>&"]/g, '') : ' your coverage') + ' and call you, usually the same business day.';
+        f.replaceWith(ok); ok.focus();
+      })
+      .catch(function () { btn.disabled = false; btn.textContent = label; say('That didn&rsquo;t go through. Please call <a href="tel:7087264536">(708) 726-4536</a>.'); });
+  });
 
   /* ---------- other forms on the site count as "done" ---------- */
   var heroStatus = document.getElementById('heroFormStatus');

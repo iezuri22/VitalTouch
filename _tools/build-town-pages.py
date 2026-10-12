@@ -54,7 +54,7 @@ TOWNS = [
        local='Palos Heights is home to Palos Hospital, and many of our calls start with a discharge date. We can have a plan in place before the person comes home.'),
   dict(slug='country-club-hills', name='Country Club Hills', zips=['60478'], county='Cook County',
        hospitals=[SSH, OLY], near=['Hazel Crest', 'Matteson', 'Tinley Park', 'Markham'],
-       local='Country Club Hills is next door to our Matteson office, close enough that the owner often does the first visit.'),
+       local='Country Club Hills is next door to our Matteson office, so a first home visit is quick to arrange.'),
   dict(slug='park-forest', name='Park Forest', zips=['60466'], county='Cook and Will counties',
        hospitals=[OLY, SSH], near=['Matteson', 'Richton Park', 'Chicago Heights', 'Olympia Fields'],
        local='Park Forest is one of the closest towns to our Matteson office, which helps us keep schedules steady week to week.'),
@@ -265,16 +265,17 @@ ALL = TOWNS + CHICAGO + [HUB]
 UI_PLAN = open(f'{SITE}/_tools/partials/ui-plan.html').read()
 
 FAMILY_PHOTOS = [
-  ('media/still-family-8.jpg', 'An older woman and her daughter reading together on the couch'),
   ('images/home-hero.jpg', 'A caregiver smiling with an older woman at home'),
   ('images/family-connected.jpg', 'A grandmother and granddaughter smiling together at the kitchen table'),
   ('images/family-program.jpg', 'An older man and a woman laughing together outside a house'),
   ('images/garden-smiles.jpg', 'An older woman laughing while gardening with a younger woman'),
-  ('media/still-family-2.jpg', 'A mother and daughter sharing a quiet moment at home'),
-  ('media/still-care-4.jpg', 'A caregiver helping an older man in a sunlit room'),
 ]
 def family_photo_for(slug):
-    return FAMILY_PHOTOS[sum(map(ord, slug)) % len(FAMILY_PHOTOS)]
+    # Video stills are never used as photos (owner: the video once is enough),
+    # and the family photo is never the same picture as the page's other photo.
+    other = 'images/' + photo_for(slug)[0]
+    pool = [p for p in FAMILY_PHOTOS if p[0] != other]
+    return pool[sum(map(ord, slug)) % len(pool)]
 
 PHOTOS = [
   ('home-hero.jpg', 'A caregiver smiling with an older woman at home'),
@@ -346,7 +347,7 @@ def page(t):
     title = f'Home Care in {place}, IL | In-Home Help for Seniors & Adults With Disabilities | VitalTouch'
     desc = (f'Non-medical in-home care in {place}, IL' + (f' ({zips})' if zips else '') +
             ': help with bathing, meals, housekeeping, errands and company. '
-            'Local, family-owned agency licensed by the State of Illinois. Free in-home consultation.')
+            'A licensed Illinois home care agency. Free in-home consultation.')
     if kind == 'hub':
         first_faq = ('Which Chicago neighborhoods do you serve?',
                      'Most of the South, Southwest, West and North Sides. Call to check your address.')
@@ -420,8 +421,8 @@ def page(t):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012k">
-    <link rel="stylesheet" href="css/vt.css?v=20261012k">
+    <link rel="stylesheet" href="css/style.css?v=20261012m">
+    <link rel="stylesheet" href="css/vt.css?v=20261012m">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap {{ max-width: 900px; margin: 0 auto; }}
@@ -459,7 +460,7 @@ def page(t):
                     {crumb_mid}<span>{esc(n)}</span>
                 </div>
                 <h1>{esc(h1)}</h1>
-                <p class="lead">Background-checked, trained caregivers. Free home visit.</p>
+                <p class="lead">Caring help at home for the people you love. It starts with a free home visit.</p>
                 <ul class="vt-facts">{facts}</ul>
                 <div class="vt-local-hero__ctas">
                     <a href="consult.html?when=now&amp;from=area-{t['slug']}" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
@@ -468,7 +469,7 @@ def page(t):
             </div>
             <figure class="vt-local-hero__fam">
                 <img src="{fam[0]}" alt="{esc(fam[1])}" width="1400" height="1050">
-                <figcaption><i class="ph ph-heart" aria-hidden="true"></i><span><strong>Care that feels like family</strong>Local and family-owned</span></figcaption>
+                <figcaption><i class="ph ph-heart" aria-hidden="true"></i><span><strong>Care that feels like family</strong>The same caregiver, week after week</span></figcaption>
             </figure>
         </div>
     </section>
@@ -478,7 +479,7 @@ def page(t):
             <ul class="town-family__row">
                 <li><i class="ph ph-users-three" aria-hidden="true"></i><div><strong>The same faces</strong><span>One matched caregiver, kept with you whenever we can.</span></div></li>
                 <li><i class="ph ph-house-line" aria-hidden="true"></i><div><strong>Your routine, not ours</strong><span>We learn how the home runs and fit around it.</span></div></li>
-                <li><i class="ph ph-heart" aria-hidden="true"></i><div><strong>Family-owned</strong><span>A local agency. The owner answers the phone.</span></div></li>
+                <li><i class="ph ph-phone-call" aria-hidden="true"></i><div><strong>Here when you call</strong><span>A real person answers, day or night.</span></div></li>
             </ul>
         </div>
     </section>
@@ -488,7 +489,7 @@ def page(t):
             <h2>What we help with</h2>
             <ul class="town-services">
                 <li><i class="ph ph-shower" aria-hidden="true"></i>Bathing and dressing</li>
-                <li><i class="ph ph-cooking-pot" aria-hidden="true"></i>Meals and groceries</li>
+                <li><i class="ph ph-cooking-pot" aria-hidden="true"></i>Meals and cooking</li>
                 <li><i class="ph ph-broom" aria-hidden="true"></i>Housekeeping and laundry</li>
                 <li><i class="ph ph-pill" aria-hidden="true"></i>Medication reminders</li>
                 <li><i class="ph ph-shopping-bag" aria-hidden="true"></i>Groceries and medication pickup</li>
@@ -496,7 +497,6 @@ def page(t):
                 <li><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</li>
                 <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family</li>
             </ul>
-            <div class="town-plan">{UI_PLAN}</div>
 
             <div class="eg-card">
                 <div><strong>Check availability in {esc(n)}</strong><p>Leave a number and zip. We call once, usually the same day.</p></div>

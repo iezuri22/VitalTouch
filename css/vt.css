@@ -1696,3 +1696,151 @@ li { line-height: 1.45; }
 .vt-record__label { margin: 16px 0 0; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted-ink); font-weight: 600; }
 .vt-record__label + .vt-record__tasks { margin-top: 6px; }
 .vt-record__tasks li { grid-template-columns: 26px 1fr; }
+
+/* ===== Homepage, five sections (2026-10-12): hero, family, how we help,
+   care you can see, talk to the owner. Older readers: one idea per screen. ===== */
+.h-svc { padding-block: clamp(64px, 8vw, 112px); background: #fff; }
+.h-svc__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 56px); border-top: 1px solid var(--line); }
+.h-svc__list li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 14px; align-items: start; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.h-svc__list i { font-size: 1.6rem; color: var(--accent-deep); line-height: 1.2; }
+.h-svc__list strong { display: block; font: 700 1.22rem/1.3 var(--font-body); color: var(--ink); }
+.h-svc__list span { display: block; margin-top: 2px; font-size: 1.08rem; line-height: 1.45; color: var(--body-ink, var(--muted-ink)); }
+.h-svc__more { display: inline-flex; align-items: center; gap: 6px; margin-top: 26px; font-weight: 700; font-size: 1.1rem; }
+.h-proof .ip-split__copy > p { font-size: 1.15rem; }
+.h-proof .ip-points span { font-size: 1.05rem; }
+.h-start { padding-block: clamp(72px, 9vw, 120px) !important; background: var(--mist); }
+.h-start .h-founder__quote { margin-bottom: 18px; }
+.h-start__steps { list-style: none; margin: 26px 0 26px; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 28px; }
+.h-start__steps li { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--ink); }
+.h-start__steps span { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: #fff; font: 700 .95rem/1 var(--font-body); }
+.h-start__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.h-start__ctas .vt-btn { font-size: 1.08rem; }
+.h-start__areas { margin: 22px 0 0; color: var(--muted-ink); font-size: 1rem; }
+.h-start__areas a { font-weight: 700; color: var(--accent-deep); }
+@media (max-width: 900px) { .h-svc__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .h-svc { padding-block: 56px; }
+  .h-svc__list { grid-template-columns: 1fr; }
+  .h-svc__list li { padding: 16px 0; }
+  .h-start__ctas { display: grid; grid-template-columns: 1fr; }
+  .h-start__ctas .vt-btn { justify-content: center; }
+  .h-start .h-founder__grid { grid-template-columns: 1fr !important; }
+  .h-start .h-founder__photo { width: 96px; aspect-ratio: 1; border-radius: 50%; }
+}
+
+/* =====================================================================
+   PROFESSIONAL SWEEP (2026-10-12). The final word on shared components.
+   Owner: "the buttons are uneven and there are overlays... it needs to be
+   PROFESSIONAL". Rules this block enforces everywhere:
+   1. One button system: same height, same shape, one primary colour.
+   2. Nothing positioned on top of text. Tags sit in the flow.
+   3. Cards in a row end on the same line; their buttons line up.
+   4. One typeface family for numbers too (no typewriter font on prices).
+   ===================================================================== */
+
+/* 4. numbers use the body face with tabular figures */
+:root { --font-mono: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif; }
+.cp2-price strong, .ip-stat strong, .vt-calc__hours output, .vt-calc__stats strong, .ui-stats strong, .vt-record__times strong {
+  font-family: var(--font-display) !important; font-weight: 700 !important; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+}
+
+/* 1. buttons */
+.vt-btn, .va-submit, .car-cta, .h-btn-light, .h-btn-glass, .ip-btn-light, .ip-btn-glass, .eg-submit {
+  display: inline-flex !important; align-items: center !important; justify-content: center; gap: .5em;
+  min-height: 52px !important; padding: 0 1.5em !important; box-sizing: border-box;
+  font: 700 1rem/1.2 var(--font-body) !important; letter-spacing: 0 !important;
+  border: 1.5px solid transparent !important; border-radius: 999px !important;
+  white-space: nowrap; text-decoration: none !important; cursor: pointer;
+  box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+  transform: none !important; transition: background-color .2s ease, border-color .2s ease, color .2s ease !important;
+}
+.vt-btn i, .h-btn-light i, .h-btn-glass i, .ip-btn-light i, .ip-btn-glass i { font-size: 1.15em; line-height: 1; }
+/* primary: navy, like the header button */
+.vt-btn--solid, .va-submit, .car-cta, .eg-submit { background: var(--ink) !important; border-color: var(--ink) !important; color: #fff !important; }
+.vt-btn--solid:hover, .va-submit:hover, .car-cta:hover, .eg-submit:hover { background: var(--accent-deep) !important; border-color: var(--accent-deep) !important; color: #fff !important; }
+/* secondary on light backgrounds */
+.vt-btn--ghost { background: #fff !important; border-color: #c4ced8 !important; color: var(--ink) !important; }
+.vt-btn--ghost:hover { border-color: var(--ink) !important; background: #fff !important; color: var(--ink) !important; }
+/* on dark backgrounds: white primary, outlined secondary */
+.h-btn-light, .ip-btn-light, .vt-btn--light, .vt-local-hero .vt-btn--solid { background: #fff !important; border-color: #fff !important; color: var(--ink) !important; }
+.h-btn-light:hover, .ip-btn-light:hover, .vt-btn--light:hover, .vt-local-hero .vt-btn--solid:hover { background: #e6f4f2 !important; border-color: #e6f4f2 !important; }
+.h-btn-glass, .ip-btn-glass, .vt-btn--line-light, .vt-local-hero .vt-btn--ghost, .vt-hero .vt-btn--ghost { background: transparent !important; border-color: rgba(255,255,255,.55) !important; color: #fff !important; }
+.h-btn-glass:hover, .ip-btn-glass:hover, .vt-btn--line-light:hover, .vt-local-hero .vt-btn--ghost:hover, .vt-hero .vt-btn--ghost:hover { border-color: #fff !important; background: rgba(255,255,255,.08) !important; }
+/* button groups: equal items, aligned */
+.h-hero__ctas, .ip-hero__ctas, .ip-cta__btns, .vt-final__ctas, .vt-local-hero__ctas, .vt-calc__ctas, .h-start__ctas { display: flex !important; flex-wrap: wrap; gap: 12px !important; align-items: stretch; }
+.vt-calc__ctas { margin-top: 22px; }
+
+/* 2. tags sit in the flow, above the title */
+.ip-card > .ip-tag { position: static !important; grid-row: 1; grid-column: 2; justify-self: start; margin: 0 0 2px; padding: .45em .75em; font-size: .68rem !important; }
+.ip-card:has(> .ip-tag) > .ip-card__icon, .ip-card:has(> .ip-tag) > h3 { grid-row: 2 !important; }
+.ip-card > h3 { padding-right: 0 !important; }
+
+/* 3. cards end level, buttons on one line: the last row of every card takes
+   the spare height, so a CTA at the end always sits at the bottom. */
+.ip-cards { align-items: stretch !important; }
+.ip-card { row-gap: 0 !important; grid-template-rows: repeat(12, auto) 1fr; }
+.ip-card > * + * { margin-top: 8px !important; }
+.ip-card > .ip-card__icon, .ip-card > h3, .ip-card > .ip-tag { margin-top: 0 !important; }
+.ip-card:has(> .ip-tag) > .ip-card__icon, .ip-card:has(> .ip-tag) > h3 { margin-top: 6px !important; }
+.ip-card > :is(.cp2-go, .ip-card__go, .vt-btn, .pf-next):last-child { grid-row: 13; align-self: end; margin-top: 18px !important; padding-top: 0 !important; }
+.cp2-go .vt-btn { width: 100%; }
+.cp2-price { margin-top: 12px !important; }
+.cp2-price strong { font-size: 1.5rem !important; line-height: 1.2 !important; color: var(--ink); }
+.ip-card.cp2-featured { border: 2px solid var(--ink) !important; }
+
+/* homepage close: plain navy, no photo */
+.h-final { background: var(--ink); }
+.h-final::after { display: none; }
+.h-final__inner { padding-block: clamp(72px, 9vw, 120px) !important; }
+.h-final h2 { max-width: 20ch; }
+.h-final > .container > p { max-width: 52ch; }
+.h-final__steps { list-style: none; margin: 0 0 30px; padding: 0; display: flex; flex-wrap: wrap; gap: 12px 32px; }
+.h-final__steps li { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 600; font-size: 1.08rem; }
+.h-final__steps span { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid rgba(255,255,255,.55); font: 700 .9rem/1 var(--font-body); }
+.h-final .h-final__areas { margin: 26px 0 0; font-size: 1rem; color: rgba(255,255,255,.75); }
+.h-final__areas a { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Ways to Pay: quieter focus, and the "tell us your plan" form */
+.pf-q summary:focus { outline: none; }
+.pf-q summary:focus-visible { outline: none; background: #eef6f5; border-radius: 8px; }
+.pf-q summary:hover span { color: var(--ink) !important; }
+.pf-q[open] summary { color: var(--ink); }
+.pf-form { margin-top: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #fff; display: grid; grid-template-columns: 1.4fr 1fr .7fr auto; gap: 12px; align-items: end; max-width: 760px; }
+.pf-form label { display: grid; gap: 6px; font-size: .9rem; font-weight: 600; color: var(--ink); }
+.pf-form input:not(.eg-hp) { height: 48px; padding: 0 12px; border: 1.5px solid #c4ced8; border-radius: 8px; font: 400 1rem var(--font-body); color: var(--ink); background: #fff; min-width: 0; }
+.pf-form input:focus { outline: none; border-color: var(--accent-deep); box-shadow: 0 0 0 3px rgba(27,155,140,.15); }
+.pf-form .vt-btn { min-height: 48px !important; }
+.pf-form__err { grid-column: 1 / -1; margin: 0 !important; font-size: .92rem !important; color: #b42318 !important; }
+.pf-form__err:empty { display: none; }
+.pf-form__ok { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px !important; padding: 16px 18px; border-radius: 12px; background: #eef6f5; color: var(--ink) !important; font-weight: 600; }
+.pf-form__ok i { color: var(--accent-deep); font-size: 1.3rem; }
+.eg-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; opacity: 0; }
+
+@media (max-width: 900px) { .pf-form { grid-template-columns: 1fr 1fr; } .pf-form__plan { grid-column: 1 / -1; } .pf-form .vt-btn { grid-column: 1 / -1; } }
+@media (max-width: 760px) {
+  .vt-btn, .va-submit, .car-cta, .h-btn-light, .h-btn-glass, .ip-btn-light, .ip-btn-glass { white-space: normal; text-align: center; }
+  /* stacked buttons on phones: full width, all the same */
+  .h-hero__ctas, .ip-hero__ctas, .ip-cta__btns, .vt-final__ctas, .vt-local-hero__ctas, .vt-calc__ctas, .h-start__ctas, .pf-help { display: grid !important; grid-template-columns: 1fr !important; width: 100%; }
+  .h-hero__ctas > *, .ip-hero__ctas > *, .ip-cta__btns > *, .vt-final__ctas > *, .vt-local-hero__ctas > *, .vt-calc__ctas > *, .h-start__ctas > *, .pf-help .vt-btn { width: 100% !important; }
+  .pf-form { grid-template-columns: 1fr; padding: 14px; }
+  .h-final__steps { flex-direction: column; gap: 10px; }
+}
+
+/* homepage close on white, so it doesn't run into the dark section above */
+.h-final--light { background: #fff !important; color: var(--ink); border-top: 1px solid var(--line); }
+.h-final--light h2 { color: var(--ink) !important; }
+.h-final--light > .container > p { color: var(--body-ink, #3d4b5a) !important; }
+.h-final--light .h-final__steps li { color: var(--ink); }
+.h-final--light .h-final__steps span { border-color: var(--ink); color: var(--ink); }
+.h-final--light .h-final__areas { color: var(--muted-ink) !important; }
+.h-final--light .h-final__areas a { color: var(--accent-deep); }
+/* family section: promises big enough to read, centred against the photo */
+.h-family__side { align-self: center !important; }
+.h-family__promises strong { font-size: 1.2rem !important; line-height: 1.3 !important; }
+.h-family__promises span { font-size: 1.05rem !important; line-height: 1.45 !important; }
+.h-family__promises li { padding-block: 18px !important; }
+
+/* town pages: services as a clean two-column list with hairlines, not boxes */
+.town-services { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; column-gap: 32px !important; row-gap: 0 !important; border-top: 1px solid var(--line); margin-bottom: 28px !important; }
+.town-services li { background: none !important; border: 0 !important; border-bottom: 1px solid var(--line) !important; border-radius: 0 !important; padding: 14px 0 !important; font-size: 1.05rem; font-weight: 600 !important; color: var(--ink); }
+@media (max-width: 760px) { .town-services { grid-template-columns: 1fr !important; } }
