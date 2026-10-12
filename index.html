@@ -8,9 +8,9 @@
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400..700;1,400&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012b">
-    <link rel="stylesheet" href="css/vt.css?v=20261012b">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20261012c">
+    <link rel="stylesheet" href="css/vt.css?v=20261012c">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         @media (max-width: 768px) {
@@ -56,7 +56,7 @@
     }
     </script>
 </head>
-<body>
+<body class="home">
 
     <a href="#main" class="skip-link">Skip to main content</a>
 
@@ -101,190 +101,177 @@
 
     <!-- Hero Section -->
     <!-- Hero: headline left, lead form right (VA-style landing layout) -->
-    <!-- Hero: light split. Copy left, framed photo slideshow right
-         (js/motion.js rotates [data-slideshow] and wires [data-slide-dot]). -->
-    <section id="main" tabindex="-1" class="vt-hero2">
-        <div class="container vt-hero2__grid">
-            <div>
-                <h1 class="vt-rise">Care at home, held to a higher standard.</h1>
-                <p class="vt-hero2__sub vt-rise" style="--d:120ms">Daily help for older adults and adults living with a disability. Local, licensed, and the owner answers the phone.</p>
-                <div class="vt-hero2__ctas vt-rise" style="--d:220ms">
-                    <a href="consult.html?when=now&amp;from=home-hero" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-                    <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+    <!-- HOME v3 (2026-10-12). Built new, not from the old layout.
+         Video: Pexels 7522221 (Kampus Production) + 7231644 (cottonbro
+         studio), free Pexels license, cut to one 20s loop in media/. -->
+    <section id="main" tabindex="-1" class="h-hero">
+        <video class="h-hero__video" autoplay muted loop playsinline preload="metadata" poster="media/hero-care-poster.jpg" aria-hidden="true" tabindex="-1">
+            <source src="media/hero-care.mp4" type="video/mp4">
+        </video>
+        <div class="h-hero__shade" aria-hidden="true"></div>
+        <div class="container h-hero__inner">
+            <p class="h-kicker vt-rise">In-home care across Chicago and the south suburbs</p>
+            <h1 class="vt-rise" style="--d:80ms">Exceptional care, right at home.</h1>
+            <p class="h-hero__sub vt-rise" style="--d:160ms">Trained, background-checked caregivers for older adults and adults living with a disability. And the owner answers the phone.</p>
+            <div class="h-hero__ctas vt-rise" style="--d:240ms">
+                <a href="consult.html?when=now&amp;from=home-hero" class="vt-btn h-btn-light">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                <a href="tel:7087264536" class="vt-btn h-btn-glass"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+            </div>
+            <form class="h-zip vt-rise" style="--d:320ms" id="zipCheck" novalidate>
+                <label for="zipInput"><i class="ph ph-map-pin" aria-hidden="true"></i>Do we serve your area?</label>
+                <div class="h-zip__row">
+                    <input id="zipInput" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="Enter a zip code">
+                    <button type="submit">Check</button>
                 </div>
-            </div>
-            <div class="vt-hero2__media vt-rise" style="--d:160ms" data-slideshow>
-                <img class="is-on" src="images/home-hero.jpg" alt="A caregiver smiling with an older woman at home" fetchpriority="high">
-                <img src="images/community-joy.jpg" alt="A caregiver dancing with a smiling older woman" loading="lazy">
-                <img src="images/family-program.jpg" alt="An older man and a woman laughing together outside a house" loading="lazy">
-                <img src="images/family-connected.jpg" alt="A grandmother and granddaughter smiling together at the kitchen table" loading="lazy">
-                <div class="vt-hero2__dots" role="group" aria-label="Choose photo">
-                    <button type="button" data-slide-dot aria-pressed="true" aria-label="Photo 1"></button>
-                    <button type="button" data-slide-dot aria-pressed="false" aria-label="Photo 2"></button>
-                    <button type="button" data-slide-dot aria-pressed="false" aria-label="Photo 3"></button>
-                    <button type="button" data-slide-dot aria-pressed="false" aria-label="Photo 4"></button>
-                </div>
-            </div>
+                <p class="h-zip__out" id="zipOut" role="status"></p>
+            </form>
+        </div>
+        <button class="h-hero__pause" type="button" aria-pressed="false" aria-label="Pause background video"><i class="ph ph-pause" aria-hidden="true"></i></button>
+    </section>
+
+    <section class="h-ribbon" aria-label="Why families choose us">
+        <div class="container h-ribbon__row">
+            <div><i class="ph ph-seal-check" aria-hidden="true"></i><span><strong>Licensed</strong>by the State of Illinois</span></div>
+            <div><i class="ph ph-identification-badge" aria-hidden="true"></i><span><strong>Background-checked</strong>and trained caregivers</span></div>
+            <div><i class="ph ph-house-line" aria-hidden="true"></i><span><strong>Free home visit</strong>no cost, no obligation</span></div>
+            <div><i class="ph ph-phone-call" aria-hidden="true"></i><span><strong>Owner on call</strong>local and family-owned</span></div>
         </div>
     </section>
 
-    <!-- Four facts that are true today. -->
-    <section class="vt-proof" aria-label="Why families choose us">
-        <div class="container vt-proof__row">
-            <div class="vt-proof__item"><i class="ph ph-seal-check" aria-hidden="true"></i><div><strong>Licensed in Illinois</strong><span>A licensed home services agency</span></div></div>
-            <div class="vt-proof__item"><i class="ph ph-identification-badge" aria-hidden="true"></i><div><strong>Checked and trained</strong><span>Every caregiver is background-checked and trained</span></div></div>
-            <div class="vt-proof__item"><i class="ph ph-house-line" aria-hidden="true"></i><div><strong>Free home visit</strong><span>No cost and no obligation</span></div></div>
-            <div class="vt-proof__item"><i class="ph ph-phone-call" aria-hidden="true"></i><div><strong>The owner answers</strong><span>Local and family-owned, not a franchise</span></div></div>
-        </div>
-    </section>
-
-    <!-- Talk to us: the lead form. #heroLeadForm, its field names and
-         #heroFormStatus are wired to js/main.js and the ops leads API. -->
-    <section class="vt-section vt-talk" id="talk">
-        <div class="container vt-talk__grid">
-            <div class="vt-talk__copy">
-                <h2>Talk to us about care</h2>
-                <p>Tell us a little about the situation and we&rsquo;ll call you back, usually the same day. There&rsquo;s no cost and no obligation.</p>
-                <ul class="vt-talk__list">
-                    <li><i class="ph ph-house-line" aria-hidden="true"></i>A free visit to the home to see what would help</li>
-                    <li><i class="ph ph-file-text" aria-hidden="true"></i>A written care plan before anything starts</li>
-                    <li><i class="ph ph-coins" aria-hidden="true"></i>A free check of what you may already be covered for</li>
-                </ul>
-                <a class="vt-talk__phone" href="tel:7087264536">(708) 726-4536</a>
-            </div>
-            <div class="va-lead-card">
-                <h2>Request a call back</h2>
-                <p class="va-lead-sub">We&rsquo;ll reach out, usually the same day.</p>
-                <form id="heroLeadForm">
-                    <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
-                    <label class="vt-lead-label" for="heroName">Your name</label>
-                    <input type="text" id="heroName" name="name" autocomplete="name" required>
-                    <div class="vt-form-row">
-                        <div><label class="vt-lead-label" for="heroEmail">Email</label>
-                        <input type="email" id="heroEmail" name="email" autocomplete="email"></div>
-                        <div><label class="vt-lead-label" for="heroPhone">Phone (optional)</label>
-                        <input type="tel" id="heroPhone" name="phone" autocomplete="tel"></div>
-                    </div>
-                    <label class="vt-lead-label" for="heroZip">Zip code where care is needed</label>
-                    <input type="text" id="heroZip" name="zip" required inputmode="numeric" maxlength="5" autocomplete="postal-code">
-                    <label class="va-consent">
-                        <input type="checkbox" name="consent">
-                        <span class="consent-text">I agree that VitalTouch Health Network, Inc. may contact me about home care services by phone, text message, and email using the contact information I provide, including through automated technology or an AI assistant. Message frequency may vary. Message and data rates may apply. Consent is not a condition of purchase or of receiving services. Reply STOP to opt out of texts at any time, or say so on a call to stop being contacted. See our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a> for details.</span>
-                    </label>
-                    <button type="submit" class="va-submit">Send</button>
-                    <p class="va-form-status" id="heroFormStatus"></p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Two audiences, said plainly, high on the page. A disabled visitor
-         should not have to scroll to find out whether we serve them. -->
-    <section class="vt-section">
+    <section class="h-statement">
         <div class="container">
-            <div class="vt-head">
-                <span class="vt-eyebrow">Who we help</span>
-                <h2>Not everyone who needs care is 85</h2>
-                <p>Home care is usually written as though they are. Plenty of the people we support are 35, or 52, and often arranging it for themselves.</p>
-            </div>
-            <div class="vt-audience">
-                <a class="vt-aud" href="services.html">
+            <p class="h-statement__text"><span>We</span> <span>help</span> <span>people</span> <span>stay</span> <span>in</span> <span>the</span> <span>homes</span> <span>they</span> <span>love,</span> <span>with</span> <span>care</span> <span>that</span> <span>feels</span> <span>like</span> <span>family</span> <span>and</span> <span>runs</span> <span>like</span> <span>a</span> <span>well-managed</span> <span>practice.</span></p>
+        </div>
+    </section>
+
+    <section class="h-who">
+        <div class="container">
+            <div class="h-who__grid">
+                <a class="h-who__card" href="services.html">
                     <img src="images/garden-smiles.jpg" alt="An older woman laughing while gardening with a younger woman" loading="lazy">
-                    <div class="vt-aud__body">
-                        <h3>For an aging parent or spouse</h3>
-                        <p>Bathing and dressing, meals and housekeeping, medication reminders, rides, memory care and company. As much or as little as the week needs.</p>
-                        <span class="vt-aud__go">See our services <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
-                    </div>
+                    <div><span class="h-who__label">For an aging parent or spouse</span><h2>Help that keeps the people you love at home</h2><span class="h-link">See our services <i class="ph ph-arrow-right" aria-hidden="true"></i></span></div>
                 </a>
-                <a class="vt-aud vt-aud--tint" href="disability-support.html">
-                    <div class="vt-aud__body">
-                        <i class="ph ph-wheelchair" aria-hidden="true" style="font-size:2.4rem;display:block;margin-bottom:auto;"></i>
-                        <h3 style="margin-top:120px;">For adults living with a disability</h3>
-                        <p>Support at any age, directed by you: safe transfers, keeping the household running, and rides to work, school or appointments. Illinois funds this for adults under 60.</p>
-                        <span class="vt-aud__go">See how it works <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
-                    </div>
+                <a class="h-who__card h-who__card--navy" href="disability-support.html">
+                    <i class="ph ph-wheelchair h-who__icon" aria-hidden="true"></i>
+                    <div><span class="h-who__label">For adults living with a disability</span><h2>Support at any age, directed by you</h2><p>Illinois funds this for adults under 60, through a program most people are never told about.</p><span class="h-link">See how it works <i class="ph ph-arrow-right" aria-hidden="true"></i></span></div>
                 </a>
             </div>
-            <div class="vt-refer">
-                <p><strong>Referring a client?</strong> Discharge planners, social workers, case managers and elder law professionals can send us the details. We respond the same business day.</p>
-                <a href="refer/" class="vt-btn vt-btn--solid">Refer a client</a>
+            <div class="h-refer">
+                <p><strong>Discharge planner, social worker or case manager?</strong> Send us a referral and we respond the same business day.</p>
+                <a href="refer/" class="vt-btn vt-btn--ghost">Refer a client</a>
+                <p class="h-refer__jobs">Looking for a caregiving job? <a href="apply.html">See open roles</a></p>
             </div>
-            <p class="vt-careers-note" style="margin-top:18px;">Looking for a caregiving job? <a href="apply.html">See open roles</a></p>
         </div>
     </section>
 
-    <!-- Services bento: six services, six cells. -->
-    <section class="vt-section vt-section--mist">
+    <section class="h-services">
         <div class="container">
-            <div class="vt-head">
-                <h2>Help with the whole day</h2>
+            <div class="h-head">
+                <h2>Everything the day needs</h2>
                 <p>From a few hours a week to daily visits, built around how the home actually runs.</p>
             </div>
-            <div class="vt-bento">
-                <article class="vt-tile vt-tile--photo">
-                    <img src="images/family-connected.jpg" alt="A grandmother and granddaughter smiling together at the kitchen table" loading="lazy">
-                    <h3>Personal care</h3>
-                    <p>Bathing, dressing, grooming and safe transfers from bed, chair and shower, with dignity first.</p>
-                </article>
-                <article class="vt-tile vt-tile--teal vt-tile--w3">
-                    <i class="ph ph-brain" aria-hidden="true"></i>
-                    <h3>Memory care</h3>
-                    <p>Patient, consistent support for people living with Alzheimer&rsquo;s or dementia.</p>
-                </article>
-                <article class="vt-tile vt-tile--mist vt-tile--w3">
-                    <i class="ph ph-cooking-pot" aria-hidden="true"></i>
-                    <h3>Meals and housekeeping</h3>
-                    <p>Meal prep, laundry and linens, groceries, and a tidy, safe home.</p>
-                </article>
-                <article class="vt-tile vt-tile--w2">
-                    <i class="ph ph-car-simple" aria-hidden="true"></i>
-                    <h3>Rides and errands</h3>
-                    <p>Appointments, work, school, the pharmacy and the store.</p>
-                </article>
-                <article class="vt-tile vt-tile--w2">
-                    <i class="ph ph-pill" aria-hidden="true"></i>
-                    <h3>Medication reminders</h3>
-                    <p>Reminders on schedule, so doses don&rsquo;t get missed.</p>
-                </article>
-                <article class="vt-tile vt-tile--w2">
-                    <i class="ph ph-hand-heart" aria-hidden="true"></i>
-                    <h3>Respite for family</h3>
-                    <p>Time off for the family member who has been doing it all.</p>
-                </article>
+            <div class="h-tabs">
+                <div class="h-tablist" role="tablist" aria-label="Services">
+                    <button class="h-tab" role="tab" id="tab-personal" aria-controls="panel-personal" aria-selected="true" tabindex="0"><i class="ph ph-hand-heart" aria-hidden="true"></i>Personal care</button>
+                    <button class="h-tab" role="tab" id="tab-memory" aria-controls="panel-memory" aria-selected="false" tabindex="-1"><i class="ph ph-brain" aria-hidden="true"></i>Memory care</button>
+                    <button class="h-tab" role="tab" id="tab-home" aria-controls="panel-home" aria-selected="false" tabindex="-1"><i class="ph ph-cooking-pot" aria-hidden="true"></i>Meals and home</button>
+                    <button class="h-tab" role="tab" id="tab-rides" aria-controls="panel-rides" aria-selected="false" tabindex="-1"><i class="ph ph-car-simple" aria-hidden="true"></i>Rides and errands</button>
+                    <button class="h-tab" role="tab" id="tab-company" aria-controls="panel-company" aria-selected="false" tabindex="-1"><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</button>
+                    <button class="h-tab" role="tab" id="tab-respite" aria-controls="panel-respite" aria-selected="false" tabindex="-1"><i class="ph ph-armchair" aria-hidden="true"></i>Respite for family</button>
+                </div>
+                <div class="h-panel" role="tabpanel" id="panel-personal" aria-labelledby="tab-personal">
+                    <div class="h-panel__img"><img src="images/home-hero.jpg" alt="A caregiver smiling with an older woman at home" loading="lazy"></div>
+                    <div class="h-panel__body">
+                        <h3>Personal care</h3>
+                        <p>Help with the most personal parts of the day, given with patience and privacy.</p>
+                        <ul><li><i class="ph ph-check" aria-hidden="true"></i>Bathing, showering and grooming</li><li><i class="ph ph-check" aria-hidden="true"></i>Dressing and getting ready</li><li><i class="ph ph-check" aria-hidden="true"></i>Toileting and continence care</li><li><i class="ph ph-check" aria-hidden="true"></i>Safe transfers from bed, chair and shower</li></ul>
+                        <a href="consult.html?when=now&amp;from=home-svc-personal" class="vt-btn vt-btn--solid">Get care started</a>
+                    </div>
+                </div>
+                <div class="h-panel" role="tabpanel" id="panel-memory" aria-labelledby="tab-memory" hidden>
+                    <div class="h-panel__img"><img src="images/garden-smiles.jpg" alt="An older woman laughing while gardening with a younger woman" loading="lazy"></div>
+                    <div class="h-panel__body">
+                        <h3>Memory care</h3>
+                        <p>Calm, consistent support for people living with Alzheimer&rsquo;s or dementia, and real relief for the family.</p>
+                        <ul><li><i class="ph ph-check" aria-hidden="true"></i>The same caregivers, so faces stay familiar</li><li><i class="ph ph-check" aria-hidden="true"></i>Routines that reduce confusion</li><li><i class="ph ph-check" aria-hidden="true"></i>Gentle redirection and supervision</li><li><i class="ph ph-check" aria-hidden="true"></i>Updates for the family after visits</li></ul>
+                        <a href="consult.html?when=now&amp;from=home-svc-memory" class="vt-btn vt-btn--solid">Get care started</a>
+                    </div>
+                </div>
+                <div class="h-panel" role="tabpanel" id="panel-home" aria-labelledby="tab-home" hidden>
+                    <div class="h-panel__img"><img src="images/family-connected.jpg" alt="A grandmother and granddaughter smiling together at the kitchen table" loading="lazy"></div>
+                    <div class="h-panel__body">
+                        <h3>Meals and home</h3>
+                        <p>A tidy, safe home and good food on the table.</p>
+                        <ul><li><i class="ph ph-check" aria-hidden="true"></i>Meal planning and cooking</li><li><i class="ph ph-check" aria-hidden="true"></i>Light housekeeping and laundry</li><li><i class="ph ph-check" aria-hidden="true"></i>Grocery shopping</li><li><i class="ph ph-check" aria-hidden="true"></i>Medication reminders</li></ul>
+                        <a href="consult.html?when=now&amp;from=home-svc-home" class="vt-btn vt-btn--solid">Get care started</a>
+                    </div>
+                </div>
+                <div class="h-panel" role="tabpanel" id="panel-rides" aria-labelledby="tab-rides" hidden>
+                    <div class="h-panel__img"><img src="images/family-program.jpg" alt="An older man and a woman laughing together outside a house" loading="lazy"></div>
+                    <div class="h-panel__body">
+                        <h3>Rides and errands</h3>
+                        <p>Getting where you need to go, with someone who waits and walks you in.</p>
+                        <ul><li><i class="ph ph-check" aria-hidden="true"></i>Doctor and therapy appointments</li><li><i class="ph ph-check" aria-hidden="true"></i>Work, school and errands</li><li><i class="ph ph-check" aria-hidden="true"></i>Pharmacy and store runs</li><li><i class="ph ph-check" aria-hidden="true"></i>Visits with friends and family</li></ul>
+                        <a href="consult.html?when=now&amp;from=home-svc-rides" class="vt-btn vt-btn--solid">Get care started</a>
+                    </div>
+                </div>
+                <div class="h-panel" role="tabpanel" id="panel-company" aria-labelledby="tab-company" hidden>
+                    <div class="h-panel__img"><img src="images/community-joy.jpg" alt="A caregiver dancing with a smiling older woman" loading="lazy"></div>
+                    <div class="h-panel__body">
+                        <h3>Companionship</h3>
+                        <p>Someone to talk to, walk with and notice how the day is really going.</p>
+                        <ul><li><i class="ph ph-check" aria-hidden="true"></i>Conversation and activities</li><li><i class="ph ph-check" aria-hidden="true"></i>Walks and light exercise</li><li><i class="ph ph-check" aria-hidden="true"></i>Hobbies, games and outings</li><li><i class="ph ph-check" aria-hidden="true"></i>A check-in on mood and appetite</li></ul>
+                        <a href="consult.html?when=now&amp;from=home-svc-company" class="vt-btn vt-btn--solid">Get care started</a>
+                    </div>
+                </div>
+                <div class="h-panel" role="tabpanel" id="panel-respite" aria-labelledby="tab-respite" hidden>
+                    <div class="h-panel__img"><img src="media/hero-care-poster.jpg" alt="A caregiver helping an older man in a sunlit room" loading="lazy"></div>
+                    <div class="h-panel__body">
+                        <h3>Respite for family</h3>
+                        <p>Time off for the person who has been doing it all, for an afternoon or a week.</p>
+                        <ul><li><i class="ph ph-check" aria-hidden="true"></i>A few hours, overnight or recurring</li><li><i class="ph ph-check" aria-hidden="true"></i>Same routine, kept the same way</li><li><i class="ph ph-check" aria-hidden="true"></i>Short notice when we can</li><li><i class="ph ph-check" aria-hidden="true"></i>Written notes so nothing is missed</li></ul>
+                        <a href="consult.html?when=now&amp;from=home-svc-respite" class="vt-btn vt-btn--solid">Get care started</a>
+                    </div>
+                </div>
             </div>
-            <a href="services.html" class="vt-btn vt-btn--ghost vt-bento__more">See all services <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
         </div>
     </section>
 
-    <!-- How care starts: the real sequence, so a timeline is honest here. -->
-    <section class="vt-section">
-        <div class="container vt-journey">
-            <div class="vt-journey__head">
-                <h2>How care gets started</h2>
-                <p>Here is what happens after you reach out. You talk to a local person at every step.</p>
-                <a href="consult.html?when=now&amp;from=home-steps" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+    <!-- Documentation: a sample visit record, in the shape of the visit log
+         the ops platform keeps (client_visits) and the weekly care note
+         families receive. Clearly labeled as a sample. -->
+    <section class="vt-section h-dark">
+        <div class="container vt-doc">
+            <div class="vt-doc__copy">
+                <h2>Every visit, documented</h2>
+                <p>Each visit is logged: when the caregiver arrived and left, what got done, and how the person seemed that day. Families get a written update every week, so nobody has to wonder.</p>
+                <ul class="vt-doc__points">
+                    <li><i class="ph ph-clock" aria-hidden="true"></i><span><strong>Arrival and departure times</strong> on every visit</span></li>
+                    <li><i class="ph ph-list-checks" aria-hidden="true"></i><span><strong>Tasks checked off</strong> against the written care plan</span></li>
+                    <li><i class="ph ph-envelope-simple" aria-hidden="true"></i><span><strong>A weekly care note</strong> sent to the family</span></li>
+                </ul>
             </div>
-            <ol class="vt-steps">
-                <li class="vt-steps__fill" aria-hidden="true"></li>
-                <li class="vt-step">
-                    <h3>Tell us what&rsquo;s going on</h3>
-                    <p>Call, or leave your details. We listen first and answer your questions about cost and coverage.</p>
-                    <span class="vt-step__when">Usually the same day</span>
-                </li>
-                <li class="vt-step">
-                    <h3>Free visit to the home</h3>
-                    <p>We meet the person who needs care, see how the day actually runs, and talk through what would help.</p>
-                    <span class="vt-step__when">No cost, no obligation</span>
-                </li>
-                <li class="vt-step">
-                    <h3>A written care plan</h3>
-                    <p>Tasks, schedule and how it&rsquo;s paid for, agreed in writing before anything starts.</p>
-                </li>
-                <li class="vt-step">
-                    <h3>Care begins</h3>
-                    <p>A trained, background-checked caregiver matched to your schedule and location. We check in and adjust as things change.</p>
-                </li>
-            </ol>
+            <div class="vt-record" data-record aria-label="Sample visit record">
+                <div class="vt-record__top">
+                    <div class="vt-record__who"><span class="vt-record__avatar" aria-hidden="true">DR</span><div><strong>Visit record</strong><span>Sample client, Tuesday</span></div></div>
+                    <span class="vt-record__status"><i class="ph ph-check-circle" aria-hidden="true"></i>Visit complete</span>
+                </div>
+                <div class="vt-record__times">
+                    <div><span>Checked in</span><strong>9:02 AM</strong></div>
+                    <div><span>Checked out</span><strong>1:04 PM</strong></div>
+                    <div><span>Time with client</span><strong>4h 02m</strong></div>
+                </div>
+                <ul class="vt-record__tasks">
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Bathing and dressing<span>9:15</span></li>
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Medication reminder<span>9:40</span></li>
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Breakfast and lunch prepared<span>11:50</span></li>
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Laundry and linens<span>12:20</span></li>
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Walk to the mailbox and back<span>12:45</span></li>
+                </ul>
+                <blockquote class="vt-record__note">&ldquo;Good spirits today. Ate a full lunch and asked about her granddaughter&rsquo;s recital.&rdquo;<cite>Caregiver note</cite></blockquote>
+                <p class="vt-record__foot"><i class="ph ph-paper-plane-tilt" aria-hidden="true"></i>Included in Friday&rsquo;s care note to the family</p>
+                <span class="vt-record__sample">Sample</span>
+            </div>
         </div>
     </section>
 
@@ -335,59 +322,19 @@
         </div>
     </section>
 
-    <!-- Documentation: a sample visit record, in the shape of the visit log
-         the ops platform keeps (client_visits) and the weekly care note
-         families receive. Clearly labeled as a sample. -->
-    <section class="vt-section">
-        <div class="container vt-doc">
-            <div class="vt-doc__copy">
-                <h2>Every visit, documented</h2>
-                <p>Each visit is logged: when the caregiver arrived and left, what got done, and how the person seemed that day. Families get a written update every week, so nobody has to wonder.</p>
-                <ul class="vt-doc__points">
-                    <li><i class="ph ph-clock" aria-hidden="true"></i><span><strong>Arrival and departure times</strong> on every visit</span></li>
-                    <li><i class="ph ph-list-checks" aria-hidden="true"></i><span><strong>Tasks checked off</strong> against the written care plan</span></li>
-                    <li><i class="ph ph-envelope-simple" aria-hidden="true"></i><span><strong>A weekly care note</strong> sent to the family</span></li>
-                </ul>
-            </div>
-            <div class="vt-record" data-record aria-label="Sample visit record">
-                <div class="vt-record__top">
-                    <div class="vt-record__who"><span class="vt-record__avatar" aria-hidden="true">DR</span><div><strong>Visit record</strong><span>Sample client, Tuesday</span></div></div>
-                    <span class="vt-record__status"><i class="ph ph-check-circle" aria-hidden="true"></i>Visit complete</span>
-                </div>
-                <div class="vt-record__times">
-                    <div><span>Checked in</span><strong>9:02 AM</strong></div>
-                    <div><span>Checked out</span><strong>1:04 PM</strong></div>
-                    <div><span>Time with client</span><strong>4h 02m</strong></div>
-                </div>
-                <ul class="vt-record__tasks">
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Bathing and dressing<span>9:15</span></li>
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Medication reminder<span>9:40</span></li>
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Breakfast and lunch prepared<span>11:50</span></li>
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Laundry and linens<span>12:20</span></li>
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Walk to the mailbox and back<span>12:45</span></li>
-                </ul>
-                <blockquote class="vt-record__note">&ldquo;Good spirits today. Ate a full lunch and asked about her granddaughter&rsquo;s recital.&rdquo;<cite>Caregiver note</cite></blockquote>
-                <p class="vt-record__foot"><i class="ph ph-paper-plane-tilt" aria-hidden="true"></i>Included in Friday&rsquo;s care note to the family</p>
-                <span class="vt-record__sample">Sample</span>
-            </div>
-        </div>
-    </section>
 
-    <!-- Ways to pay: a snap rail, one card per route on paying-for-care.html -->
-    <section class="vt-section">
+    <section class="h-steps">
         <div class="container">
-            <div class="vt-head">
-                <h2>Six ways people pay for care</h2>
-                <p>Most families assume it&rsquo;s Medicaid or nothing. Tell us what you have and we&rsquo;ll check it for free.</p>
+            <div class="h-head">
+                <h2>From first call to first visit</h2>
+                <p>You talk to a local person at every step.</p>
             </div>
-            <div class="vt-rail">
-                <a class="vt-pay" href="paying-for-care.html#ltc-insurance"><i class="ph ph-file-text" aria-hidden="true"></i><h3>Long-term care insurance</h3><p>A policy paid into for years and never claimed on is real money. Most cover care at home.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
-                <a class="vt-pay" href="paying-for-care.html#va"><i class="ph ph-shield-star" aria-hidden="true"></i><h3>VA benefits</h3><p>For anyone who served, plus Aid and Attendance for veterans and surviving spouses.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
-                <a class="vt-pay" href="paying-for-care.html#medicare-advantage"><i class="ph ph-heartbeat" aria-hidden="true"></i><h3>Medicare Advantage extras</h3><p>Many plans include in-home support hours. Tell us the plan name and we&rsquo;ll check.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
-                <a class="vt-pay" href="paying-for-care.html#home-services"><i class="ph ph-wheelchair" aria-hidden="true"></i><h3>Illinois Home Services Program</h3><p>For adults under 60 living with a disability. Most people are never told it exists.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
-                <a class="vt-pay" href="paying-for-care.html#medicaid"><i class="ph ph-bank" aria-hidden="true"></i><h3>Medicaid</h3><p>Covers help at home for people who qualify on income and need. We&rsquo;ll tell you honestly where you stand.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
-                <a class="vt-pay" href="paying-for-care.html#own"><i class="ph ph-wallet" aria-hidden="true"></i><h3>Paying on your own</h3><p>You choose the hours, with no minimums. We&rsquo;ll give you a quote after the free visit.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
-            </div>
+            <ol class="h-steps__row">
+                <li><span class="h-steps__n">1</span><h3>Tell us what&rsquo;s going on</h3><p>Call or send a request. We listen first and answer questions about cost and coverage.</p></li>
+                <li><span class="h-steps__n">2</span><h3>Free visit to the home</h3><p>We meet the person who needs care and see how the day really runs.</p></li>
+                <li><span class="h-steps__n">3</span><h3>A written care plan</h3><p>Tasks, schedule and how it&rsquo;s paid for, agreed before anything starts.</p></li>
+                <li><span class="h-steps__n">4</span><h3>Care begins</h3><p>A matched caregiver, and check-ins as needs change.</p></li>
+            </ol>
         </div>
     </section>
 
@@ -442,29 +389,62 @@
         </div>
     </section>
 
-    <!-- Founder -->
-    <section class="vt-section vt-section--mist">
-        <div class="container vt-founder">
-            <div class="vt-founder__photo"><img src="images/ifeanyi-ezurike.jpg" alt="Ifeanyi Ezurike, founder of VitalTouch Health Network" loading="lazy"></div>
-            <div>
-                <h2 style="margin-bottom:22px;">This isn&rsquo;t a franchise. It&rsquo;s personal.</h2>
-                <blockquote>&ldquo;When you call, you get a person, often me. Your family&rsquo;s care is my name on the door.&rdquo;</blockquote>
-                <div class="vt-founder__who"><strong>Ifeanyi Ezurike</strong><span>Founder and CEO</span></div>
-                <p class="vt-founder__body">I started VitalTouch here in the south suburbs because I watched families struggle to find home care they could trust: big-name agencies where you never talk to the same person twice, and nobody knows your mother&rsquo;s name.</p>
-                <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>Call me at (708) 726-4536</a>
+    <!-- Talk to us: the lead form. #heroLeadForm, its field names and
+         #heroFormStatus are wired to js/main.js and the ops leads API. -->
+    <section class="vt-section vt-talk" id="talk">
+        <div class="container vt-talk__grid">
+            <div class="vt-talk__copy">
+                <h2>Talk to us about care</h2>
+                <p>Tell us a little about the situation and we&rsquo;ll call you back, usually the same day. There&rsquo;s no cost and no obligation.</p>
+                <ul class="vt-talk__list">
+                    <li><i class="ph ph-house-line" aria-hidden="true"></i>A free visit to the home to see what would help</li>
+                    <li><i class="ph ph-file-text" aria-hidden="true"></i>A written care plan before anything starts</li>
+                    <li><i class="ph ph-coins" aria-hidden="true"></i>A free check of what you may already be covered for</li>
+                </ul>
+                <a class="vt-talk__phone" href="tel:7087264536">(708) 726-4536</a>
+            </div>
+            <div class="va-lead-card">
+                <h2>Request a call back</h2>
+                <p class="va-lead-sub">We&rsquo;ll reach out, usually the same day.</p>
+                <form id="heroLeadForm">
+                    <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
+                    <label class="vt-lead-label" for="heroName">Your name</label>
+                    <input type="text" id="heroName" name="name" autocomplete="name" required>
+                    <div class="vt-form-row">
+                        <div><label class="vt-lead-label" for="heroEmail">Email</label>
+                        <input type="email" id="heroEmail" name="email" autocomplete="email"></div>
+                        <div><label class="vt-lead-label" for="heroPhone">Phone (optional)</label>
+                        <input type="tel" id="heroPhone" name="phone" autocomplete="tel"></div>
+                    </div>
+                    <label class="vt-lead-label" for="heroZip">Zip code where care is needed</label>
+                    <input type="text" id="heroZip" name="zip" required inputmode="numeric" maxlength="5" autocomplete="postal-code">
+                    <label class="va-consent">
+                        <input type="checkbox" name="consent">
+                        <span class="consent-text">I agree that VitalTouch Health Network, Inc. may contact me about home care services by phone, text message, and email using the contact information I provide, including through automated technology or an AI assistant. Message frequency may vary. Message and data rates may apply. Consent is not a condition of purchase or of receiving services. Reply STOP to opt out of texts at any time, or say so on a call to stop being contacted. See our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a> for details.</span>
+                    </label>
+                    <button type="submit" class="va-submit">Send</button>
+                    <p class="va-form-status" id="heroFormStatus"></p>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Areas: the one marquee on the site. Chips are written by
-         _tools/build-town-pages.py between the AREA_CHIPS markers. -->
-    <section class="vt-section">
-        <div class="container">
-            <div class="vt-head">
-                <span class="vt-eyebrow">Where we work</span>
-                <h2>Across Chicago and the south suburbs</h2>
-                <p>Find your town or neighborhood. Don&rsquo;t see it? Call and ask.</p>
+
+    <section class="h-founder">
+        <div class="container h-founder__grid">
+            <div class="h-founder__photo"><img src="images/ifeanyi-ezurike.jpg" alt="Ifeanyi Ezurike, founder of VitalTouch Health Network" loading="lazy"></div>
+            <div>
+                <p class="h-founder__quote">&ldquo;When you call, you get a person, often me. Your family&rsquo;s care is my name on the door.&rdquo;</p>
+                <p class="h-founder__who"><strong>Ifeanyi Ezurike</strong>Founder and CEO</p>
+                <p class="h-founder__body">I started VitalTouch in the south suburbs because I watched families struggle to find home care they could trust: big agencies where you never talk to the same person twice, and nobody knows your mother&rsquo;s name.</p>
             </div>
+        </div>
+    </section>
+
+    <section class="h-areas">
+        <div class="container h-head">
+            <h2>Across Chicago and the south suburbs</h2>
+            <p>69 towns and neighborhoods, and growing. Don&rsquo;t see yours? Call and ask.</p>
         </div>
         <div class="vt-marquee">
             <div class="vt-marquee__track">
@@ -474,25 +454,17 @@
 <!--/AREA_CHIPS-->
             </div>
         </div>
-        <div class="container">
-            <div class="vt-areas__ctas">
-                <a href="home-care-chicago.html" class="vt-btn vt-btn--solid">Home care in Chicago</a>
-                <a href="service-areas.html" class="vt-btn vt-btn--ghost">All service areas</a>
-            </div>
-        </div>
+        <div class="container"><div class="vt-areas__ctas"><a href="home-care-chicago.html" class="vt-btn vt-btn--solid">Home care in Chicago</a><a href="service-areas.html" class="vt-btn vt-btn--ghost">All service areas</a></div></div>
     </section>
 
-    <section class="vt-final">
-        <div class="container">
-            <div class="vt-final__panel">
-                <div>
-                    <h2>Let&rsquo;s talk about what would help</h2>
-                    <p>A free consultation with a local person. No cost and no obligation.</p>
-                </div>
-                <div class="vt-final__ctas">
-                    <a href="consult.html?when=now&amp;from=home-final" class="vt-btn vt-btn--light">Get care started</a>
-                    <a href="tel:7087264536" class="vt-btn vt-btn--line-light"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
-                </div>
+    <section class="h-final">
+        <img src="media/hero-care-poster.jpg" alt="" aria-hidden="true" loading="lazy">
+        <div class="container h-final__inner">
+            <h2>Let&rsquo;s talk about what would help.</h2>
+            <p>A free consultation with a local person. No cost and no obligation.</p>
+            <div class="h-hero__ctas">
+                <a href="consult.html?when=now&amp;from=home-final" class="vt-btn h-btn-light">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                <a href="tel:7087264536" class="vt-btn h-btn-glass"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
             </div>
         </div>
     </section>
@@ -556,8 +528,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012b"></script>
-    <script src="js/motion.js?v=20261012b" defer></script>
-    <script src="js/home.js?v=20261012b" defer></script>
+    <script src="js/main.js?v=20261012c"></script>
+    <script src="js/motion.js?v=20261012c" defer></script>
+    <script src="js/zips.js?v=20261012c" defer></script>
+    <script src="js/home.js?v=20261012c" defer></script>
 </body>
 </html>

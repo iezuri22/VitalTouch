@@ -75,3 +75,95 @@
     io.observe(record);
   }
 })();
+
+/* ---- v3: zip checker, service tabs, hero video control ---- */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Hero video: honor reduced motion, and give a visible pause control.
+  var video = document.querySelector('.h-hero__video');
+  var pauseBtn = document.querySelector('.h-hero__pause');
+  if (video) {
+    var userPaused = false;
+    if (reduce) { video.removeAttribute('autoplay'); video.pause(); userPaused = true; }
+    else { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+    // Play only while the hero is on screen: saves battery, and restarts
+    // playback if a browser held autoplay back.
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) {
+        if (userPaused) return;
+        if (e[0].isIntersecting) { var q = video.play(); if (q && q.catch) q.catch(function () {}); }
+        else video.pause();
+      }, { threshold: 0.15 }).observe(video);
+    }
+    var setBtn = function () {
+      if (!pauseBtn) return;
+      var paused = video.paused;
+      pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      pauseBtn.setAttribute('aria-label', paused ? 'Play background video' : 'Pause background video');
+      pauseBtn.innerHTML = '<i class="ph ' + (paused ? 'ph-play' : 'ph-pause') + '" aria-hidden="true"></i>';
+    };
+    if (pauseBtn) pauseBtn.addEventListener('click', function () { if (video.paused) { userPaused = false; video.play(); } else { userPaused = true; video.pause(); } setBtn(); });
+    video.addEventListener('play', setBtn); video.addEventListener('pause', setBtn);
+    setBtn();
+  }
+
+  // Zip checker, backed by js/zips.js (generated from the area pages).
+  var form = document.getElementById('zipCheck');
+  if (form) {
+    var input = document.getElementById('zipInput');
+    var out = document.getElementById('zipOut');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var z = (input.value || '').replace(/\D/g, '').slice(0, 5);
+      out.className = 'h-zip__out';
+      if (z.length !== 5) { out.textContent = 'Enter a 5-digit zip code.'; out.classList.add('is-warn'); return; }
+      var hits = (window.VT_ZIPS || {})[z];
+      if (hits && hits.length) {
+        var inChicago = hits.every(function (h) { return / Chicago$/.test(h[0]); });
+        var names = hits.map(function (h) { return inChicago ? h[0].replace(', Chicago', '') : h[0]; });
+        var list = names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names[0];
+        if (inChicago) list += ' in Chicago';
+        out.innerHTML = '';
+        out.classList.add('is-yes');
+        out.appendChild(document.createTextNode('Yes, we serve ' + list + '. '));
+        var a = document.createElement('a');
+        a.href = 'home-care-' + hits[0][1] + '.html';
+        a.textContent = 'See care in ' + hits[0][0].replace(', Chicago', '');
+        out.appendChild(a);
+      } else {
+        out.innerHTML = '';
+        out.appendChild(document.createTextNode(z + ' isn’t on our list yet, but we may still be able to help. '));
+        var c = document.createElement('a');
+        c.href = 'consult.html?from=home-zip-' + z;
+        c.textContent = 'Ask us';
+        out.appendChild(c);
+      }
+    });
+  }
+
+  // Service tabs (WAI-ARIA tabs pattern: arrows move, Enter/Space or click selects).
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.h-tab'));
+  var select = function (tab, focus) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) tab.focus();
+  };
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t, false); });
+    t.addEventListener('keydown', function (e) {
+      var n = null;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') n = tabs[(i + 1) % tabs.length];
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') n = tabs[(i - 1 + tabs.length) % tabs.length];
+      if (e.key === 'Home') n = tabs[0];
+      if (e.key === 'End') n = tabs[tabs.length - 1];
+      if (n) { e.preventDefault(); select(n, true); }
+    });
+  });
+})();
