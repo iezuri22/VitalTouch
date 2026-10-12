@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012v">
-    <link rel="stylesheet" href="css/vt.css?v=20261012v">
+    <link rel="stylesheet" href="css/style.css?v=20261012w">
+    <link rel="stylesheet" href="css/vt.css?v=20261012w">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .pricing-card {
@@ -169,7 +169,7 @@
                         <div class="mm-panel" id="mm-1" hidden>
                             <div class="container mm-panel__inner">
                                 <div class="mm-grid"><a class="mm-link" href="paying-for-care.html"><i class="ph ph-wallet" aria-hidden="true"></i><span><strong>Ways to pay</strong><small>Six options, explained</small></span></a><a class="mm-link" href="paying-for-care.html#ltc-insurance"><i class="ph ph-file-text" aria-hidden="true"></i><span><strong>Long-term care insurance</strong><small>Most policies cover home care</small></span></a><a class="mm-link" href="paying-for-care.html#va"><i class="ph ph-shield-star" aria-hidden="true"></i><span><strong>VA benefits</strong><small>For veterans and spouses</small></span></a><a class="mm-link" href="paying-for-care.html#medicare-advantage"><i class="ph ph-heartbeat" aria-hidden="true"></i><span><strong>Medicare Advantage</strong><small>In-home support benefits</small></span></a><a class="mm-link" href="paying-for-care.html#medicaid"><i class="ph ph-bank" aria-hidden="true"></i><span><strong>Medicaid</strong><small>Where you stand</small></span></a><a class="mm-link" href="paying-for-care.html#own"><i class="ph ph-credit-card" aria-hidden="true"></i><span><strong>Paying on your own</strong><small>Flexible hours</small></span></a><a class="mm-link" href="pricing.html"><i class="ph ph-tag" aria-hidden="true"></i><span><strong>Pricing</strong><small>How our pricing works</small></span></a><a class="mm-link" href="care-plans.html"><i class="ph ph-calendar-check" aria-hidden="true"></i><span><strong>Care plans</strong><small>Monthly plans</small></span></a></div>
-                                <a class="mm-feature" href="pricing.html#cost"><span class="mm-feature__k">Cost calculator</span><strong>See what care costs</strong><span>Compare hours of home care with other options.</span><span class="mm-feature__btn">Open calculator <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                                <a class="mm-feature" href="paying-for-care.html"><span class="mm-feature__k">Free coverage check</span><strong>What are you covered for?</strong><span>Tell us your plan or policy. We check what it pays for.</span><span class="mm-feature__btn">Check my coverage <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
                             </div>
                         </div>
                     </div>
@@ -291,62 +291,19 @@
                 <h2>Optional smart monitoring</h2>
                 <p>Safety tools for between visits, for an extra fee.</p>
             </div>
+            <div class="cl-split">
             <div class="cl-list">
                 <div class="cl-item cl-item--static"><div class="cl-row"><i class="ph ph-watch cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Wearable fall detection</strong><span class="cl-d">Alerts when a fall is detected.</span></span></div></div>
                 <div class="cl-item cl-item--static"><div class="cl-row"><i class="ph ph-house-simple cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Smart home sensors</strong><span class="cl-d">Flags unusual movement patterns.</span></span></div></div>
                 <div class="cl-item cl-item--static"><div class="cl-row"><i class="ph ph-siren cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Emergency response</strong><span class="cl-d">24/7 monitoring and rapid response.</span></span></div></div>
                 <div class="cl-item cl-item--static"><div class="cl-row"><i class="ph ph-phone-call cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Wellness check calls</strong><span class="cl-d">Automated daily check-ins.</span></span></div></div>
             </div>
+            <figure class="cl-split__img"><img src="images/care/medication-help.jpg" alt="A caregiver helping an older woman with her medication at the kitchen table" loading="lazy"></figure>
+            </div>
             <p class="pr-more"><a href="contact.html" class="vt-btn vt-btn--ghost">Ask about add-on pricing</a></p>
         </div>
     </section>
 
-    <!-- Cost calculator. Real, sourced national medians (Genworth/CareScout
-         2024); home care at the $33/hr homemaker median. Never our prices.
-         Wired by js/home.js. -->
-    <section class="vt-section" id="cost">
-        <div class="container vt-calc">
-            <div class="vt-calc__copy">
-                <span class="vt-eyebrow">What care costs</span>
-                <h2>Home care costs less than you think</h2>
-                <p>Slide to the hours you need.</p>
-                <div class="vt-calc__control">
-                    <label for="calcHours">Hours of help per week</label>
-                    <div class="vt-calc__hours"><output id="calcHoursOut" for="calcHours">20</output><span>hrs / week</span></div>
-                    <input type="range" id="calcHours" min="4" max="60" step="1" value="20" aria-describedby="calcVerdict">
-                    <div class="vt-calc__scale" aria-hidden="true"><span>4</span><span>20</span><span>40</span><span>60</span></div>
-                </div>
-                <div class="vt-calc__stats">
-                    <div><span>Per month</span><strong id="calcMonth">$2,860</strong></div>
-                    <div><span>Per year</span><strong id="calcYear">$34,320</strong></div>
-                </div>
-                <p class="vt-calc__verdict" id="calcVerdict">At 20 hours a week, care at home costs about half of assisted living.</p>
-                <div class="vt-calc__ctas">
-                    <a href="start.html?from=calculator" class="vt-btn vt-btn--solid">Get care started</a>
-                    <a href="paying-for-care.html" class="vt-btn vt-btn--ghost">Ways to pay</a>
-                </div>
-            </div>
-            <figure class="vt-panel" aria-labelledby="calcTitle">
-                <div class="vt-panel__head">
-                    <p class="vt-panel__title" id="calcTitle">Annual cost of care, U.S. median</p>
-                    <span class="vt-panel__tag">2024 data</span>
-                </div>
-                <div class="vt-plot">
-                    <div class="vt-plot__grid" aria-hidden="true">
-                        <span style="--x:0">$0</span><span style="--x:.25">$35k</span><span style="--x:.5">$70k</span><span style="--x:.75">$105k</span><span style="--x:1">$140k</span>
-                    </div>
-                    <ul class="vt-plot__rows">
-                        <li class="is-home"><span class="vt-plot__label">Home care<small id="calcRowLabel">20 hrs / week</small></span><span class="vt-plot__track"><span class="vt-plot__bar" id="calcBar" style="--v:.2451"></span><span class="vt-plot__val" id="calcBarVal" style="--v:.2451">$34,320</span></span></li>
-                        <li><span class="vt-plot__label">Adult day care</span><span class="vt-plot__track"><span class="vt-plot__bar" style="--v:.1857"></span><span class="vt-plot__val" style="--v:.1857">$26,000</span></span></li>
-                        <li><span class="vt-plot__label">Assisted living</span><span class="vt-plot__track"><span class="vt-plot__bar" style="--v:.5057"></span><span class="vt-plot__val" style="--v:.5057">$70,800</span></span></li>
-                        <li><span class="vt-plot__label">Nursing home<small>Semi-private</small></span><span class="vt-plot__track"><span class="vt-plot__bar" style="--v:.7952"></span><span class="vt-plot__val" style="--v:.7952">$111,325</span></span></li>
-                        <li><span class="vt-plot__label">Nursing home<small>Private room</small></span><span class="vt-plot__track"><span class="vt-plot__bar" style="--v:.9125"></span><span class="vt-plot__val" style="--v:.9125">$127,750</span></span></li>
-                    </ul>
-                </div>
-                <figcaption class="vt-panel__src">Source: Genworth and CareScout Cost of Care Survey 2024, U.S. medians. Home care at about $33 an hour. Not VitalTouch prices.</figcaption>
-            </figure>
-        </div>
-    </section>
 
     <section class="ip-section ip-section--mist">
         <div class="container">
@@ -418,10 +375,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012v"></script>
-    <script src="js/nav.js?v=20261012v" defer></script>
-    <script src="js/motion.js?v=20261012v" defer></script>
-    <script src="js/home.js?v=20261012v" defer></script>
-    <script src="js/engage.js?v=20261012v" defer></script>
+    <script src="js/main.js?v=20261012w"></script>
+    <script src="js/nav.js?v=20261012w" defer></script>
+    <script src="js/motion.js?v=20261012w" defer></script>
+    <script src="js/engage.js?v=20261012w" defer></script>
 </body>
 </html>

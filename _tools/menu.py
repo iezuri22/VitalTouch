@@ -27,7 +27,7 @@ MENU = [
         ('paying-for-care.html#own', 'ph-credit-card', 'Paying on your own', 'Flexible hours'),
         ('pricing.html', 'ph-tag', 'Pricing', 'How our pricing works'),
         ('care-plans.html', 'ph-calendar-check', 'Care plans', 'Monthly plans'),
-    ], ('Cost calculator', 'See what care costs', 'Compare hours of home care with other options.', 'pricing.html#cost', 'Open calculator')),
+    ], ('Free coverage check', 'What are you covered for?', 'Tell us your plan or policy. We check what it pays for.', 'paying-for-care.html', 'Check my coverage')),
     ('Areas', [
         ('home-care-chicago.html', 'ph-buildings', 'Chicago', '28 neighborhoods'),
         ('home-care-mount-prospect.html', 'ph-map-pin', 'Mount Prospect', 'Northwest suburbs'),

@@ -74,3 +74,48 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', openHash); else openHash();
   window.addEventListener('hashchange', openHash);
 })();
+
+/* Calm lists, desktop (2026-10-12): owner, "this looks boring". A list of
+   tap-to-open items becomes a picker: the items down the left, the chosen
+   one opened on the right with its photo, details and the one CTA. Phones
+   keep the plain tap-to-open list. Pure enhancement: without this script the
+   <details> list still works. */
+(function () {
+  var mq = window.matchMedia && window.matchMedia('(min-width: 1000px)');
+  if (!mq) return;
+  document.querySelectorAll('.cl-list').forEach(function (list) {
+    var items = Array.prototype.filter.call(list.children, function (el) { return el.tagName === 'DETAILS'; });
+    if (items.length < 3) return;
+    list.classList.add('cl-list--pane');
+    var pane = document.createElement('div');
+    pane.className = 'cl-pane';
+    pane.setAttribute('aria-live', 'polite');
+    pane.style.gridRow = '1 / span ' + items.length;
+    list.appendChild(pane);
+    var cta = list.getAttribute('data-cta');
+    function show(item, focusPane) {
+      items.forEach(function (it) { it.classList.toggle('is-active', it === item); });
+      var title = item.querySelector('.cl-t strong'), desc = item.querySelector('.cl-d'), body = item.querySelector('.cl-body');
+      var photo = item.getAttribute('data-photo'), alt = item.getAttribute('data-alt') || '';
+      pane.innerHTML =
+        (photo ? '<img class="cl-pane__img" src="' + photo + '" alt="' + alt.replace(/"/g, '&quot;') + '">' : '') +
+        '<div class="cl-pane__in"><h3>' + (title ? title.innerHTML : '') + '</h3>' +
+        (desc ? '<p class="cl-pane__lead">' + desc.innerHTML + '</p>' : '') +
+        (body ? '<div class="cl-pane__body">' + body.innerHTML + '</div>' : '') +
+        (cta ? '<a class="vt-btn vt-btn--solid cl-pane__cta" href="' + cta + '">Get care started</a>' : '') + '</div>';
+      pane.classList.remove('is-in'); void pane.offsetWidth; pane.classList.add('is-in');
+    }
+    items.forEach(function (it) {
+      it.querySelector('summary').addEventListener('click', function (e) {
+        if (!mq.matches) return;
+        e.preventDefault(); show(it);
+      });
+    });
+    var hashItem = items.filter(function (it) { return location.hash && it.id === location.hash.slice(1); })[0];
+    show(hashItem || items[0]);
+    window.addEventListener('hashchange', function () {
+      var t = items.filter(function (it) { return it.id === location.hash.slice(1); })[0];
+      if (t && mq.matches) { show(t); list.scrollIntoView({ block: 'start' }); }
+    });
+  });
+})();

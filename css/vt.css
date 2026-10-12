@@ -2097,3 +2097,45 @@ h2 { font-size: clamp(1.6rem, 2.4vw, 2.1rem) !important; font-weight: 700 !impor
 .pf-form .pf-form__plan { grid-column: 1 / -1; }
 @media (max-width: 1080px) { .pf-form { grid-template-columns: 1fr 1fr !important; } .pf-form .vt-btn { grid-column: 1 / -1; } }
 @media (max-width: 760px) { .st__row--even { grid-template-columns: 1fr !important; } .st__zip { max-width: none; } .pf-form { grid-template-columns: 1fr !important; } }
+
+/* =====================================================================
+   Calm lists, less boring (2026-10-12). Desktop only; phones keep the
+   plain tap-to-open list.
+   - Tap-to-open lists become a picker: items left, the chosen one opens on
+     the right with its photo, details and Get care started (js/nav.js).
+   - Short lists of plain rows get a home-care photo beside them.
+   ===================================================================== */
+@media (min-width: 1000px) {
+  .cl-list--pane { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); column-gap: 40px; border-top: 0; align-items: start; }
+  .cl-list--pane > .cl-item { grid-column: 1; border-bottom: 1px solid var(--line); }
+  .cl-list--pane > .cl-item:first-child { border-top: 1px solid var(--line); }
+  .cl-list--pane > .cl-item > .cl-body { display: none; }
+  .cl-list--pane .cl-item summary { grid-template-columns: 28px minmax(0, 1fr); min-height: 84px; padding: 14px 16px; border-radius: 14px; transition: background-color .2s ease, color .2s ease; }
+  .cl-list--pane .cl-t { grid-template-columns: 1fr; gap: 2px; }
+  .cl-list--pane .cl-d { font-size: .98rem; }
+  .cl-list--pane .cl-plus { display: none; }
+  .cl-list--pane .cl-item.is-active summary { background: var(--ink); }
+  .cl-list--pane .cl-item.is-active strong { color: #fff !important; }
+  .cl-list--pane .cl-item.is-active .cl-d { color: #b8c7d6; }
+  .cl-list--pane .cl-item.is-active .cl-ic, .cl-list--pane .cl-item.is-active .cl-plus { color: #9ee6da; }
+  .cl-pane { grid-column: 2; position: sticky; top: 104px; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 30px 60px -40px rgba(11,28,48,.45); }
+  .cl-pane.is-in { animation: cl-pane-in .45s cubic-bezier(.16,1,.3,1) both; }
+  @keyframes cl-pane-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .cl-pane__img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .cl-pane__in { padding: 26px 30px 30px; display: grid; gap: 14px; }
+  .cl-pane__in h3 { margin: 0; font-size: 1.6rem !important; color: var(--ink); }
+  .cl-pane__lead { margin: 0; font-size: 1.12rem; color: var(--body-ink, #3d4b5a); }
+  .cl-pane__body { display: grid; gap: 12px; }
+  .cl-pane__body > p { margin: 0; font-size: 1.04rem; line-height: 1.5; }
+  .cl-pane__body .ip-list { columns: 2; column-gap: 32px; margin: 0; }
+  .cl-pane__body .ip-list li { break-inside: avoid; margin-bottom: 10px; font-size: 1.04rem; }
+  .cl-pane__body .pf-next, .cl-pane__body .chg-sub { margin: 0; font-weight: 700; }
+  .cl-pane__body .chg__do { margin: 0; padding: 12px 16px; border-left: 3px solid var(--accent); }
+  .cl-pane__cta { justify-self: start; margin-top: 6px; }
+
+  .cl-split { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 48px; align-items: start; }
+  .cl-split__img { margin: 0; position: sticky; top: 104px; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 30px 60px -40px rgba(11,28,48,.45); }
+  .cl-split__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+}
+@media (max-width: 999px) { .cl-split__img { display: none; } }
+@media (prefers-reduced-motion: reduce) { .cl-pane.is-in { animation: none; } }
