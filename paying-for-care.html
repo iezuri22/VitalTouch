@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012m">
-    <link rel="stylesheet" href="css/vt.css?v=20261012m">
+    <link rel="stylesheet" href="css/style.css?v=20261012n">
+    <link rel="stylesheet" href="css/vt.css?v=20261012n">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .pay-wrap { max-width: 900px; margin: 0 auto; padding: 44px 20px 80px; }
@@ -193,7 +193,7 @@
         <a href="tel:7087264536" class="vt-btn vt-btn--ghost mn-cta">Call (708) 726-4536</a>
     </nav>
 
-    <section id="main" tabindex="-1" class="ip-hero ip-hero--solo">
+    <section id="main" tabindex="-1" class="ip-hero">
         <div class="container ip-hero__grid">
             <div>
                 <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Ways to Pay</span></div>
@@ -204,13 +204,30 @@
                     <button type="button" class="vt-btn ip-btn-glass" data-engage="paying-for-care-hero" data-title="Free coverage check" data-sub="Leave your number. We&rsquo;ll call and check what your coverage pays for." data-button="Call me back" data-msg="ways to pay page">Call me back</button>
                 </div>
             </div>
+            <div class="ip-hero__card"><div class="ui-card" aria-label="Sample coverage check">
+                <div class="ui-card__top"><div><strong>Coverage check</strong><span>Sample, Medicare Advantage</span></div><span class="ui-pill ui-pill--ok"><i class="ph ph-check-circle" aria-hidden="true"></i>Checked</span></div>
+                <ul class="pf-check">
+                    <li><span>Plan</span><strong>Sample Advantage plan</strong></li>
+                    <li><span>Help at home</span><strong>Included</strong></li>
+                    <li><span>Hours this year</span><strong>Up to 40</strong></li>
+                    <li><span>Next step</span><strong>We call you back</strong></li>
+                </ul>
+                <div class="ui-card__foot"><span><i class="ph ph-clock" aria-hidden="true"></i>Usually same day</span><span>Free, no obligation</span></div>
+            </div></div>
         </div>
     </section>
 
     <section class="ip-section pf-section">
         <div class="container pf-wrap">
-            <h2>What do you have?</h2>
-            <p class="pf-lead">Tap one to see what it means for you.</p>
+            <div class="pf-side">
+                <h2>What do you have?</h2>
+                <p class="pf-lead">Tap one to see what it means for you.</p>
+                <div class="pf-help">
+                    <p><strong>Not sure?</strong> Call us. We&rsquo;ll figure it out together.</p>
+                    <a href="tel:7087264536" class="vt-btn vt-btn--solid"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                </div>
+                <p class="pf-fine">Each plan, policy and program decides for itself. This page is not a promise that any plan will pay.</p>
+            </div>
             <div class="pf-list">
                 <details class="pf-q" id="medicare-advantage">
                     <summary><i class="ph ph-heartbeat" aria-hidden="true"></i><span>Medicare Advantage</span><i class="ph ph-plus pf-q__plus" aria-hidden="true"></i></summary>
@@ -247,11 +264,12 @@
                     <div class="pf-q__body"><p>Month to month. No minimums. Start small and add hours when you need them.</p><p class="pf-q__next"><a href="pricing.html">See our prices</a> or call for a quote.</p></div>
                 </details>
             </div>
-            <div class="pf-help">
-                <p><strong>Not sure?</strong> Call us. We&rsquo;ll figure it out together.</p>
-                <a href="tel:7087264536" class="vt-btn vt-btn--solid"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
-            </div>
-            <p class="pf-fine">Each plan, policy and program decides for itself. This page is not a promise that any plan will pay.</p>
+            <div class="pf-mobile-help"><div class="pf-help">
+                    <p><strong>Not sure?</strong> Call us. We&rsquo;ll figure it out together.</p>
+                    <a href="tel:7087264536" class="vt-btn vt-btn--solid"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                </div>
+                <p class="pf-fine">Each plan, policy and program decides for itself. This page is not a promise that any plan will pay.</p></div>
+
         </div>
     </section>
     <script>
@@ -324,9 +342,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012m"></script>
-    <script src="js/nav.js?v=20261012m" defer></script>
-    <script src="js/motion.js?v=20261012m" defer></script>
-    <script src="js/engage.js?v=20261012m" defer></script>
+    <script src="js/main.js?v=20261012n"></script>
+    <script src="js/nav.js?v=20261012n" defer></script>
+    <script src="js/motion.js?v=20261012n" defer></script>
+    <script src="js/engage.js?v=20261012n" defer></script>
 </body>
 </html>

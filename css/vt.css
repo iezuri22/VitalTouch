@@ -1844,3 +1844,56 @@ li { line-height: 1.45; }
 .town-services { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; column-gap: 32px !important; row-gap: 0 !important; border-top: 1px solid var(--line); margin-bottom: 28px !important; }
 .town-services li { background: none !important; border: 0 !important; border-bottom: 1px solid var(--line) !important; border-radius: 0 !important; padding: 14px 0 !important; font-size: 1.05rem; font-weight: 600 !important; color: var(--ink); }
 @media (max-width: 760px) { .town-services { grid-template-columns: 1fr !important; } }
+
+/* ===== Homepage v4 (2026-10-12): "now it looks basic". Richer, still one
+   idea per section: hero, numbers band, family, service tabs, care you can
+   see (4 product cards), four steps, dark close. ===== */
+.h-stats { background: var(--ink); border-top: 1px solid rgba(255,255,255,.08); }
+.h-stats__row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.h-stats__row > div { padding: clamp(28px, 3.4vw, 44px) clamp(16px, 2vw, 28px); border-left: 1px solid rgba(255,255,255,.1); }
+.h-stats__row > div:first-child { border-left: 0; padding-left: 0; }
+.h-stats strong { display: block; font: 800 clamp(2.4rem, 4.2vw, 3.6rem)/1 var(--font-display); font-stretch: 108%; letter-spacing: -0.04em; color: #fff; font-variant-numeric: tabular-nums; }
+.h-stats span { display: block; margin-top: 10px; font-size: 1rem; line-height: 1.35; color: #a9bccd; }
+.h-stats__row > div:first-child strong { color: var(--accent-bright); }
+@media (max-width: 860px) {
+  .h-stats__row { grid-template-columns: 1fr 1fr; }
+  .h-stats__row > div { border-left: 0; padding: 22px 0; border-top: 1px solid rgba(255,255,255,.1); }
+  .h-stats__row > div:nth-child(-n+2) { border-top: 0; }
+  .h-stats__row > div:nth-child(even) { padding-left: 20px; border-left: 1px solid rgba(255,255,255,.1); }
+}
+
+.h-close { position: relative; overflow: hidden; background: var(--ink); color: #c7d3df; }
+.h-close::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(60% 90% at 85% 10%, rgba(27,155,140,.28), transparent 60%),
+              linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 48px 48px,
+              linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 48px 48px; }
+.h-close__inner { position: relative; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); gap: clamp(32px, 6vw, 96px); align-items: center; padding-block: clamp(80px, 10vw, 136px); }
+.h-close h2 { color: #fff; font-size: clamp(2.4rem, 5.2vw, 4.4rem); line-height: 1.02; letter-spacing: -0.04em; margin: 0 0 18px; max-width: 14ch; }
+.h-close__sub { font-size: 1.2rem; line-height: 1.45; margin: 0; max-width: 40ch; color: #c7d3df; }
+.h-close .h-kicker { color: var(--accent-bright); }
+.h-close__card { display: grid; gap: 12px; padding: clamp(22px, 3vw, 32px); border: 1px solid rgba(255,255,255,.14); border-radius: 20px; background: rgba(255,255,255,.04); }
+.h-close__card .vt-btn { width: 100%; min-height: 58px !important; font-size: 1.08rem !important; }
+.h-close__card p { margin: 6px 0 0; font-size: .98rem; color: #a9bccd; text-align: center; }
+.h-close__card a:not(.vt-btn) { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 860px) { .h-close__inner { grid-template-columns: 1fr; } }
+
+/* Ways to Pay uses the full width: question + help on the left (sticky),
+   answers across the rest. Plan name gets the widest field. */
+.pf-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+.pf-wrap > * { max-width: none !important; }
+.pf-side { position: sticky; top: 110px; }
+.pf-side h2 { margin: 0 0 8px; }
+.pf-help { flex-direction: column; align-items: stretch !important; justify-content: flex-start !important; gap: 14px !important; margin-top: 28px !important; padding: 22px; border: 1px solid var(--line); border-radius: 16px; }
+.pf-help .vt-btn { width: 100%; }
+.pf-q__body p { max-width: 70ch; }
+.pf-form { max-width: none !important; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr) minmax(0, .8fr) auto !important; }
+@media (max-width: 1080px) { .pf-form { grid-template-columns: 1fr 1fr !important; } .pf-form__plan, .pf-form .vt-btn { grid-column: 1 / -1; } }
+@media (max-width: 900px) { .pf-wrap { grid-template-columns: 1fr; } .pf-side { position: static; } .pf-side .pf-help, .pf-side .pf-fine { display: none; } .pf-list + .pf-mobile-help { display: block; } }
+@media (max-width: 760px) { .pf-form { grid-template-columns: 1fr !important; } }
+.pf-mobile-help { display: none; }
+@media (max-width: 900px) { .pf-mobile-help { display: block; grid-column: 1; } }
+.pf-check { list-style: none; margin: 4px 0 0; padding: 0; }
+.pf-check li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .98rem; }
+.pf-check li:last-child { border-bottom: 0; }
+.pf-check span { color: var(--muted-ink); }
+.pf-check strong { color: var(--ink); text-align: right; }
