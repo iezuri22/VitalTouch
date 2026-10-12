@@ -1323,3 +1323,90 @@ a:hover .h-link i { transform: translateX(5px); }
 .eg-inline { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; border: 0; cursor: pointer; padding: 10px 16px; border-radius: 999px; background: var(--accent-bright); color: var(--ink); font: 700 .92rem/1 var(--font-body); }
 .eg-inline:hover { background: #fff; }
 .eg-calc-cta { margin-top: 14px; display: inline-flex; }
+
+/* ==========================================================================
+   Inner pages in the product-card style (ip-*). Same vocabulary as the
+   homepage: navy hero with a UI card, white cards on cool mist, dark bands.
+   Reference implementation: services.html.
+   ========================================================================== */
+.ip-hero { background: var(--ink); color: #c7d3df; position: relative; overflow: hidden; }
+.ip-hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse at 80% 30%, #000 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at 80% 30%, #000 0%, transparent 70%); pointer-events: none; }
+.ip-hero__grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding-block: clamp(56px, 8vw, 104px); }
+.ip-hero .breadcrumb { margin-bottom: 18px; }
+.ip-hero .breadcrumb a { color: var(--accent-bright) !important; }
+.ip-hero .breadcrumb span { color: rgba(255,255,255,.55) !important; }
+.ip-hero h1 { color: #fff; font-size: clamp(2.3rem, 4.6vw, 3.8rem); line-height: 1.03; letter-spacing: -0.04em; margin: 0 0 16px; max-width: 14ch; }
+.ip-hero__sub { font-size: 1.15rem; color: #c7d3df; margin: 0 0 26px; max-width: 42ch; }
+.ip-hero__ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+.ip-hero__card { justify-self: end; width: 100%; max-width: 460px; }
+.ip-btn-light { background: #fff; color: var(--ink); }
+.ip-btn-light:hover { background: var(--accent-bright); color: var(--ink); }
+.ip-btn-glass { color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.4); background: rgba(255,255,255,.06); }
+.ip-btn-glass:hover { background: rgba(255,255,255,.14); color: #fff; }
+
+.ip-section { padding-block: clamp(64px, 8vw, 112px); background: var(--paper); }
+.ip-section--mist { background: var(--mist); }
+.ip-section--dark { background: var(--ink); color: #c7d3df; }
+.ip-section--dark h2, .ip-section--dark h3 { color: #fff; }
+.ip-head { max-width: 680px; margin-bottom: clamp(28px, 4vw, 44px); }
+.ip-head h2 { margin: 0 0 12px; }
+.ip-head p { margin: 0; font-size: 1.1rem; color: var(--muted-ink); }
+.ip-section--dark .ip-head p { color: #c7d3df; }
+
+.ip-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.ip-card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(11,28,48,.04); transition: transform .45s var(--ease), box-shadow .45s var(--ease); }
+.ip-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -22px rgba(11,28,48,.35); }
+.ip-card__icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-deep); font-size: 1.4rem; }
+.ip-card h3 { margin: 6px 0 0; font-size: 1.25rem; }
+.ip-card > p { margin: 0; color: var(--body-ink); font-size: 1rem; }
+.ip-tag { position: absolute; top: 20px; right: 20px; font: 700 .7rem/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent-deep); background: var(--accent-soft); padding: .5em .8em; border-radius: 999px; }
+.ip-tag--ink { color: #fff; background: var(--ink); }
+.ip-list { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 8px; }
+.ip-list li { display: flex; gap: 10px; align-items: flex-start; font-size: .97rem; color: var(--ink); }
+.ip-list li::before { content: ""; flex-shrink: 0; width: 18px; height: 18px; margin-top: 3px; border-radius: 50%; background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 11px no-repeat; }
+.ip-card__go { margin-top: auto; padding-top: 6px; font-weight: 700; color: var(--accent-deep); text-decoration: none; display: inline-flex; gap: .4em; align-items: center; }
+
+.ip-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.ip-split__copy h2 { margin: 0 0 14px; }
+.ip-split__copy > p { font-size: 1.1rem; color: var(--body-ink); margin: 0 0 22px; max-width: 46ch; }
+.ip-section--dark .ip-split__copy > p { color: #c7d3df; }
+.ip-points { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 14px; }
+.ip-points li { display: flex; gap: 12px; align-items: flex-start; }
+.ip-points i { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-deep); font-size: 1.2rem; flex-shrink: 0; }
+.ip-section--dark .ip-points i { background: rgba(79,209,191,.14); color: var(--accent-bright); }
+.ip-points strong { display: block; color: var(--ink); }
+.ip-section--dark .ip-points strong { color: #fff; }
+.ip-points span { font-size: .97rem; color: var(--muted-ink); }
+.ip-section--dark .ip-points span { color: #c7d3df; }
+.ip-split__card { justify-self: end; width: 100%; max-width: 480px; }
+
+.ip-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.ip-stat { padding: 18px 20px; border-radius: 16px; background: #fff; border: 1px solid var(--line); }
+.ip-stat strong { display: block; font: 500 1.6rem/1.15 var(--font-mono); color: var(--ink); }
+.ip-stat span { font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-ink); }
+
+.ip-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px; padding: clamp(24px, 4vw, 40px); border-radius: 22px; background: var(--ink); color: #c7d3df; }
+.ip-cta h2 { color: #fff; margin: 0 0 6px; font-size: clamp(1.6rem, 3vw, 2.3rem); }
+.ip-cta p { margin: 0; }
+.ip-cta__btns { display: flex; flex-wrap: wrap; gap: 10px; }
+
+@media (max-width: 900px) {
+  .ip-hero__grid, .ip-split { grid-template-columns: 1fr; }
+  .ip-hero__card, .ip-split__card { justify-self: start; max-width: none; }
+}
+@media (max-width: 760px) {
+  .ip-hero__grid { padding-block: 40px 36px; gap: 22px; }
+  .ip-hero h1 { font-size: 2rem; }
+  .ip-hero__sub { font-size: 1rem; margin-bottom: 18px; }
+  .ip-hero__ctas { display: grid; grid-template-columns: 1fr 1fr; }
+  .ip-hero__ctas .vt-btn { justify-content: center; padding: .85em .6em; font-size: .95rem; }
+  .ip-section { padding-block: 52px; }
+  .ip-head { margin-bottom: 22px; }
+  .ip-head p { font-size: 1rem; }
+  .ip-cards { gap: 12px; }
+  .ip-card { padding: 18px; }
+  .ip-card h3 { font-size: 1.12rem; }
+  .ip-cta { padding: 22px; border-radius: 18px; }
+  .ip-cta__btns { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+  .ip-cta__btns .vt-btn { justify-content: center; }
+}
