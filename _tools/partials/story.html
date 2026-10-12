@@ -1,0 +1,205 @@
+    <!-- "A Visit Home": a silent-film cartoon of one visit (owner, 2026-10-12:
+         "something a senior would think is cool, fun and not too tech looking,
+         old school animation style"). Hand-drawn SVG, driven by js/story.js at
+         12 frames a second with boiling lines, film grain and iris wipes.
+         Plays once when it scrolls into view; Pause/Replay always available;
+         reduced motion shows the finished town scene as a still. -->
+    <section class="h-story" id="how" aria-labelledby="storyTitle">
+        <div class="container">
+            <h2 id="storyTitle">A visit home</h2>
+            <p class="h-story__lead">Thirty seconds on how it works.</p>
+            <div class="story" data-story>
+                <div class="story__screen">
+                    <svg class="story__svg" viewBox="0 0 1600 900" role="img" aria-labelledby="storyAlt" preserveAspectRatio="xMidYMid slice">
+                        <title id="storyAlt">A short cartoon: a VitalTouch caregiver drives to a client&rsquo;s home, helps with meals, laundry and groceries, and sends the family a note on Friday.</title>
+                        <defs>
+                            <filter id="stBoil" x="-5%" y="-5%" width="110%" height="110%">
+                                <feTurbulence id="stBoilNoise" type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="1"/>
+                                <feDisplacementMap in="SourceGraphic" scale="5"/>
+                            </filter>
+                            <clipPath id="stIris"><circle id="stIrisC" cx="800" cy="450" r="1000"/></clipPath>
+                            <pattern id="stStripes" width="60" height="60" patternUnits="userSpaceOnUse">
+                                <rect width="60" height="60" fill="#f3e8d2"/><rect width="22" height="60" fill="#ebdcc0"/>
+                            </pattern>
+                            <g id="stTree">
+                                <rect x="-6" y="-10" width="12" height="60" fill="#6b4e33" stroke="#23364a" stroke-width="5"/>
+                                <circle cx="0" cy="-38" r="42" fill="#7fb7a4" stroke="#23364a" stroke-width="6"/>
+                                <path d="M-18 -50 q8 -10 18 -6" stroke="#23364a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                            </g>
+                            <g id="stHouse">
+                                <rect x="-90" y="-130" width="180" height="130" fill="#fbf4e4" stroke="#23364a" stroke-width="7"/>
+                                <polygon points="-112,-128 0,-222 112,-128" fill="#23364a" stroke="#23364a" stroke-width="7" stroke-linejoin="round"/>
+                                <rect x="-22" y="-74" width="44" height="74" fill="#1b9b8c" stroke="#23364a" stroke-width="6"/>
+                                <circle cx="12" cy="-38" r="4" fill="#23364a"/>
+                            </g>
+                        </defs>
+
+                        <g class="st-world" clip-path="url(#stIris)">
+                            <!-- 0. Film leader -->
+                            <g id="stLeader" class="st-scene">
+                                <rect width="1600" height="900" fill="#2d2a26"/>
+                                <path id="stSweep" d="M800 450 L800 50 A400 400 0 0 1 800 50 Z" fill="#4a4540"/>
+                                <circle cx="800" cy="450" r="400" fill="none" stroke="#e9dcc1" stroke-width="10"/>
+                                <circle cx="800" cy="450" r="320" fill="none" stroke="#e9dcc1" stroke-width="5"/>
+                                <line x1="0" y1="450" x2="1600" y2="450" stroke="#e9dcc1" stroke-width="4"/>
+                                <line x1="800" y1="0" x2="800" y2="900" stroke="#e9dcc1" stroke-width="4"/>
+                                <text id="stCount" x="800" y="545" text-anchor="middle" class="st-count">3</text>
+                            </g>
+
+                            <!-- Intertitle (text swapped per card) -->
+                            <g id="stCard" class="st-scene">
+                                <rect width="1600" height="900" fill="#171513"/>
+                                <rect x="110" y="90" width="1380" height="720" fill="none" stroke="#e9dcc1" stroke-width="6"/>
+                                <rect x="134" y="114" width="1332" height="672" fill="none" stroke="#e9dcc1" stroke-width="2"/>
+                                <g fill="#e9dcc1">
+                                    <path d="M110 90 l40 0 l-40 40 z"/><path d="M1490 90 l-40 0 l40 40 z"/>
+                                    <path d="M110 810 l40 0 l-40 -40 z"/><path d="M1490 810 l-40 0 l40 -40 z"/>
+                                    <circle cx="800" cy="186" r="9"/><circle cx="760" cy="186" r="5"/><circle cx="840" cy="186" r="5"/>
+                                    <circle cx="800" cy="714" r="9"/><circle cx="760" cy="714" r="5"/><circle cx="840" cy="714" r="5"/>
+                                </g>
+                                <text id="stCardSmall" x="800" y="330" text-anchor="middle" class="st-card-small"></text>
+                                <text id="stCardL1" x="800" y="460" text-anchor="middle" class="st-card"></text>
+                                <text id="stCardL2" x="800" y="560" text-anchor="middle" class="st-card"></text>
+                            </g>
+
+                            <!-- 1. The town -->
+                            <g id="stTown" class="st-scene st-boil">
+                                <rect width="1600" height="900" fill="#f3e7cf"/>
+                                <g id="stSun" transform="translate(1340 170)">
+                                    <g id="stRays" stroke="#23364a" stroke-width="7" stroke-linecap="round">
+                                        <line x1="0" y1="-105" x2="0" y2="-135"/><line x1="0" y1="105" x2="0" y2="135"/>
+                                        <line x1="-105" y1="0" x2="-135" y2="0"/><line x1="105" y1="0" x2="135" y2="0"/>
+                                        <line x1="74" y1="74" x2="96" y2="96"/><line x1="-74" y1="-74" x2="-96" y2="-96"/>
+                                        <line x1="74" y1="-74" x2="96" y2="-96"/><line x1="-74" y1="74" x2="-96" y2="96"/>
+                                    </g>
+                                    <circle r="80" fill="#f6c453" stroke="#23364a" stroke-width="7"/>
+                                    <ellipse cx="-26" cy="-14" rx="8" ry="13" fill="#23364a"/>
+                                    <ellipse cx="26" cy="-14" rx="8" ry="13" fill="#23364a"/>
+                                    <path d="M-34 18 Q0 50 34 18" fill="none" stroke="#23364a" stroke-width="7" stroke-linecap="round"/>
+                                    <circle cx="-48" cy="14" r="10" fill="#f19a7c" opacity=".7"/><circle cx="48" cy="14" r="10" fill="#f19a7c" opacity=".7"/>
+                                </g>
+                                <g id="stCloud" fill="#fbf6ea" stroke="#23364a" stroke-width="6">
+                                    <path d="M210 210 q-60 0 -60 -45 q0 -50 60 -50 q20 -50 80 -40 q50 -40 100 5 q65 -5 65 55 q0 75 -80 75 z"/>
+                                </g>
+                                <!-- Chicago, far away -->
+                                <g fill="#c4d3cd" stroke="#9fb3ab" stroke-width="3">
+                                    <rect x="640" y="400" width="60" height="180"/><rect x="705" y="340" width="70" height="240"/>
+                                    <rect x="712" y="300" width="56" height="40"/><line x1="725" y1="300" x2="725" y2="250"/><line x1="755" y1="300" x2="755" y2="262"/>
+                                    <rect x="780" y="420" width="50" height="160"/>
+                                    <polygon points="840,580 852,380 898,380 910,580"/><line x1="860" y1="380" x2="860" y2="335"/><line x1="890" y1="380" x2="890" y2="345"/>
+                                    <rect x="915" y="450" width="70" height="130"/>
+                                </g>
+                                <ellipse cx="380" cy="850" rx="760" ry="300" fill="#a9cfc1" stroke="#23364a" stroke-width="7"/>
+                                <ellipse cx="1300" cy="880" rx="820" ry="300" fill="#8fc0ae" stroke="#23364a" stroke-width="7"/>
+                                <path d="M-60 770 C 400 720, 900 800, 1660 740" stroke="#23364a" stroke-width="86" fill="none"/>
+                                <path d="M-60 770 C 400 720, 900 800, 1660 740" stroke="#e8d8b5" stroke-width="72" fill="none"/>
+                                <path d="M-60 770 C 400 720, 900 800, 1660 740" stroke="#fbf6ea" stroke-width="7" stroke-dasharray="40 34" fill="none"/>
+                                <use href="#stTree" transform="translate(120 650)"/>
+                                <use href="#stHouse" transform="translate(380 700) scale(.75)"/>
+                                <use href="#stTree" transform="translate(560 668) scale(.85)"/>
+                                <use href="#stHouse" transform="translate(740 708) scale(.7)"/>
+                                <use href="#stTree" transform="translate(1440 650)"/>
+                                <!-- The client's house -->
+                                <g id="stClientHouse" transform="translate(1150 700)">
+                                    <rect x="50" y="-250" width="34" height="80" fill="#fbf4e4" stroke="#23364a" stroke-width="7"/>
+                                    <g id="stSmoke" fill="#fbf6ea" stroke="#23364a" stroke-width="5" opacity="0">
+                                        <circle cx="67" cy="-275" r="16"/><circle cx="84" cy="-312" r="22"/><circle cx="108" cy="-355" r="28"/>
+                                    </g>
+                                    <use href="#stHouse" transform="scale(1.05)"/>
+                                    <rect id="stWin" x="-82" y="-112" width="48" height="40" fill="#fbf4e4" stroke="#23364a" stroke-width="6"/>
+                                    <rect id="stWin2" x="36" y="-112" width="48" height="40" fill="#fbf4e4" stroke="#23364a" stroke-width="6"/>
+                                    <path id="stHeart1" d="M0 -250 c-30 -40 -80 0 0 50 c80 -50 30 -90 0 -50z" fill="#e25c4b" stroke="#23364a" stroke-width="6" opacity="0"/>
+                                </g>
+                                <!-- The caregiver's car -->
+                                <g id="stCar" transform="translate(-200 735)">
+                                    <g id="stCarBob">
+                                        <path d="M-120 18 Q-122 -14 -88 -18 L-58 -58 Q-48 -70 -26 -70 L44 -70 Q66 -70 78 -54 L98 -18 Q126 -15 126 14 L126 26 L-120 26 Z" fill="#1b9b8c" stroke="#23364a" stroke-width="7" stroke-linejoin="round"/>
+                                        <path d="M-46 -56 L-28 -24 L18 -24 L18 -58 Z M30 -58 L30 -24 L76 -24 L60 -54 Q55 -58 48 -58 Z" fill="#fbf6ea" stroke="#23364a" stroke-width="5"/>
+                                        <path d="M-16 4 c-10 -12 -26 0 0 14 c26 -14 10 -26 0 -14z" fill="#e25c4b"/>
+                                        <circle cx="118" cy="2" r="9" fill="#f6c453" stroke="#23364a" stroke-width="4"/>
+                                        <g class="st-wheel" transform="translate(-70 30)"><circle r="28" fill="#23364a"/><circle r="12" fill="#e8d8b5"/><line x1="-22" y1="0" x2="22" y2="0" stroke="#e8d8b5" stroke-width="5"/></g>
+                                        <g class="st-wheel" transform="translate(72 30)"><circle r="28" fill="#23364a"/><circle r="12" fill="#e8d8b5"/><line x1="-22" y1="0" x2="22" y2="0" stroke="#e8d8b5" stroke-width="5"/></g>
+                                    </g>
+                                    <g id="stPuff" fill="#fbf6ea" stroke="#23364a" stroke-width="4" opacity="0"><circle cx="-142" cy="14" r="12"/><circle cx="-170" cy="4" r="16"/></g>
+                                </g>
+                            </g>
+
+                            <!-- 2. Inside: the visit -->
+                            <g id="stInside" class="st-scene st-boil">
+                                <rect width="1600" height="900" fill="url(#stStripes)"/>
+                                <rect x="0" y="690" width="1600" height="210" fill="#c9a77c" stroke="#23364a" stroke-width="7"/>
+                                <g transform="translate(250 130)">
+                                    <rect width="380" height="300" fill="#bfe0e8" stroke="#23364a" stroke-width="8"/>
+                                    <line x1="190" y1="0" x2="190" y2="300" stroke="#23364a" stroke-width="7"/><line x1="0" y1="150" x2="380" y2="150" stroke="#23364a" stroke-width="7"/>
+                                    <path d="M-30 -20 Q60 150 -10 330 L-40 330 L-40 -20 Z" fill="#1b9b8c" stroke="#23364a" stroke-width="6"/>
+                                    <path d="M410 -20 Q320 150 390 330 L420 330 L420 -20 Z" fill="#1b9b8c" stroke="#23364a" stroke-width="6"/>
+                                </g>
+                                <!-- stove + kettle -->
+                                <g transform="translate(180 470)">
+                                    <rect width="420" height="230" fill="#fbf6ea" stroke="#23364a" stroke-width="8"/>
+                                    <rect x="40" y="70" width="340" height="130" fill="#e8d8b5" stroke="#23364a" stroke-width="6"/>
+                                    <circle cx="80" cy="34" r="12" fill="#23364a"/><circle cx="130" cy="34" r="12" fill="#23364a"/><circle cx="290" cy="34" r="12" fill="#23364a"/><circle cx="340" cy="34" r="12" fill="#23364a"/>
+                                    <g id="stKettle" transform="translate(210 -10)">
+                                        <path d="M-80 0 Q-90 -110 0 -115 Q90 -110 80 0 Z" fill="#e25c4b" stroke="#23364a" stroke-width="7"/>
+                                        <path d="M75 -60 L130 -100" stroke="#23364a" stroke-width="16" stroke-linecap="round"/>
+                                        <path d="M-40 -115 Q0 -170 40 -115" fill="none" stroke="#23364a" stroke-width="9"/>
+                                        <circle cx="0" cy="-118" r="10" fill="#23364a"/>
+                                    </g>
+                                    <g id="stSteam" fill="none" stroke="#23364a" stroke-width="6" stroke-linecap="round">
+                                        <path d="M345 -120 q-20 -30 0 -60 q20 -30 0 -60" stroke-dasharray="180" stroke-dashoffset="180"/>
+                                        <path d="M375 -110 q-20 -30 0 -60 q20 -30 0 -60" stroke-dasharray="180" stroke-dashoffset="180"/>
+                                    </g>
+                                </g>
+                                <!-- notepad -->
+                                <g transform="translate(860 110) rotate(-3)">
+                                    <rect width="560" height="600" rx="10" fill="#fffaf0" stroke="#23364a" stroke-width="8"/>
+                                    <rect width="560" height="70" rx="10" fill="#1b9b8c" stroke="#23364a" stroke-width="8"/>
+                                    <circle cx="140" cy="0" r="16" fill="#e8d8b5" stroke="#23364a" stroke-width="5"/><circle cx="280" cy="0" r="16" fill="#e8d8b5" stroke="#23364a" stroke-width="5"/><circle cx="420" cy="0" r="16" fill="#e8d8b5" stroke="#23364a" stroke-width="5"/>
+                                    <text x="50" y="160" class="st-note-title">Today&#8217;s visit</text>
+                                    <g class="st-line" id="stL1"><line x1="50" y1="260" x2="510" y2="260" stroke="#c9b48e" stroke-width="3"/><text x="50" y="245" class="st-note">Meals made</text><g class="st-stamp" transform="translate(455 222)"><circle r="38" fill="none" stroke="#1b9b8c" stroke-width="8"/><path d="M-18 0 l12 14 l24 -28" fill="none" stroke="#1b9b8c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+                                    <g class="st-line" id="stL2"><line x1="50" y1="370" x2="510" y2="370" stroke="#c9b48e" stroke-width="3"/><text x="50" y="355" class="st-note">Laundry folded</text><g class="st-stamp" transform="translate(455 332)"><circle r="38" fill="none" stroke="#1b9b8c" stroke-width="8"/><path d="M-18 0 l12 14 l24 -28" fill="none" stroke="#1b9b8c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+                                    <g class="st-line" id="stL3"><line x1="50" y1="480" x2="510" y2="480" stroke="#c9b48e" stroke-width="3"/><text x="50" y="465" class="st-note">Groceries put away</text><g class="st-stamp" transform="translate(455 442)"><circle r="38" fill="none" stroke="#1b9b8c" stroke-width="8"/><path d="M-18 0 l12 14 l24 -28" fill="none" stroke="#1b9b8c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+                                    <path id="stHeart2" d="M280 565 c-24 -32 -64 0 0 40 c64 -40 24 -72 0 -40z" fill="#e25c4b" stroke="#23364a" stroke-width="5" opacity="0"/>
+                                </g>
+                            </g>
+
+                            <!-- 3. Friday: the note to the family -->
+                            <g id="stLetter" class="st-scene st-boil">
+                                <rect width="1600" height="900" fill="#f3e7cf"/>
+                                <ellipse cx="300" cy="880" rx="560" ry="260" fill="#a9cfc1" stroke="#23364a" stroke-width="7"/>
+                                <ellipse cx="1320" cy="880" rx="560" ry="260" fill="#8fc0ae" stroke="#23364a" stroke-width="7"/>
+                                <path d="M380 560 C 620 120, 1000 120, 1240 560" fill="none" stroke="#23364a" stroke-width="5" stroke-dasharray="4 26" stroke-linecap="round" opacity=".55"/>
+                                <use href="#stHouse" transform="translate(330 720)"/>
+                                <use href="#stTree" transform="translate(560 700) scale(.8)"/>
+                                <use href="#stHouse" transform="translate(1260 720)"/>
+                                <use href="#stTree" transform="translate(1050 700) scale(.8)"/>
+                                <!-- mailbox -->
+                                <g transform="translate(1420 720)">
+                                    <rect x="-6" y="-90" width="12" height="90" fill="#6b4e33" stroke="#23364a" stroke-width="5"/>
+                                    <path d="M-50 -90 L-50 -140 Q-50 -165 -20 -165 L30 -165 Q50 -165 50 -140 L50 -90 Z" fill="#1b9b8c" stroke="#23364a" stroke-width="6"/>
+                                    <g id="stFlag" transform="translate(50 -130) rotate(90)"><rect x="0" y="-8" width="10" height="56" fill="#23364a"/><rect x="0" y="-8" width="34" height="22" fill="#e25c4b" stroke="#23364a" stroke-width="4"/></g>
+                                </g>
+                                <text x="1260" y="840" text-anchor="middle" class="st-sign">The family</text>
+                                <g id="stEnvelope" transform="translate(380 560)">
+                                    <rect x="-60" y="-40" width="120" height="80" rx="6" fill="#fffaf0" stroke="#23364a" stroke-width="6"/>
+                                    <path d="M-60 -40 L0 8 L60 -40" fill="none" stroke="#23364a" stroke-width="6" stroke-linejoin="round"/>
+                                    <path d="M0 10 c-12 -16 -32 0 0 20 c32 -20 12 -36 0 -20z" fill="#e25c4b" stroke="#23364a" stroke-width="3"/>
+                                </g>
+                                <path id="stHeart3" d="M1260 470 c-30 -40 -80 0 0 50 c80 -50 30 -90 0 -50z" fill="#e25c4b" stroke="#23364a" stroke-width="6" opacity="0"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="story__grain" aria-hidden="true"></div>
+                    <div class="story__scratch" aria-hidden="true"></div>
+                    <div class="story__end" hidden>
+                        <p class="story__end-title">Care that feels like family.</p>
+                        <a href="start.html?from=home-story" class="vt-btn h-btn-light">Get care started</a>
+                    </div>
+                </div>
+                <div class="story__bar">
+                    <p class="story__cap" aria-live="polite">A visit home, in four short scenes.</p>
+                    <button type="button" class="vt-btn vt-btn--ghost story__btn" data-story-btn>Play</button>
+                </div>
+            </div>
+        </div>
+    </section>
