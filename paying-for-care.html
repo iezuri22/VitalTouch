@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012r">
-    <link rel="stylesheet" href="css/vt.css?v=20261012r">
+    <link rel="stylesheet" href="css/style.css?v=20261012s">
+    <link rel="stylesheet" href="css/vt.css?v=20261012s">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .pay-wrap { max-width: 900px; margin: 0 auto; padding: 44px 20px 80px; }
@@ -168,7 +168,7 @@
                         <div class="mm-panel" id="mm-4" hidden>
                             <div class="container mm-panel__inner">
                                 <div class="mm-grid"><a class="mm-link" href="about.html"><i class="ph ph-users-three" aria-hidden="true"></i><span><strong>About us</strong><small>Who we are</small></span></a><a class="mm-link" href="apply.html"><i class="ph ph-briefcase" aria-hidden="true"></i><span><strong>Careers</strong><small>Now hiring caregivers</small></span></a><a class="mm-link" href="contact.html"><i class="ph ph-envelope-simple" aria-hidden="true"></i><span><strong>Contact</strong><small>Office, hours, email</small></span></a></div>
-                                <a class="mm-feature" href="tel:7087264536"><span class="mm-feature__k">Speak with us</span><strong>(708) 726-4536</strong><span>A real person answers, 24/7.</span><span class="mm-feature__btn">Call now <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                                <a class="mm-feature" href="start.html?from=menu"><span class="mm-feature__k">Ready when you are</span><strong>Get care started</strong><span>Under a minute online. No obligation.</span><span class="mm-feature__btn">Start <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
                             </div>
                         </div>
                     </div>
@@ -200,9 +200,8 @@
                 <h1>How to pay for care</h1>
                 <p class="ip-hero__sub">Tell us what coverage you have. We&rsquo;ll check what it pays for, free.</p>
                 <div class="ip-hero__ctas">
-                    <a href="tel:7087264536" class="vt-btn ip-btn-light"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
-                    <button type="button" class="vt-btn ip-btn-glass" data-engage="paying-for-care-hero" data-title="Free coverage check" data-sub="Leave your number. We&rsquo;ll call and check what your coverage pays for." data-button="Call me back" data-msg="ways to pay page">Call me back</button>
-                </div>
+                    <a href="start.html?from=paying-for-care-final" class="vt-btn ip-btn-light">Get care started</a>
+                    </div>
             </div>
             <div class="ip-hero__card"><div class="ui-card" aria-label="Sample coverage check">
                 <div class="ui-card__top"><div><strong>Coverage check</strong><span>Sample, Medicare Advantage</span></div><span class="ui-pill ui-pill--ok"><i class="ph ph-check-circle" aria-hidden="true"></i>Checked</span></div>
@@ -223,8 +222,8 @@
                 <h2>What do you have?</h2>
                 <p class="pf-lead">Tap one to see what it means for you.</p>
                 <div class="pf-help">
-                    <p><strong>Not sure?</strong> Call us. We&rsquo;ll figure it out together.</p>
-                    <a href="tel:7087264536" class="vt-btn vt-btn--solid"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                    <p><strong>Not sure?</strong> Start online. We&rsquo;ll check what you&rsquo;re covered for.</p>
+                    <a href="start.html?from=paying-for-care" class="vt-btn vt-btn--solid">Get care started</a>
                 </div>
                 <p class="pf-fine">Each plan, policy and program decides for itself. This page is not a promise that any plan will pay.</p>
             </div>
@@ -236,17 +235,17 @@
                 </details>
                 <details class="pf-q" id="original-medicare">
                     <summary><i class="ph ph-hospital" aria-hidden="true"></i><span>Original Medicare only</span><i class="ph ph-plus pf-q__plus" aria-hidden="true"></i></summary>
-                    <div class="pf-q__body"><p>It doesn&rsquo;t pay for everyday help at home. Another option on this list usually does.</p><p class="pf-q__next">Call us and we&rsquo;ll help you find which one.</p>
+                    <div class="pf-q__body"><p>It doesn&rsquo;t pay for everyday help at home. Another option on this list usually does.</p><p class="pf-q__next">Tell us below and we&rsquo;ll find which one fits.</p>
                         <form class="pf-form" data-engage-form="coverage-original-medicare" novalidate><input type="text" name="company_website" tabindex="-1" autocomplete="off" class="eg-hp" aria-hidden="true"><label class="pf-form__plan">Any other coverage?<input name="plan" type="text" placeholder="A supplement, VA, a policy (optional)"></label><label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label><label>Zip code<input name="zip" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" required></label><button type="submit" class="vt-btn vt-btn--solid">Check my coverage</button><p class="pf-form__err" role="alert"></p></form></div>
                 </details>
                 <details class="pf-q" id="medicaid">
                     <summary><i class="ph ph-identification-card" aria-hidden="true"></i><span>Medicaid</span><i class="ph ph-plus pf-q__plus" aria-hidden="true"></i></summary>
-                    <div class="pf-q__body"><p>It can pay for help at home if you qualify. We can&rsquo;t bill Medicaid yet.</p><p class="pf-q__next">Call us. We&rsquo;ll tell you if you likely qualify and who can help.</p>
+                    <div class="pf-q__body"><p>It can pay for help at home if you qualify. We can&rsquo;t bill Medicaid yet.</p><p class="pf-q__next">Tell us below. We&rsquo;ll tell you if you likely qualify and who can help.</p>
                         <form class="pf-form" data-engage-form="coverage-medicaid" novalidate><input type="text" name="company_website" tabindex="-1" autocomplete="off" class="eg-hp" aria-hidden="true"><label class="pf-form__plan">Medicaid plan, if any<input name="plan" type="text" placeholder="For example, the plan on your card (optional)"></label><label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label><label>Zip code<input name="zip" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" required></label><button type="submit" class="vt-btn vt-btn--solid">Check my coverage</button><p class="pf-form__err" role="alert"></p></form></div>
                 </details>
                 <details class="pf-q" id="va">
                     <summary><i class="ph ph-medal" aria-hidden="true"></i><span>VA benefits</span><i class="ph ph-plus pf-q__plus" aria-hidden="true"></i></summary>
-                    <div class="pf-q__body"><p>Veterans and surviving spouses can often get help at home through the VA.</p><p class="pf-q__next">Ask your VA social worker, or call us and we&rsquo;ll tell you who to ask.</p>
+                    <div class="pf-q__body"><p>Veterans and surviving spouses can often get help at home through the VA.</p><p class="pf-q__next">Tell us below and we&rsquo;ll tell you who to ask.</p>
                         <form class="pf-form" data-engage-form="coverage-va" novalidate><input type="text" name="company_website" tabindex="-1" autocomplete="off" class="eg-hp" aria-hidden="true"><label class="pf-form__plan">VA program, if you know it<input name="plan" type="text" placeholder="For example, Aid and Attendance (optional)"></label><label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label><label>Zip code<input name="zip" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" required></label><button type="submit" class="vt-btn vt-btn--solid">Check my coverage</button><p class="pf-form__err" role="alert"></p></form></div>
                 </details>
                 <details class="pf-q" id="ltc-insurance">
@@ -256,17 +255,17 @@
                 </details>
                 <details class="pf-q" id="home-services">
                     <summary><i class="ph ph-wheelchair" aria-hidden="true"></i><span>Under 60 with a disability</span><i class="ph ph-plus pf-q__plus" aria-hidden="true"></i></summary>
-                    <div class="pf-q__body"><p>The Illinois Home Services Program may help. We aren&rsquo;t approved for it yet.</p><p class="pf-q__next">Call us. We&rsquo;ll point you to the right office.</p>
+                    <div class="pf-q__body"><p>The Illinois Home Services Program may help. We aren&rsquo;t approved for it yet.</p><p class="pf-q__next">Tell us below. We&rsquo;ll point you to the right office.</p>
                         <form class="pf-form" data-engage-form="coverage-home-services" novalidate><input type="text" name="company_website" tabindex="-1" autocomplete="off" class="eg-hp" aria-hidden="true"><label class="pf-form__plan">Anything we should know?<input name="plan" type="text" placeholder="Optional"></label><label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label><label>Zip code<input name="zip" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" required></label><button type="submit" class="vt-btn vt-btn--solid">Check my coverage</button><p class="pf-form__err" role="alert"></p></form></div>
                 </details>
                 <details class="pf-q" id="own">
                     <summary><i class="ph ph-wallet" aria-hidden="true"></i><span>Paying on your own</span><i class="ph ph-plus pf-q__plus" aria-hidden="true"></i></summary>
-                    <div class="pf-q__body"><p>Month to month. No minimums. Start small and add hours when you need them.</p><p class="pf-q__next"><a href="pricing.html">See our prices</a> or call for a quote.</p></div>
+                    <div class="pf-q__body"><p>Month to month. No minimums. Start small and add hours when you need them.</p><p class="pf-q__next"><a href="pricing.html">See our prices</a> or <a href="start.html?from=paying-own">get care started</a>.</p></div>
                 </details>
             </div>
             <div class="pf-mobile-help"><div class="pf-help">
-                    <p><strong>Not sure?</strong> Call us. We&rsquo;ll figure it out together.</p>
-                    <a href="tel:7087264536" class="vt-btn vt-btn--solid"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                    <p><strong>Not sure?</strong> Start online. We&rsquo;ll check what you&rsquo;re covered for.</p>
+                    <a href="start.html?from=paying-for-care" class="vt-btn vt-btn--solid">Get care started</a>
                 </div>
                 <p class="pf-fine">Each plan, policy and program decides for itself. This page is not a promise that any plan will pay.</p></div>
 
@@ -342,9 +341,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012r"></script>
-    <script src="js/nav.js?v=20261012r" defer></script>
-    <script src="js/motion.js?v=20261012r" defer></script>
-    <script src="js/engage.js?v=20261012r" defer></script>
+    <script src="js/main.js?v=20261012s"></script>
+    <script src="js/nav.js?v=20261012s" defer></script>
+    <script src="js/motion.js?v=20261012s" defer></script>
+    <script src="js/engage.js?v=20261012s" defer></script>
 </body>
 </html>

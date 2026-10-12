@@ -2008,3 +2008,44 @@ h2 { font-size: clamp(1.6rem, 2.4vw, 2.1rem) !important; font-weight: 700 !impor
 .st__photo { margin: 0; border-radius: 20px; overflow: hidden; aspect-ratio: 4 / 5; }
 .st__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 @media (max-width: 860px) { .st__grid { grid-template-columns: 1fr; } .st__photo { display: none; } .st__row { grid-template-columns: 1fr; } }
+
+/* =====================================================================
+   CALM LIST (2026-10-12): owner, "too much info on one page... if I make a
+   suggestion do it everywhere". Every crowded card grid on the inner pages
+   is now this: one line per item across the full width, details on tap.
+   Same pattern as Ways to Pay.
+   ===================================================================== */
+.cl-list { border-top: 1px solid var(--line); }
+.cl-item { border-bottom: 1px solid var(--line); scroll-margin-top: 100px; }
+.cl-item summary, .cl-row { list-style: none; display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 16px; min-height: 76px; padding: 14px 4px; }
+.cl-item summary { cursor: pointer; }
+.cl-item summary::-webkit-details-marker { display: none; }
+.cl-ic { font-size: 1.45rem; color: var(--accent-deep); }
+.cl-t { display: grid; grid-template-columns: minmax(180px, 30%) minmax(0, 1fr); gap: 6px 32px; align-items: baseline; }
+.cl-t strong { font: 700 1.15rem/1.3 var(--font-body); color: var(--ink); }
+.cl-d { font-size: 1.04rem; line-height: 1.45; color: var(--body-ink, #3d4b5a); }
+.cl-plus { font-size: 1.2rem; color: var(--ink); transition: transform .25s var(--ease); }
+.cl-item[open] .cl-plus { transform: rotate(45deg); }
+.cl-item summary:hover strong { color: var(--accent-deep); }
+.cl-item summary:focus { outline: none; }
+.cl-item summary:focus-visible { background: #eef6f5; border-radius: 8px; }
+.cl-go { white-space: nowrap; font-weight: 700; color: var(--accent-deep); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.cl-go:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cl-body { padding: 0 4px 24px calc(28px + 16px + 4px); display: grid; gap: 12px; max-width: 980px; }
+.cl-body > p { margin: 0; font-size: 1.04rem; line-height: 1.5; color: var(--ink); max-width: 72ch; }
+.cl-body .ip-list { columns: 2; column-gap: 40px; margin: 0; }
+.cl-body .ip-list li { break-inside: avoid; margin-bottom: 8px; }
+.cl-body .pf-note, .cl-body .chg__do { margin: 0; padding: 12px 16px; border-left: 3px solid var(--accent); background: none; font-size: 1rem; color: var(--ink); }
+.cl-body .pf-next, .cl-body .chg-sub { margin: 0; font-weight: 700; color: var(--ink); }
+.cl-body .cp2-go, .cl-body .ip-card__go { justify-self: start; }
+.ip-section--dark .cl-list, .ip-section--dark .cl-item { border-color: rgba(255,255,255,.14); }
+.ip-section--dark .cl-t strong { color: #fff; }
+.ip-section--dark .cl-d { color: #b8c7d6; }
+@media (max-width: 760px) {
+  .cl-t { grid-template-columns: 1fr; }
+  .cl-item summary, .cl-row { min-height: 64px; gap: 12px; }
+  .cl-body { padding-left: 0; }
+  .cl-body .ip-list { columns: 1; }
+  .cl-row { grid-template-columns: 28px minmax(0, 1fr); }
+  .cl-row .cl-go { grid-column: 2; }
+}

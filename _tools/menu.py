@@ -48,7 +48,7 @@ MENU = [
         ('about.html', 'ph-users-three', 'About us', 'Who we are'),
         ('apply.html', 'ph-briefcase', 'Careers', 'Now hiring caregivers'),
         ('contact.html', 'ph-envelope-simple', 'Contact', 'Office, hours, email'),
-    ], ('Speak with us', '(708) 726-4536', 'A real person answers, 24/7.', 'tel:7087264536', 'Call now')),
+    ], ('Ready when you are', 'Get care started', 'Under a minute online. No obligation.', 'start.html?from=menu', 'Start')),
 ]
 
 

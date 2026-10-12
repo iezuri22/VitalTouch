@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012r">
-    <link rel="stylesheet" href="css/vt.css?v=20261012r">
+    <link rel="stylesheet" href="css/style.css?v=20261012s">
+    <link rel="stylesheet" href="css/vt.css?v=20261012s">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .pricing-card {
@@ -196,7 +196,7 @@
                         <div class="mm-panel" id="mm-4" hidden>
                             <div class="container mm-panel__inner">
                                 <div class="mm-grid"><a class="mm-link" href="about.html"><i class="ph ph-users-three" aria-hidden="true"></i><span><strong>About us</strong><small>Who we are</small></span></a><a class="mm-link" href="apply.html"><i class="ph ph-briefcase" aria-hidden="true"></i><span><strong>Careers</strong><small>Now hiring caregivers</small></span></a><a class="mm-link" href="contact.html"><i class="ph ph-envelope-simple" aria-hidden="true"></i><span><strong>Contact</strong><small>Office, hours, email</small></span></a></div>
-                                <a class="mm-feature" href="tel:7087264536"><span class="mm-feature__k">Speak with us</span><strong>(708) 726-4536</strong><span>A real person answers, 24/7.</span><span class="mm-feature__btn">Call now <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                                <a class="mm-feature" href="start.html?from=menu"><span class="mm-feature__k">Ready when you are</span><strong>Get care started</strong><span>Under a minute online. No obligation.</span><span class="mm-feature__btn">Start <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
                             </div>
                         </div>
                     </div>
@@ -230,7 +230,6 @@
                 <p class="ip-hero__sub">How care is priced and how it can be paid for.</p>
                 <div class="ip-hero__ctas">
                     <a href="start.html?from=pricing-hero" class="vt-btn ip-btn-light">Get care started</a>
-                    <button type="button" class="vt-btn ip-btn-glass" data-engage="pricing-hero" data-title="Get a free care quote" data-msg="pricing page">Free quote</button>
                 </div>
             </div>
             <div class="ip-hero__card"><div class="ui-card" aria-label="Sample care quote">
@@ -248,23 +247,21 @@
                 <h2>Ways to pay</h2>
                 <p>There are six ways to pay for care. Start with what you may already have.</p>
             </div>
-            <div class="ip-cards">
-                <article class="ip-card">
-                    <span class="ip-tag">Free to check</span>
-                    <span class="ip-card__icon"><i class="ph ph-identification-card" aria-hidden="true"></i></span>
-                    <h3>Coverage you may already have</h3>
-                    <p>We make the calls and tell you what we find.</p>
+            <div class="cl-list">
+                <details class="cl-item">
+                    <summary><i class="ph ph-identification-card cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Coverage you may already have</strong><span class="cl-d">We make the calls and tell you what we find.</span></span><i class="ph ph-plus cl-plus" aria-hidden="true"></i></summary>
+                    <div class="cl-body">
                     <ul class="ip-list"><li>Long-term care insurance</li><li>Medicare Advantage in-home support hours</li><li>VA benefits</li><li>Illinois Home Services Program, for adults under 60 living with a disability</li></ul>
                     <a href="paying-for-care.html" class="ip-card__go">See all six ways to pay <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-                </article>
-                <article class="ip-card">
-                    <span class="ip-tag ip-tag--ink">Call for a quote</span>
-                    <span class="ip-card__icon"><i class="ph ph-wallet" aria-hidden="true"></i></span>
-                    <h3>Paying on your own</h3>
-                    <p>You choose the hours.</p>
+                    </div>
+                </details>
+                <details class="cl-item">
+                    <summary><i class="ph ph-wallet cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Paying on your own</strong><span class="cl-d">You choose the hours.</span></span><i class="ph ph-plus cl-plus" aria-hidden="true"></i></summary>
+                    <div class="cl-body">
                     <ul class="ip-list"><li>No minimums</li><li>Competitive hourly rates</li><li>All services available</li><li>Add optional smart monitoring</li></ul>
                     <a href="care-plans.html" class="ip-card__go">See monthly care plans <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-                </article>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
@@ -294,27 +291,11 @@
                 <h2>Optional smart monitoring</h2>
                 <p>Safety tools for between visits, for an extra fee.</p>
             </div>
-            <div class="ip-cards pr-cards--4">
-                <article class="ip-card">
-                    <span class="ip-card__icon"><i class="ph ph-watch" aria-hidden="true"></i></span>
-                    <h3>Wearable fall detection</h3>
-                    <p>Alerts when a fall is detected.</p>
-                </article>
-                <article class="ip-card">
-                    <span class="ip-card__icon"><i class="ph ph-house-simple" aria-hidden="true"></i></span>
-                    <h3>Smart home sensors</h3>
-                    <p>Flags unusual movement patterns.</p>
-                </article>
-                <article class="ip-card">
-                    <span class="ip-card__icon"><i class="ph ph-siren" aria-hidden="true"></i></span>
-                    <h3>Emergency response</h3>
-                    <p>24/7 monitoring and rapid response.</p>
-                </article>
-                <article class="ip-card">
-                    <span class="ip-card__icon"><i class="ph ph-phone-call" aria-hidden="true"></i></span>
-                    <h3>Wellness check calls</h3>
-                    <p>Automated daily check-ins.</p>
-                </article>
+            <div class="cl-list">
+                <div class="cl-item cl-item--static"><div class="cl-row"><i class="ph ph-watch cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Wearable fall detection</strong><span class="cl-d">Alerts when a fall is detected.</span></span></div></div>
+                <div class="cl-item cl-item--static"><div class="cl-row"><i class="ph ph-house-simple cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Smart home sensors</strong><span class="cl-d">Flags unusual movement patterns.</span></span></div></div>
+                <div class="cl-item cl-item--static"><div class="cl-row"><i class="ph ph-siren cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Emergency response</strong><span class="cl-d">24/7 monitoring and rapid response.</span></span></div></div>
+                <div class="cl-item cl-item--static"><div class="cl-row"><i class="ph ph-phone-call cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Wellness check calls</strong><span class="cl-d">Automated daily check-ins.</span></span></div></div>
             </div>
             <p class="pr-more"><a href="contact.html" class="vt-btn vt-btn--ghost">Ask about add-on pricing</a></p>
         </div>
@@ -341,7 +322,7 @@
                 </div>
                 <p class="vt-calc__verdict" id="calcVerdict">At 20 hours a week, care at home costs about half of assisted living.</p>
                 <div class="vt-calc__ctas">
-                    <button type="button" class="vt-btn vt-btn--solid" id="calcQuote" data-engage="calculator" data-kicker="Your quote" data-title="Get your quote for 20 hours a week" data-sub="Leave a number and zip. We call with real prices, usually the same day." data-button="Get my quote" data-msg="calculator, 20 hrs/week">Get my quote for 20 hrs/week</button>
+                    <a href="start.html?from=calculator" class="vt-btn vt-btn--solid">Get care started</a>
                     <a href="paying-for-care.html" class="vt-btn vt-btn--ghost">Ways to pay</a>
                 </div>
             </div>
@@ -373,7 +354,6 @@
                 <div><h2>Get a free quote</h2><p>No obligation. Not sure what you&rsquo;re covered for? Send us what you have and we&rsquo;ll check.</p></div>
                 <div class="ip-cta__btns">
                     <a href="start.html?from=pricing-final" class="vt-btn ip-btn-light">Get care started</a>
-                    <a href="tel:7087264536" class="vt-btn ip-btn-glass"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
         </div>
@@ -438,10 +418,10 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012r"></script>
-    <script src="js/nav.js?v=20261012r" defer></script>
-    <script src="js/motion.js?v=20261012r" defer></script>
-    <script src="js/home.js?v=20261012r" defer></script>
-    <script src="js/engage.js?v=20261012r" defer></script>
+    <script src="js/main.js?v=20261012s"></script>
+    <script src="js/nav.js?v=20261012s" defer></script>
+    <script src="js/motion.js?v=20261012s" defer></script>
+    <script src="js/home.js?v=20261012s" defer></script>
+    <script src="js/engage.js?v=20261012s" defer></script>
 </body>
 </html>

@@ -279,9 +279,18 @@ ALL = TOWNS + CHICAGO + [HUB]
 UI_PLAN = open(f'{SITE}/_tools/partials/ui-plan.html').read()
 
 FAMILY_PHOTOS = [
-  ('images/home-hero.jpg', 'A caregiver smiling with an older woman at home'),
-  ('images/family-program.jpg', 'An older man and a woman laughing together outside a house'),
-  ('images/garden-smiles.jpg', 'An older woman laughing while gardening with a younger woman'),
+  ('images/care/help-standing.jpg', 'A caregiver helping an older woman stand up at home'),
+  ('images/care/kitchen-crutches.jpg', 'A caregiver with an older woman using crutches in her kitchen'),
+  ('images/care/medication-help.jpg', 'A caregiver helping an older woman with her medication at the kitchen table'),
+  ('images/care/meal-served.jpg', 'A caregiver serving a meal to an older man at his table'),
+  ('images/care/companionship-couch.jpg', 'An older man smiling on his couch with his caregiver beside him'),
+  ('images/care/reading-together.jpg', 'A caregiver reading with an older man on the couch'),
+  ('images/care/grooming.jpg', 'A caregiver combing an older man’s hair at home'),
+  ('images/care/groceries-delivered.jpg', 'A caregiver bringing groceries to an older woman at home'),
+  ('images/care/groceries-crate.jpg', 'A caregiver bringing a crate of groceries into an older man’s home'),
+  ('images/care/kitchen-table-talk.jpg', 'A caregiver and an older woman talking at the kitchen table'),
+  ('images/care/greeting-at-home.jpg', 'A caregiver greeting an older woman at home'),
+  ('images/care/housekeeping.jpg', 'A caregiver sweeping while an older woman with crutches sits nearby'),
 ]
 def family_photo_for(slug):
     # Video stills are never used as photos (owner: the video once is enough),
@@ -364,7 +373,7 @@ def page(t):
             'A licensed Illinois home care agency. Free in-home consultation.')
     if kind == 'hub':
         first_faq = ('Which Chicago neighborhoods do you serve?',
-                     'Most of the South, Southwest, West and North Sides. Call to check your address.')
+                     'Most of the South, Southwest, West and North Sides. Enter your zip when you start online and we will confirm.')
     else:
         first_faq = (f'Do you serve {place}?',
                      f'Yes, including {zips}, plus {", ".join(t["near"][:3])}.')
@@ -398,7 +407,7 @@ def page(t):
         hood_blocks = '\n            '.join(blocks)
         nearby_html = f'''<h2>Chicago neighborhoods we serve</h2>
             {hood_blocks}
-            <p>We also serve {", ".join(CHICAGO_OTHER)}. Not sure if we cover your address? Call and ask. <a href="service-areas.html">See every area we serve &rarr;</a></p>'''
+            <p>We also serve {", ".join(CHICAGO_OTHER)}. Not sure if we cover your address? Start online and we will confirm. <a href="service-areas.html">See every area we serve &rarr;</a></p>'''
     else:
         tail = f"the rest of the {t.get('side', 'South Side')}" if kind == 'chicago' else 'the rest of the Chicagoland area'
         up = ' <a href="home-care-chicago.html">Home care across Chicago &rarr;</a>' if kind == 'chicago' else ''
@@ -435,8 +444,8 @@ def page(t):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012r">
-    <link rel="stylesheet" href="css/vt.css?v=20261012r">
+    <link rel="stylesheet" href="css/style.css?v=20261012s">
+    <link rel="stylesheet" href="css/vt.css?v=20261012s">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap {{ max-width: 900px; margin: 0 auto; }}
@@ -478,7 +487,6 @@ def page(t):
                 <ul class="vt-facts">{facts}</ul>
                 <div class="vt-local-hero__ctas">
                     <a href="start.html?from=area-{t['slug']}" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-                    <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
             <figure class="vt-local-hero__fam">
@@ -511,10 +519,6 @@ def page(t):
                 <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family</li>
             </ul>
 
-            <div class="eg-card">
-                <div><strong>Check availability in {esc(n)}</strong><p>Leave a number and zip. We call once, usually the same day.</p></div>
-                <button type="button" class="vt-btn" data-engage="area-{t['slug']}" data-zip="{t['zips'][0] if t['zips'] else ''}" data-kicker="{esc(n)}" data-title="Check availability in {esc(n)}" data-button="Check availability" data-msg="availability in {esc(place)}">Check availability</button>
-            </div>
 
             <ul class="town-notes">
                 <li><i class="ph ph-map-pin" aria-hidden="true"></i><span>{local_short}</span></li>
@@ -535,12 +539,11 @@ def page(t):
         <div class="container">
             <div class="vt-final__panel">
                 <div>
-                    <h2>Talk to someone local.</h2>
-                    <p>Free home visit. No obligation.</p>
+                    <h2>Start with a free home visit.</h2>
+                    <p>Under a minute online. No obligation.</p>
                 </div>
                 <div class="vt-final__ctas">
                     <a href="start.html?from=area-{t['slug']}-final" class="vt-btn vt-btn--light">Get care started</a>
-                    <a href="tel:7087264536" class="vt-btn vt-btn--line-light"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
         </div>

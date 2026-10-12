@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012r">
-    <link rel="stylesheet" href="css/vt.css?v=20261012r">
+    <link rel="stylesheet" href="css/style.css?v=20261012s">
+    <link rel="stylesheet" href="css/vt.css?v=20261012s">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .service-detail {
@@ -211,7 +211,7 @@
                         <div class="mm-panel" id="mm-4" hidden>
                             <div class="container mm-panel__inner">
                                 <div class="mm-grid"><a class="mm-link" href="about.html"><i class="ph ph-users-three" aria-hidden="true"></i><span><strong>About us</strong><small>Who we are</small></span></a><a class="mm-link" href="apply.html"><i class="ph ph-briefcase" aria-hidden="true"></i><span><strong>Careers</strong><small>Now hiring caregivers</small></span></a><a class="mm-link" href="contact.html"><i class="ph ph-envelope-simple" aria-hidden="true"></i><span><strong>Contact</strong><small>Office, hours, email</small></span></a></div>
-                                <a class="mm-feature" href="tel:7087264536"><span class="mm-feature__k">Speak with us</span><strong>(708) 726-4536</strong><span>A real person answers, 24/7.</span><span class="mm-feature__btn">Call now <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                                <a class="mm-feature" href="start.html?from=menu"><span class="mm-feature__k">Ready when you are</span><strong>Get care started</strong><span>Under a minute online. No obligation.</span><span class="mm-feature__btn">Start <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,6 @@
                 <p class="ip-hero__sub">Homemakers and CNAs. A few hours a week to daily visits.</p>
                 <div class="ip-hero__ctas">
                     <a href="start.html?from=services-hero" class="vt-btn ip-btn-light">Get care started</a>
-                    <button type="button" class="vt-btn ip-btn-glass" data-engage="services-hero" data-title="Get a free care quote" data-msg="services page">Free quote</button>
                 </div>
             </div>
             <div class="ip-hero__card"><div class="ui-card ui-plan" aria-label="Sample care plan">
@@ -273,49 +272,43 @@
                 <h2>What we do</h2>
                 <p>Pick what you need. We build the plan around it.</p>
             </div>
-            <div class="ip-cards">
-                <article class="ip-card" id="homemaking">
-                    <span class="ip-tag">Homemaker</span>
-                    <span class="ip-card__icon"><i class="ph ph-broom" aria-hidden="true"></i></span>
-                    <h3>Homemaking</h3>
-                    <p>A clean, safe home and meals handled.</p>
+            <div class="cl-list">
+                <details class="cl-item" id="homemaking">
+                    <summary><i class="ph ph-broom cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Homemaking</strong><span class="cl-d">A clean, safe home and meals handled.</span></span><i class="ph ph-plus cl-plus" aria-hidden="true"></i></summary>
+                    <div class="cl-body">
                     <ul class="ip-list"><li>Light housekeeping</li><li>Laundry and linens</li><li>Meal planning and cooking</li><li>Groceries and errands</li></ul>
-                </article>
-                <article class="ip-card" id="companionship">
-                    <span class="ip-tag">Homemaker</span>
-                    <span class="ip-card__icon"><i class="ph ph-chats-circle" aria-hidden="true"></i></span>
-                    <h3>Companionship</h3>
-                    <p>Company and conversation, so no one is alone all day.</p>
+                    </div>
+                </details>
+                <details class="cl-item" id="companionship">
+                    <summary><i class="ph ph-chats-circle cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Companionship</strong><span class="cl-d">Company and conversation, so no one is alone all day.</span></span><i class="ph ph-plus cl-plus" aria-hidden="true"></i></summary>
+                    <div class="cl-body">
                     <ul class="ip-list"><li>Conversation and visits</li><li>Games and puzzles</li><li>Walks and light exercise</li><li>A check-in on mood</li></ul>
-                </article>
-                <article class="ip-card" id="errands">
-                    <span class="ip-tag">Homemaker</span>
-                    <span class="ip-card__icon"><i class="ph ph-shopping-bag" aria-hidden="true"></i></span>
-                    <h3>Errands</h3>
-                    <p>We pick things up so you don&rsquo;t have to go out.</p>
+                    </div>
+                </details>
+                <details class="cl-item" id="errands">
+                    <summary><i class="ph ph-shopping-bag cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Errands</strong><span class="cl-d">We pick things up so you don&rsquo;t have to go out.</span></span><i class="ph ph-plus cl-plus" aria-hidden="true"></i></summary>
+                    <div class="cl-body">
                     <ul class="ip-list"><li>Groceries</li><li>Medication from the pharmacy</li><li>Household errands</li></ul>
-                </article>
-                <article class="ip-card" id="personal-care">
-                    <span class="ip-tag ip-tag--ink">CNA</span>
-                    <span class="ip-card__icon"><i class="ph ph-hand-heart" aria-hidden="true"></i></span>
-                    <h3>Personal care</h3>
-                    <p>Hands-on help from Certified Nursing Assistants.</p>
+                    </div>
+                </details>
+                <details class="cl-item" id="personal-care">
+                    <summary><i class="ph ph-hand-heart cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Personal care</strong><span class="cl-d">Hands-on help from Certified Nursing Assistants.</span></span><i class="ph ph-plus cl-plus" aria-hidden="true"></i></summary>
+                    <div class="cl-body">
                     <ul class="ip-list"><li>Bathing and dressing</li><li>Toileting and continence care</li><li>Transfers and mobility</li><li>Medication reminders</li></ul>
-                </article>
-                <article class="ip-card" id="dementia-care">
-                    <span class="ip-tag">Specialty</span>
-                    <span class="ip-card__icon"><i class="ph ph-brain" aria-hidden="true"></i></span>
-                    <h3>Dementia care</h3>
-                    <p>Non-medical support from caregivers trained in dementia care.</p>
+                    </div>
+                </details>
+                <details class="cl-item" id="dementia-care">
+                    <summary><i class="ph ph-brain cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Dementia care</strong><span class="cl-d">Non-medical support from caregivers trained in dementia care.</span></span><i class="ph ph-plus cl-plus" aria-hidden="true"></i></summary>
+                    <div class="cl-body">
                     <ul class="ip-list"><li>Daily routines</li><li>Calming and redirection</li><li>Safety supervision</li><li>Wandering prevention</li></ul>
-                </article>
-                <article class="ip-card" id="respite">
-                    <span class="ip-tag">Family</span>
-                    <span class="ip-card__icon"><i class="ph ph-armchair" aria-hidden="true"></i></span>
-                    <h3>Respite</h3>
-                    <p>Time off for the family member doing it all.</p>
+                    </div>
+                </details>
+                <details class="cl-item" id="respite">
+                    <summary><i class="ph ph-armchair cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>Respite</strong><span class="cl-d">Time off for the family member doing it all.</span></span><i class="ph ph-plus cl-plus" aria-hidden="true"></i></summary>
+                    <div class="cl-body">
                     <ul class="ip-list"><li>A few hours or overnight</li><li>One-time or recurring</li><li>Same routine, kept the same way</li><li>Notes after every visit</li></ul>
-                </article>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
@@ -384,7 +377,6 @@
                 <div><h2>Not sure what you need?</h2><p>Free home visit. We&rsquo;ll build the plan with you.</p></div>
                 <div class="ip-cta__btns">
                     <a href="start.html?from=services-final" class="vt-btn ip-btn-light">Get care started</a>
-                    <a href="tel:7087264536" class="vt-btn ip-btn-glass"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
         </div>
@@ -449,9 +441,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012r"></script>
-    <script src="js/nav.js?v=20261012r" defer></script>
-    <script src="js/motion.js?v=20261012r" defer></script>
-    <script src="js/engage.js?v=20261012r" defer></script>
+    <script src="js/main.js?v=20261012s"></script>
+    <script src="js/nav.js?v=20261012s" defer></script>
+    <script src="js/motion.js?v=20261012s" defer></script>
+    <script src="js/engage.js?v=20261012s" defer></script>
 </body>
 </html>

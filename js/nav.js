@@ -62,3 +62,15 @@
     if (openBtn && !e.target.closest('.mm-item')) close(openBtn);
   });
 })();
+
+/* Calm lists (2026-10-12): a link to #anchor opens that item, so menu links
+   like services.html#errands land on the open answer, not a closed row. */
+(function () {
+  function openHash() {
+    var id = decodeURIComponent(location.hash.slice(1)); if (!id) return;
+    var el = document.getElementById(id);
+    if (el && el.tagName === 'DETAILS') { el.open = true; el.scrollIntoView({ block: 'start' }); }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', openHash); else openHash();
+  window.addEventListener('hashchange', openHash);
+})();
