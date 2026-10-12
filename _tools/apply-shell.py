@@ -9,9 +9,8 @@ service-areas.html when build-town-pages.py runs, so run this first.
 """
 import re, glob, os
 
-FONTS = ('<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700'
-         '&family=Figtree:ital,wght@0,400..700;1,400..600&display=swap" rel="stylesheet">')
-CSS_VER = '20261012'
+FONTS = '<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400..700;1,400&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">'
+CSS_VER = '20261012b'
 NAV = [('services.html', 'Services'), ('disability-support.html', 'Disability Support'),
        ('paying-for-care.html', 'Ways to Pay'), ('assessment.html', 'Free Assessment'),
        ('contact.html', 'Contact'), ('apply.html', 'Careers')]
@@ -63,6 +62,7 @@ def footer(pre):
                         <li><a href="{pre}services.html">Services</a></li>
                         <li><a href="{pre}disability-support.html">Disability support</a></li>
                         <li><a href="{pre}paying-for-care.html">Ways to pay</a></li>
+                        <li><a href="{pre}changes.html">Medicare and Medicaid changes</a></li>
                         <li><a href="{pre}pricing.html">Pricing</a></li>
                         <li><a href="{pre}assessment.html">Free assessment</a></li>
                         <li><a href="{pre}consult.html?when=now&amp;from=nav">Get care started</a></li>
