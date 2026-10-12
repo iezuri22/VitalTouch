@@ -280,7 +280,6 @@ UI_PLAN = open(f'{SITE}/_tools/partials/ui-plan.html').read()
 
 FAMILY_PHOTOS = [
   ('images/home-hero.jpg', 'A caregiver smiling with an older woman at home'),
-  ('images/family-connected.jpg', 'A grandmother and granddaughter smiling together at the kitchen table'),
   ('images/family-program.jpg', 'An older man and a woman laughing together outside a house'),
   ('images/garden-smiles.jpg', 'An older woman laughing while gardening with a younger woman'),
 ]
@@ -294,7 +293,6 @@ def family_photo_for(slug):
 PHOTOS = [
   ('home-hero.jpg', 'A caregiver smiling with an older woman at home'),
   ('garden-smiles.jpg', 'An older woman laughing while gardening with a younger woman'),
-  ('family-connected.jpg', 'A grandmother and granddaughter smiling together at the kitchen table'),
   ('family-program.jpg', 'An older man and a woman laughing together outside a house'),
 ]
 def photo_for(slug):
@@ -437,8 +435,8 @@ def page(t):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012n">
-    <link rel="stylesheet" href="css/vt.css?v=20261012n">
+    <link rel="stylesheet" href="css/style.css?v=20261012p">
+    <link rel="stylesheet" href="css/vt.css?v=20261012p">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap {{ max-width: 900px; margin: 0 auto; }}

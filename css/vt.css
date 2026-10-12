@@ -1897,3 +1897,50 @@ li { line-height: 1.45; }
 .pf-check li:last-child { border-bottom: 0; }
 .pf-check span { color: var(--muted-ink); }
 .pf-check strong { color: var(--ink); text-align: right; }
+
+/* ===== Family bento (2026-10-12): one care photo + three promise tiles,
+   each with a small product-style visual. Ink / paper / teal, no grey fills. ===== */
+.h-fam2 { background: #fff !important; }
+.fam-bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto; gap: 18px; margin-top: clamp(32px, 4vw, 52px); }
+.fam-tile { position: relative; margin: 0; border-radius: 24px; overflow: hidden; padding: clamp(24px, 2.6vw, 36px); display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.fam-tile h3 { margin: 0; font: 800 clamp(1.45rem, 2.2vw, 1.9rem)/1.12 var(--font-display); letter-spacing: -0.03em; }
+.fam-tile p { margin: 0; font-size: 1.06rem; line-height: 1.45; }
+.fam-k { font: 700 .78rem/1 var(--font-body) !important; letter-spacing: .12em; text-transform: uppercase; }
+.fam-tile--photo { grid-column: 1 / span 6; grid-row: 1 / span 2; padding: 0; min-height: 520px; }
+.fam-tile--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.fam-tile--ink { grid-column: 7 / span 6; grid-row: 1; background: var(--ink); color: #c7d3df; }
+.fam-tile--ink h3 { color: #fff; }
+.fam-tile--ink .fam-k { color: var(--accent-bright); }
+.fam-tile--paper { grid-column: 7 / span 3; grid-row: 2; background: #fff; border: 1px solid var(--line); color: var(--ink); }
+.fam-tile--paper .fam-k { color: var(--accent-deep); }
+.fam-tile--teal { grid-column: 10 / span 3; grid-row: 2; background: var(--accent-deep); color: #e3f4f1; }
+.fam-tile--teal .fam-k { color: #bdeee6; }
+.fam-big { font: 800 clamp(3rem, 5vw, 4.4rem)/1 var(--font-display) !important; font-stretch: 108%; letter-spacing: -0.05em; color: #fff; margin: 4px 0 2px !important; }
+.fam-call { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; color: #fff; font-weight: 700; font-size: 1.08rem; text-decoration: none; padding-top: 10px; }
+.fam-call:hover { text-decoration: underline; text-underline-offset: 3px; }
+.fam-match { margin-top: auto; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); }
+.fam-av { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-deep); color: #fff; font: 700 .95rem/1 var(--font-body); }
+.fam-match__who strong { display: block; color: #fff; font-size: 1rem; }
+.fam-match__who small { color: #a9bccd; font-size: .9rem; }
+.fam-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(79,209,191,.16); color: var(--accent-bright); font: 700 .82rem/1 var(--font-body); }
+.fam-prefs { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 8px; }
+.fam-prefs li { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); font-weight: 600; font-size: .98rem; color: var(--ink); }
+.fam-prefs li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.fam-src { margin-top: auto !important; padding-top: 6px; font-size: .82rem !important; color: var(--muted-ink); }
+@media (max-width: 1000px) {
+  .fam-tile--photo { grid-column: 1 / -1; grid-row: auto; min-height: 340px; }
+  .fam-tile--ink { grid-column: 1 / -1; grid-row: auto; }
+  .fam-tile--paper { grid-column: 1 / span 6; grid-row: auto; }
+  .fam-tile--teal { grid-column: 7 / span 6; grid-row: auto; }
+}
+@media (max-width: 640px) {
+  .fam-bento { gap: 12px; }
+  .fam-tile { border-radius: 18px; }
+  .fam-tile--photo { min-height: 260px; }
+  .fam-tile--paper, .fam-tile--teal { grid-column: 1 / -1; }
+}
+.fam-head { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: end; }
+.fam-head .h-family__statement { margin: 0 !important; }
+.fam-head__aside { margin: 0; font-size: 1.15rem; line-height: 1.5; color: var(--body-ink, #3d4b5a); padding-bottom: 8px; border-left: 2px solid var(--accent); padding-left: 20px; }
+@media (max-width: 860px) { .fam-head { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .fam-match { grid-template-columns: auto minmax(0, 1fr); } .fam-pill { grid-column: 1 / -1; justify-self: start; } }
