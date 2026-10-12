@@ -119,16 +119,83 @@ CHICAGO = [
   dict(slug='chicago-bronzeville', name='Bronzeville', zips=['60653', '60616'], hospitals=[UCM],
        near=['Hyde Park', 'South Shore'],
        local='Bronzeville is a straight shot up the Dan Ryan from the south suburbs, so a free in-home visit is easy to set up.'),
+  # West and North Sides (2026-10-12, Ifeanyi: "add west side and north side
+  # neighborhoods too"). Our office is in Matteson, so these lines never claim
+  # a short drive; they lean on matching caregivers who live nearby.
+  dict(slug='chicago-austin', name='Austin', side='West Side', zips=['60644', '60651'],
+       hospitals=['Loretto Hospital', 'Rush Oak Park Hospital'],
+       near=['Garfield Park', 'Humboldt Park', 'North Lawndale'],
+       local='Austin sits on the city&rsquo;s western edge, next to Oak Park, and we try to match caregivers who live on the West Side so visits stay consistent.'),
+  dict(slug='chicago-garfield-park', name='Garfield Park', side='West Side', zips=['60624', '60612'],
+       hospitals=['Rush University Medical Center', 'Mount Sinai Hospital'],
+       near=['Austin', 'North Lawndale', 'Humboldt Park'],
+       local='We serve East and West Garfield Park with schedules from a few hours a week up to daily, and we try to match caregivers who live nearby.'),
+  dict(slug='chicago-north-lawndale', name='North Lawndale', side='West Side', zips=['60623'],
+       hospitals=['Mount Sinai Hospital', 'Rush University Medical Center'],
+       near=['Garfield Park', 'Little Village', 'Austin'],
+       local='North Lawndale is a quick trip off the Eisenhower, which makes visits easy to schedule.'),
+  dict(slug='chicago-humboldt-park', name='Humboldt Park', side='West Side', zips=['60651', '60647'],
+       hospitals=['Humboldt Park Health', 'Rush University Medical Center'],
+       near=['Logan Square', 'Garfield Park', 'Austin'],
+       local='We serve Humboldt Park and the surrounding West Side with schedules from a few hours a week up to daily.'),
+  dict(slug='chicago-little-village', name='Little Village', side='West Side', zips=['60623'],
+       hospitals=['Saint Anthony Hospital', 'Mount Sinai Hospital'],
+       near=['Pilsen', 'North Lawndale', 'Gage Park'],
+       local='Little Village is close to the Stevenson, and we try to match caregivers who live close by so the same people keep coming back.'),
+  dict(slug='chicago-pilsen', name='Pilsen', side='West Side', zips=['60608'],
+       hospitals=['Rush University Medical Center', 'UI Health'],
+       near=['Little Village', 'North Lawndale', 'Bronzeville'],
+       local='Pilsen sits just southwest of downtown, close to the Dan Ryan and the Stevenson, which makes visits easy to schedule.'),
+  dict(slug='chicago-rogers-park', name='Rogers Park', side='North Side', zips=['60626'],
+       hospitals=['Swedish Hospital', 'Ascension Saint Francis in Evanston'],
+       near=['Edgewater', 'Uptown', 'Lincoln Square'],
+       local='Rogers Park sits at the city&rsquo;s northern edge along the lake. When we staff North Side clients, we look for caregivers who live nearby so visits don&rsquo;t depend on a long commute.'),
+  dict(slug='chicago-edgewater', name='Edgewater', side='North Side', zips=['60660'],
+       hospitals=['Swedish Hospital', 'Advocate Illinois Masonic Medical Center'],
+       near=['Rogers Park', 'Uptown', 'Lincoln Square'],
+       local='We serve Edgewater with schedules from a few hours a week up to daily, matched with caregivers who live on the North Side whenever we can.'),
+  dict(slug='chicago-uptown', name='Uptown', side='North Side', zips=['60640'],
+       hospitals=['Advocate Illinois Masonic Medical Center', 'Swedish Hospital'],
+       near=['Edgewater', 'Lakeview', 'Lincoln Square'],
+       local='Uptown is right on the Red Line, which makes it easier to staff with caregivers who live on the North Side.'),
+  dict(slug='chicago-lakeview', name='Lakeview', side='North Side', zips=['60657', '60613'],
+       hospitals=['Advocate Illinois Masonic Medical Center', 'Northwestern Memorial Hospital'],
+       near=['Lincoln Park', 'Uptown', 'Lincoln Square'],
+       local='In Lakeview we often help with the practical things that get harder in a city apartment: groceries, laundry, errands and getting to appointments.'),
+  dict(slug='chicago-lincoln-park', name='Lincoln Park', side='North Side', zips=['60614'],
+       hospitals=['Northwestern Memorial Hospital', 'Advocate Illinois Masonic Medical Center'],
+       near=['Lakeview', 'Logan Square', 'Uptown'],
+       local='We serve Lincoln Park with schedules from a few hours a week up to daily, and we keep family who live out of town updated after visits.'),
+  dict(slug='chicago-lincoln-square', name='Lincoln Square', side='North Side', zips=['60625'],
+       hospitals=['Swedish Hospital', 'Advocate Illinois Masonic Medical Center'],
+       near=['Albany Park', 'Uptown', 'Edgewater'],
+       local='Lincoln Square is on the Brown Line, which makes it easier to staff with caregivers who live on the North Side.'),
+  dict(slug='chicago-albany-park', name='Albany Park', side='North Side', zips=['60625'],
+       hospitals=['Swedish Hospital', 'Community First Medical Center'],
+       near=['Lincoln Square', 'Portage Park', 'Jefferson Park'],
+       local='We serve Albany Park and the surrounding Northwest Side with schedules from a few hours a week up to daily.'),
+  dict(slug='chicago-logan-square', name='Logan Square', side='Northwest Side', zips=['60647'],
+       hospitals=['Humboldt Park Health', 'Advocate Illinois Masonic Medical Center'],
+       near=['Humboldt Park', 'Lincoln Park', 'Albany Park'],
+       local='Logan Square is on the Blue Line, which helps us staff it with caregivers who live on the Northwest and West Sides.'),
+  dict(slug='chicago-portage-park', name='Portage Park', side='Northwest Side', zips=['60634', '60641'],
+       hospitals=['Community First Medical Center', 'Ascension Resurrection'],
+       near=['Jefferson Park', 'Albany Park', 'Logan Square'],
+       local='Portage Park is a mostly residential neighborhood, and a little help at home is often what lets someone stay in a house they&rsquo;ve lived in for years.'),
+  dict(slug='chicago-jefferson-park', name='Jefferson Park', side='Northwest Side', zips=['60630'],
+       hospitals=['Ascension Resurrection', 'Community First Medical Center'],
+       near=['Portage Park', 'Albany Park'],
+       local='Jefferson Park has a Blue Line and Metra hub, which helps us staff it with caregivers who live on the Northwest Side.'),
 ]
 for c in CHICAGO:
     c['kind'] = 'chicago'; c['county'] = 'Cook County'
 
 # The hub that every neighborhood page links up to.
 CHICAGO_OTHER = ['South Chicago', 'Englewood', 'West Englewood', 'West Lawn', 'Gage Park', 'Clearing',
-                 'Garfield Ridge', 'East Side', 'South Deering', 'the West Side', 'the North Side']
+                 'Garfield Ridge', 'East Side', 'South Deering']
 HUB = dict(kind='hub', slug='chicago', name='Chicago', zips=[], county='Cook County',
-           hospitals=[UCM, TRINITY, HOLYCROSS, ROSELAND], near=[],
-           local='We serve neighborhoods across the city, most often on the South and Southwest Sides. Our office is in the south suburbs, so the far South Side is where we can usually start fastest.')
+           hospitals=[UCM, 'Rush University Medical Center', 'Advocate Illinois Masonic Medical Center', HOLYCROSS], near=[],
+           local='We serve neighborhoods on the South, Southwest, West and North Sides. Our office is in the south suburbs, so the far South Side is where we can usually start fastest, and everywhere else we try to match caregivers who live nearby.')
 
 ALL = TOWNS + CHICAGO + [HUB]
 
@@ -183,9 +250,16 @@ def page(t):
                  if kind == 'chicago' else '')
     h1 = f'Home Care in {place}' + ('' if kind == 'chicago' else ', IL')
     if kind == 'hub':
-        hood_links = ''.join(f'<li><a href="home-care-{c["slug"]}.html">{c["name"]}</a></li>' for c in CHICAGO)
+        groups = [('South Side', ['South Side']), ('Southwest Side', ['Southwest Side']),
+                  ('West Side', ['West Side']), ('North &amp; Northwest Side', ['North Side', 'Northwest Side'])]
+        blocks = []
+        for label, sides in groups:
+            items = ''.join(f'<li><a href="home-care-{c["slug"]}.html">{c["name"]}</a></li>'
+                            for c in CHICAGO if c.get('side', 'South Side') in sides)
+            blocks.append(f'<h3 style="margin:18px 0 8px;">{label}</h3>\n            <ul class="town-list">{items}</ul>')
+        hood_blocks = '\n            '.join(blocks)
         nearby_html = f'''<h2>Chicago neighborhoods we serve</h2>
-            <ul class="town-list">{hood_links}</ul>
+            {hood_blocks}
             <p>We also serve {", ".join(CHICAGO_OTHER)}. Not sure if we cover your address? Call and ask. <a href="service-areas.html">See every area we serve &rarr;</a></p>'''
     else:
         tail = f"the rest of the {t.get('side', 'South Side')}" if kind == 'chicago' else 'the rest of the south and southwest suburbs'
