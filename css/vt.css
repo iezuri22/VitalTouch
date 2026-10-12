@@ -2241,3 +2241,20 @@ body:has(.mobile-nav.active) .vita { display: none; }
   .ip-cta { padding: 20px !important; }
   .ip-cta h2 { font-size: 1.3rem !important; }
 }
+
+/* Town pages on phones (owner, 2026-10-12: "make the town pages shorter on
+   mobile too"). One promise, compact services, two notes. */
+@media (max-width: 760px) {
+  .vt-local-hero__fam { max-height: 190px; overflow: hidden; border-radius: 16px; }
+  .vt-local-hero__fam img { height: 190px !important; width: 100%; object-fit: cover; }
+  .town-family__row li:not(:first-child) { display: none !important; }
+  .town-family__row li { border: 0 !important; padding: 0 !important; }
+  .town-services { grid-template-columns: 1fr 1fr !important; column-gap: 14px !important; margin-bottom: 18px !important; }
+  .town-services li { font-size: .92rem !important; padding: 10px 0 !important; gap: 8px !important; }
+  .town-notes li:last-child { display: none !important; }
+  .town-notes { margin-bottom: 18px !important; }
+  .town-list { columns: 2; column-gap: 14px; }
+  .town-list li { break-inside: avoid; }
+  .faq-question { padding-block: 14px !important; }
+  .vt-final__panel { padding: 22px !important; }
+}
