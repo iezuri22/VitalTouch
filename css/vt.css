@@ -1582,3 +1582,33 @@ a:hover .h-link i { transform: translateX(5px); }
   .vt-local-hero__fam { border-radius: 18px; }
   .vt-local-hero__fam figcaption { left: 10px; bottom: 10px; padding: 10px 12px; }
 }
+
+/* ---------- Promises: editorial, not template (2026-10-12) ----------
+   No grey panel, no icon badges. White, hairline dividers, plain teal
+   icons, tight leading (the description was inheriting body 1.7). */
+.town-family { background: #fff !important; border-bottom: 1px solid var(--line); padding-block: 0 !important; }
+.town-family__row { gap: 0 !important; }
+.town-family__row li { display: block !important; padding: 28px 28px 28px 0; }
+.town-family__row li + li { padding-left: 28px; border-left: 1px solid var(--line); }
+.h-family__promises { background: transparent !important; padding: 0 !important; gap: 0 !important; border-radius: 0 !important; }
+.h-family__promises li { display: block !important; padding: 0 0 20px; margin-bottom: 20px; border-bottom: 1px solid var(--line); }
+.h-family__promises li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+.town-family__row i, .h-family__promises i {
+  width: auto !important; height: auto !important; background: none !important; box-shadow: none !important; border-radius: 0 !important;
+  display: block !important; font-size: 1.5rem !important; color: var(--accent) !important; margin: 0 0 12px;
+}
+.town-family__row strong, .h-family__promises strong {
+  display: block; font: 700 1.08rem/1.25 var(--font-display) !important; font-stretch: 104%; letter-spacing: -0.012em; color: var(--ink); margin: 0 0 6px !important;
+}
+.town-family__row span, .h-family__promises span {
+  display: block; font-size: .96rem !important; line-height: 1.5 !important; color: var(--muted-ink) !important; max-width: 34ch;
+}
+@media (max-width: 760px) {
+  .town-family__row li, .town-family__row li + li { padding: 20px 0; border-left: 0; }
+  .town-family__row li + li { border-top: 1px solid var(--line); }
+  .town-family__row i, .h-family__promises i { font-size: 1.35rem !important; margin-bottom: 8px; }
+}
+.h-ribbon + .h-who { padding-top: clamp(48px, 7vw, 96px); }
+/* Town "What we help with": white tiles with hairlines, no grey fill */
+.town-services li { background: #fff !important; border: 1px solid var(--line); border-radius: 12px !important; font-weight: 500 !important; line-height: 1.35; }
+.town-services i { color: var(--accent) !important; }

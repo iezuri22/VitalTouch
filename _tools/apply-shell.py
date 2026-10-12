@@ -10,7 +10,7 @@ service-areas.html when build-town-pages.py runs, so run this first.
 import re, glob, os
 
 FONTS = '<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">'
-CSS_VER = '20261012g'
+CSS_VER = '20261012i'
 NAV = [('services.html', 'Services'), ('disability-support.html', 'Disability Support'),
        ('paying-for-care.html', 'Ways to Pay'), ('assessment.html', 'Free Assessment'),
        ('contact.html', 'Contact'), ('apply.html', 'Careers')]
