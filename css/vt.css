@@ -2202,3 +2202,42 @@ h2 { font-size: clamp(1.6rem, 2.4vw, 2.1rem) !important; font-weight: 700 !impor
 }
 @media (prefers-reduced-motion: reduce) { .vita.is-waving .vita__arm { animation: none; } }
 body:has(.mobile-nav.active) .vita { display: none; }
+
+/* =====================================================================
+   Phones, tighter (owner, 2026-10-12: Vita's line "is in the way" and
+   "those sections are way too big on mobile"). Vita is just the heart on
+   phones; every section gets shorter padding and smaller type.
+   ===================================================================== */
+@media (max-width: 760px) {
+  .vita__line { display: none !important; }
+  .vita__btn { width: 50px; height: 50px; }
+  .vita__svg { width: 36px; height: 36px; }
+
+  /* hero */
+  .h-hero { min-height: 0 !important; }
+  .h-hero__inner { padding-block: 92px 36px !important; }
+  .h-hero h1 { font-size: 2rem !important; margin-bottom: 12px !important; }
+  .h-hero__sub { font-size: 1rem !important; margin-bottom: 18px !important; }
+  .h-hero .h-kicker { font-size: .7rem !important; margin-bottom: 10px !important; }
+  .h-hero__ctas { gap: 10px !important; }
+  .h-hero__ctas .vt-btn { min-height: 50px !important; }
+
+  /* numbers band: one compact row of four */
+  .h-stats__row { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .h-stats__row > div { padding: 14px 6px !important; border: 0 !important; text-align: center; }
+  .h-stats__row > div:first-child { padding-left: 6px !important; }
+  .h-stats strong { font-size: 1.25rem !important; }
+  .h-stats span { font-size: .72rem !important; line-height: 1.25 !important; margin-top: 4px !important; }
+
+  /* sections */
+  .ip-section, .h-svc, .h-family, .h-services, .h-platform, .h-story, .h-steps, .vt-section, .h-final__inner, .h-close__inner, .town-family, .vt-local-hero { padding-block: 36px !important; }
+  .h-statement__text { font-size: 1.45rem !important; }
+  h2 { font-size: 1.45rem !important; }
+  .ip-head, .h-head, .h-platform__head { margin-bottom: 16px !important; }
+  .ip-head p, .h-head p, .h-platform__head p, .h-story__lead { font-size: .98rem !important; margin-bottom: 0 !important; }
+  .h-story__lead { margin-bottom: 14px !important; }
+  .h-close h2, .h-final h2 { font-size: 1.6rem !important; }
+  .h-close__card { padding: 16px !important; }
+  .ip-cta { padding: 20px !important; }
+  .ip-cta h2 { font-size: 1.3rem !important; }
+}
