@@ -10,8 +10,13 @@ Note: the repo has .nojekyll, so this file IS publicly served. Keep secrets out.
 import json, re, sys, html as H
 SITE = sys.argv[1]
 src = open(f'{SITE}/service-areas.html').read()
-lines = src.split('\n')
-nav = '\n'.join(lines[95:135])            # <body> .. end of mobile nav
+# Cut the shell by markers, never by line number: an edit to service-areas.html's
+# <head> once shifted a line-number slice by one, dropped the mobile nav's
+# closing </nav>, and every generated page rendered inside the hidden menu.
+body_start = src.index('<body>')
+mobile_nav = src.index('id="mobileNav"', body_start)
+nav = src[body_start:src.index('</nav>', mobile_nav) + len('</nav>')]
+assert nav.count('<nav') == nav.count('</nav>'), 'unbalanced nav in shell'
 footer_start = src.index('    <!-- Footer -->')
 footer = src[footer_start:]
 
@@ -55,20 +60,94 @@ TOWNS = [
        local='Park Forest is one of the closest towns to our Matteson office, which helps us keep schedules steady week to week.'),
 ]
 
+# Chicago neighborhoods (2026-10-12). kind='chicago' changes the place label to
+# "Beverly, Chicago", adds a Chicago crumb, and says "neighborhoods" not "towns".
+# Only neighborhoods already listed on service-areas.html get a page.
+LCM = 'OSF Little Company of Mary Medical Center in Evergreen Park'
+ROSELAND = 'Roseland Community Hospital'
+TRINITY = 'Advocate Trinity Hospital'
+UCM = 'UChicago Medicine in Hyde Park'
+HOLYCROSS = 'Holy Cross Hospital'
+STBERNARD = 'St. Bernard Hospital in Englewood'
+SOUTHSHORE = 'South Shore Hospital'
+CHRIST_SHORT = 'Advocate Christ Medical Center in Oak Lawn'
+
+CHICAGO = [
+  dict(slug='chicago-beverly', name='Beverly', zips=['60643'], hospitals=[LCM, CHRIST_SHORT],
+       near=['Morgan Park', 'Mount Greenwood', 'Washington Heights', 'Ashburn'],
+       local='Beverly is one of the closest Chicago neighborhoods to the south suburbs, so it is easy for us to staff and easy to cover a last-minute change.'),
+  dict(slug='chicago-mount-greenwood', side='Southwest Side', name='Mount Greenwood', zips=['60655'], hospitals=[CHRIST_SHORT, LCM],
+       near=['Beverly', 'Morgan Park', 'Ashburn'],
+       local='Mount Greenwood sits right on the city&rsquo;s southwest edge, next to Oak Lawn and Evergreen Park, and we serve both sides of that line.'),
+  dict(slug='chicago-morgan-park', name='Morgan Park', zips=['60643'], hospitals=[ROSELAND, LCM],
+       near=['Beverly', 'Washington Heights', 'Mount Greenwood', 'Roseland'],
+       local='Morgan Park is a short trip from our south suburban office, and we try to match caregivers who live on the far South Side so the same people keep coming back.'),
+  dict(slug='chicago-washington-heights', name='Washington Heights', zips=['60620', '60643'], hospitals=[ROSELAND, LCM],
+       near=['Morgan Park', 'Beverly', 'Roseland', 'Chatham'],
+       local='Washington Heights is close to the expressways we use every day, which helps visits start on time.'),
+  dict(slug='chicago-chatham', name='Chatham', zips=['60619'], hospitals=[TRINITY, UCM],
+       near=['Auburn Gresham', 'Calumet Heights', 'Washington Heights', 'Roseland'],
+       local='Chatham is right off the Dan Ryan, a straight drive from our office, so a free in-home visit is easy to set up.'),
+  dict(slug='chicago-auburn-gresham', name='Auburn Gresham', zips=['60620'], hospitals=[STBERNARD, HOLYCROSS],
+       near=['Chatham', 'Chicago Lawn', 'Ashburn', 'Washington Heights'],
+       local='We try to match Auburn Gresham families with caregivers who live nearby, so visits stay consistent and nobody is fighting traffic across the city.'),
+  dict(slug='chicago-roseland', name='Roseland', zips=['60628'], hospitals=[ROSELAND, TRINITY],
+       near=['Pullman', 'Washington Heights', 'Morgan Park', 'Chatham'],
+       local='Roseland is one of the closest Chicago neighborhoods to the south suburbs, just up from Riverdale and Dolton.'),
+  dict(slug='chicago-pullman', name='Pullman', zips=['60628'], hospitals=[ROSELAND, TRINITY],
+       near=['Roseland', 'Calumet Heights', 'Hegewisch', 'Washington Heights'],
+       local='Pullman sits just inside the city line from the south suburbs, which makes it one of the easiest Chicago neighborhoods for us to reach.'),
+  dict(slug='chicago-calumet-heights', name='Calumet Heights', zips=['60617'], hospitals=[TRINITY, SOUTHSHORE],
+       near=['Chatham', 'Pullman', 'Hegewisch', 'Roseland'],
+       local='Calumet Heights is a short drive from our south suburban office, with schedules from a few hours a week up to daily.'),
+  dict(slug='chicago-hegewisch', name='Hegewisch', zips=['60633'], hospitals=[TRINITY],
+       near=['Pullman', 'Calumet Heights'],
+       local='Hegewisch is tucked into the city&rsquo;s far southeast corner, closer to the south suburbs than to downtown, and we serve it from the south.'),
+  dict(slug='chicago-ashburn', side='Southwest Side', name='Ashburn', zips=['60652'], hospitals=[HOLYCROSS, CHRIST_SHORT],
+       near=['Chicago Lawn', 'Mount Greenwood', 'Beverly', 'Auburn Gresham'],
+       local='Ashburn borders Evergreen Park and Oak Lawn, both areas we already serve, so finding a caregiver close by is straightforward.'),
+  dict(slug='chicago-chicago-lawn', side='Southwest Side', name='Chicago Lawn', zips=['60629'], hospitals=[HOLYCROSS, CHRIST_SHORT],
+       near=['Ashburn', 'Auburn Gresham', 'West Lawn', 'Gage Park'],
+       local='We serve Chicago Lawn and the rest of the Southwest Side from our south suburban office, with schedules from a few hours a week up to daily.'),
+]
+for c in CHICAGO:
+    c['kind'] = 'chicago'; c['county'] = 'Cook County'
+
+# The hub that every neighborhood page links up to.
+CHICAGO_OTHER = ['South Chicago', 'Englewood', 'West Englewood', 'West Lawn', 'Gage Park', 'Clearing',
+                 'Garfield Ridge', 'East Side', 'South Deering', 'the West Side', 'the North Side']
+HUB = dict(kind='hub', slug='chicago', name='Chicago', zips=[], county='Cook County',
+           hospitals=[UCM, TRINITY, HOLYCROSS, ROSELAND], near=[],
+           local='We serve neighborhoods across the city, most often on the South and Southwest Sides. Our office is in the south suburbs, so the far South Side is where we can usually start fastest.')
+
+ALL = TOWNS + CHICAGO + [HUB]
+
 def esc(s): return H.escape(s, quote=True)
 
 def page(t):
+    kind = t.get('kind', 'town')
     n = t['name']; zips = ', '.join(t['zips'])
-    hosp = ' or '.join(t['hospitals']) if len(t['hospitals']) == 2 else t['hospitals'][0]
-    near_links = ', '.join(
-        f'<a href="home-care-{x["slug"]}.html">{x["name"]}</a>' if (x := next((y for y in TOWNS if y['name'] == nm), None)) else nm
-        for nm in t['near'])
-    title = f'Home Care in {n}, IL | In-Home Help for Seniors & Adults With Disabilities | VitalTouch'
-    desc = (f'Non-medical in-home care in {n}, IL ({zips}): help with bathing, meals, housekeeping, rides and company. '
-            f'Local, family-owned agency licensed by the State of Illinois. Free in-home consultation.')
+    place = f'{n}, Chicago' if kind == 'chicago' else n          # "Beverly, Chicago"
+    hs = t['hospitals']
+    hosp = hs[0] if len(hs) == 1 else ', '.join(hs[:-1]) + ' or ' + hs[-1]
+    def link(nm):
+        x = next((y for y in ALL if y['name'] == nm and y is not t), None)
+        return f'<a href="home-care-{x["slug"]}.html">{x["name"]}</a>' if x else nm
+    near_links = ', '.join(link(nm) for nm in t['near'])
+    area_word = 'neighborhoods' if kind != 'town' else 'towns'
+    title = f'Home Care in {place}, IL | In-Home Help for Seniors & Adults With Disabilities | VitalTouch'
+    desc = (f'Non-medical in-home care in {place}, IL' + (f' ({zips})' if zips else '') +
+            ': help with bathing, meals, housekeeping, rides and company. '
+            'Local, family-owned agency licensed by the State of Illinois. Free in-home consultation.')
+    if kind == 'hub':
+        first_faq = ('Do you provide home care in Chicago?',
+                     'Yes. We provide non-medical home care across Chicago, most often on the South and Southwest Sides, including '
+                     + ', '.join(c['name'] for c in CHICAGO) + '. Call to check your address.')
+    else:
+        first_faq = (f'Do you provide home care in {place}?',
+                     f'Yes. We provide non-medical home care throughout {place} ({zips}) and the {area_word} around it, including {", ".join(t["near"])}.')
     faqs = [
-        (f'Do you provide home care in {n}?',
-         f'Yes. We provide non-medical home care throughout {n} ({zips}) and the towns around it, including {", ".join(t["near"])}.'),
+        first_faq,
         (f'How fast can care start in {n}?',
          'Often within a few days of your first call, and sooner when someone is coming home from the hospital. '
          'We start with a free visit to the home, then put the plan and schedule in writing.'),
@@ -87,6 +166,22 @@ def page(t):
                     </button>
                     <div class="faq-answer"><div class="faq-answer-content"><p>{esc(a)}</p></div></div>
                 </div>''' for q, a in faqs)
+    served = ({"@type": "Place", "name": f"{n}, Chicago, Illinois",
+               "containedInPlace": {"@type": "City", "name": "Chicago, Illinois"}}
+              if kind == 'chicago' else {"@type": "City", "name": f"{n}, Illinois"})
+    crumb_mid = ('<a href="home-care-chicago.html">Chicago</a>\n                <span>/</span>\n                '
+                 if kind == 'chicago' else '')
+    h1 = f'Home Care in {place}' + ('' if kind == 'chicago' else ', IL')
+    if kind == 'hub':
+        hood_links = ''.join(f'<li><a href="home-care-{c["slug"]}.html">{c["name"]}</a></li>' for c in CHICAGO)
+        nearby_html = f'''<h2>Chicago neighborhoods we serve</h2>
+            <ul class="town-list">{hood_links}</ul>
+            <p>We also serve {", ".join(CHICAGO_OTHER)}. Not sure if we cover your address? Call and ask. <a href="service-areas.html">See every area we serve &rarr;</a></p>'''
+    else:
+        tail = f"the rest of the {t.get('side', 'South Side')}" if kind == 'chicago' else 'the rest of the south and southwest suburbs'
+        up = ' <a href="home-care-chicago.html">Home care across Chicago &rarr;</a>' if kind == 'chicago' else ''
+        nearby_html = f'''<h2>Nearby {area_word} we serve</h2>
+            <p>{near_links}, and {tail}.{up} <a href="service-areas.html">See every area we serve &rarr;</a></p>'''
     ld = {
       "@context": "https://schema.org",
       "@graph": [
@@ -98,10 +193,10 @@ def page(t):
          "image": "https://vitaltouchcares.com/images/logo-main.png",
          "address": {"@type": "PostalAddress", "streetAddress": "4749 Lincoln Mall Drive, Suite 204",
                      "addressLocality": "Matteson", "addressRegion": "IL", "postalCode": "60443", "addressCountry": "US"},
-         "areaServed": {"@type": "City", "name": f"{n}, Illinois"}},
+         "areaServed": served},
         {"@type": "Service", "serviceType": "Non-medical in-home care",
          "provider": {"@id": "https://vitaltouchcares.com/#business"},
-         "areaServed": {"@type": "City", "name": f"{n}, Illinois"},
+         "areaServed": served,
          "url": f"https://vitaltouchcares.com/home-care-{t['slug']}.html"},
         {"@type": "FAQPage", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
@@ -144,16 +239,16 @@ def page(t):
                 <span>/</span>
                 <a href="service-areas.html">Service Areas</a>
                 <span>/</span>
-                <span>{esc(n)}</span>
+                {crumb_mid}<span>{esc(n)}</span>
             </div>
-            <h1>Home Care in {esc(n)}, IL</h1>
-            <p>Dependable help at home for older adults and adults living with a disability in {esc(n)}. Local, family-owned, and licensed by the State of Illinois.</p>
+            <h1>{esc(h1)}</h1>
+            <p>Dependable help at home for older adults and adults living with a disability in {esc(place)}. Local, family-owned, and licensed by the State of Illinois.</p>
         </div>
     </section>
 
     <section class="section section-white">
         <div class="container town-wrap">
-            <p>If you or someone you love needs a hand at home in {esc(n)}, we can help with the everyday things that have gotten harder: bathing and dressing, meals, housekeeping and laundry, errands, rides to appointments, medication reminders, and simply having someone there. {esc(t['local'])}</p>
+            <p>If you or someone you love needs a hand at home in {esc(place)}, we can help with the everyday things that have gotten harder: bathing and dressing, meals, housekeeping and laundry, errands, rides to appointments, medication reminders, and simply having someone there. {t['local']}</p>
             <p>Many families call us when someone is coming home from {esc(hosp)}. We can meet you before discharge, set up the first week of visits, and adjust as things settle.</p>
 
             <div class="town-actions">
@@ -170,7 +265,7 @@ def page(t):
             </div>
             <p style="font-size:1rem;">Or call <a href="tel:7087264536"><strong>(708) 726-4536</strong></a>. You&rsquo;ll get a person, often the owner.</p>
 
-            <h2>What we help with in {esc(n)}</h2>
+            <h2>What we help with in {esc(place)}</h2>
             <ul class="town-list">
                 <li>Companionship and conversation</li>
                 <li>Bathing, dressing and grooming</li>
@@ -188,19 +283,18 @@ def page(t):
             <h2>Paying for care</h2>
             <p>Most families assume it&rsquo;s Medicaid or nothing. There are six ways people pay for care here, including long-term care insurance, VA benefits, extra benefits in some Medicare Advantage plans, and an Illinois program for adults under 60 living with a disability. Tell us what you have and we&rsquo;ll check it for free. <a href="paying-for-care.html">See all six ways &rarr;</a></p>
 
-            <h2>Questions families in {esc(n)} ask</h2>
+            <h2>Questions families in {esc(place)} ask</h2>
             <div class="faq-list">
 {faq_html}
             </div>
 
-            <h2>Nearby towns we serve</h2>
-            <p>{near_links}, and the rest of the south and southwest suburbs. <a href="service-areas.html">See every area we serve &rarr;</a></p>
+            {nearby_html}
         </div>
     </section>
 
     <section class="cta">
         <div class="container">
-            <h2>Talk to someone local about care in {esc(n)}</h2>
+            <h2>Talk to someone local about care in {esc(place)}</h2>
             <p>Free in-home consultation. No cost, no obligation.</p>
             <div class="cta-buttons">
                 <a href="tel:7087264536" class="btn btn-white">Call (708) 726-4536</a>
@@ -211,6 +305,6 @@ def page(t):
 
 {footer}'''
 
-for t in TOWNS:
+for t in ALL:
     open(f"{SITE}/home-care-{t['slug']}.html", 'w').write(page(t))
-print(json.dumps([t['slug'] for t in TOWNS]))
+print(json.dumps([t['slug'] for t in ALL]))
