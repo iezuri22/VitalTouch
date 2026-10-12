@@ -485,7 +485,6 @@ def page(t):
             </div>
             <figure class="vt-local-hero__fam">
                 <img src="{fam[0]}" alt="{esc(fam[1])}" width="1400" height="1050">
-                <figcaption><i class="ph ph-heart" aria-hidden="true"></i><span><strong>Care that feels like family</strong>The same caregiver, week after week</span></figcaption>
             </figure>
         </div>
     </section>
