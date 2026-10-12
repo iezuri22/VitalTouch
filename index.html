@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012e">
-    <link rel="stylesheet" href="css/vt.css?v=20261012e">
+    <link rel="stylesheet" href="css/style.css?v=20261012f">
+    <link rel="stylesheet" href="css/vt.css?v=20261012f">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         @media (max-width: 768px) {
@@ -172,90 +172,31 @@
         <button class="h-hero__pause" type="button" aria-pressed="false" aria-label="Pause background video"><i class="ph ph-pause" aria-hidden="true"></i></button>
     </section>
 
+    <!-- Family first (owner, 2026-10-12): the second thing on the site.
+         Technical proof (platform section) sits lower, after services. -->
+    <section class="h-family">
+        <div class="container">
+            <p class="h-statement__text h-family__statement"><span>Care</span> <span>that</span> <span>feels</span> <span>like</span> <span>family.</span> <span>Run</span> <span>like</span> <span>a</span> <span>practice.</span></p>
+            <div class="h-family__grid">
+                <div class="h-family__photo h-family__photo--main"><img src="media/still-family-8.jpg" alt="An older woman and her daughter reading together on the couch" loading="lazy"></div>
+                <div class="h-family__side">
+                    <ul class="h-family__promises">
+                        <li><i class="ph ph-users-three" aria-hidden="true"></i><div><strong>The same faces</strong><span>We match one caregiver and keep them with you whenever we can.</span></div></li>
+                        <li><i class="ph ph-house-line" aria-hidden="true"></i><div><strong>Your routine, not ours</strong><span>We learn how the home runs and fit around it.</span></div></li>
+                        <li><i class="ph ph-heart" aria-hidden="true"></i><div><strong>Family-owned</strong><span>A local agency. The owner answers the phone.</span></div></li>
+                    </ul>
+                    <div class="h-family__photo h-family__photo--small"><img src="images/garden-smiles.jpg" alt="An older woman laughing while gardening with a younger woman" loading="lazy"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="h-ribbon" aria-label="Why families choose us">
         <div class="container h-ribbon__row">
             <div><i class="ph ph-seal-check" aria-hidden="true"></i><span><strong>Licensed agency</strong>by the State of Illinois</span></div>
             <div><i class="ph ph-identification-badge" aria-hidden="true"></i><span><strong>Background-checked</strong>and trained caregivers</span></div>
             <div><i class="ph ph-house-line" aria-hidden="true"></i><span><strong>Free home visit</strong>no cost, no obligation</span></div>
             <div><i class="ph ph-phone-call" aria-hidden="true"></i><span><strong>Owner on call</strong>local and family-owned</span></div>
-        </div>
-    </section>
-
-    <!-- Care you can see: the operating system behind the care, as product
-         cards. Every card mirrors something the ops platform really does
-         (client_visits log, written service plan, applicant background and
-         registry checks + training, weekly care note) and is labeled Sample. -->
-    <section class="h-platform" id="platform">
-        <div class="container">
-            <div class="h-platform__head">
-                <p class="h-kicker">The system behind the care</p>
-                <h2>Care you can see.</h2>
-                <p>Every visit logged. Every caregiver checked. A weekly update for the family.</p>
-            </div>
-            <div class="h-platform__grid">
-                <div class="h-platform__rec"><div class="vt-record" data-record aria-label="Sample visit record">
-                <div class="vt-record__top">
-                    <div class="vt-record__who"><span class="vt-record__avatar" aria-hidden="true">DR</span><div><strong>Visit record</strong><span>Sample client, Tuesday</span></div></div>
-                    <span class="vt-record__status"><i class="ph ph-check-circle" aria-hidden="true"></i>Visit complete</span>
-                </div>
-                <div class="vt-record__times">
-                    <div><span>Checked in</span><strong>9:02 AM</strong></div>
-                    <div><span>Checked out</span><strong>1:04 PM</strong></div>
-                    <div><span>Time with client</span><strong>4h 02m</strong></div>
-                </div>
-                <ul class="vt-record__tasks">
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Bathing and dressing<span>9:15</span></li>
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Medication reminder<span>9:40</span></li>
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Breakfast and lunch prepared<span>11:50</span></li>
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Laundry and linens<span>12:20</span></li>
-                    <li><i class="ph ph-check" aria-hidden="true"></i>Walk to the mailbox and back<span>12:45</span></li>
-                </ul>
-                <blockquote class="vt-record__note">&ldquo;Good spirits today. Ate a full lunch and asked about her granddaughter&rsquo;s recital.&rdquo;<cite>Caregiver note</cite></blockquote>
-                <p class="vt-record__foot"><i class="ph ph-paper-plane-tilt" aria-hidden="true"></i>Included in Friday&rsquo;s care note to the family</p>
-                <span class="vt-record__sample">Sample</span>
-            </div></div>
-                <div class="h-platform__plan"><div class="ui-card ui-plan" aria-label="Sample care plan">
-    <div class="ui-card__top"><div><strong>Care plan</strong><span>Sample weekly schedule</span></div><span class="ui-pill">Agreed in writing</span></div>
-    <div class="ui-plan__week" role="img" aria-label="Visits Monday, Wednesday and Friday 9 to 1, Saturday 10 to 12">
-        <div class="ui-plan__day"><span>Mon</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
-        <div class="ui-plan__day"><span>Tue</span></div>
-        <div class="ui-plan__day"><span>Wed</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
-        <div class="ui-plan__day"><span>Thu</span></div>
-        <div class="ui-plan__day"><span>Fri</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
-        <div class="ui-plan__day"><span>Sat</span><i class="ui-plan__blk ui-plan__blk--alt" style="--s:1;--e:3"></i></div>
-        <div class="ui-plan__day"><span>Sun</span></div>
-    </div>
-    <div class="ui-plan__axis" aria-hidden="true"><span>9a</span><span>11a</span><span>1p</span></div>
-    <div class="ui-plan__tags"><span>Bathing</span><span>Meals</span><span>Medication reminders</span><span>Rides</span></div>
-    <div class="ui-card__foot"><span><i class="ph ph-clock" aria-hidden="true"></i>14 hrs / week</span><span>Updated when needs change</span></div>
-</div>
-</div>
-                <div class="h-platform__cg"><div class="ui-card ui-cg" aria-label="Sample caregiver checks">
-    <div class="ui-card__top"><div class="ui-who"><span class="ui-avatar" aria-hidden="true">TM</span><div><strong>Your caregiver</strong><span>Sample profile</span></div></div><span class="ui-pill ui-pill--ok"><i class="ph ph-shield-check" aria-hidden="true"></i>Cleared</span></div>
-    <ul class="ui-checks">
-        <li><i class="ph ph-check" aria-hidden="true"></i>Fingerprint background check</li>
-        <li><i class="ph ph-check" aria-hidden="true"></i>Health Care Worker Registry</li>
-        <li><i class="ph ph-check" aria-hidden="true"></i>24 hours of training before day one</li>
-    </ul>
-</div>
-</div>
-                <div class="h-platform__note"><div class="ui-card ui-note" aria-label="Sample weekly care note">
-    <div class="ui-card__top"><div class="ui-who"><span class="ui-avatar ui-avatar--teal" aria-hidden="true"><i class="ph ph-envelope-simple"></i></span><div><strong>Weekly care note</strong><span>Sample, sent Friday</span></div></div></div>
-    <p class="ui-note__text">Mom had a good week. All four visits on time, she walked to the mailbox twice, and she&rsquo;s eating well.</p>
-    <div class="ui-stats"><div><strong>4/4</strong><span>Visits</span></div><div><strong>14h</strong><span>Care</span></div><div><strong>27</strong><span>Tasks done</span></div></div>
-</div>
-</div>
-            </div>
-            <div class="eg-card">
-                <div><strong>See a plan like this for your situation</strong><p>Tell us the zip. We call with a sample plan and price.</p></div>
-                <button type="button" class="vt-btn" data-engage="platform" data-kicker="Your plan" data-title="Get a care plan for your situation" data-sub="Leave a number and zip. We call once, usually the same day." data-button="Call me with a plan" data-msg="sample care plan">Get my plan</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="h-statement">
-        <div class="container">
-            <p class="h-statement__text"><span>Care</span> <span>that</span> <span>feels</span> <span>like</span> <span>family.</span> <span>Run</span> <span>like</span> <span>a</span> <span>practice.</span></p>
         </div>
     </section>
 
@@ -348,6 +289,78 @@
                         <a href="consult.html?when=now&amp;from=home-svc-respite" class="vt-btn vt-btn--solid">Get care started</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Care you can see: the operating system behind the care, as product
+         cards. Every card mirrors something the ops platform really does
+         (client_visits log, written service plan, applicant background and
+         registry checks + training, weekly care note) and is labeled Sample. -->
+    <section class="h-platform" id="platform">
+        <div class="container">
+            <div class="h-platform__head">
+                <p class="h-kicker">The system behind the care</p>
+                <h2>Care you can see.</h2>
+                <p>Every visit logged. Every caregiver checked. A weekly update for the family.</p>
+            </div>
+            <div class="h-platform__grid">
+                <div class="h-platform__rec"><div class="vt-record" data-record aria-label="Sample visit record">
+                <div class="vt-record__top">
+                    <div class="vt-record__who"><span class="vt-record__avatar" aria-hidden="true">DR</span><div><strong>Visit record</strong><span>Sample client, Tuesday</span></div></div>
+                    <span class="vt-record__status"><i class="ph ph-check-circle" aria-hidden="true"></i>Visit complete</span>
+                </div>
+                <div class="vt-record__times">
+                    <div><span>Checked in</span><strong>9:02 AM</strong></div>
+                    <div><span>Checked out</span><strong>1:04 PM</strong></div>
+                    <div><span>Time with client</span><strong>4h 02m</strong></div>
+                </div>
+                <ul class="vt-record__tasks">
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Bathing and dressing<span>9:15</span></li>
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Medication reminder<span>9:40</span></li>
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Breakfast and lunch prepared<span>11:50</span></li>
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Laundry and linens<span>12:20</span></li>
+                    <li><i class="ph ph-check" aria-hidden="true"></i>Walk to the mailbox and back<span>12:45</span></li>
+                </ul>
+                <blockquote class="vt-record__note">&ldquo;Good spirits today. Ate a full lunch and asked about her granddaughter&rsquo;s recital.&rdquo;<cite>Caregiver note</cite></blockquote>
+                <p class="vt-record__foot"><i class="ph ph-paper-plane-tilt" aria-hidden="true"></i>Included in Friday&rsquo;s care note to the family</p>
+                <span class="vt-record__sample">Sample</span>
+            </div></div>
+                <div class="h-platform__plan"><div class="ui-card ui-plan" aria-label="Sample care plan">
+    <div class="ui-card__top"><div><strong>Care plan</strong><span>Sample weekly schedule</span></div><span class="ui-pill">Agreed in writing</span></div>
+    <div class="ui-plan__week" role="img" aria-label="Visits Monday, Wednesday and Friday 9 to 1, Saturday 10 to 12">
+        <div class="ui-plan__day"><span>Mon</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
+        <div class="ui-plan__day"><span>Tue</span></div>
+        <div class="ui-plan__day"><span>Wed</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
+        <div class="ui-plan__day"><span>Thu</span></div>
+        <div class="ui-plan__day"><span>Fri</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
+        <div class="ui-plan__day"><span>Sat</span><i class="ui-plan__blk ui-plan__blk--alt" style="--s:1;--e:3"></i></div>
+        <div class="ui-plan__day"><span>Sun</span></div>
+    </div>
+    <div class="ui-plan__axis" aria-hidden="true"><span>9a</span><span>11a</span><span>1p</span></div>
+    <div class="ui-plan__tags"><span>Bathing</span><span>Meals</span><span>Medication reminders</span><span>Rides</span></div>
+    <div class="ui-card__foot"><span><i class="ph ph-clock" aria-hidden="true"></i>14 hrs / week</span><span>Updated when needs change</span></div>
+</div>
+</div>
+                <div class="h-platform__cg"><div class="ui-card ui-cg" aria-label="Sample caregiver checks">
+    <div class="ui-card__top"><div class="ui-who"><span class="ui-avatar" aria-hidden="true">TM</span><div><strong>Your caregiver</strong><span>Sample profile</span></div></div><span class="ui-pill ui-pill--ok"><i class="ph ph-shield-check" aria-hidden="true"></i>Cleared</span></div>
+    <ul class="ui-checks">
+        <li><i class="ph ph-check" aria-hidden="true"></i>Fingerprint background check</li>
+        <li><i class="ph ph-check" aria-hidden="true"></i>Health Care Worker Registry</li>
+        <li><i class="ph ph-check" aria-hidden="true"></i>24 hours of training before day one</li>
+    </ul>
+</div>
+</div>
+                <div class="h-platform__note"><div class="ui-card ui-note" aria-label="Sample weekly care note">
+    <div class="ui-card__top"><div class="ui-who"><span class="ui-avatar ui-avatar--teal" aria-hidden="true"><i class="ph ph-envelope-simple"></i></span><div><strong>Weekly care note</strong><span>Sample, sent Friday</span></div></div></div>
+    <p class="ui-note__text">Mom had a good week. All four visits on time, she walked to the mailbox twice, and she&rsquo;s eating well.</p>
+    <div class="ui-stats"><div><strong>4/4</strong><span>Visits</span></div><div><strong>14h</strong><span>Care</span></div><div><strong>27</strong><span>Tasks done</span></div></div>
+</div>
+</div>
+            </div>
+            <div class="eg-card">
+                <div><strong>See a plan like this for your situation</strong><p>Tell us the zip. We call with a sample plan and price.</p></div>
+                <button type="button" class="vt-btn" data-engage="platform" data-kicker="Your plan" data-title="Get a care plan for your situation" data-sub="Leave a number and zip. We call once, usually the same day." data-button="Call me with a plan" data-msg="sample care plan">Get my plan</button>
             </div>
         </div>
     </section>
@@ -602,11 +615,11 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012e"></script>
-    <script src="js/nav.js?v=20261012e" defer></script>
-    <script src="js/motion.js?v=20261012e" defer></script>
+    <script src="js/main.js?v=20261012f"></script>
+    <script src="js/nav.js?v=20261012f" defer></script>
+    <script src="js/motion.js?v=20261012f" defer></script>
     <script src="js/zips.js?v=20261012d" defer></script>
     <script src="js/home.js?v=20261012d" defer></script>
-    <script src="js/engage.js?v=20261012e" defer></script>
+    <script src="js/engage.js?v=20261012f" defer></script>
 </body>
 </html>

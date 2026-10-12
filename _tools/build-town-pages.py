@@ -407,8 +407,8 @@ def page(t):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012e">
-    <link rel="stylesheet" href="css/vt.css?v=20261012e">
+    <link rel="stylesheet" href="css/style.css?v=20261012f">
+    <link rel="stylesheet" href="css/vt.css?v=20261012f">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap {{ max-width: 900px; margin: 0 auto; }}

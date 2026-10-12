@@ -1517,3 +1517,47 @@ a:hover .h-link i { transform: translateX(5px); }
 .nav-menu .mm-link, .nav-menu .mm-feature, .nav-menu .mm-feature * { white-space: normal !important; }
 @media (max-width: 1120px) { .nav-menu.mm { display: none !important; } }
 @media (max-width: 760px) { .ip-cta__btns { grid-template-columns: 1fr !important; } .ip-cta__btns .vt-btn { white-space: normal; text-align: center; } }
+
+/* ---------- Family first section (second on the homepage) ---------- */
+.h-family { background: var(--paper); padding-block: clamp(80px, 10vw, 136px); }
+.h-family__statement { max-width: 18ch; margin: 0 0 clamp(36px, 5vw, 56px) !important; }
+.h-family__grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: stretch; }
+.h-family__photo { border-radius: 24px; overflow: hidden; position: relative; }
+.h-family__photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.4s var(--ease); }
+.h-family__photo:hover img { transform: scale(1.03); }
+.h-family__photo--main { min-height: 460px; }
+.h-family__side { display: grid; grid-template-rows: auto 1fr; gap: 20px; }
+.h-family__photo--small { min-height: 200px; }
+.h-family__promises { list-style: none; margin: 0; padding: 26px; display: grid; gap: 20px; border-radius: 24px; background: var(--mist); }
+.h-family__promises li { display: flex; gap: 14px; align-items: flex-start; }
+.h-family__promises i { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--accent-deep); font-size: 1.3rem; flex-shrink: 0; box-shadow: 0 4px 12px -6px rgba(11,28,48,.25); }
+.h-family__promises strong { display: block; font: 800 1.15rem/1.2 var(--font-display); letter-spacing: -0.015em; color: var(--ink); margin-bottom: 4px; }
+.h-family__promises span { font-size: .98rem; color: var(--body-ink); line-height: 1.5; }
+@media (max-width: 900px) { .h-family__grid { grid-template-columns: 1fr; } .h-family__photo--main { min-height: 300px; } }
+@media (max-width: 760px) {
+  .h-family { padding-block: 52px; }
+  .h-family__statement { margin-bottom: 26px !important; }
+  .h-family__photo--main { min-height: 240px; border-radius: 18px; }
+  .h-family__photo--small { display: none; }
+  .h-family__promises { padding: 18px; border-radius: 18px; gap: 16px; }
+  .h-family__promises strong { font-size: 1.05rem; }
+  .h-family__promises span { font-size: .93rem; }
+}
+
+/* ---------- Header refinement ("I don't like how this looks") ----------
+   Solid white bar, smaller logo, centred lighter menu, quieter carets,
+   smaller CTA. The homepage keeps its transparent-over-video state. */
+.header { background: rgba(255, 255, 255, .97) !important; border-bottom: 1px solid var(--line) !important; }
+.home .header:not(.is-scrolled):not(.mm-open) { background: transparent !important; border-bottom-color: transparent !important; }
+.nav { height: 72px !important; gap: 20px; }
+.logo img { height: 38px !important; }
+.nav .mm { margin-inline: auto; }
+.mm-trigger { font: 500 .95rem/1 var(--font-body) !important; color: var(--ink-2); padding: .65em .8em !important; letter-spacing: .005em; }
+.mm-trigger i { font-size: .65rem !important; opacity: .55; margin-left: 2px; }
+.mm-trigger:hover i, .mm-trigger[aria-expanded="true"] i { opacity: 1; }
+.nav-cta { gap: 14px !important; }
+.nav-phone, .nav-phone-big { font: 500 .95rem/1 var(--font-body) !important; color: var(--ink-2) !important; padding: .55em .7em !important; }
+.nav-phone i { width: 28px; height: 28px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--accent-soft); color: var(--accent-deep); font-size: .85rem; }
+.home .header:not(.is-scrolled):not(.mm-open) .nav-phone i { background: rgba(255,255,255,.16); color: #fff; }
+.nav-get-care { padding: .75em 1.2em !important; font-size: .92rem !important; font-weight: 600 !important; }
+@media (max-width: 760px) { .nav { height: 60px !important; } .logo img { height: 30px !important; } }
