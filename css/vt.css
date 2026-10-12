@@ -2258,3 +2258,20 @@ body:has(.mobile-nav.active) .vita { display: none; }
   .faq-question { padding-block: 14px !important; }
   .vt-final__panel { padding: 22px !important; }
 }
+
+/* Inner pages on phones (owner, 2026-10-12: "make the inner pages shorter on
+   mobile too"). */
+@media (max-width: 760px) {
+  .area-grid { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+  .area-item { padding: 9px 10px !important; font-size: .9rem !important; line-height: 1.25 !important; }
+  .area-section { margin-bottom: 18px !important; }
+  .area-section h3 { font-size: 1.1rem !important; margin-bottom: 8px !important; }
+  .ip-card:has(.cp2-price) .ip-list { display: none !important; }
+  .ip-card:has(.cp2-price) > p:not(.pf-note) + p { display: none !important; }
+  .ip-split__card:not(:has(.vt-record)):not(:has(form)) { display: none !important; }
+  .ct-map, .ct-jobs { display: none !important; }
+  .ip-points { gap: 10px !important; }
+  .faq-item .faq-question { padding: 14px 16px !important; }
+  .cl-split__img { display: none !important; }
+}
+@media (max-width: 760px) { .cp2-price strong { font-size: 1.2rem !important; overflow-wrap: anywhere; } }
