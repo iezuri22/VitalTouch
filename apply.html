@@ -217,8 +217,8 @@
                         <label>Last name<input type="text" name="lastName" autocomplete="family-name" required maxlength="80"></label>
                         <label>Email<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
                         <label>Phone<input type="tel" name="phone" autocomplete="tel" required maxlength="30"></label>
-                        <label>City or town<input type="text" name="city" autocomplete="address-level2" required maxlength="80"></label>
                         <label>Zip code<input type="text" name="zip" autocomplete="postal-code" inputmode="numeric" required maxlength="5" pattern="\d{5}"></label>
+                        <label>City or town<input type="text" name="city" autocomplete="address-level2" required maxlength="80" list="carCityList"><datalist id="carCityList"></datalist></label>
                     </div>
                     <label class="car-full">Which role interests you?
                         <select name="role">
@@ -281,6 +281,28 @@
         </p>
         <p class="car-family-link">Looking for care instead? <a href="index.html">Start here</a>.</p>
     </main>
+
+    <script>
+    /* City from ZIP (2026-10-12): fill it in from the zip, offer the towns a
+       zip covers as suggestions, and never overwrite a city they typed. */
+    (function () {
+      var zip = document.querySelector('input[name="zip"]'), city = document.querySelector('input[name="city"]'), list = document.getElementById('carCityList');
+      if (!zip || !city) return;
+      var typed = false;
+      city.addEventListener('input', function () { typed = true; });
+      zip.addEventListener('input', function () {
+        var z = zip.value.replace(/\D/g, '').slice(0, 5);
+        if (z.length !== 5) return;
+        fetch('https://vitaltouch-ops.vercel.app/api/public/zip-city?zip=' + z)
+          .then(function (r) { return r.json(); })
+          .then(function (j) {
+            var c = j.cities || [];
+            list.innerHTML = c.map(function (n) { return '<option value="' + n.replace(/"/g, '') + '">'; }).join('');
+            if (c.length && (!typed || !city.value.trim())) city.value = c[0];
+          }).catch(function () {});
+      });
+    })();
+    </script>
 
     <!-- Footer -->
     <footer class="footer">
