@@ -2275,3 +2275,75 @@ body:has(.mobile-nav.active) .vita { display: none; }
   .cl-split__img { display: none !important; }
 }
 @media (max-width: 760px) { .cp2-price strong { font-size: 1.2rem !important; overflow-wrap: anywhere; } }
+
+/* ===== Town pages, local detail (2026-10-12): every area page gets its own
+   local help (township or city senior services, the area agency on aging,
+   the hospitals) beside a real map, so no two pages read the same. The body
+   now uses the full width: services beside a sample plan, local help beside
+   the map, ways to pay as rows, questions beside the nearby list. ===== */
+.town-split { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.town-split h2, .loc__copy h2, .town-pay h2, .town-qa h2 { margin: 0 0 12px; }
+.town-sub { font-size: 1.1rem; color: var(--body-ink); margin: 0 0 24px; max-width: 46ch; }
+.town-split .town-services { margin: 0; }
+.town-split__card .ui-card { max-width: 460px; margin-left: auto; }
+.loc { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.loc__lead { font-size: 1.1rem; color: var(--body-ink); margin: 0 0 26px; max-width: 48ch; }
+.loc .ip-points { margin: 0; gap: 20px; }
+.loc .ip-points a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.loc .ip-points a:hover { color: var(--accent-deep); }
+.loc__fine { margin: 22px 0 0; font-size: .92rem; color: var(--muted-ink); max-width: 52ch; }
+.loc__map { margin: 0; border-radius: var(--r-card); overflow: hidden; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-2); position: sticky; top: 104px; }
+.loc__map iframe { display: block; width: 100%; aspect-ratio: 5 / 4; border: 0; background: var(--mist-2); }
+.loc__map figcaption { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; font-size: .95rem; color: var(--muted-ink); border-top: 1px solid var(--line); }
+.loc__map figcaption strong { color: var(--ink); display: inline-flex; align-items: center; gap: 8px; }
+.loc__map figcaption i { color: var(--accent-deep); font-size: 1.15rem; }
+.town-pay .cl-list { margin-top: 24px; }
+.town-pay__head { max-width: 640px; }
+.town-pay__head p { margin: 0; font-size: 1.1rem; color: var(--body-ink); }
+.town-qa { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.town-qa__side { position: sticky; top: 104px; }
+.town-qa__side h3 { font-size: 1.1rem; margin: 30px 0 10px; }
+.town-qa__side .town-near { margin: 0; font-size: 1.02rem; line-height: 1.6; }
+.town-qa .faq-list { margin: 0; }
+@media (max-width: 900px) {
+  .town-split, .loc, .town-qa { grid-template-columns: 1fr; }
+  .loc__map, .town-qa__side { position: static; }
+  .town-split__card .ui-card { margin-left: 0; }
+}
+@media (max-width: 760px) {
+  .town-split__card { display: none; }
+  .loc__map iframe { aspect-ratio: 4 / 3; }
+  .loc .ip-points { gap: 14px; }
+  .town-pay .cl-item:nth-child(n+4) { display: none; }
+}
+
+/* ===== Paying-for-care guides (2026-10-12): one template for six pages.
+   Hero with an at-a-glance card, who it's for beside a photo, how to start
+   as a timeline, details as a picker, an honest "where we fit" band,
+   then sources and the one CTA. ===== */
+.gd-glance .pf-check li { align-items: baseline; }
+.gd-glance .pf-check strong { max-width: 60%; }
+.gd-who .ip-list { gap: 14px; }
+.gd-who .ip-list li { font-size: 1.08rem; line-height: 1.45; }
+.gd-who__lead { font-size: 1.1rem; color: var(--body-ink); margin: 0 0 24px; max-width: 52ch; }
+.gd-who__not { margin: 26px 0 0; padding: 14px 18px; border-left: 3px solid var(--accent); font-size: 1rem; color: var(--ink); max-width: 56ch; }
+.gd-steps .vt-step h3 { font-size: 1.25rem; }
+.gd-steps .vt-step p a, .gd-who a, .gd-src a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
+.gd-fit .ui-checks li.gd-no i { background: var(--mist-2); color: var(--muted-ink); }
+.gd-fit .ui-checks li.gd-no { color: var(--muted-ink); }
+.gd-more { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; border-top: 1px solid var(--line); margin: 0 0 40px; padding: 0; list-style: none; }
+.gd-more li { border-bottom: 1px solid var(--line); }
+.gd-more a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 2px; font-weight: 650; color: var(--ink); text-decoration: none; }
+.gd-more a:hover { color: var(--accent-deep); }
+.gd-more i { color: var(--accent-deep); }
+.gd-src { list-style: none; padding: 0; margin: 0 0 40px; columns: 2; column-gap: 40px; }
+.gd-src li { break-inside: avoid; margin: 0 0 10px; font-size: .95rem; color: var(--muted-ink); }
+@media (max-width: 900px) { .gd-more { grid-template-columns: 1fr; } .gd-src { columns: 1; } }
+@media (max-width: 760px) { .gd-who .ip-list li { font-size: 1rem; } }
+.town-qa__side--static { position: static; }
+.vt-section.town-sec { padding-block: clamp(52px, 6.5vw, 92px) !important; }
+.town-family + .vt-section.town-sec { padding-top: clamp(40px, 5vw, 64px) !important; }
+@media (max-width: 760px) { .vt-section.town-sec { padding-block: 36px !important; } }
+.pf-q__guide { margin: 4px 0 0; }
+.pf-q__guide a { font-weight: 700; color: var(--accent-deep); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.pf-q__guide a:hover { text-decoration: underline; text-underline-offset: 3px; }

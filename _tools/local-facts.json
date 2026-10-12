@@ -1,0 +1,1671 @@
+{
+ "_aaa": {
+  "suburbs": {
+   "name": "AgeOptions",
+   "url": "https://www.ageoptions.org",
+   "text": "The area agency on aging for suburban Cook County. Free help finding local services for older adults and caregivers."
+  },
+  "chicago": {
+   "name": "Chicago Department of Family and Support Services",
+   "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior.html",
+   "text": "The city’s area agency on aging. Senior services line: (312) 744-4016, weekdays 9 to 5."
+  }
+ },
+ "tinley-park": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bremen Township Senior Services",
+    "url": "https://brementownship.org/senior-services/",
+    "text": "Senior Wheels rides for ages 55+, including medical trips outside the township. Part of Tinley Park is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Tinley Park Senior Community Center",
+    "url": "https://tinleypark.org/residents/senior_information.php",
+    "text": "Social events, a monthly luncheon and free blood pressure checks for Tinley Park seniors."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://brementownship.org/township-boundaries/",
+   "https://brementownship.org/senior-services/",
+   "https://brementownship.org/senior-wheels-program/",
+   "https://orlandtownship.org/senior-services/",
+   "https://orlandtownship.org/senior-services/transportation/",
+   "https://tinleypark.org/residents/senior_information.php",
+   "https://metra.com/train-lines/RI",
+   "https://metra.com/train-lines/stations/tinley-park",
+   "https://metra.com/train-lines/stations/tinley-park-80th-ave",
+   "https://www.ageguide.org/",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/stations/tinley-park-80th-ave"
+  ],
+  "fact": "Tinley Park has two Metra Rock Island stations: one downtown on South Street and one at 80th Avenue.",
+  "will": true
+ },
+ "orland-park": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Orland Township Senior Services",
+    "url": "https://orlandtownship.org/senior-services/",
+    "text": "Curb-to-curb rides for residents 55+, including medical appointments outside the township."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Village of Orland Park Recreation & Parks - Seniors",
+    "url": "https://www.orlandpark.org/departments/recreation-parks/seniors",
+    "text": "Monthly senior speaker series (e.g. Medicare 101) plus free card, knitting and mahjong groups."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://brementownship.org/township-boundaries/",
+   "https://orlandtownship.org/senior-services/",
+   "https://orlandtownship.org/senior-services/transportation/",
+   "https://www.orlandpark.org/departments/recreation-parks/seniors",
+   "https://metra.com/train-lines/SWS",
+   "https://metra.com/train-lines/stations/orland-park-143rd-street",
+   "https://metra.com/train-lines/stations/orland-park-153rd-street",
+   "https://metra.com/train-lines/stations/orland-park-179th-street",
+   "https://www.ageguide.org/",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/SWS"
+  ],
+  "fact": "Orland Park has three Metra SouthWest Service stations, at 143rd Street, 153rd Street and 179th Street.",
+  "will": true
+ },
+ "country-club-hills": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bremen Township Senior Services",
+    "url": "https://brementownship.org/senior-services/",
+    "text": "Senior Wheels rides for ages 55+, including medical trips outside the township. Part of Country Club Hills is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "City of Country Club Hills Senior & Disabled Transportation",
+    "url": "https://countryclubhills.org/community/senior-transportation/",
+    "text": "Free rides for senior and disabled residents to medical appointments or the store."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://brementownship.org/township-boundaries/",
+   "https://brementownship.org/senior-services/",
+   "https://brementownship.org/senior-wheels-program/",
+   "https://countryclubhills.org/community/senior-transportation/",
+   "https://countryclubhills.org/community/schools-townships-and-places-of-worship/",
+   "https://countryclubhills.org/parks-rec-home/senoir-oak/",
+   "https://en.wikipedia.org/wiki/Country_Club_Hills,_Illinois",
+   "https://countryclubhills.org/parks-rec-home/senoir-oak/"
+  ],
+  "fact": "The city’s Senior Oak program for residents 55+ meets Tuesday to Friday at the Resource Center on Cicero Avenue."
+ },
+ "hazel-crest": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bremen Township Senior Services",
+    "url": "https://brementownship.org/senior-services/",
+    "text": "Senior Wheels rides for ages 55+, including medical trips outside the township. Part of Hazel Crest is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Village of Hazel Crest Senior Commission",
+    "url": "https://www.villageofhazelcrest.org/government/boards___commissions.php",
+    "text": "Hosts senior activities and shares information on township and other senior programs."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://brementownship.org/township-boundaries/",
+   "https://brementownship.org/senior-services/",
+   "https://brementownship.org/senior-wheels-program/",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://en.wikipedia.org/wiki/Hazel_Crest,_Illinois",
+   "https://www.villageofhazelcrest.org/government/boards___commissions.php",
+   "https://www.advocatehealth.com/ssub/patients-visitors",
+   "https://metra.com/train-lines/stations/hazel-crest",
+   "https://www.advocatehealth.com/ssub/patients-visitors"
+  ],
+  "fact": "Advocate South Suburban Hospital is right in Hazel Crest, at 17800 S. Kedzie Avenue."
+ },
+ "markham": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bremen Township Senior Services",
+    "url": "https://brementownship.org/senior-services/",
+    "text": "Senior Wheels rides for ages 55+, including medical trips outside the township. Part of Markham is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "City of Markham Senior Service Programs",
+    "url": "https://www.cityofmarkham.net/163/Senior-Service-Programs",
+    "text": "Free lawn mowing and snow removal for homeowners over 65."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://brementownship.org/township-boundaries/",
+   "https://brementownship.org/senior-services/",
+   "https://brementownship.org/senior-wheels-program/",
+   "https://brementownship.org/markham-administrative-center/",
+   "https://brementownship.org/nurses-closet/",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://en.wikipedia.org/wiki/Markham,_Illinois",
+   "https://www.cityofmarkham.net/163/Senior-Service-Programs",
+   "https://brementownship.org/nurses-closet/"
+  ],
+  "fact": "Bremen Township’s office on Kedzie Parkway in Markham lends medical equipment to residents through its Nurse’s Closet."
+ },
+ "midlothian": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bremen Township Senior Services",
+    "url": "https://brementownship.org/senior-services/",
+    "text": "Senior Wheels rides for ages 55+, including medical trips outside the township."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Midlothian Police Department Senior Bracelet program",
+    "url": "https://www.villageofmidlothian.net/244/senior-bracelet",
+    "text": "ID bracelets for residents 60+ that give police emergency information."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://brementownship.org/township-boundaries/",
+   "https://brementownship.org/senior-services/",
+   "https://brementownship.org/senior-wheels-program/",
+   "https://www.villageofmidlothian.net/faq.aspx?qid=104",
+   "https://www.villageofmidlothian.net/244/senior-bracelet",
+   "https://villageofmidlothian.net/342/Meeting-Schedule",
+   "https://metra.com/train-lines/stations/midlothian",
+   "https://metra.com/train-lines/stations/midlothian"
+  ],
+  "fact": "Midlothian has its own Metra Rock Island station, at 3750 W. 147th Street."
+ },
+ "oak-forest": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bremen Township Senior Services",
+    "url": "https://brementownship.org/senior-services/",
+    "text": "Senior Wheels rides for ages 55+, including medical trips outside the township."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "City of Oak Forest Senior Citizens Commission",
+    "url": "https://www.oak-forest.org/232/Senior-Citizens-Commission",
+    "text": "Monthly senior luncheons with entertainment and bingo."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://brementownship.org/township-boundaries/",
+   "https://brementownship.org/senior-services/",
+   "https://brementownship.org/senior-wheels-program/",
+   "https://brementownship.org/oak-forest-senior-center/",
+   "https://www.oak-forest.org/232/Senior-Citizens-Commission",
+   "https://www.oak-forest.org/calendar.aspx?EID=3833",
+   "https://metra.com/train-lines/stations/oak-forest",
+   "https://brementownship.org/oak-forest-senior-center/"
+  ],
+  "fact": "Bremen Township’s Oak Forest Senior Center, on Oak Park Avenue, is open weekdays and runs the township’s senior activities and rides."
+ },
+ "palos-heights": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Worth Township Senior Services",
+    "url": "https://worthtownship.com/departments/senior-services/",
+    "text": "Curb-to-curb rides to medical and grocery appointments for residents 55+. Part of Palos Heights is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Palos Heights Senior Club (Parks & Recreation)",
+    "url": "https://www.palosheights.org/277/Adult-Programs",
+    "text": "A city senior club plus chair yoga and other gentle fitness classes."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Palos_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Worth_Township,_Cook_County,_Illinois",
+   "https://www.civicfed.org/node/3925",
+   "https://worthtownship.com/departments/senior-services/",
+   "https://www.palostownship.org/1221/Services",
+   "https://www.palostownship.org/1204/Health-Services",
+   "https://www.palosheights.org/277/Adult-Programs",
+   "https://healthcarereportcard.illinois.gov/hospital/101182",
+   "https://www.nm.org/about-us/history/northwestern-medicine-palos-hospital-history",
+   "https://www.paloshillsweb.org/wp-content/uploads/2026/01/PATSE-manual.pdf",
+   "https://healthcarereportcard.illinois.gov/hospital/101182"
+  ],
+  "fact": "Northwestern Medicine Palos Hospital is located right here in Palos Heights."
+ },
+ "palos-hills": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "P.A.T.S.E. Bus (Palos Area Transportation for the Elderly & Disabled), City of Palos Hills",
+    "url": "https://www.paloshillsweb.org/index.php/palos-hills-residents/patse-bus-service",
+    "text": "Wheelchair-equipped bus rides within Palos Township for residents 60+ or disabled, medical appointments first."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Palos_Township,_Illinois",
+   "https://www.palostownship.org/",
+   "https://www.palostownship.org/1221/Services",
+   "https://www.palostownship.org/1204/Health-Services",
+   "https://www.paloshillsweb.org/index.php/palos-hills-residents/patse-bus-service",
+   "https://www.paloshillsweb.org/wp-content/uploads/2026/01/PATSE-manual.pdf",
+   "https://www.morainevalley.edu/contact-us/",
+   "https://www.morainevalley.edu/contact-us/"
+  ],
+  "fact": "Moraine Valley Community College’s main campus is in Palos Hills, on College Parkway."
+ },
+ "hickory-hills": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Hickory Hills Senior Taskforce",
+    "url": "https://hickoryhillsil.org/community/senior-taskforce/",
+    "text": "Free emergency info packets, 911-only cell phones, and movie and craft afternoons at the Community Center."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Palos_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Lyons_Township,_Illinois",
+   "https://lyonstownshipil.gov/lyons-township-communities/",
+   "https://lyonstownshipil.gov/senior-transportation/",
+   "https://www.civicfed.org/node/3925",
+   "https://www.palostownship.org/1221/Services",
+   "https://hickoryhillsil.org/community/senior-taskforce/",
+   "https://www.greenhillslibrary.org/about/history/",
+   "https://www.paloshillsweb.org/wp-content/uploads/2026/01/PATSE-manual.pdf",
+   "https://www.greenhillslibrary.org/about/history/"
+  ],
+  "fact": "Hickory Hills shares the Green Hills Public Library with Palos Hills; the two towns created the library district together in 1962."
+ },
+ "bridgeview": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Lyons Township Senior Transportation",
+    "url": "https://lyonstownshipil.gov/senior-transportation/",
+    "text": "Free door-to-door rides, including to medical appointments, for residents 60+ or with a disability. Part of Bridgeview is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Enjoying the Good Life in Bridgeview (Village senior events)",
+    "url": "https://bridgeview-il.gov/for-bridgeview-seniors/",
+    "text": "Free events with meals and music for residents 55 and older."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Lyons_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Palos_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Worth_Township,_Cook_County,_Illinois",
+   "https://civicfed.org/civic-federation/west-cook-county-region-townships",
+   "https://www.civicfed.org/node/3925",
+   "https://lyonstownshipil.gov/lyons-township-communities/",
+   "https://lyonstownshipil.gov/senior-transportation/",
+   "https://bridgeview-il.gov/for-bridgeview-seniors/",
+   "https://www.bridgeview-il.gov/",
+   "https://www.bridgeview-il.gov/"
+  ],
+  "fact": "Bridgeview is home to SeatGeek Stadium."
+ },
+ "justice": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Lyons Township Senior Transportation",
+    "url": "https://lyonstownshipil.gov/senior-transportation/",
+    "text": "Free door-to-door rides, including to medical appointments, for residents 60+ or with a disability."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Justice Senior Citizen Club",
+    "url": "http://www.villageofjustice.org/resident_resources___info/senior_club.php",
+    "text": "Twice-monthly meetings at Village Hall for adults 55+, with a catered lunch monthly."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://lyonstownshipil.gov/lyons-township-communities/",
+   "https://en.wikipedia.org/wiki/Lyons_Township,_Illinois",
+   "https://civicfed.org/civic-federation/west-cook-county-region-townships",
+   "https://lyonstownshipil.gov/senior-transportation/",
+   "https://www.villageofjustice.org/",
+   "http://www.villageofjustice.org/resident_resources___info/senior_club.php",
+   "https://www.cookcountyemergencymanagement.org/sites/g/files/ywwepo281/files/document/file/2024-12/Justice%20Volume%202%20%20Cook%20County%20MJ-HMP%20Annex%20.pdf",
+   "https://www.cookcountyemergencymanagement.org/sites/g/files/ywwepo281/files/document/file/2024-12/Justice%20Volume%202%20%20Cook%20County%20MJ-HMP%20Annex%20.pdf"
+  ],
+  "fact": "Justice grew up along Archer Avenue, one of the oldest roads in Cook County, and has easy access to I-294 and I-55."
+ },
+ "burbank": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Stickney Township Office on Aging (Louis S. Viverito Senior Center)",
+    "url": "https://townshipofstickney.org/Seniors_general_information.html",
+    "text": "Door-to-door mini-bus rides to doctors and home-delivered hot lunches."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://civicfed.org/civic-federation/west-cook-county-region-townships",
+   "https://townshipofstickney.org/",
+   "https://townshipofstickney.org/Seniors_general_information.html",
+   "https://townshipofstickney.org/seniors_transportation.html",
+   "https://townshipofstickney.org/home_delivered_meals.html",
+   "https://townshipofstickney.org/aging_and_disability.html",
+   "https://www.burbankil.gov/",
+   "https://www.burbankil.gov/101/Services",
+   "https://www.burbankil.gov/201/History-of-Burbank",
+   "https://www.burbankil.gov/201/History-of-Burbank"
+  ],
+  "fact": "Burbank became a city in 1970, when residents incorporated to avoid being annexed by Chicago."
+ },
+ "mount-prospect": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Elk Grove Township Senior & Disabled Transportation",
+    "url": "https://elkgrovetownship.com/transportation-services-for-elk-grove-township-elderly-and-disabled/",
+    "text": "Free Dial-A-Bus rides to medical appointments and errands for residents 55+. Part of Mount Prospect is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Village of Mount Prospect Human Services, Senior Social Work",
+    "url": "https://www.mountprospect.org/departments/human_services/senior_services/senior_social_work.php",
+    "text": "A free in-home assessment by a social worker and public health nurse for homebound older adults."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Mount_Prospect,_Illinois",
+   "https://en.wikipedia.org/wiki/Elk_Grove_Township,_Cook_County,_Illinois",
+   "https://mppl.org/community/elected-officials/",
+   "https://elkgrovetownship.com/transportation-services-for-elk-grove-township-elderly-and-disabled/",
+   "https://wheelingtownship.com/Senior-Disability-Services",
+   "https://www.mountprospect.org/departments/human_services/senior_services/index.php",
+   "https://www.mountprospect.org/departments/human_services/senior_services/senior_social_work.php",
+   "https://www.mountprospect.org/community/new_resident_information/public_transportation.php",
+   "https://www.mountprospect.org/community/new_resident_information/public_transportation.php"
+  ],
+  "fact": "Mount Prospect has its own Metra station downtown, at 13 E. Northwest Highway, on the Union Pacific Northwest Line."
+ },
+ "elmwood-park": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Leyden Township Senior Services",
+    "url": "https://www.leydentownship.com/223/Senior-Services",
+    "text": "Meals on Wheels, chore and housekeeping help, and Dial-A-Ride."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Josette LaFrambois Senior Center (Josie’s Room), Village of Elmwood Park",
+    "url": "https://elmwoodpark.org/193/Josette-LaFrambois-Senior-Center-Josies-",
+    "text": "A village senior center with monthly activity calendars."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.leydentownship.com/271/Municipalities",
+   "https://civicfed.org/civic-federation/west-cook-county-region-townships",
+   "https://www.leydentownship.com/223/Senior-Services",
+   "https://elmwoodpark.org/31/Residents",
+   "https://elmwoodpark.org/192/Senior-Resources",
+   "https://elmwoodpark.org/193/Josette-LaFrambois-Senior-Center-Josies-",
+   "https://elmwoodpark.org/313/Dial-a-Ride-Program",
+   "https://metra.com/train-lines/stations/elmwood-park",
+   "https://metra.com/train-lines/stations/elmwood-park"
+  ],
+  "fact": "Elmwood Park has an accessible Metra station at 7600 W. Grand Avenue on the Milwaukee District West Line."
+ },
+ "matteson": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Rich Township Senior Services Department",
+    "url": "https://www.richtownship.org/seniors",
+    "text": "Dial-a-ride to medical appointments, home-delivered meals and light in-home help for residents 55+."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.richtownship.org/about",
+   "https://www.richtownship.org/seniors",
+   "https://richtownship.org/transportation/",
+   "https://www.villageofmatteson.org/community/residents/senior_citizen_resources.php",
+   "https://metra.com/train-lines/stations/matteson",
+   "https://en.wikipedia.org/wiki/Matteson,_Illinois",
+   "https://metra.com/train-lines/stations/matteson"
+  ],
+  "fact": "Matteson has its own Metra Electric station at 215th Street and Main Street, with trains to downtown Chicago."
+ },
+ "olympia-fields": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Rich Township Senior Services Department",
+    "url": "https://www.richtownship.org/seniors",
+    "text": "Dial-a-ride to medical appointments, home-delivered meals and light in-home help for residents 55+."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://www.richtownship.org/about",
+   "https://en.wikipedia.org/wiki/Rich_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Bloom_Township,_Illinois",
+   "https://www.richtownship.org/seniors",
+   "https://www.olympia-fields.com/sitemap",
+   "https://www.franciscanhealth.org/about/news-and-media/prime-healthcare-earns-unanimous-approval-for-expansion-across-illinois-with-olympia-fields",
+   "https://www.primehealthcare.com/prime-healthcare-earns-unanimous-approval-community-support-for-expansion-across-illinois-with-olympia-fields/",
+   "https://metra.com/train-lines/stations/olympia-fields",
+   "https://www.franciscanhealth.org/about/news-and-media/prime-healthcare-earns-unanimous-approval-for-expansion-across-illinois-with-olympia-fields"
+  ],
+  "fact": "Olympia Fields has its own full hospital, the 214-bed hospital long known as Franciscan Health Olympia Fields."
+ },
+ "richton-park": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Rich Township Senior Services Department",
+    "url": "https://www.richtownship.org/seniors",
+    "text": "Dial-a-ride to medical appointments, home-delivered meals and light in-home help for residents 55+."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Richton Park Senior Citizen Advisory Committee",
+    "url": "https://www.richtonpark.org/246/Senior-Citizen-Advisory-Committee",
+    "text": "Village committee that plans for seniors’ needs, from meals and housing to getting around town."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.richtownship.org/about",
+   "https://www.richtownship.org/seniors",
+   "https://richtownship.org/transportation/",
+   "https://www.richtonpark.org/246/Senior-Citizen-Advisory-Committee",
+   "https://www.richtonpark.org/799/Senior-Transit-Program",
+   "https://www.richtonpark.org/CivicAlerts.aspx?AID=995",
+   "https://metra.com/train-lines/stations/richton-park",
+   "https://en.wikipedia.org/wiki/Richton_Park,_Illinois",
+   "https://metra.com/train-lines/stations/richton-park"
+  ],
+  "fact": "Richton Park’s Metra Electric station, at Sauk Trail and Richton Road, is listed by Metra as accessible."
+ },
+ "park-forest": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Rich Township Senior Services Department",
+    "url": "https://www.richtownship.org/seniors",
+    "text": "Shirley Green Senior Center in Park Forest, home-delivered meals and dial-a-ride for residents 55+."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Park Forest Senior Citizens Advisory Commission",
+    "url": "https://www.villageofparkforest.com/156/Senior-Citizens-Advisory-Commission",
+    "text": "Village commission that plans health and education events for older residents."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://www.richtownship.org/about",
+   "https://www.richtownship.org/seniors",
+   "https://en.wikipedia.org/wiki/Park_Forest,_Illinois",
+   "https://en.wikipedia.org/wiki/Rich_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Monee_Township,_Will_County,_Illinois",
+   "https://en.wikipedia.org/wiki/Crete_Township,_Illinois",
+   "https://www.villageofparkforest.com/354/About-Park-Forest",
+   "https://www.villageofparkforest.com/156/Senior-Citizens-Advisory-Commission",
+   "https://www.villageofparkforest.com/928/Senior-Resources",
+   "https://www.villageofparkforest.com/291/Jolly-Trolley",
+   "https://www.villageofparkforest.com/DocumentCenter/View/6869",
+   "https://ageguide.org",
+   "https://www.villageofparkforest.com/291/Jolly-Trolley"
+  ],
+  "fact": "Park Forest runs the Jolly Trolley, a weekday dial-a-ride bus with half-price fares for seniors and riders with disabilities.",
+  "will": true
+ },
+ "flossmoor": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Rich Township Senior Services Department",
+    "url": "https://www.richtownship.org/seniors",
+    "text": "Dial-a-ride to medical appointments, home-delivered meals and light in-home help for residents 55+. Part of Flossmoor is in another township, so ask which one serves your address."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.richtownship.org/about",
+   "https://en.wikipedia.org/wiki/Rich_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Bloom_Township,_Illinois",
+   "https://flossmoor.org/558/Senior-Services",
+   "https://www.richtownship.org/seniors",
+   "https://metra.com/train-lines/stations/flossmoor",
+   "https://metra.com/train-lines/stations/flossmoor"
+  ],
+  "fact": "Flossmoor’s Metra Electric station, at Flossmoor Road and Sterling Avenue, is listed by Metra as accessible."
+ },
+ "chicago-heights": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bloom Township Senior Services (VIP Senior Wheels)",
+    "url": "https://bloomtownship.org/185/Senior-Services",
+    "text": "VIP Senior Wheels curb-to-curb rides to medical appointments and dialysis for residents 60+."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Bloom_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Chicago_Heights,_Illinois",
+   "https://bloomtownship.org/185/Senior-Services",
+   "https://bloomtownship.org/188/VIP-Senior-Wheels",
+   "https://www.cityofchicagoheights.org/351/Senior-Resources",
+   "https://www.cityofchicagoheights.org/226/City-History",
+   "https://www.cityofchicagoheights.org/226/City-History"
+  ],
+  "fact": "Chicago Heights earned the nickname ’Crossroads of the Nation’ when the Lincoln Highway was routed through town in 1916."
+ },
+ "glenwood": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bloom Township Senior Services (VIP Senior Wheels)",
+    "url": "https://bloomtownship.org/185/Senior-Services",
+    "text": "VIP Senior Wheels curb-to-curb rides to medical appointments and dialysis for residents 60+."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Glenwood Senior Department (John H. Blakey Center for Seniors)",
+    "url": "https://www.villageofglenwood.com/senior",
+    "text": "Village senior center on Rebecca Street, plus Medicare help and senior transportation."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Bloom_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Glenwood,_Illinois",
+   "https://www.villageofglenwood.com/community",
+   "https://www.villageofglenwood.com/senior",
+   "https://www.villageofglenwood.com/seniors-corner",
+   "https://bloomtownship.org/185/Senior-Services",
+   "https://bloomtownship.org/188/VIP-Senior-Wheels",
+   "https://www.cookcountyemergencymanagement.org/sites/g/files/ywwepo281/files/document/file/2024-12/Glenwood%20Volume%202%20Cook%20County%20MJ-HMP%20Annex.pdf",
+   "https://www.cookcountyemergencymanagement.org/sites/g/files/ywwepo281/files/document/file/2024-12/Glenwood%20Volume%202%20Cook%20County%20MJ-HMP%20Annex.pdf"
+  ],
+  "fact": "Glenwood is mostly surrounded by Cook County Forest Preserves; about half the village is zoned as parks or forest preserve."
+ },
+ "lynwood": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bloom Township Senior Services (VIP Senior Wheels)",
+    "url": "https://bloomtownship.org/185/Senior-Services",
+    "text": "VIP Senior Wheels curb-to-curb rides to medical appointments and dialysis for residents 60+."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Bloom_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Lynwood,_Illinois",
+   "https://bloomtownship.org/185/Senior-Services",
+   "https://bloomtownship.org/188/VIP-Senior-Wheels",
+   "https://www.villageoflynwood.net/",
+   "https://www.cookcountyemergencymanagement.org/sites/g/files/ywwepo281/files/document/file/2024-12/Lynwood%20Volume%202%20%20Cook%20County%20MJ-HMP%20Annex%20.pdf",
+   "https://www.cookcountyemergencymanagement.org/sites/g/files/ywwepo281/files/document/file/2024-12/Lynwood%20Volume%202%20%20Cook%20County%20MJ-HMP%20Annex%20.pdf"
+  ],
+  "fact": "Lynwood sits between Illinois Route 394 and the Indiana state line, about 25 miles from downtown Chicago."
+ },
+ "sauk-village": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bloom Township Senior Services (VIP Senior Wheels)",
+    "url": "https://bloomtownship.org/185/Senior-Services",
+    "text": "VIP Senior Wheels curb-to-curb rides to medical appointments and dialysis for residents 60+."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Sauk Village Senior Center",
+    "url": "https://www.saukvillage.org/residents/senior-center-and-senior-groups",
+    "text": "Senior center in the Municipal Building with social clubs for residents 55+."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Bloom_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Crete_Township,_Illinois",
+   "https://en.wikipedia.org/wiki/Sauk_Village,_Illinois",
+   "https://saukvillage.org/wp-content/uploads/_documents/Agendas/2010/2010%20Meeting%20Agendas.pdf",
+   "https://www.ilga.gov/ftp/legislation/95/HR/09500HR0373.htm",
+   "http://www.saukvillage.org/residents/senior-center-and-senior-groups",
+   "https://www.saukvillage.org/about-sauk-village/",
+   "https://bloomtownship.org/185/Senior-Services",
+   "https://bloomtownship.org/188/VIP-Senior-Wheels",
+   "https://ageguide.org",
+   "https://www.saukvillage.org/about-sauk-village/"
+  ],
+  "fact": "Sauk Village sits along Sauk Trail and Illinois Route 394 in Chicago’s far south suburbs.",
+  "will": true
+ },
+ "homewood": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides for residents 60+ to medical appointments, plus weekly hot lunches. Call ahead to confirm rides. Part of Homewood is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Village of Homewood Senior Services (Senior Advisory Committee)",
+    "url": "https://www.village.homewood.il.us/community/senior-resources",
+    "text": "Medical ID bracelets for residents 60+ through the Homewood Police Department."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.cookcountyassessoril.gov/news/property-values-thornton-township-released",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://en.wikipedia.org/wiki/Thornton_Township,_Cook_County,_Illinois",
+   "https://en.wikipedia.org/wiki/Bloom_Township,_Cook_County,_Illinois",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.thorntontownship.com/transportation/",
+   "https://www.village.homewood.il.us/community/senior-resources",
+   "https://www.village.homewood.il.us/government-departments/commissions-committees/senior-advisory-committee",
+   "https://www.greatamericanstations.com/stations/homewood-il-hmw/",
+   "https://www.amtrak.com/stations/hmw",
+   "https://www.greatamericanstations.com/stations/homewood-il-hmw/"
+  ],
+  "fact": "Homewood’s train station at 18015 Park Avenue is served by both Metra Electric and Amtrak (City of New Orleans, Illini and Saluki)."
+ },
+ "lansing": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides for residents 60+ to medical appointments, plus weekly hot lunches. Call ahead to confirm rides. Part of Lansing is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Village of Lansing Senior Services (Lansing Fire Department ’Remembering When’ program)",
+    "url": "https://www.villageoflansing.org/for_residents/seniors/index.php",
+    "text": "Fire and fall prevention program for older adults."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.cookcountyassessoril.gov/news/property-values-thornton-township-released",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://en.wikipedia.org/wiki/Thornton_Township,_Cook_County,_Illinois",
+   "https://en.wikipedia.org/wiki/Bloom_Township,_Cook_County,_Illinois",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.thorntontownship.com/transportation/",
+   "https://www.villageoflansing.org/for_residents/seniors/index.php",
+   "https://www.villageoflansing.org/for_residents/seniors/index.php"
+  ],
+  "fact": "Anyone can stop by a Lansing fire station to have their blood pressure checked."
+ },
+ "south-holland": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides for residents 60+ to medical appointments, plus weekly hot lunches. Call ahead to confirm rides."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.cookcountyassessoril.gov/news/property-values-thornton-township-released",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://thorntontownship.com/our-locations/",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.thorntontownship.com/transportation/",
+   "https://www.southholland.org/",
+   "https://recservices.southholland.org/classes-programs/",
+   "https://fpdcc.com/places/locations/sand-ridge-nature-center/",
+   "https://fpdcc.com/places/locations/sand-ridge-nature-center/"
+  ],
+  "fact": "Sand Ridge Nature Center at 15891 Paxton Avenue has live animal exhibits, indoor bird-watching and an accessible indoor restroom."
+ },
+ "calumet-city": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides for residents 60+ to medical appointments, plus hot lunches at the Calumet City senior center. Call ahead to confirm rides."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Calumet City Senior Citizen Advisory Committee",
+    "url": "https://calumetcity.org/senior-services/",
+    "text": "A senior resource guide for families and a dementia support group."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.cookcountyassessoril.gov/news/property-values-thornton-township-released",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://thorntontownship.com/our-locations/",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.thorntontownship.com/transportation/",
+   "https://calumetcity.org/senior-services/",
+   "https://fpdcc.com/places/locations/green-lake-woods/",
+   "https://fpdcc.com/places/locations/green-lake-woods/"
+  ],
+  "fact": "Green Lake Woods, off Torrence Avenue, has a fishing lake, picnic groves and walking trails, open sunrise to sunset."
+ },
+ "dolton": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides for residents 60+ to medical appointments, plus weekly hot lunches. Call ahead to confirm rides."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.cookcountyassessoril.gov/news/property-values-thornton-township-released",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.thorntontownship.com/transportation/",
+   "https://vodolton.org/",
+   "https://vodolton.org/resident-resources-programs-assistance-community-updates-announcements/",
+   "https://vodolton.org/who-to-call/",
+   "https://vodolton.org/village-history/",
+   "https://www.doltonpubliclibrary.org/",
+   "https://www.doltonpubliclibrary.org/"
+  ],
+  "fact": "Dolton Public Library, 14037 Lincoln Avenue, lends Museum Adventure Passes for visiting local museums and attractions."
+ },
+ "harvey": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides for residents 60+ to medical appointments, plus weekly hot lunches. Call ahead to confirm rides."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.cookcountyassessoril.gov/news/property-values-thornton-township-released",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://en.wikipedia.org/wiki/Thornton_Township,_Cook_County,_Illinois",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.thorntontownship.com/transportation/",
+   "https://cityofharveyil.gov/",
+   "https://cityofharveyil.gov/community/residential-services/transporation",
+   "https://cityofharveyil.gov/community/residential-services/health-information",
+   "https://www.uchicagomedicine.org/en/find-a-location/uchicago-medicine-at-ingalls-harvey",
+   "https://www.uchicagomedicine.org/en/find-a-location/uchicago-medicine-at-ingalls-harvey"
+  ],
+  "fact": "UChicago Medicine Ingalls Memorial Hospital, with a full emergency department, is right in Harvey at 1 Ingalls Drive."
+ },
+ "riverdale": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides for residents 60+ to medical appointments, plus hot lunches at the Riverdale center. Call ahead to confirm rides. Part of Riverdale is in another township, so ask which one serves your address."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://www.cookcountyassessoril.gov/news/property-values-thornton-township-released",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://thorntontownship.com/our-locations/",
+   "https://en.wikipedia.org/wiki/Thornton_Township,_Cook_County,_Illinois",
+   "https://en.wikipedia.org/wiki/Calumet_Township,_Cook_County,_Illinois",
+   "https://calumettownshipil.com/",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.thorntontownship.com/transportation/",
+   "https://villageofriverdale.net/",
+   "https://fpdcc.com/places/locations/kickapoo-woods/",
+   "https://fpdcc.com/places/locations/kickapoo-woods/"
+  ],
+  "fact": "Kickapoo Woods, on Halsted Street in Riverdale, has a one-mile paved trail loop, a picnic shelter and parking."
+ },
+ "thornton": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides for residents 60+ to medical appointments, plus weekly hot lunches. Call ahead to confirm rides."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Village of Thornton Parks and Recreation (Senior Bingo Luncheon)",
+    "url": "https://www.thorntonil.us/parks-and-recreation/page/senior-bingo-luncheon-1",
+    "text": "Monthly lunch-and-bingo gathering for adults 50+."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.cookcountyassessoril.gov/news/property-values-thornton-township-released",
+   "https://thorntontownship.com/about/thornton-township/",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.thorntontownship.com/transportation/",
+   "https://www.thorntonil.us/",
+   "https://www.thorntonil.us/parks-and-recreation",
+   "https://www.thorntonil.us/parks-and-recreation/page/senior-bingo-luncheon-1",
+   "https://fpdcc.com/places/locations/brownell-woods/",
+   "https://fpdcc.com/places/locations/brownell-woods/"
+  ],
+  "fact": "Brownell Woods forest preserve, on Hunter Street in Thornton, has parking and a large picnic grove, open sunrise to sunset."
+ },
+ "oak-lawn": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Worth Township Senior Services",
+    "url": "https://worthtownship.com/departments/senior-services/",
+    "text": "Curb-to-curb rides to medical and grocery appointments for residents 55+."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Oak Lawn Senior Center",
+    "url": "https://oaklawn-il.gov/residents/senior_center/",
+    "text": "Weekday exercise classes, arts and crafts, and a monthly box lunch."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://worthtownship.com/about/boundaries",
+   "https://worthtownship.com/departments/senior-services/",
+   "https://worthtownship.com/departments/senior-transportation",
+   "https://en.wikipedia.org/wiki/Worth_Township,_Cook_County,_Illinois",
+   "https://oaklawn-il.gov/residents/senior_center/",
+   "https://www.advocatehealth.com/cmc/patients-visitors/hospital-information",
+   "https://www.advocatehealth.com/cmc/patients-visitors/hospital-information"
+  ],
+  "fact": "Advocate Christ Medical Center, home to one of the busiest Level I trauma centers in Illinois, is on 95th Street in Oak Lawn."
+ },
+ "evergreen-park": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Worth Township Senior Services",
+    "url": "https://worthtownship.com/departments/senior-services/",
+    "text": "Curb-to-curb rides to medical and grocery appointments for residents 55+."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Evergreen Park Office of Citizen Services",
+    "url": "https://www.evergreenpark-ill.com/160/Office-of-Citizen-Services",
+    "text": "Mini-bus rides, Meals on Wheels drivers, and a senior drop-in center."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://worthtownship.com/about/boundaries",
+   "https://worthtownship.com/departments/senior-services/",
+   "https://en.wikipedia.org/wiki/Worth_Township,_Cook_County,_Illinois",
+   "https://www.evergreenpark-ill.com/160/Office-of-Citizen-Services",
+   "https://www.osfhealthcare.org/foundation/give/lcmmc",
+   "https://www.osfhealthcare.org/foundation/give/lcmmc"
+  ],
+  "fact": "OSF Little Company of Mary Medical Center, a hospital serving the area since 1930, is at 2800 W. 95th Street in Evergreen Park."
+ },
+ "blue-island": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Worth Township Senior Services",
+    "url": "https://worthtownship.com/departments/senior-services/",
+    "text": "Curb-to-curb rides to medical and grocery appointments for residents 55+. Part of Blue Island is in another township, so ask which one serves your address."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://worthtownship.com/about/boundaries",
+   "https://en.wikipedia.org/wiki/Worth_Township,_Cook_County,_Illinois",
+   "https://www.calumettownshipil.com/",
+   "https://brementownship.org/township-boundaries/",
+   "https://en.wikipedia.org/wiki/Calumet_Township,_Cook_County,_Illinois",
+   "https://en.wikipedia.org/wiki/Blue_Island,_Illinois",
+   "https://worthtownship.com/departments/senior-services/",
+   "https://www.blueisland.org/sitemap",
+   "https://www.blueisland.org/217/Senior-Rates",
+   "https://www.masstransitmag.com/technology/facilities/shelters-stations-fixtures-parking-lighting/press-release/53066953/metra-metra-cuts-ribbon-on-rehabilitated-blue-island-vermont-street-station-depot",
+   "https://en.wikipedia.org/wiki/Blue_Island/Vermont_Street_station",
+   "https://www.masstransitmag.com/technology/facilities/shelters-stations-fixtures-parking-lighting/press-release/53066953/metra-metra-cuts-ribbon-on-rehabilitated-blue-island-vermont-street-station-depot"
+  ],
+  "fact": "Blue Island’s Vermont Street Metra station on the Rock Island line has a depot dating to 1868, restored with accessibility repairs in 2023."
+ },
+ "alsip": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Worth Township Senior Services",
+    "url": "https://worthtownship.com/departments/senior-services/",
+    "text": "Curb-to-curb rides to medical and grocery appointments for residents 55+."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://worthtownship.com/about/boundaries",
+   "https://worthtownship.com/",
+   "https://worthtownship.com/departments/senior-services/",
+   "https://worthtownship.com/departments/senior-transportation",
+   "https://en.wikipedia.org/wiki/Worth_Township,_Cook_County,_Illinois",
+   "https://villageofalsip.org/",
+   "https://villageofalsip.org/wp/resident-info/",
+   "https://worthtownship.com/"
+  ],
+  "fact": "Worth Township Hall, home base for the township’s senior programs and rides, is in Alsip at 11601 S. Pulaski Road."
+ },
+ "crestwood": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bremen Township Senior Wheels",
+    "url": "https://brementownship.org/senior-wheels-program/",
+    "text": "Rides for residents 55+ to medical visits, shopping and errands. Part of Crestwood is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Andrew Biela Senior Center",
+    "url": "https://crestwood.illinois.gov/content/resources_senior/",
+    "text": "Weekday senior center with activities, weekly lunches and trips."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://brementownship.org/township-boundaries/",
+   "https://brementownship.org/",
+   "https://brementownship.org/senior-wheels-program/",
+   "https://worthtownship.com/about/boundaries",
+   "https://en.wikipedia.org/wiki/Worth_Township,_Cook_County,_Illinois",
+   "https://en.wikipedia.org/wiki/Crestwood,_Illinois",
+   "https://crestwood.illinois.gov/content/resources_senior/",
+   "https://crestwood.illinois.gov/content/resources_senior/"
+  ],
+  "fact": "Crestwood runs a small Pace Dial-A-Ride bus that takes any resident anywhere in the village, weekdays 9 a.m. to 3:45 p.m."
+ },
+ "worth": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Worth Township Senior Services",
+    "url": "https://worthtownship.com/departments/senior-services/",
+    "text": "Curb-to-curb rides to medical and grocery appointments for residents 55+. Part of Worth is in another township, so ask which one serves your address."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://worthtownship.com/about/boundaries",
+   "https://worthtownship.com/departments/senior-services/",
+   "https://en.wikipedia.org/wiki/Worth_Township,_Cook_County,_Illinois",
+   "https://www.villageofworth.com/",
+   "https://www.villageofworth.com/31/Living-In",
+   "https://www.villageofworth.com/252/Metra-Parking",
+   "https://en.wikipedia.org/wiki/Worth_station",
+   "https://www.villageofworth.com/252/Metra-Parking"
+  ],
+  "fact": "Worth has its own Metra train station at 11000 S. Depot Street, right behind Village Hall."
+ },
+ "chicago-ridge": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Worth Township Senior Services",
+    "url": "https://worthtownship.com/departments/senior-services/",
+    "text": "Curb-to-curb rides to medical and grocery appointments for residents 55+."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Chicago Ridge Senior Bus Shuttle",
+    "url": "https://www.chicagoridge.org/174/Senior-Bus-Shuttle",
+    "text": "Rides for residents 63+ to doctors, groceries and nearby hospitals."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://worthtownship.com/about/boundaries",
+   "https://worthtownship.com/departments/senior-services/",
+   "https://en.wikipedia.org/wiki/Worth_Township,_Cook_County,_Illinois",
+   "https://www.chicagoridge.org/",
+   "https://www.chicagoridge.org/174/Senior-Bus-Shuttle",
+   "https://www.chicagoridge.org/170/Commuter-Parking",
+   "https://www.chicagoridge.org/170/Commuter-Parking"
+  ],
+  "fact": "Metra SouthWest Service trains and Pace Route 835 both run from Chicago Ridge to downtown Chicago; the station is on Ridgeland just south of 103rd Street."
+ },
+ "chicago-beverly": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Abbott Park Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 49 E. 95th St. Call (312) 745-3493."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Beverly",
+   "number": 72
+  },
+  "fact": "Metra’s Rock Island line stops at five stations inside Beverly (91st, 95th, 99th, 103rd and 107th Streets), with direct trains to LaSalle Street Station downtown.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Beverly,_Chicago"
+  ]
+ },
+ "chicago-mount-greenwood": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Roseland Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 10426 S. Michigan Ave. Call (312) 745-1500."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "Mount Greenwood",
+   "number": 74
+  },
+  "fact": "111th Street is Mount Greenwood’s main commercial corridor; the 24-acre Mount Greenwood Park sits on it at 3721 W. 111th St.",
+  "sources": [
+   "https://www.chicagoparkdistrict.com/parks-facilities/mount-greenwood-park"
+  ]
+ },
+ "chicago-morgan-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Roseland Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 10426 S. Michigan Ave. Call (312) 745-1500."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Morgan Park",
+   "number": 75
+  },
+  "fact": "Morgan Park is served by the Beverly branch of Metra’s Rock Island line, including stations at 111th Street and 115th Street.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Morgan_Park,_Chicago"
+  ]
+ },
+ "chicago-washington-heights": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Abbott Park Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 49 E. 95th St. Call (312) 745-3493."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Washington Heights",
+   "number": 73
+  },
+  "fact": "Metra’s Rock Island line has stations at Brainerd (89th Street), 95th Street-Longwood (rush hours only) and 103rd Street-Washington Heights.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Washington_Heights,_Chicago"
+  ]
+ },
+ "chicago-chatham": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Chatham Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 8300 S. Cottage Grove Ave. Call (312) 745-0401."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Chatham",
+   "number": 44
+  },
+  "fact": "The CTA Red Line’s 79th and 87th Street stations are in Chatham, and the Metra Electric line runs along its eastern edge with stops at 79th, 83rd and 87th Streets.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Chatham,_Chicago"
+  ]
+ },
+ "chicago-auburn-gresham": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Auburn Gresham Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 1040 W. 79th St. Call (312) 745-4797."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Auburn Gresham",
+   "number": 71
+  },
+  "fact": "Metra’s Rock Island line stops at Gresham station on 87th Street, with direct trains to LaSalle Street Station downtown.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Auburn_Gresham,_Chicago"
+  ]
+ },
+ "chicago-roseland": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Roseland Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 10426 S. Michigan Ave. Call (312) 745-1500."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Roseland",
+   "number": 49
+  },
+  "fact": "Roseland Community Hospital is at 45 W. 111th St.",
+  "sources": [
+   "https://www.roselandhospital.org/"
+  ]
+ },
+ "chicago-pullman": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Roseland Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 10426 S. Michigan Ave. Call (312) 745-1500."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Pullman",
+   "number": 50
+  },
+  "fact": "Pullman is home to Pullman National Historical Park, run by the National Park Service, with its visitor center in the historic Clock Tower building at 111th Street and Cottage Grove Avenue.",
+  "sources": [
+   "https://www.nps.gov/pull/index.htm"
+  ]
+ },
+ "chicago-calumet-heights": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "South Chicago Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 9233 S. Burley Ave. Call (312) 745-1282."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "Calumet Heights",
+   "number": 48
+  },
+  "fact": "Advocate Trinity Hospital is at 2320 E. 93rd St., in Calumet Heights.",
+  "sources": [
+   "https://healthcarereportcard.illinois.gov/hospital/101173"
+  ]
+ },
+ "chicago-hegewisch": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "South Chicago Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 9233 S. Burley Ave. Call (312) 745-1282."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "Hegewisch",
+   "number": 55
+  },
+  "fact": "The South Shore Line stops at Hegewisch station, the Illinois stop closest to the Indiana border, with trains to Millennium Station downtown.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Hegewisch,_Chicago"
+  ]
+ },
+ "chicago-ashburn": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Southwest Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 6117 S. Kedzie Ave. Call (312) 747-0440."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "Ashburn",
+   "number": 70
+  },
+  "fact": "Metra’s SouthWest Service stops at the Wrightwood and Ashburn stations in the neighborhood.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Ashburn,_Chicago"
+  ]
+ },
+ "chicago-chicago-lawn": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Southwest Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 6117 S. Kedzie Ave. Call (312) 747-0440."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Chicago Lawn",
+   "number": 66
+  },
+  "fact": "Holy Cross Hospital is at 2701 W. 68th St., near Marquette Park, the park at the neighborhood’s center that many locals use as the neighborhood’s name.",
+  "sources": [
+   "https://healthcarereportcard.illinois.gov/hospital/101220"
+  ]
+ },
+ "chicago-hyde-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Englewood Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 653-657 W. 63rd St. Call (312) 745-3328."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Hyde Park",
+   "number": 41
+  },
+  "fact": "The University of Chicago Medical Center is at 5841 S. Maryland Ave., in Hyde Park.",
+  "sources": [
+   "https://www.uchicagomedicine.org/"
+  ]
+ },
+ "chicago-south-shore": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Southeast (Atlas) Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 1767 E. 79th St. Call (312) 747-0189."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "South Shore",
+   "number": 43
+  },
+  "fact": "The South Shore Cultural Center, a former lakefront country club now run by the Chicago Park District, is at 7059 S. South Shore Dr.",
+  "sources": [
+   "https://www.chicagoparkdistrict.com/parks-facilities/south-shore-cultural-center"
+  ]
+ },
+ "chicago-bronzeville": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Englewood Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 653-657 W. 63rd St. Call (312) 745-3328."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "Grand Boulevard",
+   "number": 38,
+   "also": [
+    {
+     "name": "Douglas",
+     "number": 35
+    }
+   ]
+  },
+  "fact": "Provident Hospital of Cook County, a public hospital run by Cook County Health, is at 500 E. 51st St.",
+  "sources": [
+   "https://cookcountyhealth.org/locations/provident-hospital-of-cook-county/"
+  ]
+ },
+ "chicago-austin": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Austin Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 5071 W. Congress Pkwy. Call (312) 743-1538."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Austin",
+   "number": 25
+  },
+  "fact": "Columbus Park (500 S. Central Ave.), a 140-acre park designed by landscape architect Jens Jensen, is one of the few U.S. parks designated a National Historic Landmark in its entirety.",
+  "sources": [
+   "https://www.chicagoparkdistrict.com/parks-facilities/columbus-christopher-park"
+  ]
+ },
+ "chicago-garfield-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Central West Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 2102 W. Ogden Ave. Call (312) 746-5300."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "East Garfield Park",
+   "number": 27,
+   "also": [
+    {
+     "name": "West Garfield Park",
+     "number": 26
+    }
+   ]
+  },
+  "fact": "The Garfield Park Conservatory is at 300 N. Central Park Ave., in East Garfield Park.",
+  "sources": [
+   "https://garfieldconservatory.org/visit/"
+  ]
+ },
+ "chicago-north-lawndale": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Central West Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 2102 W. Ogden Ave. Call (312) 746-5300."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "North Lawndale",
+   "number": 29
+  },
+  "fact": "Mount Sinai Hospital is at California Avenue and 15th Street, in North Lawndale.",
+  "sources": [
+   "https://healthcarereportcard.illinois.gov/hospital/101162"
+  ]
+ },
+ "chicago-humboldt-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Austin Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 5071 W. Congress Pkwy. Call (312) 743-1538."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "Humboldt Park",
+   "number": 23
+  },
+  "fact": "The neighborhood takes its name from Humboldt Park, a 207-acre park with a lagoon, boathouse and fieldhouse.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Humboldt_Park_(Chicago_park)"
+  ]
+ },
+ "chicago-little-village": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Central West Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 2102 W. Ogden Ave. Call (312) 746-5300."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "South Lawndale",
+   "number": 30
+  },
+  "fact": "26th Street is Little Village’s main commercial district and one of the highest-grossing shopping strips in Chicago.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Little_Village,_Chicago"
+  ]
+ },
+ "chicago-pilsen": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Pilsen Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 2021 S. Morgan St. Call (312) 743-0493."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Lower West Side",
+   "number": 31
+  },
+  "fact": "The National Museum of Mexican Art, at 1852 W. 19th St., is always free to visit.",
+  "sources": [
+   "https://nationalmuseumofmexicanart.org/visit"
+  ]
+ },
+ "chicago-rogers-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Edgewater Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 5917 N. Broadway. Call (312) 742-5323."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Rogers Park",
+   "number": 1
+  },
+  "fact": "The CTA Red Line has four stations in Rogers Park: Howard, Jarvis, Morse and Loyola.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Rogers_Park,_Chicago"
+  ]
+ },
+ "chicago-edgewater": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Edgewater Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 5917 N. Broadway. Call (312) 742-5323."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Edgewater",
+   "number": 77
+  },
+  "fact": "Edgewater’s four CTA Red Line stations run along Broadway: Berwyn, Bryn Mawr, Thorndale and Granville.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Edgewater,_Chicago"
+  ]
+ },
+ "chicago-uptown": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Northeast (Levy) Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 2019 W. Lawrence Ave. Call (312) 744-0784."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Uptown",
+   "number": 3
+  },
+  "fact": "Uptown is served by three CTA Red Line stations: Wilson, Lawrence and Argyle.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Uptown,_Chicago"
+  ]
+ },
+ "chicago-lakeview": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Northeast (Levy) Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 2019 W. Lawrence Ave. Call (312) 744-0784."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Lake View",
+   "number": 6
+  },
+  "fact": "Advocate Illinois Masonic Medical Center is at 836 W. Wellington Ave., in Lakeview.",
+  "sources": [
+   "https://www.advocatehealth.com/immc"
+  ]
+ },
+ "chicago-lincoln-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "West Town/Logan Square Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 1615 W. Chicago Ave. Call (312) 743-1016."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Lincoln Park",
+   "number": 7
+  },
+  "fact": "Lincoln Park Zoo is open 365 days a year and entry is always free.",
+  "sources": [
+   "https://www.lpzoo.org/visit/"
+  ]
+ },
+ "chicago-lincoln-square": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Northeast (Levy) Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 2019 W. Lawrence Ave. Call (312) 744-0784."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Lincoln Square",
+   "number": 4
+  },
+  "fact": "Endeavor Health Swedish Hospital is at 5140 N. California Ave., in Lincoln Square.",
+  "sources": [
+   "https://www.endeavorhealth.org/locations/swedish-hospital"
+  ]
+ },
+ "chicago-albany-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Northeast (Levy) Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 2019 W. Lawrence Ave. Call (312) 744-0784."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "Albany Park",
+   "number": 14
+  },
+  "fact": "The CTA Brown Line ends at Kimball (Lawrence and Kimball Avenues) and also stops at Kedzie and Francisco in Albany Park.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Albany_Park,_Chicago"
+  ]
+ },
+ "chicago-logan-square": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Northwest (Copernicus) Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 3160 N. Milwaukee Ave. Call (312) 744-6681."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Logan Square",
+   "number": 22
+  },
+  "fact": "The CTA Blue Line serves Logan Square at three stations: Logan Square, California and Western.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Logan_Square,_Chicago"
+  ]
+ },
+ "chicago-portage-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Portage Park Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 4100 N. Long Ave. Call (312) 744-9022."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Portage Park",
+   "number": 15
+  },
+  "fact": "Six Corners, where Irving Park Road, Cicero Avenue and Milwaukee Avenue meet, is Portage Park’s main shopping district.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Portage_Park,_Chicago"
+  ]
+ },
+ "chicago-jefferson-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Norwood Park Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 5801 N. Natoma Ave. Call (773) 775-6071."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Jefferson Park",
+   "number": 11
+  },
+  "fact": "The Jefferson Park Transit Center (4917 N. Milwaukee Ave.) links the CTA Blue Line, Metra’s Union Pacific Northwest line, and CTA and Pace buses.",
+  "sources": [
+   "https://www.transitchicago.com/station/jrpk/"
+  ]
+ },
+ "chicago": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "City senior centers",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "Six regional and fourteen satellite centers across the city, run by the city."
+   }
+  ],
+  "fact": "Chicago runs six regional and fourteen satellite senior centers, free to visit."
+ }
+}

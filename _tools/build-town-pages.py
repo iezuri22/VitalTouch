@@ -277,6 +277,16 @@ TOWNS = TOWNS + NORTH_WEST_SUBURBS
 ALL = TOWNS + CHICAGO + [HUB]
 
 UI_PLAN = open(f'{SITE}/_tools/partials/ui-plan.html').read()
+LOCAL = json.load(open(f'{SITE}/_tools/local-facts.json'))
+
+# Ways to pay rows on every area page, each pointing at its guide.
+PAY_ROWS = [
+  ('ph-shield-check', 'Long-term care insurance', 'Most policies pay for care at home.', 'guide-long-term-care-insurance.html'),
+  ('ph-medal', 'VA benefits', 'Help for veterans and surviving spouses.', 'guide-va-benefits.html'),
+  ('ph-users-three', 'A family member as the caregiver', 'Someone you trust, trained and paid.', 'guide-paid-family-caregiver.html'),
+  ('ph-hospital', 'Medicare, and paying on your own', 'What Medicare covers at home, and what it doesn&rsquo;t.', 'guide-medicare-and-paying-on-your-own.html'),
+  ('ph-identification-card', 'Medicaid and state programs', 'For people 60 and older, and adults under 60 with a disability.', 'guide-illinois-medicaid-home-care.html'),
+]
 
 FAMILY_PHOTOS = [
   ('images/care/help-standing.jpg', 'A caregiver helping an older woman stand up at home'),
@@ -371,6 +381,33 @@ def page(t):
     desc = (f'Non-medical in-home care in {place}, IL' + (f' ({zips})' if zips else '') +
             ': help with bathing, meals, housekeeping, errands and company. '
             'A licensed Illinois home care agency. Free in-home consultation.')
+    # Local help (2026-10-12): the part of the page that is only true here.
+    # Facts live in _tools/local-facts.json, each checked against an official
+    # source; a town with nothing verified just gets the hospital and the
+    # area agency on aging, never a guess.
+    lf = LOCAL.get(t['slug'], {})
+    help_items = list(lf.get('help', []))
+    aaa = LOCAL['_aaa']['chicago' if kind in ('chicago', 'hub') else 'suburbs']
+    side_cls = 'town-qa__side town-qa__side--static' if kind == 'hub' else 'town-qa__side'
+    local_title = f'Local help in {n}' if kind != 'hub' else 'Local help in Chicago'
+    local_lead = lf.get('fact') or local_short
+    def point(icon, title, text, url=None):
+        ttl = f'<a href="{esc(url)}" rel="noopener">{esc(title)}</a>' if url else esc(title)
+        return (f'                    <li><i class="ph {icon}" aria-hidden="true"></i><div><strong>{ttl}</strong>'
+                f'<span>{text}</span></div></li>')
+    pts = [point(h.get('icon', 'ph-buildings'), h['name'], esc(h['text']), h.get('url')) for h in help_items]
+    pts.append(point('ph-first-aid', f'Coming home from {hs[0].split(" in ")[0]}?' if len(hs) else 'Coming home from the hospital?',
+                     'We can set up care before discharge, so help is there the first night.'))
+    pts.append(point('ph-hand-heart', aaa['name'], esc(aaa['text']), aaa.get('url')))
+    local_items = '\n'.join(pts)
+    q = (f'{n}, Chicago, IL' if kind == 'chicago' else 'Chicago, IL' if kind == 'hub' else f'{n}, IL')
+    map_src = 'https://maps.google.com/maps?q=' + q.replace(' ', '+').replace(',', '%2C') + f'&z={13 if kind == "chicago" else 10 if kind == "hub" else 12}&output=embed'
+    map_note = ', '.join(t['zips']) if t['zips'] else 'South, West and North Sides'
+    pay_rows = '\n'.join(
+        f'                <div class="cl-item cl-item--static"><div class="cl-row"><i class="ph {ic} cl-ic" aria-hidden="true"></i>'
+        f'<span class="cl-t"><strong>{tt}</strong><span class="cl-d">{dd}</span></span>'
+        f'<a href="{href}" class="cl-go">Read the guide <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div></div>'
+        for ic, tt, dd, href in PAY_ROWS)
     if kind == 'hub':
         first_faq = ('Which Chicago neighborhoods do you serve?',
                      'Most of the South, Southwest, West and North Sides. Enter your zip when you start online and we will confirm.')
@@ -383,6 +420,10 @@ def page(t):
         ('What does it cost?', 'It depends on the hours. We quote after the free visit and check what coverage you have.'),
         ('Is this medical care?', 'No. We help with daily life: bathing, meals, housekeeping, errands and company.'),
     ]
+    free_help = [h['name'] for h in help_items[:1]] + [aaa['name']]
+    faqs.insert(1, (f'Where can older adults in {place if kind != "hub" else "Chicago"} get free help?',
+                    f'Start with {" and ".join(free_help)}. They can connect you with local programs. '
+                    'We are glad to work alongside them.'))
     faq_html = '\n'.join(f'''                <div class="faq-item">
                     <button class="faq-question" type="button">
                         <span>{esc(q)}</span>
@@ -405,14 +446,13 @@ def page(t):
                             for c in CHICAGO if c.get('side', 'South Side') in sides)
             blocks.append(f'<h3 style="margin:18px 0 8px;">{label}</h3>\n            <ul class="town-list">{items}</ul>')
         hood_blocks = '\n            '.join(blocks)
-        nearby_html = f'''<h2>Chicago neighborhoods we serve</h2>
-            {hood_blocks}
-            <p>We also serve {", ".join(CHICAGO_OTHER)}. Not sure if we cover your address? Start online and we will confirm. <a href="service-areas.html">See every area we serve &rarr;</a></p>'''
+        nearby_html = f'''<h3>Neighborhoods we serve</h3>
+                {hood_blocks}
+                <p class="town-near">Also {", ".join(CHICAGO_OTHER)}. <a href="service-areas.html">Every area &rarr;</a></p>'''
     else:
-        tail = f"the rest of the {t.get('side', 'South Side')}" if kind == 'chicago' else 'the rest of the Chicagoland area'
-        up = ' <a href="home-care-chicago.html">Home care across Chicago &rarr;</a>' if kind == 'chicago' else ''
-        nearby_html = f'''<h2>Nearby</h2>
-            <p class="town-near">{near_links}.{up} <a href="service-areas.html">All areas &rarr;</a></p>'''
+        up = ' <a href="home-care-chicago.html">All of Chicago &rarr;</a>' if kind == 'chicago' else ''
+        nearby_html = f'''<h3>Nearby</h3>
+                <p class="town-near">{near_links}.{up} <a href="service-areas.html">All areas &rarr;</a></p>'''
     ld = {
       "@context": "https://schema.org",
       "@graph": [
@@ -444,8 +484,8 @@ def page(t):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261013a">
-    <link rel="stylesheet" href="css/vt.css?v=20261013a">
+    <link rel="stylesheet" href="css/style.css?v=20261013b">
+    <link rel="stylesheet" href="css/vt.css?v=20261013b">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap {{ max-width: 900px; margin: 0 auto; }}
@@ -505,33 +545,64 @@ def page(t):
         </div>
     </section>
 
-    <section class="vt-section">
-        <div class="container town-wrap">
-            <h2>What we help with</h2>
-            <ul class="town-services">
-                <li><i class="ph ph-shower" aria-hidden="true"></i>Bathing and dressing</li>
-                <li><i class="ph ph-cooking-pot" aria-hidden="true"></i>Meals and cooking</li>
-                <li><i class="ph ph-broom" aria-hidden="true"></i>Housekeeping and laundry</li>
-                <li><i class="ph ph-pill" aria-hidden="true"></i>Medication reminders</li>
-                <li><i class="ph ph-shopping-bag" aria-hidden="true"></i>Groceries and medication pickup</li>
-                <li><i class="ph ph-brain" aria-hidden="true"></i>Memory care</li>
-                <li><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</li>
-                <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family</li>
-            </ul>
+    <section class="vt-section town-sec">
+        <div class="container town-split">
+            <div>
+                <h2>What we help with</h2>
+                <p class="town-sub">Pick what you need. Change it any time.</p>
+                <ul class="town-services">
+                    <li><i class="ph ph-shower" aria-hidden="true"></i>Bathing and dressing</li>
+                    <li><i class="ph ph-cooking-pot" aria-hidden="true"></i>Meals and cooking</li>
+                    <li><i class="ph ph-broom" aria-hidden="true"></i>Housekeeping and laundry</li>
+                    <li><i class="ph ph-pill" aria-hidden="true"></i>Medication reminders</li>
+                    <li><i class="ph ph-shopping-bag" aria-hidden="true"></i>Groceries and medication pickup</li>
+                    <li><i class="ph ph-brain" aria-hidden="true"></i>Memory care</li>
+                    <li><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</li>
+                    <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family</li>
+                </ul>
+            </div>
+            <div class="town-split__card">{UI_PLAN}</div>
+        </div>
+    </section>
 
+    <section class="vt-section vt-section--mist town-sec">
+        <div class="container loc">
+            <div class="loc__copy">
+                <h2>{esc(local_title)}</h2>
+                <p class="loc__lead">{local_lead}</p>
+                <ul class="ip-points">
+{local_items}
+                </ul>
+                <p class="loc__fine">These are free public services. You can use them alongside home care.</p>
+            </div>
+            <figure class="loc__map">
+                <iframe src="{map_src}" title="Map of {esc(place)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                <figcaption><strong><i class="ph ph-map-pin" aria-hidden="true"></i>{esc(place)}</strong><span>{esc(map_note)}</span></figcaption>
+            </figure>
+        </div>
+    </section>
 
-            <ul class="town-notes">
-                <li><i class="ph ph-map-pin" aria-hidden="true"></i><span>{local_short}</span></li>
-                <li><i class="ph ph-first-aid" aria-hidden="true"></i><span>Coming home from {esc(hosp)}? We can set up care before discharge.</span></li>
-                <li><i class="ph ph-wallet" aria-hidden="true"></i><span>Pay with long-term care insurance, VA benefits, some Medicare Advantage plans, or on your own. We check your coverage free. <a href="paying-for-care.html">Ways to pay</a></span></li>
-            </ul>
+    <section class="vt-section town-sec town-pay">
+        <div class="container">
+            <div class="town-pay__head">
+                <h2>Ways to pay</h2>
+                <p>We check what you&rsquo;re covered for, free. Each guide explains one option.</p>
+            </div>
+            <div class="cl-list">
+{pay_rows}
+            </div>
+        </div>
+    </section>
 
-            <h2>Common questions</h2>
+    <section class="vt-section vt-section--mist town-sec">
+        <div class="container town-qa">
+            <div class="{side_cls}">
+                <h2>Common questions</h2>
+                {nearby_html}
+            </div>
             <div class="faq-list">
 {faq_html}
             </div>
-
-            {nearby_html}
         </div>
     </section>
 
