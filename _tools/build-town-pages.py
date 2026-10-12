@@ -45,7 +45,7 @@ TOWNS = [
        local='Tinley Park is a straight shot from our Matteson office, and we match caregivers who live nearby so visits stay consistent.'),
   dict(slug='orland-park', name='Orland Park', zips=['60462', '60467'], county='Cook County',
        hospitals=[PALOS, CHRIST], near=['Tinley Park', 'Palos Heights', 'Palos Hills', 'Oak Forest'],
-       local='We serve Orland Park from our south suburban office and match caregivers who live in the southwest suburbs, so the same faces keep showing up.'),
+       local='We serve Orland Park from our south suburban office, with caregivers who live in the southwest suburbs.'),
   dict(slug='oak-lawn', name='Oak Lawn', zips=['60453'], county='Cook County',
        hospitals=[CHRIST, PALOS], near=['Evergreen Park', 'Chicago Ridge', 'Burbank', 'Alsip'],
        local='A lot of families in Oak Lawn first think about help at home when someone is about to leave Christ Hospital. We can usually start within days of that call.'),
@@ -444,8 +444,8 @@ def page(t):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012t">
-    <link rel="stylesheet" href="css/vt.css?v=20261012t">
+    <link rel="stylesheet" href="css/style.css?v=20261012u">
+    <link rel="stylesheet" href="css/vt.css?v=20261012u">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap {{ max-width: 900px; margin: 0 auto; }}
@@ -498,7 +498,7 @@ def page(t):
     <section class="town-family">
         <div class="container">
             <ul class="town-family__row">
-                <li><i class="ph ph-users-three" aria-hidden="true"></i><div><strong>The same faces</strong><span>One matched caregiver, kept with you whenever we can.</span></div></li>
+                <li><i class="ph ph-users-three" aria-hidden="true"></i><div><strong>Family can be the caregiver</strong><span>If they qualify, we hire and train someone you already trust.</span></div></li>
                 <li><i class="ph ph-house-line" aria-hidden="true"></i><div><strong>Your routine, not ours</strong><span>We learn how the home runs and fit around it.</span></div></li>
                 <li><i class="ph ph-phone-call" aria-hidden="true"></i><div><strong>Here when you call</strong><span>A real person answers, day or night.</span></div></li>
             </ul>

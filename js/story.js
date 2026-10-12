@@ -36,7 +36,7 @@
   var reel = [
     { s: 'leader', d: 3.0, cap: 'Three, two, one.' },
     { s: 'card', d: 3.0, small: 'VitalTouch presents', l1: 'A Visit Home', l2: '', cap: 'VitalTouch presents: A Visit Home.' },
-    { s: 'card', d: 2.8, l1: 'Every Tuesday,', l2: 'the same friendly face.', cap: 'Every Tuesday, the same friendly face.' },
+    { s: 'card', d: 2.8, l1: 'Every Tuesday,', l2: 'a friendly face at the door.', cap: 'Every Tuesday, a friendly face at the door.' },
     { s: 'town', d: 6.2, iris: true, cap: 'The caregiver drives up. The lights come on.' },
     { s: 'card', d: 2.8, l1: 'Meals, laundry, groceries.', l2: 'Done the way you like.', cap: 'Meals, laundry, groceries. Done the way you like.' },
     { s: 'inside', d: 5.2, iris: true, cap: 'Today’s visit: meals made, laundry folded, groceries put away.' },

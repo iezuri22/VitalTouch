@@ -15,6 +15,7 @@ MENU = [
         ('services.html#companionship', 'ph-chats-circle', 'Companionship', 'Company and conversation'),
         ('services.html#respite', 'ph-armchair', 'Respite', 'Time off for family'),
         ('services.html#errands', 'ph-shopping-bag', 'Errands', 'Groceries and medication'),
+        ('services.html#family-caregivers', 'ph-users-three', 'Family caregivers', 'Someone you trust, paid by us'),
         ('disability-support.html', 'ph-wheelchair', 'Disability support', 'Adults of any age'),
     ], ('Not sure?', 'Take the free assessment', 'Ninety seconds. A personal report and ways to pay.', 'assessment.html', 'Start')),
     ('Paying for care', [
