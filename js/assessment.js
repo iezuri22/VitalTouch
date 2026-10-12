@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * `slot` keeps the two Download buttons' ids unique.
      */
     function ctaBlock(r, slot) {
-        var href = 'consult.html?from=assessment&band=' + encodeURIComponent(r.band || '');
+        var href = 'start.html?from=assessment&band=' + encodeURIComponent(r.band || '');
         var h = '<div class="cra-report-cta cra-cta-' + slot + '">';
         // Urgent readers get the phone first — for them a call today is the
         // whole point. Everyone else books, because a stressed reader at 11pm

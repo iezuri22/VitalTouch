@@ -10,7 +10,7 @@ service-areas.html when build-town-pages.py runs, so run this first.
 import re, glob, os
 
 FONTS = '<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">'
-CSS_VER = '20261012q'
+CSS_VER = '20261012r'
 NAV = [('services.html', 'Services'), ('disability-support.html', 'Disability Support'),
        ('paying-for-care.html', 'Ways to Pay'), ('assessment.html', 'Free Assessment'),
        ('contact.html', 'Contact'), ('apply.html', 'Careers')]
@@ -33,7 +33,7 @@ def header(pre, current):
                 </div>
                 <div class="nav-cta">
                     <a href="tel:7087264536" class="nav-phone nav-phone-big"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
-                    <a href="{pre}consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid nav-get-care">Get care started</a>
+                    <a href="{pre}start.html?from=nav" class="vt-btn vt-btn--solid nav-get-care">Get care started</a>
                 </div>
             </nav>
         </div>
@@ -43,7 +43,7 @@ def mobile(pre):
     links = '\n'.join(f'        <a href="{pre}{h}">{l}</a>' for h, l in NAV)
     return f'''<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
 {links}
-        <a href="{pre}consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid" style="width:100%;margin-top:20px;">Get care started</a>
+        <a href="{pre}start.html?from=nav" class="vt-btn vt-btn--solid" style="width:100%;margin-top:20px;">Get care started</a>
         <a href="tel:7087264536" class="vt-btn vt-btn--ghost" style="width:100%;margin-top:10px;">Call (708) 726-4536</a>
     </nav>'''
 
@@ -65,7 +65,7 @@ def footer(pre):
                         <li><a href="{pre}changes.html">Medicare and Medicaid changes</a></li>
                         <li><a href="{pre}pricing.html">Pricing</a></li>
                         <li><a href="{pre}assessment.html">Free assessment</a></li>
-                        <li><a href="{pre}consult.html?when=now&amp;from=nav">Get care started</a></li>
+                        <li><a href="{pre}start.html?from=nav">Get care started</a></li>
                     </ul>
                 </div>
                 <div class="vt-footer-col">

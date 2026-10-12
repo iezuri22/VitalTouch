@@ -155,7 +155,7 @@
         out.innerHTML = '';
         out.appendChild(document.createTextNode(z + ' isn’t on our list yet, but we may still be able to help. '));
         var c = document.createElement('a');
-        c.href = 'consult.html?from=home-zip-' + z;
+        c.href = 'start.html?from=home-zip-' + z;
         c.textContent = 'Ask us';
         out.appendChild(c);
       }

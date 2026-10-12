@@ -93,7 +93,7 @@ def header(pre, current):
         '                </div>\n'
         '                <div class="nav-cta">\n'
         '                    <a href="tel:7087264536" class="nav-phone nav-phone-big"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>\n'
-        f'                    <a href="{pre}consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid nav-get-care">Get care started</a>\n'
+        f'                    <a href="{pre}start.html?from=nav" class="vt-btn vt-btn--solid nav-get-care">Get care started</a>\n'
         '                </div>\n'
         '            </nav>\n'
         '        </div>\n'
@@ -111,6 +111,6 @@ def mobile(pre):
     return (
         '<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">\n'
         f'        {g}\n'
-        f'        <a href="{pre}consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid mn-cta">Get care started</a>\n'
+        f'        <a href="{pre}start.html?from=nav" class="vt-btn vt-btn--solid mn-cta">Get care started</a>\n'
         '        <a href="tel:7087264536" class="vt-btn vt-btn--ghost mn-cta">Call (708) 726-4536</a>\n'
         '    </nav>')

@@ -435,8 +435,8 @@ def page(t):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012q">
-    <link rel="stylesheet" href="css/vt.css?v=20261012q">
+    <link rel="stylesheet" href="css/style.css?v=20261012r">
+    <link rel="stylesheet" href="css/vt.css?v=20261012r">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap {{ max-width: 900px; margin: 0 auto; }}
@@ -477,7 +477,7 @@ def page(t):
                 <p class="lead">Caring help at home for the people you love. It starts with a free home visit.</p>
                 <ul class="vt-facts">{facts}</ul>
                 <div class="vt-local-hero__ctas">
-                    <a href="consult.html?when=now&amp;from=area-{t['slug']}" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                    <a href="start.html?from=area-{t['slug']}" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
                     <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
@@ -539,7 +539,7 @@ def page(t):
                     <p>Free home visit. No obligation.</p>
                 </div>
                 <div class="vt-final__ctas">
-                    <a href="consult.html?when=now&amp;from=area-{t['slug']}-final" class="vt-btn vt-btn--light">Get care started</a>
+                    <a href="start.html?from=area-{t['slug']}-final" class="vt-btn vt-btn--light">Get care started</a>
                     <a href="tel:7087264536" class="vt-btn vt-btn--line-light"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
