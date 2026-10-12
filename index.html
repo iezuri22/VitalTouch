@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012p">
-    <link rel="stylesheet" href="css/vt.css?v=20261012p">
+    <link rel="stylesheet" href="css/style.css?v=20261012q">
+    <link rel="stylesheet" href="css/vt.css?v=20261012q">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         @media (max-width: 768px) {
@@ -153,23 +153,15 @@
             <p class="h-hero__sub vt-rise" style="--d:160ms">Caring help at home for the people you love. It starts with a free home visit.</p>
             <div class="h-hero__ctas vt-rise" style="--d:240ms">
                 <a href="consult.html?when=now&amp;from=home-hero" class="vt-btn h-btn-light">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-                <a href="tel:7087264536" class="vt-btn h-btn-glass"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                <a href="#how" class="vt-btn h-btn-glass">How it works</a>
             </div>
-            <form class="h-zip vt-rise" style="--d:320ms" id="zipCheck" novalidate>
-                <label for="zipInput"><i class="ph ph-map-pin" aria-hidden="true"></i>Do we serve your area?</label>
-                <div class="h-zip__row">
-                    <input id="zipInput" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="Enter a zip code">
-                    <button type="submit">Check</button>
-                </div>
-                <p class="h-zip__out" id="zipOut" role="status"></p>
-            </form>
         </div>
         <button class="h-hero__pause" type="button" aria-pressed="false" aria-label="Pause background video"><i class="ph ph-pause" aria-hidden="true"></i></button>
     </section>
 
     <section class="h-stats" aria-label="VitalTouch at a glance">
         <div class="container h-stats__row">
-            <div><strong>24/7</strong><span>A real person answers</span></div>
+            <div><strong>0</strong><span>Long-term contracts. Month to month.</span></div>
             <div><strong>1</strong><span>Caregiver, matched to you</span></div>
             <div><strong>$0</strong><span>Home visit and written plan</span></div>
             <div><strong>70+</strong><span>Chicagoland towns and neighborhoods</span></div>
@@ -178,42 +170,25 @@
 
     <!-- Family first (2026-10-12): the second thing on the site.
          Technical proof (platform section) sits lower, after services. -->
-    <!-- Family first: the second thing on the site. A bento of one real
-         care photo and three promise tiles, each with a small product-style
-         visual (owner: "cooler yet professional, not basic"). -->
+    <!-- Family first: the second thing on the site. One real care photo and
+         three promises, set as type rather than as fake UI. -->
     <section class="h-family h-fam2">
         <div class="container">
-            <div class="fam-head">
-                <p class="h-statement__text h-family__statement"><span>Care</span> <span>that</span> <span>feels</span> <span>like</span> <span>family.</span> <span>Run</span> <span>like</span> <span>a</span> <span>practice.</span></p>
-                <p class="fam-head__aside">A licensed Illinois home care agency. Warm, steady people in your home, with a written plan behind every visit.</p>
-            </div>
+            <p class="h-statement__text h-family__statement"><span>Care</span> <span>that</span> <span>feels</span> <span>like</span> <span>family.</span> <span>Run</span> <span>like</span> <span>a</span> <span>practice.</span></p>
             <div class="fam-bento">
                 <figure class="fam-tile fam-tile--photo"><img src="images/home-hero.jpg" alt="A caregiver smiling with an older woman at home" loading="lazy"></figure>
                 <article class="fam-tile fam-tile--ink">
-                    <p class="fam-k">The same faces</p>
                     <h3>One caregiver, matched to you.</h3>
-                    <p>We keep the same person with you whenever we can, so nobody has to start over.</p>
-                    <div class="fam-match" aria-hidden="true">
-                        <span class="fam-av">TM</span>
-                        <span class="fam-match__who"><strong>Your caregiver</strong><small>Same person, every visit</small></span>
-                        <span class="fam-pill"><i class="ph ph-handshake"></i>Matched</span>
-                    </div>
+                    <p>The same person, visit after visit, so nobody has to start over with a stranger.</p>
                 </article>
                 <article class="fam-tile fam-tile--paper">
-                    <p class="fam-k">Your routine, not ours</p>
-                    <h3>We learn how the home runs.</h3>
-                    <ul class="fam-prefs" aria-label="Sample preferences from a care plan">
-                        <li>Coffee before the shower</li>
-                        <li>Radio on in the kitchen</li>
-                        <li>Walk after lunch</li>
-                    </ul>
-                    <p class="fam-src">From a sample care plan</p>
+                    <h3>Your routine, not ours.</h3>
+                    <blockquote class="fam-quote">&ldquo;Coffee before the shower. Radio on in the kitchen. A walk after lunch.&rdquo;</blockquote>
+                    <p class="fam-src">How a care plan reads, in the family&rsquo;s words.</p>
                 </article>
                 <article class="fam-tile fam-tile--teal">
-                    <p class="fam-k">Here when you call</p>
                     <p class="fam-big">24/7</p>
-                    <p>A real person answers, day or night.</p>
-                    <a href="tel:7087264536" class="fam-call"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                    <h3>Someone always answers.</h3>
                 </article>
             </div>
         </div>
@@ -235,7 +210,7 @@
                     <button class="h-tab" role="tab" id="tab-respite" aria-controls="panel-respite" aria-selected="false" tabindex="-1"><i class="ph ph-armchair" aria-hidden="true"></i>Respite for family</button>
                 </div>
                 <div class="h-panel" role="tabpanel" id="panel-personal" aria-labelledby="tab-personal">
-                    <div class="h-panel__img"><img src="images/home-hero.jpg" alt="A caregiver smiling with an older woman at home" loading="lazy"></div>
+                    <div class="h-panel__img"><img src="images/garden-smiles.jpg" alt="An older woman laughing while gardening with a younger woman" loading="lazy"></div>
                     <div class="h-panel__body">
                         <h3>Personal care</h3>
                         <p>Help with the most personal parts of the day.</p>
@@ -244,7 +219,7 @@
                     </div>
                 </div>
                 <div class="h-panel" role="tabpanel" id="panel-memory" aria-labelledby="tab-memory" hidden>
-                    <div class="h-panel__img"><img src="images/garden-smiles.jpg" alt="An older woman laughing while gardening with a younger woman" loading="lazy"></div>
+                    <div class="h-panel__img"><img src="images/family-program.jpg" alt="An older man and a woman laughing together outside a house" loading="lazy"></div>
                     <div class="h-panel__body">
                         <h3>Memory care</h3>
                         <p>Consistent support for people living with dementia.</p>
@@ -299,7 +274,6 @@
     <section class="h-platform" id="platform">
         <div class="container">
             <div class="h-platform__head">
-                <p class="h-kicker">The system behind the care</p>
                 <h2>Care you can see.</h2>
                 <p>Every visit logged. A written plan. A weekly update for the family.</p>
             </div>
@@ -356,20 +330,16 @@
 </div>
 </div>
             </div>
-            <div class="eg-card">
-                <div><strong>See a plan like this for your situation</strong><p>Tell us the zip. We call with a sample plan and price.</p></div>
-                <button type="button" class="vt-btn" data-engage="platform" data-kicker="Your plan" data-title="Get a care plan for your situation" data-sub="Leave a number and zip. We call once, usually the same day." data-button="Call me with a plan" data-msg="sample care plan">Get my plan</button>
-            </div>
         </div>
     </section>
 
-    <section class="h-steps">
+    <section class="h-steps" id="how">
         <div class="container">
             <div class="h-head">
                 <h2>How to start</h2>
             </div>
             <ol class="h-steps__row">
-                <li><span class="h-steps__n">1</span><h3>Call us</h3><p>Or send a request. A real person calls back.</p></li>
+                <li><span class="h-steps__n">1</span><h3>Start online</h3><p>Two minutes. Name, email and zip code.</p></li>
                 <li><span class="h-steps__n">2</span><h3>Free home visit</h3><p>We meet you and see what would help.</p></li>
                 <li><span class="h-steps__n">3</span><h3>Written plan</h3><p>Tasks, schedule and cost, agreed first.</p></li>
                 <li><span class="h-steps__n">4</span><h3>Care starts</h3><p>A matched caregiver, adjusted as needs change.</p></li>
@@ -380,14 +350,12 @@
     <section class="h-close">
         <div class="container h-close__inner">
             <div>
-                <p class="h-kicker">Free, no obligation</p>
                 <h2>Start with a free home visit.</h2>
                 <p class="h-close__sub">We come to you, see what would help, and put it in writing.</p>
             </div>
             <div class="h-close__card">
                 <a href="consult.html?when=now&amp;from=home-final" class="vt-btn h-btn-light">Get care started</a>
-                <a href="tel:7087264536" class="vt-btn h-btn-glass"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
-                <p>Serving the Chicagoland area. <a href="service-areas.html">See all areas</a></p>
+                <p>Free, no obligation. Serving the Chicagoland area. <a href="service-areas.html">See all areas</a></p>
             </div>
         </div>
     </section>
@@ -451,11 +419,11 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012p"></script>
-    <script src="js/nav.js?v=20261012p" defer></script>
-    <script src="js/motion.js?v=20261012p" defer></script>
+    <script src="js/main.js?v=20261012q"></script>
+    <script src="js/nav.js?v=20261012q" defer></script>
+    <script src="js/motion.js?v=20261012q" defer></script>
     <script src="js/zips.js?v=20261012d" defer></script>
-    <script src="js/home.js?v=20261012p" defer></script>
-    <script src="js/engage.js?v=20261012p" defer></script>
+    <script src="js/home.js?v=20261012q" defer></script>
+    <script src="js/engage.js?v=20261012q" defer></script>
 </body>
 </html>

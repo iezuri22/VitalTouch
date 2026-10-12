@@ -1944,3 +1944,16 @@ li { line-height: 1.45; }
 .fam-head__aside { margin: 0; font-size: 1.15rem; line-height: 1.5; color: var(--body-ink, #3d4b5a); padding-bottom: 8px; border-left: 2px solid var(--accent); padding-left: 20px; }
 @media (max-width: 860px) { .fam-head { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .fam-match { grid-template-columns: auto minmax(0, 1fr); } .fam-pill { grid-column: 1 / -1; justify-self: start; } }
+
+/* Family bento, per the design skill: no eyebrows, no fake UI chips, no
+   decorative dots. Type carries each tile; the photo and two colour fields
+   give the variation. */
+.fam-tile { justify-content: flex-end; }
+.fam-tile--ink, .fam-tile--teal { min-height: 250px; }
+.fam-tile h3 { font-size: clamp(1.6rem, 2.6vw, 2.25rem) !important; line-height: 1.08 !important; }
+.fam-tile--ink p { color: #b8c7d6; max-width: 34ch; }
+.fam-quote { margin: 4px 0 0; font: italic 500 clamp(1.15rem, 1.6vw, 1.35rem)/1.4 var(--font-body); color: var(--ink); }
+.fam-tile--paper { justify-content: space-between; gap: 18px; }
+.fam-big { font-size: clamp(4rem, 7vw, 6.2rem) !important; line-height: .9 !important; margin: 0 0 10px !important; }
+.fam-tile--teal h3 { color: #fff; }
+.h-close__card p { margin-top: 2px; }
