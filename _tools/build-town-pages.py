@@ -5,7 +5,7 @@ stays identical to the rest of the site. Town facts are kept to what is easy
 to verify (zip codes, county, the hospitals families actually come home from).
 Re-run after editing TOWNS; it overwrites the generated pages only.
 Usage: python3 _tools/build-town-pages.py .   (from the repo root)
-This folder starts with an underscore so GitHub Pages does not publish it.
+Note: the repo has .nojekyll, so this file IS publicly served. Keep secrets out.
 """
 import json, re, sys, html as H
 SITE = sys.argv[1]
