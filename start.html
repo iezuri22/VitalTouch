@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012u">
-    <link rel="stylesheet" href="css/vt.css?v=20261012u">
+    <link rel="stylesheet" href="css/style.css?v=20261012v">
+    <link rel="stylesheet" href="css/vt.css?v=20261012v">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <!-- Business structured data (helps Google's knowledge panel + sitelinks) -->
 </head>
@@ -100,7 +100,7 @@
         <div class="container st__grid">
             <div class="st__form-col">
                 <h1>Get care started</h1>
-                <p class="st__sub">Three quick answers and you&rsquo;re in your care portal. Free, no obligation.</p>
+                <p class="st__sub">A few quick answers and you&rsquo;re in your care portal. Free, no obligation.</p>
                 <form id="startForm" class="st__form" novalidate>
                     <input type="text" name="company" tabindex="-1" autocomplete="off" class="eg-hp" aria-hidden="true">
                     <fieldset class="st__who">
@@ -114,17 +114,20 @@
                     <label class="st__field">Your name
                         <input name="name" type="text" autocomplete="name" required maxlength="120">
                     </label>
-                    <div class="st__row">
+                    <div class="st__row st__row--even">
+                        <label class="st__field">Phone
+                            <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+                        </label>
                         <label class="st__field">Email
                             <input name="email" type="email" autocomplete="email" inputmode="email" required>
                         </label>
-                        <label class="st__field">Zip code
-                            <input name="zip" type="text" autocomplete="postal-code" inputmode="numeric" maxlength="5" required>
-                        </label>
                     </div>
+                    <label class="st__field st__zip">Zip code
+                        <input name="zip" type="text" autocomplete="postal-code" inputmode="numeric" maxlength="5" required>
+                    </label>
                     <button type="submit" class="vt-btn vt-btn--solid st__go">Continue</button>
                     <p class="st__err" id="startErr" role="alert"></p>
-                    <p class="st__fine">We use your email to open your portal and send you a way back in. We never sell or share it.</p>
+                    <p class="st__fine">We use your phone and email to set up your free home visit and send you a way back into your portal. We never sell or share them.</p>
                 </form>
                 <div class="st__done" id="startDone" hidden tabindex="-1">
                     <h2>Check your email</h2>
@@ -150,7 +153,9 @@
       f.addEventListener('submit', function (e) {
         e.preventDefault();
         var name = f.name.value.trim(), email = f.email.value.trim(), zip = f.zip.value.replace(/\D/g, '').slice(0, 5);
+        var phone = f.phone.value.trim();
         if (!name) { err.textContent = 'Please enter your name.'; f.name.focus(); return; }
+        if (phone.replace(/\D/g, '').length < 10) { err.textContent = 'Please enter a 10-digit phone number.'; f.phone.focus(); return; }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Please enter a valid email.'; f.email.focus(); return; }
         if (zip.length !== 5) { err.textContent = 'Please enter a 5-digit zip code.'; f.zip.focus(); return; }
         err.textContent = '';
@@ -158,7 +163,7 @@
         var utm = { page: 'start', from: qs.get('from') || 'direct' };
         if (qs.get('plan')) utm.plan = qs.get('plan');
         fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-          name: name, email: email, zip: zip, forWhom: f.forWhom.value,
+          name: name, email: email, phone: phone, zip: zip, forWhom: f.forWhom.value,
           careFor: f.forWhom.value === 'family' ? (f.careFor.value.trim() || undefined) : undefined,
           utm: utm, company: f.company.value
         }) })
@@ -235,9 +240,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012u"></script>
-    <script src="js/nav.js?v=20261012u" defer></script>
-    <script src="js/motion.js?v=20261012u" defer></script>
-    <script src="js/engage.js?v=20261012u" defer></script>
+    <script src="js/main.js?v=20261012v"></script>
+    <script src="js/nav.js?v=20261012v" defer></script>
+    <script src="js/motion.js?v=20261012v" defer></script>
+    <script src="js/engage.js?v=20261012v" defer></script>
 </body>
 </html>

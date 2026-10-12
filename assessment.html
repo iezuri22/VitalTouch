@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012u">
-    <link rel="stylesheet" href="css/vt.css?v=20261012u">
+    <link rel="stylesheet" href="css/style.css?v=20261012v">
+    <link rel="stylesheet" href="css/vt.css?v=20261012v">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         /* ===== Care Readiness Assessment (cra-) — flat VA-style, no gradients ===== */
@@ -359,8 +359,8 @@
                 <form id="gateForm">
                     <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
                     <input type="text" name="name" placeholder="Your name*" required autocomplete="name">
-                    <input type="tel" name="phone" placeholder="Phone number (optional)" autocomplete="tel">
-                    <input type="email" name="email" placeholder="Email (for your report copy)" autocomplete="email">
+                    <input type="tel" name="phone" placeholder="Phone number*" required autocomplete="tel">
+                    <input type="email" name="email" placeholder="Email*" required autocomplete="email">
                     <input type="text" name="zip" placeholder="Zip code where care may be needed" inputmode="numeric" maxlength="5">
                     <label class="va-consent">
                         <input type="checkbox" name="consent">
@@ -438,10 +438,10 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012u"></script>
-    <script src="js/nav.js?v=20261012u" defer></script>
-    <script src="js/motion.js?v=20261012u" defer></script>
-    <script src="js/engage.js?v=20261012u" defer></script>
+    <script src="js/main.js?v=20261012v"></script>
+    <script src="js/nav.js?v=20261012v" defer></script>
+    <script src="js/motion.js?v=20261012v" defer></script>
+    <script src="js/engage.js?v=20261012v" defer></script>
     <!-- v3 (8 questions). Bumped because this file and assessment.html must
          ship together: the old JS writes to a #progressLabel this page no
          longer has, so a cached copy would throw on the first question. -->

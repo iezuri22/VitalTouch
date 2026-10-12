@@ -66,6 +66,7 @@
               '<label>Phone<input name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="(708) 555-0100"></label>' +
               '<label>Zip code<input name="zip" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" required placeholder="60443"></label>' +
             '</div>' +
+            '<label>Email<input name="email" type="email" autocomplete="email" inputmode="email" required></label>' +
             '<label>Your name <span class="eg-opt">(optional)</span><input name="name" type="text" autocomplete="name"></label>' +
             '<label class="eg-consent"><input type="checkbox" name="consent"><span>Text me too. I agree VitalTouch Health Network, Inc. may call or text me about home care, including automated messages. Message and data rates may apply. Reply STOP to opt out. Not required to get care. <a href="' + root + 'privacy-policy.html">Privacy</a></span></label>' +
             '<button type="submit" class="eg-submit">Call me back</button>' +
@@ -129,13 +130,15 @@
     var digits = phone.replace(/\D/g, '');
     if (digits.length < 10) { err.textContent = 'Enter a 10-digit phone number.'; f.phone.focus(); return; }
     if (zip.length !== 5) { err.textContent = 'Enter a 5-digit zip code.'; f.zip.focus(); return; }
+    var email = (f.email.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Enter a valid email.'; f.email.focus(); return; }
     err.textContent = '';
     var btn = f.querySelector('.eg-submit'); btn.disabled = true; btn.textContent = 'Sending…';
     var consent = !!f.consent.checked;
     var body = {
       leadType: 'client_inquiry',
       name: (f.name.value || '').trim() || 'Website visitor',
-      phone: phone, zip: zip,
+      phone: phone, email: email, zip: zip,
       message: 'Call-back request from the website' + (ctx.msg ? ': ' + ctx.msg : '') + '.',
       consent: consent,
       consentTextVersion: consent ? CONSENT_VERSION : undefined,
@@ -183,14 +186,16 @@
     var phone = (f.phone.value || '').trim();
     var zip = (f.zip.value || '').replace(/\D/g, '').slice(0, 5);
     if (f.plan && f.plan.required && !plan) { say('Enter the name on the card or policy.'); f.plan.focus(); return; }
+    var email = f.email ? (f.email.value || '').trim() : '';
     if (phone.replace(/\D/g, '').length < 10) { say('Enter a 10-digit phone number.'); f.phone.focus(); return; }
+    if (f.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say('Enter a valid email.'); f.email.focus(); return; }
     if (zip.length !== 5) { say('Enter a 5-digit zip code.'); f.zip.focus(); return; }
     say('');
     var btn = f.querySelector('button[type=submit]'); var label = btn.textContent;
     btn.disabled = true; btn.textContent = 'Sending…';
     var what = f.getAttribute('data-engage-form');
     fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-      leadType: 'client_inquiry', name: 'Website visitor', phone: phone, zip: zip,
+      leadType: 'client_inquiry', name: 'Website visitor', phone: phone, email: email || undefined, zip: zip,
       message: 'Coverage check (' + what.replace(/^coverage-/, '').replace(/-/g, ' ') + ')' + (plan ? ': ' + plan : '') + '.',
       consent: false, company_website: f.company_website ? f.company_website.value : '',
       utm: { page: location.pathname.replace(/^\//, '') || 'index', from: what }
