@@ -57,17 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Header scroll effect
-    const header = document.querySelector('.header');
-    if (header) {
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 100) {
-                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-            } else {
-                header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
-            }
-        });
-    }
+    // Header hairline on scroll lives in js/motion.js (IntersectionObserver, no scroll listener).
     
     // Contact Form
 

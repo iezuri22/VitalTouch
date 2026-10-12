@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>In-Home Support for Adults Living With a Disability | VitalTouch Health Network</title>
-    <meta name="description" content="In-home personal care, homemaking, and community support for adults living with a disability — at any age, in the Chicago area and south suburbs. You set the schedule and direct the care. Illinois Home Services Program and other funding routes explained.">
+    <meta name="description" content="In-home personal care, homemaking, and community support for adults living with a disability, at any age, in the Chicago area and south suburbs. You set the schedule and direct the care. Illinois Home Services Program and other funding routes explained.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260810c">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Figtree:ital,wght@0,400..700;1,400..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20261012">
+    <link rel="stylesheet" href="css/vt.css?v=20261012">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .ds-wrap { max-width: 900px; margin: 0 auto; padding: 44px 20px 80px; }
         .ds-head h1 { font-size: clamp(2rem, 5vw, 2.9rem); margin-bottom: 16px; }
@@ -102,23 +104,24 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <nav class="nav">
+            <nav class="nav" aria-label="Main">
                 <a href="index.html" class="logo">
-                    <img src="images/logo-main.png" alt="VitalTouch Health Network">
+                    <img src="images/logo-main.png" alt="VitalTouch Health Network" width="180" height="46">
                 </a>
                 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
-            <div class="nav-menu nav-menu-slim">
-    <a href="services.html">Services</a>
-    <a href="disability-support.html">Disability Support</a>
-    <a href="paying-for-care.html">Ways to Pay</a>
-    <a href="assessment.html">Free Assessment</a>
-    <a href="contact.html">Contact</a>
-    <a href="apply.html">Careers</a>
-</div>
+                <div class="nav-menu nav-menu-slim">
+                    <a href="services.html">Services</a>
+                    <a href="disability-support.html" class="active" aria-current="page">Disability Support</a>
+                    <a href="paying-for-care.html">Ways to Pay</a>
+                    <a href="assessment.html">Free Assessment</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="apply.html">Careers</a>
+                </div>
                 <div class="nav-cta">
-                    <a href="tel:7087264536" class="nav-phone nav-phone-big">(708) 726-4536</a>
+                    <a href="tel:7087264536" class="nav-phone nav-phone-big"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                    <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid nav-get-care">Get care started</a>
                 </div>
             </nav>
         </div>
@@ -126,14 +129,15 @@
 
     <!-- Mobile Navigation -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="mobile-nav" id="mobileNav">
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
         <a href="services.html">Services</a>
         <a href="disability-support.html">Disability Support</a>
         <a href="paying-for-care.html">Ways to Pay</a>
         <a href="assessment.html">Free Assessment</a>
         <a href="contact.html">Contact</a>
         <a href="apply.html">Careers</a>
-        <a href="tel:7087264536" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 726-4536</a>
+        <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid" style="width:100%;margin-top:20px;">Get care started</a>
+        <a href="tel:7087264536" class="vt-btn vt-btn--ghost" style="width:100%;margin-top:10px;">Call (708) 726-4536</a>
     </nav>
 
     <main class="ds-wrap" id="main">
@@ -141,7 +145,7 @@
             <h1>Support built around the life you're actually living</h1>
             <p>
                 Home care is usually written as though everyone who needs it is 85. Plenty of the
-                people we support are 35, or 52, or 61 — living with a disability, running a
+                people we support are 35, or 52, or 61. They're living with a disability, running a
                 household, holding down a job, raising children, and needing a hand with some
                 specific parts of the day rather than with life in general.
             </p>
@@ -158,7 +162,7 @@
                 <li><strong>Help with the specific parts, not with everything.</strong> Needing help transferring out of the shower says nothing about whether you need help with your finances, your calendar, or your decisions.</li>
                 <li><strong>The same caregiver, consistently.</strong> Explaining your routine from scratch to a new face every week is exhausting and it's also unsafe. We schedule for continuity.</li>
                 <li><strong>Say so when a match isn't working.</strong> You'll never have to justify it. We'll change it.</li>
-                <li><strong>Caregivers trained in disability awareness.</strong> Not as a box to tick — because how someone speaks to you and moves around your home is most of what makes care bearable or unbearable.</li>
+                <li><strong>Caregivers trained in disability awareness.</strong> Not as a box to tick, but because how someone speaks to you and moves around your home is most of what makes care bearable or unbearable.</li>
             </ul>
         </section>
 
@@ -171,7 +175,7 @@
             <div class="ds-grid">
                 <div class="ds-card">
                     <h3>Personal care and transfers</h3>
-                    <p>Bathing, dressing, grooming, and hands-on help getting in and out of bed, a chair, or the shower — done by someone trained to do it safely, so neither of you gets hurt.</p>
+                    <p>Bathing, dressing, grooming, and hands-on help getting in and out of bed, a chair, or the shower, done by someone trained to do it safely, so neither of you gets hurt.</p>
                 </div>
                 <div class="ds-card">
                     <h3>Keeping the household running</h3>
@@ -179,7 +183,7 @@
                 </div>
                 <div class="ds-card">
                     <h3>Getting where you're going</h3>
-                    <p>Rides and accompaniment — to work, to school, to dialysis, to appointments, to the places that have nothing to do with health at all.</p>
+                    <p>Rides and accompaniment to work, to school, to dialysis, to appointments, to the places that have nothing to do with health at all.</p>
                 </div>
                 <div class="ds-card">
                     <h3>Being there</h3>
@@ -187,7 +191,7 @@
                 </div>
                 <div class="ds-card">
                     <h3>Support around communication</h3>
-                    <p>Caregivers who take the time it takes — with speech, hearing, or vision — and who talk to you rather than about you to whoever else is in the room.</p>
+                    <p>Caregivers who take the time it takes with speech, hearing, or vision, and who talk to you rather than about you to whoever else is in the room.</p>
                 </div>
                 <div class="ds-card">
                     <h3>A break for family</h3>
@@ -203,13 +207,13 @@
                 history to ask a question. In practice, people come to us living with multiple
                 sclerosis, cerebral palsy, spinal cord and traumatic brain injuries, the effects of
                 a stroke, Parkinson's, ALS, developmental disabilities, chronic illness, and the
-                long tail of a major surgery. What matters is which parts of the day are hard —
+                long tail of a major surgery. What matters is which parts of the day are hard,
                 not what they're called.
             </p>
             <div class="ds-quiet">
                 <h3>Where we stop, plainly</h3>
                 <p>
-                    We provide everyday, non-medical support. We don't do skilled nursing —
+                    We provide everyday, non-medical support. We don't do skilled nursing:
                     wound care, injections, catheter changes, ventilator management. If some of
                     what you need is nursing, we'll tell you that on the first call rather than
                     the third week, and point you toward who does it.
@@ -231,7 +235,7 @@
                 that's the one you were probably never told about.
             </p>
             <p>
-                There are other routes too — Medicaid, extra benefits sitting unused inside a
+                There are other routes too: Medicaid, extra benefits sitting unused inside a
                 Medicare Advantage plan, VA benefits for anyone who served, and long-term care
                 policies nobody ever filed on.
             </p>
@@ -245,7 +249,7 @@
             <h2>Start wherever is easiest</h2>
             <p>
                 Take the free assessment and get a written picture of where things stand plus the
-                funding routes worth checking — or just call and talk to a person. Either way there's
+                funding routes worth checking. Or just call and talk to a person. Either way there's
                 no cost, and no obligation to become a client.
             </p>
             <div class="ds-cta-row">
@@ -259,56 +263,62 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <img src="images/logo-white.png" alt="VitalTouch Health Network">
+            <div class="vt-footer-grid">
+                <div class="vt-footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Health Network" width="180" height="46">
                     <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
+                    <a class="vt-footer-phone" href="tel:7087264536"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
+                <div class="vt-footer-col">
+                    <h4>Care</h4>
                     <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="services.html">Our Services</a></li>
-                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="disability-support.html">Disability support</a></li>
+                        <li><a href="paying-for-care.html">Ways to pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="service-areas.html">Service Areas</a></li>
-                        <li><a href="consult.html">Free Consultation</a></li>
+                        <li><a href="assessment.html">Free assessment</a></li>
+                        <li><a href="consult.html?when=now&amp;from=nav">Get care started</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Areas</h4>
+                    <ul>
+                        <li><a href="home-care-chicago.html">Home care in Chicago</a></li>
+                        <li><a href="home-care-matteson.html">Matteson</a></li>
+                        <li><a href="home-care-orland-park.html">Orland Park</a></li>
+                        <li><a href="home-care-tinley-park.html">Tinley Park</a></li>
+                        <li><a href="home-care-oak-lawn.html">Oak Lawn</a></li>
+                        <li><a href="service-areas.html">All service areas</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About us</a></li>
+                        <li><a href="apply.html">Careers</a></li>
+                        <li><a href="refer/">Refer a client</a></li>
                         <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="incident/">Report a Concern</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="incident/">Report a concern</a></li>
                     </ul>
                 </div>
-                <div class="footer-links">
-                    <h4>Services</h4>
+                <div class="vt-footer-col">
+                    <h4>Office</h4>
                     <ul>
-                        <li><a href="services.html">Companionship</a></li>
-                        <li><a href="services.html">Homemaking</a></li>
-                        <li><a href="services.html">Transportation</a></li>
-                        <li><a href="services.html">Personal Care</a></li>
-                        <li><a href="disability-support.html">Disability Support</a></li>
-                        <li><a href="services.html">Dementia Care</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="tel:7087264536">(708) 726-4536</a></li>
+                        <li>4749 Lincoln Mall Drive, Suite 204<br>Matteson, IL 60443</li>
+                        <li>Mon to Fri, 9am to 5pm</li>
                         <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
-                        <li>4749 Lincoln Mall Drive, Suite 204</li>
-                        <li>Matteson, IL 60443</li>
-                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="privacy-policy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
-                </div>
+            <div class="vt-footer-bottom">
+                <p>&copy; 2026 VitalTouch Health Network, Inc.</p>
+                <p><a href="privacy-policy.html">Privacy</a><a href="terms.html">Terms</a><a href="sms-consent.html">Text messages</a></p>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260808a"></script>
+    <script src="js/main.js?v=20261012"></script>
+    <script src="js/motion.js?v=20261012" defer></script>
 </body>
 </html>

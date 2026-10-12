@@ -8,8 +8,10 @@
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260810c">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Figtree:ital,wght@0,400..700;1,400..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20261012">
+    <link rel="stylesheet" href="css/vt.css?v=20261012">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         @media (max-width: 768px) {
             .founder-grid { grid-template-columns: 1fr !important; text-align: center; }
@@ -61,23 +63,24 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <nav class="nav">
+            <nav class="nav" aria-label="Main">
                 <a href="index.html" class="logo">
-                    <img src="images/logo-main.png" alt="VitalTouch Health Network">
+                    <img src="images/logo-main.png" alt="VitalTouch Health Network" width="180" height="46">
                 </a>
                 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
-            <div class="nav-menu nav-menu-slim">
-    <a href="services.html">Services</a>
-    <a href="disability-support.html">Disability Support</a>
-    <a href="paying-for-care.html">Ways to Pay</a>
-    <a href="assessment.html">Free Assessment</a>
-    <a href="contact.html">Contact</a>
-    <a href="apply.html">Careers</a>
-</div>
+                <div class="nav-menu nav-menu-slim">
+                    <a href="services.html">Services</a>
+                    <a href="disability-support.html">Disability Support</a>
+                    <a href="paying-for-care.html">Ways to Pay</a>
+                    <a href="assessment.html">Free Assessment</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="apply.html">Careers</a>
+                </div>
                 <div class="nav-cta">
-                    <a href="tel:7087264536" class="nav-phone nav-phone-big">(708) 726-4536</a>
+                    <a href="tel:7087264536" class="nav-phone nav-phone-big"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                    <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid nav-get-care">Get care started</a>
                 </div>
             </nav>
         </div>
@@ -85,227 +88,287 @@
 
     <!-- Mobile Navigation -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="mobile-nav" id="mobileNav">
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
         <a href="services.html">Services</a>
         <a href="disability-support.html">Disability Support</a>
         <a href="paying-for-care.html">Ways to Pay</a>
         <a href="assessment.html">Free Assessment</a>
         <a href="contact.html">Contact</a>
         <a href="apply.html">Careers</a>
-        <a href="tel:7087264536" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 726-4536</a>
+        <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid" style="width:100%;margin-top:20px;">Get care started</a>
+        <a href="tel:7087264536" class="vt-btn vt-btn--ghost" style="width:100%;margin-top:10px;">Call (708) 726-4536</a>
     </nav>
 
     <!-- Hero Section -->
     <!-- Hero: headline left, lead form right (VA-style landing layout) -->
-    <section id="main" tabindex="-1" class="va-hero">
-        <div class="container">
-            <div class="va-hero-grid">
-                <div class="va-hero-text">
-                    <h1>Compassionate<br>In&#8209;Home Care</h1>
-                    <p class="va-hero-sub">
-                        Dependable help at home for older adults, and for adults living with a
-                        disability at any age — whether you&rsquo;re arranging care for someone
-                        else or for yourself. Across the Chicago area and south suburbs,
-                        family-owned and licensed by the State of Illinois.
-                    </p>
-                    <!-- Job seekers are most of our traffic (Indeed sends them here).
-                         One quiet line points them to Careers so they don't land
-                         in the care-request form, which is for families. -->
-                    <p class="va-hero-jobs" style="margin-top:14px;font-size:0.98rem;">Looking for a caregiving job? <a href="apply.html" style="color:inherit;font-weight:700;text-decoration:underline;">See open roles &rarr;</a></p>
+    <!-- Hero: rotating real photos with a slow push-in, copy left, the
+         contact form right. #heroLeadForm and its field names are wired to
+         js/main.js and the ops leads API; keep them. -->
+    <section id="main" tabindex="-1" class="vt-hero">
+        <div class="vt-hero__media" data-slideshow>
+            <img class="is-on" src="images/home-hero.jpg" alt="" fetchpriority="high">
+            <img src="images/community-joy.jpg" alt="" loading="lazy">
+            <img src="images/family-program.jpg" alt="" loading="lazy">
+            <img src="images/family-connected.jpg" alt="" loading="lazy">
+        </div>
+        <div class="container vt-hero__inner">
+            <div>
+                <h1 class="vt-rise">In-home care you can <em>count on</em>.</h1>
+                <p class="vt-hero__sub vt-rise" style="--d:120ms">Daily help for older adults and adults living with a disability. Local, licensed, and the owner answers the phone.</p>
+                <div class="vt-hero__ctas vt-rise" style="--d:220ms">
+                    <a href="consult.html?when=now&amp;from=home-hero" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                    <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
-                <div class="va-hero-right">
-                <div class="va-lead-card">
-                    <h2>Contact Us About Our Home Care</h2>
-                    <p class="va-lead-sub">Submit your info and we&rsquo;ll reach out — usually the same day.</p>
-                    <form id="heroLeadForm">
-                        <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
-                        <input type="text" name="name" placeholder="Name*" required>
-                        <input type="email" name="email" placeholder="Email">
-                        <input type="tel" name="phone" placeholder="Phone Number (optional)">
-                        <input type="text" name="zip" placeholder="Zip Code where care is needed*" required inputmode="numeric" maxlength="5">
-                        <label class="va-consent">
-                            <input type="checkbox" name="consent">
-                            <span class="consent-text">I agree that VitalTouch Health Network, Inc. may contact me about home care services by phone, text message, and email using the contact information I provide, including through automated technology or an AI assistant. Message frequency may vary. Message and data rates may apply. Consent is not a condition of purchase or of receiving services. Reply STOP to opt out of texts at any time, or say so on a call to stop being contacted. See our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a> for details.</span>
-                        </label>
-                        <button type="submit" class="va-submit">Submit</button>
-                        <p class="va-form-status" id="heroFormStatus"></p>
-                    </form>
+                <div class="vt-hero__dots" role="group" aria-label="Choose photo">
+                    <button type="button" data-slide-dot aria-pressed="true" aria-label="Photo 1"></button>
+                    <button type="button" data-slide-dot aria-pressed="false" aria-label="Photo 2"></button>
+                    <button type="button" data-slide-dot aria-pressed="false" aria-label="Photo 3"></button>
+                    <button type="button" data-slide-dot aria-pressed="false" aria-label="Photo 4"></button>
                 </div>
-                </div>
+            </div>
+            <div class="va-lead-card vt-rise" style="--d:300ms">
+                <h2>Talk to us about care</h2>
+                <p class="va-lead-sub">Leave your details and we&rsquo;ll reach out, usually the same day.</p>
+                <form id="heroLeadForm">
+                    <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
+                    <label class="vt-lead-label" for="heroName">Your name</label>
+                    <input type="text" id="heroName" name="name" autocomplete="name" required>
+                    <label class="vt-lead-label" for="heroEmail">Email</label>
+                    <input type="email" id="heroEmail" name="email" autocomplete="email">
+                    <label class="vt-lead-label" for="heroPhone">Phone (optional)</label>
+                    <input type="tel" id="heroPhone" name="phone" autocomplete="tel">
+                    <label class="vt-lead-label" for="heroZip">Zip code where care is needed</label>
+                    <input type="text" id="heroZip" name="zip" required inputmode="numeric" maxlength="5" autocomplete="postal-code">
+                    <label class="va-consent">
+                        <input type="checkbox" name="consent">
+                        <span class="consent-text">I agree that VitalTouch Health Network, Inc. may contact me about home care services by phone, text message, and email using the contact information I provide, including through automated technology or an AI assistant. Message frequency may vary. Message and data rates may apply. Consent is not a condition of purchase or of receiving services. Reply STOP to opt out of texts at any time, or say so on a call to stop being contacted. See our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a> for details.</span>
+                    </label>
+                    <button type="submit" class="va-submit">Send</button>
+                    <p class="va-form-status" id="heroFormStatus"></p>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Two audiences, said plainly, high on the page — a disabled visitor
+    <!-- Four facts that are true today. -->
+    <section class="vt-proof" aria-label="Why families choose us">
+        <div class="container vt-proof__row">
+            <div class="vt-proof__item"><i class="ph ph-seal-check" aria-hidden="true"></i><div><strong>Licensed in Illinois</strong><span>A licensed home services agency</span></div></div>
+            <div class="vt-proof__item"><i class="ph ph-identification-badge" aria-hidden="true"></i><div><strong>Checked and trained</strong><span>Every caregiver is background-checked and trained</span></div></div>
+            <div class="vt-proof__item"><i class="ph ph-house-line" aria-hidden="true"></i><div><strong>Free home visit</strong><span>No cost and no obligation</span></div></div>
+            <div class="vt-proof__item"><i class="ph ph-phone-call" aria-hidden="true"></i><div><strong>The owner answers</strong><span>Local and family-owned, not a franchise</span></div></div>
+        </div>
+    </section>
+
+    <!-- Two audiences, said plainly, high on the page. A disabled visitor
          should not have to scroll to find out whether we serve them. -->
-    <section class="section section-white">
+    <section class="vt-section">
         <div class="container">
-            <div class="section-header" style="margin-bottom: 30px;">
-                <span class="section-label">Who We Help</span>
-                <h2>Not everyone who needs care <span class="highlight">is 85</span></h2>
-                <p>Home care is usually written as though they are. Plenty of the people we support are 35, or 52 &mdash; often arranging it for themselves. Pick whichever sounds more like you.</p>
+            <div class="vt-head">
+                <span class="vt-eyebrow">Who we help</span>
+                <h2>Not everyone who needs care is 85</h2>
+                <p>Home care is usually written as though they are. Plenty of the people we support are 35, or 52, and often arranging it for themselves.</p>
             </div>
-            <div class="grid-2" style="max-width: 980px; margin: 0 auto; gap: 26px;">
-                <div class="card">
-                    <h3 style="margin-bottom: 10px;">For an aging parent or spouse</h3>
-                    <p style="margin-bottom: 14px;">Help with bathing and dressing, meals and housekeeping, medication reminders, rides, memory care, and company — as much or as little as the week needs.</p>
-                    <a href="services.html" style="font-weight: 700;">See our services &rarr;</a>
-                </div>
-                <div class="card">
-                    <h3 style="margin-bottom: 10px;">For adults living with a disability</h3>
-                    <p style="margin-bottom: 14px;">Support at any age, directed by you — safe transfers, keeping the household running, and rides to work, school, or appointments. Illinois funds this for adults under 60, through a program most people are never told about.</p>
-                    <a href="disability-support.html" style="font-weight: 700;">See how it works &rarr;</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Two paths: urgent → phone; researching → assessment -->
-    <section class="va-paths">
-        <div class="container">
-            <!-- Professionals first: a discharge planner with a Friday discharge
-                 shouldn't have to read past the consumer paths to find us. Kept
-                 as a quiet band rather than a third card — different audience. -->
-            <div class="va-refer">
-                <p>
-                    <strong>Referring a client?</strong>
-                    Discharge planners, social workers, case managers and elder law professionals &mdash;
-                    send us the details and we respond the same business day.
-                </p>
-                <a href="refer/" class="va-refer-btn">Refer a client</a>
-            </div>
-
-            <div class="va-paths-grid">
-                <div class="va-path">
-                    <h3>I need care now</h3>
-                    <p>Four quick questions &mdash; who needs care, what kind of help, and how to reach you &mdash; and we&rsquo;ll call you back fast with a real plan.</p>
-                    <a href="consult.html?when=now&amp;from=home-getstarted" class="va-path-btn va-path-btn-navy">Get care started</a>
-                    <p style="margin: 12px 0 0; font-size: 0.92rem; color: var(--text-muted);">Or call <a href="tel:7087264536" style="font-weight: 700;">(708) 726-4536</a></p>
-                </div>
-                <div class="va-path">
-                    <h3>I&rsquo;m just starting to figure this out</h3>
-                    <p>Answer a few quick questions &mdash; about a parent, a spouse, yourself, or an adult living with a disability &mdash; and get a free personalized report with clear next steps and the ways care could be paid for. Takes about ninety seconds.</p>
-                    <a href="assessment.html" class="va-path-btn va-path-btn-gold">See where things stand</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <style>
-    .va-refer {
-        max-width: 960px; margin: 0 auto 26px; padding: 18px 24px;
-        background: var(--white); border: 1px solid var(--border); border-radius: 4px;
-        display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    }
-    .va-refer p { margin: 0; font-size: 0.98rem; line-height: 1.6; color: var(--text); }
-    .va-refer strong { color: var(--navy); }
-    .va-refer-btn {
-        flex-shrink: 0; display: inline-block; font-weight: 700; font-size: 0.98rem;
-        padding: 12px 24px; border-radius: 4px; text-decoration: none;
-        background: var(--teal); color: #fff; white-space: nowrap;
-    }
-    .va-refer-btn:hover { background: var(--teal-dark); color: #fff; }
-    @media (max-width: 768px) {
-        .va-refer { flex-direction: column; align-items: stretch; text-align: left; }
-        .va-refer-btn { text-align: center; }
-    }
-    </style>
-
-    <!-- Services: plain bullets, no icons -->
-    <section class="va-services">
-        <div class="container">
-            <h2>Personalized Home<br>Care Services</h2>
-            <div class="va-bullets">
-                <ul>
-                    <li>Companionship</li>
-                    <li>Homemaking &amp; light housekeeping</li>
-                    <li>Laundry &amp; linens</li>
-                    <li>Meal planning &amp; preparation</li>
-                    <li>Grocery shopping &amp; errands</li>
-                </ul>
-                <ul>
-                    <li>Medication reminders</li>
-                    <li>Safe transfers &mdash; bed, chair, shower</li>
-                    <li>Rides to work, school &amp; appointments</li>
-                    <li>Alzheimer&rsquo;s &amp; dementia support</li>
-                    <li>Respite for family caregivers</li>
-                    <li>Flexible schedules — a few hours to daily</li>
-                </ul>
-            </div>
-            <a href="services.html" class="va-text-link">See all services &rarr;</a>
-        </div>
-    </section>
-
-    <!-- Three photos, all-caps captions -->
-    <section class="va-trio">
-        <div class="container">
-            <div class="va-trio-grid">
-                <div>
-                    <!-- Photo: Unsplash free license -->
-                    <img src="images/community-joy.jpg" alt="A caregiver dancing with a smiling senior woman">
-                    <h3>LOCALLY OWNED &amp; LICENSED</h3>
-                    <p>We&rsquo;re a local, family-owned agency licensed by the State of Illinois — not a national franchise. The owner answers the phone.</p>
-                </div>
-                <div>
-                    <!-- Photo: Unsplash free license -->
-                    <img src="images/garden-smiles.jpg" alt="A senior woman laughing while gardening with a younger woman">
-                    <h3>FREE IN-HOME CONSULTATION</h3>
-                    <p>We&rsquo;ll visit, listen first, and build the care plan around the real routine of the home — no cost, no obligation.</p>
-                </div>
-                <div>
-                    <!-- Photo: Unsplash free license -->
-                    <img src="images/family-connected.jpg" alt="A grandmother and granddaughter smiling together at the kitchen table">
-                    <h3>CARE THAT FITS YOUR BUDGET</h3>
-                    <p>There are six ways families pay for care, not two. <a href="paying-for-care.html">We&rsquo;ll check what you&rsquo;re covered for</a> — free, and yours either way.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-
-    <!-- Meet the Owner -->
-    <section class="section section-white">
-        <div class="container">
-            <div class="founder-grid" style="display: grid; grid-template-columns: 300px 1fr; gap: 50px; align-items: center; max-width: 950px; margin: 0 auto;">
-                <div style="text-align: center;">
-                    <img src="images/ifeanyi-ezurike.jpg" alt="Ifeanyi Ezurike, founder of VitalTouch Health Network"
-                         style="width: 240px; height: 240px; object-fit: cover; border-radius: 50%; box-shadow: 0 12px 40px rgba(0,0,0,0.15); border: 5px solid var(--white);">
-                    <div style="margin-top: 16px; font-weight: 700; color: var(--navy); font-size: 1.05rem;">Ifeanyi Ezurike</div>
-                    <div style="color: var(--text-muted); font-size: 0.9rem;">Founder &amp; CEO</div>
-                </div>
-                <div>
-                    <span class="section-label">A Note From Our Founder</span>
-                    <h2 style="margin-bottom: 18px;">This isn&rsquo;t a franchise. <span class="highlight">It&rsquo;s personal.</span></h2>
-                    <p style="font-size: 1.08rem; line-height: 1.7; margin-bottom: 14px;">
-                        I started VitalTouch here in the south suburbs because I watched families struggle to find
-                        home care they could actually trust — big-name agencies where you never talk to the same
-                        person twice, and nobody knows your mother&rsquo;s name.
-                    </p>
-                    <p style="font-size: 1.08rem; line-height: 1.7; margin-bottom: 14px;">
-                        We do it differently. We&rsquo;re licensed by the State of Illinois, our
-                        caregivers are trained and background-checked, and when you call, you get a person — often me.
-                        Your family&rsquo;s care is my name on the door.
-                    </p>
-                    <p style="font-size: 1.02rem; color: var(--text-muted);">
-                        Have a question? Call me directly at <a href="tel:7087264536" style="color: var(--teal-dark); font-weight: 600;">(708) 726-4536</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta">
-        <div class="container">
-            <h2>Ready to Get Started?</h2>
-            <p>Schedule a free consultation to talk through what help is needed. We&rsquo;ll build a personalized plan around it.</p>
-            <div class="cta-buttons">
-                <a href="tel:7087264536" class="btn btn-white">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    Call (708) 726-4536
+            <div class="vt-audience">
+                <a class="vt-aud" href="services.html">
+                    <img src="images/garden-smiles.jpg" alt="An older woman laughing while gardening with a younger woman" loading="lazy">
+                    <div class="vt-aud__body">
+                        <h3>For an aging parent or spouse</h3>
+                        <p>Bathing and dressing, meals and housekeeping, medication reminders, rides, memory care and company. As much or as little as the week needs.</p>
+                        <span class="vt-aud__go">See our services <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
+                    </div>
                 </a>
-                <a href="consult.html" class="btn btn-outline-white">Schedule Consultation</a>
+                <a class="vt-aud vt-aud--tint" href="disability-support.html">
+                    <div class="vt-aud__body">
+                        <i class="ph ph-wheelchair" aria-hidden="true" style="font-size:2.4rem;display:block;margin-bottom:auto;"></i>
+                        <h3 style="margin-top:120px;">For adults living with a disability</h3>
+                        <p>Support at any age, directed by you: safe transfers, keeping the household running, and rides to work, school or appointments. Illinois funds this for adults under 60.</p>
+                        <span class="vt-aud__go">See how it works <i class="ph ph-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+            </div>
+            <div class="vt-refer">
+                <p><strong>Referring a client?</strong> Discharge planners, social workers, case managers and elder law professionals can send us the details. We respond the same business day.</p>
+                <a href="refer/" class="vt-btn vt-btn--solid">Refer a client</a>
+            </div>
+            <p class="vt-careers-note" style="margin-top:18px;">Looking for a caregiving job? <a href="apply.html">See open roles</a></p>
+        </div>
+    </section>
+
+    <!-- Services bento: six services, six cells. -->
+    <section class="vt-section vt-section--mist">
+        <div class="container">
+            <div class="vt-head">
+                <h2>Help with the whole day</h2>
+                <p>From a few hours a week to daily visits, built around how the home actually runs.</p>
+            </div>
+            <div class="vt-bento">
+                <article class="vt-tile vt-tile--photo">
+                    <img src="images/family-connected.jpg" alt="A grandmother and granddaughter smiling together at the kitchen table" loading="lazy">
+                    <h3>Personal care</h3>
+                    <p>Bathing, dressing, grooming and safe transfers from bed, chair and shower, with dignity first.</p>
+                </article>
+                <article class="vt-tile vt-tile--teal vt-tile--w3">
+                    <i class="ph ph-brain" aria-hidden="true"></i>
+                    <h3>Memory care</h3>
+                    <p>Patient, consistent support for people living with Alzheimer&rsquo;s or dementia.</p>
+                </article>
+                <article class="vt-tile vt-tile--mist vt-tile--w3">
+                    <i class="ph ph-cooking-pot" aria-hidden="true"></i>
+                    <h3>Meals and housekeeping</h3>
+                    <p>Meal prep, laundry and linens, groceries, and a tidy, safe home.</p>
+                </article>
+                <article class="vt-tile vt-tile--w2">
+                    <i class="ph ph-car-simple" aria-hidden="true"></i>
+                    <h3>Rides and errands</h3>
+                    <p>Appointments, work, school, the pharmacy and the store.</p>
+                </article>
+                <article class="vt-tile vt-tile--w2">
+                    <i class="ph ph-pill" aria-hidden="true"></i>
+                    <h3>Medication reminders</h3>
+                    <p>Reminders on schedule, so doses don&rsquo;t get missed.</p>
+                </article>
+                <article class="vt-tile vt-tile--w2">
+                    <i class="ph ph-hand-heart" aria-hidden="true"></i>
+                    <h3>Respite for family</h3>
+                    <p>Time off for the family member who has been doing it all.</p>
+                </article>
+            </div>
+            <a href="services.html" class="vt-btn vt-btn--ghost vt-bento__more">See all services <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </section>
+
+    <!-- How care starts: the real sequence, so a timeline is honest here. -->
+    <section class="vt-section">
+        <div class="container vt-journey">
+            <div class="vt-journey__head">
+                <h2>How care gets started</h2>
+                <p>Here is what happens after you reach out. You talk to a local person at every step.</p>
+                <a href="consult.html?when=now&amp;from=home-steps" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <ol class="vt-steps">
+                <li class="vt-steps__fill" aria-hidden="true"></li>
+                <li class="vt-step">
+                    <h3>Tell us what&rsquo;s going on</h3>
+                    <p>Call, or leave your details. We listen first and answer your questions about cost and coverage.</p>
+                    <span class="vt-step__when">Usually the same day</span>
+                </li>
+                <li class="vt-step">
+                    <h3>Free visit to the home</h3>
+                    <p>We meet the person who needs care, see how the day actually runs, and talk through what would help.</p>
+                    <span class="vt-step__when">No cost, no obligation</span>
+                </li>
+                <li class="vt-step">
+                    <h3>A written care plan</h3>
+                    <p>Tasks, schedule and how it&rsquo;s paid for, agreed in writing before anything starts.</p>
+                </li>
+                <li class="vt-step">
+                    <h3>Care begins</h3>
+                    <p>A trained, background-checked caregiver matched to your schedule and location. We check in and adjust as things change.</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Cost chart. Real, sourced national medians; never presented as our prices. -->
+    <section class="vt-section vt-section--mist">
+        <div class="container vt-cost">
+            <div class="vt-cost__copy">
+                <span class="vt-eyebrow">What care costs</span>
+                <h2>Part-time help at home costs a fraction of a facility</h2>
+                <p>Most families don&rsquo;t need someone around the clock. A few hours a week is often what keeps a person safely at home.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;">
+                    <a href="assessment.html" class="vt-btn vt-btn--solid">Take the free assessment</a>
+                    <a href="pricing.html" class="vt-btn vt-btn--ghost">How our pricing works</a>
+                </div>
+            </div>
+            <figure class="vt-chart" style="margin:0;">
+                <p class="vt-chart__title">Yearly cost of care in the U.S., 2024</p>
+                <p class="vt-chart__unit">National median, dollars per year</p>
+                <div class="vt-legend" aria-hidden="true"><span>Care at home</span><span>Other settings</span></div>
+                <ul class="vt-bars">
+                    <li class="vt-bar vt-bar--home" style="--v:.1343;--delay:0ms"><span class="vt-bar__label">Home care<small>10 hours a week</small></span><span class="vt-bar__track"><span class="vt-bar__fill"></span><span class="vt-bar__val">$17,160</span></span></li>
+                    <li class="vt-bar" style="--v:.2035;--delay:90ms"><span class="vt-bar__label">Adult day care</span><span class="vt-bar__track"><span class="vt-bar__fill"></span><span class="vt-bar__val">$26,000</span></span></li>
+                    <li class="vt-bar vt-bar--home" style="--v:.2686;--delay:180ms"><span class="vt-bar__label">Home care<small>20 hours a week</small></span><span class="vt-bar__track"><span class="vt-bar__fill"></span><span class="vt-bar__val">$34,320</span></span></li>
+                    <li class="vt-bar" style="--v:.5542;--delay:270ms"><span class="vt-bar__label">Assisted living</span><span class="vt-bar__track"><span class="vt-bar__fill"></span><span class="vt-bar__val">$70,800</span></span></li>
+                    <li class="vt-bar vt-bar--home" style="--v:.591;--delay:360ms"><span class="vt-bar__label">Home care<small>44 hours a week</small></span><span class="vt-bar__track"><span class="vt-bar__fill"></span><span class="vt-bar__val">$75,504</span></span></li>
+                    <li class="vt-bar vt-bar--wide" style="--v:.8714;--delay:450ms"><span class="vt-bar__label">Nursing home<small>Semi-private room</small></span><span class="vt-bar__track"><span class="vt-bar__fill"></span><span class="vt-bar__val">$111,325</span></span></li>
+                    <li class="vt-bar vt-bar--wide" style="--v:1;--delay:540ms"><span class="vt-bar__label">Nursing home<small>Private room</small></span><span class="vt-bar__track"><span class="vt-bar__fill"></span><span class="vt-bar__val">$127,750</span></span></li>
+                </ul>
+                <figcaption class="vt-chart__src">Source: Genworth and CareScout, Cost of Care Survey 2024 (released March 2025), U.S. national medians. Home care hours use the homemaker median of $75,504 for 44 hours a week, about $33 an hour. These are not VitalTouch prices; call for ours.</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Ways to pay: a snap rail, one card per route on paying-for-care.html -->
+    <section class="vt-section">
+        <div class="container">
+            <div class="vt-head">
+                <h2>Six ways people pay for care</h2>
+                <p>Most families assume it&rsquo;s Medicaid or nothing. Tell us what you have and we&rsquo;ll check it for free.</p>
+            </div>
+            <div class="vt-rail">
+                <a class="vt-pay" href="paying-for-care.html#ltc-insurance"><i class="ph ph-file-text" aria-hidden="true"></i><h3>Long-term care insurance</h3><p>A policy paid into for years and never claimed on is real money. Most cover care at home.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="vt-pay" href="paying-for-care.html#va"><i class="ph ph-shield-star" aria-hidden="true"></i><h3>VA benefits</h3><p>For anyone who served, plus Aid and Attendance for veterans and surviving spouses.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="vt-pay" href="paying-for-care.html#medicare-advantage"><i class="ph ph-heartbeat" aria-hidden="true"></i><h3>Medicare Advantage extras</h3><p>Many plans include in-home support hours. Tell us the plan name and we&rsquo;ll check.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="vt-pay" href="paying-for-care.html#home-services"><i class="ph ph-wheelchair" aria-hidden="true"></i><h3>Illinois Home Services Program</h3><p>For adults under 60 living with a disability. Most people are never told it exists.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="vt-pay" href="paying-for-care.html#medicaid"><i class="ph ph-bank" aria-hidden="true"></i><h3>Medicaid</h3><p>Covers help at home for people who qualify on income and need. We&rsquo;ll tell you honestly where you stand.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                <a class="vt-pay" href="paying-for-care.html#own"><i class="ph ph-wallet" aria-hidden="true"></i><h3>Paying on your own</h3><p>You choose the hours, with no minimums. We&rsquo;ll give you a quote after the free visit.</p><span class="vt-pay__go">Learn more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder -->
+    <section class="vt-section vt-section--mist">
+        <div class="container vt-founder">
+            <div class="vt-founder__photo"><img src="images/ifeanyi-ezurike.jpg" alt="Ifeanyi Ezurike, founder of VitalTouch Health Network" loading="lazy"></div>
+            <div>
+                <h2 style="margin-bottom:22px;">This isn&rsquo;t a franchise. It&rsquo;s personal.</h2>
+                <blockquote>&ldquo;When you call, you get a person, often me. Your family&rsquo;s care is my name on the door.&rdquo;</blockquote>
+                <div class="vt-founder__who"><strong>Ifeanyi Ezurike</strong><span>Founder and CEO</span></div>
+                <p class="vt-founder__body">I started VitalTouch here in the south suburbs because I watched families struggle to find home care they could trust: big-name agencies where you never talk to the same person twice, and nobody knows your mother&rsquo;s name.</p>
+                <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>Call me at (708) 726-4536</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Areas: the one marquee on the site. Chips are written by
+         _tools/build-town-pages.py between the AREA_CHIPS markers. -->
+    <section class="vt-section">
+        <div class="container">
+            <div class="vt-head">
+                <span class="vt-eyebrow">Where we work</span>
+                <h2>Across Chicago and the south suburbs</h2>
+                <p>Find your town or neighborhood. Don&rsquo;t see it? Call and ask.</p>
+            </div>
+        </div>
+        <div class="vt-marquee">
+            <div class="vt-marquee__track">
+<!--AREA_CHIPS-->
+                <div style="display:flex;gap:12px;"><a class="vt-chip" href="home-care-matteson.html">Matteson</a><a class="vt-chip" href="home-care-homewood.html">Homewood</a><a class="vt-chip" href="home-care-flossmoor.html">Flossmoor</a><a class="vt-chip" href="home-care-olympia-fields.html">Olympia Fields</a><a class="vt-chip" href="home-care-tinley-park.html">Tinley Park</a><a class="vt-chip" href="home-care-orland-park.html">Orland Park</a><a class="vt-chip" href="home-care-oak-lawn.html">Oak Lawn</a><a class="vt-chip" href="home-care-palos-heights.html">Palos Heights</a><a class="vt-chip" href="home-care-country-club-hills.html">Country Club Hills</a><a class="vt-chip" href="home-care-park-forest.html">Park Forest</a><a class="vt-chip" href="home-care-hazel-crest.html">Hazel Crest</a><a class="vt-chip" href="home-care-richton-park.html">Richton Park</a><a class="vt-chip" href="home-care-chicago-heights.html">Chicago Heights</a><a class="vt-chip" href="home-care-lansing.html">Lansing</a><a class="vt-chip" href="home-care-south-holland.html">South Holland</a><a class="vt-chip" href="home-care-calumet-city.html">Calumet City</a><a class="vt-chip" href="home-care-dolton.html">Dolton</a><a class="vt-chip" href="home-care-harvey.html">Harvey</a><a class="vt-chip" href="home-care-markham.html">Markham</a><a class="vt-chip" href="home-care-glenwood.html">Glenwood</a><a class="vt-chip" href="home-care-lynwood.html">Lynwood</a><a class="vt-chip" href="home-care-sauk-village.html">Sauk Village</a><a class="vt-chip" href="home-care-midlothian.html">Midlothian</a><a class="vt-chip" href="home-care-riverdale.html">Riverdale</a><a class="vt-chip" href="home-care-thornton.html">Thornton</a><a class="vt-chip" href="home-care-evergreen-park.html">Evergreen Park</a><a class="vt-chip" href="home-care-blue-island.html">Blue Island</a><a class="vt-chip" href="home-care-alsip.html">Alsip</a><a class="vt-chip" href="home-care-crestwood.html">Crestwood</a><a class="vt-chip" href="home-care-oak-forest.html">Oak Forest</a><a class="vt-chip" href="home-care-palos-hills.html">Palos Hills</a><a class="vt-chip" href="home-care-worth.html">Worth</a><a class="vt-chip" href="home-care-chicago-ridge.html">Chicago Ridge</a><a class="vt-chip" href="home-care-bridgeview.html">Bridgeview</a><a class="vt-chip" href="home-care-hickory-hills.html">Hickory Hills</a><a class="vt-chip" href="home-care-burbank.html">Burbank</a><a class="vt-chip" href="home-care-justice.html">Justice</a><a class="vt-chip" href="home-care-chicago-beverly.html">Beverly</a><a class="vt-chip" href="home-care-chicago-mount-greenwood.html">Mount Greenwood</a><a class="vt-chip" href="home-care-chicago-morgan-park.html">Morgan Park</a><a class="vt-chip" href="home-care-chicago-washington-heights.html">Washington Heights</a><a class="vt-chip" href="home-care-chicago-chatham.html">Chatham</a><a class="vt-chip" href="home-care-chicago-auburn-gresham.html">Auburn Gresham</a><a class="vt-chip" href="home-care-chicago-roseland.html">Roseland</a><a class="vt-chip" href="home-care-chicago-pullman.html">Pullman</a><a class="vt-chip" href="home-care-chicago-calumet-heights.html">Calumet Heights</a><a class="vt-chip" href="home-care-chicago-hegewisch.html">Hegewisch</a><a class="vt-chip" href="home-care-chicago-ashburn.html">Ashburn</a><a class="vt-chip" href="home-care-chicago-chicago-lawn.html">Chicago Lawn</a><a class="vt-chip" href="home-care-chicago-hyde-park.html">Hyde Park</a><a class="vt-chip" href="home-care-chicago-south-shore.html">South Shore</a><a class="vt-chip" href="home-care-chicago-bronzeville.html">Bronzeville</a><a class="vt-chip" href="home-care-chicago-austin.html">Austin</a><a class="vt-chip" href="home-care-chicago-garfield-park.html">Garfield Park</a><a class="vt-chip" href="home-care-chicago-north-lawndale.html">North Lawndale</a><a class="vt-chip" href="home-care-chicago-humboldt-park.html">Humboldt Park</a><a class="vt-chip" href="home-care-chicago-little-village.html">Little Village</a><a class="vt-chip" href="home-care-chicago-pilsen.html">Pilsen</a><a class="vt-chip" href="home-care-chicago-rogers-park.html">Rogers Park</a><a class="vt-chip" href="home-care-chicago-edgewater.html">Edgewater</a><a class="vt-chip" href="home-care-chicago-uptown.html">Uptown</a><a class="vt-chip" href="home-care-chicago-lakeview.html">Lakeview</a><a class="vt-chip" href="home-care-chicago-lincoln-park.html">Lincoln Park</a><a class="vt-chip" href="home-care-chicago-lincoln-square.html">Lincoln Square</a><a class="vt-chip" href="home-care-chicago-albany-park.html">Albany Park</a><a class="vt-chip" href="home-care-chicago-logan-square.html">Logan Square</a><a class="vt-chip" href="home-care-chicago-portage-park.html">Portage Park</a><a class="vt-chip" href="home-care-chicago-jefferson-park.html">Jefferson Park</a><a class="vt-chip" href="home-care-chicago.html">Chicago (all neighborhoods)</a></div>
+                <div style="display:flex;gap:12px;" aria-hidden="true"><a tabindex="-1" class="vt-chip" href="home-care-matteson.html">Matteson</a><a tabindex="-1" class="vt-chip" href="home-care-homewood.html">Homewood</a><a tabindex="-1" class="vt-chip" href="home-care-flossmoor.html">Flossmoor</a><a tabindex="-1" class="vt-chip" href="home-care-olympia-fields.html">Olympia Fields</a><a tabindex="-1" class="vt-chip" href="home-care-tinley-park.html">Tinley Park</a><a tabindex="-1" class="vt-chip" href="home-care-orland-park.html">Orland Park</a><a tabindex="-1" class="vt-chip" href="home-care-oak-lawn.html">Oak Lawn</a><a tabindex="-1" class="vt-chip" href="home-care-palos-heights.html">Palos Heights</a><a tabindex="-1" class="vt-chip" href="home-care-country-club-hills.html">Country Club Hills</a><a tabindex="-1" class="vt-chip" href="home-care-park-forest.html">Park Forest</a><a tabindex="-1" class="vt-chip" href="home-care-hazel-crest.html">Hazel Crest</a><a tabindex="-1" class="vt-chip" href="home-care-richton-park.html">Richton Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-heights.html">Chicago Heights</a><a tabindex="-1" class="vt-chip" href="home-care-lansing.html">Lansing</a><a tabindex="-1" class="vt-chip" href="home-care-south-holland.html">South Holland</a><a tabindex="-1" class="vt-chip" href="home-care-calumet-city.html">Calumet City</a><a tabindex="-1" class="vt-chip" href="home-care-dolton.html">Dolton</a><a tabindex="-1" class="vt-chip" href="home-care-harvey.html">Harvey</a><a tabindex="-1" class="vt-chip" href="home-care-markham.html">Markham</a><a tabindex="-1" class="vt-chip" href="home-care-glenwood.html">Glenwood</a><a tabindex="-1" class="vt-chip" href="home-care-lynwood.html">Lynwood</a><a tabindex="-1" class="vt-chip" href="home-care-sauk-village.html">Sauk Village</a><a tabindex="-1" class="vt-chip" href="home-care-midlothian.html">Midlothian</a><a tabindex="-1" class="vt-chip" href="home-care-riverdale.html">Riverdale</a><a tabindex="-1" class="vt-chip" href="home-care-thornton.html">Thornton</a><a tabindex="-1" class="vt-chip" href="home-care-evergreen-park.html">Evergreen Park</a><a tabindex="-1" class="vt-chip" href="home-care-blue-island.html">Blue Island</a><a tabindex="-1" class="vt-chip" href="home-care-alsip.html">Alsip</a><a tabindex="-1" class="vt-chip" href="home-care-crestwood.html">Crestwood</a><a tabindex="-1" class="vt-chip" href="home-care-oak-forest.html">Oak Forest</a><a tabindex="-1" class="vt-chip" href="home-care-palos-hills.html">Palos Hills</a><a tabindex="-1" class="vt-chip" href="home-care-worth.html">Worth</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-ridge.html">Chicago Ridge</a><a tabindex="-1" class="vt-chip" href="home-care-bridgeview.html">Bridgeview</a><a tabindex="-1" class="vt-chip" href="home-care-hickory-hills.html">Hickory Hills</a><a tabindex="-1" class="vt-chip" href="home-care-burbank.html">Burbank</a><a tabindex="-1" class="vt-chip" href="home-care-justice.html">Justice</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-beverly.html">Beverly</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-mount-greenwood.html">Mount Greenwood</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-morgan-park.html">Morgan Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-washington-heights.html">Washington Heights</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-chatham.html">Chatham</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-auburn-gresham.html">Auburn Gresham</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-roseland.html">Roseland</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-pullman.html">Pullman</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-calumet-heights.html">Calumet Heights</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-hegewisch.html">Hegewisch</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-ashburn.html">Ashburn</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-chicago-lawn.html">Chicago Lawn</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-hyde-park.html">Hyde Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-south-shore.html">South Shore</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-bronzeville.html">Bronzeville</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-austin.html">Austin</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-garfield-park.html">Garfield Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-north-lawndale.html">North Lawndale</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-humboldt-park.html">Humboldt Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-little-village.html">Little Village</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-pilsen.html">Pilsen</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-rogers-park.html">Rogers Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-edgewater.html">Edgewater</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-uptown.html">Uptown</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-lakeview.html">Lakeview</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-lincoln-park.html">Lincoln Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-lincoln-square.html">Lincoln Square</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-albany-park.html">Albany Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-logan-square.html">Logan Square</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-portage-park.html">Portage Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago-jefferson-park.html">Jefferson Park</a><a tabindex="-1" class="vt-chip" href="home-care-chicago.html">Chicago (all neighborhoods)</a></div>
+<!--/AREA_CHIPS-->
+            </div>
+        </div>
+        <div class="container">
+            <div class="vt-areas__ctas">
+                <a href="home-care-chicago.html" class="vt-btn vt-btn--solid">Home care in Chicago</a>
+                <a href="service-areas.html" class="vt-btn vt-btn--ghost">All service areas</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="vt-final">
+        <div class="container">
+            <div class="vt-final__panel">
+                <div>
+                    <h2>Let&rsquo;s talk about what would help</h2>
+                    <p>A free consultation with a local person. No cost and no obligation.</p>
+                </div>
+                <div class="vt-final__ctas">
+                    <a href="consult.html?when=now&amp;from=home-final" class="vt-btn vt-btn--light">Get care started</a>
+                    <a href="tel:7087264536" class="vt-btn vt-btn--line-light"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                </div>
             </div>
         </div>
     </section>
@@ -313,56 +376,62 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <img src="images/logo-white.png" alt="VitalTouch Health Network">
+            <div class="vt-footer-grid">
+                <div class="vt-footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Health Network" width="180" height="46">
                     <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
+                    <a class="vt-footer-phone" href="tel:7087264536"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
+                <div class="vt-footer-col">
+                    <h4>Care</h4>
                     <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="services.html">Our Services</a></li>
-                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="disability-support.html">Disability support</a></li>
+                        <li><a href="paying-for-care.html">Ways to pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="service-areas.html">Service Areas</a></li>
-                        <li><a href="consult.html">Free Consultation</a></li>
+                        <li><a href="assessment.html">Free assessment</a></li>
+                        <li><a href="consult.html?when=now&amp;from=nav">Get care started</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Areas</h4>
+                    <ul>
+                        <li><a href="home-care-chicago.html">Home care in Chicago</a></li>
+                        <li><a href="home-care-matteson.html">Matteson</a></li>
+                        <li><a href="home-care-orland-park.html">Orland Park</a></li>
+                        <li><a href="home-care-tinley-park.html">Tinley Park</a></li>
+                        <li><a href="home-care-oak-lawn.html">Oak Lawn</a></li>
+                        <li><a href="service-areas.html">All service areas</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About us</a></li>
+                        <li><a href="apply.html">Careers</a></li>
+                        <li><a href="refer/">Refer a client</a></li>
                         <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="incident/">Report a Concern</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="incident/">Report a concern</a></li>
                     </ul>
                 </div>
-                <div class="footer-links">
-                    <h4>Services</h4>
+                <div class="vt-footer-col">
+                    <h4>Office</h4>
                     <ul>
-                        <li><a href="services.html">Companionship</a></li>
-                        <li><a href="services.html">Homemaking</a></li>
-                        <li><a href="services.html">Transportation</a></li>
-                        <li><a href="services.html">Personal Care</a></li>
-                        <li><a href="disability-support.html">Disability Support</a></li>
-                        <li><a href="services.html">Dementia Care</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="tel:7087264536">(708) 726-4536</a></li>
-<li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
-                        <li>4749 Lincoln Mall Drive, Suite 204</li>
-                        <li>Matteson, IL 60443</li>
-                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
+                        <li>4749 Lincoln Mall Drive, Suite 204<br>Matteson, IL 60443</li>
+                        <li>Mon to Fri, 9am to 5pm</li>
+                        <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="privacy-policy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
-                </div>
+            <div class="vt-footer-bottom">
+                <p>&copy; 2026 VitalTouch Health Network, Inc.</p>
+                <p><a href="privacy-policy.html">Privacy</a><a href="terms.html">Terms</a><a href="sms-consent.html">Text messages</a></p>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260808a"></script>
+    <script src="js/main.js?v=20261012"></script>
+    <script src="js/motion.js?v=20261012" defer></script>
 </body>
 </html>

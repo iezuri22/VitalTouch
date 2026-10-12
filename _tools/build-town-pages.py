@@ -197,12 +197,86 @@ HUB = dict(kind='hub', slug='chicago', name='Chicago', zips=[], county='Cook Cou
            hospitals=[UCM, 'Rush University Medical Center', 'Advocate Illinois Masonic Medical Center', HOLYCROSS], near=[],
            local='We serve neighborhoods on the South, Southwest, West and North Sides. Our office is in the south suburbs, so the far South Side is where we can usually start fastest, and everywhere else we try to match caregivers who live nearby.')
 
+# More south and southwest suburbs (2026-10-12). Every one is already listed
+# on service-areas.html. Local lines stick to geography and logistics; we have
+# no client count to brag about, so nothing here implies one.
+def T(slug, name, z, hosp, near, local):
+    return dict(slug=slug, name=name, zips=z, county='Cook County', hospitals=hosp, near=near, local=local)
+MORE_SUBURBS = [
+  T('hazel-crest', 'Hazel Crest', ['60429'], [SSH, INGALLS], ['Homewood', 'Country Club Hills', 'Markham', 'Flossmoor'],
+    'Hazel Crest is a few minutes from our Matteson office, so visits are easy to schedule and easy to cover.'),
+  T('richton-park', 'Richton Park', ['60471'], [OLY, SSH], ['Matteson', 'Park Forest', 'Olympia Fields'],
+    'Richton Park borders Matteson, where our office is, so we can usually start care quickly.'),
+  T('chicago-heights', 'Chicago Heights', ['60411'], [OLY, SSH], ['Olympia Fields', 'Park Forest', 'Glenwood', 'Flossmoor'],
+    'Chicago Heights is a short drive east of our office, and we try to match caregivers who live nearby.'),
+  T('lansing', 'Lansing', ['60438'], [INGALLS, SSH], ['South Holland', 'Calumet City', 'Lynwood', 'Glenwood'],
+    'Lansing sits on the Indiana line, and we serve it from our south suburban office with schedules from a few hours a week up to daily.'),
+  T('south-holland', 'South Holland', ['60473'], [INGALLS, SSH], ['Lansing', 'Dolton', 'Thornton', 'Calumet City'],
+    'South Holland is a short trip up I-94 from our office, so visits are easy to keep on time.'),
+  T('calumet-city', 'Calumet City', ['60409'], [INGALLS, 'Advocate Trinity Hospital'], ['Lansing', 'Dolton', 'South Holland'],
+    'We serve Calumet City with schedules from a few hours a week up to daily, matched with caregivers who live in the area when we can.'),
+  T('dolton', 'Dolton', ['60419'], [INGALLS, 'Roseland Community Hospital'], ['Riverdale', 'South Holland', 'Calumet City'],
+    'Dolton sits right at the city line, between the far South Side and the south suburbs, both areas we serve.'),
+  T('harvey', 'Harvey', ['60426'], [INGALLS, SSH], ['Markham', 'Hazel Crest', 'Riverdale', 'Dolton'],
+    'Harvey is a short drive north of our office, so a free in-home visit is easy to set up.'),
+  T('markham', 'Markham', ['60428'], [SSH, INGALLS], ['Harvey', 'Hazel Crest', 'Country Club Hills', 'Midlothian'],
+    'Markham is a few minutes up I-57 from our office, which keeps visits on time.'),
+  T('glenwood', 'Glenwood', ['60425'], [SSH, OLY], ['Homewood', 'Chicago Heights', 'Lansing', 'Lynwood'],
+    'Glenwood is close to our Matteson office, with care from a few hours a week up to daily.'),
+  T('lynwood', 'Lynwood', ['60411'], [OLY, INGALLS], ['Lansing', 'Glenwood', 'Sauk Village'],
+    'Lynwood is on the far southeast edge of the suburbs, and we try to match caregivers who live nearby so visits stay consistent.'),
+  T('sauk-village', 'Sauk Village', ['60411'], [OLY], ['Lynwood', 'Chicago Heights'],
+    'Sauk Village is a short drive from our office, and the first step is a free in-home visit at no cost.'),
+  T('midlothian', 'Midlothian', ['60445'], [INGALLS, PALOS], ['Oak Forest', 'Crestwood', 'Markham', 'Blue Island'],
+    'Midlothian sits between the south and southwest suburbs, both areas we serve.'),
+  T('riverdale', 'Riverdale', ['60827'], ['Roseland Community Hospital', INGALLS], ['Dolton', 'Blue Island', 'Harvey'],
+    'Riverdale sits right at the city line, just south of Chicago&rsquo;s Roseland and Pullman neighborhoods.'),
+  T('thornton', 'Thornton', ['60476'], [INGALLS, SSH], ['South Holland', 'Glenwood', 'Homewood', 'Lansing'],
+    'Thornton is close to our Matteson office, and we serve it with schedules from a few hours a week up to daily.'),
+  T('evergreen-park', 'Evergreen Park', ['60805'], [LCM, CHRIST], ['Oak Lawn', 'Beverly', 'Mount Greenwood', 'Alsip'],
+    'Evergreen Park sits between Beverly and Oak Lawn, both areas we serve, so finding a nearby caregiver is straightforward.'),
+  T('blue-island', 'Blue Island', ['60406'], ['Roseland Community Hospital', INGALLS], ['Alsip', 'Riverdale', 'Midlothian', 'Crestwood'],
+    'Blue Island borders the city&rsquo;s far South Side, and we serve both sides of that line.'),
+  T('alsip', 'Alsip', ['60803'], [CHRIST, LCM], ['Oak Lawn', 'Blue Island', 'Crestwood', 'Worth'],
+    'Alsip is close to I-294 and Cicero Avenue, which makes visits easy to schedule.'),
+  T('crestwood', 'Crestwood', ['60418'], [PALOS, CHRIST], ['Midlothian', 'Alsip', 'Oak Forest', 'Palos Heights'],
+    'Crestwood is a quick trip from our office, and we try to match caregivers who live in the southwest suburbs.'),
+  T('oak-forest', 'Oak Forest', ['60452'], [PALOS, SSH], ['Tinley Park', 'Midlothian', 'Crestwood', 'Country Club Hills'],
+    'Oak Forest is a short drive up Cicero Avenue from our Matteson office.'),
+  T('palos-hills', 'Palos Hills', ['60465'], [PALOS, CHRIST], ['Palos Heights', 'Hickory Hills', 'Worth', 'Orland Park'],
+    'We serve Palos Hills and the rest of the Palos area with schedules from a few hours a week up to daily.'),
+  T('worth', 'Worth', ['60482'], [PALOS, CHRIST], ['Chicago Ridge', 'Palos Heights', 'Alsip', 'Oak Lawn'],
+    'Worth is a small village between Oak Lawn and the Palos area, and we try to match caregivers who live close by.'),
+  T('chicago-ridge', 'Chicago Ridge', ['60415'], [CHRIST, PALOS], ['Oak Lawn', 'Worth', 'Bridgeview'],
+    'Chicago Ridge borders Oak Lawn, and we serve both with care from a few hours a week up to daily.'),
+  T('bridgeview', 'Bridgeview', ['60455'], [CHRIST, PALOS], ['Hickory Hills', 'Justice', 'Burbank', 'Chicago Ridge'],
+    'Bridgeview sits along Harlem Avenue in the southwest suburbs, and we try to match caregivers who live nearby.'),
+  T('hickory-hills', 'Hickory Hills', ['60457'], [PALOS, CHRIST], ['Palos Hills', 'Bridgeview', 'Justice'],
+    'Hickory Hills is a mostly residential suburb, and a little help at home is often what lets someone stay in a house they know.'),
+  T('burbank', 'Burbank', ['60459'], [CHRIST, 'Holy Cross Hospital'], ['Oak Lawn', 'Bridgeview', 'Chicago Lawn'],
+    'Burbank borders Chicago&rsquo;s Southwest Side, and we serve both sides of the city line.'),
+  T('justice', 'Justice', ['60458'], [PALOS, CHRIST], ['Bridgeview', 'Hickory Hills'],
+    'Justice is a short drive from Oak Lawn and the Palos area, both of which we serve.'),
+]
+TOWNS = TOWNS + MORE_SUBURBS
+
 ALL = TOWNS + CHICAGO + [HUB]
+
+PHOTOS = [
+  ('home-hero.jpg', 'A caregiver smiling with an older woman at home'),
+  ('community-joy.jpg', 'A caregiver dancing with a smiling older woman'),
+  ('garden-smiles.jpg', 'An older woman laughing while gardening with a younger woman'),
+  ('family-connected.jpg', 'A grandmother and granddaughter smiling together at the kitchen table'),
+  ('family-program.jpg', 'An older man and a woman laughing together outside a house'),
+]
+def photo_for(slug):
+    return PHOTOS[sum(map(ord, slug)) % len(PHOTOS)]
 
 def esc(s): return H.escape(s, quote=True)
 
 def page(t):
     kind = t.get('kind', 'town')
+    photo = photo_for(t['slug'])
     n = t['name']; zips = ', '.join(t['zips'])
     place = f'{n}, Chicago' if kind == 'chicago' else n          # "Beverly, Chicago"
     hs = t['hospitals']
@@ -296,19 +370,20 @@ def page(t):
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260810c">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Figtree:ital,wght@0,400..700;1,400..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20261012">
+    <link rel="stylesheet" href="css/vt.css?v=20261012">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
-        .town-wrap {{ max-width: 920px; margin: 0 auto; }}
-        .town-wrap p {{ font-size: 1.08rem; line-height: 1.75; margin-bottom: 16px; }}
-        .town-wrap h2 {{ margin: 34px 0 14px; }}
-        .town-actions {{ display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 26px 0 8px; }}
-        .town-action {{ border: 1px solid var(--border); border-radius: 6px; padding: 22px; background: var(--cream); }}
-        .town-action h3 {{ font-size: 1.15rem; margin-bottom: 6px; }}
-        .town-action p {{ font-size: 0.98rem; margin-bottom: 14px; }}
+        .town-wrap {{ max-width: 900px; margin: 0 auto; }}
+        .town-wrap > p {{ font-size: 1.1rem; line-height: 1.75; margin-bottom: 18px; }}
+        .town-wrap h2 {{ margin: 48px 0 18px; font-size: clamp(1.6rem, 2.6vw, 2.1rem); }}
+        .town-services {{ list-style: none; padding: 0; margin: 0 0 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }}
+        .town-services li {{ display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--mist); border-radius: 14px; font-weight: 550; color: var(--ink); }}
+        .town-services i {{ font-size: 1.35rem; color: var(--accent-deep); flex-shrink: 0; }}
         .town-list {{ columns: 2; gap: 28px; padding-left: 20px; margin-bottom: 10px; }}
         .town-list li {{ margin-bottom: 8px; font-size: 1.02rem; }}
-        @media (max-width: 640px) {{ .town-actions {{ grid-template-columns: 1fr; }} .town-list {{ columns: 1; }} }}
+        @media (max-width: 640px) {{ .town-services {{ grid-template-columns: 1fr; }} .town-list {{ columns: 1; }} }}
     </style>
     <script type="application/ld+json">
 {json.dumps(ld, indent=2)}
@@ -316,53 +391,51 @@ def page(t):
 </head>
 {nav}
 
-    <section id="main" tabindex="-1" class="page-hero">
-        <div class="container">
-            <div class="breadcrumb">
-                <a href="index.html">Home</a>
-                <span>/</span>
-                <a href="service-areas.html">Service Areas</a>
-                <span>/</span>
-                {crumb_mid}<span>{esc(n)}</span>
+    <section id="main" tabindex="-1" class="vt-local-hero">
+        <div class="container vt-local-hero__grid">
+            <div>
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span>/</span>
+                    <a href="service-areas.html">Service Areas</a>
+                    <span>/</span>
+                    {crumb_mid}<span>{esc(n)}</span>
+                </div>
+                <h1>{esc(h1)}</h1>
+                <p class="lead">Dependable help at home for older adults and adults living with a disability in {esc(place)}. Local, family-owned, and licensed by the State of Illinois.</p>
+                <div class="vt-local-hero__ctas">
+                    <a href="consult.html?when=now&amp;from=area-{t['slug']}" class="vt-btn vt-btn--solid">Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                    <a href="tel:7087264536" class="vt-btn vt-btn--ghost"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                </div>
             </div>
-            <h1>{esc(h1)}</h1>
-            <p>Dependable help at home for older adults and adults living with a disability in {esc(place)}. Local, family-owned, and licensed by the State of Illinois.</p>
+            <div class="vt-local-hero__photo"><img src="images/{photo[0]}" alt="{esc(photo[1])}" width="1400" height="1120"></div>
         </div>
     </section>
 
-    <section class="section section-white">
+    <section class="vt-section">
         <div class="container town-wrap">
             <p>If you or someone you love needs a hand at home in {esc(place)}, we can help with the everyday things that have gotten harder: bathing and dressing, meals, housekeeping and laundry, errands, rides to appointments, medication reminders, and simply having someone there. {t['local']}</p>
             <p>Many families call us when someone is coming home from {esc(hosp)}. We can meet you before discharge, set up the first week of visits, and adjust as things settle.</p>
 
-            <div class="town-actions">
-                <div class="town-action">
-                    <h3>Need help now?</h3>
-                    <p>Four quick questions and we&rsquo;ll call you back fast with a real plan.</p>
-                    <a href="care-now.html" class="btn btn-primary">Get care started</a>
-                </div>
-                <div class="town-action">
-                    <h3>Still figuring it out?</h3>
-                    <p>A free 90-second check-in with a personal report and the ways care could be paid for.</p>
-                    <a href="assessment.html" class="btn btn-outline">See where things stand</a>
-                </div>
-            </div>
-            <p style="font-size:1rem;">Or call <a href="tel:7087264536"><strong>(708) 726-4536</strong></a>. You&rsquo;ll get a person, often the owner.</p>
-
             <h2>What we help with in {esc(place)}</h2>
-            <ul class="town-list">
-                <li>Companionship and conversation</li>
-                <li>Bathing, dressing and grooming</li>
-                <li>Meals, groceries and errands</li>
-                <li>Light housekeeping and laundry</li>
-                <li>Rides to appointments, work or school</li>
-                <li>Medication reminders</li>
-                <li>Safe transfers: bed, chair, shower</li>
-                <li>Memory care and dementia support</li>
-                <li>Respite for family caregivers</li>
-                <li>A few hours a week, up to daily visits</li>
+            <ul class="town-services">
+                <li><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship and conversation</li>
+                <li><i class="ph ph-shower" aria-hidden="true"></i>Bathing, dressing and grooming</li>
+                <li><i class="ph ph-cooking-pot" aria-hidden="true"></i>Meals, groceries and errands</li>
+                <li><i class="ph ph-broom" aria-hidden="true"></i>Light housekeeping and laundry</li>
+                <li><i class="ph ph-car-simple" aria-hidden="true"></i>Rides to appointments, work or school</li>
+                <li><i class="ph ph-pill" aria-hidden="true"></i>Medication reminders</li>
+                <li><i class="ph ph-arrows-down-up" aria-hidden="true"></i>Safe transfers: bed, chair, shower</li>
+                <li><i class="ph ph-brain" aria-hidden="true"></i>Memory care and dementia support</li>
+                <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family caregivers</li>
+                <li><i class="ph ph-calendar-check" aria-hidden="true"></i>A few hours a week, up to daily</li>
             </ul>
             <p><a href="services.html">See all services &rarr;</a></p>
+
+            <div class="vt-refer" style="margin:40px 0;">
+                <p><strong>Still figuring it out?</strong> A free 90-second check-in gives you a personal report and the ways care could be paid for.</p>
+                <a href="assessment.html" class="vt-btn vt-btn--solid">Take the free assessment</a>
+            </div>
 
             <h2>Paying for care</h2>
             <p>Most families assume it&rsquo;s Medicaid or nothing. There are six ways people pay for care here, including long-term care insurance, VA benefits, extra benefits in some Medicare Advantage plans, and an Illinois program for adults under 60 living with a disability. Tell us what you have and we&rsquo;ll check it for free. <a href="paying-for-care.html">See all six ways &rarr;</a></p>
@@ -376,13 +449,17 @@ def page(t):
         </div>
     </section>
 
-    <section class="cta">
+    <section class="vt-final">
         <div class="container">
-            <h2>Talk to someone local about care in {esc(place)}</h2>
-            <p>Free in-home consultation. No cost, no obligation.</p>
-            <div class="cta-buttons">
-                <a href="tel:7087264536" class="btn btn-white">Call (708) 726-4536</a>
-                <a href="consult.html" class="btn btn-outline-white">Schedule a free consultation</a>
+            <div class="vt-final__panel">
+                <div>
+                    <h2>Talk to someone local about care in {esc(place)}</h2>
+                    <p>A free in-home consultation. No cost and no obligation.</p>
+                </div>
+                <div class="vt-final__ctas">
+                    <a href="consult.html?when=now&amp;from=area-{t['slug']}-final" class="vt-btn vt-btn--light">Get care started</a>
+                    <a href="tel:7087264536" class="vt-btn vt-btn--line-light"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                </div>
             </div>
         </div>
     </section>
@@ -391,4 +468,31 @@ def page(t):
 
 for t in ALL:
     open(f"{SITE}/home-care-{t['slug']}.html", 'w').write(page(t))
+
+def label(t):
+    return 'Chicago (all neighborhoods)' if t.get('kind') == 'hub' else t['name']
+
+# Homepage marquee chips (track is duplicated, second copy aria-hidden, for a seamless loop)
+chips = ''.join(f'<a class="vt-chip" href="home-care-{t["slug"]}.html">{label(t)}</a>' for t in ALL)
+idx = open(f'{SITE}/index.html').read()
+if '<!--AREA_CHIPS-->' in idx:
+    block = (f'<!--AREA_CHIPS-->\n                <div style="display:flex;gap:12px;">{chips}</div>\n'
+             f'                <div style="display:flex;gap:12px;" aria-hidden="true">{chips.replace("<a ", "<a tabindex=\"-1\" ")}</div>\n<!--/AREA_CHIPS-->')
+    idx = re.sub(r'<!--AREA_CHIPS-->.*?<!--/AREA_CHIPS-->', lambda m: block, idx, flags=re.S)
+    open(f'{SITE}/index.html', 'w').write(idx)
+
+# Service Areas: every listed town or neighborhood that has a page becomes a link
+sa = open(f'{SITE}/service-areas.html').read()
+for t in ALL:
+    if t.get('kind') == 'hub': continue
+    sa = sa.replace(f'<div class="area-item">{t["name"]}</div>',
+                    f'<a class="area-item area-link" href="home-care-{t["slug"]}.html">{t["name"]} &rarr;</a>')
+open(f'{SITE}/service-areas.html', 'w').write(sa)
+
+# Sitemap: rebuild the home-care block from ALL
+sm = open(f'{SITE}/sitemap.xml').read()
+sm = re.sub(r'  <url>\n    <loc>https://vitaltouchcares.com/home-care-[^<]+</loc>\n.*?</url>\n', '', sm, flags=re.S)
+entries = ''.join(f'  <url>\n    <loc>https://vitaltouchcares.com/home-care-{t["slug"]}.html</loc>\n    <lastmod>2026-10-12</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n' for t in ALL)
+sm = sm.replace('</urlset>', entries + '</urlset>')
+open(f'{SITE}/sitemap.xml', 'w').write(sm)
 print(json.dumps([t['slug'] for t in ALL]))

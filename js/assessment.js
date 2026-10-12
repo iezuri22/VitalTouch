@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 'care_context', kind: 'single',
           prompt: 'Which best describes the person who needs care?',
           selfPrompt: 'Which best describes you?',
-          help: 'Pick the closest fit — it helps us point you to the programs that actually apply.',
+          help: 'Pick the closest fit. It helps us point you to the programs that actually apply.',
           options: [
             { value: 'older_adult', label: 'An older adult (60 or older)', selfLabel: 'I’m 60 or older' },
             { value: 'adult_disability', label: 'An adult under 60 living with a disability', selfLabel: 'I’m under 60 and living with a disability' },
@@ -53,16 +53,16 @@ document.addEventListener('DOMContentLoaded', function() {
             { value: 'recovering', label: 'Someone recovering from a hospital stay, surgery, or injury', selfLabel: 'I’m recovering from a hospital stay, surgery, or injury' }
           ] },
         { id: 'timeline', kind: 'single', prompt: 'When do you feel help is needed?',
-          help: 'There’s no wrong answer — this just helps us point you to the right next step.',
+          help: 'There’s no wrong answer. This just helps us point you to the right next step.',
           options: [
-            { value: 'now', label: 'Right away — something has to change' },
-            { value: 'hospital', label: 'Right away — they’re coming home from a hospital, rehab, or nursing stay', selfLabel: 'Right away — I’m coming home from a hospital, rehab, or nursing stay' },
+            { value: 'now', label: 'Right away: something has to change' },
+            { value: 'hospital', label: 'Right away: they’re coming home from a hospital, rehab, or nursing stay', selfLabel: 'Right away: I’m coming home from a hospital, rehab, or nursing stay' },
             { value: 'weeks', label: 'In the next few weeks' },
             { value: 'months', label: 'In the next few months' },
             { value: 'researching', label: 'Just starting to research' }
           ] },
         { id: 'daily_tasks', kind: 'single',
-          prompt: 'How is day-to-day life going — bathing, dressing, meals, and keeping the house running?',
+          prompt: 'How is day-to-day life going with bathing, dressing, meals, and keeping the house running?',
           options: [
             { value: 'independent', label: 'All of it gets done without help' },
             { value: 'slipping', label: 'Mostly fine, but some of it is slipping' },
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { value: 'transfers', label: 'Needs hands-on help getting in and out of bed, a chair, or the shower', selfLabel: 'I need hands-on help getting in and out of bed, a chair, or the shower' }
           ] },
         { id: 'safety_mobility', kind: 'single',
-          prompt: 'How are things going with getting around — steadiness and falls?',
+          prompt: 'How are things going with getting around (steadiness and falls)?',
           options: [
             { value: 'steady', label: 'Steady, and no falls' },
             { value: 'furniture', label: 'Holds onto furniture or walls sometimes', selfLabel: 'I hold onto furniture or walls sometimes' },
@@ -92,22 +92,22 @@ document.addEventListener('DOMContentLoaded', function() {
           options: [
             { value: 'family_daily', label: 'Family is nearby and involved almost daily' },
             { value: 'family_stretched', label: 'Family helps, but everyone is stretched thin' },
-            { value: 'distant', label: 'Family is far away — help is occasional, and they’re alone most of the day', selfLabel: 'Family is far away — help is occasional, and I’m alone most of the day' },
-            { value: 'burning_out', label: 'The main caregiver is running on empty — this can’t continue' },
+            { value: 'distant', label: 'Family is far away. Help is occasional, and they’re alone most of the day', selfLabel: 'Family is far away. Help is occasional, and I’m alone most of the day' },
+            { value: 'burning_out', label: 'The main caregiver is running on empty, and this can’t continue' },
             { value: 'none', label: 'No reliable help right now' }
           ] },
         { id: 'coverage', kind: 'multi',
-          prompt: 'Last one — how are you planning to pay for care?',
-          help: 'Pick anything that might apply — a best guess is fine. Whatever you choose, we’ll check what you actually qualify for, and that costs you nothing.',
+          prompt: 'Last one: how are you planning to pay for care?',
+          help: 'Pick anything that might apply. A best guess is fine. Whatever you choose, we’ll check what you actually qualify for, and that costs you nothing.',
           options: [
             { value: 'medicaid', label: 'Medicaid, or a Medicaid managed care plan' },
             { value: 'medicare_advantage', label: 'Through a Medicare Advantage plan (Aetna, Humana, Blue Cross, UnitedHealthcare, Molina, and the like)' },
-            { value: 'va', label: 'Through VA benefits — there’s military service in the family', selfLabel: 'Through VA benefits — I served, or my spouse did' },
+            { value: 'va', label: 'Through VA benefits (there’s military service in the family)', selfLabel: 'Through VA benefits (I served, or my spouse did)' },
             { value: 'ltc_policy', label: 'With a long-term care insurance policy' },
             { value: 'disability_benefits', label: 'Alongside Social Security disability (SSI or SSDI)' },
-            { value: 'medicare_original', label: 'Original Medicare only — no extra plan' },
-            { value: 'none', label: 'Out of pocket — we’d be paying ourselves', selfLabel: 'Out of pocket — I’d be paying myself' },
-            { value: 'not_sure', label: 'We don’t know yet — show us what could pay for this', selfLabel: 'I don’t know yet — show me what could pay for this' }
+            { value: 'medicare_original', label: 'Original Medicare only, no extra plan' },
+            { value: 'none', label: 'Out of pocket (we’d be paying ourselves)', selfLabel: 'Out of pocket (I’d be paying myself)' },
+            { value: 'not_sure', label: 'We don’t know yet. Show us what could pay for this', selfLabel: 'I don’t know yet. Show me what could pay for this' }
           ] }
     ];
 
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
             renderReport(data.report);
             show('report');
         } catch (err) {
-            gateError.textContent = 'Sorry — something went wrong saving your report. Your answers are safe on this device. Please try again in a moment, or call us at (708) 726-4536.';
+            gateError.textContent = 'Sorry, something went wrong saving your report. Your answers are safe on this device. Please try again in a moment, or call us at (708) 726-4536.';
             gateError.style.display = 'block';
         } finally {
             btn.disabled = false;
@@ -398,8 +398,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         h += '<button type="button" class="cra-btn-outline" id="downloadBtn-' + slot + '">Download PDF</button>';
         h += '</div>';
-        h += '<p class="cra-cta-note">Free, about thirty minutes, by phone or in the home — '
-           + 'and we&rsquo;ll carry over what you&rsquo;ve just told us, so there&rsquo;s nothing to type again.</p>';
+        h += '<p class="cra-cta-note">Free, about thirty minutes, by phone or in the home. '
+           + 'We&rsquo;ll carry over what you&rsquo;ve just told us, so there&rsquo;s nothing to type again.</p>';
         return h;
     }
 
@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (r.band === 'urgent') {
             h += '<div class="cra-callout"><strong>Our honest read:</strong> don’t sit on this one. ';
-            h += 'Call us at <a href="tel:7087264536">(708) 726-4536</a> — a short conversation today ';
+            h += 'Call us at <a href="tel:7087264536">(708) 726-4536</a>. A short conversation today ';
             h += 'costs nothing and usually brings real relief within days.</div>';
         }
 

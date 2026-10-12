@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report a Concern | VitalTouch Health Network</title>
-    <meta name="description" content="Report a concern, a complaint, or damage to property involving VitalTouch Health Network. Anyone can report — you do not need an account, and you can report anonymously.">
+    <meta name="description" content="Report a concern, a complaint, or damage to property involving VitalTouch Health Network. Anyone can report. You do not need an account, and you can report anonymously.">
     <link rel="canonical" href="https://vitaltouchcares.com/incident/">
     <!-- Not a page we want ranking above the service pages, but it must stay reachable. -->
     <meta name="robots" content="noindex, follow">
     <link rel="icon" type="image/png" href="../images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css?v=20260810c">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Figtree:ital,wght@0,400..700;1,400..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css?v=20261012">
+    <link rel="stylesheet" href="../css/vt.css?v=20261012">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 </head>
 <body>
 
@@ -20,9 +22,9 @@
 
     <header class="header">
         <div class="container">
-            <nav class="nav">
+            <nav class="nav" aria-label="Main">
                 <a href="../index.html" class="logo">
-                    <img src="../images/logo-main.png" alt="VitalTouch Health Network">
+                    <img src="../images/logo-main.png" alt="VitalTouch Health Network" width="180" height="46">
                 </a>
                 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
@@ -36,21 +38,23 @@
                     <a href="../apply.html">Careers</a>
                 </div>
                 <div class="nav-cta">
-                    <a href="tel:7087264536" class="nav-phone nav-phone-big">(708) 726-4536</a>
+                    <a href="tel:7087264536" class="nav-phone nav-phone-big"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                    <a href="../consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid nav-get-care">Get care started</a>
                 </div>
             </nav>
         </div>
     </header>
 
     <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="mobile-nav" id="mobileNav">
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
         <a href="../services.html">Services</a>
         <a href="../disability-support.html">Disability Support</a>
         <a href="../paying-for-care.html">Ways to Pay</a>
         <a href="../assessment.html">Free Assessment</a>
         <a href="../contact.html">Contact</a>
         <a href="../apply.html">Careers</a>
-        <a href="tel:7087264536" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 726-4536</a>
+        <a href="../consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid" style="width:100%;margin-top:20px;">Get care started</a>
+        <a href="tel:7087264536" class="vt-btn vt-btn--ghost" style="width:100%;margin-top:10px;">Call (708) 726-4536</a>
     </nav>
 
     <section id="main" tabindex="-1" class="page-hero">
@@ -86,7 +90,7 @@
                     <ul class="ic-facts">
                         <li><strong>No one loses service over a complaint.</strong> Nobody's care will be reduced, delayed, or stopped because a report was made, and no employee will be disciplined for making one.</li>
                         <li><strong>You will hear back.</strong> We acknowledge in writing within two business days and give you an outcome within 30 days.</li>
-                        <li><strong>You can stay anonymous.</strong> We will still investigate it — we just will not be able to send you the outcome.</li>
+                        <li><strong>You can stay anonymous.</strong> We will still investigate it. We just will not be able to send you the outcome.</li>
                     </ul>
 
                     <div class="ic-callout">
@@ -106,8 +110,8 @@
                             <div class="form-group">
                                 <label for="icKind">What kind of thing is this? *</label>
                                 <select id="icKind" name="icKind">
-                                    <option value="complaint">A complaint — the service, or how someone behaved</option>
-                                    <option value="incident">Something happened — a fall, an injury, a missed visit</option>
+                                    <option value="complaint">A complaint: the service, or how someone behaved</option>
+                                    <option value="incident">Something happened: a fall, an injury, a missed visit</option>
                                     <option value="loss_damage">Property lost or damaged</option>
                                 </select>
                             </div>
@@ -175,7 +179,7 @@
                                             <input type="tel" id="icPhone" name="icPhone" autocomplete="tel">
                                         </div>
                                     </div>
-                                    <p class="ic-hint">One of the two is enough — it is how we send you the outcome.</p>
+                                    <p class="ic-hint">One of the two is enough. It is how we send you the outcome.</p>
                                 </div>
                             </div>
 
@@ -193,52 +197,57 @@
 
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <img src="../images/logo-white.png" alt="VitalTouch Health Network">
+            <div class="vt-footer-grid">
+                <div class="vt-footer-brand">
+                    <img src="../images/logo-white.png" alt="VitalTouch Health Network" width="180" height="46">
                     <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
+                    <a class="vt-footer-phone" href="tel:7087264536"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
+                <div class="vt-footer-col">
+                    <h4>Care</h4>
                     <ul>
-                        <li><a href="../about.html">About Us</a></li>
-                        <li><a href="../services.html">Our Services</a></li>
-                        <li><a href="../paying-for-care.html">Ways to Pay</a></li>
+                        <li><a href="../services.html">Services</a></li>
+                        <li><a href="../disability-support.html">Disability support</a></li>
+                        <li><a href="../paying-for-care.html">Ways to pay</a></li>
                         <li><a href="../pricing.html">Pricing</a></li>
-                        <li><a href="../service-areas.html">Service Areas</a></li>
-                        <li><a href="../consult.html">Free Consultation</a></li>
+                        <li><a href="../assessment.html">Free assessment</a></li>
+                        <li><a href="../consult.html?when=now&amp;from=nav">Get care started</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Areas</h4>
+                    <ul>
+                        <li><a href="../home-care-chicago.html">Home care in Chicago</a></li>
+                        <li><a href="../home-care-matteson.html">Matteson</a></li>
+                        <li><a href="../home-care-orland-park.html">Orland Park</a></li>
+                        <li><a href="../home-care-tinley-park.html">Tinley Park</a></li>
+                        <li><a href="../home-care-oak-lawn.html">Oak Lawn</a></li>
+                        <li><a href="../service-areas.html">All service areas</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../about.html">About us</a></li>
+                        <li><a href="../apply.html">Careers</a></li>
+                        <li><a href="../refer/">Refer a client</a></li>
                         <li><a href="../faq.html">FAQ</a></li>
-                        <li><a href="../incident/">Report a Concern</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                        <li><a href="../incident/">Report a concern</a></li>
                     </ul>
                 </div>
-                <div class="footer-links">
-                    <h4>Services</h4>
+                <div class="vt-footer-col">
+                    <h4>Office</h4>
                     <ul>
-                        <li><a href="../services.html">Companionship</a></li>
-                        <li><a href="../services.html">Homemaking</a></li>
-                        <li><a href="../services.html">Transportation</a></li>
-                        <li><a href="../services.html">Personal Care</a></li>
-                        <li><a href="../disability-support.html">Disability Support</a></li>
-                        <li><a href="../services.html">Dementia Care</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="tel:7087264536">(708) 726-4536</a></li>
+                        <li>4749 Lincoln Mall Drive, Suite 204<br>Matteson, IL 60443</li>
+                        <li>Mon to Fri, 9am to 5pm</li>
                         <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
-                        <li>4749 Lincoln Mall Drive, Suite 204</li>
-                        <li>Matteson, IL 60443</li>
-                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="../privacy-policy.html">Privacy Policy</a>
-                    <a href="../terms.html">Terms of Service</a>
-                </div>
+            <div class="vt-footer-bottom">
+                <p>&copy; 2026 VitalTouch Health Network, Inc.</p>
+                <p><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../sms-consent.html">Text messages</a></p>
             </div>
         </div>
     </footer>
@@ -286,7 +295,8 @@
     }
     </style>
 
-    <script src="../js/main.js?v=20260808a"></script>
+    <script src="../js/main.js?v=20261012"></script>
+    <script src="../js/motion.js?v=20261012" defer></script>
     <script>
     /* Public incident / complaint / loss intake -> ops platform.
        Creates an incident_reports row with source='public'. The customer is
@@ -386,7 +396,7 @@
                 show('Please tell us a little more about what happened.', false); return;
             }
             if (!anon && !email && !phone) {
-                show('Add an email or phone so we can tell you what we found — or tick "report anonymously".', false);
+                show('Add an email or phone so we can tell you what we found, or tick "report anonymously".', false);
                 return;
             }
 
@@ -424,7 +434,7 @@
                         ? 'Your reference is <strong>' + data.reference + '</strong>. We acknowledge in '
                           + 'writing within two business days and give you an outcome within 30 days.'
                         : 'You reported anonymously, so there is no reference and we cannot send you the '
-                          + 'outcome — but it is logged and it will be investigated the same way.')
+                          + 'outcome, but it is logged and it will be investigated the same way.')
                     + '</p><p style="margin-top:14px;font-size:0.92rem;">If this becomes urgent, call '
                     + '<a href="tel:7087264536"><strong>(708) 726-4536</strong></a>.</p></div>';
             } catch (err) {
@@ -436,7 +446,7 @@
                     'We could not send that just now. Please call <strong>'
                     + '<a href="tel:7087264536">(708) 726-4536</a></strong> or email '
                     + '<strong><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></strong>'
-                    + ' — and if this concerns someone\u2019s safety, call <strong>911</strong> or Adult '
+                    + '. If this concerns someone\u2019s safety, call <strong>911</strong> or Adult '
                     + 'Protective Services on <strong><a href="tel:18668001409">1-866-800-1409</a></strong>. '
                     + 'What you typed is still on this page.';
                 statusEl.style.display = 'block';

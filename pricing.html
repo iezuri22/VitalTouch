@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing & Ways to Pay for Home Care | VitalTouch Health Network</title>
-    <meta name="description" content="Clear, honest pricing for home care across the Chicago area and south suburbs — plus the six ways families pay: Medicaid, the Illinois Home Services Program, Medicare Advantage extra benefits, VA benefits, long-term care insurance, or paying on your own.">
+    <meta name="description" content="Clear, honest pricing for home care across the Chicago area and south suburbs, plus the six ways families pay: Medicaid, the Illinois Home Services Program, Medicare Advantage extra benefits, VA benefits, long-term care insurance, or paying on your own.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260810c">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Figtree:ital,wght@0,400..700;1,400..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20261012">
+    <link rel="stylesheet" href="css/vt.css?v=20261012">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .pricing-card {
             background: var(--white);
@@ -139,23 +141,24 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <nav class="nav">
+            <nav class="nav" aria-label="Main">
                 <a href="index.html" class="logo">
-                    <img src="images/logo-main.png" alt="VitalTouch Health Network">
+                    <img src="images/logo-main.png" alt="VitalTouch Health Network" width="180" height="46">
                 </a>
                 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
-            <div class="nav-menu nav-menu-slim">
-    <a href="services.html">Services</a>
-    <a href="disability-support.html">Disability Support</a>
-    <a href="paying-for-care.html">Ways to Pay</a>
-    <a href="assessment.html">Free Assessment</a>
-    <a href="contact.html">Contact</a>
-    <a href="apply.html">Careers</a>
-</div>
+                <div class="nav-menu nav-menu-slim">
+                    <a href="services.html">Services</a>
+                    <a href="disability-support.html">Disability Support</a>
+                    <a href="paying-for-care.html">Ways to Pay</a>
+                    <a href="assessment.html">Free Assessment</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="apply.html">Careers</a>
+                </div>
                 <div class="nav-cta">
-                    <a href="tel:7087264536" class="nav-phone nav-phone-big">(708) 726-4536</a>
+                    <a href="tel:7087264536" class="nav-phone nav-phone-big"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                    <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid nav-get-care">Get care started</a>
                 </div>
             </nav>
         </div>
@@ -163,14 +166,15 @@
 
     <!-- Mobile Navigation -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="mobile-nav" id="mobileNav">
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
         <a href="services.html">Services</a>
         <a href="disability-support.html">Disability Support</a>
         <a href="paying-for-care.html">Ways to Pay</a>
         <a href="assessment.html">Free Assessment</a>
         <a href="contact.html">Contact</a>
         <a href="apply.html">Careers</a>
-        <a href="tel:7087264536" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 726-4536</a>
+        <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid" style="width:100%;margin-top:20px;">Get care started</a>
+        <a href="tel:7087264536" class="vt-btn vt-btn--ghost" style="width:100%;margin-top:10px;">Call (708) 726-4536</a>
     </nav>
 
     <!-- Page Hero -->
@@ -234,7 +238,7 @@
                     <ul>
                         <li>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>Flexible scheduling—you choose the hours</span>
+                            <span>Flexible scheduling: you choose the hours</span>
                         </li>
                         <li>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
@@ -263,12 +267,12 @@
                 <div class="grid-2">
                     <div class="card">
                         <h4 style="margin-bottom: 8px;">Illinois Home Services Program</h4>
-                        <p style="font-size: 0.98rem; margin-bottom: 10px;">For adults under 60 living with a disability — the program almost nobody is told about, because it sits outside the senior system entirely.</p>
+                        <p style="font-size: 0.98rem; margin-bottom: 10px;">For adults under 60 living with a disability. It's the program almost nobody is told about, because it sits outside the senior system entirely.</p>
                         <a href="paying-for-care.html#home-services" style="font-weight: 700;">How it works &rarr;</a>
                     </div>
                     <div class="card">
                         <h4 style="margin-bottom: 8px;">Medicare Advantage extra benefits</h4>
-                        <p style="font-size: 0.98rem; margin-bottom: 10px;">Many plans here include in-home support hours each year. It isn't on the card, and it's rarely mentioned — tell us the plan name and we'll check.</p>
+                        <p style="font-size: 0.98rem; margin-bottom: 10px;">Many plans here include in-home support hours each year. It isn't on the card, and it's rarely mentioned. Tell us the plan name and we'll check.</p>
                         <a href="paying-for-care.html#medicare-advantage" style="font-weight: 700;">What to look for &rarr;</a>
                     </div>
                     <div class="card">
@@ -278,7 +282,7 @@
                     </div>
                     <div class="card">
                         <h4 style="margin-bottom: 8px;">Long-term care insurance</h4>
-                        <p style="font-size: 0.98rem; margin-bottom: 10px;">A policy paid into for years and never claimed on is real money. Most cover care at home — bring it in and we'll read it with you.</p>
+                        <p style="font-size: 0.98rem; margin-bottom: 10px;">A policy paid into for years and never claimed on is real money. Most cover care at home. Bring it in and we'll read it with you.</p>
                         <a href="paying-for-care.html#ltc-insurance" style="font-weight: 700;">What to look for &rarr;</a>
                     </div>
                 </div>
@@ -286,7 +290,7 @@
 
             <div class="info-box" style="max-width: 900px; margin: 40px auto 0;">
                 <h4>💡 Not sure what you're covered for?</h4>
-                <p style="margin: 0;">That's the normal answer, and it's the part we're good at. Tell us what you have — a plan card, a policy, a benefits letter, or nothing at all — and we'll do the checking. It's free, there's no obligation, and what we find out is yours whether or not you ever become a client. <a href="consult.html"><strong>Request a free coverage check &rarr;</strong></a></p>
+                <p style="margin: 0;">That's the normal answer, and it's the part we're good at. Tell us what you have (a plan card, a policy, a benefits letter, or nothing at all) and we'll do the checking. It's free, there's no obligation, and what we find out is yours whether or not you ever become a client. <a href="consult.html"><strong>Request a free coverage check &rarr;</strong></a></p>
             </div>
         </div>
     </section>
@@ -388,7 +392,7 @@
     <section class="cta">
         <div class="container">
             <h2>Get Your Free Quote</h2>
-            <p>Contact us for a personalized care assessment and pricing estimate—no obligation.</p>
+            <p>Contact us for a personalized care assessment and pricing estimate, with no obligation.</p>
             <div class="cta-buttons">
                 <a href="tel:7087264536" class="btn btn-white">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -402,56 +406,62 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <img src="images/logo-white.png" alt="VitalTouch Health Network">
+            <div class="vt-footer-grid">
+                <div class="vt-footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Health Network" width="180" height="46">
                     <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
+                    <a class="vt-footer-phone" href="tel:7087264536"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
+                <div class="vt-footer-col">
+                    <h4>Care</h4>
                     <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="services.html">Our Services</a></li>
-                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="disability-support.html">Disability support</a></li>
+                        <li><a href="paying-for-care.html">Ways to pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="service-areas.html">Service Areas</a></li>
-                        <li><a href="consult.html">Free Consultation</a></li>
+                        <li><a href="assessment.html">Free assessment</a></li>
+                        <li><a href="consult.html?when=now&amp;from=nav">Get care started</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Areas</h4>
+                    <ul>
+                        <li><a href="home-care-chicago.html">Home care in Chicago</a></li>
+                        <li><a href="home-care-matteson.html">Matteson</a></li>
+                        <li><a href="home-care-orland-park.html">Orland Park</a></li>
+                        <li><a href="home-care-tinley-park.html">Tinley Park</a></li>
+                        <li><a href="home-care-oak-lawn.html">Oak Lawn</a></li>
+                        <li><a href="service-areas.html">All service areas</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About us</a></li>
+                        <li><a href="apply.html">Careers</a></li>
+                        <li><a href="refer/">Refer a client</a></li>
                         <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="incident/">Report a Concern</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="incident/">Report a concern</a></li>
                     </ul>
                 </div>
-                <div class="footer-links">
-                    <h4>Services</h4>
+                <div class="vt-footer-col">
+                    <h4>Office</h4>
                     <ul>
-                        <li><a href="services.html">Companionship</a></li>
-                        <li><a href="services.html">Homemaking</a></li>
-                        <li><a href="services.html">Transportation</a></li>
-                        <li><a href="services.html">Personal Care</a></li>
-                        <li><a href="disability-support.html">Disability Support</a></li>
-                        <li><a href="services.html">Dementia Care</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="tel:7087264536">(708) 726-4536</a></li>
-<li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
-                        <li>4749 Lincoln Mall Drive, Suite 204</li>
-                        <li>Matteson, IL 60443</li>
-                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
+                        <li>4749 Lincoln Mall Drive, Suite 204<br>Matteson, IL 60443</li>
+                        <li>Mon to Fri, 9am to 5pm</li>
+                        <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="privacy-policy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
-                </div>
+            <div class="vt-footer-bottom">
+                <p>&copy; 2026 VitalTouch Health Network, Inc.</p>
+                <p><a href="privacy-policy.html">Privacy</a><a href="terms.html">Terms</a><a href="sms-consent.html">Text messages</a></p>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260808a"></script>
+    <script src="js/main.js?v=20261012"></script>
+    <script src="js/motion.js?v=20261012" defer></script>
 </body>
 </html>

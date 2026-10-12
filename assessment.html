@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Care Readiness Assessment | See Where Things Stand | VitalTouch Health Network</title>
-    <meta name="description" content="A few quick questions about daily life, safety, and support — for an aging parent, a spouse, yourself, or an adult living with a disability. Takes about ninety seconds. Get a free personalized report with clear next steps and the ways care could be paid for.">
+    <meta name="description" content="A few quick questions about daily life, safety, and support for an aging parent, a spouse, yourself, or an adult living with a disability. Takes about ninety seconds. Get a free personalized report with clear next steps and the ways care could be paid for.">
     <link rel="icon" type="image/png" href="images/logo-symbol.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260810c">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Figtree:ital,wght@0,400..700;1,400..600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20261012">
+    <link rel="stylesheet" href="css/vt.css?v=20261012">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         /* ===== Care Readiness Assessment (cra-) — flat VA-style, no gradients ===== */
         .cra-wrap { max-width: 720px; margin: 0 auto; padding: 40px 20px 80px; }
@@ -190,23 +192,24 @@
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <nav class="nav">
+            <nav class="nav" aria-label="Main">
                 <a href="index.html" class="logo">
-                    <img src="images/logo-main.png" alt="VitalTouch Health Network">
+                    <img src="images/logo-main.png" alt="VitalTouch Health Network" width="180" height="46">
                 </a>
                 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
-            <div class="nav-menu nav-menu-slim">
-    <a href="services.html">Services</a>
-    <a href="disability-support.html">Disability Support</a>
-    <a href="paying-for-care.html">Ways to Pay</a>
-    <a href="assessment.html">Free Assessment</a>
-    <a href="contact.html">Contact</a>
-    <a href="apply.html">Careers</a>
-</div>
+                <div class="nav-menu nav-menu-slim">
+                    <a href="services.html">Services</a>
+                    <a href="disability-support.html">Disability Support</a>
+                    <a href="paying-for-care.html">Ways to Pay</a>
+                    <a href="assessment.html" class="active" aria-current="page">Free Assessment</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="apply.html">Careers</a>
+                </div>
                 <div class="nav-cta">
-                    <a href="tel:7087264536" class="nav-phone nav-phone-big">(708) 726-4536</a>
+                    <a href="tel:7087264536" class="nav-phone nav-phone-big"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                    <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid nav-get-care">Get care started</a>
                 </div>
             </nav>
         </div>
@@ -214,14 +217,15 @@
 
     <!-- Mobile Navigation -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
-    <nav class="mobile-nav" id="mobileNav">
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
         <a href="services.html">Services</a>
         <a href="disability-support.html">Disability Support</a>
         <a href="paying-for-care.html">Ways to Pay</a>
         <a href="assessment.html">Free Assessment</a>
         <a href="contact.html">Contact</a>
         <a href="apply.html">Careers</a>
-        <a href="tel:7087264536" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Call (708) 726-4536</a>
+        <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid" style="width:100%;margin-top:20px;">Get care started</a>
+        <a href="tel:7087264536" class="vt-btn vt-btn--ghost" style="width:100%;margin-top:10px;">Call (708) 726-4536</a>
     </nav>
 
     <main id="main" tabindex="-1" class="cra-wrap">
@@ -236,18 +240,18 @@
         <section class="cra-screen cra-intro active" id="introScreen">
             <h1>See where things really stand</h1>
             <p class="cra-intro-sub">
-                A handful of quick questions about daily life, safety, memory, and support —
-                about ninety seconds. No right or wrong answers, and nothing to prepare.
+                A handful of quick questions about daily life, safety, memory, and support.
+                It takes about ninety seconds. No right or wrong answers, and nothing to prepare.
             </p>
             <ul class="cra-points">
                 <li>A clear picture of where things stand today, area by area</li>
-                <li>The ways this could be paid for — including benefits most families never hear about</li>
-                <li>A personalized report in plain language — yours to download and share with family</li>
+                <li>The ways this could be paid for, including benefits most families never hear about</li>
+                <li>A personalized report in plain language, yours to download and share with family</li>
                 <li>Practical next steps, whether or not you ever call us</li>
             </ul>
             <p class="cra-intro-note">
                 For an aging parent, a spouse, yourself, or an adult of any age living
-                with a disability — the questions adjust to whoever you&rsquo;re answering about.
+                with a disability. The questions adjust to whoever you&rsquo;re answering about.
             </p>
             <button class="cra-start" id="startBtn">Start the assessment</button>
             <p class="cra-resume" id="resumeRow" style="display:none;">
@@ -258,12 +262,12 @@
                 <a href="consult.html?from=assessment"><strong>Book a free consultation &rarr;</strong></a>
             </p>
             <div class="cra-urgentbar">
-                <strong>Need help right away?</strong> Skip this —
-                <a href="consult.html?when=now&amp;from=assessment-urgentbar">tell us what you need</a> and we'll call you today,
+                <strong>Need help right away?</strong> Skip this.
+                <a href="consult.html?when=now&amp;from=assessment-urgentbar">Tell us what you need</a> and we'll call you today,
                 or call us now at <a href="tel:7087264536">(708) 726-4536</a>.
             </div>
             <p class="cra-privacy">
-                Your answers stay on your device while you take the assessment —
+                Your answers stay on your device while you take the assessment,
                 and we never sell your information.
             </p>
         </section>
@@ -271,10 +275,10 @@
         <!-- 1b. Email gate — capture before the questions start -->
         <section class="cra-screen" id="emailScreen">
             <div class="cra-gate-card">
-                <h2>First — where should we send your report?</h2>
+                <h2>First, where should we send your report?</h2>
                 <p class="cra-gate-sub">
                     We&rsquo;ll email you a copy of your results so nothing is lost if you get
-                    interrupted. Then the questions begin — about ninety seconds.
+                    interrupted. Then the questions begin. They take about ninety seconds.
                 </p>
                 <form id="emailForm">
                     <input type="text" name="company_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" aria-hidden="true">
@@ -316,7 +320,7 @@
                 </div>
                 <h2>Where should we send it?</h2>
                 <p class="cra-gate-sub">
-                    Tell us who you are and we'll show your full report right now —
+                    Tell us who you are and we'll show your full report right now,
                     plus save a copy so you can come back to it anytime.
                 </p>
                 <form id="gateForm">
@@ -345,57 +349,63 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <img src="images/logo-white.png" alt="VitalTouch Health Network">
+            <div class="vt-footer-grid">
+                <div class="vt-footer-brand">
+                    <img src="images/logo-white.png" alt="VitalTouch Health Network" width="180" height="46">
                     <p>Compassionate in-home care for seniors and adults living with disabilities across the Chicago area and south suburbs. Licensed by the State of Illinois.</p>
+                    <a class="vt-footer-phone" href="tel:7087264536"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
+                <div class="vt-footer-col">
+                    <h4>Care</h4>
                     <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="services.html">Our Services</a></li>
-                        <li><a href="paying-for-care.html">Ways to Pay</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="disability-support.html">Disability support</a></li>
+                        <li><a href="paying-for-care.html">Ways to pay</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="service-areas.html">Service Areas</a></li>
-                        <li><a href="consult.html">Free Consultation</a></li>
+                        <li><a href="assessment.html">Free assessment</a></li>
+                        <li><a href="consult.html?when=now&amp;from=nav">Get care started</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Areas</h4>
+                    <ul>
+                        <li><a href="home-care-chicago.html">Home care in Chicago</a></li>
+                        <li><a href="home-care-matteson.html">Matteson</a></li>
+                        <li><a href="home-care-orland-park.html">Orland Park</a></li>
+                        <li><a href="home-care-tinley-park.html">Tinley Park</a></li>
+                        <li><a href="home-care-oak-lawn.html">Oak Lawn</a></li>
+                        <li><a href="service-areas.html">All service areas</a></li>
+                    </ul>
+                </div>
+                <div class="vt-footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About us</a></li>
+                        <li><a href="apply.html">Careers</a></li>
+                        <li><a href="refer/">Refer a client</a></li>
                         <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="incident/">Report a Concern</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="incident/">Report a concern</a></li>
                     </ul>
                 </div>
-                <div class="footer-links">
-                    <h4>Services</h4>
+                <div class="vt-footer-col">
+                    <h4>Office</h4>
                     <ul>
-                        <li><a href="services.html">Companionship</a></li>
-                        <li><a href="services.html">Homemaking</a></li>
-                        <li><a href="services.html">Transportation</a></li>
-                        <li><a href="services.html">Personal Care</a></li>
-                        <li><a href="disability-support.html">Disability Support</a></li>
-                        <li><a href="services.html">Dementia Care</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="tel:7087264536">(708) 726-4536</a></li>
+                        <li>4749 Lincoln Mall Drive, Suite 204<br>Matteson, IL 60443</li>
+                        <li>Mon to Fri, 9am to 5pm</li>
                         <li><a href="mailto:ifeanyi@vitaltouch.care">ifeanyi@vitaltouch.care</a></li>
-                        <li>4749 Lincoln Mall Drive, Suite 204</li>
-                        <li>Matteson, IL 60443</li>
-                        <li style="margin-top: 8px;"><strong>Hours:</strong> Mon-Fri 9am-5pm</li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 VitalTouch Health Network. All rights reserved.</p>
-                <div class="footer-legal">
-                    <a href="privacy-policy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
-                </div>
+            <div class="vt-footer-bottom">
+                <p>&copy; 2026 VitalTouch Health Network, Inc.</p>
+                <p><a href="privacy-policy.html">Privacy</a><a href="terms.html">Terms</a><a href="sms-consent.html">Text messages</a></p>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js?v=20260808a"></script>
+    <script src="js/main.js?v=20261012"></script>
+    <script src="js/motion.js?v=20261012" defer></script>
     <!-- v3 (8 questions). Bumped because this file and assessment.html must
          ship together: the old JS writes to a #progressLabel this page no
          longer has, so a cached copy would throw on the first question. -->
