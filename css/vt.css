@@ -1660,3 +1660,39 @@ li { line-height: 1.45; }
 .ip-head p, .ip-hero__sub { line-height: 1.45 !important; }
 .town-family + .vt-section { padding-top: clamp(36px, 5vw, 64px) !important; }
 .h-who__card--navy { justify-content: flex-end !important; }
+
+/* ===== Calm pages (2026-10-12): "our clients are old, don't overwhelm them".
+   One question, one column, big type, answers open one at a time. ===== */
+.ip-hero--solo .ip-hero__grid { grid-template-columns: minmax(0, 1fr); padding-block: clamp(44px, 6vw, 80px); }
+.ip-hero--solo h1 { max-width: 18ch; }
+.pf-section { background: #fff; }
+.pf-wrap > * { max-width: 760px; }
+.pf-wrap h2 { margin: 0 0 8px; }
+.pf-lead { margin: 0 0 24px; font-size: 1.15rem; color: var(--muted-ink); }
+.pf-list { border-top: 1px solid var(--line); }
+.pf-q { border-bottom: 1px solid var(--line); }
+.pf-q summary { list-style: none; display: grid; grid-template-columns: 28px minmax(0, 1fr) 24px; align-items: center; gap: 14px; min-height: 68px; padding: 10px 2px; cursor: pointer; font: 700 1.22rem/1.3 var(--font-body); color: var(--ink); }
+.pf-q summary::-webkit-details-marker { display: none; }
+.pf-q summary > i:first-child { font-size: 1.5rem; color: var(--accent-deep); }
+.pf-q__plus { font-size: 1.2rem; color: var(--ink); transition: transform .25s var(--ease); }
+.pf-q[open] .pf-q__plus { transform: rotate(45deg); }
+.pf-q summary:hover span { color: var(--accent-deep); }
+.pf-q summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.pf-q__body { padding: 0 2px 22px 44px; }
+.pf-q__body p { margin: 0 0 8px; font-size: 1.12rem; line-height: 1.5; color: var(--ink); max-width: 56ch; }
+.pf-q__next { font-weight: 600; color: var(--accent-deep) !important; }
+.pf-q__next a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.pf-help { margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; }
+.pf-help p { margin: 0; font-size: 1.15rem; color: var(--ink); }
+.pf-fine { margin: 28px 0 0; font-size: .88rem; color: var(--muted-ink); }
+@media (max-width: 760px) {
+  .pf-q summary { font-size: 1.12rem; min-height: 64px; gap: 12px; }
+  .pf-q__body { padding-left: 0; }
+  .pf-help .vt-btn { width: 100%; justify-content: center; }
+  .ip-hero--solo .ip-hero__ctas { grid-template-columns: 1fr; }
+}
+
+/* Visit record: services provided, no per-task times */
+.vt-record__label { margin: 16px 0 0; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted-ink); font-weight: 600; }
+.vt-record__label + .vt-record__tasks { margin-top: 6px; }
+.vt-record__tasks li { grid-template-columns: 26px 1fr; }

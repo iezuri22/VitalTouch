@@ -161,7 +161,7 @@ CHICAGO = [
   dict(slug='chicago-lakeview', name='Lakeview', side='North Side', zips=['60657', '60613'],
        hospitals=['Advocate Illinois Masonic Medical Center', 'Northwestern Memorial Hospital'],
        near=['Lincoln Park', 'Uptown', 'Lincoln Square'],
-       local='In Lakeview we often help with the practical things that get harder in a city apartment: groceries, laundry, errands and getting to appointments.'),
+       local='In Lakeview we often help with the practical things that get harder in a city apartment: groceries, laundry, medication pickups and errands.'),
   dict(slug='chicago-lincoln-park', name='Lincoln Park', side='North Side', zips=['60614'],
        hospitals=['Northwestern Memorial Hospital', 'Advocate Illinois Masonic Medical Center'],
        near=['Lakeview', 'Logan Square', 'Uptown'],
@@ -345,7 +345,7 @@ def page(t):
     area_word = 'neighborhoods' if kind != 'town' else 'towns'
     title = f'Home Care in {place}, IL | In-Home Help for Seniors & Adults With Disabilities | VitalTouch'
     desc = (f'Non-medical in-home care in {place}, IL' + (f' ({zips})' if zips else '') +
-            ': help with bathing, meals, housekeeping, rides and company. '
+            ': help with bathing, meals, housekeeping, errands and company. '
             'Local, family-owned agency licensed by the State of Illinois. Free in-home consultation.')
     if kind == 'hub':
         first_faq = ('Which Chicago neighborhoods do you serve?',
@@ -357,7 +357,7 @@ def page(t):
         first_faq,
         ('How fast can care start?', 'Often within days. It starts with a free home visit.'),
         ('What does it cost?', 'It depends on the hours. We quote after the free visit and check what coverage you have.'),
-        ('Is this medical care?', 'No. We help with daily life: bathing, meals, housekeeping, rides and company.'),
+        ('Is this medical care?', 'No. We help with daily life: bathing, meals, housekeeping, errands and company.'),
     ]
     faq_html = '\n'.join(f'''                <div class="faq-item">
                     <button class="faq-question" type="button">
@@ -420,8 +420,8 @@ def page(t):
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012j">
-    <link rel="stylesheet" href="css/vt.css?v=20261012j">
+    <link rel="stylesheet" href="css/style.css?v=20261012k">
+    <link rel="stylesheet" href="css/vt.css?v=20261012k">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .town-wrap {{ max-width: 900px; margin: 0 auto; }}
@@ -491,7 +491,7 @@ def page(t):
                 <li><i class="ph ph-cooking-pot" aria-hidden="true"></i>Meals and groceries</li>
                 <li><i class="ph ph-broom" aria-hidden="true"></i>Housekeeping and laundry</li>
                 <li><i class="ph ph-pill" aria-hidden="true"></i>Medication reminders</li>
-                <li><i class="ph ph-car-simple" aria-hidden="true"></i>Rides and errands</li>
+                <li><i class="ph ph-shopping-bag" aria-hidden="true"></i>Groceries and medication pickup</li>
                 <li><i class="ph ph-brain" aria-hidden="true"></i>Memory care</li>
                 <li><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</li>
                 <li><i class="ph ph-hand-heart" aria-hidden="true"></i>Respite for family</li>

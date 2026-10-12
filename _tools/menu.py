@@ -12,9 +12,9 @@ MENU = [
         ('services.html#personal-care', 'ph-hand-heart', 'Personal care', 'Bathing, dressing, transfers'),
         ('services.html#homemaking', 'ph-broom', 'Homemaking', 'Meals, housekeeping, errands'),
         ('services.html#dementia-care', 'ph-brain', 'Dementia care', 'Calm, consistent support'),
-        ('services.html#companionship', 'ph-chats-circle', 'Companionship', 'Company and outings'),
+        ('services.html#companionship', 'ph-chats-circle', 'Companionship', 'Company and conversation'),
         ('services.html#respite', 'ph-armchair', 'Respite', 'Time off for family'),
-        ('services.html#transportation', 'ph-car-simple', 'Rides', 'Appointments and errands'),
+        ('services.html#errands', 'ph-shopping-bag', 'Errands', 'Groceries and medication'),
         ('disability-support.html', 'ph-wheelchair', 'Disability support', 'Adults of any age'),
     ], ('Not sure?', 'Take the free assessment', 'Ninety seconds. A personal report and ways to pay.', 'assessment.html', 'Start')),
     ('Paying for care', [
