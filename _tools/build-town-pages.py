@@ -98,7 +98,7 @@ CHICAGO = [
        near=['Roseland', 'Calumet Heights', 'Hegewisch', 'Washington Heights'],
        local='Pullman sits just inside the city line from the south suburbs, which makes it one of the easiest Chicago neighborhoods for us to reach.'),
   dict(slug='chicago-calumet-heights', name='Calumet Heights', zips=['60617'], hospitals=[TRINITY, SOUTHSHORE],
-       near=['Chatham', 'Pullman', 'Hegewisch', 'Roseland'],
+       near=['Chatham', 'South Shore', 'Pullman', 'Hegewisch'],
        local='Calumet Heights is a short drive from our south suburban office, with schedules from a few hours a week up to daily.'),
   dict(slug='chicago-hegewisch', name='Hegewisch', zips=['60633'], hospitals=[TRINITY],
        near=['Pullman', 'Calumet Heights'],
@@ -109,6 +109,16 @@ CHICAGO = [
   dict(slug='chicago-chicago-lawn', side='Southwest Side', name='Chicago Lawn', zips=['60629'], hospitals=[HOLYCROSS, CHRIST_SHORT],
        near=['Ashburn', 'Auburn Gresham', 'West Lawn', 'Gage Park'],
        local='We serve Chicago Lawn and the rest of the Southwest Side from our south suburban office, with schedules from a few hours a week up to daily.'),
+  # Added 2026-10-12 at Ifeanyi's request (also added to service-areas.html).
+  dict(slug='chicago-hyde-park', name='Hyde Park', zips=['60615', '60637'], hospitals=[UCM],
+       near=['Bronzeville', 'South Shore', 'Chatham'],
+       local='Hyde Park is an easy drive up from our south suburban office, with visits from a few hours a week up to daily.'),
+  dict(slug='chicago-south-shore', name='South Shore', zips=['60649'], hospitals=[SOUTHSHORE, UCM],
+       near=['Hyde Park', 'Calumet Heights', 'Chatham'],
+       local='South Shore runs along the lake on the South Side, and we try to match caregivers who live nearby so the same people keep coming back.'),
+  dict(slug='chicago-bronzeville', name='Bronzeville', zips=['60653', '60616'], hospitals=[UCM],
+       near=['Hyde Park', 'South Shore'],
+       local='Bronzeville is a straight shot up the Dan Ryan from the south suburbs, so a free in-home visit is easy to set up.'),
 ]
 for c in CHICAGO:
     c['kind'] = 'chicago'; c['county'] = 'Cook County'
