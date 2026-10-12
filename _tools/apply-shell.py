@@ -72,10 +72,10 @@ def footer(pre):
                     <h4>Areas</h4>
                     <ul>
                         <li><a href="{pre}home-care-chicago.html">Home care in Chicago</a></li>
-                        <li><a href="{pre}home-care-matteson.html">Matteson</a></li>
-                        <li><a href="{pre}home-care-orland-park.html">Orland Park</a></li>
-                        <li><a href="{pre}home-care-tinley-park.html">Tinley Park</a></li>
+                        <li><a href="{pre}home-care-mount-prospect.html">Mount Prospect</a></li>
+                        <li><a href="{pre}home-care-elmwood-park.html">Elmwood Park</a></li>
                         <li><a href="{pre}home-care-oak-lawn.html">Oak Lawn</a></li>
+                        <li><a href="{pre}home-care-tinley-park.html">Tinley Park</a></li>
                         <li><a href="{pre}service-areas.html">All service areas</a></li>
                     </ul>
                 </div>

@@ -29,13 +29,13 @@ MENU = [
     ], ('Cost calculator', 'See what care costs', 'Compare hours of home care with other options.', 'pricing.html#cost', 'Open calculator')),
     ('Areas', [
         ('home-care-chicago.html', 'ph-buildings', 'Chicago', '28 neighborhoods'),
-        ('home-care-matteson.html', 'ph-map-pin', 'Matteson', 'Our home base'),
-        ('home-care-orland-park.html', 'ph-map-pin', 'Orland Park', 'Southwest suburbs'),
-        ('home-care-tinley-park.html', 'ph-map-pin', 'Tinley Park', 'Southwest suburbs'),
+        ('home-care-mount-prospect.html', 'ph-map-pin', 'Mount Prospect', 'Northwest suburbs'),
+        ('home-care-elmwood-park.html', 'ph-map-pin', 'Elmwood Park', 'West suburbs'),
         ('home-care-oak-lawn.html', 'ph-map-pin', 'Oak Lawn', 'Southwest suburbs'),
+        ('home-care-tinley-park.html', 'ph-map-pin', 'Tinley Park', 'Southwest suburbs'),
         ('home-care-homewood.html', 'ph-map-pin', 'Homewood', 'South suburbs'),
-        ('service-areas.html', 'ph-map-trifold', 'All 69 areas', 'Every town we serve'),
-    ], ('Do we serve you?', 'Check your zip code', 'Instant answer for 69 towns and neighborhoods.', 'service-areas.html#zipCheck', 'Check my zip')),
+        ('service-areas.html', 'ph-map-trifold', 'All areas', 'City and suburbs'),
+    ], ('Do we serve you?', 'Check your zip code', 'Instant answer for neighborhoods and towns across Chicagoland.', 'service-areas.html#zipCheck', 'Check my zip')),
     ('Resources', [
         ('assessment.html', 'ph-clipboard-text', 'Free care assessment', 'Personal report in 90 seconds'),
         ('changes.html', 'ph-newspaper', 'Medicare and Medicaid changes', 'What changes in 2026 and 2027'),

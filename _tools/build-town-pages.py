@@ -260,6 +260,20 @@ MORE_SUBURBS = [
 ]
 TOWNS = TOWNS + MORE_SUBURBS
 
+# North and west of the city (owner, 2026-10-12: "we serve Mount Prospect and
+# Elmwood Park ... this area list is too focused on south suburbs").
+NCH = 'Endeavor Health Northwest Community Hospital in Arlington Heights'
+LUTHERAN = 'Advocate Lutheran General Hospital in Park Ridge'
+GOTTLIEB = 'Loyola Medicine Gottlieb Hospital in Melrose Park'
+LOYOLA = 'Loyola University Medical Center in Maywood'
+NORTH_WEST_SUBURBS = [
+  T('mount-prospect', 'Mount Prospect', ['60056'], [NCH, LUTHERAN], ['Arlington Heights', 'Des Plaines', 'Prospect Heights', 'Elk Grove Village'],
+    'Mount Prospect sits in the northwest suburbs, between Arlington Heights and Des Plaines.'),
+  T('elmwood-park', 'Elmwood Park', ['60707'], [GOTTLIEB, LOYOLA], ['Oak Park', 'River Forest', 'Melrose Park', 'River Grove'],
+    'Elmwood Park borders the city on the west, next to Oak Park and River Forest.'),
+]
+TOWNS = TOWNS + NORTH_WEST_SUBURBS
+
 ALL = TOWNS + CHICAGO + [HUB]
 
 UI_PLAN = open(f'{SITE}/_tools/partials/ui-plan.html').read()
@@ -296,7 +310,9 @@ SHORT_LOCAL = {
     'palos-hills': 'Palos Hills is next to Palos Heights and Palos Hospital.',
     'riverdale': 'Riverdale sits just south of Roseland and Pullman.',
     'chicago-humboldt-park': 'Humboldt Park Health is right in the neighborhood.',
-    'chicago': 'Our office is in the south suburbs, so the far South Side is fastest to start.',
+    'chicago': 'We serve neighborhoods across the South, West and North Sides.',
+    'mount-prospect': 'Mount Prospect is close to Northwest Community Hospital and Lutheran General.',
+    'elmwood-park': 'Elmwood Park is minutes from Gottlieb Hospital and Loyola.',
     'chicago-albany-park': 'Albany Park is at the end of the Brown Line.',
     'orland-park': 'Orland Park is minutes from Palos Hospital.',
     'chicago-hegewisch': 'Hegewisch sits in the city&rsquo;s far southeast corner.',
@@ -386,7 +402,7 @@ def page(t):
             {hood_blocks}
             <p>We also serve {", ".join(CHICAGO_OTHER)}. Not sure if we cover your address? Call and ask. <a href="service-areas.html">See every area we serve &rarr;</a></p>'''
     else:
-        tail = f"the rest of the {t.get('side', 'South Side')}" if kind == 'chicago' else 'the rest of the south and southwest suburbs'
+        tail = f"the rest of the {t.get('side', 'South Side')}" if kind == 'chicago' else 'the rest of the Chicagoland area'
         up = ' <a href="home-care-chicago.html">Home care across Chicago &rarr;</a>' if kind == 'chicago' else ''
         nearby_html = f'''<h2>Nearby</h2>
             <p class="town-near">{near_links}.{up} <a href="service-areas.html">All areas &rarr;</a></p>'''
