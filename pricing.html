@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012d">
-    <link rel="stylesheet" href="css/vt.css?v=20261012d">
+    <link rel="stylesheet" href="css/style.css?v=20261012e">
+    <link rel="stylesheet" href="css/vt.css?v=20261012e">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .pricing-card {
@@ -133,6 +133,12 @@
       "sameAs": []
     }
     </script>
+    <style>
+        /* ip-* body helpers for this page only */
+        .pr-tags { margin: 0 0 14px; }
+        .pr-cards--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+        .pr-more { margin: 24px 0 0; }
+    </style>
 </head>
 <body>
 
@@ -148,13 +154,52 @@
                 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
-                <div class="nav-menu nav-menu-slim">
-                    <a href="services.html">Services</a>
-                    <a href="disability-support.html">Disability Support</a>
-                    <a href="paying-for-care.html">Ways to Pay</a>
-                    <a href="assessment.html">Free Assessment</a>
-                    <a href="contact.html">Contact</a>
-                    <a href="apply.html">Careers</a>
+                <div class="nav-menu nav-menu-slim mm">
+                    <div class="mm-item">
+                        <button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mm-0">Care<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-0" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="services.html"><i class="ph ph-squares-four" aria-hidden="true"></i><span><strong>All services</strong><small>Everything we help with</small></span></a><a class="mm-link" href="services.html#personal-care"><i class="ph ph-hand-heart" aria-hidden="true"></i><span><strong>Personal care</strong><small>Bathing, dressing, transfers</small></span></a><a class="mm-link" href="services.html#homemaking"><i class="ph ph-broom" aria-hidden="true"></i><span><strong>Homemaking</strong><small>Meals, housekeeping, errands</small></span></a><a class="mm-link" href="services.html#dementia-care"><i class="ph ph-brain" aria-hidden="true"></i><span><strong>Dementia care</strong><small>Calm, consistent support</small></span></a><a class="mm-link" href="services.html#companionship"><i class="ph ph-chats-circle" aria-hidden="true"></i><span><strong>Companionship</strong><small>Company and outings</small></span></a><a class="mm-link" href="services.html#respite"><i class="ph ph-armchair" aria-hidden="true"></i><span><strong>Respite</strong><small>Time off for family</small></span></a><a class="mm-link" href="services.html#transportation"><i class="ph ph-car-simple" aria-hidden="true"></i><span><strong>Rides</strong><small>Appointments and errands</small></span></a><a class="mm-link" href="disability-support.html"><i class="ph ph-wheelchair" aria-hidden="true"></i><span><strong>Disability support</strong><small>Adults of any age</small></span></a></div>
+                                <a class="mm-feature" href="assessment.html"><span class="mm-feature__k">Not sure?</span><strong>Take the free assessment</strong><span>Ninety seconds. A personal report and ways to pay.</span><span class="mm-feature__btn">Start <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mm-item">
+                        <button class="mm-trigger is-current" type="button" aria-expanded="false" aria-controls="mm-1">Paying for care<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-1" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="paying-for-care.html"><i class="ph ph-wallet" aria-hidden="true"></i><span><strong>Ways to pay</strong><small>Six options, explained</small></span></a><a class="mm-link" href="paying-for-care.html#ltc-insurance"><i class="ph ph-file-text" aria-hidden="true"></i><span><strong>Long-term care insurance</strong><small>Most policies cover home care</small></span></a><a class="mm-link" href="paying-for-care.html#va"><i class="ph ph-shield-star" aria-hidden="true"></i><span><strong>VA benefits</strong><small>For veterans and spouses</small></span></a><a class="mm-link" href="paying-for-care.html#medicare-advantage"><i class="ph ph-heartbeat" aria-hidden="true"></i><span><strong>Medicare Advantage</strong><small>In-home support benefits</small></span></a><a class="mm-link" href="paying-for-care.html#medicaid"><i class="ph ph-bank" aria-hidden="true"></i><span><strong>Medicaid</strong><small>Where you stand</small></span></a><a class="mm-link" href="paying-for-care.html#own"><i class="ph ph-credit-card" aria-hidden="true"></i><span><strong>Paying on your own</strong><small>Flexible hours</small></span></a><a class="mm-link" href="pricing.html"><i class="ph ph-tag" aria-hidden="true"></i><span><strong>Pricing</strong><small>How our pricing works</small></span></a><a class="mm-link" href="care-plans.html"><i class="ph ph-calendar-check" aria-hidden="true"></i><span><strong>Care plans</strong><small>Monthly plans</small></span></a></div>
+                                <a class="mm-feature" href="index.html#cost"><span class="mm-feature__k">Cost calculator</span><strong>See what care costs</strong><span>Compare hours of home care with other options.</span><span class="mm-feature__btn">Open calculator <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mm-item">
+                        <button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mm-2">Areas<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-2" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="home-care-chicago.html"><i class="ph ph-buildings" aria-hidden="true"></i><span><strong>Chicago</strong><small>28 neighborhoods</small></span></a><a class="mm-link" href="home-care-matteson.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Matteson</strong><small>Our home base</small></span></a><a class="mm-link" href="home-care-orland-park.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Orland Park</strong><small>Southwest suburbs</small></span></a><a class="mm-link" href="home-care-tinley-park.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Tinley Park</strong><small>Southwest suburbs</small></span></a><a class="mm-link" href="home-care-oak-lawn.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Oak Lawn</strong><small>Southwest suburbs</small></span></a><a class="mm-link" href="home-care-homewood.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Homewood</strong><small>South suburbs</small></span></a><a class="mm-link" href="service-areas.html"><i class="ph ph-map-trifold" aria-hidden="true"></i><span><strong>All 69 areas</strong><small>Every town we serve</small></span></a></div>
+                                <a class="mm-feature" href="service-areas.html#zipCheck"><span class="mm-feature__k">Do we serve you?</span><strong>Check your zip code</strong><span>Instant answer for 69 towns and neighborhoods.</span><span class="mm-feature__btn">Check my zip <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mm-item">
+                        <button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mm-3">Resources<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-3" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="assessment.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i><span><strong>Free care assessment</strong><small>Personal report in 90 seconds</small></span></a><a class="mm-link" href="changes.html"><i class="ph ph-newspaper" aria-hidden="true"></i><span><strong>Medicare and Medicaid changes</strong><small>What changes in 2026 and 2027</small></span></a><a class="mm-link" href="faq.html"><i class="ph ph-question" aria-hidden="true"></i><span><strong>FAQ</strong><small>Quick answers</small></span></a><a class="mm-link" href="blog.html"><i class="ph ph-article" aria-hidden="true"></i><span><strong>Articles</strong><small>Guides for families</small></span></a><a class="mm-link" href="refer/"><i class="ph ph-handshake" aria-hidden="true"></i><span><strong>Refer a client</strong><small>For professionals</small></span></a><a class="mm-link" href="incident/"><i class="ph ph-warning-circle" aria-hidden="true"></i><span><strong>Report a concern</strong><small>We respond fast</small></span></a></div>
+                                <a class="mm-feature" href="changes.html#open-enrollment"><span class="mm-feature__k">Open enrollment</span><strong>Oct 15 to Dec 7</strong><span>Compare in-home support before you pick a plan.</span><span class="mm-feature__btn">Read more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mm-item">
+                        <button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mm-4">About<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-4" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="about.html"><i class="ph ph-users-three" aria-hidden="true"></i><span><strong>About us</strong><small>Local and family-owned</small></span></a><a class="mm-link" href="apply.html"><i class="ph ph-briefcase" aria-hidden="true"></i><span><strong>Careers</strong><small>Now hiring caregivers</small></span></a><a class="mm-link" href="contact.html"><i class="ph ph-envelope-simple" aria-hidden="true"></i><span><strong>Contact</strong><small>Office, hours, email</small></span></a></div>
+                                <a class="mm-feature" href="tel:7087264536"><span class="mm-feature__k">Talk to the owner</span><strong>(708) 726-4536</strong><span>When you call, you get a person.</span><span class="mm-feature__btn">Call now <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="nav-cta">
                     <a href="tel:7087264536" class="nav-phone nav-phone-big"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
@@ -167,214 +212,122 @@
     <!-- Mobile Navigation -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
-        <a href="services.html">Services</a>
-        <a href="disability-support.html">Disability Support</a>
-        <a href="paying-for-care.html">Ways to Pay</a>
-        <a href="assessment.html">Free Assessment</a>
-        <a href="contact.html">Contact</a>
-        <a href="apply.html">Careers</a>
-        <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid" style="width:100%;margin-top:20px;">Get care started</a>
-        <a href="tel:7087264536" class="vt-btn vt-btn--ghost" style="width:100%;margin-top:10px;">Call (708) 726-4536</a>
+        <details class="mn-group"><summary>Care<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="services.html"><i class="ph ph-squares-four" aria-hidden="true"></i>All services</a><a href="services.html#personal-care"><i class="ph ph-hand-heart" aria-hidden="true"></i>Personal care</a><a href="services.html#homemaking"><i class="ph ph-broom" aria-hidden="true"></i>Homemaking</a><a href="services.html#dementia-care"><i class="ph ph-brain" aria-hidden="true"></i>Dementia care</a><a href="services.html#companionship"><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</a><a href="services.html#respite"><i class="ph ph-armchair" aria-hidden="true"></i>Respite</a><a href="services.html#transportation"><i class="ph ph-car-simple" aria-hidden="true"></i>Rides</a><a href="disability-support.html"><i class="ph ph-wheelchair" aria-hidden="true"></i>Disability support</a></div></details>
+        <details class="mn-group"><summary>Paying for care<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="paying-for-care.html"><i class="ph ph-wallet" aria-hidden="true"></i>Ways to pay</a><a href="paying-for-care.html#ltc-insurance"><i class="ph ph-file-text" aria-hidden="true"></i>Long-term care insurance</a><a href="paying-for-care.html#va"><i class="ph ph-shield-star" aria-hidden="true"></i>VA benefits</a><a href="paying-for-care.html#medicare-advantage"><i class="ph ph-heartbeat" aria-hidden="true"></i>Medicare Advantage</a><a href="paying-for-care.html#medicaid"><i class="ph ph-bank" aria-hidden="true"></i>Medicaid</a><a href="paying-for-care.html#own"><i class="ph ph-credit-card" aria-hidden="true"></i>Paying on your own</a><a href="pricing.html"><i class="ph ph-tag" aria-hidden="true"></i>Pricing</a><a href="care-plans.html"><i class="ph ph-calendar-check" aria-hidden="true"></i>Care plans</a></div></details>
+        <details class="mn-group"><summary>Areas<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="home-care-chicago.html"><i class="ph ph-buildings" aria-hidden="true"></i>Chicago</a><a href="home-care-matteson.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Matteson</a><a href="home-care-orland-park.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Orland Park</a><a href="home-care-tinley-park.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Tinley Park</a><a href="home-care-oak-lawn.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Oak Lawn</a><a href="home-care-homewood.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Homewood</a><a href="service-areas.html"><i class="ph ph-map-trifold" aria-hidden="true"></i>All 69 areas</a></div></details>
+        <details class="mn-group"><summary>Resources<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="assessment.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i>Free care assessment</a><a href="changes.html"><i class="ph ph-newspaper" aria-hidden="true"></i>Medicare and Medicaid changes</a><a href="faq.html"><i class="ph ph-question" aria-hidden="true"></i>FAQ</a><a href="blog.html"><i class="ph ph-article" aria-hidden="true"></i>Articles</a><a href="refer/"><i class="ph ph-handshake" aria-hidden="true"></i>Refer a client</a><a href="incident/"><i class="ph ph-warning-circle" aria-hidden="true"></i>Report a concern</a></div></details>
+        <details class="mn-group"><summary>About<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="about.html"><i class="ph ph-users-three" aria-hidden="true"></i>About us</a><a href="apply.html"><i class="ph ph-briefcase" aria-hidden="true"></i>Careers</a><a href="contact.html"><i class="ph ph-envelope-simple" aria-hidden="true"></i>Contact</a></div></details>
+        <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid mn-cta">Get care started</a>
+        <a href="tel:7087264536" class="vt-btn vt-btn--ghost mn-cta">Call (708) 726-4536</a>
     </nav>
 
     <!-- Page Hero -->
-    <section id="main" tabindex="-1" class="page-hero">
-        <div class="container">
-            <div class="breadcrumb">
-                <a href="index.html">Home</a>
-                <span>/</span>
-                <span>Pricing</span>
+    <section id="main" tabindex="-1" class="ip-hero">
+        <div class="container ip-hero__grid">
+            <div>
+                <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Pricing</span></div>
+                <h1>Pricing and payment</h1>
+                <p class="ip-hero__sub">How care is priced and how it can be paid for.</p>
+                <div class="ip-hero__ctas">
+                    <a href="consult.html?when=now&amp;from=pricing-hero" class="vt-btn ip-btn-light">Get care started</a>
+                    <button type="button" class="vt-btn ip-btn-glass" data-engage="pricing-hero" data-title="Get a free care quote" data-msg="pricing page">Free quote</button>
+                </div>
             </div>
-            <h1>Pricing & Payment</h1>
-            <p>How care is priced and how it can be paid for.</p>
+            <div class="ip-hero__card"><div class="ui-card" aria-label="Sample care quote">
+                <div class="ui-card__top"><div><strong>Care quote</strong><span>Sample, paying on your own</span></div><span class="ui-pill">Free quote</span></div>
+                <div class="ui-plan__tags pr-tags"><span>Meals</span><span>Housekeeping</span><span>Errands</span><span>Company</span></div>
+                <div class="ui-stats"><div><strong>14h</strong><span>Per week</span></div><div><strong>4</strong><span>Visits</span></div><div><strong>None</strong><span>Minimums</span></div></div>
+                <div class="ui-card__foot"><span><i class="ph ph-sliders-horizontal" aria-hidden="true"></i>You choose the hours</span><span>Free, no obligation</span></div>
+            </div></div>
         </div>
     </section>
 
-    <!-- Pricing Options -->
-    <section class="section section-white">
+    <section class="ip-section ip-section--mist">
         <div class="container">
-            <div class="section-header">
-                <span class="section-label">Payment Options</span>
-                <h2>Ways to <span class="highlight">pay</span></h2>
-                <p>There are six ways to pay for care. <a href="paying-for-care.html"><strong>See all six &rarr;</strong></a></p>
+            <div class="ip-head">
+                <h2>Ways to pay</h2>
+                <p>There are six ways to pay for care. Start with what you may already have.</p>
             </div>
-
-            <div class="grid-2" style="max-width: 900px; margin: 0 auto;">
-                <!-- Coverage you may already hold -->
-                <div class="pricing-card featured">
-                    <div class="pricing-icon">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-                    </div>
-                    <h3>Coverage You May Already Have</h3>
-                    <p class="price">Free to check</p>
-                    <ul>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>Long-term care insurance</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>Medicare Advantage in-home support hours</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>VA benefits</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>Illinois Home Services Program, for adults under 60 living with a disability</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>We make the calls and tell you what we find</span>
-                        </li>
-                    </ul>
-                    <a href="paying-for-care.html" class="btn btn-primary" style="width: 100%;">See All Six Ways to Pay</a>
-                </div>
-
-                <!-- Paying on your own -->
-                <div class="pricing-card">
-                    <div class="pricing-icon">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    </div>
-                    <h3>Paying On Your Own</h3>
-                    <p class="price">Call for a quote</p>
-                    <ul>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>You choose the hours</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>No minimums</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>Competitive hourly rates</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>All services available</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-                            <span>Add optional smart monitoring</span>
-                        </li>
-                    </ul>
-                    <a href="care-plans.html" class="btn btn-outline" style="width: 100%;">See Monthly Care Plans</a>
-                </div>
-            </div>
-
-            <div class="info-box" style="max-width: 900px; margin: 40px auto 0;">
-                <h4>Not sure what you're covered for?</h4>
-                <p style="margin: 0;">Send us what you have and we'll check. Free, no obligation. <a href="consult.html"><strong>Request a free coverage check &rarr;</strong></a></p>
+            <div class="ip-cards">
+                <article class="ip-card">
+                    <span class="ip-tag">Free to check</span>
+                    <span class="ip-card__icon"><i class="ph ph-identification-card" aria-hidden="true"></i></span>
+                    <h3>Coverage you may already have</h3>
+                    <p>We make the calls and tell you what we find.</p>
+                    <ul class="ip-list"><li>Long-term care insurance</li><li>Medicare Advantage in-home support hours</li><li>VA benefits</li><li>Illinois Home Services Program, for adults under 60 living with a disability</li></ul>
+                    <a href="paying-for-care.html" class="ip-card__go">See all six ways to pay <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                </article>
+                <article class="ip-card">
+                    <span class="ip-tag ip-tag--ink">Call for a quote</span>
+                    <span class="ip-card__icon"><i class="ph ph-wallet" aria-hidden="true"></i></span>
+                    <h3>Paying on your own</h3>
+                    <p>You choose the hours.</p>
+                    <ul class="ip-list"><li>No minimums</li><li>Competitive hourly rates</li><li>All services available</li><li>Add optional smart monitoring</li></ul>
+                    <a href="care-plans.html" class="ip-card__go">See monthly care plans <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- What's Included -->
-    <section class="section section-cream">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Included at No Extra Cost</span>
-                <h2>Included for <span class="highlight">every client</span></h2>
+    <section class="ip-section ip-section--dark">
+        <div class="container ip-split">
+            <div class="ip-split__copy">
+                <h2>Included for every client</h2>
+                <p>At no extra cost.</p>
+                <ul class="ip-points">
+                    <li><i class="ph ph-notebook" aria-hidden="true"></i><div><strong>Digital care logs</strong><span>A record of every visit.</span></div></li>
+                    <li><i class="ph ph-device-mobile" aria-hidden="true"></i><div><strong>Family portal</strong><span>Updates anytime.</span></div></li>
+                    <li><i class="ph ph-headset" aria-hidden="true"></i><div><strong>Care coordination</strong><span>Help with scheduling and questions.</span></div></li>
+                </ul>
             </div>
-            <div class="grid-4">
-                <div class="card text-center">
-                    <div class="card-icon" style="margin: 0 auto 16px;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    </div>
-                    <h4>Digital Care Logs</h4>
-                    <p style="font-size: 0.9rem;">A record of every visit</p>
-                </div>
-                <div class="card text-center">
-                    <div class="card-icon" style="margin: 0 auto 16px;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                    </div>
-                    <h4>GPS Verification</h4>
-                    <p style="font-size: 0.9rem;">When caregivers arrive and leave</p>
-                </div>
-                <div class="card text-center">
-                    <div class="card-icon" style="margin: 0 auto 16px;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                    </div>
-                    <h4>Family Portal</h4>
-                    <p style="font-size: 0.9rem;">Updates anytime</p>
-                </div>
-                <div class="card text-center">
-                    <div class="card-icon" style="margin: 0 auto 16px;">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    </div>
-                    <h4>Care Coordination</h4>
-                    <p style="font-size: 0.9rem;">Help with scheduling and questions</p>
-                </div>
-            </div>
+            <div class="ip-split__card"><div class="ui-card ui-note" aria-label="Sample weekly care note">
+                <div class="ui-card__top"><div class="ui-who"><span class="ui-avatar ui-avatar--teal" aria-hidden="true"><i class="ph ph-envelope-simple"></i></span><div><strong>Weekly care note</strong><span>Sample, sent Friday</span></div></div></div>
+                <p class="ui-note__text">Mom had a good week. All four visits on time, she walked to the mailbox twice, and she&rsquo;s eating well.</p>
+                <div class="ui-stats"><div><strong>4/4</strong><span>Visits</span></div><div><strong>14h</strong><span>Care</span></div><div><strong>27</strong><span>Tasks done</span></div></div>
+            </div></div>
         </div>
     </section>
 
-    <!-- Optional Add-Ons -->
-    <section class="section section-white">
+    <section class="ip-section">
         <div class="container">
-            <div class="section-header">
-                <span class="section-label">Optional Add-Ons</span>
-                <h2>Smart <span class="highlight">monitoring</span></h2>
+            <div class="ip-head">
+                <h2>Optional smart monitoring</h2>
                 <p>Safety tools for between visits, for an extra fee.</p>
             </div>
-            <div class="grid-2" style="max-width: 800px; margin: 0 auto;">
-                <div class="feature-card">
-                    <div class="feature-card-icon" style="background: #F3E3C8; color: #8a6a2f;">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                    </div>
-                    <div>
-                        <h4>Wearable Fall Detection</h4>
-                        <p>Alerts when a fall is detected</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon" style="background: #F3E3C8; color: #8a6a2f;">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    </div>
-                    <div>
-                        <h4>Smart Home Sensors</h4>
-                        <p>Flags unusual movement patterns</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon" style="background: #F3E3C8; color: #8a6a2f;">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-                    </div>
-                    <div>
-                        <h4>Emergency Response</h4>
-                        <p>24/7 monitoring and rapid response</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon" style="background: #F3E3C8; color: #8a6a2f;">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    </div>
-                    <div>
-                        <h4>Wellness Check Calls</h4>
-                        <p>Automated daily check-ins</p>
-                    </div>
-                </div>
+            <div class="ip-cards pr-cards--4">
+                <article class="ip-card">
+                    <span class="ip-card__icon"><i class="ph ph-watch" aria-hidden="true"></i></span>
+                    <h3>Wearable fall detection</h3>
+                    <p>Alerts when a fall is detected.</p>
+                </article>
+                <article class="ip-card">
+                    <span class="ip-card__icon"><i class="ph ph-house-simple" aria-hidden="true"></i></span>
+                    <h3>Smart home sensors</h3>
+                    <p>Flags unusual movement patterns.</p>
+                </article>
+                <article class="ip-card">
+                    <span class="ip-card__icon"><i class="ph ph-siren" aria-hidden="true"></i></span>
+                    <h3>Emergency response</h3>
+                    <p>24/7 monitoring and rapid response.</p>
+                </article>
+                <article class="ip-card">
+                    <span class="ip-card__icon"><i class="ph ph-phone-call" aria-hidden="true"></i></span>
+                    <h3>Wellness check calls</h3>
+                    <p>Automated daily check-ins.</p>
+                </article>
             </div>
-            <div class="text-center mt-4">
-                <a href="contact.html" class="btn btn-outline">Ask About Add-On Pricing</a>
-            </div>
+            <p class="pr-more"><a href="contact.html" class="vt-btn vt-btn--ghost">Ask about add-on pricing</a></p>
         </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta">
+    <section class="ip-section ip-section--mist">
         <div class="container">
-            <h2>Get a free quote</h2>
-            <p>No obligation.</p>
-            <div class="cta-buttons">
-                <a href="tel:7087264536" class="btn btn-white">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    Call (708) 726-4536
-                </a>
-                <a href="contact.html" class="btn btn-outline-white">Request Quote</a>
+            <div class="ip-cta">
+                <div><h2>Get a free quote</h2><p>No obligation. Not sure what you&rsquo;re covered for? Send us what you have and we&rsquo;ll check.</p></div>
+                <div class="ip-cta__btns">
+                    <a href="consult.html?when=now&amp;from=pricing-final" class="vt-btn ip-btn-light">Get care started</a>
+                    <a href="tel:7087264536" class="vt-btn ip-btn-glass"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
+                </div>
             </div>
         </div>
     </section>
@@ -438,8 +391,9 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012d"></script>
-    <script src="js/motion.js?v=20261012d" defer></script>
-    <script src="js/engage.js?v=20261012d" defer></script>
+    <script src="js/main.js?v=20261012e"></script>
+    <script src="js/nav.js?v=20261012e" defer></script>
+    <script src="js/motion.js?v=20261012e" defer></script>
+    <script src="js/engage.js?v=20261012e" defer></script>
 </body>
 </html>

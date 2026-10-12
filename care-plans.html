@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20261012d">
-    <link rel="stylesheet" href="css/vt.css?v=20261012d">
+    <link rel="stylesheet" href="css/style.css?v=20261012e">
+    <link rel="stylesheet" href="css/vt.css?v=20261012e">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
         .cp-wrap { max-width: 1040px; margin: 0 auto; padding: 44px 20px 80px; }
@@ -84,6 +84,14 @@
       "sameAs": []
     }
     </script>
+    <style>
+        /* ip-* body helpers for this page only */
+        .cp2-price strong { display: block; font: 500 1.45rem/1.2 var(--font-mono); color: var(--ink); }
+        .cp2-price span { font-size: .88rem; color: var(--muted-ink); }
+        .cp2-go { margin-top: auto; padding-top: 10px; }
+        .cp2-go .vt-btn { width: 100%; justify-content: center; }
+        .ip-card.cp2-featured { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 18px 40px -22px rgba(11,28,48,.35); }
+    </style>
 </head>
 <body>
 
@@ -99,13 +107,52 @@
                 <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span><span></span><span></span>
                 </button>
-                <div class="nav-menu nav-menu-slim">
-                    <a href="services.html">Services</a>
-                    <a href="disability-support.html">Disability Support</a>
-                    <a href="paying-for-care.html">Ways to Pay</a>
-                    <a href="assessment.html">Free Assessment</a>
-                    <a href="contact.html">Contact</a>
-                    <a href="apply.html">Careers</a>
+                <div class="nav-menu nav-menu-slim mm">
+                    <div class="mm-item">
+                        <button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mm-0">Care<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-0" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="services.html"><i class="ph ph-squares-four" aria-hidden="true"></i><span><strong>All services</strong><small>Everything we help with</small></span></a><a class="mm-link" href="services.html#personal-care"><i class="ph ph-hand-heart" aria-hidden="true"></i><span><strong>Personal care</strong><small>Bathing, dressing, transfers</small></span></a><a class="mm-link" href="services.html#homemaking"><i class="ph ph-broom" aria-hidden="true"></i><span><strong>Homemaking</strong><small>Meals, housekeeping, errands</small></span></a><a class="mm-link" href="services.html#dementia-care"><i class="ph ph-brain" aria-hidden="true"></i><span><strong>Dementia care</strong><small>Calm, consistent support</small></span></a><a class="mm-link" href="services.html#companionship"><i class="ph ph-chats-circle" aria-hidden="true"></i><span><strong>Companionship</strong><small>Company and outings</small></span></a><a class="mm-link" href="services.html#respite"><i class="ph ph-armchair" aria-hidden="true"></i><span><strong>Respite</strong><small>Time off for family</small></span></a><a class="mm-link" href="services.html#transportation"><i class="ph ph-car-simple" aria-hidden="true"></i><span><strong>Rides</strong><small>Appointments and errands</small></span></a><a class="mm-link" href="disability-support.html"><i class="ph ph-wheelchair" aria-hidden="true"></i><span><strong>Disability support</strong><small>Adults of any age</small></span></a></div>
+                                <a class="mm-feature" href="assessment.html"><span class="mm-feature__k">Not sure?</span><strong>Take the free assessment</strong><span>Ninety seconds. A personal report and ways to pay.</span><span class="mm-feature__btn">Start <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mm-item">
+                        <button class="mm-trigger is-current" type="button" aria-expanded="false" aria-controls="mm-1">Paying for care<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-1" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="paying-for-care.html"><i class="ph ph-wallet" aria-hidden="true"></i><span><strong>Ways to pay</strong><small>Six options, explained</small></span></a><a class="mm-link" href="paying-for-care.html#ltc-insurance"><i class="ph ph-file-text" aria-hidden="true"></i><span><strong>Long-term care insurance</strong><small>Most policies cover home care</small></span></a><a class="mm-link" href="paying-for-care.html#va"><i class="ph ph-shield-star" aria-hidden="true"></i><span><strong>VA benefits</strong><small>For veterans and spouses</small></span></a><a class="mm-link" href="paying-for-care.html#medicare-advantage"><i class="ph ph-heartbeat" aria-hidden="true"></i><span><strong>Medicare Advantage</strong><small>In-home support benefits</small></span></a><a class="mm-link" href="paying-for-care.html#medicaid"><i class="ph ph-bank" aria-hidden="true"></i><span><strong>Medicaid</strong><small>Where you stand</small></span></a><a class="mm-link" href="paying-for-care.html#own"><i class="ph ph-credit-card" aria-hidden="true"></i><span><strong>Paying on your own</strong><small>Flexible hours</small></span></a><a class="mm-link" href="pricing.html"><i class="ph ph-tag" aria-hidden="true"></i><span><strong>Pricing</strong><small>How our pricing works</small></span></a><a class="mm-link" href="care-plans.html"><i class="ph ph-calendar-check" aria-hidden="true"></i><span><strong>Care plans</strong><small>Monthly plans</small></span></a></div>
+                                <a class="mm-feature" href="index.html#cost"><span class="mm-feature__k">Cost calculator</span><strong>See what care costs</strong><span>Compare hours of home care with other options.</span><span class="mm-feature__btn">Open calculator <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mm-item">
+                        <button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mm-2">Areas<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-2" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="home-care-chicago.html"><i class="ph ph-buildings" aria-hidden="true"></i><span><strong>Chicago</strong><small>28 neighborhoods</small></span></a><a class="mm-link" href="home-care-matteson.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Matteson</strong><small>Our home base</small></span></a><a class="mm-link" href="home-care-orland-park.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Orland Park</strong><small>Southwest suburbs</small></span></a><a class="mm-link" href="home-care-tinley-park.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Tinley Park</strong><small>Southwest suburbs</small></span></a><a class="mm-link" href="home-care-oak-lawn.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Oak Lawn</strong><small>Southwest suburbs</small></span></a><a class="mm-link" href="home-care-homewood.html"><i class="ph ph-map-pin" aria-hidden="true"></i><span><strong>Homewood</strong><small>South suburbs</small></span></a><a class="mm-link" href="service-areas.html"><i class="ph ph-map-trifold" aria-hidden="true"></i><span><strong>All 69 areas</strong><small>Every town we serve</small></span></a></div>
+                                <a class="mm-feature" href="service-areas.html#zipCheck"><span class="mm-feature__k">Do we serve you?</span><strong>Check your zip code</strong><span>Instant answer for 69 towns and neighborhoods.</span><span class="mm-feature__btn">Check my zip <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mm-item">
+                        <button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mm-3">Resources<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-3" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="assessment.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i><span><strong>Free care assessment</strong><small>Personal report in 90 seconds</small></span></a><a class="mm-link" href="changes.html"><i class="ph ph-newspaper" aria-hidden="true"></i><span><strong>Medicare and Medicaid changes</strong><small>What changes in 2026 and 2027</small></span></a><a class="mm-link" href="faq.html"><i class="ph ph-question" aria-hidden="true"></i><span><strong>FAQ</strong><small>Quick answers</small></span></a><a class="mm-link" href="blog.html"><i class="ph ph-article" aria-hidden="true"></i><span><strong>Articles</strong><small>Guides for families</small></span></a><a class="mm-link" href="refer/"><i class="ph ph-handshake" aria-hidden="true"></i><span><strong>Refer a client</strong><small>For professionals</small></span></a><a class="mm-link" href="incident/"><i class="ph ph-warning-circle" aria-hidden="true"></i><span><strong>Report a concern</strong><small>We respond fast</small></span></a></div>
+                                <a class="mm-feature" href="changes.html#open-enrollment"><span class="mm-feature__k">Open enrollment</span><strong>Oct 15 to Dec 7</strong><span>Compare in-home support before you pick a plan.</span><span class="mm-feature__btn">Read more <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mm-item">
+                        <button class="mm-trigger" type="button" aria-expanded="false" aria-controls="mm-4">About<i class="ph ph-caret-down" aria-hidden="true"></i></button>
+                        <div class="mm-panel" id="mm-4" hidden>
+                            <div class="container mm-panel__inner">
+                                <div class="mm-grid"><a class="mm-link" href="about.html"><i class="ph ph-users-three" aria-hidden="true"></i><span><strong>About us</strong><small>Local and family-owned</small></span></a><a class="mm-link" href="apply.html"><i class="ph ph-briefcase" aria-hidden="true"></i><span><strong>Careers</strong><small>Now hiring caregivers</small></span></a><a class="mm-link" href="contact.html"><i class="ph ph-envelope-simple" aria-hidden="true"></i><span><strong>Contact</strong><small>Office, hours, email</small></span></a></div>
+                                <a class="mm-feature" href="tel:7087264536"><span class="mm-feature__k">Talk to the owner</span><strong>(708) 726-4536</strong><span>When you call, you get a person.</span><span class="mm-feature__btn">Call now <i class="ph ph-arrow-right" aria-hidden="true"></i></span></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="nav-cta">
                     <a href="tel:7087264536" class="nav-phone nav-phone-big"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
@@ -118,119 +165,151 @@
     <!-- Mobile Navigation -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
-        <a href="services.html">Services</a>
-        <a href="disability-support.html">Disability Support</a>
-        <a href="paying-for-care.html">Ways to Pay</a>
-        <a href="assessment.html">Free Assessment</a>
-        <a href="contact.html">Contact</a>
-        <a href="apply.html">Careers</a>
-        <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid" style="width:100%;margin-top:20px;">Get care started</a>
-        <a href="tel:7087264536" class="vt-btn vt-btn--ghost" style="width:100%;margin-top:10px;">Call (708) 726-4536</a>
+        <details class="mn-group"><summary>Care<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="services.html"><i class="ph ph-squares-four" aria-hidden="true"></i>All services</a><a href="services.html#personal-care"><i class="ph ph-hand-heart" aria-hidden="true"></i>Personal care</a><a href="services.html#homemaking"><i class="ph ph-broom" aria-hidden="true"></i>Homemaking</a><a href="services.html#dementia-care"><i class="ph ph-brain" aria-hidden="true"></i>Dementia care</a><a href="services.html#companionship"><i class="ph ph-chats-circle" aria-hidden="true"></i>Companionship</a><a href="services.html#respite"><i class="ph ph-armchair" aria-hidden="true"></i>Respite</a><a href="services.html#transportation"><i class="ph ph-car-simple" aria-hidden="true"></i>Rides</a><a href="disability-support.html"><i class="ph ph-wheelchair" aria-hidden="true"></i>Disability support</a></div></details>
+        <details class="mn-group"><summary>Paying for care<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="paying-for-care.html"><i class="ph ph-wallet" aria-hidden="true"></i>Ways to pay</a><a href="paying-for-care.html#ltc-insurance"><i class="ph ph-file-text" aria-hidden="true"></i>Long-term care insurance</a><a href="paying-for-care.html#va"><i class="ph ph-shield-star" aria-hidden="true"></i>VA benefits</a><a href="paying-for-care.html#medicare-advantage"><i class="ph ph-heartbeat" aria-hidden="true"></i>Medicare Advantage</a><a href="paying-for-care.html#medicaid"><i class="ph ph-bank" aria-hidden="true"></i>Medicaid</a><a href="paying-for-care.html#own"><i class="ph ph-credit-card" aria-hidden="true"></i>Paying on your own</a><a href="pricing.html"><i class="ph ph-tag" aria-hidden="true"></i>Pricing</a><a href="care-plans.html"><i class="ph ph-calendar-check" aria-hidden="true"></i>Care plans</a></div></details>
+        <details class="mn-group"><summary>Areas<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="home-care-chicago.html"><i class="ph ph-buildings" aria-hidden="true"></i>Chicago</a><a href="home-care-matteson.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Matteson</a><a href="home-care-orland-park.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Orland Park</a><a href="home-care-tinley-park.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Tinley Park</a><a href="home-care-oak-lawn.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Oak Lawn</a><a href="home-care-homewood.html"><i class="ph ph-map-pin" aria-hidden="true"></i>Homewood</a><a href="service-areas.html"><i class="ph ph-map-trifold" aria-hidden="true"></i>All 69 areas</a></div></details>
+        <details class="mn-group"><summary>Resources<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="assessment.html"><i class="ph ph-clipboard-text" aria-hidden="true"></i>Free care assessment</a><a href="changes.html"><i class="ph ph-newspaper" aria-hidden="true"></i>Medicare and Medicaid changes</a><a href="faq.html"><i class="ph ph-question" aria-hidden="true"></i>FAQ</a><a href="blog.html"><i class="ph ph-article" aria-hidden="true"></i>Articles</a><a href="refer/"><i class="ph ph-handshake" aria-hidden="true"></i>Refer a client</a><a href="incident/"><i class="ph ph-warning-circle" aria-hidden="true"></i>Report a concern</a></div></details>
+        <details class="mn-group"><summary>About<i class="ph ph-caret-down" aria-hidden="true"></i></summary><div class="mn-links"><a href="about.html"><i class="ph ph-users-three" aria-hidden="true"></i>About us</a><a href="apply.html"><i class="ph ph-briefcase" aria-hidden="true"></i>Careers</a><a href="contact.html"><i class="ph ph-envelope-simple" aria-hidden="true"></i>Contact</a></div></details>
+        <a href="consult.html?when=now&amp;from=nav" class="vt-btn vt-btn--solid mn-cta">Get care started</a>
+        <a href="tel:7087264536" class="vt-btn vt-btn--ghost mn-cta">Call (708) 726-4536</a>
     </nav>
 
-    <main id="main" tabindex="-1" class="cp-wrap">
-        <div class="cp-head">
-            <h1>Monthly care plans</h1>
-            <p>
-                Month to month. Change or cancel anytime.
-            </p>
-        </div>
-
-        <div class="cp-tiers">
-            <!-- Check-In -->
-            <div class="cp-tier">
-                <div class="tag">Light support</div>
-                <h2>Check-In</h2>
-                <div class="price" data-plan-price="check_in">From $149/month</div>
-                <div class="price-note" data-plan-note="check_in">Exact price set on your free call</div>
-                <p class="who">For people who just need checking on.</p>
-                <ul>
-                    <li>One visit every week</li>
-                    <li>Phone check-ins between visits</li>
-                    <li>A family update after each visit or call</li>
-                    <li>Priority access if needs change</li>
-                </ul>
-                <a href="consult.html?plan=check-in" class="cp-cta cp-cta-navy">Talk it through for free</a>
+    <section id="main" tabindex="-1" class="ip-hero">
+        <div class="container ip-hero__grid">
+            <div>
+                <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="paying-for-care.html">Ways to Pay</a><span>/</span><span>Care plans</span></div>
+                <h1>Monthly care plans</h1>
+                <p class="ip-hero__sub">Month to month. Change or cancel anytime.</p>
+                <div class="ip-hero__ctas">
+                    <a href="consult.html?when=now&amp;from=care-plans-hero" class="vt-btn ip-btn-light">Get care started</a>
+                    <button type="button" class="vt-btn ip-btn-glass" data-engage="care-plans-hero" data-title="Get a free care quote" data-msg="care plans page">Free quote</button>
+                </div>
             </div>
+            <div class="ip-hero__card"><div class="ui-card ui-plan" aria-label="Sample Steady Support schedule">
+                <div class="ui-card__top"><div><strong>Steady Support</strong><span>Sample weekly schedule</span></div><span class="ui-pill">Month to month</span></div>
+                <div class="ui-plan__week" role="img" aria-label="Visits Monday, Wednesday and Friday 9 to 1, Saturday 10 to 12">
+                    <div class="ui-plan__day"><span>Mon</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
+                    <div class="ui-plan__day"><span>Tue</span></div>
+                    <div class="ui-plan__day"><span>Wed</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
+                    <div class="ui-plan__day"><span>Thu</span></div>
+                    <div class="ui-plan__day"><span>Fri</span><i class="ui-plan__blk" style="--s:0;--e:4"></i></div>
+                    <div class="ui-plan__day"><span>Sat</span><i class="ui-plan__blk ui-plan__blk--alt" style="--s:1;--e:3"></i></div>
+                    <div class="ui-plan__day"><span>Sun</span></div>
+                </div>
+                <div class="ui-plan__axis" aria-hidden="true"><span>9a</span><span>11a</span><span>1p</span></div>
+                <div class="ui-plan__tags"><span>Meals</span><span>Housekeeping</span><span>Errands</span><span>Company</span></div>
+                <div class="ui-card__foot"><span><i class="ph ph-clock" aria-hidden="true"></i>14 hrs / week</span><span>Same caregiver every visit</span></div>
+            </div></div>
+        </div>
+    </section>
 
-            <!-- Steady Support -->
-            <div class="cp-tier featured">
-                <div class="tag">Most families choose this</div>
-                <h2>Steady Support</h2>
-                <div class="price" data-plan-price="steady_support">Priced to your schedule</div>
-                <div class="price-note" data-plan-note="steady_support">Most families start with 10-20 hours a week</div>
-                <p class="who">Weekly help with meals, housekeeping, errands, and company.</p>
-                <ul>
-                    <li>A set weekly schedule you choose</li>
-                    <li>The same caregiver every visit</li>
-                    <li>A written care plan, rechecked quarterly</li>
-                    <li>Member rate on extra hours</li>
-                    <li>Everything in Check-In, included</li>
-                </ul>
-                <a href="consult.html?plan=steady-support" class="cp-cta cp-cta-gold">Get my price (free call)</a>
+    <section class="ip-section ip-section--mist">
+        <div class="container">
+            <div class="ip-head">
+                <h2>Pick a plan</h2>
+                <p>Every plan starts with a free call. We set the exact price with you.</p>
             </div>
-
-            <!-- Full Comfort -->
-            <div class="cp-tier">
-                <div class="tag">&nbsp;</div>
-                <h2>Full Comfort</h2>
-                <div class="price" data-plan-price="full_comfort">Custom</div>
-                <div class="price-note" data-plan-note="full_comfort">Built around daily support</div>
-                <p class="who">For people who need care most days.</p>
-                <ul>
-                    <li>Daily support, up to 7 days a week</li>
-                    <li>Priority scheduling, always covered</li>
-                    <li>A dedicated care coordinator</li>
-                    <li>Everything in Steady Support, included</li>
-                </ul>
-                <a href="consult.html?plan=full-comfort" class="cp-cta cp-cta-navy">Talk it through for free</a>
+            <div class="ip-cards">
+                <article class="ip-card">
+                    <span class="ip-tag">Light support</span>
+                    <span class="ip-card__icon"><i class="ph ph-hand-waving" aria-hidden="true"></i></span>
+                    <h3>Check-In</h3>
+                    <div class="cp2-price"><strong data-plan-price="check_in">From $149/month</strong><span data-plan-note="check_in">Exact price set on your free call</span></div>
+                    <p>For people who just need checking on.</p>
+                    <ul class="ip-list"><li>One visit every week</li><li>Phone check-ins between visits</li><li>A family update after each visit or call</li><li>Priority access if needs change</li></ul>
+                    <div class="cp2-go"><a href="consult.html?plan=check-in" class="vt-btn vt-btn--ghost cp2-btn">Talk it through for free</a></div>
+                </article>
+                <article class="ip-card cp2-featured">
+                    <span class="ip-tag ip-tag--ink">Most families choose this</span>
+                    <span class="ip-card__icon"><i class="ph ph-calendar-check" aria-hidden="true"></i></span>
+                    <h3>Steady Support</h3>
+                    <div class="cp2-price"><strong data-plan-price="steady_support">Priced to your schedule</strong><span data-plan-note="steady_support">Most families start with 10-20 hours a week</span></div>
+                    <p>Weekly help with meals, housekeeping, errands, and company.</p>
+                    <ul class="ip-list"><li>A set weekly schedule you choose</li><li>The same caregiver every visit</li><li>A written care plan, rechecked quarterly</li><li>Member rate on extra hours</li><li>Everything in Check-In, included</li></ul>
+                    <div class="cp2-go"><a href="consult.html?plan=steady-support" class="vt-btn vt-btn--solid cp2-btn">Get my price (free call)</a></div>
+                </article>
+                <article class="ip-card">
+                    <span class="ip-tag">Most days</span>
+                    <span class="ip-card__icon"><i class="ph ph-sun-horizon" aria-hidden="true"></i></span>
+                    <h3>Full Comfort</h3>
+                    <div class="cp2-price"><strong data-plan-price="full_comfort">Custom</strong><span data-plan-note="full_comfort">Built around daily support</span></div>
+                    <p>For people who need care most days.</p>
+                    <ul class="ip-list"><li>Daily support, up to 7 days a week</li><li>Priority scheduling, always covered</li><li>A dedicated care coordinator</li><li>Everything in Steady Support, included</li></ul>
+                    <div class="cp2-go"><a href="consult.html?plan=full-comfort" class="vt-btn vt-btn--ghost cp2-btn">Talk it through for free</a></div>
+                </article>
             </div>
         </div>
+    </section>
 
-        <div class="cp-trust">
-            <span>Cancel anytime</span>
-            <span>Pause during hospital stays</span>
-            <span>Unused visits roll into next month</span>
-            <span>No long contracts</span>
+    <section class="ip-section ip-section--dark">
+        <div class="container ip-split">
+            <div class="ip-split__copy">
+                <h2>No long contracts</h2>
+                <p>Change or cancel anytime.</p>
+                <ul class="ip-points">
+                    <li><i class="ph ph-x" aria-hidden="true"></i><div><strong>Cancel anytime</strong><span>Month to month, no long contracts.</span></div></li>
+                    <li><i class="ph ph-pause-circle" aria-hidden="true"></i><div><strong>Pause when needed</strong><span>During hospital stays.</span></div></li>
+                    <li><i class="ph ph-arrows-clockwise" aria-hidden="true"></i><div><strong>Unused visits roll over</strong><span>Into next month.</span></div></li>
+                </ul>
+            </div>
+            <div class="ip-split__card"><div class="ui-card" aria-label="Sample month on a plan">
+                <div class="ui-card__top"><div><strong>Your month</strong><span>Sample, Check-In plan</span></div><span class="ui-pill">Month to month</span></div>
+                <div class="ui-stats"><div><strong>4</strong><span>Visits planned</span></div><div><strong>3</strong><span>Visits done</span></div><div><strong>1</strong><span>Rolls over</span></div></div>
+                <div class="ui-card__foot"><span><i class="ph ph-pause-circle" aria-hidden="true"></i>Pauses for hospital stays</span><span>Cancel anytime</span></div>
+            </div></div>
         </div>
+    </section>
 
-        <section class="cp-addons">
-            <h2>Add-ons</h2>
-            <p>Add to any plan for one set price. No surprise fees.</p>
-            <div class="cp-addons-grid">
-                <div class="cp-addon">
-                    <h3>Rides &amp; errands</h3>
+    <section class="ip-section">
+        <div class="container">
+            <div class="ip-head">
+                <h2>Add-ons</h2>
+                <p>Add to any plan for one set price. No surprise fees.</p>
+            </div>
+            <div class="ip-cards">
+                <article class="ip-card">
+                    <span class="ip-card__icon"><i class="ph ph-car-simple" aria-hidden="true"></i></span>
+                    <h3>Rides and errands</h3>
                     <p>A set number of trips a month: doctor, groceries, pharmacy, church.</p>
-                </div>
-                <div class="cp-addon">
+                </article>
+                <article class="ip-card">
+                    <span class="ip-card__icon"><i class="ph ph-cooking-pot" aria-hidden="true"></i></span>
                     <h3>Meal prep package</h3>
-                </div>
-                <div class="cp-addon">
-                    <h3>Overnight &amp; weekend coverage</h3>
-                </div>
-                <div class="cp-addon">
+                </article>
+                <article class="ip-card">
+                    <span class="ip-card__icon"><i class="ph ph-moon-stars" aria-hidden="true"></i></span>
+                    <h3>Overnight and weekend coverage</h3>
+                </article>
+                <article class="ip-card">
+                    <span class="ip-card__icon"><i class="ph ph-coffee" aria-hidden="true"></i></span>
                     <h3>Companion outings</h3>
                     <p>Lunch, the senior center, a walk.</p>
-                </div>
-                <div class="cp-addon">
+                </article>
+                <article class="ip-card">
+                    <span class="ip-card__icon"><i class="ph ph-armchair" aria-hidden="true"></i></span>
                     <h3>Respite hours bank</h3>
                     <p>Prepaid hours to use when the family caregiver needs a break.</p>
-                </div>
-                <div class="cp-addon">
-                    <span class="soon">Coming soon</span>
+                </article>
+                <article class="ip-card">
+                    <span class="ip-tag">Coming soon</span>
+                    <span class="ip-card__icon"><i class="ph ph-phone-call" aria-hidden="true"></i></span>
                     <h3>Daily wellness call</h3>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="ip-section ip-section--mist">
+        <div class="container">
+            <div class="ip-cta">
+                <div><h2>Have a program, plan, or policy?</h2><p>These plans are for paying on your own. Medicaid, the Illinois Home Services Program, Medicare Advantage, VA benefits, or long-term care insurance may pay instead.</p></div>
+                <div class="ip-cta__btns">
+                    <a href="paying-for-care.html" class="vt-btn ip-btn-light">See all six ways to pay</a>
+                    <a href="tel:7087264536" class="vt-btn ip-btn-glass"><i class="ph ph-phone" aria-hidden="true"></i>(708) 726-4536</a>
                 </div>
             </div>
-        </section>
-
-        <div class="cp-medicaid">
-            <strong>Have a program, plan, or policy?</strong> These plans are for paying on your own.
-            Medicaid, the Illinois Home Services Program, Medicare Advantage, VA benefits, or
-            long-term care insurance may pay instead.
-            <a href="paying-for-care.html">See all six ways to pay</a> or call
-            <a href="tel:7087264536">(708) 726-4536</a>.
         </div>
-    </main>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -291,9 +370,10 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=20261012d"></script>
-    <script src="js/motion.js?v=20261012d" defer></script>
-    <script src="js/engage.js?v=20261012d" defer></script>
+    <script src="js/main.js?v=20261012e"></script>
+    <script src="js/nav.js?v=20261012e" defer></script>
+    <script src="js/motion.js?v=20261012e" defer></script>
+    <script src="js/engage.js?v=20261012e" defer></script>
     <script>
     // Live pricing from the ops platform — Ifeanyi edits it in /settings/plans.
     // The values in the HTML above are the fallback if this fetch fails.

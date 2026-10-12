@@ -10,7 +10,7 @@ service-areas.html when build-town-pages.py runs, so run this first.
 import re, glob, os
 
 FONTS = '<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">'
-CSS_VER = '20261012d'
+CSS_VER = '20261012e'
 NAV = [('services.html', 'Services'), ('disability-support.html', 'Disability Support'),
        ('paying-for-care.html', 'Ways to Pay'), ('assessment.html', 'Free Assessment'),
        ('contact.html', 'Contact'), ('apply.html', 'Careers')]
@@ -106,6 +106,10 @@ def footer(pre):
         </div>
     </footer>'''
 
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+from menu import header, mobile  # noqa: E402  (mega menu replaces the flat nav)
+
 def head_fix(h, pre):
     h = re.sub(r'<link href="https://fonts\.googleapis\.com/css2\?[^"]*" rel="stylesheet">', FONTS, h, count=1)
     h = re.sub(r'(css/style\.css)\?v=[0-9a-z]+', rf'\1?v={CSS_VER}', h)
@@ -126,6 +130,11 @@ def body_fix(h, pre, current):
     else:
         h = re.sub(r'js/motion\.js\?v=[0-9a-z]+', f'js/motion.js?v={CSS_VER}', h)
     h = re.sub(r'js/main\.js\?v=[0-9a-z]+', f'js/main.js?v={CSS_VER}', h)
+    # Mega menu behaviour.
+    if 'js/nav.js' not in h:
+        h = re.sub(r'(<script src="[^"]*js/main\.js\?v=[0-9a-z]+"></script>)', rf'\1\n    <script src="{pre}js/nav.js?v={CSS_VER}" defer></script>', h, count=1)
+    else:
+        h = re.sub(r'js/nav\.js\?v=[0-9a-z]+', f'js/nav.js?v={CSS_VER}', h)
     # Engagement layer (quote button, quick sheet, one nudge per visit).
     if 'js/engage.js' not in h:
         h = re.sub(r'(<script src="[^"]*js/motion\.js\?v=[0-9a-z]+" defer></script>)',
