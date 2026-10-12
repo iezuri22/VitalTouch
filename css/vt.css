@@ -2139,3 +2139,66 @@ h2 { font-size: clamp(1.6rem, 2.4vw, 2.1rem) !important; font-weight: 700 !impor
 }
 @media (max-width: 999px) { .cl-split__img { display: none; } }
 @media (prefers-reduced-motion: reduce) { .cl-pane.is-in { animation: none; } }
+
+/* =====================================================================
+   Phones: less of everything (owner, 2026-10-12: "we don't need all this
+   on mobile"). Desktop is unchanged. One idea per block, no repeats.
+   ===================================================================== */
+@media (max-width: 760px) {
+  /* homepage family: the photo and the family-caregiver pitch only */
+  .fam-tile--paper, .fam-tile--teal { display: none !important; }
+  .fam-tile--photo { min-height: 210px !important; }
+  .fam-tile--ink { min-height: 0 !important; padding: 22px !important; }
+  .fam-bento { margin-top: 20px !important; }
+  /* care you can see: the visit record carries it */
+  .h-platform__plan, .h-platform__cg, .h-platform__note { display: none !important; }
+  .h-platform__grid { gap: 0 !important; }
+  /* inner pages: words and the button first, no sample cards in the way */
+  .ip-hero__card { display: none !important; }
+  .ip-split__card .ui-cg, .ip-split__card .ui-plan, .ip-split__card .ui-note { display: none !important; }
+  .ip-split__card:not(:has(.vt-record)):not(:has(.ui-card:not(.ui-cg):not(.ui-plan):not(.ui-note))) { display: none !important; }
+  .ip-hero__grid { padding-block: 32px 30px !important; }
+}
+/* The desktop picker's panel never shows below 1000px; phones use the plain
+   tap-to-open list. */
+@media (max-width: 999px) { .cl-pane { display: none !important; } }
+
+/* =====================================================================
+   Vita, the floating guide (js/vita.js). Small, still, never opens itself.
+   ===================================================================== */
+.vita { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 900; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; font-family: var(--font-body); }
+.vita__btn { width: 64px; height: 64px; border-radius: 50%; border: 0; background: #fff; box-shadow: 0 10px 28px -10px rgba(11,28,48,.45), 0 0 0 1px rgba(11,28,48,.06); display: grid; place-items: center; cursor: pointer; padding: 0; }
+.vita__btn:focus-visible, .vita__line-btn:focus-visible, .vita__q button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.vita__svg { width: 46px; height: 46px; display: block; }
+.vita__arm { transform-origin: 51px 34px; }
+.vita.is-waving .vita__arm { animation: vita-wave 0.6s ease-in-out 3; }
+@keyframes vita-wave { 0%, 100% { transform: rotate(0) } 50% { transform: rotate(-22deg) } }
+.vita__line { display: flex; align-items: center; gap: 4px; max-width: 300px; padding: 4px 4px 4px 16px; background: #fff; border-radius: 16px 16px 4px 16px; box-shadow: 0 10px 28px -12px rgba(11,28,48,.4), 0 0 0 1px rgba(11,28,48,.06); }
+.vita__line[hidden], .vita__panel[hidden], .vita__a[hidden] { display: none !important; }
+.vita__line-btn { border: 0; background: none; padding: 8px 0; text-align: left; font: 600 .98rem/1.35 var(--font-body); color: var(--ink); cursor: pointer; }
+.vita__line-x, .vita__x { border: 0; background: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.3rem; line-height: 1; color: var(--muted-ink); cursor: pointer; flex-shrink: 0; }
+.vita__line-x:hover, .vita__x:hover { background: var(--mist); color: var(--ink); }
+.vita__panel { width: min(360px, calc(100vw - 36px)); max-height: calc(100vh - 140px); overflow: auto; background: #fff; border-radius: 20px; box-shadow: 0 30px 60px -24px rgba(11,28,48,.5), 0 0 0 1px rgba(11,28,48,.06); padding: 18px; display: grid; gap: 12px; }
+.vita__head { display: grid; grid-template-columns: 44px 1fr 32px; gap: 10px; align-items: center; }
+.vita__head .vita__svg { width: 44px; height: 44px; }
+.vita__head strong { display: block; font-size: 1.05rem; color: var(--ink); }
+.vita__head span { font-size: .95rem; color: var(--muted-ink); }
+.vita__go { display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; background: var(--ink); color: #fff !important; font-weight: 700; font-size: 1.02rem; text-decoration: none; }
+.vita__go:hover { background: var(--accent-deep); }
+.vita__sub { margin: 4px 0 0; font-size: .9rem; color: var(--muted-ink); }
+.vita__qs { display: grid; gap: 8px; }
+.vita__q button { width: 100%; text-align: left; border: 1.5px solid #c4ced8; background: #fff; border-radius: 12px; padding: 11px 14px; font: 600 .97rem/1.3 var(--font-body); color: var(--ink); cursor: pointer; }
+.vita__q button:hover, .vita__q button[aria-expanded="true"] { border-color: var(--ink); }
+.vita__a { padding: 10px 14px 4px; }
+.vita__a p { margin: 0 0 6px; font-size: .97rem; line-height: 1.45; color: var(--body-ink, #3d4b5a); }
+.vita__a a { font-weight: 700; color: var(--accent-deep); text-decoration: none; }
+.mn-open .vita, .eg-open .vita { display: none; }
+@media (max-width: 760px) {
+  .vita { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+  .vita__btn { width: 56px; height: 56px; }
+  .vita__svg { width: 40px; height: 40px; }
+  .vita__line { max-width: 240px; }
+  .vita__line-btn { font-size: .92rem; }
+}
+@media (prefers-reduced-motion: reduce) { .vita.is-waving .vita__arm { animation: none; } }
+body:has(.mobile-nav.active) .vita { display: none; }
