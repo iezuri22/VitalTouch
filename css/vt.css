@@ -1612,3 +1612,51 @@ a:hover .h-link i { transform: translateX(5px); }
 /* Town "What we help with": white tiles with hairlines, no grey fill */
 .town-services li { background: #fff !important; border: 1px solid var(--line); border-radius: 12px !important; font-weight: 500 !important; line-height: 1.35; }
 .town-services i { color: var(--accent) !important; }
+
+/* ==========================================================================
+   Spacing pass ("the spacing is still bad"). Site-wide tighter leading, and
+   icon-beside-title rows instead of three stacked tiers.
+   ========================================================================== */
+body { line-height: 1.55 !important; }
+p { margin-bottom: .9em; }
+li { line-height: 1.45; }
+
+/* Promises (homepage family section + town pages): icon | title / text */
+.h-family__promises li, .town-family__row li {
+  display: grid !important; grid-template-columns: 24px minmax(0, 1fr); column-gap: 12px; row-gap: 2px; align-items: start;
+}
+.h-family__promises li { padding: 0 0 14px !important; margin-bottom: 14px !important; }
+.town-family__row li { padding: 20px 24px 20px 0 !important; }
+.town-family__row li + li { padding-left: 24px !important; }
+.h-family__promises li > div, .town-family__row li > div { min-width: 0; }
+.h-family__promises i, .town-family__row i { grid-row: 1; font-size: 1.3rem !important; margin: 1px 0 0 !important; line-height: 1; }
+.h-family__promises strong, .town-family__row strong { margin: 0 0 3px !important; font-size: 1.04rem !important; line-height: 1.25 !important; }
+.h-family__promises span, .town-family__row span { font-size: .94rem !important; line-height: 1.42 !important; letter-spacing: -0.003em; color: #566676 !important; max-width: none; }
+@media (max-width: 760px) {
+  .town-family__row li, .town-family__row li + li { padding: 14px 0 !important; }
+  .h-family__promises li { padding-bottom: 12px !important; margin-bottom: 12px !important; }
+}
+
+/* Inner pages, same rule: icons sit beside titles, never above. No grey
+   section fills or icon badges; white with hairlines; tight leading. */
+.ip-section--mist { background: #fff !important; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.ip-card {
+  display: grid !important; grid-template-columns: 26px minmax(0, 1fr); column-gap: 12px; row-gap: 6px; align-content: start;
+  padding: 22px !important; box-shadow: none !important; border: 1px solid var(--line) !important; border-radius: 14px !important;
+}
+.ip-card:hover { transform: none !important; border-color: #c9d3dc !important; box-shadow: none !important; }
+.ip-card > * { grid-column: 2; }
+.ip-card > .ip-card__icon { grid-column: 1; grid-row: 1; width: auto !important; height: auto !important; background: none !important; border-radius: 0 !important; display: block !important; font-size: 1.35rem !important; color: var(--accent) !important; margin-top: 2px; line-height: 1; }
+.ip-card > h3 { grid-row: 1; margin: 0 !important; font-size: 1.12rem !important; line-height: 1.3 !important; padding-right: 70px; }
+.ip-card > p { font-size: .96rem !important; line-height: 1.45 !important; color: #566676 !important; margin: 0 !important; }
+.ip-card .ip-list { margin-top: 4px !important; gap: 6px !important; }
+.ip-card .ip-list li { font-size: .95rem; line-height: 1.4; }
+.ip-tag { top: 18px !important; right: 18px !important; }
+.ip-points li { gap: 12px !important; align-items: flex-start; }
+.ip-points i { width: auto !important; height: auto !important; background: none !important; border-radius: 0 !important; font-size: 1.3rem !important; color: var(--accent) !important; margin-top: 2px; line-height: 1; }
+.ip-section--dark .ip-points i { background: none !important; color: var(--accent-bright) !important; }
+.ip-points strong { line-height: 1.3; margin-bottom: 2px; }
+.ip-points span { display: block; line-height: 1.42 !important; }
+.ip-head p, .ip-hero__sub { line-height: 1.45 !important; }
+.town-family + .vt-section { padding-top: clamp(36px, 5vw, 64px) !important; }
+.h-who__card--navy { justify-content: flex-end !important; }
