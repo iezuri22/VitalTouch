@@ -14,19 +14,25 @@
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <style>
 
-        /* Regions start closed (2026-10-13): see every region at once, open yours. */
-        .area-acc { margin-bottom: 0 !important; border-bottom: 1px solid var(--line); }
-        .area-acc:first-of-type { border-top: 1px solid var(--line); }
-        .area-acc summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 20px 4px; }
-        .area-acc summary::-webkit-details-marker { display: none; }
-        .area-acc summary h3 { margin: 0 !important; padding: 0 !important; border: 0 !important; font-size: 1.35rem !important; }
+        /* Regions show two rows, then "Show all" (2026-10-13: "it looks empty,
+           show a bit and have a show more button"). js below clips; without JS
+           every town shows. */
+        .area-reg { margin-bottom: 40px !important; }
+        .area-reg__head { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 16px; }
+        .area-reg__head h3 { margin: 0 !important; padding: 0 !important; border: 0 !important; font-size: 1.35rem !important; }
         .area-acc__n { color: var(--muted, #5b6876); font-size: 1rem; }
-        .area-acc summary i { margin-left: auto; font-size: 1.15rem; color: var(--ink); transition: transform .25s ease; }
-        .area-acc[open] summary i { transform: rotate(180deg); }
-        .area-acc summary:hover h3 { color: var(--accent-deep) !important; }
-        .area-acc > .area-grid { padding-bottom: 24px; }
         .area-acc__lead { margin: -4px 0 14px; font-weight: 600; }
-        @media (max-width: 760px) { .area-acc summary { padding: 16px 2px; } .area-acc summary h3 { font-size: 1.15rem !important; } }
+        .area-reg.is-clipped .area-grid > .area-item:nth-child(n+9) { display: none; }
+        .area-more { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: none; border: 1px solid var(--line); border-radius: 999px; padding: 10px 18px; font: 600 .98rem var(--font-body, inherit); color: var(--ink); cursor: pointer; }
+        .area-more:hover { border-color: var(--accent-deep); color: var(--accent-deep); }
+        .area-more i { transition: transform .25s ease; }
+        .area-reg:not(.is-clipped) .area-more i { transform: rotate(180deg); }
+        @media (max-width: 760px) {
+          .area-reg { margin-bottom: 28px !important; }
+          .area-reg__head h3 { font-size: 1.15rem !important; }
+          .area-reg.is-clipped .area-grid > .area-item:nth-child(n+5) { display: none; }
+          .area-more { width: 100%; justify-content: center; }
+        }
         .area-section {
             margin-bottom: 50px;
         }
@@ -205,6 +211,7 @@
             <div class="ip-hero__card">
                 <form class="h-zip" id="zipCheck" novalidate><label for="zipInput"><i class="ph ph-map-pin" aria-hidden="true"></i>Do we serve your area?</label><div class="h-zip__row"><input id="zipInput" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="Enter a zip code"><button type="submit">Check</button></div><p class="h-zip__out" id="zipOut" role="status"></p></form>
             </div>
+
         </div>
     </section>
 
@@ -216,8 +223,8 @@
             </div>
 
             <!-- Chicago Neighborhoods -->
-            <details class="area-section area-acc">
-                <summary><h3>Chicago</h3><span class="area-acc__n">41 neighborhoods</span><i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+            <div class="area-section area-reg">
+                <div class="area-reg__head"><h3>Chicago</h3><span class="area-acc__n">41 neighborhoods</span></div>
                 <p class="area-acc__lead"><a href="home-care-chicago.html">Home care in Chicago &rarr;</a></p>
                 <div class="area-grid">
                     <a class="area-item area-link" href="home-care-chicago.html">South Side &rarr;</a>
@@ -262,22 +269,22 @@
                     <a class="area-item area-link" href="home-care-chicago-south-shore.html">South Shore &rarr;</a>
                     <a class="area-item area-link" href="home-care-chicago-bronzeville.html">Bronzeville &rarr;</a>
                 </div>
-            </details>
+            </div>
 
             <!-- Northwest Suburbs -->
-            <details class="area-section area-acc">
-                <summary><h3>Northwest Suburbs</h3><span class="area-acc__n">4 towns</span><i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+            <div class="area-section area-reg">
+                <div class="area-reg__head"><h3>Northwest Suburbs</h3><span class="area-acc__n">4 towns</span></div>
                 <div class="area-grid">
                     <a class="area-item area-link" href="home-care-arlington-heights.html">Arlington Heights &rarr;</a>
                     <a class="area-item area-link" href="home-care-des-plaines.html">Des Plaines &rarr;</a>
                     <a class="area-item area-link" href="home-care-mount-prospect.html">Mount Prospect &rarr;</a>
                     <a class="area-item area-link" href="home-care-park-ridge.html">Park Ridge &rarr;</a>
                 </div>
-            </details>
+            </div>
 
             <!-- West Suburbs -->
-            <details class="area-section area-acc">
-                <summary><h3>West Suburbs</h3><span class="area-acc__n">13 towns</span><i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+            <div class="area-section area-reg">
+                <div class="area-reg__head"><h3>West Suburbs</h3><span class="area-acc__n">13 towns</span></div>
                 <div class="area-grid">
                     <a class="area-item area-link" href="home-care-elmwood-park.html">Elmwood Park &rarr;</a>
                     <a class="area-item area-link" href="home-care-maywood.html">Maywood &rarr;</a>
@@ -293,11 +300,11 @@
                     <a class="area-item area-link" href="home-care-westchester.html">Westchester &rarr;</a>
                     <a class="area-item area-link" href="home-care-la-grange.html">La Grange &rarr;</a>
                 </div>
-            </details>
+            </div>
 
             <!-- Southwest Suburbs -->
-            <details class="area-section area-acc">
-                <summary><h3>Southwest Suburbs</h3><span class="area-acc__n">16 towns</span><i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+            <div class="area-section area-reg">
+                <div class="area-reg__head"><h3>Southwest Suburbs</h3><span class="area-acc__n">16 towns</span></div>
                 <div class="area-grid">
                     <a class="area-item area-link" href="home-care-oak-lawn.html">Oak Lawn &rarr;</a>
                     <a class="area-item area-link" href="home-care-evergreen-park.html">Evergreen Park &rarr;</a>
@@ -316,11 +323,11 @@
                     <a class="area-item area-link" href="home-care-hickory-hills.html">Hickory Hills &rarr;</a>
                     <a class="area-item area-link" href="home-care-burbank.html">Burbank &rarr;</a>
                 </div>
-            </details>
+            </div>
 
             <!-- South Suburbs -->
-            <details class="area-section area-acc">
-                <summary><h3>South Suburbs</h3><span class="area-acc__n">28 towns</span><i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+            <div class="area-section area-reg">
+                <div class="area-reg__head"><h3>South Suburbs</h3><span class="area-acc__n">28 towns</span></div>
                 <div class="area-grid">
                     <a class="area-item area-link" href="home-care-homewood.html">Homewood &rarr;</a>
                     <a class="area-item area-link" href="home-care-flossmoor.html">Flossmoor &rarr;</a>
@@ -351,8 +358,27 @@
                     <a class="area-item area-link" href="home-care-east-hazel-crest.html">East Hazel Crest &rarr;</a>
                     <a class="area-item area-link" href="home-care-midlothian.html">Midlothian &rarr;</a>
                 </div>
-            </details>
+            </div>
 
+            <script>
+            (function () {
+              var small = window.matchMedia('(max-width: 760px)').matches, show = small ? 4 : 8;
+              document.querySelectorAll('.area-reg').forEach(function (reg) {
+                var n = reg.querySelectorAll('.area-grid > .area-item').length;
+                if (n <= show) return;
+                var noun = (reg.querySelector('.area-acc__n').textContent.split(' ')[1]) || 'towns';
+                var btn = document.createElement('button');
+                btn.type = 'button'; btn.className = 'area-more';
+                function set(clipped) {
+                  reg.classList.toggle('is-clipped', clipped);
+                  btn.setAttribute('aria-expanded', clipped ? 'false' : 'true');
+                  btn.innerHTML = (clipped ? 'Show all ' + n + ' ' + noun : 'Show fewer') + ' <i class="ph ph-caret-down" aria-hidden="true"></i>';
+                }
+                btn.addEventListener('click', function () { set(!reg.classList.contains('is-clipped')); });
+                reg.appendChild(btn); set(true);
+              });
+            })();
+            </script>
         </div>
     </section>
 
