@@ -1,0 +1,522 @@
+{
+ "towns": [
+  {
+   "slug": "maywood",
+   "name": "Maywood",
+   "zips": [
+    "60153"
+   ],
+   "hospitals": [
+    "Loyola University Medical Center in Maywood",
+    "Loyola Medicine Gottlieb Hospital in Melrose Park"
+   ],
+   "near": [
+    "Bellwood",
+    "Broadview",
+    "Melrose Park",
+    "Forest Park"
+   ],
+   "local": "We serve Maywood with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "bellwood",
+   "name": "Bellwood",
+   "zips": [
+    "60104"
+   ],
+   "hospitals": [
+    "Loyola University Medical Center in Maywood",
+    "Loyola Medicine Gottlieb Hospital in Melrose Park"
+   ],
+   "near": [
+    "Maywood",
+    "Melrose Park",
+    "Hillside",
+    "Westchester"
+   ],
+   "local": "We serve Bellwood with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "broadview",
+   "name": "Broadview",
+   "zips": [
+    "60155"
+   ],
+   "hospitals": [
+    "Loyola University Medical Center in Maywood",
+    "Edward Hines Jr. VA Hospital in Hines"
+   ],
+   "near": [
+    "Maywood",
+    "Westchester",
+    "North Riverside",
+    "Forest Park"
+   ],
+   "local": "We serve Broadview with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "melrose-park",
+   "name": "Melrose Park",
+   "zips": [
+    "60160"
+   ],
+   "hospitals": [
+    "Loyola Medicine Gottlieb Hospital in Melrose Park",
+    "Loyola University Medical Center in Maywood"
+   ],
+   "near": [
+    "Maywood",
+    "Bellwood",
+    "Stone Park",
+    "Franklin Park"
+   ],
+   "local": "We serve Melrose Park with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "berwyn",
+   "name": "Berwyn",
+   "zips": [
+    "60402"
+   ],
+   "hospitals": [
+    "Loyola Medicine MacNeal Hospital in Berwyn",
+    "Rush Oak Park Hospital in Oak Park"
+   ],
+   "near": [
+    "Cicero",
+    "Oak Park",
+    "Riverside",
+    "North Riverside"
+   ],
+   "local": "We serve Berwyn with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "cicero",
+   "name": "Cicero",
+   "zips": [
+    "60804"
+   ],
+   "hospitals": [
+    "Loyola Medicine MacNeal Hospital in Berwyn",
+    "Rush Oak Park Hospital in Oak Park"
+   ],
+   "near": [
+    "Berwyn",
+    "Oak Park",
+    "Stickney",
+    "Forest View"
+   ],
+   "local": "We serve Cicero with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "forest-park",
+   "name": "Forest Park",
+   "zips": [
+    "60130"
+   ],
+   "hospitals": [
+    "Rush Oak Park Hospital in Oak Park",
+    "Loyola University Medical Center in Maywood"
+   ],
+   "near": [
+    "Oak Park",
+    "River Forest",
+    "Maywood",
+    "North Riverside"
+   ],
+   "local": "We serve Forest Park with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "oak-park",
+   "name": "Oak Park",
+   "zips": [
+    "60302",
+    "60301",
+    "60304"
+   ],
+   "hospitals": [
+    "Rush Oak Park Hospital in Oak Park",
+    "Loyola University Medical Center in Maywood"
+   ],
+   "near": [
+    "River Forest",
+    "Forest Park",
+    "Berwyn",
+    "Cicero"
+   ],
+   "local": "We serve Oak Park with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "river-forest",
+   "name": "River Forest",
+   "zips": [
+    "60305"
+   ],
+   "hospitals": [
+    "Rush Oak Park Hospital in Oak Park",
+    "Loyola Medicine Gottlieb Hospital in Melrose Park"
+   ],
+   "near": [
+    "Oak Park",
+    "Forest Park",
+    "Maywood",
+    "Elmwood Park"
+   ],
+   "local": "We serve River Forest with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "hillside",
+   "name": "Hillside",
+   "zips": [
+    "60162"
+   ],
+   "hospitals": [
+    "Loyola University Medical Center in Maywood",
+    "Loyola Medicine Gottlieb Hospital in Melrose Park"
+   ],
+   "near": [
+    "Bellwood",
+    "Westchester",
+    "Berkeley",
+    "Elmhurst"
+   ],
+   "local": "We serve Hillside with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "westchester",
+   "name": "Westchester",
+   "zips": [
+    "60154"
+   ],
+   "hospitals": [
+    "Loyola University Medical Center in Maywood",
+    "UChicago Medicine AdventHealth La Grange in La Grange"
+   ],
+   "near": [
+    "Broadview",
+    "Hillside",
+    "La Grange Park",
+    "Bellwood"
+   ],
+   "local": "We serve Westchester with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "la-grange",
+   "name": "La Grange",
+   "zips": [
+    "60525"
+   ],
+   "hospitals": [
+    "UChicago Medicine AdventHealth La Grange in La Grange",
+    "Loyola University Medical Center in Maywood"
+   ],
+   "near": [
+    "La Grange Park",
+    "Western Springs",
+    "Countryside",
+    "Brookfield"
+   ],
+   "local": "We serve La Grange with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "dixmoor",
+   "name": "Dixmoor",
+   "zips": [
+    "60426"
+   ],
+   "hospitals": [
+    "UChicago Medicine Ingalls Memorial in Harvey",
+    "Advocate Christ Medical Center in Oak Lawn"
+   ],
+   "near": [
+    "Harvey",
+    "Blue Island",
+    "Posen",
+    "Riverdale"
+   ],
+   "local": "We serve Dixmoor with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "posen",
+   "name": "Posen",
+   "zips": [
+    "60469"
+   ],
+   "hospitals": [
+    "UChicago Medicine Ingalls Memorial in Harvey",
+    "Advocate Christ Medical Center in Oak Lawn"
+   ],
+   "near": [
+    "Harvey",
+    "Dixmoor",
+    "Robbins",
+    "Midlothian"
+   ],
+   "local": "We serve Posen with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "robbins",
+   "name": "Robbins",
+   "zips": [
+    "60472"
+   ],
+   "hospitals": [
+    "Advocate Christ Medical Center in Oak Lawn",
+    "UChicago Medicine Ingalls Memorial in Harvey"
+   ],
+   "near": [
+    "Blue Island",
+    "Midlothian",
+    "Posen",
+    "Alsip"
+   ],
+   "local": "We serve Robbins with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "ford-heights",
+   "name": "Ford Heights",
+   "zips": [
+    "60411"
+   ],
+   "hospitals": [
+    "Advocate South Suburban Hospital in Hazel Crest"
+   ],
+   "near": [
+    "Chicago Heights",
+    "Lynwood",
+    "Sauk Village",
+    "South Chicago Heights"
+   ],
+   "local": "We serve Ford Heights with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "burnham",
+   "name": "Burnham",
+   "zips": [
+    "60633"
+   ],
+   "hospitals": [
+    "Advocate Trinity Hospital",
+    "UChicago Medicine Ingalls Memorial in Harvey"
+   ],
+   "near": [
+    "Calumet City",
+    "Chicago's Hegewisch neighborhood",
+    "Dolton",
+    "Lansing"
+   ],
+   "local": "We serve Burnham with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "phoenix",
+   "name": "Phoenix",
+   "zips": [
+    "60426"
+   ],
+   "hospitals": [
+    "UChicago Medicine Ingalls Memorial in Harvey",
+    "Advocate South Suburban Hospital in Hazel Crest"
+   ],
+   "near": [
+    "Harvey",
+    "South Holland",
+    "Dolton",
+    "Riverdale"
+   ],
+   "local": "We serve Phoenix with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "east-hazel-crest",
+   "name": "East Hazel Crest",
+   "zips": [
+    "60429"
+   ],
+   "hospitals": [
+    "Advocate South Suburban Hospital in Hazel Crest",
+    "UChicago Medicine Ingalls Memorial in Harvey"
+   ],
+   "near": [
+    "Hazel Crest",
+    "Homewood",
+    "Harvey",
+    "Thornton"
+   ],
+   "local": "We serve East Hazel Crest with schedules from a few hours a week up to daily."
+  }
+ ],
+ "chicago": [
+  {
+   "slug": "chicago-south-chicago",
+   "name": "South Chicago",
+   "side": "South Side",
+   "zips": [
+    "60617",
+    "60649"
+   ],
+   "hospitals": [
+    "Advocate Trinity Hospital",
+    "UChicago Medicine in Hyde Park"
+   ],
+   "near": [
+    "South Shore",
+    "Calumet Heights",
+    "East Side",
+    "Avalon Park"
+   ],
+   "local": "We serve South Chicago and the rest of the South Side with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "chicago-englewood",
+   "name": "Englewood",
+   "side": "South Side",
+   "zips": [
+    "60621"
+   ],
+   "hospitals": [
+    "St. Bernard Hospital",
+    "UChicago Medicine in Hyde Park"
+   ],
+   "near": [
+    "West Englewood",
+    "Greater Grand Crossing",
+    "Auburn Gresham",
+    "Washington Park"
+   ],
+   "local": "We serve Englewood and the rest of the South Side with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "chicago-west-englewood",
+   "name": "West Englewood",
+   "side": "Southwest Side",
+   "zips": [
+    "60636"
+   ],
+   "hospitals": [
+    "Holy Cross Hospital",
+    "St. Bernard Hospital in Englewood"
+   ],
+   "near": [
+    "Englewood",
+    "Chicago Lawn",
+    "Auburn Gresham",
+    "New City"
+   ],
+   "local": "We serve West Englewood and the rest of the Southwest Side with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "chicago-clearing",
+   "name": "Clearing",
+   "side": "Southwest Side",
+   "zips": [
+    "60638"
+   ],
+   "hospitals": [
+    "MacNeal Hospital in Berwyn",
+    "Advocate Christ Medical Center in Oak Lawn"
+   ],
+   "near": [
+    "Garfield Ridge",
+    "West Lawn",
+    "West Elsdon"
+   ],
+   "local": "We serve Clearing and the rest of the Southwest Side with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "chicago-west-lawn",
+   "name": "West Lawn",
+   "side": "Southwest Side",
+   "zips": [
+    "60629",
+    "60652"
+   ],
+   "hospitals": [
+    "Holy Cross Hospital",
+    "Advocate Christ Medical Center in Oak Lawn"
+   ],
+   "near": [
+    "Chicago Lawn",
+    "Ashburn",
+    "West Elsdon",
+    "Clearing"
+   ],
+   "local": "We serve West Lawn and the rest of the Southwest Side with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "chicago-gage-park",
+   "name": "Gage Park",
+   "side": "Southwest Side",
+   "zips": [
+    "60632",
+    "60629"
+   ],
+   "hospitals": [
+    "Holy Cross Hospital",
+    "St. Bernard Hospital in Englewood"
+   ],
+   "near": [
+    "Chicago Lawn",
+    "Brighton Park",
+    "West Elsdon",
+    "New City"
+   ],
+   "local": "We serve Gage Park and the rest of the Southwest Side with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "chicago-garfield-ridge",
+   "name": "Garfield Ridge",
+   "side": "Southwest Side",
+   "zips": [
+    "60638",
+    "60632"
+   ],
+   "hospitals": [
+    "MacNeal Hospital in Berwyn",
+    "Holy Cross Hospital"
+   ],
+   "near": [
+    "Clearing",
+    "Archer Heights",
+    "West Elsdon",
+    "Little Village"
+   ],
+   "local": "We serve Garfield Ridge and the rest of the Southwest Side with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "chicago-east-side",
+   "name": "East Side",
+   "side": "South Side",
+   "zips": [
+    "60617"
+   ],
+   "hospitals": [
+    "Advocate Trinity Hospital"
+   ],
+   "near": [
+    "South Chicago",
+    "South Deering",
+    "Hegewisch"
+   ],
+   "local": "We serve East Side and the rest of the South Side with schedules from a few hours a week up to daily."
+  },
+  {
+   "slug": "chicago-south-deering",
+   "name": "South Deering",
+   "side": "South Side",
+   "zips": [
+    "60617",
+    "60633"
+   ],
+   "hospitals": [
+    "Advocate Trinity Hospital",
+    "Roseland Community Hospital"
+   ],
+   "near": [
+    "East Side",
+    "Hegewisch",
+    "Pullman",
+    "Calumet Heights"
+   ],
+   "local": "We serve South Deering and the rest of the South Side with schedules from a few hours a week up to daily."
+  }
+ ]
+}

@@ -164,7 +164,10 @@ for g in GUIDES:
 
 # Sitemap: one entry per guide.
 sm = open(f'{SITE}/sitemap.xml').read()
-sm = re.sub(r'  <url>\n    <loc>https://vitaltouchcares.com/guide-[^<]+</loc>\n.*?</url>\n', '', sm, flags=re.S)
+# Only this script's own guides: hand-written ones (guide-wills-and-planning-ahead)
+# keep their sitemap rows.
+for g in GUIDES:
+    sm = re.sub(r'  <url>\n    <loc>https://vitaltouchcares.com/' + re.escape(g['slug']) + r'\.html</loc>\n.*?</url>\n', '', sm, flags=re.S)
 sm = sm.replace('</urlset>', ''.join(
     f'  <url>\n    <loc>https://vitaltouchcares.com/{g["slug"]}.html</loc>\n    <lastmod>{REVIEWED["iso"]}</lastmod>\n'
     f'    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n' for g in GUIDES) + '</urlset>')

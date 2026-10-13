@@ -30,7 +30,7 @@ MENU = [
         ('care-plans.html', 'ph-calendar-check', 'Care plans', 'Monthly plans'),
     ], ('Free coverage check', 'What are you covered for?', 'Tell us your plan or policy. We check what it pays for.', 'paying-for-care.html', 'Check my coverage')),
     ('Areas', [
-        ('home-care-chicago.html', 'ph-buildings', 'Chicago', '28 neighborhoods'),
+        ('home-care-chicago.html', 'ph-buildings', 'Chicago', '40 neighborhoods'),
         ('home-care-mount-prospect.html', 'ph-map-pin', 'Mount Prospect', 'Northwest suburbs'),
         ('home-care-elmwood-park.html', 'ph-map-pin', 'Elmwood Park', 'West suburbs'),
         ('home-care-oak-lawn.html', 'ph-map-pin', 'Oak Lawn', 'Southwest suburbs'),

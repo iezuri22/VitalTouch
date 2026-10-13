@@ -878,6 +878,398 @@
   ],
   "fact": "Brownell Woods forest preserve, on Hunter Street in Thornton, has parking and a large picnic grove, open sunrise to sunset."
  },
+ "maywood": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Proviso Township Senior Services",
+    "url": "https://provisotownship.gov/senior-transportation-program",
+    "text": "Free rides for residents 60+ to doctors, groceries and pharmacies; low-cost handyman help."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://maywood-il.gov/Community/",
+   "https://provisotownship.gov/",
+   "https://provisotownship.gov/senior-transportation-program",
+   "https://civicfed.org/node/3924",
+   "https://metra.com/train-lines/UP-W",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/UP-W"
+  ],
+  "fact": "Maywood has its own accessible Metra Union Pacific West station at 430 Main Street."
+ },
+ "bellwood": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Proviso Township Senior Services",
+    "url": "https://provisotownship.gov/senior-transportation-program",
+    "text": "Free rides for residents 60+ to doctors, groceries and pharmacies; low-cost handyman help."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.vil.bellwood.il.us/residents/seniors/",
+   "https://provisotownship.gov/",
+   "https://civicfed.org/node/3924",
+   "https://metra.com/train-lines/UP-W",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/UP-W"
+  ],
+  "fact": "Bellwood has an accessible Metra Union Pacific West station at 105 Frederick Ave."
+ },
+ "broadview": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Proviso Township Senior Services",
+    "url": "https://provisotownship.gov/senior-transportation-program",
+    "text": "Free rides for residents 60+ to doctors, groceries and pharmacies; low-cost handyman help."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Broadview Senior Club",
+    "url": "https://broadview-il.gov/community/broadview-senior-club/",
+    "text": "Village social club for older residents (membership application on the village site)."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://broadview-il.gov/",
+   "https://broadview-il.gov/community/broadview-senior-club/",
+   "https://www.broadview-il.gov/media/wl3cwgte/brodviewdirectory.pdf",
+   "https://provisotownship.gov/",
+   "https://civicfed.org/node/3924",
+   "https://www.va.gov/hines-health-care/",
+   "https://www.ageoptions.org/",
+   "https://www.va.gov/hines-health-care/"
+  ],
+  "fact": "Edward Hines Jr. VA Hospital (5000 S. 5th Ave., Hines), the largest VA in Illinois, serves veterans in this part of the west suburbs."
+ },
+ "melrose-park": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Proviso Township Senior Services",
+    "url": "https://provisotownship.gov/senior-transportation-program",
+    "text": "Free rides for residents 60+ to doctors, groceries and pharmacies; low-cost handyman help. Part of Melrose Park is in another township, so ask which one serves your address."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Village of Melrose Park Senior Services",
+    "url": "https://www.melrosepark.org/senior-services/",
+    "text": "Village senior services office (weekdays 8-3) and a Senior Club luncheon."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.melrosepark.org/senior-services/",
+   "https://provisotownship.gov/",
+   "https://civicfed.org/node/3924",
+   "https://metra.com/train-lines/UP-W",
+   "https://www.loyolamedicine.org/location/gottlieb-memorial-hospital-17",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/UP-W"
+  ],
+  "fact": "Melrose Park has an accessible Metra Union Pacific West station at 1801 W. Main St."
+ },
+ "berwyn": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "City of Berwyn Senior Services",
+    "url": "https://www.berwyn-il.gov/government/departmental-directory/senior-services",
+    "text": "Rides for residents 60+ to medical appointments and grocery stores; seasonal snow and lawn help."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.berwyn-il.gov/government/departmental-directory/senior-services",
+   "https://berwyn-il.gov/government/township",
+   "https://metra.com/train-lines/BNSF",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/BNSF"
+  ],
+  "fact": "Berwyn has three accessible Metra BNSF stations: LaVergne, Berwyn (6801 Windsor Ave.) and Harlem Ave."
+ },
+ "cicero": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Town of Cicero Senior Services",
+    "url": "https://thetownofcicero.com/departments/senior-services",
+    "text": "Free door-to-door bus rides to medical appointments for residents 62+; senior center."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://thetownofcicero.com/departments/senior-services",
+   "https://www.transitchicago.com/station/54th/",
+   "https://metra.com/train-lines/BNSF",
+   "https://civicfed.org/node/3924",
+   "https://www.ageoptions.org/",
+   "https://www.transitchicago.com/station/54th/"
+  ],
+  "fact": "The CTA Pink Line ends in Cicero at the accessible 54th/Cermak station (2134 S. 54th Ave.)."
+ },
+ "forest-park": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Proviso Township Senior Services",
+    "url": "https://provisotownship.gov/senior-transportation-program",
+    "text": "Free rides for residents 60+ to doctors, groceries and pharmacies; low-cost handyman help."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Howard Mohr Community Center (Village of Forest Park)",
+    "url": "https://forestpark.net/dfp/?p=661",
+    "text": "Village-run senior activities, weekly day trips and door-to-door senior transportation."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://forestpark.net/dfp/?p=661",
+   "https://www.fppl.org/olderadultservices/",
+   "https://provisotownship.gov/",
+   "https://civicfed.org/node/3924",
+   "https://www.transitchicago.com/station/forp/",
+   "https://www.ageoptions.org/",
+   "https://www.transitchicago.com/station/forp/"
+  ],
+  "fact": "Forest Park has the CTA Blue Line’s accessible Forest Park station at 711 Des Plaines Ave."
+ },
+ "oak-park": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Oak Park Township Senior & Disability Services",
+    "url": "https://www.oakparktownship.org/senior-services",
+    "text": "Rides within Oak Park and River Forest, home-delivered meals and case management for residents 60+."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.oakparktownship.org/senior-services",
+   "https://www.transitchicago.com/station/oakg/",
+   "https://www.transitchicago.com/station/oakb/",
+   "https://metra.com/train-lines/UP-W",
+   "https://civicfed.org/node/3924",
+   "https://www.ageoptions.org/",
+   "https://www.transitchicago.com/station/oakg/"
+  ],
+  "fact": "Oak Park has CTA Green Line and Blue Line stations on Oak Park Ave. (100 S. and 950 S. Oak Park Ave.) plus a Metra Union Pacific West station."
+ },
+ "river-forest": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "River Forest Township Senior Services (run jointly with Oak Park Township)",
+    "url": "https://www.riverforesttownship.org/senior-services",
+    "text": "Meals, transportation and care management for River Forest residents."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.riverforesttownship.org/senior-services",
+   "https://www.oakparktownship.org/senior-services",
+   "https://metra.com/train-lines/UP-W",
+   "https://civicfed.org/node/3924",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/UP-W"
+  ],
+  "fact": "River Forest has an accessible Metra Union Pacific West station at 8001 W. Central Ave."
+ },
+ "hillside": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Proviso Township Senior Services",
+    "url": "https://provisotownship.gov/senior-transportation-program",
+    "text": "Free rides for residents 60+ to doctors, groceries and pharmacies; low-cost handyman help."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.hillside-il.org/",
+   "https://provisotownship.gov/senior-services",
+   "https://provisotownship.gov/",
+   "https://civicfed.org/node/3924",
+   "https://www.ageoptions.org/",
+   "https://provisotownship.gov/senior-services"
+  ],
+  "fact": "Proviso Township’s office, which runs the free senior ride program, is in Hillside at 4565 W. Harrison St."
+ },
+ "westchester": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Proviso Township Senior Services",
+    "url": "https://provisotownship.gov/senior-transportation-program",
+    "text": "Free rides for residents 60+ to doctors, groceries and pharmacies; low-cost handyman help."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://westchester-il.gov/page/seniors",
+   "https://apps.ilsos.gov/facilityfinder/facilityfinder?command=getFacilityDetails&facilityId=283",
+   "https://provisotownship.gov/",
+   "https://civicfed.org/node/3924",
+   "https://www.ageoptions.org/",
+   "https://apps.ilsos.gov/facilityfinder/facilityfinder?command=getFacilityDetails&facilityId=283"
+  ],
+  "fact": "Westchester Village Hall (10300 W. Roosevelt Rd.) houses a senior-only, walk-in Secretary of State facility for licenses, state IDs and plate stickers."
+ },
+ "la-grange": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Lyons Township Senior Transportation",
+    "url": "https://lyonstownshipil.gov/senior-transportation/",
+    "text": "Free door-to-door rides 60+ or disabled."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.villageoflagrange.com/",
+   "https://civicfed.org/node/3924",
+   "https://metra.com/train-lines/BNSF",
+   "https://www.uchicagomedicineadventhealth.org/uchicago-medicine-adventhealth-la-grange",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/BNSF"
+  ],
+  "fact": "La Grange has two accessible Metra BNSF stations, La Grange Road (25 W. Burlington) and Stone Avenue."
+ },
+ "dixmoor": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides 60+ to medical appointments, hot lunches. Call ahead to confirm rides."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://www.civicfed.org/node/3925",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://catic.com/dixmoor",
+   "https://www.ageoptions.org/"
+  ]
+ },
+ "posen": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bremen Township Senior Services",
+    "url": "https://brementownship.org/senior-services/",
+    "text": "Senior Wheels rides 55+. Part of Posen is in another township, so ask which one serves your address."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://www.villageofposen.org/vop/wp-content/uploads/2024/01/01-09-2024.pdf",
+   "https://www.civicfed.org/node/3925",
+   "https://brementownship.org/senior-services/",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.ageoptions.org/"
+  ]
+ },
+ "robbins": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bremen Township Senior Services",
+    "url": "https://brementownship.org/senior-services/",
+    "text": "Senior Wheels rides 55+. Part of Robbins is in another township, so ask which one serves your address."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://robbins-il.com/",
+   "https://www.civicfed.org/node/3925",
+   "https://metra.com/train-lines/RI",
+   "https://brementownship.org/senior-services/",
+   "https://worthtownship.com/departments/senior-services/",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/RI"
+  ],
+  "fact": "Robbins has its own accessible Metra Rock Island station at 139th St. and Utica Ave."
+ },
+ "ford-heights": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Bloom Township Senior Services",
+    "url": "https://bloomtownship.org/185/Senior-Services",
+    "text": "VIP Senior Wheels rides 60+."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://villageoffordheights.org/",
+   "https://www.civicfed.org/node/3925",
+   "https://www.cookcountyemergencymanagement.org/sites/g/files/ywwepo281/files/document/file/2024-12/Ford%20Heights%20Volume%202%20%20Cook%20County%20MJ-HMP%20Annex%20.pdf",
+   "https://www.ageoptions.org/"
+  ]
+ },
+ "burnham": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides 60+ to medical appointments, hot lunches. Call ahead to confirm rides."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://burnham-il.gov/wp-content/uploads/2024/05/Mayors-Letter-May2024-DRAFT.pdf",
+   "https://www.civicfed.org/node/3925",
+   "https://www.cookcountyil.gov/service/golf",
+   "https://www.ageoptions.org/",
+   "https://www.cookcountyil.gov/service/golf"
+  ],
+  "fact": "Burnham Woods Golf Course, a Forest Preserves of Cook County course, is in the village at Burnham Ave. and 142nd St."
+ },
+ "phoenix": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides 60+ to medical appointments, hot lunches. Call ahead to confirm rides."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://villageofphoenix.com/",
+   "https://www.civicfed.org/node/3925",
+   "https://www.thorntontownship.com/senior-services/",
+   "https://www.ageoptions.org/"
+  ]
+ },
+ "east-hazel-crest": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Thornton Township Senior Services",
+    "url": "https://www.thorntontownship.com/senior-services/",
+    "text": "Free rides 60+ to medical appointments, hot lunches. Call ahead to confirm rides."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.easthazelcrest.com/",
+   "https://www.easthazelcrest.com/index.asp?SEC=C0A19A9D-531D-4F80-AFDB-440F0DB66975&Type=B_BASIC",
+   "https://metra.com/train-lines/ME",
+   "https://www.civicfed.org/node/3925",
+   "https://www.ageoptions.org/",
+   "https://metra.com/train-lines/ME"
+  ],
+  "fact": "Metra Electric’s accessible Calumet station is in East Hazel Crest, at Cheker Square and Governors Highway."
+ },
  "oak-lawn": {
   "help": [
    {
@@ -1655,6 +2047,177 @@
   "fact": "The Jefferson Park Transit Center (4917 N. Milwaukee Ave.) links the CTA Blue Line, Metra’s Union Pacific Northwest line, and CTA and Pace buses.",
   "sources": [
    "https://www.transitchicago.com/station/jrpk/"
+  ]
+ },
+ "chicago-south-chicago": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "South Chicago Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 9233 S. Burley Ave. Call (312) 745-1282."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "South Chicago",
+   "number": 46
+  },
+  "fact": "Metra Electric’s South Chicago branch ends at the 93rd Street/South Chicago station, on Baltimore Avenue in the neighborhood’s business district, with trains to Millennium Station downtown.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/93rd_Street/South_Chicago_station"
+  ]
+ },
+ "chicago-englewood": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Englewood Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 653-657 W. 63rd St. Call (312) 745-3328."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Englewood",
+   "number": 68
+  },
+  "fact": "St. Bernard Hospital, a Catholic community hospital founded in 1904, is at 326 W. 64th St. in Englewood.",
+  "sources": [
+   "https://healthcarereportcard.illinois.gov/hospital/101203"
+  ]
+ },
+ "chicago-west-englewood": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Englewood Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 653-657 W. 63rd St. Call (312) 745-3328."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "West Englewood",
+   "number": 67
+  },
+  "fact": "The CTA Green Line’s Ashland/63rd terminal (6315 S. Ashland Ave.) is an accessible elevated station with a Park & Ride lot.",
+  "sources": [
+   "https://www.transitchicago.com/station/63as/"
+  ]
+ },
+ "chicago-clearing": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Garfield Ridge Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 5674B S. Archer Ave. Call (312) 745-4255."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Clearing",
+   "number": 64
+  },
+  "fact": "The Clearing Branch of the Chicago Public Library is at 6423 W. 63rd Place.",
+  "sources": [
+   "https://www.chipublib.org/locations/21/"
+  ]
+ },
+ "chicago-west-lawn": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Southwest Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 6117 S. Kedzie Ave. Call (312) 747-0440."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "West Lawn",
+   "number": 65
+  },
+  "fact": "The West Lawn Branch of the Chicago Public Library is at 4020 W. 63rd St.",
+  "sources": [
+   "https://www.chipublib.org/locations/77/"
+  ]
+ },
+ "chicago-gage-park": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Southwest Regional Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 6117 S. Kedzie Ave. Call (312) 747-0440."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "Gage Park",
+   "number": 63
+  },
+  "fact": "Gage Park, the neighborhood’s namesake park at 2411 W. 55th St. (Garfield Boulevard), has a fieldhouse with two gyms, an auditorium and a fitness center.",
+  "sources": [
+   "https://www.chicagoparkdistrict.com/parks-facilities/gage-george-park"
+  ]
+ },
+ "chicago-garfield-ridge": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Garfield Ridge Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "In the neighborhood, at 5674B S. Archer Ave. Call (312) 745-4255."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "Garfield Ridge",
+   "number": 56
+  },
+  "fact": "The CTA Orange Line starts at Midway station (4612 W. 59th St.), next to Midway Airport, with trains to downtown.",
+  "sources": [
+   "https://www.transitchicago.com/station/mdw/"
+  ]
+ },
+ "chicago-east-side": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "South Chicago Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 9233 S. Burley Ave. Call (312) 745-1282."
+   }
+  ],
+  "confidence": "high",
+  "community_area": {
+   "name": "East Side",
+   "number": 52
+  },
+  "fact": "Calumet Park, at 9801 S. Avenue G on Lake Michigan, has a beach, a boat launch and a fieldhouse with two gyms and a fitness center.",
+  "sources": [
+   "https://www.chicagoparkdistrict.com/parks-facilities/calumet-park"
+  ]
+ },
+ "chicago-south-deering": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "South Chicago Satellite Senior Center",
+    "url": "https://www.chicago.gov/city/en/depts/fss/provdrs/senior/svcs/regional_senior_centers.html",
+    "text": "The nearest city senior center, at 9233 S. Burley Ave. Call (312) 745-1282."
+   }
+  ],
+  "confidence": "medium",
+  "community_area": {
+   "name": "South Deering",
+   "number": 51
+  },
+  "fact": "Trumbull Park, at 2400 E. 105th St., has two gyms, a fitness center and a boxing center.",
+  "sources": [
+   "https://www.chicagoparkdistrict.com/parks-facilities/trumbull-lyman-park"
   ]
  },
  "chicago": {

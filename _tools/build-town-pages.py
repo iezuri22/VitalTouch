@@ -274,6 +274,19 @@ NORTH_WEST_SUBURBS = [
 ]
 TOWNS = TOWNS + NORTH_WEST_SUBURBS
 
+# Every remaining area on service-areas.html (2026-10-13, owner: "all area
+# served needs a clickable link and custom page"). Rows live in
+# _tools/extra-places.json, built from the same checked research as
+# local-facts.json, so adding an area is a data change, not a code change.
+EXTRA = json.load(open(f'{SITE}/_tools/extra-places.json'))
+for e in EXTRA['towns']:
+    TOWNS.append(T(e['slug'], e['name'], e['zips'], e['hospitals'], e['near'], e['local']))
+for e in EXTRA['chicago']:
+    CHICAGO.append(dict(slug=e['slug'], name=e['name'], side=e['side'], zips=e['zips'], hospitals=e['hospitals'],
+                        near=e['near'], local=e['local'], kind='chicago', county='Cook County'))
+_have = {c['name'] for c in CHICAGO}
+CHICAGO_OTHER = [n for n in CHICAGO_OTHER if n not in _have]
+
 ALL = TOWNS + CHICAGO + [HUB]
 
 UI_PLAN = open(f'{SITE}/_tools/partials/ui-plan.html').read()
@@ -448,7 +461,7 @@ def page(t):
         hood_blocks = '\n            '.join(blocks)
         nearby_html = f'''<h3>Neighborhoods we serve</h3>
                 {hood_blocks}
-                <p class="town-near">Also {", ".join(CHICAGO_OTHER)}. <a href="service-areas.html">Every area &rarr;</a></p>'''
+                <p class="town-near">{('Also ' + ", ".join(CHICAGO_OTHER) + '. ') if CHICAGO_OTHER else ''}<a href="service-areas.html">Every area &rarr;</a></p>'''
     else:
         up = ' <a href="home-care-chicago.html">All of Chicago &rarr;</a>' if kind == 'chicago' else ''
         nearby_html = f'''<h3>Nearby</h3>
@@ -643,6 +656,9 @@ for t in ALL:
     if t.get('kind') == 'hub': continue
     sa = sa.replace(f'<div class="area-item">{t["name"]}</div>',
                     f'<a class="area-item area-link" href="home-care-{t["slug"]}.html">{t["name"]} &rarr;</a>')
+# "South Side" is a region, not a neighborhood: it points at the Chicago hub.
+sa = sa.replace('<div class="area-item">South Side</div>',
+                '<a class="area-item area-link" href="home-care-chicago.html">South Side &rarr;</a>')
 open(f'{SITE}/service-areas.html', 'w').write(sa)
 
 # Sitemap: rebuild the home-care block from ALL
