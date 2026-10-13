@@ -2437,3 +2437,37 @@ body:has(.mobile-nav.active) .vita { display: none; }
 @media (max-width: 900px) { .h-you__grid { grid-template-columns: 1fr; } }
 @media (max-width: 760px) { .h-you { padding-block: 40px !important; } .h-you__img { display: none; } }
 @media (prefers-reduced-motion: reduce) { .h-you__go { transition: none; } }
+
+/* =====================================================================
+   Calm lists with photos, phones and tablets (2026-10-13). "This page
+   could be a lot better" (services on a phone: seven grey text rows).
+   Rows on a data-phone-photos list lead with their photo; opening one
+   shows it large. Tap colour no longer sticks on touch screens.
+   ===================================================================== */
+.cl-thumb, .cl-photo, .cl-go--phone { display: none; }
+@media (max-width: 999px) {
+  .cl-list[data-phone-photos] .cl-ic { display: none; }
+  .cl-list[data-phone-photos] .cl-item summary { grid-template-columns: 76px minmax(0, 1fr) auto; gap: 16px; padding: 14px 0; min-height: 0; }
+  .cl-list[data-phone-photos] .cl-thumb { display: block; width: 76px; height: 76px; border-radius: 12px; object-fit: cover; background: #e6edf0; }
+  .cl-list[data-phone-photos] .cl-t { grid-template-columns: 1fr; gap: 4px; }
+  .cl-list[data-phone-photos] .cl-t strong { font-size: 1.12rem; }
+  .cl-list[data-phone-photos] .cl-d { font-size: 1rem; line-height: 1.4; }
+  .cl-list[data-phone-photos] .cl-body { padding: 0 0 24px; gap: 14px; }
+  .cl-list[data-phone-photos] .cl-photo { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 12px; background: #e6edf0; }
+  .cl-list[data-phone-photos] .ip-list { margin: 0; }
+  .cl-list[data-phone-photos] .ip-list li { font-size: 1.04rem; margin-bottom: 8px; }
+  .cl-list[data-phone-photos] .cl-go--phone { display: inline-flex; justify-self: start; font-size: 1.04rem; padding: 4px 0; }
+  .cl-list[data-phone-photos] .cl-item[open] summary .cl-thumb { opacity: .0; width: 0; }
+  .cl-list[data-phone-photos] .cl-item[open] summary { grid-template-columns: 0 minmax(0, 1fr) auto; gap: 0; }
+}
+.cl-pane .cl-photo, .cl-pane .cl-go--phone { display: none !important; }
+@media (hover: none) {
+  .cl-item summary:hover strong { color: var(--ink); }
+  .ip-section--dark .cl-item summary:hover strong { color: #fff; }
+}
+
+/* Mobile menu scrolls (2026-10-13, "I can't scroll down the nav on mobile").
+   The panel was a fixed 100vh box with no overflow, so anything past the
+   fold (Resources, About, the call button) was unreachable once a group was
+   open. dvh fits the panel to the visible screen on iOS. */
+.mobile-nav { height: 100vh; height: 100dvh; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px)) !important; }

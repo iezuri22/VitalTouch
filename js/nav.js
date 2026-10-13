@@ -119,3 +119,43 @@
     });
   });
 })();
+
+/* Calm lists, phones (2026-10-13): owner, "this page could be a lot better".
+   On a list marked data-phone-photos, each row gets its photo as a thumbnail
+   in place of the icon, and opening a row shows the photo large, the details
+   and a Get care started link. Desktop hides all of this (the pane above
+   already shows the photo). */
+(function () {
+  document.querySelectorAll('.cl-list[data-phone-photos]').forEach(function (list) {
+    var cta = list.getAttribute('data-cta');
+    Array.prototype.forEach.call(list.querySelectorAll(':scope > details.cl-item[data-photo]'), function (it) {
+      var src = it.getAttribute('data-photo'), alt = it.getAttribute('data-alt') || '';
+      var sum = it.querySelector('summary'), body = it.querySelector('.cl-body');
+      var th = document.createElement('img');
+      th.className = 'cl-thumb'; th.src = src; th.alt = ''; th.loading = 'lazy'; th.decoding = 'async';
+      sum.insertBefore(th, sum.firstChild);
+      if (!body) return;
+      var ph = document.createElement('img');
+      ph.className = 'cl-photo'; ph.src = src; ph.alt = alt; ph.loading = 'lazy'; ph.decoding = 'async';
+      body.insertBefore(ph, body.firstChild);
+      if (cta) {
+        var a = document.createElement('a');
+        a.className = 'cl-go cl-go--phone'; a.href = cta;
+        a.innerHTML = 'Get care started <i class="ph ph-arrow-right" aria-hidden="true"></i>';
+        body.appendChild(a);
+      }
+    });
+  });
+})();
+
+/* Mobile menu: one group open at a time, so opening Resources closes Areas
+   and the menu stays short (2026-10-13). */
+(function () {
+  var groups = document.querySelectorAll('.mobile-nav .mn-group');
+  Array.prototype.forEach.call(groups, function (g) {
+    g.addEventListener('toggle', function () {
+      if (!g.open) return;
+      Array.prototype.forEach.call(groups, function (o) { if (o !== g) o.open = false; });
+    });
+  });
+})();
