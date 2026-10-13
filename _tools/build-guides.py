@@ -49,6 +49,21 @@ def body(g):
                     <summary><i class="ph {ic} cl-ic" aria-hidden="true"></i><span class="cl-t"><strong>{t}</strong><span class="cl-d">{lead}</span></span><i class="ph ph-plus cl-plus" aria-hidden="true"></i></summary>
                     <div class="cl-body">{body}</div>
                 </details>''' for did, ic, t, lead, body, ph, alt in g['details'])
+    # Optional "Local help" block (2026-10-13): professionals listed free, only
+    # once they agree. Empty until then, with an invite to get listed.
+    lh = g.get('local_help')
+    local_help = '' if not lh else f'''    <section id="local-help" class="ip-section">
+        <div class="container">
+            <div class="ip-head">
+                <h2>{lh["h"]}</h2>
+                <p>{lh["p"]}</p>
+            </div>
+            <!-- LOCAL-PROS: listings go here once a business says yes. Never list one that hasn't agreed. -->
+            <p style="margin:0;padding:18px 20px;border-left:3px solid var(--accent);font-size:1.04rem;color:var(--ink);max-width:72ch;">{lh["empty"]}</p>
+            <p style="margin:18px 0 0;font-size:1.04rem;max-width:72ch;">{lh["invite"]} Email <a href="mailto:ifeanyi@vitaltouch.care?subject=Listing">ifeanyi@vitaltouch.care</a> or call <a href="tel:7087264536">(708) 726-4536</a>.</p>
+        </div>
+    </section>
+'''
     fit_checks = '\n'.join(
         f'                    <li{"" if ok else " class=\"gd-no\""}><i class="ph {"ph-check" if ok else "ph-minus"}" aria-hidden="true"></i>{txt}</li>'
         for ok, txt in g['fit_card'])
@@ -133,6 +148,7 @@ def body(g):
         </div>
     </section>
 
+{local_help}
     <section id="sources" class="ip-section ip-section--mist">
         <div class="container">
             <div class="ip-head"><h2>Other ways to pay</h2></div>

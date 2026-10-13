@@ -189,6 +189,12 @@ VA_LINK = '<a href="guide-va-benefits.html">VA benefits guide</a>'
 
 GUIDES += [
   dict(
+    local_help=dict(
+        h='Local help with a policy',
+        p='Chicagoland long-term care insurance agents and financial advisors who help families plan for the cost of care.',
+        empty='We&rsquo;re inviting local agents and advisors. Listings are free. Nobody pays us to be listed, and we don&rsquo;t pay for referrals.',
+        invite='Are you a long-term care insurance agent or financial advisor? Get listed here, free.',
+    ),
     slug='guide-long-term-care-insurance',
     title='Using Long-Term Care Insurance for Home Care, Explained',
     desc='How long-term care insurance pays for care at home: when a policy pays, the waiting period, how to start a claim, whether family can be paid, and what to do if a claim is denied.',
