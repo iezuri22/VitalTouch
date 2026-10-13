@@ -231,6 +231,7 @@
                         <input type="checkbox" name="consent" required>
                         <span class="consent-text">I agree that VitalTouch Health Network, Inc. may contact me about job opportunities and my application by phone, text message, and email, including through automated technology. Message and data rates may apply. Reply STOP to opt out of texts at any time. See our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.</span>
                     </label>
+                    <div class="vt-ts" id="careersTs"></div>
                     <button type="submit" class="car-cta car-submit">Get my application</button>
                     <p class="car-status" id="careersStatus" role="alert"></p>
                 </form>
@@ -369,6 +370,7 @@
     <script src="js/nav.js?v=20261013d" defer></script>
     <script src="js/motion.js?v=20261013d" defer></script>
     <script src="js/engage.js?v=20261013d" defer></script>
+    <script src="js/turnstile.js?v=20261013e"></script>
     <script>
     (function () {
         var form = document.getElementById('careersForm');
@@ -378,6 +380,9 @@
             : 'https://vitaltouch-ops.vercel.app/api/public/careers-inquiry';
         var status = document.getElementById('careersStatus');
         var btn = form.querySelector('.car-submit');
+        var ts = document.getElementById('careersTs');
+        var vtT = window.vtTurnstile || { mount: function () { return Promise.resolve(); }, token: function () { return Promise.resolve(''); }, reset: function () {} }; // the form must still work if the file didn't load
+        vtT.mount(ts); // runs the bot check while they type
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -404,19 +409,23 @@
             });
             btn.disabled = true;
             btn.textContent = 'One moment…';
-            fetch(API, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    firstName: val('firstName'), lastName: val('lastName'),
-                    email: val('email'), phone: val('phone'),
-                    city: val('city'), zip: zip,
-                    role: val('role') || 'not_sure',
-                    consent: true, utm: utm,
-                    company: val('company')
-                })
+            vtT.token(ts).then(function (token) {
+                return fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        firstName: val('firstName'), lastName: val('lastName'),
+                        email: val('email'), phone: val('phone'),
+                        city: val('city'), zip: zip,
+                        role: val('role') || 'not_sure',
+                        consent: true, utm: utm,
+                        company: val('company'),
+                        turnstileToken: token
+                    })
+                });
             }).then(function (res) {
                 return res.json().catch(function () { return {}; }).then(function (data) {
+                    if (data.code === 'verification_failed') throw { shown: data.error };
                     if (!res.ok || !data.ok) throw new Error('failed');
                     if (data.portalUrl) document.getElementById('carPortal').href = data.portalUrl;
                     document.getElementById('carDoneEmail').textContent = val('email');
@@ -428,10 +437,12 @@
                     // Job seeker: keep care-quote prompts off for them site-wide.
                     try { localStorage.setItem('vt_jobseeker', String(Date.now())); } catch (e) {}
                 });
-            }).catch(function () {
+            }).catch(function (e) {
+                vtT.reset(ts); // tokens are single-use
                 btn.disabled = false;
                 btn.textContent = 'Get my application';
-                status.textContent = 'Something went wrong on our end. Please try again, or call (708) 726-4536.';
+                status.textContent = (e && e.shown) ||
+                    'Something went wrong on our end. Please try again, or call (708) 726-4536.';
             });
         });
     })();

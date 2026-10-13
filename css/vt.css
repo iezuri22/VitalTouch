@@ -2002,6 +2002,9 @@ h2 { font-size: clamp(1.6rem, 2.4vw, 2.1rem) !important; font-weight: 700 !impor
 .st__go:disabled { opacity: .75; cursor: progress; }
 .st__err { margin: 0; color: #b42318; font-size: .95rem; }
 .st__err:empty { display: none; }
+/* Turnstile slot (js/turnstile.js): zero height unless Cloudflare asks for a
+   click. Out of the grid until then, so it adds no gap above the button. */
+.st__form .vt-ts:not(.is-shown) { position: absolute; }
 .st__fine { margin: 0; font-size: .88rem; color: var(--muted-ink); }
 .st__done h2 { margin: 0 0 8px; }
 .st__done p { margin: 0; font-size: 1.08rem; color: var(--body-ink, #3d4b5a); max-width: 44ch; }

@@ -125,6 +125,7 @@
                     <label class="st__field st__zip">Zip code
                         <input name="zip" type="text" autocomplete="postal-code" inputmode="numeric" maxlength="5" required>
                     </label>
+                    <div class="vt-ts" id="startTs"></div>
                     <button type="submit" class="vt-btn vt-btn--solid st__go">Continue</button>
                     <p class="st__err" id="startErr" role="alert"></p>
                     <p class="st__fine">We use your phone and email to set up your free home visit and send you a way back into your portal. We never sell or share them.</p>
@@ -137,6 +138,7 @@
             <figure class="st__photo"><img src="images/care/groceries-delivered.jpg" alt="A caregiver bringing groceries to an older woman at home" width="1200" height="1500"></figure>
         </div>
     </main>
+    <script src="js/turnstile.js?v=20261013e"></script>
     <script>
     (function () {
       'use strict';
@@ -147,6 +149,9 @@
       var err = document.getElementById('startErr');
       var careFor = document.getElementById('careForField');
       var qs = new URLSearchParams(location.search);
+      var ts = document.getElementById('startTs');
+      var vtT = window.vtTurnstile || { mount: function () { return Promise.resolve(); }, token: function () { return Promise.resolve(''); }, reset: function () {} }; // the form must still work if the file didn't load
+      vtT.mount(ts); // runs the bot check while they type
       function sync() { careFor.hidden = f.forWhom.value !== 'family'; }
       f.addEventListener('change', sync); sync();
       try { var z = localStorage.getItem('vt_zip'); if (z) f.zip.value = z; } catch (e) {}
@@ -162,20 +167,23 @@
         var btn = f.querySelector('.st__go'); btn.disabled = true; btn.textContent = 'Opening your portal…';
         var utm = { page: 'start', from: qs.get('from') || 'direct' };
         if (qs.get('plan')) utm.plan = qs.get('plan');
-        fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-          name: name, email: email, phone: phone, zip: zip, forWhom: f.forWhom.value,
-          careFor: f.forWhom.value === 'family' ? (f.careFor.value.trim() || undefined) : undefined,
-          utm: utm, company: f.company.value
-        }) })
+        vtT.token(ts).then(function (token) {
+          return fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+            name: name, email: email, phone: phone, zip: zip, forWhom: f.forWhom.value,
+            careFor: f.forWhom.value === 'family' ? (f.careFor.value.trim() || undefined) : undefined,
+            utm: utm, company: f.company.value, turnstileToken: token
+          }) });
+        })
           .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw j; return j; }); })
           .then(function (j) {
             try { localStorage.setItem('vt_zip', zip); localStorage.setItem('vt_lead_done', String(Date.now())); } catch (e) {}
             if (j.next === 'portal' && j.url) { location.href = j.url; return; }
             f.hidden = true; var d = document.getElementById('startDone'); d.hidden = false; d.focus();
           })
-          .catch(function () {
+          .catch(function (j) {
+            vtT.reset(ts); // tokens are single-use
             btn.disabled = false; btn.textContent = 'Continue';
-            err.textContent = 'That didn\u2019t go through. Please try again in a moment.';
+            err.textContent = (j && j.code === 'verification_failed' && j.error) || 'That didn\u2019t go through. Please try again in a moment.';
           });
       });
     })();
