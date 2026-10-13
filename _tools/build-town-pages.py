@@ -269,6 +269,13 @@ LOYOLA = 'Loyola University Medical Center in Maywood'
 NORTH_WEST_SUBURBS = [
   T('mount-prospect', 'Mount Prospect', ['60056'], [NCH, LUTHERAN], ['Arlington Heights', 'Des Plaines', 'Prospect Heights', 'Elk Grove Village'],
     'Mount Prospect sits in the northwest suburbs, between Arlington Heights and Des Plaines.'),
+  # Added 2026-10-13 at Ifeanyi's request ("add arlington heights des plaines and park ridge").
+  T('arlington-heights', 'Arlington Heights', ['60004', '60005'], [NCH, LUTHERAN], ['Mount Prospect', 'Des Plaines', 'Palatine', 'Rolling Meadows'],
+    'Arlington Heights is home to Northwest Community Hospital and borders Mount Prospect, which we also serve.'),
+  T('des-plaines', 'Des Plaines', ['60016', '60018'], [LUTHERAN, NCH], ['Park Ridge', 'Mount Prospect', 'Arlington Heights', 'Rosemont'],
+    'Des Plaines sits between Park Ridge and Mount Prospect, close to O&rsquo;Hare.'),
+  T('park-ridge', 'Park Ridge', ['60068'], [LUTHERAN], ['Des Plaines', 'Niles', 'Chicago&rsquo;s Northwest Side'],
+    'Park Ridge borders Chicago&rsquo;s Northwest Side and is home to Lutheran General Hospital.'),
   T('elmwood-park', 'Elmwood Park', ['60707'], [GOTTLIEB, LOYOLA], ['Oak Park', 'River Forest', 'Melrose Park', 'River Grove'],
     'Elmwood Park borders the city on the west, next to Oak Park and River Forest.'),
 ]
@@ -342,6 +349,9 @@ SHORT_LOCAL = {
     'chicago-humboldt-park': 'Humboldt Park Health is right in the neighborhood.',
     'chicago': 'We serve neighborhoods across the South, West and North Sides.',
     'mount-prospect': 'Mount Prospect is close to Northwest Community Hospital and Lutheran General.',
+    'arlington-heights': 'Arlington Heights is home to Northwest Community Hospital.',
+    'des-plaines': 'Des Plaines is minutes from Lutheran General Hospital.',
+    'park-ridge': 'Park Ridge is home to Lutheran General Hospital.',
     'elmwood-park': 'Elmwood Park is minutes from Gottlieb Hospital and Loyola.',
     'chicago-albany-park': 'Albany Park is at the end of the Brown Line.',
     'orland-park': 'Orland Park is minutes from Palos Hospital.',

@@ -2230,5 +2230,65 @@
    }
   ],
   "fact": "Chicago runs six regional and fourteen satellite senior centers, free to visit."
+ },
+ "arlington-heights": {
+  "help": [
+   {
+    "icon": "ph-users-three",
+    "name": "Arlington Heights Senior Center",
+    "url": "https://www.vah.com/residents/senior_center/",
+    "text": "Village-run center at 1801 W. Central Road for adults 55+: meals on wheels, a daily lunch, case management, health insurance counseling and transportation help. (847) 253-5532."
+   }
+  ],
+  "confidence": "high",
+  "sources": [
+   "https://www.vah.com/residents/senior_center/"
+  ],
+  "fact": "The village senior center on Central Road is about half a mile west of Northwest Community Hospital."
+ },
+ "des-plaines": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Maine Township Van Go",
+    "url": "https://files.mainetown.com/Document%20Center/Online%20Resources/Mainely%20News/mainelynews_spring2025.pdf",
+    "text": "Free rides to medical appointments for seniors and residents with disabilities. Call (847) 297-2510."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "GENCenter (formerly Frisbie Senior Center)",
+    "url": "https://www.dailyherald.com/20260630/local/an-important-resource-des-plaines-community-center-has-a-new-leader/",
+    "text": "The Des Plaines community senior center at 52 E. Northwest Highway, renamed the GENCenter in 2026."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://files.mainetown.com/Document%20Center/Online%20Resources/Mainely%20News/mainelynews_spring2025.pdf",
+   "https://www.dailyherald.com/20260630/local/an-important-resource-des-plaines-community-center-has-a-new-leader/",
+   "https://local.aarp.org/place/frisbie-senior-center-des-plaines-il.html"
+  ],
+  "fact": "Des Plaines&rsquo; senior center sits downtown on Northwest Highway."
+ },
+ "park-ridge": {
+  "help": [
+   {
+    "icon": "ph-van",
+    "name": "Maine Township Van Go",
+    "url": "https://files.mainetown.com/Document%20Center/Online%20Resources/Mainely%20News/mainelynews_spring2025.pdf",
+    "text": "Free rides to medical appointments for seniors and residents with disabilities. Call (847) 297-2510."
+   },
+   {
+    "icon": "ph-users-three",
+    "name": "Park Ridge Senior Center",
+    "url": "https://www.prparks.org/Parks/Parks-Map/Detail/ItemId/7/Centennial-Activity-Center",
+    "text": "The Park District&rsquo;s senior center for adults 55+, at 100 S. Western Avenue."
+   }
+  ],
+  "confidence": "medium",
+  "sources": [
+   "https://www.prparks.org/Parks/Parks-Map/Detail/ItemId/7/Centennial-Activity-Center",
+   "https://files.mainetown.com/Document%20Center/Online%20Resources/Mainely%20News/mainelynews_spring2025.pdf"
+  ],
+  "fact": "Park Ridge is home to Advocate Lutheran General Hospital."
  }
 }
