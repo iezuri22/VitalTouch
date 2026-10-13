@@ -44,6 +44,7 @@ MENU = [
         ('faq.html', 'ph-question', 'FAQ', 'Quick answers'),
         ('help-finder.html', 'ph-magnifying-glass', 'Find local help', 'Free help by zip code'),
         ('guides.html', 'ph-article', 'Guides', 'Paying for care, explained'),
+        ('guide-wills-and-planning-ahead.html', 'ph-scroll', 'Wills and planning ahead', 'Papers, and local attorneys'),
         ('refer/', 'ph-handshake', 'Refer a client', 'For professionals'),
         ('incident/', 'ph-warning-circle', 'Report a concern', 'We respond fast'),
     ], ('Free local help', 'Rides, meals, senior centers', 'Enter a zip code. See the free help in your town.', 'help-finder.html', 'Find help')),
