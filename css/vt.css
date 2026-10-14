@@ -2474,3 +2474,22 @@ body:has(.mobile-nav.active) .vita { display: none; }
    fold (Resources, About, the call button) was unreachable once a group was
    open. dvh fits the panel to the visible screen on iOS. */
 .mobile-nav { height: 100vh; height: 100dvh; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px)) !important; }
+
+/* Header always visible, and slimmer (2026-10-13: "the nav bar should always
+   show. also can it be slimmer?"). html/body used overflow-x:hidden, which
+   turns body into its own scroll box and silently breaks position:sticky, so
+   the header scrolled away on inner pages. overflow-x:clip trims sideways
+   overflow the same way without creating a scroll container. */
+html, body { overflow-x: clip; }
+.header { position: sticky !important; top: env(safe-area-inset-top, 0px) !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+.home .header { position: fixed !important; }
+.nav { height: 60px !important; }
+.logo img { height: 32px !important; }
+.header .nav-get-care { min-height: 0 !important; height: 40px !important; padding: 0 1.1em !important; display: inline-flex !important; align-items: center !important; font-size: .9rem !important; }
+.nav-phone i { width: 26px; height: 26px; }
+.ip-card[id], [id].ip-section, .pay-route[id], .chg__item[id] { scroll-margin-top: 76px; }
+.cl-item { scroll-margin-top: 76px; }
+@media (max-width: 760px) {
+  .nav { height: 54px !important; }
+  .logo img { height: 27px !important; }
+}
